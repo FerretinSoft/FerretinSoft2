@@ -75,7 +75,9 @@ namespace pe.edu.pucp.ferretinsoft.view.MSeguridad
         {
             IEnumerable<Usuario> listaUsuarios = MS_UsuarioService.obtenerListaUsuarios();
 
-                if ("admin" == this.nombreUsuario && "admin" == this.contrasena)
+            foreach(Usuario value in listaUsuarios){
+
+                if (value.nombre == this.nombreUsuario && value.contrasena == this.contrasena)
                 {
                     
                     MainWindow mainW = new MainWindow();
@@ -111,7 +113,7 @@ namespace pe.edu.pucp.ferretinsoft.view.MSeguridad
                     }
 
                 }
-            
+            }
 
 
         }
