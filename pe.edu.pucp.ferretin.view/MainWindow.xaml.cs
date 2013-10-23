@@ -1,4 +1,5 @@
-﻿using System;
+﻿using pe.edu.pucp.ferretin.model;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -20,8 +21,11 @@ namespace pe.edu.pucp.ferretin.view
     /// </summary>
     public partial class MainWindow : Window
     {
-        public MainWindow()
+        Usuario usuarioLog;
+
+        public MainWindow(Usuario usuario)
         {
+            usuarioLog = usuario;
             InitializeComponent();
         }
 

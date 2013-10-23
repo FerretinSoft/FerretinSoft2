@@ -38,6 +38,31 @@ namespace pe.edu.pucp.ferretin.controller
             return listaUsuarios;
         }
 
+        /*******************************************************/
+        public static IEnumerable<Usuario> obtenerListaUsuariosBy(Usuario usuario)
+        {
+            return from c in listaUsuarios
+                   where
+                   (c.dni != null && c.dni.Contains(usuario.dni)
+                       && c.nombre != null && c.nombre.Contains(usuario.nombre)
+                       && c.contrasena != null && c.contrasena.Contains(usuario.contrasena)
+                       /*&& c.id_perfil != null && c.id_perfil.Contains(usuario.id_perfil)
+                       && c.estado != null && c.estado.Contains(usuario.estado)*/
+                    )
+                   orderby c.nombre
+                   select c;
+        }
+        /*******************************************************/
+        public static void insertarUsuario(Usuario usuario)
+        {
+            db.Usuarios.InsertOnSubmit(usuario);
+            db.SubmitChanges();
+        }
+        /*******************************************************/
+        public static void actualizarUsuario(Usuario usuario)
+        {
+            db.SubmitChanges();
+        }
 
     }
 }

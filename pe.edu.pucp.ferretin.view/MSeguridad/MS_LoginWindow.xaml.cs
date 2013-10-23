@@ -73,14 +73,16 @@ namespace pe.edu.pucp.ferretinsoft.view.MSeguridad
 
         private void login()
         {
+            Usuario usuarioLog;
+
             IEnumerable<Usuario> listaUsuarios = MS_UsuarioService.obtenerListaUsuarios();
 
             foreach(Usuario value in listaUsuarios){
 
                 if (value.nombre == this.nombreUsuario && value.contrasena == this.contrasena)
                 {
-                    
-                    MainWindow mainW = new MainWindow();
+                    usuarioLog = value;
+                    MainWindow mainW = new MainWindow(usuarioLog);
                     this.Close();
                     mainW.Show();
 
