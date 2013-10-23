@@ -28,7 +28,7 @@ namespace pe.edu.pucp.ferretin.model
 		
 		private static System.Data.Linq.Mapping.MappingSource mappingSource = new AttributeMappingSource();
 		
-    #region Extensibility Method Definitions
+    #region Definiciones de métodos de extensibilidad
     partial void OnCreated();
     partial void InsertTienda(Tienda instance);
     partial void UpdateTienda(Tienda instance);
@@ -84,9 +84,6 @@ namespace pe.edu.pucp.ferretin.model
     partial void InsertTbl_Menu(Tbl_Menu instance);
     partial void UpdateTbl_Menu(Tbl_Menu instance);
     partial void DeleteTbl_Menu(Tbl_Menu instance);
-    partial void InsertMovimiento(Movimiento instance);
-    partial void UpdateMovimiento(Movimiento instance);
-    partial void DeleteMovimiento(Movimiento instance);
     partial void InsertMovimiento_Estado(Movimiento_Estado instance);
     partial void UpdateMovimiento_Estado(Movimiento_Estado instance);
     partial void DeleteMovimiento_Estado(Movimiento_Estado instance);
@@ -180,10 +177,13 @@ namespace pe.edu.pucp.ferretin.model
     partial void InsertTbl_Documento_Compra_Producto(Tbl_Documento_Compra_Producto instance);
     partial void UpdateTbl_Documento_Compra_Producto(Tbl_Documento_Compra_Producto instance);
     partial void DeleteTbl_Documento_Compra_Producto(Tbl_Documento_Compra_Producto instance);
+    partial void InsertMovimiento(Movimiento instance);
+    partial void UpdateMovimiento(Movimiento instance);
+    partial void DeleteMovimiento(Movimiento instance);
     #endregion
 		
 		public FerretinDataContext() : 
-				base(global::pe.edu.pucp.ferretin.model.Properties.Settings.Default.inf245g2ConnectionString, mappingSource)
+				base(global::pe.edu.pucp.ferretin.model.Properties.Settings.Default.inf245g2ConnectionString1, mappingSource)
 		{
 			OnCreated();
 		}
@@ -353,14 +353,6 @@ namespace pe.edu.pucp.ferretin.model
 			get
 			{
 				return this.GetTable<Tbl_Menu>();
-			}
-		}
-		
-		public System.Data.Linq.Table<Movimiento> Movimiento
-		{
-			get
-			{
-				return this.GetTable<Movimiento>();
 			}
 		}
 		
@@ -609,7 +601,15 @@ namespace pe.edu.pucp.ferretin.model
 			get
 			{
 				return this.GetTable<Tbl_Documento_Compra_Producto>();
-			}
+	}
+		}
+		
+		public System.Data.Linq.Table<Movimiento> Movimiento
+		{
+			get
+			{
+				return this.GetTable<Movimiento>();
+	}
 		}
 	}
 	
@@ -663,13 +663,17 @@ namespace pe.edu.pucp.ferretin.model
 		
 		private EntitySet<Tbl_Turno> _Tbl_Turno;
 		
+		private EntitySet<Movimiento> _Tbl_Movimiento;
+		
+		private EntitySet<Movimiento> _Movimiento;
+		
 		private EntityRef<Tienda> _Tbl_Almacen1;
 		
 		private EntityRef<Tbl_Empleado> _Tbl_Empleado;
 		
 		private EntityRef<UbigeoDistrito> _Tbl_Ubigeo_Distrito;
 		
-    #region Extensibility Method Definitions
+    #region Definiciones de métodos de extensibilidad
     partial void OnLoaded();
     partial void OnValidate(System.Data.Linq.ChangeAction action);
     partial void OnCreated();
@@ -714,6 +718,8 @@ namespace pe.edu.pucp.ferretin.model
 			this._Tbl_Producto_Almacen = new EntitySet<Tbl_Producto_Almacen>(new Action<Tbl_Producto_Almacen>(this.attach_Tbl_Producto_Almacen), new Action<Tbl_Producto_Almacen>(this.detach_Tbl_Producto_Almacen));
 			this._Tbl_Solicitud_Abastecimiento = new EntitySet<Tbl_Solicitud_Abastecimiento>(new Action<Tbl_Solicitud_Abastecimiento>(this.attach_Tbl_Solicitud_Abastecimiento), new Action<Tbl_Solicitud_Abastecimiento>(this.detach_Tbl_Solicitud_Abastecimiento));
 			this._Tbl_Turno = new EntitySet<Tbl_Turno>(new Action<Tbl_Turno>(this.attach_Tbl_Turno), new Action<Tbl_Turno>(this.detach_Tbl_Turno));
+			this._Tbl_Movimiento = new EntitySet<Movimiento>(new Action<Movimiento>(this.attach_Tbl_Movimiento), new Action<Movimiento>(this.detach_Tbl_Movimiento));
+			this._Movimiento = new EntitySet<Movimiento>(new Action<Movimiento>(this.attach_Movimiento), new Action<Movimiento>(this.detach_Movimiento));
 			this._Tbl_Almacen1 = default(EntityRef<Tienda>);
 			this._Tbl_Empleado = default(EntityRef<Tbl_Empleado>);
 			this._Tbl_Ubigeo_Distrito = default(EntityRef<UbigeoDistrito>);
@@ -1089,37 +1095,37 @@ namespace pe.edu.pucp.ferretin.model
 		{
 			get
 			{
-				return this._Tbl_Producto_Almacen;
-			}
-			set
-			{
-				this._Tbl_Producto_Almacen.Assign(value);
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Tienda_Tbl_Solicitud_Abastecimiento", Storage="_Tbl_Solicitud_Abastecimiento", ThisKey="id", OtherKey="id_almacen")]
-		public EntitySet<Tbl_Solicitud_Abastecimiento> Tbl_Solicitud_Abastecimiento
-		{
-			get
-			{
-				return this._Tbl_Solicitud_Abastecimiento;
-			}
-			set
-			{
-				this._Tbl_Solicitud_Abastecimiento.Assign(value);
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Tienda_Tbl_Turno", Storage="_Tbl_Turno", ThisKey="id", OtherKey="id_almacen")]
-		public EntitySet<Tbl_Turno> Tbl_Turno
-		{
-			get
-			{
 				return this._Tbl_Turno;
 			}
 			set
 			{
 				this._Tbl_Turno.Assign(value);
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Tienda_Tbl_Movimiento", Storage="_Tbl_Movimiento", ThisKey="id", OtherKey="id_almacen_desde")]
+		public EntitySet<Movimiento> Tbl_Movimiento
+		{
+			get
+			{
+				return this._Tbl_Movimiento;
+			}
+			set
+			{
+				this._Tbl_Movimiento.Assign(value);
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Tienda_Tbl_Movimiento1", Storage="_Movimiento", ThisKey="id", OtherKey="id_almacen_hasta")]
+		public EntitySet<Movimiento> Movimiento
+		{
+			get
+			{
+				return this._Movimiento;
+			}
+			set
+			{
+				this._Movimiento.Assign(value);
 			}
 		}
 		
@@ -1328,6 +1334,30 @@ namespace pe.edu.pucp.ferretin.model
 			this.SendPropertyChanging();
 			entity.Tienda = null;
 		}
+		
+		private void attach_Tbl_Movimiento(Movimiento entity)
+		{
+			this.SendPropertyChanging();
+			entity.Tienda = this;
+		}
+		
+		private void detach_Tbl_Movimiento(Movimiento entity)
+		{
+			this.SendPropertyChanging();
+			entity.Tienda = null;
+		}
+		
+		private void attach_Movimiento(Movimiento entity)
+		{
+			this.SendPropertyChanging();
+			entity.Tienda1 = this;
+		}
+		
+		private void detach_Movimiento(Movimiento entity)
+		{
+			this.SendPropertyChanging();
+			entity.Tienda1 = null;
+		}
 	}
 	
 	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Tbl_Venta_Producto")]
@@ -1350,7 +1380,7 @@ namespace pe.edu.pucp.ferretin.model
 		
 		private EntityRef<Tbl_Venta> _Tbl_Venta;
 		
-    #region Extensibility Method Definitions
+    #region Definiciones de métodos de extensibilidad
     partial void OnLoaded();
     partial void OnValidate(System.Data.Linq.ChangeAction action);
     partial void OnCreated();
@@ -1588,7 +1618,7 @@ namespace pe.edu.pucp.ferretin.model
 		
 		private EntityRef<Tbl_Dia> _Tbl_Dia;
 		
-    #region Extensibility Method Definitions
+    #region Definiciones de métodos de extensibilidad
     partial void OnLoaded();
     partial void OnValidate(System.Data.Linq.ChangeAction action);
     partial void OnCreated();
@@ -1804,7 +1834,7 @@ namespace pe.edu.pucp.ferretin.model
 		
 		private EntitySet<Tbl_Empleado_Almacen> _Tbl_Empleado_Almacen;
 		
-    #region Extensibility Method Definitions
+    #region Definiciones de métodos de extensibilidad
     partial void OnLoaded();
     partial void OnValidate(System.Data.Linq.ChangeAction action);
     partial void OnCreated();
@@ -1994,7 +2024,7 @@ namespace pe.edu.pucp.ferretin.model
 		
 		private EntityRef<Tbl_Categoria> _Tbl_Categoria1;
 		
-    #region Extensibility Method Definitions
+    #region Definiciones de métodos de extensibilidad
     partial void OnLoaded();
     partial void OnValidate(System.Data.Linq.ChangeAction action);
     partial void OnCreated();
@@ -2289,7 +2319,7 @@ namespace pe.edu.pucp.ferretin.model
 		
 		private EntityRef<UbigeoDistrito> _Tbl_Ubigeo_Distrito;
 		
-    #region Extensibility Method Definitions
+    #region Definiciones de métodos de extensibilidad
     partial void OnLoaded();
     partial void OnValidate(System.Data.Linq.ChangeAction action);
     partial void OnCreated();
@@ -2991,7 +3021,7 @@ namespace pe.edu.pucp.ferretin.model
 		
 		private EntitySet<Tbl_Producto_Color> _Tbl_Producto_Color;
 		
-    #region Extensibility Method Definitions
+    #region Definiciones de métodos de extensibilidad
     partial void OnLoaded();
     partial void OnValidate(System.Data.Linq.ChangeAction action);
     partial void OnCreated();
@@ -3119,7 +3149,7 @@ namespace pe.edu.pucp.ferretin.model
 		
 		private EntityRef<Tbl_Venta> _Tbl_Venta;
 		
-    #region Extensibility Method Definitions
+    #region Definiciones de métodos de extensibilidad
     partial void OnLoaded();
     partial void OnValidate(System.Data.Linq.ChangeAction action);
     partial void OnCreated();
@@ -3414,7 +3444,7 @@ namespace pe.edu.pucp.ferretin.model
 		
 		private EntityRef<Tbl_Producto> _Tbl_Producto;
 		
-    #region Extensibility Method Definitions
+    #region Definiciones de métodos de extensibilidad
     partial void OnLoaded();
     partial void OnValidate(System.Data.Linq.ChangeAction action);
     partial void OnCreated();
@@ -3626,7 +3656,7 @@ namespace pe.edu.pucp.ferretin.model
 		
 		private EntitySet<Tbl_Turno> _Tbl_Turno;
 		
-    #region Extensibility Method Definitions
+    #region Definiciones de métodos de extensibilidad
     partial void OnLoaded();
     partial void OnValidate(System.Data.Linq.ChangeAction action);
     partial void OnCreated();
@@ -3804,7 +3834,7 @@ namespace pe.edu.pucp.ferretin.model
 		
 		private EntityRef<UbigeoDistrito> _Tbl_Ubigeo_Distrito;
 		
-    #region Extensibility Method Definitions
+    #region Definiciones de métodos de extensibilidad
     partial void OnLoaded();
     partial void OnValidate(System.Data.Linq.ChangeAction action);
     partial void OnCreated();
@@ -4398,7 +4428,7 @@ namespace pe.edu.pucp.ferretin.model
 		
 		private EntityRef<Tbl_Empleado> _Tbl_Empleado;
 		
-    #region Extensibility Method Definitions
+    #region Definiciones de métodos de extensibilidad
     partial void OnLoaded();
     partial void OnValidate(System.Data.Linq.ChangeAction action);
     partial void OnCreated();
@@ -4693,7 +4723,7 @@ namespace pe.edu.pucp.ferretin.model
 		
 		private EntityRef<Tbl_Turno> _Tbl_Turno;
 		
-    #region Extensibility Method Definitions
+    #region Definiciones de métodos de extensibilidad
     partial void OnLoaded();
     partial void OnValidate(System.Data.Linq.ChangeAction action);
     partial void OnCreated();
@@ -4859,7 +4889,7 @@ namespace pe.edu.pucp.ferretin.model
 		
 		private EntitySet<Tbl_Empleado> _Tbl_Empleado;
 		
-    #region Extensibility Method Definitions
+    #region Definiciones de métodos de extensibilidad
     partial void OnLoaded();
     partial void OnValidate(System.Data.Linq.ChangeAction action);
     partial void OnCreated();
@@ -4983,7 +5013,7 @@ namespace pe.edu.pucp.ferretin.model
 		
 		private EntityRef<Tbl_Producto> _Tbl_Producto;
 		
-    #region Extensibility Method Definitions
+    #region Definiciones de métodos de extensibilidad
     partial void OnLoaded();
     partial void OnValidate(System.Data.Linq.ChangeAction action);
     partial void OnCreated();
@@ -5239,7 +5269,7 @@ namespace pe.edu.pucp.ferretin.model
 		
 		private EntitySet<Tbl_Producto> _Tbl_Producto1;
 		
-    #region Extensibility Method Definitions
+    #region Definiciones de métodos de extensibilidad
     partial void OnLoaded();
     partial void OnValidate(System.Data.Linq.ChangeAction action);
     partial void OnCreated();
@@ -5381,7 +5411,7 @@ namespace pe.edu.pucp.ferretin.model
 		
 		private EntitySet<Tbl_Venta_Medio_Pago> _Tbl_Venta_Medio_Pago;
 		
-    #region Extensibility Method Definitions
+    #region Definiciones de métodos de extensibilidad
     partial void OnLoaded();
     partial void OnValidate(System.Data.Linq.ChangeAction action);
     partial void OnCreated();
@@ -5527,7 +5557,7 @@ namespace pe.edu.pucp.ferretin.model
 		
 		private EntityRef<Tbl_Menu> _Tbl_Menu1;
 		
-    #region Extensibility Method Definitions
+    #region Definiciones de métodos de extensibilidad
     partial void OnLoaded();
     partial void OnValidate(System.Data.Linq.ChangeAction action);
     partial void OnCreated();
@@ -5768,346 +5798,6 @@ namespace pe.edu.pucp.ferretin.model
 		}
 	}
 	
-	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Tbl_Movimiento")]
-	public partial class Movimiento : INotifyPropertyChanging, INotifyPropertyChanged
-	{
-		
-		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
-		
-		private long _id;
-		
-		private string _codigo;
-		
-		private System.Nullable<System.DateTime> _fecha;
-		
-		private string _comentario;
-		
-		private System.Nullable<short> _id_tipo;
-		
-		private System.Nullable<short> _id_almacen_desde;
-		
-		private System.Nullable<short> _id_almacen_hasta;
-		
-		private System.Nullable<byte> _id_estado;
-		
-		private EntitySet<Movimiento_Producto> _Movimiento_Producto;
-		
-		private EntityRef<Movimiento_Estado> _Movimiento_Estado;
-		
-		private EntityRef<Movimiento_Tipo> _Movimiento_Tipo;
-		
-    #region Extensibility Method Definitions
-    partial void OnLoaded();
-    partial void OnValidate(System.Data.Linq.ChangeAction action);
-    partial void OnCreated();
-    partial void OnidChanging(long value);
-    partial void OnidChanged();
-    partial void OncodigoChanging(string value);
-    partial void OncodigoChanged();
-    partial void OnfechaChanging(System.Nullable<System.DateTime> value);
-    partial void OnfechaChanged();
-    partial void OncomentarioChanging(string value);
-    partial void OncomentarioChanged();
-    partial void Onid_tipoChanging(System.Nullable<short> value);
-    partial void Onid_tipoChanged();
-    partial void Onid_almacen_desdeChanging(System.Nullable<short> value);
-    partial void Onid_almacen_desdeChanged();
-    partial void Onid_almacen_hastaChanging(System.Nullable<short> value);
-    partial void Onid_almacen_hastaChanged();
-    partial void Onid_estadoChanging(System.Nullable<byte> value);
-    partial void Onid_estadoChanged();
-    #endregion
-		
-		public Movimiento()
-		{
-			this._Movimiento_Producto = new EntitySet<Movimiento_Producto>(new Action<Movimiento_Producto>(this.attach_Movimiento_Producto), new Action<Movimiento_Producto>(this.detach_Movimiento_Producto));
-			this._Movimiento_Estado = default(EntityRef<Movimiento_Estado>);
-			this._Movimiento_Tipo = default(EntityRef<Movimiento_Tipo>);
-			OnCreated();
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_id", AutoSync=AutoSync.OnInsert, DbType="BigInt NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
-		public long id
-		{
-			get
-			{
-				return this._id;
-			}
-			set
-			{
-				if ((this._id != value))
-				{
-					this.OnidChanging(value);
-					this.SendPropertyChanging();
-					this._id = value;
-					this.SendPropertyChanged("id");
-					this.OnidChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_codigo", DbType="VarChar(20)")]
-		public string codigo
-		{
-			get
-			{
-				return this._codigo;
-			}
-			set
-			{
-				if ((this._codigo != value))
-				{
-					this.OncodigoChanging(value);
-					this.SendPropertyChanging();
-					this._codigo = value;
-					this.SendPropertyChanged("codigo");
-					this.OncodigoChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_fecha", DbType="DateTime")]
-		public System.Nullable<System.DateTime> fecha
-		{
-			get
-			{
-				return this._fecha;
-			}
-			set
-			{
-				if ((this._fecha != value))
-				{
-					this.OnfechaChanging(value);
-					this.SendPropertyChanging();
-					this._fecha = value;
-					this.SendPropertyChanged("fecha");
-					this.OnfechaChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_comentario", DbType="VarChar(500)")]
-		public string comentario
-		{
-			get
-			{
-				return this._comentario;
-			}
-			set
-			{
-				if ((this._comentario != value))
-				{
-					this.OncomentarioChanging(value);
-					this.SendPropertyChanging();
-					this._comentario = value;
-					this.SendPropertyChanged("comentario");
-					this.OncomentarioChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_id_tipo", DbType="SmallInt")]
-		public System.Nullable<short> id_tipo
-		{
-			get
-			{
-				return this._id_tipo;
-			}
-			set
-			{
-				if ((this._id_tipo != value))
-				{
-					if (this._Movimiento_Tipo.HasLoadedOrAssignedValue)
-					{
-						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
-					}
-					this.Onid_tipoChanging(value);
-					this.SendPropertyChanging();
-					this._id_tipo = value;
-					this.SendPropertyChanged("id_tipo");
-					this.Onid_tipoChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_id_almacen_desde", DbType="SmallInt")]
-		public System.Nullable<short> id_almacen_desde
-		{
-			get
-			{
-				return this._id_almacen_desde;
-			}
-			set
-			{
-				if ((this._id_almacen_desde != value))
-				{
-					this.Onid_almacen_desdeChanging(value);
-					this.SendPropertyChanging();
-					this._id_almacen_desde = value;
-					this.SendPropertyChanged("id_almacen_desde");
-					this.Onid_almacen_desdeChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_id_almacen_hasta", DbType="SmallInt")]
-		public System.Nullable<short> id_almacen_hasta
-		{
-			get
-			{
-				return this._id_almacen_hasta;
-			}
-			set
-			{
-				if ((this._id_almacen_hasta != value))
-				{
-					this.Onid_almacen_hastaChanging(value);
-					this.SendPropertyChanging();
-					this._id_almacen_hasta = value;
-					this.SendPropertyChanged("id_almacen_hasta");
-					this.Onid_almacen_hastaChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_id_estado", DbType="TinyInt")]
-		public System.Nullable<byte> id_estado
-		{
-			get
-			{
-				return this._id_estado;
-			}
-			set
-			{
-				if ((this._id_estado != value))
-				{
-					if (this._Movimiento_Estado.HasLoadedOrAssignedValue)
-					{
-						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
-					}
-					this.Onid_estadoChanging(value);
-					this.SendPropertyChanging();
-					this._id_estado = value;
-					this.SendPropertyChanged("id_estado");
-					this.Onid_estadoChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Movimiento_Movimiento_Producto", Storage="_Movimiento_Producto", ThisKey="id", OtherKey="id_movimiento")]
-		public EntitySet<Movimiento_Producto> Movimiento_Producto
-		{
-			get
-			{
-				return this._Movimiento_Producto;
-			}
-			set
-			{
-				this._Movimiento_Producto.Assign(value);
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Movimiento_Estado_Movimiento", Storage="_Movimiento_Estado", ThisKey="id_estado", OtherKey="id", IsForeignKey=true)]
-		public Movimiento_Estado Movimiento_Estado
-		{
-			get
-			{
-				return this._Movimiento_Estado.Entity;
-			}
-			set
-			{
-				Movimiento_Estado previousValue = this._Movimiento_Estado.Entity;
-				if (((previousValue != value) 
-							|| (this._Movimiento_Estado.HasLoadedOrAssignedValue == false)))
-				{
-					this.SendPropertyChanging();
-					if ((previousValue != null))
-					{
-						this._Movimiento_Estado.Entity = null;
-						previousValue.Movimiento.Remove(this);
-					}
-					this._Movimiento_Estado.Entity = value;
-					if ((value != null))
-					{
-						value.Movimiento.Add(this);
-						this._id_estado = value.id;
-					}
-					else
-					{
-						this._id_estado = default(Nullable<byte>);
-					}
-					this.SendPropertyChanged("Movimiento_Estado");
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Movimiento_Tipo_Movimiento", Storage="_Movimiento_Tipo", ThisKey="id_tipo", OtherKey="id", IsForeignKey=true)]
-		public Movimiento_Tipo Movimiento_Tipo
-		{
-			get
-			{
-				return this._Movimiento_Tipo.Entity;
-			}
-			set
-			{
-				Movimiento_Tipo previousValue = this._Movimiento_Tipo.Entity;
-				if (((previousValue != value) 
-							|| (this._Movimiento_Tipo.HasLoadedOrAssignedValue == false)))
-				{
-					this.SendPropertyChanging();
-					if ((previousValue != null))
-					{
-						this._Movimiento_Tipo.Entity = null;
-						previousValue.Movimiento.Remove(this);
-					}
-					this._Movimiento_Tipo.Entity = value;
-					if ((value != null))
-					{
-						value.Movimiento.Add(this);
-						this._id_tipo = value.id;
-					}
-					else
-					{
-						this._id_tipo = default(Nullable<short>);
-					}
-					this.SendPropertyChanged("Movimiento_Tipo");
-				}
-			}
-		}
-		
-		public event PropertyChangingEventHandler PropertyChanging;
-		
-		public event PropertyChangedEventHandler PropertyChanged;
-		
-		protected virtual void SendPropertyChanging()
-		{
-			if ((this.PropertyChanging != null))
-			{
-				this.PropertyChanging(this, emptyChangingEventArgs);
-			}
-		}
-		
-		protected virtual void SendPropertyChanged(String propertyName)
-		{
-			if ((this.PropertyChanged != null))
-			{
-				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-			}
-		}
-		
-		private void attach_Movimiento_Producto(Movimiento_Producto entity)
-		{
-			this.SendPropertyChanging();
-			entity.Movimiento = this;
-		}
-		
-		private void detach_Movimiento_Producto(Movimiento_Producto entity)
-		{
-			this.SendPropertyChanging();
-			entity.Movimiento = null;
-		}
-	}
-	
 	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Tbl_Movimiento_Estado")]
 	public partial class Movimiento_Estado : INotifyPropertyChanging, INotifyPropertyChanged
 	{
@@ -6122,7 +5812,7 @@ namespace pe.edu.pucp.ferretin.model
 		
 		private EntitySet<Movimiento> _Movimiento;
 		
-    #region Extensibility Method Definitions
+    #region Definiciones de métodos de extensibilidad
     partial void OnLoaded();
     partial void OnValidate(System.Data.Linq.ChangeAction action);
     partial void OnCreated();
@@ -6200,7 +5890,7 @@ namespace pe.edu.pucp.ferretin.model
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Movimiento_Estado_Movimiento", Storage="_Movimiento", ThisKey="id", OtherKey="id_estado")]
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Movimiento_Estado_Tbl_Movimiento", Storage="_Movimiento", ThisKey="id", OtherKey="id_estado")]
 		public EntitySet<Movimiento> Movimiento
 		{
 			get
@@ -6258,11 +5948,11 @@ namespace pe.edu.pucp.ferretin.model
 		
 		private System.Nullable<decimal> _cantidad;
 		
-		private EntityRef<Movimiento> _Movimiento;
-		
 		private EntityRef<Tbl_Producto> _Tbl_Producto;
 		
-    #region Extensibility Method Definitions
+		private EntityRef<Movimiento> _Movimiento;
+		
+    #region Definiciones de métodos de extensibilidad
     partial void OnLoaded();
     partial void OnValidate(System.Data.Linq.ChangeAction action);
     partial void OnCreated();
@@ -6276,8 +5966,8 @@ namespace pe.edu.pucp.ferretin.model
 		
 		public Movimiento_Producto()
 		{
-			this._Movimiento = default(EntityRef<Movimiento>);
 			this._Tbl_Producto = default(EntityRef<Tbl_Producto>);
+			this._Movimiento = default(EntityRef<Movimiento>);
 			OnCreated();
 		}
 		
@@ -6349,40 +6039,6 @@ namespace pe.edu.pucp.ferretin.model
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Movimiento_Movimiento_Producto", Storage="_Movimiento", ThisKey="id_movimiento", OtherKey="id", IsForeignKey=true)]
-		public Movimiento Movimiento
-		{
-			get
-			{
-				return this._Movimiento.Entity;
-			}
-			set
-			{
-				Movimiento previousValue = this._Movimiento.Entity;
-				if (((previousValue != value) 
-							|| (this._Movimiento.HasLoadedOrAssignedValue == false)))
-				{
-					this.SendPropertyChanging();
-					if ((previousValue != null))
-					{
-						this._Movimiento.Entity = null;
-						previousValue.Movimiento_Producto.Remove(this);
-					}
-					this._Movimiento.Entity = value;
-					if ((value != null))
-					{
-						value.Movimiento_Producto.Add(this);
-						this._id_movimiento = value.id;
-					}
-					else
-					{
-						this._id_movimiento = default(long);
-					}
-					this.SendPropertyChanged("Movimiento");
-				}
-			}
-		}
-		
 		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Tbl_Producto_Movimiento_Producto", Storage="_Tbl_Producto", ThisKey="id_producto", OtherKey="id", IsForeignKey=true)]
 		public Tbl_Producto Tbl_Producto
 		{
@@ -6413,6 +6069,40 @@ namespace pe.edu.pucp.ferretin.model
 						this._id_producto = default(short);
 					}
 					this.SendPropertyChanged("Tbl_Producto");
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Tbl_Movimiento_Movimiento_Producto", Storage="_Movimiento", ThisKey="id_movimiento", OtherKey="id", IsForeignKey=true)]
+		public Movimiento Movimiento
+		{
+			get
+			{
+				return this._Movimiento.Entity;
+			}
+			set
+			{
+				Movimiento previousValue = this._Movimiento.Entity;
+				if (((previousValue != value) 
+							|| (this._Movimiento.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._Movimiento.Entity = null;
+						previousValue.Movimiento_Producto.Remove(this);
+					}
+					this._Movimiento.Entity = value;
+					if ((value != null))
+					{
+						value.Movimiento_Producto.Add(this);
+						this._id_movimiento = value.id;
+					}
+					else
+					{
+						this._id_movimiento = default(long);
+					}
+					this.SendPropertyChanged("Movimiento");
 				}
 			}
 		}
@@ -6456,7 +6146,7 @@ namespace pe.edu.pucp.ferretin.model
 		
 		private EntitySet<Movimiento> _Movimiento;
 		
-    #region Extensibility Method Definitions
+    #region Definiciones de métodos de extensibilidad
     partial void OnLoaded();
     partial void OnValidate(System.Data.Linq.ChangeAction action);
     partial void OnCreated();
@@ -6578,7 +6268,7 @@ namespace pe.edu.pucp.ferretin.model
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Movimiento_Tipo_Movimiento", Storage="_Movimiento", ThisKey="id", OtherKey="id_tipo")]
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Movimiento_Tipo_Tbl_Movimiento", Storage="_Movimiento", ThisKey="id", OtherKey="id_tipo")]
 		public EntitySet<Movimiento> Movimiento
 		{
 			get
@@ -6644,7 +6334,7 @@ namespace pe.edu.pucp.ferretin.model
 		
 		private EntityRef<Tbl_Devolucion> _Tbl_Devolucion;
 		
-    #region Extensibility Method Definitions
+    #region Definiciones de métodos de extensibilidad
     partial void OnLoaded();
     partial void OnValidate(System.Data.Linq.ChangeAction action);
     partial void OnCreated();
@@ -6865,7 +6555,7 @@ namespace pe.edu.pucp.ferretin.model
 		
 		private EntityRef<Tbl_Menu> _Tbl_Menu;
 		
-    #region Extensibility Method Definitions
+    #region Definiciones de métodos de extensibilidad
     partial void OnLoaded();
     partial void OnValidate(System.Data.Linq.ChangeAction action);
     partial void OnCreated();
@@ -7064,7 +6754,7 @@ namespace pe.edu.pucp.ferretin.model
 		
 		private EntitySet<Usuario> _Tbl_Usuarios;
 		
-    #region Extensibility Method Definitions
+    #region Definiciones de métodos de extensibilidad
     partial void OnLoaded();
     partial void OnValidate(System.Data.Linq.ChangeAction action);
     partial void OnCreated();
@@ -7252,7 +6942,7 @@ namespace pe.edu.pucp.ferretin.model
 		
 		private EntityRef<Tbl_Perfil> _Tbl_Perfil;
 		
-    #region Extensibility Method Definitions
+    #region Definiciones de métodos de extensibilidad
     partial void OnLoaded();
     partial void OnValidate(System.Data.Linq.ChangeAction action);
     partial void OnCreated();
@@ -7478,7 +7168,7 @@ namespace pe.edu.pucp.ferretin.model
 		
 		private EntityRef<Tbl_Unidad_Medida> _Tbl_Unidad_Medida;
 		
-    #region Extensibility Method Definitions
+    #region Definiciones de métodos de extensibilidad
     partial void OnLoaded();
     partial void OnValidate(System.Data.Linq.ChangeAction action);
     partial void OnCreated();
@@ -8072,8 +7762,8 @@ namespace pe.edu.pucp.ferretin.model
 		{
 			this.SendPropertyChanging();
 			entity.Tbl_Producto = this;
-		}
-		
+	}
+	
 		private void detach_Tbl_Documento_Compra_Productos(Tbl_Documento_Compra_Producto entity)
 		{
 			this.SendPropertyChanging();
@@ -8105,7 +7795,7 @@ namespace pe.edu.pucp.ferretin.model
 		
 		private EntityRef<Tbl_Producto> _Tbl_Producto;
 		
-    #region Extensibility Method Definitions
+    #region Definiciones de métodos de extensibilidad
     partial void OnLoaded();
     partial void OnValidate(System.Data.Linq.ChangeAction action);
     partial void OnCreated();
@@ -8383,7 +8073,7 @@ namespace pe.edu.pucp.ferretin.model
 		
 		private EntityRef<Tbl_Producto> _Tbl_Producto;
 		
-    #region Extensibility Method Definitions
+    #region Definiciones de métodos de extensibilidad
     partial void OnLoaded();
     partial void OnValidate(System.Data.Linq.ChangeAction action);
     partial void OnCreated();
@@ -8551,7 +8241,7 @@ namespace pe.edu.pucp.ferretin.model
 		
 		private EntityRef<Tbl_Producto> _Tbl_Producto;
 		
-    #region Extensibility Method Definitions
+    #region Definiciones de métodos de extensibilidad
     partial void OnLoaded();
     partial void OnValidate(System.Data.Linq.ChangeAction action);
     partial void OnCreated();
@@ -8739,7 +8429,7 @@ namespace pe.edu.pucp.ferretin.model
 		
 		private EntityRef<Usuario> _Tbl_Usuario;
 		
-    #region Extensibility Method Definitions
+    #region Definiciones de métodos de extensibilidad
     partial void OnLoaded();
     partial void OnValidate(System.Data.Linq.ChangeAction action);
     partial void OnCreated();
@@ -9159,7 +8849,7 @@ namespace pe.edu.pucp.ferretin.model
 		
 		private EntityRef<UbigeoDistrito> _Tbl_Ubigeo_Distrito;
 		
-    #region Extensibility Method Definitions
+    #region Definiciones de métodos de extensibilidad
     partial void OnLoaded();
     partial void OnValidate(System.Data.Linq.ChangeAction action);
     partial void OnCreated();
@@ -9598,8 +9288,8 @@ namespace pe.edu.pucp.ferretin.model
 		{
 			this.SendPropertyChanging();
 			entity.Tbl_Proveedor = this;
-		}
-		
+	}
+	
 		private void detach_Tbl_Documento_Compras(Tbl_Documento_Compra entity)
 		{
 			this.SendPropertyChanging();
@@ -9627,7 +9317,7 @@ namespace pe.edu.pucp.ferretin.model
 		
 		private EntityRef<Tbl_Proveedor> _Tbl_Proveedor;
 		
-    #region Extensibility Method Definitions
+    #region Definiciones de métodos de extensibilidad
     partial void OnLoaded();
     partial void OnValidate(System.Data.Linq.ChangeAction action);
     partial void OnCreated();
@@ -9844,7 +9534,7 @@ namespace pe.edu.pucp.ferretin.model
 		
 		private EntitySet<Tbl_Proveedor> _Tbl_Proveedor;
 		
-    #region Extensibility Method Definitions
+    #region Definiciones de métodos de extensibilidad
     partial void OnLoaded();
     partial void OnValidate(System.Data.Linq.ChangeAction action);
     partial void OnCreated();
@@ -9990,7 +9680,7 @@ namespace pe.edu.pucp.ferretin.model
 		
 		private EntityRef<Tbl_Solicitud_Abastecimiento_Estado> _Tbl_Solicitud_Abastecimiento_Estado;
 		
-    #region Extensibility Method Definitions
+    #region Definiciones de métodos de extensibilidad
     partial void OnLoaded();
     partial void OnValidate(System.Data.Linq.ChangeAction action);
     partial void OnCreated();
@@ -10250,7 +9940,7 @@ namespace pe.edu.pucp.ferretin.model
 		
 		private EntitySet<Tbl_Solicitud_Abastecimiento> _Tbl_Solicitud_Abastecimiento;
 		
-    #region Extensibility Method Definitions
+    #region Definiciones de métodos de extensibilidad
     partial void OnLoaded();
     partial void OnValidate(System.Data.Linq.ChangeAction action);
     partial void OnCreated();
@@ -10396,7 +10086,7 @@ namespace pe.edu.pucp.ferretin.model
 		
 		private EntityRef<Tbl_Solicitud_Abastecimiento> _Tbl_Solicitud_Abastecimiento;
 		
-    #region Extensibility Method Definitions
+    #region Definiciones de métodos de extensibilidad
     partial void OnLoaded();
     partial void OnValidate(System.Data.Linq.ChangeAction action);
     partial void OnCreated();
@@ -10662,7 +10352,7 @@ namespace pe.edu.pucp.ferretin.model
 		
 		private EntityRef<Usuario> _Tbl_Usuario;
 		
-    #region Extensibility Method Definitions
+    #region Definiciones de métodos de extensibilidad
     partial void OnLoaded();
     partial void OnValidate(System.Data.Linq.ChangeAction action);
     partial void OnCreated();
@@ -10950,7 +10640,7 @@ namespace pe.edu.pucp.ferretin.model
 		
 		private EntityRef<Tbl_Menu> _Tbl_Menu;
 		
-    #region Extensibility Method Definitions
+    #region Definiciones de métodos de extensibilidad
     partial void OnLoaded();
     partial void OnValidate(System.Data.Linq.ChangeAction action);
     partial void OnCreated();
@@ -11163,7 +10853,7 @@ namespace pe.edu.pucp.ferretin.model
 		
 		private EntityRef<Tbl_Dia> _Tbl_Dia;
 		
-    #region Extensibility Method Definitions
+    #region Definiciones de métodos de extensibilidad
     partial void OnLoaded();
     partial void OnValidate(System.Data.Linq.ChangeAction action);
     partial void OnCreated();
@@ -11487,7 +11177,7 @@ namespace pe.edu.pucp.ferretin.model
 		
 		private EntitySet<UbigeoProvincia> _Tbl_Ubigeo_Provincia;
 		
-    #region Extensibility Method Definitions
+    #region Definiciones de métodos de extensibilidad
     partial void OnLoaded();
     partial void OnValidate(System.Data.Linq.ChangeAction action);
     partial void OnCreated();
@@ -11611,7 +11301,7 @@ namespace pe.edu.pucp.ferretin.model
 		
 		private EntityRef<UbigeoProvincia> _Tbl_Ubigeo_Provincia;
 		
-    #region Extensibility Method Definitions
+    #region Definiciones de métodos de extensibilidad
     partial void OnLoaded();
     partial void OnValidate(System.Data.Linq.ChangeAction action);
     partial void OnCreated();
@@ -11868,7 +11558,7 @@ namespace pe.edu.pucp.ferretin.model
 		
 		private EntityRef<UbigeoDepartamento> _Tbl_Ubigeo_Departamento;
 		
-    #region Extensibility Method Definitions
+    #region Definiciones de métodos de extensibilidad
     partial void OnLoaded();
     partial void OnValidate(System.Data.Linq.ChangeAction action);
     partial void OnCreated();
@@ -12047,7 +11737,7 @@ namespace pe.edu.pucp.ferretin.model
 		
 		private EntitySet<Tbl_Documento_Compra_Producto> _Tbl_Documento_Compra_Productos;
 		
-    #region Extensibility Method Definitions
+    #region Definiciones de métodos de extensibilidad
     partial void OnLoaded();
     partial void OnValidate(System.Data.Linq.ChangeAction action);
     partial void OnCreated();
@@ -12237,7 +11927,7 @@ namespace pe.edu.pucp.ferretin.model
 		
 		private EntityRef<Usuario> _Tbl_Usuario;
 		
-    #region Extensibility Method Definitions
+    #region Definiciones de métodos de extensibilidad
     partial void OnLoaded();
     partial void OnValidate(System.Data.Linq.ChangeAction action);
     partial void OnCreated();
@@ -12711,7 +12401,7 @@ namespace pe.edu.pucp.ferretin.model
 		
 		private EntityRef<Tbl_Venta> _Tbl_Venta;
 		
-    #region Extensibility Method Definitions
+    #region Definiciones de métodos de extensibilidad
     partial void OnLoaded();
     partial void OnValidate(System.Data.Linq.ChangeAction action);
     partial void OnCreated();
@@ -12917,7 +12607,7 @@ namespace pe.edu.pucp.ferretin.model
 		
 		private EntityRef<Tbl_Perfil> _Tbl_Perfil;
 		
-    #region Extensibility Method Definitions
+    #region Definiciones de métodos de extensibilidad
     partial void OnLoaded();
     partial void OnValidate(System.Data.Linq.ChangeAction action);
     partial void OnCreated();
@@ -13049,8 +12739,8 @@ namespace pe.edu.pucp.ferretin.model
 					this._estado = value;
 					this.SendPropertyChanged("estado");
 					this.OnestadoChanged();
-				}
 			}
+		}
 		}
 		
 		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Tbl_Usuario_Tbl_Proforma", Storage="_Tbl_Proformas", ThisKey="dni,id_perfil", OtherKey="dni,id_perfil")]
@@ -13246,10 +12936,10 @@ namespace pe.edu.pucp.ferretin.model
 		{
 			this.SendPropertyChanging();
 			entity.Tbl_Usuario = this;
-		}
-		
+	}
+	
 		private void detach_Tbl_Documento_Compras(Tbl_Documento_Compra entity)
-		{
+	{
 			this.SendPropertyChanging();
 			entity.Tbl_Usuario = null;
 		}
@@ -13319,7 +13009,7 @@ namespace pe.edu.pucp.ferretin.model
 		
 		private EntityRef<Tbl_Documento_Compra_Estado> _Tbl_Documento_Compra_Estado;
 		
-    #region Extensibility Method Definitions
+    #region Definiciones de métodos de extensibilidad
     partial void OnLoaded();
     partial void OnValidate(System.Data.Linq.ChangeAction action);
     partial void OnCreated();
@@ -13736,7 +13426,7 @@ namespace pe.edu.pucp.ferretin.model
 			get
 			{
 				return this._Tbl_Documento_Compra_Productos;
-			}
+				}
 			set
 			{
 				this._Tbl_Documento_Compra_Productos.Assign(value);
@@ -13978,7 +13668,7 @@ namespace pe.edu.pucp.ferretin.model
 		
 		private EntitySet<Tbl_Documento_Compra> _Tbl_Documento_Compras;
 		
-    #region Extensibility Method Definitions
+    #region Definiciones de métodos de extensibilidad
     partial void OnLoaded();
     partial void OnValidate(System.Data.Linq.ChangeAction action);
     partial void OnCreated();
@@ -14008,9 +13698,9 @@ namespace pe.edu.pucp.ferretin.model
 			set
 			{
 				if ((this._id != value))
-				{
+		{
 					this.OnidChanging(value);
-					this.SendPropertyChanging();
+			this.SendPropertyChanging();
 					this._id = value;
 					this.SendPropertyChanged("id");
 					this.OnidChanged();
@@ -14028,9 +13718,9 @@ namespace pe.edu.pucp.ferretin.model
 			set
 			{
 				if ((this._nombre != value))
-				{
+		{
 					this.OnnombreChanging(value);
-					this.SendPropertyChanging();
+			this.SendPropertyChanging();
 					this._nombre = value;
 					this.SendPropertyChanged("nombre");
 					this.OnnombreChanged();
@@ -14048,9 +13738,9 @@ namespace pe.edu.pucp.ferretin.model
 			set
 			{
 				if ((this._descripcion != value))
-				{
+		{
 					this.OndescripcionChanging(value);
-					this.SendPropertyChanging();
+			this.SendPropertyChanging();
 					this._descripcion = value;
 					this.SendPropertyChanged("descripcion");
 					this.OndescripcionChanged();
@@ -14068,9 +13758,9 @@ namespace pe.edu.pucp.ferretin.model
 			set
 			{
 				if ((this._tipo != value))
-				{
+		{
 					this.OntipoChanging(value);
-					this.SendPropertyChanging();
+			this.SendPropertyChanging();
 					this._tipo = value;
 					this.SendPropertyChanged("tipo");
 					this.OntipoChanged();
@@ -14148,7 +13838,7 @@ namespace pe.edu.pucp.ferretin.model
 		
 		private EntityRef<Tbl_Unidad_Medida> _Tbl_Unidad_Medida;
 		
-    #region Extensibility Method Definitions
+    #region Definiciones de métodos de extensibilidad
     partial void OnLoaded();
     partial void OnValidate(System.Data.Linq.ChangeAction action);
     partial void OnCreated();
@@ -14426,6 +14116,428 @@ namespace pe.edu.pucp.ferretin.model
 			{
 				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
 			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Tbl_Movimiento")]
+	public partial class Movimiento : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private long _id;
+		
+		private string _codigo;
+		
+		private System.Nullable<System.DateTime> _fecha;
+		
+		private string _comentario;
+		
+		private System.Nullable<short> _id_tipo;
+		
+		private System.Nullable<short> _id_almacen_desde;
+		
+		private System.Nullable<short> _id_almacen_hasta;
+		
+		private System.Nullable<byte> _id_estado;
+		
+		private EntitySet<Movimiento_Producto> _Movimiento_Producto;
+		
+		private EntityRef<Tienda> _Tienda;
+		
+		private EntityRef<Tienda> _Tienda1;
+		
+		private EntityRef<Movimiento_Estado> _Movimiento_Estado;
+		
+		private EntityRef<Movimiento_Tipo> _Movimiento_Tipo;
+		
+    #region Definiciones de métodos de extensibilidad
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnidChanging(long value);
+    partial void OnidChanged();
+    partial void OncodigoChanging(string value);
+    partial void OncodigoChanged();
+    partial void OnfechaChanging(System.Nullable<System.DateTime> value);
+    partial void OnfechaChanged();
+    partial void OncomentarioChanging(string value);
+    partial void OncomentarioChanged();
+    partial void Onid_tipoChanging(System.Nullable<short> value);
+    partial void Onid_tipoChanged();
+    partial void Onid_almacen_desdeChanging(System.Nullable<short> value);
+    partial void Onid_almacen_desdeChanged();
+    partial void Onid_almacen_hastaChanging(System.Nullable<short> value);
+    partial void Onid_almacen_hastaChanged();
+    partial void Onid_estadoChanging(System.Nullable<byte> value);
+    partial void Onid_estadoChanged();
+    #endregion
+		
+		public Movimiento()
+		{
+			this._Movimiento_Producto = new EntitySet<Movimiento_Producto>(new Action<Movimiento_Producto>(this.attach_Movimiento_Producto), new Action<Movimiento_Producto>(this.detach_Movimiento_Producto));
+			this._Tienda = default(EntityRef<Tienda>);
+			this._Tienda1 = default(EntityRef<Tienda>);
+			this._Movimiento_Estado = default(EntityRef<Movimiento_Estado>);
+			this._Movimiento_Tipo = default(EntityRef<Movimiento_Tipo>);
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_id", AutoSync=AutoSync.OnInsert, DbType="BigInt NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
+		public long id
+		{
+			get
+			{
+				return this._id;
+			}
+			set
+			{
+				if ((this._id != value))
+				{
+					this.OnidChanging(value);
+					this.SendPropertyChanging();
+					this._id = value;
+					this.SendPropertyChanged("id");
+					this.OnidChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_codigo", DbType="VarChar(20)")]
+		public string codigo
+		{
+			get
+			{
+				return this._codigo;
+			}
+			set
+			{
+				if ((this._codigo != value))
+				{
+					this.OncodigoChanging(value);
+					this.SendPropertyChanging();
+					this._codigo = value;
+					this.SendPropertyChanged("codigo");
+					this.OncodigoChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_fecha", DbType="DateTime")]
+		public System.Nullable<System.DateTime> fecha
+		{
+			get
+			{
+				return this._fecha;
+			}
+			set
+			{
+				if ((this._fecha != value))
+				{
+					this.OnfechaChanging(value);
+					this.SendPropertyChanging();
+					this._fecha = value;
+					this.SendPropertyChanged("fecha");
+					this.OnfechaChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_comentario", DbType="VarChar(500)")]
+		public string comentario
+		{
+			get
+			{
+				return this._comentario;
+			}
+			set
+			{
+				if ((this._comentario != value))
+				{
+					this.OncomentarioChanging(value);
+					this.SendPropertyChanging();
+					this._comentario = value;
+					this.SendPropertyChanged("comentario");
+					this.OncomentarioChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_id_tipo", DbType="SmallInt")]
+		public System.Nullable<short> id_tipo
+		{
+			get
+			{
+				return this._id_tipo;
+			}
+			set
+			{
+				if ((this._id_tipo != value))
+				{
+					if (this._Movimiento_Tipo.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.Onid_tipoChanging(value);
+					this.SendPropertyChanging();
+					this._id_tipo = value;
+					this.SendPropertyChanged("id_tipo");
+					this.Onid_tipoChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_id_almacen_desde", DbType="SmallInt")]
+		public System.Nullable<short> id_almacen_desde
+		{
+			get
+			{
+				return this._id_almacen_desde;
+			}
+			set
+			{
+				if ((this._id_almacen_desde != value))
+				{
+					if (this._Tienda.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.Onid_almacen_desdeChanging(value);
+					this.SendPropertyChanging();
+					this._id_almacen_desde = value;
+					this.SendPropertyChanged("id_almacen_desde");
+					this.Onid_almacen_desdeChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_id_almacen_hasta", DbType="SmallInt")]
+		public System.Nullable<short> id_almacen_hasta
+		{
+			get
+			{
+				return this._id_almacen_hasta;
+			}
+			set
+			{
+				if ((this._id_almacen_hasta != value))
+				{
+					if (this._Tienda1.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.Onid_almacen_hastaChanging(value);
+					this.SendPropertyChanging();
+					this._id_almacen_hasta = value;
+					this.SendPropertyChanged("id_almacen_hasta");
+					this.Onid_almacen_hastaChanged();
+			}
+		}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_id_estado", DbType="TinyInt")]
+		public System.Nullable<byte> id_estado
+		{
+			get
+			{
+				return this._id_estado;
+			}
+			set
+			{
+				if ((this._id_estado != value))
+				{
+					if (this._Movimiento_Estado.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.Onid_estadoChanging(value);
+					this.SendPropertyChanging();
+					this._id_estado = value;
+					this.SendPropertyChanged("id_estado");
+					this.Onid_estadoChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Tbl_Movimiento_Movimiento_Producto", Storage="_Movimiento_Producto", ThisKey="id", OtherKey="id_movimiento")]
+		public EntitySet<Movimiento_Producto> Movimiento_Producto
+		{
+			get
+			{
+				return this._Movimiento_Producto;
+			}
+			set
+			{
+				this._Movimiento_Producto.Assign(value);
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Tienda_Tbl_Movimiento", Storage="_Tienda", ThisKey="id_almacen_desde", OtherKey="id", IsForeignKey=true)]
+		public Tienda Tienda
+		{
+			get
+			{
+				return this._Tienda.Entity;
+			}
+			set
+			{
+                Tienda previousValue = this._Tienda.Entity;
+				if (((previousValue != value)
+                            || (this._Tienda.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+                        this._Tienda.Entity = null;
+						previousValue.Tbl_Movimiento.Remove(this);
+					}
+                    this._Tienda.Entity = value;
+					if ((value != null))
+					{
+						value.Tbl_Movimiento.Add(this);
+						this._id_almacen_desde = value.id;
+					}
+					else
+					{
+						this._id_almacen_desde = default(Nullable<short>);
+					}
+					this.SendPropertyChanged("Tienda");
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Tienda_Tbl_Movimiento1", Storage="_Tienda1", ThisKey="id_almacen_hasta", OtherKey="id", IsForeignKey=true)]
+		public Tienda Tienda1
+		{
+			get
+			{
+				return this._Tienda1.Entity;
+			}
+			set
+			{
+                Tienda previousValue = this._Tienda1.Entity;
+				if (((previousValue != value)
+                            || (this._Tienda1.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+                        this._Tienda1.Entity = null;
+						previousValue.Movimiento.Remove(this);
+					}
+                    this._Tienda1.Entity = value;
+					if ((value != null))
+					{
+						value.Movimiento.Add(this);
+						this._id_almacen_hasta = value.id;
+					}
+					else
+					{
+						this._id_almacen_hasta = default(Nullable<short>);
+					}
+					this.SendPropertyChanged("Tienda1");
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Movimiento_Estado_Tbl_Movimiento", Storage="_Movimiento_Estado", ThisKey="id_estado", OtherKey="id", IsForeignKey=true)]
+		public Movimiento_Estado Movimiento_Estado
+		{
+			get
+			{
+				return this._Movimiento_Estado.Entity;
+			}
+			set
+			{
+				Movimiento_Estado previousValue = this._Movimiento_Estado.Entity;
+				if (((previousValue != value) 
+							|| (this._Movimiento_Estado.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._Movimiento_Estado.Entity = null;
+						previousValue.Movimiento.Remove(this);
+					}
+					this._Movimiento_Estado.Entity = value;
+					if ((value != null))
+					{
+						value.Movimiento.Add(this);
+						this._id_estado = value.id;
+					}
+					else
+					{
+						this._id_estado = default(Nullable<byte>);
+					}
+					this.SendPropertyChanged("Movimiento_Estado");
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Movimiento_Tipo_Tbl_Movimiento", Storage="_Movimiento_Tipo", ThisKey="id_tipo", OtherKey="id", IsForeignKey=true)]
+		public Movimiento_Tipo Movimiento_Tipo
+		{
+			get
+			{
+				return this._Movimiento_Tipo.Entity;
+			}
+			set
+			{
+				Movimiento_Tipo previousValue = this._Movimiento_Tipo.Entity;
+				if (((previousValue != value) 
+							|| (this._Movimiento_Tipo.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._Movimiento_Tipo.Entity = null;
+						previousValue.Movimiento.Remove(this);
+					}
+					this._Movimiento_Tipo.Entity = value;
+					if ((value != null))
+					{
+						value.Movimiento.Add(this);
+						this._id_tipo = value.id;
+					}
+					else
+					{
+						this._id_tipo = default(Nullable<short>);
+					}
+					this.SendPropertyChanged("Movimiento_Tipo");
+				}
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+		
+		private void attach_Movimiento_Producto(Movimiento_Producto entity)
+		{
+			this.SendPropertyChanging();
+			entity.Movimiento = this;
+		}
+		
+		private void detach_Movimiento_Producto(Movimiento_Producto entity)
+		{
+			this.SendPropertyChanging();
+			entity.Movimiento = null;
 		}
 	}
 }
