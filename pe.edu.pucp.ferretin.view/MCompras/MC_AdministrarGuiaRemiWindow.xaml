@@ -1,7 +1,7 @@
 ﻿<Window x:Class="pe.edu.pucp.ferretin.view.MCompras.MC_AdministrarGuiaRemiWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Title="Guía de Remisíon" Height="580" Width="900" Icon="../../Resources/ferretin_ico.ico" ResizeMode="NoResize" WindowStartupLocation="CenterScreen">
+        Title="Guía de Remisíon" Height="580" Width="900" Icon="../Resources/ferretin_ico.ico" ResizeMode="NoResize" WindowStartupLocation="CenterScreen">
     <Grid>
         <TabControl x:Name="guiRemisionTab" Margin="0">
             <TabItem Header="Búsqueda">
@@ -46,7 +46,7 @@
 
                     <Button x:Name="buscarGuiaBtn" HorizontalAlignment="Left" Margin="706.953,58,0,0" Width="32" RenderTransformOrigin="0.3,-0.35" Height="32" VerticalAlignment="Top" Grid.Column="3">
                         <Button.Background>
-                            <ImageBrush ImageSource="../../Resources/refresh2_48.png"/>
+                            <ImageBrush ImageSource="../Resources/refresh2_48.png"/>
                         </Button.Background>
                     </Button>
 
@@ -54,7 +54,7 @@
 
 
 
-                    <DataGrid Margin="10,30.288,10.105,9.733" Grid.Row="1" RenderTransformOrigin="0.5,0.5" Grid.ColumnSpan="4" Grid.RowSpan="2" SelectionChanged="DataGrid_SelectionChanged">
+                    <DataGrid Margin="10,30.288,10.105,9.733" Grid.Row="1" RenderTransformOrigin="0.5,0.5" Grid.ColumnSpan="4" Grid.RowSpan="2" >
                         <DataGrid.Columns>
                             <DataGridCheckBoxColumn Width="1.8*" Binding="{x:Null}" ClipboardContentBinding="{x:Null}" Header="Código"/>
                             <DataGridHyperlinkColumn Width="1.8*" Binding="{x:Null}" ContentBinding="{x:Null}" ClipboardContentBinding="{x:Null}" Header="Origen"/>
@@ -65,7 +65,7 @@
                     </DataGrid>
                     <Label Content="Origen:" HorizontalAlignment="Left" Height="26" VerticalAlignment="Top" Width="63" Margin="29,95,0,0" Grid.ColumnSpan="3"/>
                     <Label Content="Destino:" HorizontalAlignment="Left" Height="26" VerticalAlignment="Top" Width="63" Margin="294.953,96,0,0" Grid.Column="3"/>
-                    <ComboBox HorizontalAlignment="Left" Height="20" SelectedIndex="0" Margin="35.953,98,0,0" VerticalAlignment="Top" Width="130" Grid.Column="3" SelectionChanged="ComboBox_SelectionChanged">
+                    <ComboBox HorizontalAlignment="Left" Height="20" SelectedIndex="0" Margin="35.953,98,0,0" VerticalAlignment="Top" Width="130" Grid.Column="3" >
                         <ListBoxItem Content="Almacén Central" />
                         <ListBoxItem Content="Tienda 1"/>
                         <ListBoxItem Content="Tienda 2"/>

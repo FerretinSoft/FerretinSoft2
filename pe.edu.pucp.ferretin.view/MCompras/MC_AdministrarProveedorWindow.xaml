@@ -18,17 +18,13 @@
                     </ComboBox>
                     <Button x:Name="buscarClienteBtn" HorizontalAlignment="Left" Margin="819,33,0,0" VerticalAlignment="Top" Width="32" Height="32" RenderTransformOrigin="0.3,-0.35">
                         <Button.Background>
-                            <ImageBrush ImageSource="../../Resources/refresh2_48.png"/>
+                            <ImageBrush ImageSource="../Resources/refresh2_48.png"/>
                         </Button.Background>
                     </Button>
                     <DataGrid x:Name="proveedoresDg" Margin="10,114,10,10" AutoGenerateColumns="False" CanUserAddRows="False" CanUserDeleteRows="False" IsReadOnly="True">
                         <DataGrid.Columns>
                             <DataGridHyperlinkColumn Width="0.7*" Header="ID" Binding="{Binding Path=ID}">
-                                <DataGridHyperlinkColumn.ElementStyle>
-                                    <Style>
-                                        <EventSetter Event="Hyperlink.Click" Handler="rucProveedor_Click"/>
-                                    </Style>
-                                </DataGridHyperlinkColumn.ElementStyle>
+                                
                             </DataGridHyperlinkColumn>
                             <DataGridTextColumn Width="4.8*" Header="Razón Social" Binding="{Binding Path=razSoc}"/>
                             <DataGridTextColumn Width="2.5*" Header="RUC" Binding="{Binding Path=codigo}">
@@ -39,15 +35,15 @@
                         </DataGrid.Columns>
                     </DataGrid>
                     <ToolBar HorizontalAlignment="Left" Margin="10,85,0,0" VerticalAlignment="Top" Height="24">
-                        <Button x:Name="nuevoProveedorBtn" Content="" VerticalAlignment="Stretch" Width="20" Margin="0,0,2,-1" Click="nuevoProveedorBtn_Click">
+                        <Button x:Name="nuevoProveedorBtn" Content="" VerticalAlignment="Stretch" Width="20" Margin="0,0,2,-1" >
                             <Button.Background>
-                                <ImageBrush ImageSource="../../Resources/add_20.png" Stretch="None"/>
+                                <ImageBrush ImageSource="../Resources/add_20.png" Stretch="None"/>
                             </Button.Background>
                         </Button>
 
                         <Button x:Name="eliminarProveedorBtn" Content="" Height="20" VerticalAlignment="Top" Width="20" Margin="0,0,2,0">
                             <Button.Background>
-                                <ImageBrush ImageSource="../../Resources/trash_20.png"/>
+                                <ImageBrush ImageSource="../Resources/trash_20.png"/>
                             </Button.Background>
                         </Button>
 
@@ -106,7 +102,7 @@
                     <Label Content="Nombre contacto:" HorizontalAlignment="Left" Margin="10,397,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.464,1.231" Grid.ColumnSpan="4" Height="26" Width="106"/>
                     <TextBox x:Name="contactoTxtBox" HorizontalAlignment="Left" Height="23" Margin="101,399,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="214" Grid.Column="3"/>
                     <Button x:Name="guardarBtn" Content="GUARDAR" Margin="295,474,1,0" VerticalAlignment="Top" RenderTransformOrigin="1.347,-0.05" Grid.Column="3" Height="28"/>
-                    <Button x:Name="cancelarBtn" Content="CANCELAR" HorizontalAlignment="Left" Margin="30,474,0,0" VerticalAlignment="Top" Width="75" RenderTransformOrigin="1.347,-0.05" Grid.Column="4" Height="28" Click="Button_Click"/>
+                    <Button x:Name="cancelarBtn" Content="CANCELAR" HorizontalAlignment="Left" Margin="30,474,0,0" VerticalAlignment="Top" Width="75" RenderTransformOrigin="1.347,-0.05" Grid.Column="4" Height="28" />
                     <Label Content="Teléfono contacto:" HorizontalAlignment="Left" Margin="10,428,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.464,1.231" Grid.ColumnSpan="4" Height="26" Width="108"/>
                     <TextBox x:Name="contactoTlfTxtBox" HorizontalAlignment="Left" Height="23" Margin="101,430,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="144" Grid.Column="3"/>
                     <TextBox x:Name="tlfTxtBox" HorizontalAlignment="Left" Height="23" Margin="101,337,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="144" Grid.Column="3" RenderTransformOrigin="0.514,1.435"/>
@@ -120,19 +116,19 @@
                         </DataGrid.Columns>
                     </DataGrid>
                     <ToolBar Grid.Column="3" HorizontalAlignment="Left" Margin="355,40,0,0" VerticalAlignment="Top" Height="25" Width="92" Grid.ColumnSpan="2">
-                        <Button x:Name="nuevoProductoBtn" Content="" Height="20" VerticalAlignment="Top" Width="20" Margin="0,0,4,0" Click="nuevoProductoBtn_Click">
+                        <Button x:Name="nuevoProductoBtn" Content="" Height="20" VerticalAlignment="Top" Width="20" Margin="0,0,4,0" >
                             <Button.Background>
-                                <ImageBrush ImageSource="../../Resources/add_20.png" Stretch="None"/>
+                                <ImageBrush ImageSource="../Resources/add_20.png" Stretch="None"/>
                             </Button.Background>
                         </Button>
                         <Button x:Name="eliminarProdBtn" Content="" Height="20" VerticalAlignment="Top" Width="20" Margin="0,0,4,0">
                             <Button.Background>
-                                <ImageBrush ImageSource="../../Resources/trash_20.png"/>
+                                <ImageBrush ImageSource="../Resources/trash_20.png"/>
                             </Button.Background>
                         </Button>
-                        <Button x:Name="importarProducto" Content="" VerticalAlignment="Top" Width="20" Height="20" Click="importarProducto_Click" Margin="0,0,0,0">
+                        <Button x:Name="importarProducto" Content="" VerticalAlignment="Top" Width="20" Height="20" Margin="0,0,0,0">
                             <Button.Background>
-                                <ImageBrush ImageSource="../../Resources/back_20.png" Stretch="None"/>
+                                <ImageBrush ImageSource="../Resources/back_20.png" Stretch="None"/>
                             </Button.Background>
                         </Button>
                     </ToolBar>

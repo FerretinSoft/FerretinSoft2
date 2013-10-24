@@ -48,7 +48,7 @@ namespace pe.edu.pucp.ferretin.view.MVentas
             VentasTab.SelectedIndex = 1;
         }
 
-        MV_ClientesWindow clientesWindow;
+        //MV_ClientesWindow clientesWindow;
         private void buscarClienteBtn_Click(object sender, RoutedEventArgs e)
         {
             //clientesWindow = new MV_ClientesWindow(this);
@@ -56,7 +56,7 @@ namespace pe.edu.pucp.ferretin.view.MVentas
 
         public void seleccionarCliente(object sender, RoutedEventArgs e)
         {
-            clientesWindow.Close();
+            //clientesWindow.Close();
         }
 
         private void buscarVendedorBtn_Click(object sender, RoutedEventArgs e)

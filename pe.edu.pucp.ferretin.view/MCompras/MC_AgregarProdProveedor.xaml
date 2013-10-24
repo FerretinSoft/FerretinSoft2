@@ -10,7 +10,7 @@
         <TextBox Margin="10,61,54,0" TextWrapping="Wrap" Height="244" VerticalAlignment="Top"/>
         <Label Content="Productos del Proveedor" HorizontalAlignment="Left" Margin="8,10,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.464,1.231"/>
         <Button Content="GUARDAR" Margin="100,315,0,0" VerticalAlignment="Top" RenderTransformOrigin="1.347,-0.05" Height="30" HorizontalAlignment="Left" Width="70"/>
-        <Button Content="CANCELAR" HorizontalAlignment="Left" Margin="18,315,0,0" VerticalAlignment="Top" Width="70" RenderTransformOrigin="1.347,-0.05" Height="30" Grid.Column="1" Click="Button_Click"/>
+        <Button Content="CANCELAR" HorizontalAlignment="Left" Margin="18,315,0,0" VerticalAlignment="Top" Width="70" RenderTransformOrigin="1.347,-0.05" Height="30" Grid.Column="1"/>
         <Label Content="Productos Orden de Compra" HorizontalAlignment="Left" Margin="16,10,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.464,1.231" Grid.Column="1"/>
         <TextBox Height="244" Margin="18,61,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Grid.Column="1" HorizontalAlignment="Left" Width="144"/>
         <Label Content="Producto 1" HorizontalAlignment="Left" Margin="19,65,0,0" VerticalAlignment="Top" />

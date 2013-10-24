@@ -109,9 +109,9 @@
             </Grid>
 
         </Grid>
-        <Button x:Name="repSigBtn" Content="SIGUIENTE &gt;" HorizontalAlignment="Left" Margin="301,5,0,0" Grid.Row="1" VerticalAlignment="Top" Width="75" Click="repSigBtn_Click" Height="30"/>
+        <Button x:Name="repSigBtn" Content="SIGUIENTE &gt;" HorizontalAlignment="Left" Margin="301,5,0,0" Grid.Row="1" VerticalAlignment="Top" Width="75" Height="30"/>
         <Button Content="CANCELAR" HorizontalAlignment="Left" Margin="381,5,0,0" Grid.Row="1" VerticalAlignment="Top" Width="75" IsCancel="True" Height="30"/>
-        <Button x:Name="repAntBtn" Content="&lt; ANTERIOR" HorizontalAlignment="Left" Margin="221,5,0,0" Grid.Row="1" VerticalAlignment="Top" Width="75" IsEnabled="False" Click="repAntBtn_Click" Height="30"/>
+        <Button x:Name="repAntBtn" Content="&lt; ANTERIOR" HorizontalAlignment="Left" Margin="221,5,0,0" Grid.Row="1" VerticalAlignment="Top" Width="75" IsEnabled="False"  Height="30"/>
         <Separator Height="2" Margin="0" Grid.Row="1" VerticalAlignment="Top"/>
 
     </Grid>

@@ -22,7 +22,7 @@
                     <TextBox HorizontalAlignment="Left" Height="22" Margin="111,37,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="171"/>
                     <Button x:Name="buscarSolicitudAbs" HorizontalAlignment="Left" Margin="616,64,0,0" Width="32" RenderTransformOrigin="0.3,-0.35" Height="32" VerticalAlignment="Top">
                         <Button.Background>
-                            <ImageBrush ImageSource="/pe.edu.pucp.ferretinsoft.view;component/Resources/refresh2_48.png"/>
+                            <ImageBrush ImageSource="../Resources/refresh2_48.png"/>
                         </Button.Background>
                     </Button>
                     <DataGrid Margin="10,109,10,10" Grid.RowSpan="2">
@@ -35,7 +35,7 @@
                             <DataGridTextColumn Width="2.5*" Binding="{x:Null}" ClipboardContentBinding="{x:Null}" Header="Estado"/>
                         </DataGrid.Columns>
                     </DataGrid>
-                    <Button x:Name="consolidarBtn" Content="CONSOLIDAR" Margin="691,0,10,34" VerticalAlignment="Bottom" Height="30" Click="consolidarBtn_Click" RenderTransformOrigin="0.594,-0.567"/>
+                    <Button x:Name="consolidarBtn" Content="CONSOLIDAR" Margin="691,0,10,34" VerticalAlignment="Bottom" Height="30" RenderTransformOrigin="0.594,-0.567"/>
                 </Grid>
             </TabItem>
         </TabControl>

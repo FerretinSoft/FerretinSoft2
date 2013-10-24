@@ -12,7 +12,7 @@
         <TextBox HorizontalAlignment="Left" Height="23" Margin="137,89,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120"/>
         <TextBox HorizontalAlignment="Left" Height="23" Margin="137,120,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120"/>
         <Button Content="GUARDAR" HorizontalAlignment="Left" Margin="66,159,0,0" Width="75" Height="23" VerticalAlignment="Top"/>
-        <Button Content="CANCELAR" HorizontalAlignment="Left" Margin="150,159,0,0" Width="75" Height="23" VerticalAlignment="Top" Click="Button_Click"/>
+        <Button Content="CANCELAR" HorizontalAlignment="Left" Margin="150,159,0,0" Width="75" Height="23" VerticalAlignment="Top" />
 
     </Grid>
 </Window>
