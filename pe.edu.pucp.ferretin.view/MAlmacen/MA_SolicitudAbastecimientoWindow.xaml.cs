@@ -22,6 +22,7 @@ namespace pe.edu.pucp.ferretin.view.MAlmacen
         public MA_SolicitudAbastecimientoWindow()
         {
             InitializeComponent();
+            
         }
 
         private void atenderSolBtn_Click(object sender, RoutedEventArgs e)

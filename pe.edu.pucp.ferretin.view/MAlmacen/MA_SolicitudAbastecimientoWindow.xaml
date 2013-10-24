@@ -30,18 +30,14 @@
                             <ImageBrush ImageSource="../Resources/refresh2_48.png"/>
                         </Button.Background>
                     </Button>
-                    <DataGrid Name="gridBusqueda" Margin="6,10,4,0" Grid.Row="1" AutoGenerateColumns="False" CanUserAddRows="False" CanUserDeleteRows="False" IsReadOnly="True">
+                    <DataGrid Name="gridBusqueda" Margin="6,10,4,0" Grid.Row="1" ItemsSource="{Binding Path=listaSolicitudBusqueda}" AutoGenerateColumns="False" CanUserAddRows="False" CanUserDeleteRows="False" IsReadOnly="True">
                         <DataGrid.Columns>
-                            <DataGridHyperlinkColumn Width="1*" Header="ID" >
-                                <DataGridHyperlinkColumn.ElementStyle>
-                                    <Style>
-                                        <EventSetter/>
-                                    </Style>
-                                </DataGridHyperlinkColumn.ElementStyle>
+                            <DataGridHyperlinkColumn Width="1*" Header="ID" Binding="{Binding Path=ID}">
+                                
                             </DataGridHyperlinkColumn>
-                            <DataGridTextColumn Width="2*" Header="Fecha"/>
-                            <DataGridTextColumn Width="3*" Header="Tienda"/>
-                            <DataGridTextColumn Width="2*" Header="Estado"/>
+                            <DataGridTextColumn Width="2*" Binding="{Binding Path=fecha}"  Header="Fecha"/>
+                            <DataGridTextColumn Width="3*" Binding="{Binding Path=tienda}"  Header="Tienda"/>
+                            <DataGridTextColumn Width="2*" Binding="{Binding Path=estado}"  Header="Estado"/>
                         </DataGrid.Columns>
                     </DataGrid>
                     <ComboBox x:Name="almacenCombo" HorizontalAlignment="Left" Margin="116,43,0,0" VerticalAlignment="Top" Width="155" Height="22">
@@ -76,12 +72,12 @@
                     <GroupBox Header="Resumen" Margin="10,12" BorderBrush="Black"/>
                     <Label Content="Tienda:" HorizontalAlignment="Left" Height="26" VerticalAlignment="Top" Width="64" Margin="22,39,0,0"/>
                     <Label Content="Estado:" HorizontalAlignment="Left" Height="26" VerticalAlignment="Top" Width="65" Margin="323,39,0,0"/>
-                    <DataGrid Name="gridDetalle" Margin="5,5,5,5"  Grid.Row="1" AutoGenerateColumns="False" IsReadOnly="True">
+                    <DataGrid Name="gridDetalle" Margin="5,5,5,5"  Grid.Row="1" AutoGenerateColumns="False" IsReadOnly="True" >
                         <DataGrid.Columns>
-                            <DataGridTextColumn Width="1*" Header="Cód. Producto"/>
-                            <DataGridTextColumn Width="3*" Header="Nombre"/>
-                            <DataGridTextColumn Width="1*" Header="Cantidad"/>
-                            <DataGridTextColumn Width="1*" Header="Estado"/>
+                            <DataGridTextColumn Width="1*" Binding="{Binding Path=Codigo}" Header="Cód. Producto"/>
+                            <DataGridTextColumn Width="3*" Binding="{Binding Path=Nombre}" Header="Nombre"/>
+                            <DataGridTextColumn Width="1*" Binding="{Binding Path=Cantidad}" Header="Cantidad"/>
+                            <DataGridTextColumn Width="1*" Binding="{Binding Path=Estado}" Header="Estado"/>
                         </DataGrid.Columns>
                     </DataGrid>
                     <Label Content="Fecha solicitud:" HorizontalAlignment="Left" Height="26" VerticalAlignment="Top" Width="111" Margin="22,81,0,0"/>
@@ -113,11 +109,11 @@
                     <Label Content="Estado:" HorizontalAlignment="Left" Height="26" VerticalAlignment="Top" Width="65" Margin="325,82,0,0"/>
                     <DataGrid Name="gridGenerar" Margin="8,30,2,3" Grid.Row="1" AutoGenerateColumns="False"  CanUserDeleteRows="False" IsReadOnly="True">
                         <DataGrid.Columns>
-                            <DataGridTextColumn Width="2*" Header="Cód. Producto"/>
-                            <DataGridTextColumn Width="2*" Header="Nombre"/>
-                            <DataGridTextColumn Width="2*" Header="Cantidad"/>
-                            <DataGridTextColumn Width="2*" Header="En Stock" />
-                            <DataGridTextColumn Width="2*" Header="Stock mínimo"/>
+                            <DataGridTextColumn Width="2*" Binding="{Binding Path=codigo}"  Header="Cód. Producto"/>
+                            <DataGridTextColumn Width="2*" Binding="{Binding Path=producto}"  Header="Nombre"/>
+                            <DataGridTextColumn Width="2*" Binding="{Binding Path=cantidad}"  Header="Cantidad"/>
+                            <DataGridTextColumn Width="2*" Binding="{Binding Path=stockactual}" Header="En Stock" />
+                            <DataGridTextColumn Width="2*" Binding="{Binding Path=stockmin}" Header="Stock mínimo"/>
                         </DataGrid.Columns>
                     </DataGrid>
                     <Label Content="Fecha solicitud:" HorizontalAlignment="Left" Height="26" VerticalAlignment="Top" Width="111" Margin="22,81,0,0"/>
@@ -159,14 +155,14 @@
                     <Label Content="Estado:" HorizontalAlignment="Left" Height="26" VerticalAlignment="Top" Width="65" Margin="352,79,0,0"/>
                     <DataGrid x:Name="GridAtender" Margin="5,5,5,5" Grid.Row="1"  AutoGenerateColumns="False"  CanUserDeleteRows="False" IsReadOnly="True">
                         <DataGrid.Columns>
-                            <DataGridTextColumn Width="1.2*" Header="Cód.Producto"/>
-                            <DataGridTextColumn Width="2*" Header="Nombre"/>
-                            <DataGridTextColumn Width="1*" Header="Cantidad"/>
-                            <DataGridTextColumn Width="1*" Header="En Stock"/>
+                            <DataGridTextColumn Width="1.2*" Binding="{Binding Path=ID}" Header="Cód.Producto"/>
+                            <DataGridTextColumn Width="2*" Binding="{Binding Path=nombre}" Header="Nombre"/>
+                            <DataGridTextColumn Width="1*" Binding="{Binding Path=cantidad}"  Header="Cantidad"/>
+                            <DataGridTextColumn Width="1*" Binding="{Binding Path= stock}"  Header="En Stock"/>
 
                             <DataGridCheckBoxColumn Width="1*" Header="Atender"/>
-                            <DataGridTextColumn Width="1*" Header="Saldo"/>
-                            <DataGridTextColumn Width="1*" Header="Estado"/>
+                            <DataGridTextColumn Width="1*" Binding="{Binding Path=saldo}"  Header="Saldo"/>
+                            <DataGridTextColumn Width="1*" Binding="{Binding Path=estado}"  Header="Estado"/>
                         </DataGrid.Columns>
                     </DataGrid>
                     <Label Content="Fecha solicitud:" HorizontalAlignment="Left" Height="26" VerticalAlignment="Top" Width="111" Margin="22,81,0,0"/>
