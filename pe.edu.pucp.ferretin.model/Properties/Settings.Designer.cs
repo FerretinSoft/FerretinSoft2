@@ -27,10 +27,21 @@ namespace pe.edu.pucp.ferretin.model.Properties {
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.ConnectionString)]
         [global::System.Configuration.DefaultSettingValueAttribute("Data Source=inti.lab.inf.pucp.edu.pe;Initial Catalog=inf245g2;Persist Security In" +
-            "fo=True;User ID=inf245g2usr;Password=server")]
+            "fo=True;User ID=inf245g2dba;Password=interior")]
         public string inf245g2ConnectionString {
             get {
                 return ((string)(this["inf245g2ConnectionString"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.ConnectionString)]
+        [global::System.Configuration.DefaultSettingValueAttribute("Data Source=inti.lab.inf.pucp.edu.pe;Initial Catalog=inf245g2;Persist Security In" +
+            "fo=True;User ID=inf245g2usr;Password=server")]
+        public string inf245g2ConnectionString1 {
+            get {
+                return ((string)(this["inf245g2ConnectionString1"]));
             }
         }
     }
