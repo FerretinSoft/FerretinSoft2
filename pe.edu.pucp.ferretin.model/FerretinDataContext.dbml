@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?><Database Name="inf245g2" Class="FerretinDataContextDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
+﻿<?xml version="1.0" encoding="utf-8"?><Database Name="inf245g2" ContextNamespace="pe.edu.pucp.ferretin.model" Class="FerretinDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
   <Connection Mode="AppSettings" ConnectionString="Data Source=inti.lab.inf.pucp.edu.pe;Initial Catalog=inf245g2;Persist Security Info=True;User ID=inf245g2usr" SettingsObjectName="pe.edu.pucp.ferretin.model.Properties.Settings" SettingsPropertyName="inf245g2ConnectionString" Provider="System.Data.SqlClient" />
   <Table Name="dbo.Tbl_Almacen" Member="Tbl_Almacen">
     <Type Name="Tbl_Almacen">
@@ -28,7 +28,7 @@
       <Association Name="Tbl_Almacen_Tbl_Turno" Member="Tbl_Turno" ThisKey="id" OtherKey="id_almacen" Type="Tbl_Turno" />
       <Association Name="Tbl_Almacen_Tbl_Almacen" Member="Tbl_Almacen1" ThisKey="id_abastecedor" OtherKey="id" Type="Tbl_Almacen" IsForeignKey="true" />
       <Association Name="Tbl_Empleado_Tbl_Almacen" Member="Tbl_Empleado" ThisKey="id_jefe" OtherKey="dni" Type="Tbl_Empleado" IsForeignKey="true" />
-      <Association Name="Tbl_Ubigeo_Distrito_Tbl_Almacen" Member="Tbl_Ubigeo_Distrito" ThisKey="id_ubigeo" OtherKey="id" Type="Tbl_Ubigeo_Distrito" IsForeignKey="true" />
+      <Association Name="Tbl_Ubigeo_Distrito_Tbl_Almacen" Member="UbigeoDistrito" Storage="_Tbl_Ubigeo_Distrito" ThisKey="id_ubigeo" OtherKey="id" Type="UbigeoDistrito" IsForeignKey="true" />
     </Type>
   </Table>
   <Table Name="dbo.Tbl_Venta_Producto" Member="Tbl_Venta_Producto">
@@ -103,7 +103,7 @@
       <Association Name="Tbl_Cliente_Tbl_Proforma" Member="Tbl_Proforma" ThisKey="id" OtherKey="id_cliente" Type="Tbl_Proforma" />
       <Association Name="Tbl_Cliente_Tbl_Venta" Member="Tbl_Venta" ThisKey="id" OtherKey="id_cliente" Type="Tbl_Venta" />
       <Association Name="Tbl_Empleado_Tbl_Cliente" Member="Tbl_Empleado" ThisKey="dni_empleado_registro" OtherKey="dni" Type="Tbl_Empleado" IsForeignKey="true" />
-      <Association Name="Tbl_Ubigeo_Distrito_Tbl_Cliente" Member="Tbl_Ubigeo_Distrito" ThisKey="id_ubigeo" OtherKey="id" Type="Tbl_Ubigeo_Distrito" IsForeignKey="true" />
+      <Association Name="Tbl_Ubigeo_Distrito_Tbl_Cliente" Member="UbigeoDistrito" Storage="_Tbl_Ubigeo_Distrito" ThisKey="id_ubigeo" OtherKey="id" Type="UbigeoDistrito" IsForeignKey="true" />
     </Type>
   </Table>
   <Table Name="dbo.Tbl_Color" Member="Tbl_Color">
@@ -168,7 +168,7 @@
       <Association Name="Tbl_Empleado_Tbl_Empleado_Turno" Member="Tbl_Empleado_Turno" ThisKey="dni" OtherKey="dni" Type="Tbl_Empleado_Turno" />
       <Association Name="Tbl_Empleado_Tbl_Usuario" Member="Tbl_Usuario" ThisKey="dni" OtherKey="dni" Type="Tbl_Usuario" />
       <Association Name="Tbl_Grado_Instruccion_Tbl_Empleado" Member="Tbl_Grado_Instruccion" ThisKey="id_grado_instruccion" OtherKey="id" Type="Tbl_Grado_Instruccion" IsForeignKey="true" />
-      <Association Name="Tbl_Ubigeo_Distrito_Tbl_Empleado" Member="Tbl_Ubigeo_Distrito" ThisKey="id_ubigeo" OtherKey="id" Type="Tbl_Ubigeo_Distrito" IsForeignKey="true" />
+      <Association Name="Tbl_Ubigeo_Distrito_Tbl_Empleado" Member="UbigeoDistrito" Storage="_Tbl_Ubigeo_Distrito" ThisKey="id_ubigeo" OtherKey="id" Type="UbigeoDistrito" IsForeignKey="true" />
     </Type>
   </Table>
   <Table Name="dbo.Tbl_Empleado_Almacen" Member="Tbl_Empleado_Almacen">
@@ -412,7 +412,7 @@
       <Column Name="codigoPostal" Type="System.String" DbType="VarChar(15)" CanBeNull="true" />
       <Association Name="Tbl_Proveedor_Tbl_Proveedor_Catalogo" Member="Tbl_Proveedor_Catalogo" ThisKey="id" OtherKey="id_proveedor" Type="Tbl_Proveedor_Catalogo" />
       <Association Name="Tbl_Rubro_Tbl_Proveedor" Member="Tbl_Rubro" ThisKey="id_rubro" OtherKey="id" Type="Tbl_Rubro" IsForeignKey="true" />
-      <Association Name="Tbl_Ubigeo_Distrito_Tbl_Proveedor" Member="Tbl_Ubigeo_Distrito" ThisKey="id_ubigeo" OtherKey="id" Type="Tbl_Ubigeo_Distrito" IsForeignKey="true" />
+      <Association Name="Tbl_Ubigeo_Distrito_Tbl_Proveedor" Member="UbigeoDistrito" Storage="_Tbl_Ubigeo_Distrito" ThisKey="id_ubigeo" OtherKey="id" Type="UbigeoDistrito" IsForeignKey="true" />
     </Type>
   </Table>
   <Table Name="dbo.Tbl_Proveedor_Catalogo" Member="Tbl_Proveedor_Catalogo">
@@ -504,15 +504,15 @@
       <Association Name="Tbl_Dia_Tbl_Turno" Member="Tbl_Dia" ThisKey="id_dia" OtherKey="id" Type="Tbl_Dia" IsForeignKey="true" />
     </Type>
   </Table>
-  <Table Name="dbo.Tbl_Ubigeo_Departamento" Member="Tbl_Ubigeo_Departamento">
-    <Type Name="Tbl_Ubigeo_Departamento">
+  <Table Name="dbo.Tbl_Ubigeo_Departamento" Member="UbigeoDepartamento">
+    <Type Name="UbigeoDepartamento">
       <Column Name="id" Type="System.String" DbType="Char(2) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
       <Column Name="nombre" Type="System.String" DbType="VarChar(200)" CanBeNull="true" />
-      <Association Name="Tbl_Ubigeo_Departamento_Tbl_Ubigeo_Provincia" Member="Tbl_Ubigeo_Provincia" ThisKey="id" OtherKey="id_ubig_departamento" Type="Tbl_Ubigeo_Provincia" />
+      <Association Name="Tbl_Ubigeo_Departamento_Tbl_Ubigeo_Provincia" Member="UbigeoProvincia" Storage="_Tbl_Ubigeo_Provincia" ThisKey="id" OtherKey="id_ubig_departamento" Type="UbigeoProvincia" />
     </Type>
   </Table>
-  <Table Name="dbo.Tbl_Ubigeo_Distrito" Member="Tbl_Ubigeo_Distrito">
-    <Type Name="Tbl_Ubigeo_Distrito">
+  <Table Name="dbo.Tbl_Ubigeo_Distrito" Member="UbigeoDistrito">
+    <Type Name="UbigeoDistrito">
       <Column Name="id" Type="System.String" DbType="Char(6) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
       <Column Name="nombre" Type="System.String" DbType="VarChar(200)" CanBeNull="true" />
       <Column Name="id_ubig_provincia" Type="System.String" DbType="Char(4)" CanBeNull="true" />
@@ -520,16 +520,16 @@
       <Association Name="Tbl_Ubigeo_Distrito_Tbl_Cliente" Member="Tbl_Cliente" ThisKey="id" OtherKey="id_ubigeo" Type="Tbl_Cliente" />
       <Association Name="Tbl_Ubigeo_Distrito_Tbl_Empleado" Member="Tbl_Empleado" ThisKey="id" OtherKey="id_ubigeo" Type="Tbl_Empleado" />
       <Association Name="Tbl_Ubigeo_Distrito_Tbl_Proveedor" Member="Tbl_Proveedor" ThisKey="id" OtherKey="id_ubigeo" Type="Tbl_Proveedor" />
-      <Association Name="Tbl_Ubigeo_Provincia_Tbl_Ubigeo_Distrito" Member="Tbl_Ubigeo_Provincia" ThisKey="id_ubig_provincia" OtherKey="id" Type="Tbl_Ubigeo_Provincia" IsForeignKey="true" />
+      <Association Name="Tbl_Ubigeo_Provincia_Tbl_Ubigeo_Distrito" Member="UbigeoProvincia" Storage="_Tbl_Ubigeo_Provincia" ThisKey="id_ubig_provincia" OtherKey="id" Type="UbigeoProvincia" IsForeignKey="true" />
     </Type>
   </Table>
-  <Table Name="dbo.Tbl_Ubigeo_Provincia" Member="Tbl_Ubigeo_Provincia">
-    <Type Name="Tbl_Ubigeo_Provincia">
+  <Table Name="dbo.Tbl_Ubigeo_Provincia" Member="UbigeoProvincia">
+    <Type Name="UbigeoProvincia">
       <Column Name="id" Type="System.String" DbType="Char(4) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
       <Column Name="nombre" Type="System.String" DbType="VarChar(200)" CanBeNull="true" />
       <Column Name="id_ubig_departamento" Type="System.String" DbType="Char(2)" CanBeNull="true" />
-      <Association Name="Tbl_Ubigeo_Provincia_Tbl_Ubigeo_Distrito" Member="Tbl_Ubigeo_Distrito" ThisKey="id" OtherKey="id_ubig_provincia" Type="Tbl_Ubigeo_Distrito" />
-      <Association Name="Tbl_Ubigeo_Departamento_Tbl_Ubigeo_Provincia" Member="Tbl_Ubigeo_Departamento" ThisKey="id_ubig_departamento" OtherKey="id" Type="Tbl_Ubigeo_Departamento" IsForeignKey="true" />
+      <Association Name="Tbl_Ubigeo_Provincia_Tbl_Ubigeo_Distrito" Member="UbigeoDistrito" Storage="_Tbl_Ubigeo_Distrito" ThisKey="id" OtherKey="id_ubig_provincia" Type="UbigeoDistrito" />
+      <Association Name="Tbl_Ubigeo_Departamento_Tbl_Ubigeo_Provincia" Member="UbigeoDepartamento" Storage="_Tbl_Ubigeo_Departamento" ThisKey="id_ubig_departamento" OtherKey="id" Type="UbigeoDepartamento" IsForeignKey="true" />
     </Type>
   </Table>
   <Table Name="dbo.Tbl_Unidad_Medida" Member="Tbl_Unidad_Medida">
