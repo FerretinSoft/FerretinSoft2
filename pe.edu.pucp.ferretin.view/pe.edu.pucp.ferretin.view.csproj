@@ -129,6 +129,50 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="MVentas\MV_AdministrarNotaCreditoWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="MVentas\MV_AdministrarProformasWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="MVentas\MV_AdministrarPromocionesWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="MVentas\MV_AdministrarValesWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="MVentas\MV_AdministrarVentasWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="MVentas\MV_ClientesWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="MVentas\MV_DevolucionesWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="MVentas\MV_MainWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="MVentas\MV_PagoWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="MVentas\MV_RegistrarVentaWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="MVentas\MV_ReportesVentasWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="MAlmacen\MA_InventarioProductosWindow.xaml.cs">
@@ -178,6 +222,39 @@
     </Compile>
     <Compile Include="MSeguridad\MS_ParametrosWindow.xaml.cs">
       <DependentUpon>MS_ParametrosWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="MVentas\MV_AdministrarNotaCreditoWindow.xaml.cs">
+      <DependentUpon>MV_AdministrarNotaCreditoWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="MVentas\MV_AdministrarProformasWindow.xaml.cs">
+      <DependentUpon>MV_AdministrarProformasWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="MVentas\MV_AdministrarPromocionesWindow.xaml.cs">
+      <DependentUpon>MV_AdministrarPromocionesWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="MVentas\MV_AdministrarValesWindow.xaml.cs">
+      <DependentUpon>MV_AdministrarValesWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="MVentas\MV_AdministrarVentasWindow.xaml.cs">
+      <DependentUpon>MV_AdministrarVentasWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="MVentas\MV_ClientesWindow.xaml.cs">
+      <DependentUpon>MV_ClientesWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="MVentas\MV_DevolucionesWindow.xaml.cs">
+      <DependentUpon>MV_DevolucionesWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="MVentas\MV_MainWindow.xaml.cs">
+      <DependentUpon>MV_MainWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="MVentas\MV_PagoWindow.xaml.cs">
+      <DependentUpon>MV_PagoWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="MVentas\MV_RegistrarVentaWindow.xaml.cs">
+      <DependentUpon>MV_RegistrarVentaWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="MVentas\MV_ReportesVentasWindow.xaml.cs">
+      <DependentUpon>MV_ReportesVentasWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
@@ -255,7 +332,6 @@
   <ItemGroup>
     <Folder Include="MCompras\" />
     <Folder Include="MRecursosHumanos\" />
-    <Folder Include="MVentas\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

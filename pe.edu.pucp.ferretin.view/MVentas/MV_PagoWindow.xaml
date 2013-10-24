@@ -1,0 +1,96 @@
+﻿<Window x:Class="pe.edu.pucp.ferretin.view.MVentas.MV_PagoWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Registro de Pago" Height="399.82" Width="587.657" Icon="../Resources/ferretin_ico.ico">
+    <Grid Margin="0">
+        <Grid.Background>
+            <ImageBrush ImageSource="../Resources/texture_3_100.png" TileMode="FlipX" 
+            Viewport="0,0,100,100" ViewportUnits="Absolute"/>
+        </Grid.Background>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition></RowDefinition>
+            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition Height="Auto"></RowDefinition>
+        </Grid.RowDefinitions>
+        <GroupBox Header="Detalles" Margin="5,5" BorderBrush="Gray">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                </Grid.RowDefinitions>
+                <StackPanel Orientation="Horizontal" Grid.Row="0" Margin="5,0">
+                    <Label Content="Tipo de documento:" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                    <RadioButton Content="Boleta" HorizontalAlignment="Left"  VerticalAlignment="Center" Margin="15,0,0,0"/>
+                    <RadioButton Content="Factura" HorizontalAlignment="Left" VerticalAlignment="Center" IsChecked="True" Margin="15,0,0,0"/>
+                </StackPanel>
+                <Grid Grid.Row="1"  Margin="5,0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"></ColumnDefinition>
+                        <ColumnDefinition Width="100"></ColumnDefinition>
+                        <ColumnDefinition Width="Auto"></ColumnDefinition>
+                        <ColumnDefinition ></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <Label Content="RUC:" HorizontalAlignment="Left"  VerticalAlignment="Center"/>
+                    <TextBox Grid.Column="1" Text ="DNI/RUC" VerticalAlignment="Center"/>
+                    <Label Grid.Column="2" Content="Razón Social:" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                    <TextBox Grid.Column="3" Text ="Razón Social/Nombre Apellido"  VerticalAlignment="Center"/>
+                </Grid>
+            </Grid>
+        </GroupBox>
+
+
+        <DataGrid Grid.Row="2" Margin="5,0" VerticalAlignment="Stretch">
+            <DataGrid.Columns>
+                <DataGridComboBoxColumn Width="1*" ClipboardContentBinding="{x:Null}" Header="Modo de pago" SelectedValueBinding="{x:Null}" SelectedItemBinding="{x:Null}" TextBinding="{x:Null}"/>
+                <DataGridTextColumn Width="2*" Binding="{x:Null}" ClipboardContentBinding="{x:Null}" Header="Descripción"/>
+                <DataGridTextColumn Width="1*" Binding="{x:Null}" ClipboardContentBinding="{x:Null}" Header="Cod. Vale"/>
+                <DataGridComboBoxColumn Width="1*" ClipboardContentBinding="{x:Null}" Header="Moneda" SelectedValueBinding="{x:Null}" SelectedItemBinding="{x:Null}" TextBinding="{x:Null}"/>
+                <DataGridTextColumn Width="1*" Binding="{x:Null}" ClipboardContentBinding="{x:Null}" Header="Importe"/>
+            </DataGrid.Columns>
+        </DataGrid>
+        <Grid Grid.Row="3" Margin="10,5">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"></ColumnDefinition>
+                <ColumnDefinition Width="80"></ColumnDefinition>
+                <ColumnDefinition Width="Auto"></ColumnDefinition>
+                <ColumnDefinition Width="60"></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition Width="Auto"></ColumnDefinition>
+                <ColumnDefinition Width="80"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+            </Grid.RowDefinitions>
+
+            <Label Grid.Row="0" Grid.Column="5" Content="Sub Total:" />
+            <Label Grid.Row="1" Grid.Column="5" Content="% IGV:"/>
+            <Label Grid.Row="2" Grid.Column="5" Content="Total a Pagar:"/>
+
+            <TextBox Grid.Row="0" Grid.Column="6" TextAlignment="Right" Text="0.00" VerticalAlignment="Center" IsEnabled="False" Height="22" Margin="0,2"/>
+            <TextBox Grid.Row="1" Grid.Column="6" TextAlignment="Right" Text="0.00" VerticalAlignment="Center" IsEnabled="False" Height="22" Margin="0,2"/>
+            <TextBox Grid.Row="2" Grid.Column="6" TextAlignment="Right" Text="0.00" VerticalAlignment="Center" IsEnabled="False" Height="22" Margin="0,2"/>
+
+            <Label Grid.Row="0" Grid.Column="0" Content="Cobrado:" />
+            <Label Grid.Row="1" Grid.Column="0" Content="Diferencia:" />
+            <Label Grid.Row="0" Grid.Column="2" Content="Puntos Canjeados:" />
+            <Label Grid.Row="1" Grid.Column="2" Content="Puntos Ganados:" />
+
+            <TextBox Grid.Row="0" Grid.Column="1" TextAlignment="Right" Text="0.00" VerticalAlignment="Center" IsEnabled="False" Height="22" Margin="0,2"/>
+            <TextBox Grid.Row="1" Grid.Column="1" TextAlignment="Right" Text="0.00" VerticalAlignment="Center" IsEnabled="False" Height="22" Margin="0,2"/>
+            <TextBox Grid.Row="0" Grid.Column="3" TextAlignment="Right" Text="0" VerticalAlignment="Center" IsEnabled="False" Height="22" Margin="0,2"/>
+            <TextBox Grid.Row="1" Grid.Column="3" TextAlignment="Right" Text="0" VerticalAlignment="Center" IsEnabled="False" Height="22" Margin="0,2"/>
+        </Grid>
+        <Grid Grid.Row="5" Margin="10,5">
+
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                <Button Content="IMPRIMIR DOCUMENTO" VerticalAlignment="Center" Height="30" Padding="5,0" Margin="0,0,5,0"/>
+                <Button Content="CANCELAR" VerticalAlignment="Center"  Height="30" Click="Button_Click_1" Padding="5,0" Margin="0"/>
+            </StackPanel>
+        </Grid>
+
+    </Grid>
+</Window>

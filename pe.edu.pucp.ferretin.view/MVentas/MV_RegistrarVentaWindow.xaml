@@ -1,0 +1,162 @@
+﻿<Window x:Class="pe.edu.pucp.ferretin.view.MVentas.MV_RegistrarVentaWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Registrar Venta" Height="487" Width="909" Icon="../Resources/ferretin_ico.ico">
+    <Grid>
+        <Grid.Background>
+            <ImageBrush ImageSource="../Resources/texture_3_100.png" TileMode="FlipX" 
+            Viewport="0,0,100,100" ViewportUnits="Absolute"/>
+        </Grid.Background>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="1*"></ColumnDefinition>
+            <ColumnDefinition x:Name="clienteViewColumn" MaxWidth="250" Width="{Binding widthClienteBar,FallbackValue=0,Mode=OneWay}"></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition></RowDefinition>
+        </Grid.RowDefinitions>
+
+        <Grid Margin="5,5"  Grid.Column="0" Grid.Row="0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"></ColumnDefinition>
+                <ColumnDefinition Width="120"></ColumnDefinition>
+                <ColumnDefinition Width="Auto"></ColumnDefinition>
+                <ColumnDefinition Width="1*"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+            </Grid.RowDefinitions>
+
+            <Label Grid.Column="0" Grid.Row="0" Content="Fecha:" Margin="0,0,0,0"/>
+            <Label Grid.Column="2" Grid.Row="0" Content="Proforma:" Margin="0,0,0,0"/>
+            <Label Grid.Column="0" Grid.Row="1" Content="Cód. Venta:" Margin="0,0,0,0"/>
+            <Label Grid.Column="2" Grid.Row="1" Content="Vendedor:" Margin="0,0,0,0"/>
+            <Label Grid.Column="0" Grid.Row="3" Content="Cliente DNI/RUC:"  Margin="0,0,0,0"/>
+            <TextBox Grid.Column="1" Grid.Row="0" IsEnabled="False" Text="24/09/2013" VerticalContentAlignment="Center" Margin="0,2,18,2" VerticalAlignment="Center"/>
+            <TextBox Grid.Column="1" Grid.Row="1" IsEnabled="False" Text="Auto" VerticalContentAlignment="Center" Margin="0,2,18,2" VerticalAlignment="Center"/>
+            <Grid Grid.Column="1" Grid.Row="2">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+                <TextBox IsEnabled="True" Text="{Binding nroDocCliente}" VerticalContentAlignment="Center" VerticalAlignment="Center"/>
+                <Button x:Name="buscarClienteBtn" Grid.Column="1" HorizontalAlignment="Right" VerticalAlignment="Center" Width="18" Height="18" Margin="0,5,0,5" Padding="0" BorderThickness="0" Click="buscarClienteBtn_Click">
+                    <Button.Background>
+                        <ImageBrush ImageSource="../Resources/search1_20.png"/>
+                    </Button.Background>
+                </Button>
+            </Grid>
+            <TextBox Grid.Column="3" Grid.Row="0" IsEnabled="False" Text="" VerticalContentAlignment="Center" Margin="0,2,20,2" VerticalAlignment="Center"/>
+            <Button Grid.Column="3" Grid.Row="0" x:Name="buscarProformaBtn" HorizontalAlignment="Right" VerticalAlignment="Center" Width="18" Height="18" Margin="0,5,0,5" Padding="0" Click="buscarProformaBtn_Click" BorderThickness="0">
+                <Button.Background>
+                    <ImageBrush ImageSource="../Resources/search1_20.png"/>
+                </Button.Background>
+            </Button>
+            <TextBox Grid.Column="3" Grid.Row="1" IsEnabled="False" Text="Nombre Apellido" VerticalContentAlignment="Center" Margin="0,2,0,2" VerticalAlignment="Center" />
+            <TextBox Text="{Binding cliente.nombreCompleto,Mode=OneWay}" Grid.Column="2" Grid.Row="2" Grid.ColumnSpan="2" VerticalAlignment="Center" Margin="5,0,0,2" IsEnabled="False"/>
+        </Grid>
+
+        <Grid Margin="5,5"  Grid.Column="0" Grid.Row="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"></RowDefinition>
+                <RowDefinition></RowDefinition>
+                <RowDefinition Height="Auto"></RowDefinition>
+                <RowDefinition Height="Auto"></RowDefinition>
+            </Grid.RowDefinitions>
+            <ToolBar HorizontalAlignment="Left" Margin="5,0,0,0" VerticalAlignment="Top" Height="24" Grid.Row="0">
+                <Button x:Name="nuevoProductoBtn" Content="" VerticalAlignment="Stretch" Width="20" Margin="0,0,2,-1" Click="nuevoProductoBtn_Click">
+                    <Button.Background>
+                        <ImageBrush ImageSource="../Resources/add_20.png" Stretch="None"/>
+                    </Button.Background>
+                </Button>
+
+                <Button Content="" Height="20" VerticalAlignment="Top" Width="20" Margin="0,0,2,0">
+                    <Button.Background>
+                        <ImageBrush ImageSource="../Resources/trash_20.png"/>
+                    </Button.Background>
+                </Button>
+            </ToolBar>
+            <DataGrid Grid.Row="1" Grid.Column="0" VerticalAlignment="Stretch" Margin="0,5">
+                <DataGrid.Columns>
+                    <DataGridHyperlinkColumn Width="1.5*" Binding="{x:Null}" ContentBinding="{x:Null}" ClipboardContentBinding="{x:Null}" Header="Código"/>
+                    <DataGridTextColumn Width="2*" Binding="{x:Null}" ClipboardContentBinding="{x:Null}" Header="Descripción"/>
+                    <DataGridTextColumn Width="1.2*" Binding="{x:Null}" ClipboardContentBinding="{x:Null}" Header="Cantidad"/>
+                    <DataGridTextColumn Width="1.2*" Binding="{x:Null}" ClipboardContentBinding="{x:Null}" Header="Moneda"/>
+                    <DataGridTextColumn Width="1*" Binding="{x:Null}" ClipboardContentBinding="{x:Null}" Header="Precio"/>
+                    <DataGridTextColumn Width="1.5*" Binding="{x:Null}" ClipboardContentBinding="{x:Null}" Header="Dscto. (%)"/>
+                    <DataGridTextColumn Width="1.2*" Binding="{x:Null}" ClipboardContentBinding="{x:Null}" Header="Importe"/>
+                    <DataGridTextColumn Width="1.7*" Binding="{x:Null}" ClipboardContentBinding="{x:Null}" Header="Precio Puntos"/>
+                    <DataGridTextColumn Width="1*" Binding="{x:Null}" ClipboardContentBinding="{x:Null}" Header="Canjear"/>
+                </DataGrid.Columns>
+            </DataGrid>
+            <Grid Grid.Row="2" Grid.Column="0" Margin="0,5">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="1*"></ColumnDefinition>
+                    <ColumnDefinition Width="180"></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+
+                <Grid Grid.Column="1">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="109"></ColumnDefinition>
+                        <ColumnDefinition></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition></RowDefinition>
+                        <RowDefinition></RowDefinition>
+                        <RowDefinition></RowDefinition>
+                        <RowDefinition></RowDefinition>
+                    </Grid.RowDefinitions>
+                    <Label Content="Puntos Canjeados:" Grid.Row="0"/>
+                    <Label Content="Sub Total:" Grid.Row="1"/>
+                    <Label Content="Total a Pagar:" Grid.Row="3"/>
+                    <Label Content="%IGV:" Grid.Row="2"/>
+                    <TextBox TextWrapping="Wrap" Text="0" Grid.Column="1" HorizontalContentAlignment="Right" Grid.Row="0" VerticalContentAlignment="Center" Margin="0,2,0,2" IsEnabled="False"/>
+                    <TextBox TextWrapping="Wrap" Text="0.00" Grid.Column="1" HorizontalContentAlignment="Right" Grid.Row="1" VerticalContentAlignment="Center" Margin="0,2,0,2"/>
+                    <TextBox TextWrapping="Wrap" Text="0.00" Grid.Column="1" HorizontalContentAlignment="Right" Grid.Row="2" VerticalContentAlignment="Center" Margin="0,2,0,2"/>
+                    <TextBox TextWrapping="Wrap" Text="0.00" Grid.Column="1" HorizontalContentAlignment="Right" Grid.Row="3" VerticalContentAlignment="Center" Margin="0,2,0,2"/>
+                </Grid>
+            </Grid>
+            <Grid Grid.Row="3" Margin="0,5,0,0">
+                <Button Grid.Column="1" x:Name="pagarBtn" Content="PAGAR" HorizontalAlignment="Right"  VerticalAlignment="Center" Width="75" Height="30" Click="pagarBtn_Click" Margin="0,0,80,0"/>
+                <Button Grid.Column="1" Content="CANCELAR" HorizontalAlignment="Right"  VerticalAlignment="Center" Width="75" Height="30" Click="Button_Click_1"/>
+            </Grid>
+        </Grid>
+
+
+        <StackPanel Grid.Column="1" Grid.Row="1" >
+            <Label Content="Datos Cliente" HorizontalAlignment="Center" FontSize="14" FontWeight="Bold"/>
+            <Image HorizontalAlignment="Center" Height="100" Width="100" Source="../Resources/cliente_1.png" Stretch="Fill"/>
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"></ColumnDefinition>
+                    <ColumnDefinition></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                </Grid.RowDefinitions>
+                <Label Content="Tipo:" Grid.Row="0" />
+                <Label Content="DNI/RUC:" Grid.Row="1" />
+                <Label Content="Teléfono:" Grid.Row="2" />
+                <Label Content="Correo:" Grid.Row="3"/>
+                <Label Content="Últ. Compra:" Grid.Row="4"/>
+                <Label Content="Puntos:" Grid.Row="5"/>
+                <Label Content="{Binding cliente.tipoDocumento}" Grid.Row="0" Grid.Column="1" />
+                <Label Content="{Binding cliente.nroDoc}" Grid.Row="1" Grid.Column="1" />
+                <Label Content="{Binding cliente.telefono1}" Grid.Row="2" Grid.Column="1" />
+                <Label Content="{Binding cliente.email}" Grid.Row="3" Grid.Column="1"/>
+                <Label Content="{Binding cliente.ultimaCompra}" Grid.Row="4" Grid.Column="1"/>
+                <Label Content="{Binding cliente.puntos}" Grid.Row="5" Grid.Column="1"/>
+            </Grid>
+        </StackPanel>
+
+        <GridSplitter Grid.Column="0" Grid.Row="0" Width="2" Grid.RowSpan="2" HorizontalAlignment="Right" VerticalAlignment="Stretch" BorderBrush="Gray"/>
+    </Grid>
+</Window>
+
