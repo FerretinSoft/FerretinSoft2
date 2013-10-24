@@ -60,7 +60,7 @@ namespace pe.edu.pucp.ferretin.controller
 
         public static void InsertarMovimiento(Movimiento mov)
         {
-            //mov.;
+            //mov.co;
             dc.SubmitChanges();
         }
     }
