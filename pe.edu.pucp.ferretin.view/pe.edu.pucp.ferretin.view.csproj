@@ -133,6 +133,14 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="MRecursosHumanos\MR_AdministrarPersonalWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="MRecursosHumanos\MR_MainWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="MSeguridad\MS_AdministrarPerfiles.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -265,6 +273,12 @@
     </Compile>
     <Compile Include="MCompras\MC_ReportesWindow.xaml.cs">
       <DependentUpon>MC_ReportesWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="MRecursosHumanos\MR_AdministrarPersonalWindow.xaml.cs">
+      <DependentUpon>MR_AdministrarPersonalWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="MRecursosHumanos\MR_MainWindow.xaml.cs">
+      <DependentUpon>MR_MainWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="MSeguridad\MS_AdministrarPerfiles.xaml.cs">
       <DependentUpon>MS_AdministrarPerfiles.xaml</DependentUpon>
@@ -399,9 +413,7 @@
     <Resource Include="Resources\user_male2_64.png" />
     <Resource Include="Resources\view_48.png" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="MRecursosHumanos\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
