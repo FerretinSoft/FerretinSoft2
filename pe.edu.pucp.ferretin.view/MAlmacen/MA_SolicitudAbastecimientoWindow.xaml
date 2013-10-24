@@ -1,0 +1,191 @@
+﻿<Window x:Class="pe.edu.pucp.ferretin.view.MAlmacen.MA_SolicitudAbastecimientoWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Solicitudes de Abastecimiento" Height="487" Width="704" Icon="../Resources/ferretin_ico.ico" ResizeMode="CanMinimize">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="203*"/>
+            <RowDefinition Height="25*"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <TabControl x:Name="solicitudesTab" Margin="0" Grid.RowSpan="2">
+            <TabItem Header="Búsqueda" x:Name="busquedaTab">
+                <Grid Background="#FFE5E5E5" Margin="0,-1,0.089,1.23">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="133*"></RowDefinition>
+                        <RowDefinition Height="295*"></RowDefinition>
+                    </Grid.RowDefinitions>
+                    <GroupBox x:Name="nombreFilterTxt" Header="Parámetros" Margin="6,10,10,14" BorderBrush="Black"/>
+                    <Label Content="Almacén:" HorizontalAlignment="Left" Height="26" VerticalAlignment="Top" Width="64" Margin="22,39,0,0"/>
+                    <Label Content="Estado:" HorizontalAlignment="Left" Height="26" VerticalAlignment="Top" Width="65" Margin="323,39,0,0"/>
+                    <Button x:Name="consolidarBtn" Content="CONSOLIDAR" Margin="564,0,0,67" VerticalAlignment="Bottom" Height="23" Click="consolidarBtn_Click" RenderTransformOrigin="0.594,-0.567" HorizontalAlignment="Left" Width="88" Visibility="Hidden"/>
+                    <Button x:Name="buscarClienteBtn" HorizontalAlignment="Left" Margin="620,76,0,0" VerticalAlignment="Top" Width="32" Height="29" RenderTransformOrigin="0.3,-0.35">
+
+                        <Button.Background>
+                            <ImageBrush ImageSource="../Resources/refresh2_48.png"/>
+                        </Button.Background>
+                    </Button>
+                    <DataGrid Name="gridBusqueda" Margin="6,10,4,0" Grid.Row="1" AutoGenerateColumns="False" CanUserAddRows="False" CanUserDeleteRows="False" IsReadOnly="True">
+                        <DataGrid.Columns>
+                            <DataGridHyperlinkColumn Width="1*" Header="ID" >
+                                <DataGridHyperlinkColumn.ElementStyle>
+                                    <Style>
+                                        <EventSetter/>
+                                    </Style>
+                                </DataGridHyperlinkColumn.ElementStyle>
+                            </DataGridHyperlinkColumn>
+                            <DataGridTextColumn Width="2*" Header="Fecha"/>
+                            <DataGridTextColumn Width="3*" Header="Tienda"/>
+                            <DataGridTextColumn Width="2*" Header="Estado"/>
+                        </DataGrid.Columns>
+                    </DataGrid>
+                    <ComboBox x:Name="almacenCombo" HorizontalAlignment="Left" Margin="116,43,0,0" VerticalAlignment="Top" Width="155" Height="22">
+                        <CheckBox Content="Todos" IsChecked="True"/>
+                        <CheckBox Content="Almacén Central"/>
+                        <CheckBox Content="Tienda 1" IsChecked="True"/>
+                        <CheckBox Content="Tienda 2" IsChecked="True"/>
+                        <CheckBox Content="Tienda 3" IsChecked="True"/>
+                    </ComboBox>
+                    <ComboBox x:Name="categoriaCombo" HorizontalAlignment="Left" Margin="402,43,0,0" VerticalAlignment="Top" Width="134" Height="22">
+                        <CheckBox Content="Todo" IsChecked="True"/>
+                        <CheckBox Content="Pendientes" IsChecked="True"/>
+                        <CheckBox Content="Parcialmente atendidas" IsChecked="True"/>
+                        <CheckBox Content="Atendidas" IsChecked="True"/>
+                    </ComboBox>
+                    <Label Content="Fecha hasta:" HorizontalAlignment="Left" Height="26" VerticalAlignment="Top" Width="89" Margin="323,80,0,0"/>
+                    <Label Content="Fecha desde:" HorizontalAlignment="Left" Height="26" VerticalAlignment="Top" Width="92" Margin="22,80,0,0" RenderTransformOrigin="0.48,2.068"/>
+                    <DatePicker HorizontalAlignment="Left" Margin="404,81,0,0" VerticalAlignment="Top" Width="133"/>
+                    <DatePicker HorizontalAlignment="Left" Margin="116,81,0,0" VerticalAlignment="Top" Width="157"/>
+                </Grid>
+            </TabItem>
+            <TabItem Header="Detalle" x:Name="detalleTab">
+                <Grid Background="#FFE5E5E5">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="133*"></RowDefinition>
+                        <RowDefinition Height="246*"></RowDefinition>
+                        <RowDefinition Height="49*"/>
+                    </Grid.RowDefinitions>
+                    <GroupBox Header="Resumen" Margin="10,12" BorderBrush="Black"/>
+                    <Label Content="Tienda:" HorizontalAlignment="Left" Height="26" VerticalAlignment="Top" Width="64" Margin="22,39,0,0"/>
+                    <Label Content="Estado:" HorizontalAlignment="Left" Height="26" VerticalAlignment="Top" Width="65" Margin="323,39,0,0"/>
+                    <DataGrid Name="gridDetalle" Margin="5,5,5,5"  Grid.Row="1" AutoGenerateColumns="False" IsReadOnly="True">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Width="1*" Header="Cód. Producto"/>
+                            <DataGridTextColumn Width="3*" Header="Nombre"/>
+                            <DataGridTextColumn Width="1*" Header="Cantidad"/>
+                            <DataGridTextColumn Width="1*" Header="Estado"/>
+                        </DataGrid.Columns>
+                    </DataGrid>
+                    <Label Content="Fecha solicitud:" HorizontalAlignment="Left" Height="26" VerticalAlignment="Top" Width="111" Margin="22,81,0,0"/>
+                    <DatePicker HorizontalAlignment="Left" Margin="133,82,0,0" VerticalAlignment="Top" Width="166"/>
+                    <TextBox x:Name="estadoTxtBox" HorizontalAlignment="Left" Height="23" Margin="393,43,0,0" TextWrapping="Wrap" Text="Tienda 1" VerticalAlignment="Top" Width="254"/>
+                    <TextBox x:Name="tiendaTxtBox" HorizontalAlignment="Left" Height="23" Margin="134,43,0,0" TextWrapping="Wrap" Text="Pendiente" VerticalAlignment="Top" Width="165"/>
+                    <Button x:Name="atenderSolBtn" Content="ATENDER SOLICITUD" HorizontalAlignment="Right" Margin="0,0,10,10" Grid.Row="2" Width="123" Click="atenderSolBtn_Click" Height="30" VerticalAlignment="Bottom"/>
+                </Grid>
+            </TabItem>
+            <TabItem Header="Generar Solicitud" x:Name="generarSolTab">
+                <Grid Background="#FFE5E5E5">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="133*"></RowDefinition>
+                        <RowDefinition Height="246*"></RowDefinition>
+                        <RowDefinition Height="49*"/>
+                    </Grid.RowDefinitions>
+                    <GroupBox Header="Resumen" Margin="10,12" BorderBrush="Black"/>
+                    <ComboBox HorizontalAlignment="Left" Margin="433,43,0,0" VerticalAlignment="Top" Width="208" Height="22">
+                        <CheckBox Content="Todos" />
+                        <CheckBox Content="Almacén Central"/>
+                        <CheckBox Content="Tienda 1" IsChecked="True"/>
+                        <CheckBox Content="Tienda 2" />
+                        <CheckBox Content="Tienda 3" />
+                    </ComboBox>
+                    <Label Content="Tienda:" HorizontalAlignment="Left" Height="26" VerticalAlignment="Top" Width="64" Margin="326,43,0,0"/>
+                    <Label Content="Estado:" HorizontalAlignment="Left" Height="26" VerticalAlignment="Top" Width="65" Margin="325,82,0,0"/>
+                    <DataGrid Name="gridGenerar" Margin="8,30,2,3" Grid.Row="1" AutoGenerateColumns="False"  CanUserDeleteRows="False" IsReadOnly="True">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Width="2*" Header="Cód. Producto"/>
+                            <DataGridTextColumn Width="2*" Header="Nombre"/>
+                            <DataGridTextColumn Width="2*" Header="Cantidad"/>
+                            <DataGridTextColumn Width="2*" Header="En Stock" />
+                            <DataGridTextColumn Width="2*" Header="Stock mínimo"/>
+                        </DataGrid.Columns>
+                    </DataGrid>
+                    <Label Content="Fecha solicitud:" HorizontalAlignment="Left" Height="26" VerticalAlignment="Top" Width="111" Margin="22,81,0,0"/>
+                    <DatePicker HorizontalAlignment="Left" Margin="133,82,0,0" VerticalAlignment="Top" Width="166"/>
+                    <TextBox x:Name="estadoTxtBox1" HorizontalAlignment="Left" Height="23" Margin="433,85,0,0" TextWrapping="Wrap" Text="Pendiente" VerticalAlignment="Top" Width="208" IsEnabled="False"/>
+                    <ToolBar HorizontalAlignment="Left" Margin="10,129,0,0" VerticalAlignment="Top" Height="24" Grid.RowSpan="2">
+                        <Button x:Name="nuevoProductoBtn" Content="" VerticalAlignment="Stretch" Width="20" Margin="0,0,2,-1">
+                            <Button.Background>
+                                <ImageBrush ImageSource="../Resources/add_20.png" Stretch="None"/>
+                            </Button.Background>
+                        </Button>
+
+                        <Button Content="" Height="20" VerticalAlignment="Top" Width="20" Margin="0,0,2,0">
+                            <Button.Background>
+                                <ImageBrush ImageSource="../Resources/trash_20.png"/>
+                            </Button.Background>
+                        </Button>
+
+                    </ToolBar>
+                    <Label Content="Código:" HorizontalAlignment="Left" Height="26" VerticalAlignment="Top" Width="65" Margin="22,43,0,0"/>
+                    <TextBox x:Name="idTxtBox" HorizontalAlignment="Left" Height="23" Margin="133,46,0,0" TextWrapping="Wrap" Text="20131001000101" VerticalAlignment="Top" Width="166" IsEnabled="False"/>
+                    <Button Content="GENERAR" HorizontalAlignment="Left" Margin="476,10,0,0" Grid.Row="2" VerticalAlignment="Top" Width="75" Height="30"/>
+                    <Button Content="CANCELAR" HorizontalAlignment="Left" Margin="590,9,0,0" Grid.Row="2" VerticalAlignment="Top" Width="75" Height="30"/>
+
+                </Grid>
+            </TabItem>
+            <TabItem Header="Atender Solicitud" x:Name="atenderSolTab">
+                <Grid Background="#FFE5E5E5">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="133*"></RowDefinition>
+                        <RowDefinition Height="246*"></RowDefinition>
+                        <RowDefinition Height="49*"/>
+                    </Grid.RowDefinitions>
+                    <GroupBox Header="Resumen" Margin="10,12" BorderBrush="Black"/>
+                    <Label Content="Tienda:" HorizontalAlignment="Left" Height="26" VerticalAlignment="Top" Width="64" Margin="351,39,0,0"/>
+                    <Label Content="Estado:" HorizontalAlignment="Left" Height="26" VerticalAlignment="Top" Width="65" Margin="352,79,0,0"/>
+                    <DataGrid x:Name="GridAtender" Margin="5,5,5,5" Grid.Row="1"  AutoGenerateColumns="False"  CanUserDeleteRows="False" IsReadOnly="True">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Width="1.2*" Header="Cód.Producto"/>
+                            <DataGridTextColumn Width="2*" Header="Nombre"/>
+                            <DataGridTextColumn Width="1*" Header="Cantidad"/>
+                            <DataGridTextColumn Width="1*" Header="En Stock"/>
+
+                            <DataGridCheckBoxColumn Width="1*" Header="Atender"/>
+                            <DataGridTextColumn Width="1*" Header="Saldo"/>
+                            <DataGridTextColumn Width="1*" Header="Estado"/>
+                        </DataGrid.Columns>
+                    </DataGrid>
+                    <Label Content="Fecha solicitud:" HorizontalAlignment="Left" Height="26" VerticalAlignment="Top" Width="111" Margin="22,81,0,0"/>
+                    <DatePicker HorizontalAlignment="Left" Margin="133,82,0,0" VerticalAlignment="Top" Width="166"/>
+                    <TextBox HorizontalAlignment="Left" Height="23" Margin="437,83,0,0" TextWrapping="Wrap" Text="Tienda 1" VerticalAlignment="Top" Width="207"/>
+                    <TextBox HorizontalAlignment="Left" Height="23" Margin="436,39,0,0" TextWrapping="Wrap" Text="Pendiente" VerticalAlignment="Top" Width="208"/>
+                    <Button Content="CANCELAR" HorizontalAlignment="Right" Margin="0,0,10,10" Grid.Row="2" Width="88" Click="atenderSolBtn_Click" Height="30" VerticalAlignment="Bottom"/>
+                    <Label Content="Código:" HorizontalAlignment="Left" Height="26" VerticalAlignment="Top" Width="64" Margin="22,39,0,0"/>
+                    <TextBox HorizontalAlignment="Left" Height="23" Margin="134,39,0,0" TextWrapping="Wrap" Text="2013100100101" VerticalAlignment="Top" Width="134"/>
+                    <Button x:Name="buscarSolBtn" HorizontalAlignment="Left" Margin="276,39,0,0" VerticalAlignment="Top" Width="20" Height="20" RenderTransformOrigin="0.3,-0.35" Click="buscarSolBtn_Click">
+                        <Button.Background>
+                            <ImageBrush ImageSource="../Resources/search1_20.png"/>
+                        </Button.Background>
+                    </Button>
+                    <Button Content="GUARDAR" HorizontalAlignment="Right" Margin="0,0,130,10" Grid.Row="2" Width="92" Click="atenderSolBtn_Click" Height="30" VerticalAlignment="Bottom"/>
+                    <Button Content="VALIDAR" HorizontalAlignment="Left" Margin="339,8,0,0" Grid.Row="2" VerticalAlignment="Top" Width="91" Height="32"/>
+                </Grid>
+            </TabItem>
+        </TabControl>
+
+    </Grid>
+</Window>

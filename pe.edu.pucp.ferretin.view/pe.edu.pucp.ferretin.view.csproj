@@ -65,8 +65,57 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="MAlmacen\MA_InventarioProductosWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="MAlmacen\MA_MainWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="MAlmacen\MA_MantenimientoCategoriasWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="MAlmacen\MA_MantenimientoProductosWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="MAlmacen\MA_MovimientosWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="MAlmacen\MA_ReportesWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="MAlmacen\MA_SolicitudAbastecimientoWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="MAlmacen\MA_InventarioProductosWindow.xaml.cs">
+      <DependentUpon>MA_InventarioProductosWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="MAlmacen\MA_MainWindow.xaml.cs">
+      <DependentUpon>MA_MainWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="MAlmacen\MA_MantenimientoCategoriasWindow.xaml.cs">
+      <DependentUpon>MA_MantenimientoCategoriasWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="MAlmacen\MA_MantenimientoProductosWindow.xaml.cs">
+      <DependentUpon>MA_MantenimientoProductosWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="MAlmacen\MA_MovimientosWindow.xaml.cs">
+      <DependentUpon>MA_MovimientosWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="MAlmacen\MA_ReportesWindow.xaml.cs">
+      <DependentUpon>MA_ReportesWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="MAlmacen\MA_SolicitudAbastecimientoWindow.xaml.cs">
+      <DependentUpon>MA_SolicitudAbastecimientoWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -92,6 +141,59 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\add2_48.png" />
+    <Resource Include="Resources\add_20.png" />
+    <Resource Include="Resources\back_20.png" />
+    <Resource Include="Resources\briefcase_48.png" />
+    <Resource Include="Resources\cliente_1.png" />
+    <Resource Include="Resources\download_64.png" />
+    <Resource Include="Resources\edit_20.png" />
+    <Resource Include="Resources\email_48.png" />
+    <Resource Include="Resources\enterprise_logo_rgb_for_web.jpg" />
+    <Resource Include="Resources\fav_48.png" />
+    <Resource Include="Resources\ferreteriaTienda.jpg" />
+    <Resource Include="Resources\ferretinLogo1.png" />
+    <Resource Include="Resources\ferretinLogo2.png" />
+    <Resource Include="Resources\ferretin_ico.ico" />
+    <Resource Include="Resources\forward_32.png" />
+    <Resource Include="Resources\help_20.png" />
+    <Resource Include="Resources\help_48.png" />
+    <Resource Include="Resources\home_32.png" />
+    <Resource Include="Resources\home_64.png" />
+    <Resource Include="Resources\house_32.png" />
+    <Resource Include="Resources\logo_hogar.gif" />
+    <Resource Include="Resources\mail1_48.png" />
+    <Resource Include="Resources\money_64.png" />
+    <Resource Include="Resources\new_20.png" />
+    <Resource Include="Resources\next_20.png" />
+    <Resource Include="Resources\opened_folder_64.png" />
+    <Resource Include="Resources\print_20.png" />
+    <Resource Include="Resources\print_48.png" />
+    <Resource Include="Resources\refresh2_48.png" />
+    <Resource Include="Resources\sanitarios.png" />
+    <Resource Include="Resources\save1_48.png" />
+    <Resource Include="Resources\save_48.png" />
+    <Resource Include="Resources\search1_20.png" />
+    <Resource Include="Resources\settings_64.png" />
+    <Resource Include="Resources\shopping_cart_64.png" />
+    <Resource Include="Resources\shopping_cart_loaded_64.png" />
+    <Resource Include="Resources\texture_1_100.png" />
+    <Resource Include="Resources\texture_2_100.png" />
+    <Resource Include="Resources\texture_3_100.png" />
+    <Resource Include="Resources\tools_20.png" />
+    <Resource Include="Resources\tools_40.png" />
+    <Resource Include="Resources\trash_20.png" />
+    <Resource Include="Resources\users_64.png" />
+    <Resource Include="Resources\user_male2_64.png" />
+    <Resource Include="Resources\view_48.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="MCompras\" />
+    <Folder Include="MRecursosHumanos\" />
+    <Folder Include="MSeguridad\" />
+    <Folder Include="MVentas\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
