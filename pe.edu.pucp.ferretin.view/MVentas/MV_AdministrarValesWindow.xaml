@@ -1,0 +1,142 @@
+﻿<Window x:Class="pe.edu.pucp.ferretin.view.MVentas.MV_AdministrarValesWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Administrar Vales" Icon="../Resources/ferretin_ico.ico" MinWidth="600" Width="663" MinHeight="465">
+    <Grid>
+        <Grid.Background>
+            <ImageBrush ImageSource="../Resources/texture_3_100.png" TileMode="FlipX" 
+            Viewport="0,0,100,100" ViewportUnits="Absolute"/>
+        </Grid.Background>
+        <TabControl Margin="0">
+            <TabItem Header="Búsqueda" x:Name="busquedaValeTab">
+                <Grid Background="#FFE5E5E5">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
+                    <GroupBox Header="Parámetros" Margin="5,5" BorderBrush="Gray">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"></ColumnDefinition>
+                                <ColumnDefinition Width="100"></ColumnDefinition>
+                                <ColumnDefinition Width="Auto"></ColumnDefinition>
+                                <ColumnDefinition></ColumnDefinition>
+                                <ColumnDefinition Width="Auto"></ColumnDefinition>
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                            </Grid.RowDefinitions>
+                            <Label Content="Cód. Lote:" Grid.Column="0" VerticalContentAlignment="Center"/>
+                            <Label Content="Empresa :" Grid.Column="2" VerticalContentAlignment="Center"/>
+                            <Label Content="Fecha desde:" Grid.Column="0" Grid.Row="1" VerticalContentAlignment="Center"/>
+                            <DatePicker VerticalAlignment="Center" Grid.Column="1" Grid.Row="1"  BorderThickness="0" />
+                            <TextBox VerticalAlignment="Center" Grid.Column="1" Margin="0,0,7,0"/>
+                            <Label Content="Fecha hasta:" Grid.Column="2" Grid.Row="1" VerticalContentAlignment="Center"/>
+                            <DatePicker VerticalAlignment="Center" Grid.Column="3" Grid.Row="1"  BorderThickness="0" Width="110" HorizontalAlignment="Left"/>
+                            <TextBox VerticalAlignment="Center" HorizontalAlignment="Stretch" Grid.Column="3" Margin="0,0,10,0"/>
+                            <Button Grid.Row="1" x:Name="buscarClienteBtn" Width="32" Height="32" Grid.Column="4" BorderThickness="0">
+                                <Button.Background>
+                                    <ImageBrush ImageSource="../Resources/refresh2_48.png"/>
+                                </Button.Background>
+                            </Button>
+                        </Grid>
+                    </GroupBox>
+                    <ToolBar HorizontalAlignment="Left" Margin="5,0"  Height="24" Grid.Row="1">
+
+                        <Button x:Name="nuevoValeBtn" Content="" VerticalAlignment="Top" Width="20" Margin="0,0,2,-1" Height="20">
+                            <Button.Background>
+                                <ImageBrush ImageSource="../Resources/add_20.png"/>
+                            </Button.Background>
+                        </Button>
+
+                    </ToolBar>
+                    <DataGrid Grid.Row="2" Margin="5,5">
+                        <DataGrid.Columns>
+                            <DataGridHyperlinkColumn Width="1.5*" Binding="{x:Null}" ContentBinding="{x:Null}" ClipboardContentBinding="{x:Null}" Header="Cód. Lote"/>
+                            <DataGridHyperlinkColumn Width="2.5*" Binding="{x:Null}" ContentBinding="{x:Null}" ClipboardContentBinding="{x:Null}" Header="Empresa"/>
+                            <DataGridTextColumn Width="2*" Binding="{x:Null}" ClipboardContentBinding="{x:Null}" Header="Fecha Emisión"/>
+                            <DataGridTextColumn Width="2*" Binding="{x:Null}" ClipboardContentBinding="{x:Null}" Header="Cantidad"/>
+                            <DataGridTextColumn Width="2*" Binding="{x:Null}" ClipboardContentBinding="{x:Null}" Header="Moneda"/>
+                            <DataGridTextColumn Width="1.5*" Binding="{x:Null}" ClipboardContentBinding="{x:Null}" Header="Monto"/>
+                        </DataGrid.Columns>
+                    </DataGrid>
+                    <StackPanel x:Name="seleccionarListaPanel" Orientation="Horizontal" Margin="291,5" Grid.Row="1" HorizontalAlignment="Center" Width="0"/>
+                </Grid>
+            </TabItem>
+
+            <TabItem Header="Generar" x:Name="generarValesTab">
+                <Grid Background="#FFE5E5E5">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+                    <GroupBox Header="Parámetros" Margin="5,5" BorderBrush="Gray" Grid.Row="0">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"></ColumnDefinition>
+                                <ColumnDefinition Width="100"></ColumnDefinition>
+                                <ColumnDefinition Width="Auto"></ColumnDefinition>
+                                <ColumnDefinition></ColumnDefinition>
+
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition/>
+                                <RowDefinition/>
+                                <RowDefinition/>
+                            </Grid.RowDefinitions>
+                            <Label Content="Cód. Lote:" Grid.Column="0" VerticalContentAlignment="Center"/>
+                            <Label Content="Empresa RUC :" Grid.Column="2" VerticalContentAlignment="Center"/>
+                            <Label Content="Fecha Emisión:" Grid.Column="0" Grid.Row="1" VerticalContentAlignment="Center"/>
+                            <DatePicker VerticalAlignment="Center" Grid.Column="1" Grid.Row="1"  BorderThickness="0" IsEnabled="False"/>
+                            <TextBox VerticalAlignment="Center" Text="Auto" Grid.Column="1" IsEnabled="False" Margin="0,0,26,0"/>
+                            <Label Content="Fecha Vencimiento:" Grid.Column="0" Grid.Row="2" VerticalContentAlignment="Center"/>
+                            <DatePicker VerticalAlignment="Center" Grid.Column="1" Grid.Row="2"  BorderThickness="0" />
+                            <Grid Grid.Column="3">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="103"></ColumnDefinition>
+                                    <ColumnDefinition Width="Auto"></ColumnDefinition>
+                                    <ColumnDefinition></ColumnDefinition>
+                                </Grid.ColumnDefinitions>
+                                <TextBox VerticalAlignment="Center" Text="123456789123" HorizontalAlignment="Stretch"/>
+                                <Button Margin="0,0,5,0" x:Name="buscarEmpresaBtn" VerticalAlignment="Center" Width="18" Height="18" Click="buscarEmpresaBtn_Click" BorderThickness="0" Grid.Column="1">
+                                    <Button.Background>
+                                        <ImageBrush ImageSource="../Resources/search1_20.png"/>
+                                    </Button.Background>
+                                </Button>
+                                <TextBox VerticalAlignment="Center" Grid.Column="3" IsEnabled="False" />
+                            </Grid>
+                            <Label Grid.Row="1" Grid.Column="2">Cantidad Lote:</Label>
+                            <StackPanel Orientation="Horizontal" Grid.Column="3" Grid.Row="1">
+                                <TextBox VerticalAlignment="Center"  Width="50" HorizontalAlignment="Left"/>
+                                <Label>Unidades</Label>
+                            </StackPanel>
+                            <Label Grid.Row="2" Grid.Column="2">Monto Unidad:</Label>
+                            <StackPanel Orientation="Horizontal" Grid.Column="3" Grid.Row="2">
+                                <TextBox VerticalAlignment="Center"  Width="50" HorizontalAlignment="Left"/>
+                                <ComboBox VerticalAlignment="Center" Height="18" Width="70" Margin="5,0,0,0">
+                                    <ComboBoxItem Content="Soles (S/.)"></ComboBoxItem>
+                                    <ComboBoxItem Content="Dolares (US $)"></ComboBoxItem>
+                                </ComboBox>
+                            </StackPanel>
+                        </Grid>
+                    </GroupBox>
+                    <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Center">
+                        <Button Content="Generar" Height="30" Padding="5" Margin="5,0" FontSize="14"/>
+                        <Button Content="Cancelar" Height="30" Padding="5" Margin="5,0" FontSize="14"/>
+                    </StackPanel>
+                    <DataGrid Margin="5,5" Grid.Row="2">
+                        <DataGrid.Columns>
+                            <DataGridHyperlinkColumn Width="2*" Binding="{x:Null}" ContentBinding="{x:Null}" ClipboardContentBinding="{x:Null}" Header="Cód. Vale"/>
+                            <DataGridTextColumn Width="1*" Binding="{x:Null}" ClipboardContentBinding="{x:Null}" Header="Estado"/>
+                        </DataGrid.Columns>
+                    </DataGrid>
+                    <StackPanel Grid.Row="3"></StackPanel>
+                </Grid>
+            </TabItem>
+        </TabControl>
+    </Grid>
+</Window>

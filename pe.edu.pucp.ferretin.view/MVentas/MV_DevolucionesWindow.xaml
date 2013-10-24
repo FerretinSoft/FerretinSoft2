@@ -1,0 +1,349 @@
+﻿<Window x:Class="pe.edu.pucp.ferretin.view.MVentas.MV_DevolucionesWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Devoluciones" Height="550" Width="850" Icon="../Resources/ferretin_ico.ico">
+    <Grid>
+        <Grid.Background>
+            <ImageBrush ImageSource="../Resources/texture_3_100.png" TileMode="FlipX" 
+            Viewport="0,0,100,100" ViewportUnits="Absolute"/>
+        </Grid.Background>
+        <TabControl x:Name="DevolucionesTab">
+            <TabItem Header="Buscar Devoluciones">
+                <Grid Background="#FFE5E5E5">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"></RowDefinition>
+                        <RowDefinition></RowDefinition>
+                    </Grid.RowDefinitions>
+                    <GroupBox Header="Parámetros" BorderBrush="Gray" Margin="5,0,5,29">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"></ColumnDefinition>
+                                <ColumnDefinition Width="150"></ColumnDefinition>
+                                <ColumnDefinition Width="Auto"></ColumnDefinition>
+                                <ColumnDefinition Width="150"></ColumnDefinition>
+                                <ColumnDefinition></ColumnDefinition>
+                                <ColumnDefinition Width="Auto"></ColumnDefinition>
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition></RowDefinition>
+                                <RowDefinition></RowDefinition>
+                                <RowDefinition></RowDefinition>
+                                <RowDefinition></RowDefinition>
+                            </Grid.RowDefinitions>
+                            <Label Content="Núm. Devolución:" Grid.Row="0"/>
+                            <Label Content="Venta Asociada:" Grid.Row="1"/>
+                            <Label Content="Fecha Desde:" Grid.Row="3"/>
+                            <Label Content="Vendedor:" Grid.Row="0" Grid.Column="2"/>
+                            <Label Content="Cliente:" Grid.Row="2" Grid.Column="0"/>
+                            <Label Content="Fecha Hasta:" Grid.Row="3" Grid.Column="2"/>
+                            <TextBox Text ="RUC/DNI" Grid.Row="2" Grid.Column="1" VerticalAlignment="Center" Margin="0,2,25,2" />
+                            <TextBox Grid.Row="0" Grid.Column="1" VerticalAlignment="Center" Margin="0,0,25,0"/>
+
+                            <Grid Grid.Column="1" Grid.Row="1">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition></ColumnDefinition>
+
+                                    <ColumnDefinition Width="Auto"></ColumnDefinition>
+                                </Grid.ColumnDefinitions>
+                                <TextBox Grid.Row="0" VerticalAlignment="Center" x:Name="codVentaList" IsEnabled="True" Margin="0,0,5,0" KeyDown="codVentaList_KeyDown" />
+                                <Button x:Name="buscarVentaBtn" VerticalAlignment="Center" Width="20" Height="20" Grid.Column="1" BorderThickness="0" Click="buscarVentaBtn_Click" RenderTransformOrigin="2.3,0.572">
+                                    <Button.Background>
+                                        <ImageBrush ImageSource="../Resources/search1_20.png"/>
+                                    </Button.Background>
+                                </Button>
+
+                            </Grid>
+                            <Grid Grid.Column="1" Grid.Row="2">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition></ColumnDefinition>
+
+                                    <ColumnDefinition Width="Auto"></ColumnDefinition>
+                                </Grid.ColumnDefinitions>
+                                <Button x:Name="buscarClienteBtn" VerticalAlignment="Center" Width="20" Height="20" Grid.Column="2" BorderThickness="0" RenderTransformOrigin="2.3,0.572">
+                                    <Button.Background>
+                                        <ImageBrush ImageSource="../Resources/search1_20.png"/>
+                                    </Button.Background>
+                                </Button>
+                            </Grid>
+                            <DatePicker Grid.Row="3" Grid.Column="1" VerticalAlignment="Center" BorderThickness="0"/>
+
+                            <Grid Grid.Column="3" Grid.Row="0" Grid.ColumnSpan="2">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition></ColumnDefinition>
+                                    <ColumnDefinition Width="Auto"></ColumnDefinition>
+                                </Grid.ColumnDefinitions>
+                                <TextBox Grid.Row="0" VerticalAlignment="Center" IsEnabled="False" Margin="0,0,5,0" />
+                                <TextBox Grid.Row="0" Text ="Razón Social/Nombre Apellido" VerticalAlignment="Center" IsEnabled="False" Margin="0,56,5,-52" />
+                                <Button x:Name="buscarVendedorBtn" VerticalAlignment="Center" Width="20" Height="20" Grid.Column="1" BorderThickness="0">
+                                    <Button.Background>
+                                        <ImageBrush ImageSource="../Resources/search1_20.png"/>
+                                    </Button.Background>
+                                </Button>
+                            </Grid>
+
+                            <Grid Grid.Column="3" Grid.Row="1" Grid.ColumnSpan="2">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition></ColumnDefinition>
+                                    <ColumnDefinition Width="Auto"></ColumnDefinition>
+                                </Grid.ColumnDefinitions>
+
+
+                            </Grid>
+
+                            <DatePicker Grid.Row="3" Grid.Column="3" VerticalAlignment="Center" BorderThickness="0"/>
+
+                            <Button x:Name="buscarDevolucionBtn" Width="28" Height="28" BorderThickness="0" Grid.Column="5" Grid.Row="3">
+                                <Button.Background>
+                                    <ImageBrush ImageSource="../Resources/refresh2_48.png"/>
+                                </Button.Background>
+                            </Button>
+                        </Grid>
+                    </GroupBox>
+                    <ToolBar HorizontalAlignment="Left" Margin="10,134,0,0" VerticalAlignment="Top" Height="24">
+
+                        <Button x:Name="nuevaDevolucionBtn" Content="" VerticalAlignment="Top" Width="20" Margin="0,0,2,-1" Click="nuevaDevolucionBtn_Click" Height="20">
+                            <Button.Background>
+                                <ImageBrush ImageSource="../Resources/add_20.png"/>
+                            </Button.Background>
+                        </Button>
+                        <Button x:Name="detalleDevolucionBtn" Content="" VerticalAlignment="Bottom" Width="20" Margin="0,0,2,-1" Click="editarDevolucionBtn_Click" Height="20">
+                            <Button.Background>
+                                <ImageBrush ImageSource="../Resources/edit_20.png"/>
+                            </Button.Background>
+                        </Button>
+
+                    </ToolBar>
+                    <DataGrid x:Name="devolucionesGrid" Margin="5,5" Grid.Row="1" IsManipulationEnabled="True" CanUserSortColumns="True" AutoGenerateColumns="False" CanUserAddRows="False" CanUserDeleteRows="False" ItemsSource="{Binding Path=ListaDevoluciones}">
+                        <DataGrid.Columns>
+                            <DataGridHyperlinkColumn Width="1.5*" Binding="{Binding Path=Codigo}" ContentBinding="{x:Null}" ClipboardContentBinding="{x:Null}" Header="Núm Devolución"/>
+                            <DataGridTextColumn Width="2*" Binding="{Binding Path=Venta.Codigo}" ClipboardContentBinding="{x:Null}" Header="Doc. Venta"/>
+                            <DataGridTextColumn Width="1.5*" Binding="{Binding Path=Cliente.Codigo}" ClipboardContentBinding="{x:Null}" Header="ID Cliente"/>
+                            <DataGridTextColumn Width="4*" Binding="{Binding Path=Cliente.Nombre}" ClipboardContentBinding="{x:Null}" Header="Nombre Cliente"/>
+                            <DataGridTextColumn Width="2*" Binding="{Binding Path=FechaDevolucion}" ClipboardContentBinding="{x:Null}" Header="Fecha Devolución"/>
+                            <DataGridTextColumn Width="1*" Binding="{Binding Path=Importe}" ClipboardContentBinding="{x:Null}" Header="Importe"/>
+                        </DataGrid.Columns>
+                    </DataGrid>
+                </Grid>
+            </TabItem>
+            <TabItem Header="Detalle">
+                <Grid Background="#FFE5E5E5">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="33*"></ColumnDefinition>
+                        <ColumnDefinition Width="71*"></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <GridSplitter Width="2" BorderBrush="Gray" />
+                    <Grid Grid.Column="0" Margin="5,5">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"></ColumnDefinition>
+                            <ColumnDefinition></ColumnDefinition>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"></RowDefinition>
+                            <RowDefinition Height="Auto"></RowDefinition>
+                            <RowDefinition Height="Auto"></RowDefinition>
+                            <RowDefinition Height="Auto"></RowDefinition>
+                            <RowDefinition Height="Auto"></RowDefinition>
+                            <RowDefinition Height="Auto"></RowDefinition>
+                            <RowDefinition Height="Auto"></RowDefinition>
+                            <RowDefinition Height="Auto"></RowDefinition>
+                            <RowDefinition Height="Auto"></RowDefinition>
+                            <RowDefinition Height="Auto"></RowDefinition>
+                            <RowDefinition></RowDefinition>
+                            <RowDefinition Height="Auto"></RowDefinition>
+                            <RowDefinition Height="Auto"></RowDefinition>
+
+                        </Grid.RowDefinitions>
+
+                        <Label Content="Código Devolución:" VerticalAlignment="Center"/>
+                        <Label Content="Código Venta:" VerticalAlignment="Center" Grid.Row="1"/>
+                        <Label Content="Fecha Devolución:" VerticalAlignment="Center" Grid.Row="2"/>
+                        <Label Content="RUC:" VerticalAlignment="Center" Grid.Row="3"/>
+                        <Label Content="Razón Social:" VerticalAlignment="Center" Grid.Row="4"/>
+                        <Label Content="Vendedor:" VerticalAlignment="Center" Grid.Row="5"/>
+                        <Label Content="Nota Crédito:" VerticalAlignment="Center" Grid.Row="6"/>
+                        <Label Content="Fecha Emisión:" VerticalAlignment="Center" Grid.Row="7"/>
+                        <Label Content="Fecha Vencimiento:" VerticalAlignment="Center" Grid.Row="8"/>
+                        <Label Content="Estado:" VerticalAlignment="Center" Grid.Row="9"/>
+                        <Label Content="Comentarios:" VerticalAlignment="Center" Grid.Row="11"/>
+
+                        <TextBox IsEnabled="false" VerticalAlignment="Center" Grid.Column="1" Grid.Row="0"/>
+                        <TextBox IsEnabled="false" VerticalAlignment="Center" Grid.Column="1" Grid.Row="1"/>
+                        <TextBox IsEnabled="false" Text="&lt;dd/mm/aa&gt;" VerticalAlignment="Center" Grid.Column="1" Grid.Row="2"/>
+                        <TextBox IsEnabled="false"  Text="&lt;RUC Cliente&gt;" VerticalAlignment="Center" Grid.Column="1" Grid.Row="3"/>
+
+                        <TextBox IsEnabled="false" Text="&lt;Razón Social Cliente&gt;" VerticalAlignment="Center" Grid.Column="1" Grid.Row="4"/>
+                        <TextBox IsEnabled="false" Text="&lt;Nombre Vendedor&gt;" VerticalAlignment="Center" Grid.Column="1" Grid.Row="5"/>
+                        <TextBox IsEnabled="false"  Text="&lt;Número Nota Crédito&gt;" VerticalAlignment="Center" Grid.Column="1" Grid.Row="6"/>
+
+                        <TextBox IsEnabled="false"  Text="&lt;dd/mm/aa&gt;" VerticalAlignment="Center" Grid.Column="1" Grid.Row="7"/>
+                        <TextBox IsEnabled="false"  Text="&lt;dd/mm/aa&gt;" VerticalAlignment="Center" Grid.Column="1" Grid.Row="8"/>
+                        <TextBox IsEnabled="false"  Text="&lt;Estado Nota Crédito&gt;" VerticalAlignment="Center" Grid.Column="1" Grid.Row="9"/>
+                        <StackPanel Grid.Row="12" Grid.ColumnSpan="2" Margin="0,0,0,5">
+                            <TextBox TextWrapping="Wrap" Text="&lt;Comentarios aquí&gt;" VerticalAlignment="Top" Height="100" Margin="0,0,0,5"/>
+                        </StackPanel>
+                    </Grid>
+                    <Grid Grid.Column="1" Margin="5,5">
+                        <Grid.RowDefinitions>
+                            <RowDefinition></RowDefinition>
+                            <RowDefinition Height="Auto"></RowDefinition>
+                        </Grid.RowDefinitions>
+                        <DataGrid Grid.Row="0" Margin="10,5,5,5">
+                            <DataGrid.Columns>
+                                <DataGridHyperlinkColumn Width="1*" Binding="{x:Null}" ContentBinding="{x:Null}" ClipboardContentBinding="{x:Null}" Header="Cód Prod."/>
+                                <DataGridTextColumn Width="1.5*" Binding="{x:Null}" ClipboardContentBinding="{x:Null}" Header="Descripción"/>
+                                <DataGridTextColumn Width="0.7*" Binding="{x:Null}" ClipboardContentBinding="{x:Null}" Header="Cant."/>
+                                <DataGridTextColumn Width="1.2*" Binding="{x:Null}" ClipboardContentBinding="{x:Null}" Header="Motivo"/>
+                                <DataGridTextColumn Width="0.9*" Binding="{x:Null}" ClipboardContentBinding="{x:Null}" Header="Moneda"/>
+                                <DataGridTextColumn Width="0.9*" Binding="{x:Null}" ClipboardContentBinding="{x:Null}" Header="Precio"/>
+                                <DataGridTextColumn Width="1*" Binding="{x:Null}" ClipboardContentBinding="{x:Null}" Header="Dscto. (%)"/>
+                                <DataGridTextColumn Width="1*" Binding="{x:Null}" ClipboardContentBinding="{x:Null}" Header="Importe"/>
+                            </DataGrid.Columns>
+                        </DataGrid>
+                        <GroupBox Header="Importe" BorderBrush="Gray" Grid.Row="1" Height="Auto" VerticalAlignment="Bottom" HorizontalAlignment="Right">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto"></ColumnDefinition>
+                                    <ColumnDefinition Width="80"></ColumnDefinition>
+                                </Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition></RowDefinition>
+                                    <RowDefinition></RowDefinition>
+                                    <RowDefinition></RowDefinition>
+                                </Grid.RowDefinitions>
+                                <Label Content="Sub Total:" VerticalAlignment="Center"/>
+                                <Label Content="%IGV:" VerticalAlignment="Center" Grid.Row="1"/>
+                                <Label Content="Total a Pagar:" VerticalAlignment="Center" Grid.Row="2"/>
+
+                                <TextBox  Text="0.00" VerticalAlignment="Center" IsEnabled="False" TextAlignment="Right" Grid.Column="1"/>
+                                <TextBox  Text="0.00" VerticalAlignment="Center" IsEnabled="False" TextAlignment="Right" Grid.Column="1" Grid.Row="1"/>
+                                <TextBox  Text="0.00" VerticalAlignment="Center" IsEnabled="False" TextAlignment="Right" Grid.Column="1" Grid.Row="2"/>
+
+                            </Grid>
+                        </GroupBox>
+
+                    </Grid>
+                </Grid>
+            </TabItem>
+            <TabItem Header="Registrar Devolución">
+                <Grid Background="#FFE5E5E5" Margin="0">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"></RowDefinition>
+                        <RowDefinition Height="Auto"></RowDefinition>
+                        <RowDefinition></RowDefinition>
+                        <RowDefinition Height="Auto"></RowDefinition>
+                        <RowDefinition Height="Auto"></RowDefinition>
+                        <RowDefinition></RowDefinition>
+                        <RowDefinition Height="Auto"></RowDefinition>
+                        <RowDefinition Height="Auto"></RowDefinition>
+                    </Grid.RowDefinitions>
+                    <GroupBox Grid.Row="0" Header="Parámetros" BorderBrush="Gray" Height="Auto" VerticalAlignment="Top" Margin="5,5">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"></ColumnDefinition>
+                                <ColumnDefinition MinWidth="150" MaxWidth="200"></ColumnDefinition>
+                                <ColumnDefinition Width="Auto"></ColumnDefinition>
+                                <ColumnDefinition MinWidth="120" MaxWidth="220"></ColumnDefinition>
+                                <ColumnDefinition Width="Auto"></ColumnDefinition>
+                                <ColumnDefinition Width="2*"></ColumnDefinition>
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition></RowDefinition>
+                                <RowDefinition></RowDefinition>
+                                <RowDefinition></RowDefinition>
+                            </Grid.RowDefinitions>
+                            <Label Content="Cód. Devolución:" VerticalAlignment="Center"/>
+                            <TextBox Text="123456789123" VerticalAlignment="Center" IsEnabled="false" Grid.Column="1" Margin="0,0,26,0"/>
+                            <Label Content="Cliente:" VerticalAlignment="Center" Grid.Row="1" Grid.Column="2"/>
+                            <Grid Grid.Column="3" Grid.Row="1">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition></ColumnDefinition>
+                                    <ColumnDefinition Width="Auto"></ColumnDefinition>
+                                </Grid.ColumnDefinitions>
+                                <TextBox  Text="&lt;RUC/DNI&gt;" VerticalAlignment="Center" IsEnabled="True" />
+                                <Button x:Name="ins_buscarClienteBtn" VerticalAlignment="Center" Width="18" Height="18" Grid.Column="1" BorderThickness="0">
+                                    <Button.Background>
+                                        <ImageBrush ImageSource="../Resources/search1_20.png"/>
+                                    </Button.Background>
+                                </Button>
+                            </Grid>
+                            <Label Content="Fecha Devolución:" VerticalAlignment="Center" Grid.Row="1" />
+                            <DatePicker VerticalAlignment="Center" Margin="0" IsEnabled="False" Grid.Row="1" Grid.Column="1" BorderThickness="0"/>
+                            <Label Content="Cód. Venta:" VerticalAlignment="Center" Grid.Column="2"/>
+                            <Grid Grid.Column="3" Grid.Row="0">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition></ColumnDefinition>
+                                    <ColumnDefinition Width="Auto"></ColumnDefinition>
+                                </Grid.ColumnDefinitions>
+                                <TextBox Text="123456789123" VerticalAlignment="Center" Margin="0,0,2,0"/>
+                                <Button x:Name="ins_buscarVentaBtn" VerticalAlignment="Center" Width="18" Height="18" Grid.Column="1" BorderThickness="0">
+                                    <Button.Background>
+                                        <ImageBrush ImageSource="../Resources/search1_20.png"/>
+                                    </Button.Background>
+                                </Button>
+                            </Grid>
+                            <Label Content="Vendedor:" VerticalAlignment="Center" Grid.Column="4"/>
+                            <TextBox Text="&lt;Nombre Vendedor&gt;" VerticalAlignment="Center" Grid.Column="5" IsEnabled="False"/>
+                            <TextBox Text="&lt;Nombre/Razón Social&gt;" VerticalAlignment="Center" Grid.Column="5" Grid.Row="1" IsEnabled="False" Margin="0,2"/>
+                        </Grid>
+                    </GroupBox>
+
+                    <TextBlock HorizontalAlignment="Left" VerticalAlignment="Center" Grid.Row="1" Margin="5,5">Productos Comprados:</TextBlock>
+                    <DataGrid VerticalAlignment="Stretch" Grid.Row="2" Margin="5,5">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Width="1*" Binding="{x:Null}" ClipboardContentBinding="{x:Null}" Header="Cód Prod."/>
+                            <DataGridTextColumn Width="2*" Binding="{x:Null}" ClipboardContentBinding="{x:Null}" Header="Descripción"/>
+                            <DataGridTextColumn Width="0.98*" Binding="{x:Null}" ClipboardContentBinding="{x:Null}" Header="Cant. Comp."/>
+                            <DataGridTextColumn Width="0.7*" Binding="{x:Null}" ClipboardContentBinding="{x:Null}" Header="Moneda"/>
+                            <DataGridTextColumn Width="0.7*" Binding="{x:Null}" ClipboardContentBinding="{x:Null}" Header="Precio"/>
+                            <DataGridTextColumn Width="0.7*" Binding="{x:Null}" ClipboardContentBinding="{x:Null}" Header="Dscto. (%)"/>
+                            <DataGridTextColumn Width="1*" Binding="{x:Null}" ClipboardContentBinding="{x:Null}" Header="Importe"/>
+                        </DataGrid.Columns>
+                    </DataGrid>
+                    <StackPanel HorizontalAlignment="Right" Orientation="Horizontal" VerticalAlignment="Center" Grid.Row="3" Margin="5,0">
+                        <Label Content="Total Comprado:"  VerticalAlignment="Center"/>
+                        <TextBox  Text="0.00" VerticalAlignment="Center" Width="100" IsEnabled="False" TextAlignment="Right" />
+                    </StackPanel>
+                    <TextBlock Grid.Row="4" Margin="5,5" VerticalAlignment="Center">Productos a Devolver:</TextBlock>
+                    <DataGrid Grid.Row="5" Margin="5,0">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Width="1*" Binding="{x:Null}" ClipboardContentBinding="{x:Null}" Header="Cód Prod."/>
+                            <DataGridTextColumn Width="2*" Binding="{x:Null}" ClipboardContentBinding="{x:Null}" Header="Descripción"/>
+                            <DataGridTextColumn Width="0.98*" Binding="{x:Null}" ClipboardContentBinding="{x:Null}" Header="Cant. Dev."/>
+                            <DataGridTextColumn Width="1*" Binding="{x:Null}" ClipboardContentBinding="{x:Null}" Header="Motivo"/>
+                            <DataGridTextColumn Width="0.7*" Binding="{x:Null}" ClipboardContentBinding="{x:Null}" Header="Moneda"/>
+                            <DataGridTextColumn Width="0.7*" Binding="{x:Null}" ClipboardContentBinding="{x:Null}" Header="Precio"/>
+                            <DataGridTextColumn Width="0.7*" Binding="{x:Null}" ClipboardContentBinding="{x:Null}" Header="Dscto. (%)"/>
+                            <DataGridTextColumn Width="1*" Binding="{x:Null}" ClipboardContentBinding="{x:Null}" Header="Importe"/>
+                        </DataGrid.Columns>
+                    </DataGrid>
+                    <StackPanel HorizontalAlignment="Right" VerticalAlignment="Center" Orientation="Horizontal" Grid.Row="6" Margin="5,5">
+                        <Label Content="Total Devuelto:"  VerticalAlignment="Center"/>
+                        <TextBox  Text="0.00" VerticalAlignment="Center" Width="100" IsEnabled="False" TextAlignment="Right" />
+                    </StackPanel>
+                    <Grid Grid.Row="7" Margin="5,5">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition></ColumnDefinition>
+                            <ColumnDefinition></ColumnDefinition>
+                            <ColumnDefinition Width="Auto"></ColumnDefinition>
+                        </Grid.ColumnDefinitions>
+                        <StackPanel>
+                            <Label Content="Comentarios:" />
+                            <TextBox Height="70" Text="&lt;Comentarios aquí&gt;"/>
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal" Grid.Column="2" VerticalAlignment="Bottom" HorizontalAlignment="Right">
+                            <Button Content="IMPRIMIR NOTA DE CRÉDITO" Height="30" Margin="0,0,10,0" Padding="5,0"/>
+                            <Button Content="GUARDAR" Width="75" Height="30" Margin="0,0,10,0"/>
+                            <Button Content="CANCELAR" Width="75"  Click="Button_Click_1" Height="30" Margin="0,0"/>
+                        </StackPanel>
+
+                    </Grid>
+
+
+
+
+                </Grid>
+            </TabItem>
+        </TabControl>
+
+    </Grid>
+</Window>
