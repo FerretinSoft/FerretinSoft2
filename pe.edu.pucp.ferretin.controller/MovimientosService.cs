@@ -10,7 +10,7 @@ namespace pe.edu.pucp.ferretin.controller
 {
     public class MovimientosService
     {
-        static FerretinDataContextDataContext dc = new FerretinDataContextDataContext();
+        static FerretinDataContext dc = new FerretinDataContext();
 
         private static IEnumerable<Movimiento> _listaMovimientos = null;
 
@@ -45,7 +45,7 @@ namespace pe.edu.pucp.ferretin.controller
         {
             return from m in listaMovimientos
                    where
-                   ((!parametros.ContainsKey("almacen") || m.id_almacen_desde == null || m.id_almacen_desde.Equals(((Tbl_Almacen)parametros["almacen"]).codigo)) &&
+                   ((!parametros.ContainsKey("almacen") || m.id_almacen_desde == null || m.id_almacen_desde.Equals(((Tienda)parametros["almacen"]).codigo)) &&
                     (!parametros.ContainsKey("fechaDesde") || m.fecha >= (DateTime)parametros["fechaDesde"])  && 
                     (!parametros.ContainsKey("fechaDesde") || m.fecha <= (DateTime)parametros["fechaHasta"]))
                    orderby m.fecha

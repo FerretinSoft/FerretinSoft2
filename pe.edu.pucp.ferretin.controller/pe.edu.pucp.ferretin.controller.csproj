@@ -41,8 +41,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Class1.cs" />
+    <Compile Include="MR_UbigeoService.cs" />
+    <Compile Include="MV_ClienteService.cs" />
     <Compile Include="MovimientosService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="TiendaService.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\pe.edu.pucp.ferretin.model\pe.edu.pucp.ferretin.model.csproj">
