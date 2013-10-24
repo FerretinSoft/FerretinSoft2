@@ -41,9 +41,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Class1.cs" />
+    <Compile Include="MA_EstadoMovimientoService.cs" />
+    <Compile Include="MA_TipoMovimientoService.cs" />
     <Compile Include="MR_UbigeoService.cs" />
     <Compile Include="MV_ClienteService.cs" />
-    <Compile Include="MovimientosService.cs" />
+    <Compile Include="MA_MovimientosService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="MS_TiendaService.cs" />
   </ItemGroup>

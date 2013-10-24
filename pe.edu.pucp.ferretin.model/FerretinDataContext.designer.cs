@@ -1095,11 +1095,11 @@ namespace pe.edu.pucp.ferretin.model
 		{
 			get
 			{
-				return this._Tbl_Turno;
+                return this._Tbl_Producto_Almacen;
 			}
 			set
 			{
-				this._Tbl_Turno.Assign(value);
+                this._Tbl_Producto_Almacen.Assign(value);
 			}
 		}
 		
@@ -9842,12 +9842,12 @@ namespace pe.edu.pucp.ferretin.model
 					if ((previousValue != null))
 					{
 						this._Tbl_Almacen.Entity = null;
-						previousValue.Tbl_Solicitud_Abastecimiento.Remove(this);
+                        //previousValue..Remove(this);
 					}
 					this._Tbl_Almacen.Entity = value;
 					if ((value != null))
 					{
-						value.Tbl_Solicitud_Abastecimiento.Add(this);
+                        //value.Tbl_Almacen.Add(this);
 						this._id_almacen = value.id;
 					}
 					else
@@ -11081,12 +11081,12 @@ namespace pe.edu.pucp.ferretin.model
 					if ((previousValue != null))
 					{
 						this._Tbl_Almacen.Entity = null;
-						previousValue.Tbl_Turno.Remove(this);
+						//previousValue.Tbl_Turno.Remove(this);
 					}
 					this._Tbl_Almacen.Entity = value;
 					if ((value != null))
 					{
-						value.Tbl_Turno.Add(this);
+						//value.Tbl_Turno.Add(this);
 						this._id_almacen = value.id;
 					}
 					else
