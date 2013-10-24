@@ -3,7 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         Title="Administración de Productos" Height="487" Width="704" Icon="../Resources/ferretin_ico.ico" ResizeMode="CanMinimize">
     <Grid>
-        <TabControl x:Name="mantenimientoTab">
+        <TabControl x:Name="productoTabControl" SelectedIndex="{Binding statusTab,Mode=TwoWay,FallbackValue=0}">
             <TabItem Header="Búsqueda">
                 <Grid Background="#FFE5E5E5">
                     <Grid.ColumnDefinitions>
@@ -15,24 +15,24 @@
                     <GroupBox x:Name="nombreFilterTxt" Header="Parámetros" Margin="10,12,10,313" BorderBrush="Black"/>
                     <CheckBox x:Name="chkActivo" Content="Activos" HorizontalAlignment="Left" Height="17" VerticalAlignment="Top" Width="78" Margin="82,80,0,0" IsChecked="True"/>
                     <Label Content="Categorías:" HorizontalAlignment="Left" Height="26" VerticalAlignment="Top" Width="65" Margin="323,39,0,0"/>
-                    <Button x:Name="buscarClienteBtn" HorizontalAlignment="Left" Margin="637,33,0,0" VerticalAlignment="Top" Width="32" Height="32" RenderTransformOrigin="0.3,-0.35">
+                    <Button x:Name="buscarClienteBtn" HorizontalAlignment="Left" Margin="637,33,0,0" VerticalAlignment="Top" Width="32" Height="32" RenderTransformOrigin="0.3,-0.35" Click="buscarClienteBtn_Click">
                         <Button.Background>
                             <ImageBrush ImageSource="../Resources/refresh2_48.png"/>
                         </Button.Background>
                     </Button>
                     <DataGrid Name="gridProductos" CanUserAddRows="False" Grid.Row="1" Margin="5,153,5,5" AutoGenerateColumns="False" ItemsSource="{Binding Path=listaProductos}">
                         <DataGrid.Columns>
-                            <DataGridHyperlinkColumn Width="1*" Binding="{Binding Path=ID}" ContentBinding="{x:Null}" ClipboardContentBinding="{x:Null}" Header="Cód. Producto"/>
+                            <DataGridHyperlinkColumn Width="1*" Binding="{Binding Path=codigo}" ContentBinding="{x:Null}" ClipboardContentBinding="{x:Null}" Header="Cód. Producto"/>
                             <DataGridTextColumn Width="2*" Binding="{Binding Path=nombre}" ClipboardContentBinding="{x:Null}" Header="Nombre"/>
-                            <DataGridTextColumn Width="2*" Binding="{Binding Path=categorias.nombre}" ClipboardContentBinding="{x:Null}" Header="Categorías"/>
+                            <DataGridTextColumn Width="2*" Binding="{Binding Path=cadenaCategoria}" ClipboardContentBinding="{x:Null}" Header="Categorías"/>
                             <DataGridCheckBoxColumn Header="Estado" Binding="{Binding Path=estado}" Width="1*"/>
                         </DataGrid.Columns>
                     </DataGrid>
-                    <ComboBox x:Name="categoriaCombo" HorizontalAlignment="Left" Margin="402,43,0,0" VerticalAlignment="Top" Width="180" Height="22">
+                    <ComboBox x:Name="categoriaCombo" ItemsSource="{Binding Path=listaCategorias}" DisplayMemberPath="nombre" SelectedValuePath="id" SelectedValue="{Binding Path=listaCategorias}"  HorizontalAlignment="Left" Margin="402,43,0,0" VerticalAlignment="Top" Width="180" Height="22">
 
                     </ComboBox>
                     <Label Content="Nombre:" HorizontalAlignment="Left" Height="26" VerticalAlignment="Top" Width="64" Margin="15,43,0,0"/>
-                    <TextBox x:Name="txtNombre" HorizontalAlignment="Left" Height="23" Margin="82,42,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="236"/>
+                    <TextBox x:Name="txtNombre" Text="{Binding searchNombre, Mode=TwoWay}"  HorizontalAlignment="Left" Height="23" Margin="82,42,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="236"/>
                     <ToolBar HorizontalAlignment="Left" Margin="9,119,0,0" VerticalAlignment="Top" Height="24">
                         <Button x:Name="nuevoProductoBtn" Content="" Height="20" VerticalAlignment="Top" Width="20" Margin="0,0,2,-1" Click="nuevoProductoBtn_Click">
                             <Button.Background>
@@ -55,7 +55,10 @@
                     <CheckBox x:Name="chkInactivo" Content="Inactivos" HorizontalAlignment="Left" Height="17" VerticalAlignment="Top" Width="78" Margin="240,80,0,0" RenderTransformOrigin="2.154,0.353" IsChecked="True"/>
                 </Grid>
             </TabItem>
-            <TabItem Header="Detalle">
+            <TabItem x:Name="detallesTab">
+                <TabItem.Header>
+                    <TextBlock Text="{Binding detallesTabHeader,Mode=OneWay,FallbackValue=Detalles}"/>
+                </TabItem.Header>
                 <Grid Background="#FFE5E5E5" Margin="0">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition/>
