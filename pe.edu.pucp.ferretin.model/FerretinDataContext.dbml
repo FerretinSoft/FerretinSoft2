@@ -1,5 +1,5 @@
-﻿<?xml version="1.0" encoding="utf-8"?><Database Name="inf245g2" ContextNamespace="pe.edu.pucp.ferretin.model" Class="FerretinDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
-  <Connection Mode="AppSettings" ConnectionString="Data Source=inti.lab.inf.pucp.edu.pe;Initial Catalog=inf245g2;Persist Security Info=True;User ID=inf245g2dba" SettingsObjectName="pe.edu.pucp.ferretin.model.Properties.Settings" SettingsPropertyName="inf245g2ConnectionString" Provider="System.Data.SqlClient" />
+﻿<?xml version="1.0" encoding="utf-8"?><Database Name="DataSource" ContextNamespace="pe.edu.pucp.ferretin.model" Class="FerretinDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
+  <Connection Mode="AppSettings" ConnectionString="Data Source=inti.lab.inf.pucp.edu.pe;User ID=inf245g2dba" SettingsObjectName="pe.edu.pucp.ferretin.model.Properties.Settings" SettingsPropertyName="DataSourceConnectionString" Provider="System.Data.SqlClient" />
   <Table Name="dbo.Tbl_Almacen" Member="Tiendas">
     <Type Name="Tienda">
       <Column Name="id" Type="System.Int16" DbType="SmallInt NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
@@ -24,6 +24,8 @@
       <Association Name="Tienda_Tbl_Producto_Almacen" Member="Tbl_Producto_Almacen" ThisKey="id" OtherKey="id_almacen" Type="Tbl_Producto_Almacen" />
       <Association Name="Tienda_Tbl_Solicitud_Abastecimiento" Member="Tbl_Solicitud_Abastecimiento" ThisKey="id" OtherKey="id_almacen" Type="Tbl_Solicitud_Abastecimiento" />
       <Association Name="Tienda_Tbl_Turno" Member="Tbl_Turno" ThisKey="id" OtherKey="id_almacen" Type="Tbl_Turno" />
+      <Association Name="Tienda_Movimiento" Member="Tbl_Movimiento" ThisKey="id" OtherKey="id_almacen_desde" Type="Movimiento" />
+      <Association Name="Tienda_Movimiento1" Member="Movimiento" ThisKey="id" OtherKey="id_almacen_hasta" Type="Movimiento" />
       <Association Name="Tienda_Tienda" Member="Tbl_Almacen1" ThisKey="id_abastecedor" OtherKey="id" Type="Tienda" IsForeignKey="true" />
       <Association Name="Tbl_Empleado_Tienda" Member="Empleado" Storage="_Tbl_Empleado" ThisKey="id_jefe" OtherKey="dni" Type="Empleado" IsForeignKey="true" />
       <Association Name="UbigeoDistrito_Tienda" Member="UbigeoDistrito" Storage="_Tbl_Ubigeo_Distrito" ThisKey="id_ubigeo" OtherKey="id" Type="UbigeoDistrito" IsForeignKey="true" />
@@ -36,8 +38,8 @@
       <Column Name="cantidad" Type="System.Decimal" DbType="Decimal(10,2)" CanBeNull="true" />
       <Column Name="montoParcial" Type="System.Decimal" DbType="Decimal(10,2)" CanBeNull="true" />
       <Column Name="precioPuntos" Type="System.Decimal" DbType="Decimal(10,2)" CanBeNull="true" />
-      <Association Name="Tbl_Producto_Tbl_Venta_Producto" Member="Tbl_Producto" ThisKey="id_producto" OtherKey="id" Type="Tbl_Producto" IsForeignKey="true" />
       <Association Name="Tbl_Venta_Tbl_Venta_Producto" Member="Tbl_Venta" ThisKey="id_venta" OtherKey="id" Type="Tbl_Venta" IsForeignKey="true" />
+      <Association Name="Tbl_Producto_Tbl_Venta_Producto" Member="Producto" ThisKey="id_producto" OtherKey="id" Type="Producto" IsForeignKey="true" />
     </Type>
   </Table>
   <Table Name="dbo.Tbl_Almacen_Horario" Member="Tbl_Almacen_Horario">
@@ -60,16 +62,16 @@
       <Association Name="Tbl_Cargo_Tbl_Empleado_Almacen" Member="Empleado_Almacen" Storage="_Tbl_Empleado_Almacen" ThisKey="id" OtherKey="id_cargo" Type="Empleado_Almacen" />
     </Type>
   </Table>
-  <Table Name="dbo.Tbl_Categoria" Member="Tbl_Categoria">
-    <Type Name="Tbl_Categoria">
+  <Table Name="dbo.Tbl_Categoria" Member="Categoria">
+    <Type Name="Categoria">
       <Column Name="id" Type="System.Int16" DbType="SmallInt NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
       <Column Name="id_padre" Type="System.Int16" DbType="SmallInt" CanBeNull="true" />
       <Column Name="nombre" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
       <Column Name="descripcion" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
       <Column Name="nivel" Type="System.Byte" DbType="TinyInt" CanBeNull="true" />
-      <Association Name="Tbl_Categoria_Tbl_Categoria" Member="Tbl_Categoria2" ThisKey="id" OtherKey="id_padre" Type="Tbl_Categoria" />
-      <Association Name="Tbl_Categoria_Tbl_Producto_Categoria" Member="Tbl_Producto_Categoria" ThisKey="id" OtherKey="id_categoria" Type="Tbl_Producto_Categoria" />
-      <Association Name="Tbl_Categoria_Tbl_Categoria" Member="Tbl_Categoria1" ThisKey="id_padre" OtherKey="id" Type="Tbl_Categoria" IsForeignKey="true" />
+      <Association Name="Categoria_Categoria" Member="Categoria1" Storage="_Tbl_Categoria2" ThisKey="id" OtherKey="id_padre" Type="Categoria" />
+      <Association Name="Categoria_Tbl_Producto_Categoria" Member="Producto_Categoria" ThisKey="id" OtherKey="id_categoria" Type="Producto_Categoria" />
+      <Association Name="Categoria_Categoria" Member="Tbl_Categoria1" ThisKey="id_padre" OtherKey="id" Type="Categoria" IsForeignKey="true" />
     </Type>
   </Table>
   <Table Name="dbo.Tbl_Cliente" Member="Cliente">
@@ -132,7 +134,7 @@
       <Column Name="cantidad" Type="System.Decimal" DbType="Decimal(10,2)" CanBeNull="true" />
       <Column Name="monto" Type="System.Decimal" DbType="Decimal(10,2)" CanBeNull="true" />
       <Association Name="Tbl_Devolucion_Tbl_Devolucion_Producto" Member="Tbl_Devolucion" ThisKey="id_devolucion" OtherKey="id" Type="Tbl_Devolucion" IsForeignKey="true" />
-      <Association Name="Tbl_Producto_Tbl_Devolucion_Producto" Member="Tbl_Producto" ThisKey="id_producto" OtherKey="id" Type="Tbl_Producto" IsForeignKey="true" />
+      <Association Name="Tbl_Producto_Tbl_Devolucion_Producto" Member="Producto" ThisKey="id_producto" OtherKey="id" Type="Producto" IsForeignKey="true" />
     </Type>
   </Table>
   <Table Name="dbo.Tbl_Dia" Member="Tbl_Dia">
@@ -206,15 +208,15 @@
       <Column Name="id_producto" Type="System.Int16" DbType="SmallInt" CanBeNull="true" />
       <Column Name="id_almacen" Type="System.Int16" DbType="SmallInt" CanBeNull="true" />
       <Association Name="Tienda_Tbl_Lote" Member="Tienda" Storage="_Tbl_Almacen" ThisKey="id_almacen" OtherKey="id" Type="Tienda" IsForeignKey="true" />
-      <Association Name="Tbl_Producto_Tbl_Lote" Member="Tbl_Producto" ThisKey="id_producto" OtherKey="id" Type="Tbl_Producto" IsForeignKey="true" />
+      <Association Name="Tbl_Producto_Tbl_Lote" Member="Producto" ThisKey="id_producto" OtherKey="id" Type="Producto" IsForeignKey="true" />
     </Type>
   </Table>
   <Table Name="dbo.Tbl_Material" Member="Tbl_Material">
     <Type Name="Tbl_Material">
       <Column Name="id" Type="System.Int16" DbType="SmallInt NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
       <Column Name="nombre" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
-      <Association Name="Tbl_Material_Tbl_Producto" Member="Tbl_Producto" ThisKey="id" OtherKey="id_material_base" Type="Tbl_Producto" />
-      <Association Name="Tbl_Material_Tbl_Producto1" Member="Tbl_Producto1" ThisKey="id" OtherKey="id_material_sec" Type="Tbl_Producto" />
+      <Association Name="Tbl_Material_Tbl_Producto" Member="Tbl_Producto" ThisKey="id" OtherKey="id_material_base" Type="Producto" />
+      <Association Name="Tbl_Material_Tbl_Producto1" Member="Producto" ThisKey="id" OtherKey="id_material_sec" Type="Producto" />
     </Type>
   </Table>
   <Table Name="dbo.Tbl_Medio_Pago" Member="Tbl_Medio_Pago">
@@ -237,21 +239,6 @@
       <Association Name="Tbl_Menu_Tbl_Menu" Member="Tbl_Menu1" ThisKey="id_menu_padre" OtherKey="id" Type="Tbl_Menu" IsForeignKey="true" />
     </Type>
   </Table>
-  <Table Name="dbo.Tbl_Movimiento" Member="Movimiento">
-    <Type Name="Movimiento">
-      <Column Name="id" Type="System.Int64" DbType="BigInt NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
-      <Column Name="codigo" Type="System.String" DbType="VarChar(20)" CanBeNull="true" />
-      <Column Name="fecha" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
-      <Column Name="comentario" Type="System.String" DbType="VarChar(500)" CanBeNull="true" />
-      <Column Name="id_tipo" Type="System.Int16" DbType="SmallInt" CanBeNull="true" />
-      <Column Name="id_almacen_desde" Type="System.Int16" DbType="SmallInt" CanBeNull="true" />
-      <Column Name="id_almacen_hasta" Type="System.Int16" DbType="SmallInt" CanBeNull="true" />
-      <Column Name="id_estado" Type="System.Byte" DbType="TinyInt" CanBeNull="true" />
-      <Association Name="Movimiento_Movimiento_Producto" Member="Movimiento_Producto" ThisKey="id" OtherKey="id_movimiento" Type="Movimiento_Producto" />
-      <Association Name="Movimiento_Estado_Movimiento" Member="Movimiento_Estado" ThisKey="id_estado" OtherKey="id" Type="Movimiento_Estado" IsForeignKey="true" />
-      <Association Name="Movimiento_Tipo_Movimiento" Member="Movimiento_Tipo" ThisKey="id_tipo" OtherKey="id" Type="Movimiento_Tipo" IsForeignKey="true" />
-    </Type>
-  </Table>
   <Table Name="dbo.Tbl_Movimiento_Estado" Member="Movimiento_Estado">
     <Type Name="Movimiento_Estado">
       <Column Name="id" Type="System.Byte" DbType="TinyInt NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
@@ -266,7 +253,7 @@
       <Column Name="id_producto" Type="System.Int16" DbType="SmallInt NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
       <Column Name="cantidad" Type="System.Decimal" DbType="Decimal(10,2)" CanBeNull="true" />
       <Association Name="Movimiento_Movimiento_Producto" Member="Movimiento" ThisKey="id_movimiento" OtherKey="id" Type="Movimiento" IsForeignKey="true" />
-      <Association Name="Tbl_Producto_Movimiento_Producto" Member="Tbl_Producto" ThisKey="id_producto" OtherKey="id" Type="Tbl_Producto" IsForeignKey="true" />
+      <Association Name="Tbl_Producto_Movimiento_Producto" Member="Producto" ThisKey="id_producto" OtherKey="id" Type="Producto" IsForeignKey="true" />
     </Type>
   </Table>
   <Table Name="dbo.Tbl_Movimiento_Tipo" Member="Movimiento_Tipo">
@@ -319,32 +306,6 @@
       <Association Name="Tbl_Perfil_Tbl_Perfil_Menu" Member="Tbl_Perfil" ThisKey="id_Perfil" OtherKey="id" Type="Tbl_Perfil" IsForeignKey="true" />
     </Type>
   </Table>
-  <Table Name="dbo.Tbl_Producto" Member="Tbl_Producto">
-    <Type Name="Tbl_Producto">
-      <Column Name="id" Type="System.Int16" DbType="SmallInt NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
-      <Column Name="codigo" Type="System.String" DbType="VarChar(10)" CanBeNull="true" />
-      <Column Name="nombre" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
-      <Column Name="descripcion" Type="System.String" DbType="VarChar(200)" CanBeNull="true" />
-      <Column Name="precioLista" Type="System.Decimal" DbType="Decimal(8,2)" CanBeNull="true" />
-      <Column Name="id_material_base" Type="System.Int16" DbType="SmallInt" CanBeNull="true" />
-      <Column Name="id_material_sec" Type="System.Int16" DbType="SmallInt" CanBeNull="true" />
-      <Column Name="id_unidad_medida" Type="System.Int16" DbType="SmallInt" CanBeNull="true" />
-      <Column Name="estado" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
-      <Column Name="imagen" Type="System.Data.Linq.Binary" DbType="VarBinary(1)" CanBeNull="true" UpdateCheck="Never" />
-      <Association Name="Tbl_Producto_Tbl_Venta_Producto" Member="Tbl_Venta_Producto" ThisKey="id" OtherKey="id_producto" Type="Tbl_Venta_Producto" />
-      <Association Name="Tbl_Producto_Tbl_Devolucion_Producto" Member="Tbl_Devolucion_Producto" ThisKey="id" OtherKey="id_producto" Type="Tbl_Devolucion_Producto" />
-      <Association Name="Tbl_Producto_Tbl_Lote" Member="Tbl_Lote" ThisKey="id" OtherKey="id_producto" Type="Tbl_Lote" />
-      <Association Name="Tbl_Producto_Movimiento_Producto" Member="Movimiento_Producto" ThisKey="id" OtherKey="id_producto" Type="Movimiento_Producto" />
-      <Association Name="Tbl_Producto_Tbl_Producto_Almacen" Member="Tbl_Producto_Almacen" ThisKey="id" OtherKey="id_producto" Type="Tbl_Producto_Almacen" />
-      <Association Name="Tbl_Producto_Tbl_Producto_Categoria" Member="Tbl_Producto_Categoria" ThisKey="id" OtherKey="id_producto" Type="Tbl_Producto_Categoria" />
-      <Association Name="Tbl_Producto_Tbl_Producto_Color" Member="Tbl_Producto_Color" ThisKey="id" OtherKey="id_producto" Type="Tbl_Producto_Color" />
-      <Association Name="Tbl_Producto_Tbl_Solicitud_Abastecimiento_Producto" Member="Tbl_Solicitud_Abastecimiento_Producto" ThisKey="id" OtherKey="id_producto" Type="Tbl_Solicitud_Abastecimiento_Producto" />
-      <Association Name="Tbl_Producto_Tbl_Documento_Compra_Producto" Member="Tbl_Documento_Compra_Productos" ThisKey="id" OtherKey="id_producto" Type="Tbl_Documento_Compra_Producto" />
-      <Association Name="Tbl_Material_Tbl_Producto" Member="Tbl_Material" ThisKey="id_material_base" OtherKey="id" Type="Tbl_Material" IsForeignKey="true" />
-      <Association Name="Tbl_Material_Tbl_Producto1" Member="Tbl_Material1" ThisKey="id_material_sec" OtherKey="id" Type="Tbl_Material" IsForeignKey="true" />
-      <Association Name="Tbl_Unidad_Medida_Tbl_Producto" Member="Tbl_Unidad_Medida" ThisKey="id_unidad_medida" OtherKey="id" Type="Tbl_Unidad_Medida" IsForeignKey="true" />
-    </Type>
-  </Table>
   <Table Name="dbo.Tbl_Producto_Almacen" Member="Tbl_Producto_Almacen">
     <Type Name="Tbl_Producto_Almacen">
       <Column Name="id_almacen" Type="System.Int16" DbType="SmallInt NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
@@ -355,15 +316,7 @@
       <Column Name="descuento" Type="System.Byte" DbType="TinyInt" CanBeNull="true" />
       <Column Name="puntos" Type="System.Int16" DbType="SmallInt" CanBeNull="true" />
       <Association Name="Tienda_Tbl_Producto_Almacen" Member="Tienda" Storage="_Tbl_Almacen" ThisKey="id_almacen" OtherKey="id" Type="Tienda" IsForeignKey="true" />
-      <Association Name="Tbl_Producto_Tbl_Producto_Almacen" Member="Tbl_Producto" ThisKey="id_producto" OtherKey="id" Type="Tbl_Producto" IsForeignKey="true" />
-    </Type>
-  </Table>
-  <Table Name="dbo.Tbl_Producto_Categoria" Member="Tbl_Producto_Categoria">
-    <Type Name="Tbl_Producto_Categoria">
-      <Column Name="id_categoria" Type="System.Int16" DbType="SmallInt NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
-      <Column Name="id_producto" Type="System.Int16" DbType="SmallInt NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
-      <Association Name="Tbl_Categoria_Tbl_Producto_Categoria" Member="Tbl_Categoria" ThisKey="id_categoria" OtherKey="id" Type="Tbl_Categoria" IsForeignKey="true" />
-      <Association Name="Tbl_Producto_Tbl_Producto_Categoria" Member="Tbl_Producto" ThisKey="id_producto" OtherKey="id" Type="Tbl_Producto" IsForeignKey="true" />
+      <Association Name="Tbl_Producto_Tbl_Producto_Almacen" Member="Producto" ThisKey="id_producto" OtherKey="id" Type="Producto" IsForeignKey="true" />
     </Type>
   </Table>
   <Table Name="dbo.Tbl_Producto_Color" Member="Tbl_Producto_Color">
@@ -371,7 +324,7 @@
       <Column Name="id_producto" Type="System.Int16" DbType="SmallInt NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
       <Column Name="id_color" Type="System.Int16" DbType="SmallInt NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
       <Association Name="Tbl_Color_Tbl_Producto_Color" Member="Tbl_Color" ThisKey="id_color" OtherKey="id" Type="Tbl_Color" IsForeignKey="true" />
-      <Association Name="Tbl_Producto_Tbl_Producto_Color" Member="Tbl_Producto" ThisKey="id_producto" OtherKey="id" Type="Tbl_Producto" IsForeignKey="true" />
+      <Association Name="Tbl_Producto_Tbl_Producto_Color" Member="Producto" ThisKey="id_producto" OtherKey="id" Type="Producto" IsForeignKey="true" />
     </Type>
   </Table>
   <Table Name="dbo.Tbl_Proforma" Member="Tbl_Proforma">
@@ -460,8 +413,8 @@
       <Column Name="cantidadAtendida" Type="System.Decimal" DbType="Decimal(10,2)" CanBeNull="true" />
       <Column Name="cantidadRestante" Type="System.Decimal" DbType="Decimal(10,2)" CanBeNull="true" />
       <Column Name="estado" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
-      <Association Name="Tbl_Producto_Tbl_Solicitud_Abastecimiento_Producto" Member="Tbl_Producto" ThisKey="id_producto" OtherKey="id" Type="Tbl_Producto" IsForeignKey="true" />
       <Association Name="Tbl_Solicitud_Abastecimiento_Tbl_Solicitud_Abastecimiento_Producto" Member="Tbl_Solicitud_Abastecimiento" ThisKey="id" OtherKey="id" Type="Tbl_Solicitud_Abastecimiento" IsForeignKey="true" />
+      <Association Name="Tbl_Producto_Tbl_Solicitud_Abastecimiento_Producto" Member="Producto" ThisKey="id_producto" OtherKey="id" Type="Producto" IsForeignKey="true" />
     </Type>
   </Table>
   <Table Name="dbo.Tbl_Transaccion" Member="Tbl_Transaccion">
@@ -535,8 +488,8 @@
       <Column Name="id" Type="System.Int16" DbType="SmallInt NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
       <Column Name="nombre" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
       <Column Name="abreviatura" Type="System.String" DbType="VarChar(10)" CanBeNull="true" />
-      <Association Name="Tbl_Unidad_Medida_Tbl_Producto" Member="Tbl_Producto" ThisKey="id" OtherKey="id_unidad_medida" Type="Tbl_Producto" />
       <Association Name="Tbl_Unidad_Medida_Tbl_Documento_Compra_Producto" Member="Tbl_Documento_Compra_Productos" ThisKey="id" OtherKey="id_unidad" Type="Tbl_Documento_Compra_Producto" />
+      <Association Name="Tbl_Unidad_Medida_Tbl_Producto" Member="Producto" ThisKey="id" OtherKey="id_unidad_medida" Type="Producto" />
     </Type>
   </Table>
   <Table Name="dbo.Tbl_Venta" Member="Tbl_Venta">
@@ -581,7 +534,7 @@
       <Association Name="Usuario_Tbl_Venta" Member="Tbl_Ventas" ThisKey="dni,id_perfil" OtherKey="dni,id_perfil" Type="Tbl_Venta" />
       <Association Name="Usuario_Tbl_Documento_Compra" Member="Tbl_Documento_Compras" ThisKey="dni,id_perfil" OtherKey="dni_ingreso,id_perfil_ingreso" Type="Tbl_Documento_Compra" />
       <Association Name="Usuario_Tbl_Documento_Compra1" Member="Tbl_Documento_Compras1" ThisKey="dni,id_perfil" OtherKey="dni_aprobacion,id_perfil_aprobacion" Type="Tbl_Documento_Compra" />
-      <Association Name="Tbl_Empleado_Usuario" Member="Empleado" Storage="_Tbl_Empleado" ThisKey="dni" OtherKey="dni" Type="Empleado" IsForeignKey="true" />
+      <Association Name="Tbl_Empleado_Usuario" Member="Tbl_Empleado" ThisKey="dni" OtherKey="dni" Type="Tbl_Empleado" IsForeignKey="true" />
       <Association Name="Tbl_Perfil_Usuario" Member="Tbl_Perfil" ThisKey="id_perfil" OtherKey="id" Type="Tbl_Perfil" IsForeignKey="true" />
     </Type>
   </Table>
@@ -630,8 +583,59 @@
       <Column Name="cantidad" Type="System.Decimal" DbType="Decimal(10,2)" CanBeNull="true" />
       <Column Name="montoParcial" Type="System.Decimal" DbType="Decimal(10,2)" CanBeNull="true" />
       <Association Name="Tbl_Documento_Compra_Tbl_Documento_Compra_Producto" Member="Tbl_Documento_Compra" ThisKey="id_documento_compra" OtherKey="id" Type="Tbl_Documento_Compra" IsForeignKey="true" />
-      <Association Name="Tbl_Producto_Tbl_Documento_Compra_Producto" Member="Tbl_Producto" ThisKey="id_producto" OtherKey="id" Type="Tbl_Producto" IsForeignKey="true" />
       <Association Name="Tbl_Unidad_Medida_Tbl_Documento_Compra_Producto" Member="Tbl_Unidad_Medida" ThisKey="id_unidad" OtherKey="id" Type="Tbl_Unidad_Medida" IsForeignKey="true" />
+      <Association Name="Tbl_Producto_Tbl_Documento_Compra_Producto" Member="Producto" ThisKey="id_producto" OtherKey="id" Type="Producto" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Tbl_Movimiento" Member="Movimiento">
+    <Type Name="Movimiento">
+      <Column Name="id" Type="System.Int64" DbType="BigInt NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="codigo" Type="System.String" DbType="VarChar(20)" CanBeNull="true" />
+      <Column Name="fecha" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="comentario" Type="System.String" DbType="VarChar(500)" CanBeNull="true" />
+      <Column Name="id_tipo" Type="System.Int16" DbType="SmallInt" CanBeNull="true" />
+      <Column Name="id_almacen_desde" Type="System.Int16" DbType="SmallInt" CanBeNull="true" />
+      <Column Name="id_almacen_hasta" Type="System.Int16" DbType="SmallInt" CanBeNull="true" />
+      <Column Name="id_estado" Type="System.Byte" DbType="TinyInt" CanBeNull="true" />
+      <Association Name="Movimiento_Movimiento_Producto" Member="Movimiento_Producto" ThisKey="id" OtherKey="id_movimiento" Type="Movimiento_Producto" />
+      <Association Name="Tienda_Movimiento" Member="Tienda" ThisKey="id_almacen_desde" OtherKey="id" Type="Tienda" IsForeignKey="true" />
+      <Association Name="Tienda_Movimiento1" Member="Tienda1" ThisKey="id_almacen_hasta" OtherKey="id" Type="Tienda" IsForeignKey="true" />
+      <Association Name="Movimiento_Estado_Movimiento" Member="Movimiento_Estado" ThisKey="id_estado" OtherKey="id" Type="Movimiento_Estado" IsForeignKey="true" />
+      <Association Name="Movimiento_Tipo_Movimiento" Member="Movimiento_Tipo" ThisKey="id_tipo" OtherKey="id" Type="Movimiento_Tipo" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Tbl_Producto" Member="Producto">
+    <Type Name="Producto">
+      <Column Name="id" Type="System.Int16" DbType="SmallInt NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="codigo" Type="System.String" DbType="VarChar(10)" CanBeNull="true" />
+      <Column Name="nombre" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="descripcion" Type="System.String" DbType="VarChar(200)" CanBeNull="true" />
+      <Column Name="precioLista" Type="System.Decimal" DbType="Decimal(8,2)" CanBeNull="true" />
+      <Column Name="id_material_base" Type="System.Int16" DbType="SmallInt" CanBeNull="true" />
+      <Column Name="id_material_sec" Type="System.Int16" DbType="SmallInt" CanBeNull="true" />
+      <Column Name="id_unidad_medida" Type="System.Int16" DbType="SmallInt" CanBeNull="true" />
+      <Column Name="estado" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="imagen" Type="System.Data.Linq.Binary" DbType="VarBinary(1)" CanBeNull="true" UpdateCheck="Never" />
+      <Association Name="Tbl_Producto_Tbl_Venta_Producto" Member="Tbl_Venta_Producto" ThisKey="id" OtherKey="id_producto" Type="Tbl_Venta_Producto" />
+      <Association Name="Tbl_Producto_Tbl_Devolucion_Producto" Member="Tbl_Devolucion_Producto" ThisKey="id" OtherKey="id_producto" Type="Tbl_Devolucion_Producto" />
+      <Association Name="Tbl_Producto_Tbl_Lote" Member="Tbl_Lote" ThisKey="id" OtherKey="id_producto" Type="Tbl_Lote" />
+      <Association Name="Tbl_Producto_Movimiento_Producto" Member="Movimiento_Producto" ThisKey="id" OtherKey="id_producto" Type="Movimiento_Producto" />
+      <Association Name="Tbl_Producto_Tbl_Producto_Almacen" Member="Tbl_Producto_Almacen" ThisKey="id" OtherKey="id_producto" Type="Tbl_Producto_Almacen" />
+      <Association Name="Tbl_Producto_Tbl_Producto_Color" Member="Tbl_Producto_Color" ThisKey="id" OtherKey="id_producto" Type="Tbl_Producto_Color" />
+      <Association Name="Tbl_Producto_Tbl_Solicitud_Abastecimiento_Producto" Member="Tbl_Solicitud_Abastecimiento_Producto" ThisKey="id" OtherKey="id_producto" Type="Tbl_Solicitud_Abastecimiento_Producto" />
+      <Association Name="Tbl_Producto_Tbl_Documento_Compra_Producto" Member="Tbl_Documento_Compra_Producto" ThisKey="id" OtherKey="id_producto" Type="Tbl_Documento_Compra_Producto" />
+      <Association Name="Tbl_Producto_Tbl_Producto_Categoria" Member="Producto_Categoria" ThisKey="id" OtherKey="id_producto" Type="Producto_Categoria" />
+      <Association Name="Tbl_Material_Tbl_Producto" Member="Tbl_Material" ThisKey="id_material_base" OtherKey="id" Type="Tbl_Material" IsForeignKey="true" />
+      <Association Name="Tbl_Material_Tbl_Producto1" Member="Tbl_Material1" ThisKey="id_material_sec" OtherKey="id" Type="Tbl_Material" IsForeignKey="true" />
+      <Association Name="Tbl_Unidad_Medida_Tbl_Producto" Member="Tbl_Unidad_Medida" ThisKey="id_unidad_medida" OtherKey="id" Type="Tbl_Unidad_Medida" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Tbl_Producto_Categoria" Member="Producto_Categoria">
+    <Type Name="Producto_Categoria">
+      <Column Name="id_categoria" Type="System.Int16" DbType="SmallInt NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="id_producto" Type="System.Int16" DbType="SmallInt NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Association Name="Categoria_Tbl_Producto_Categoria" Member="Categoria" ThisKey="id_categoria" OtherKey="id" Type="Categoria" IsForeignKey="true" />
+      <Association Name="Tbl_Producto_Tbl_Producto_Categoria" Member="Producto" ThisKey="id_producto" OtherKey="id" Type="Producto" IsForeignKey="true" />
     </Type>
   </Table>
 </Database>
