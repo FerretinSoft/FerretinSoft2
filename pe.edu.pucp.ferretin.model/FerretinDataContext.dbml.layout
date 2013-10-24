@@ -283,7 +283,7 @@
       </nodes>
     </associationConnector>
     <classShape Id="2f70d647-5c5e-40c1-b01a-f665e7cb592f" absoluteBounds="3.875, 0.5, 2, 1.7708968098958331">
-      <DataClassMoniker Name="/FerretinDataContext/Tbl_Usuario" />
+      <DataClassMoniker Name="/FerretinDataContext/Usuario" />
       <nestedChildShapes>
         <elementListCompartment Id="66621bc0-1acb-42b0-863e-e3fb537b0834" absoluteBounds="3.8899999999999997, 0.96, 1.9700000000000002, 1.2108968098958333" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
@@ -418,7 +418,7 @@
         <classShapeMoniker Id="7565c67c-3468-44da-81c3-8e655ff480a9" />
       </nodes>
     </associationConnector>
-    <associationConnector edgePoints="[(19.75 : 8.34699625651042); (20.1666666666667 : 8.34699625651042 : JumpStart); (20.3333333333333 : 8.34699625651042 : JumpEnd); (20.5 : 8.34699625651042)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+    <associationConnector edgePoints="[(19.75 : 8.34699625651042); (20.5 : 8.34699625651042)]" fixedFrom="NotFixed" fixedTo="NotFixed">
       <AssociationMoniker Name="/FerretinDataContext/Tbl_Material/Tbl_Material_Tbl_Producto" />
       <nodes>
         <classShapeMoniker Id="1f06c697-5967-45d1-9868-5bbb8fd1d276" />
@@ -453,7 +453,7 @@
         <classShapeMoniker Id="12c2c8cb-6f2d-43d4-9095-c45f359e1bbb" />
       </nodes>
     </associationConnector>
-    <associationConnector edgePoints="[(22.5 : 6.78776401652644); (22.8160744349011 : 7.10383845142756 : JumpStart); (22.9339255650989 : 7.22168958162532 : JumpEnd); (23.15625 : 7.44401401652644); (23.15625 : 8.53125); (23.25 : 8.625)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+    <associationConnector edgePoints="[(22.5 : 6.78776401652644); (23.15625 : 7.44401401652644); (23.15625 : 8.53125); (23.25 : 8.625)]" fixedFrom="NotFixed" fixedTo="NotFixed">
       <AssociationMoniker Name="/FerretinDataContext/Tbl_Color/Tbl_Color_Tbl_Producto_Color" />
       <nodes>
         <classShapeMoniker Id="2623fa73-e10e-4347-8218-69f4f8d39170" />
@@ -468,7 +468,7 @@
       </nodes>
     </associationConnector>
     <associationConnector edgePoints="[(5.875 : 1.09375); (14.71875 : 1.09375); (14.71875 : 15.625)]" fixedFrom="NotFixed" fixedTo="NotFixed">
-      <AssociationMoniker Name="/FerretinDataContext/Tbl_Usuario/Tbl_Usuario_Tbl_Proforma" />
+      <AssociationMoniker Name="/FerretinDataContext/Usuario/Tbl_Usuario_Tbl_Proforma" />
       <nodes>
         <classShapeMoniker Id="2f70d647-5c5e-40c1-b01a-f665e7cb592f" />
         <classShapeMoniker Id="66271579-6151-4e2b-8d4b-7f25a5f61b37" />
@@ -524,7 +524,7 @@
       </nodes>
     </associationConnector>
     <associationConnector edgePoints="[(5.875 : 1.4218775); (12.9166666666667 : 1.4218775 : JumpStart); (13.0833333333333 : 1.4218775 : JumpEnd); (14.6354166666667 : 1.4218775 : JumpStart); (14.8020833333333 : 1.4218775 : JumpEnd); (17.1666666666667 : 1.4218775 : JumpStart); (17.3333333333333 : 1.4218775 : JumpEnd); (20.25 : 1.4218775); (20.25 : 13.875); (20.5065089166667 : 13.875 : JumpStart); (20.6731755833333 : 13.875 : JumpEnd); (21.3385396666667 : 13.875 : JumpStart); (21.5052063333333 : 13.875 : JumpEnd); (21.5846339166667 : 13.875 : JumpStart); (21.7513005833333 : 13.875 : JumpEnd); (21.8307281666667 : 13.875 : JumpStart); (21.9973948333333 : 13.875 : JumpEnd); (22.3229166666667 : 13.875 : JumpStart); (22.4895833333333 : 13.875 : JumpEnd); (22.625 : 13.875); (22.625 : 21.875); (20.5 : 21.875); (20.5 : 25); (21.5 : 25); (21.5 : 25.25)]" fixedFrom="NotFixed" fixedTo="NotFixed">
-      <AssociationMoniker Name="/FerretinDataContext/Tbl_Usuario/Tbl_Usuario_Tbl_Transaccion" />
+      <AssociationMoniker Name="/FerretinDataContext/Usuario/Tbl_Usuario_Tbl_Transaccion" />
       <nodes>
         <classShapeMoniker Id="2f70d647-5c5e-40c1-b01a-f665e7cb592f" />
         <classShapeMoniker Id="16f06252-e5a3-4239-b3dd-161de8297f0e" />
@@ -559,7 +559,7 @@
       </nodes>
     </associationConnector>
     <associationConnector edgePoints="[(5.875 : 0.765623); (17.25 : 0.765623); (17.25 : 15.25); (17.968748 : 15.25); (17.968748 : 15.625)]" fixedFrom="NotFixed" fixedTo="NotFixed">
-      <AssociationMoniker Name="/FerretinDataContext/Tbl_Usuario/Tbl_Usuario_Tbl_Venta" />
+      <AssociationMoniker Name="/FerretinDataContext/Usuario/Tbl_Usuario_Tbl_Venta" />
       <nodes>
         <classShapeMoniker Id="2f70d647-5c5e-40c1-b01a-f665e7cb592f" />
         <classShapeMoniker Id="d4ae82aa-c9cd-4dc6-9ad4-6cf5efa89a49" />
@@ -593,8 +593,8 @@
         <classShapeMoniker Id="2f70d647-5c5e-40c1-b01a-f665e7cb592f" />
       </nodes>
     </associationConnector>
-    <associationConnector edgePoints="[(3.90625 : 2.27089680989583); (3.90625 : 7.11498103255208); (3.70833333333333 : 7.11498103255208 : JumpStart); (3.54166666666667 : 7.11498103255208 : JumpEnd); (3 : 7.11498103255208)]" fixedFrom="Algorithm" fixedTo="Algorithm">
-      <AssociationMoniker Name="/FerretinDataContext/Tbl_Usuario/Tbl_Usuario_Tbl_Documento_Compra" />
+    <associationConnector edgePoints="[(3.90625 : 2.27089680989583); (3.90625 : 7.94591192382812); (3 : 7.94591192382812)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+      <AssociationMoniker Name="/FerretinDataContext/Usuario/Tbl_Usuario_Tbl_Documento_Compra" />
       <nodes>
         <classShapeMoniker Id="2f70d647-5c5e-40c1-b01a-f665e7cb592f" />
         <classShapeMoniker Id="e7de473c-ce91-4f93-8a6b-cfb84165937a" />
@@ -614,8 +614,8 @@
         <classShapeMoniker Id="e7de473c-ce91-4f93-8a6b-cfb84165937a" />
       </nodes>
     </associationConnector>
-    <associationConnector edgePoints="[(3.890625 : 2.27089680989583); (3.890625 : 6.65654714941406); (3.70833333333333 : 6.65654714941406 : JumpStart); (3.54166666666667 : 6.65654714941406 : JumpEnd); (3 : 6.65654714941406)]" fixedFrom="Algorithm" fixedTo="Algorithm">
-      <AssociationMoniker Name="/FerretinDataContext/Tbl_Usuario/Tbl_Usuario_Tbl_Documento_Compra1" />
+    <associationConnector edgePoints="[(3.890625 : 2.27089680989583); (3.890625 : 5.43889782063802); (3 : 5.43889782063802)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+      <AssociationMoniker Name="/FerretinDataContext/Usuario/Tbl_Usuario_Tbl_Documento_Compra1" />
       <nodes>
         <classShapeMoniker Id="2f70d647-5c5e-40c1-b01a-f665e7cb592f" />
         <classShapeMoniker Id="e7de473c-ce91-4f93-8a6b-cfb84165937a" />
@@ -670,7 +670,7 @@
         <classShapeMoniker Id="66271579-6151-4e2b-8d4b-7f25a5f61b37" />
       </nodes>
     </associationConnector>
-    <associationConnector edgePoints="[(13.75 : 19.0112537552084); (17.59375 : 19.0112537552084); (17.59375 : 18.7420068359375)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+    <associationConnector edgePoints="[(13.75 : 19.0112537552084); (16.6979166666667 : 19.0112537552084 : JumpStart); (16.8645833333333 : 19.0112537552084 : JumpEnd); (17.59375 : 19.0112537552084); (17.59375 : 18.7420068359375)]" fixedFrom="NotFixed" fixedTo="NotFixed">
       <AssociationMoniker Name="/FerretinDataContext/Cliente/Cliente_Tbl_Venta" />
       <nodes>
         <classShapeMoniker Id="dec1bfb1-84d5-4865-aef5-e6da133bcdf5" />

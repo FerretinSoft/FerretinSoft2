@@ -136,12 +136,12 @@ namespace pe.edu.pucp.ferretin.view.MSeguridad
                 }
             ));
             thread.Start();
-            tiendasGrid.ItemsSource = TiendaService.obtenerTiendas();
+            tiendasGrid.ItemsSource = MS_TiendaService.obtenerListaTiendas();
         }
 
         private IEnumerable<Tienda> ListaTiendas()
         {
-            return TiendaService.obtenerTiendas();
+            return MS_TiendaService.obtenerListaTiendas();
         }
 
         public void codTienda_Click(object sender, RoutedEventArgs e)
