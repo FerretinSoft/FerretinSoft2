@@ -585,7 +585,7 @@ namespace pe.edu.pucp.ferretin.model
 			get
 			{
 				return this.GetTable<Tbl_Documento_Compra_Producto>();
-			}
+	}
 		}
 		
 		public System.Data.Linq.Table<Movimiento> Movimiento
@@ -593,7 +593,7 @@ namespace pe.edu.pucp.ferretin.model
 			get
 			{
 				return this.GetTable<Movimiento>();
-			}
+	}
 		}
 		
 		public System.Data.Linq.Table<Producto> Producto
@@ -601,9 +601,9 @@ namespace pe.edu.pucp.ferretin.model
 			get
 			{
 				return this.GetTable<Producto>();
-			}
+	}
 		}
-		
+	
 		public System.Data.Linq.Table<Producto_Categoria> Producto_Categoria
 		{
 			get
@@ -1125,7 +1125,7 @@ namespace pe.edu.pucp.ferretin.model
 			}
 			set
 			{
-				this._Tbl_Turno.Assign(value);
+                //this._Tbl_Producto_Almacen.Assign(value);
 			}
 		}
 		
@@ -7407,9 +7407,9 @@ namespace pe.edu.pucp.ferretin.model
 						this._id_producto = default(short);
 					}
 					this.SendPropertyChanged("Producto");
+					}
 				}
 			}
-		}
 		
 		public event PropertyChangingEventHandler PropertyChanging;
 		
@@ -8493,8 +8493,8 @@ namespace pe.edu.pucp.ferretin.model
 		{
 			this.SendPropertyChanging();
 			entity.Tbl_Proveedor = this;
-		}
-		
+	}
+	
 		private void detach_Tbl_Documento_Compras(Tbl_Documento_Compra entity)
 		{
 			this.SendPropertyChanging();
@@ -9047,12 +9047,12 @@ namespace pe.edu.pucp.ferretin.model
 					if ((previousValue != null))
 					{
 						this._Tbl_Almacen.Entity = null;
-						previousValue.Tbl_Solicitud_Abastecimiento.Remove(this);
+                        //previousValue..Remove(this);
 					}
 					this._Tbl_Almacen.Entity = value;
 					if ((value != null))
 					{
-						value.Tbl_Solicitud_Abastecimiento.Add(this);
+                        //value.Tbl_Almacen.Add(this);
 						this._id_almacen = value.id;
 					}
 					else
@@ -10286,12 +10286,12 @@ namespace pe.edu.pucp.ferretin.model
 					if ((previousValue != null))
 					{
 						this._Tbl_Almacen.Entity = null;
-						previousValue.Tbl_Turno.Remove(this);
+						//previousValue.Tbl_Turno.Remove(this);
 					}
 					this._Tbl_Almacen.Entity = value;
 					if ((value != null))
 					{
-						value.Tbl_Turno.Add(this);
+						//value.Tbl_Turno.Add(this);
 						this._id_almacen = value.id;
 					}
 					else
@@ -11944,8 +11944,8 @@ namespace pe.edu.pucp.ferretin.model
 					this._estado = value;
 					this.SendPropertyChanged("estado");
 					this.OnestadoChanged();
-				}
 			}
+		}
 		}
 		
 		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Usuario_Tbl_Proforma", Storage="_Tbl_Proformas", ThisKey="dni,id_perfil", OtherKey="dni,id_perfil")]
@@ -12141,10 +12141,10 @@ namespace pe.edu.pucp.ferretin.model
 		{
 			this.SendPropertyChanging();
 			entity.Tbl_Usuario = this;
-		}
-		
+	}
+	
 		private void detach_Tbl_Documento_Compras(Tbl_Documento_Compra entity)
-		{
+	{
 			this.SendPropertyChanging();
 			entity.Tbl_Usuario = null;
 		}
@@ -12631,7 +12631,7 @@ namespace pe.edu.pucp.ferretin.model
 			get
 			{
 				return this._Tbl_Documento_Compra_Productos;
-			}
+				}
 			set
 			{
 				this._Tbl_Documento_Compra_Productos.Assign(value);
@@ -12903,9 +12903,9 @@ namespace pe.edu.pucp.ferretin.model
 			set
 			{
 				if ((this._id != value))
-				{
+		{
 					this.OnidChanging(value);
-					this.SendPropertyChanging();
+			this.SendPropertyChanging();
 					this._id = value;
 					this.SendPropertyChanged("id");
 					this.OnidChanged();
@@ -12923,9 +12923,9 @@ namespace pe.edu.pucp.ferretin.model
 			set
 			{
 				if ((this._nombre != value))
-				{
+		{
 					this.OnnombreChanging(value);
-					this.SendPropertyChanging();
+			this.SendPropertyChanging();
 					this._nombre = value;
 					this.SendPropertyChanged("nombre");
 					this.OnnombreChanged();
@@ -12943,9 +12943,9 @@ namespace pe.edu.pucp.ferretin.model
 			set
 			{
 				if ((this._descripcion != value))
-				{
+		{
 					this.OndescripcionChanging(value);
-					this.SendPropertyChanging();
+			this.SendPropertyChanging();
 					this._descripcion = value;
 					this.SendPropertyChanged("descripcion");
 					this.OndescripcionChanged();
@@ -12963,9 +12963,9 @@ namespace pe.edu.pucp.ferretin.model
 			set
 			{
 				if ((this._tipo != value))
-				{
+		{
 					this.OntipoChanging(value);
-					this.SendPropertyChanging();
+			this.SendPropertyChanging();
 					this._tipo = value;
 					this.SendPropertyChanged("tipo");
 					this.OntipoChanged();
@@ -13536,8 +13536,8 @@ namespace pe.edu.pucp.ferretin.model
 					this._id_almacen_hasta = value;
 					this.SendPropertyChanged("id_almacen_hasta");
 					this.Onid_almacen_hastaChanged();
-				}
 			}
+		}
 		}
 		
 		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_id_estado", DbType="TinyInt")]
@@ -13586,17 +13586,17 @@ namespace pe.edu.pucp.ferretin.model
 			}
 			set
 			{
-				Tienda previousValue = this._Tienda.Entity;
-				if (((previousValue != value) 
-							|| (this._Tienda.HasLoadedOrAssignedValue == false)))
+                Tienda previousValue = this._Tienda.Entity;
+				if (((previousValue != value)
+                            || (this._Tienda.HasLoadedOrAssignedValue == false)))
 				{
 					this.SendPropertyChanging();
 					if ((previousValue != null))
 					{
-						this._Tienda.Entity = null;
+                        this._Tienda.Entity = null;
 						previousValue.Tbl_Movimiento.Remove(this);
 					}
-					this._Tienda.Entity = value;
+                    this._Tienda.Entity = value;
 					if ((value != null))
 					{
 						value.Tbl_Movimiento.Add(this);
@@ -13620,17 +13620,17 @@ namespace pe.edu.pucp.ferretin.model
 			}
 			set
 			{
-				Tienda previousValue = this._Tienda1.Entity;
-				if (((previousValue != value) 
-							|| (this._Tienda1.HasLoadedOrAssignedValue == false)))
+                Tienda previousValue = this._Tienda1.Entity;
+				if (((previousValue != value)
+                            || (this._Tienda1.HasLoadedOrAssignedValue == false)))
 				{
 					this.SendPropertyChanging();
 					if ((previousValue != null))
 					{
-						this._Tienda1.Entity = null;
+                        this._Tienda1.Entity = null;
 						previousValue.Movimiento.Remove(this);
 					}
-					this._Tienda1.Entity = value;
+                    this._Tienda1.Entity = value;
 					if ((value != null))
 					{
 						value.Movimiento.Add(this);
