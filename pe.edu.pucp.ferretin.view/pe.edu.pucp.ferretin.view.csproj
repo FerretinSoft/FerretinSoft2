@@ -413,7 +413,12 @@
     <Resource Include="Resources\user_male2_64.png" />
     <Resource Include="Resources\view_48.png" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="..\pe.edu.pucp.ferretin.controller\pe.edu.pucp.ferretin.controller.csproj">
+      <Project>{534fc2b6-43e2-40b5-8b9d-90bd421b307b}</Project>
+      <Name>pe.edu.pucp.ferretin.controller</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

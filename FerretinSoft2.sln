@@ -3,6 +3,10 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2012
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "pe.edu.pucp.ferretin.view", "pe.edu.pucp.ferretin.view\pe.edu.pucp.ferretin.view.csproj", "{71456603-0C07-4627-AA16-1C686D82FC2F}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "pe.edu.pucp.ferretin.model", "pe.edu.pucp.ferretin.model\pe.edu.pucp.ferretin.model.csproj", "{B2B09083-747C-4467-A7EF-A09EF13E3039}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "pe.edu.pucp.ferretin.controller", "pe.edu.pucp.ferretin.controller\pe.edu.pucp.ferretin.controller.csproj", "{534FC2B6-43E2-40B5-8B9D-90BD421B307B}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -13,6 +17,14 @@ Global
 		{71456603-0C07-4627-AA16-1C686D82FC2F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{71456603-0C07-4627-AA16-1C686D82FC2F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{71456603-0C07-4627-AA16-1C686D82FC2F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B2B09083-747C-4467-A7EF-A09EF13E3039}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B2B09083-747C-4467-A7EF-A09EF13E3039}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B2B09083-747C-4467-A7EF-A09EF13E3039}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B2B09083-747C-4467-A7EF-A09EF13E3039}.Release|Any CPU.Build.0 = Release|Any CPU
+		{534FC2B6-43E2-40B5-8B9D-90BD421B307B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{534FC2B6-43E2-40B5-8B9D-90BD421B307B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{534FC2B6-43E2-40B5-8B9D-90BD421B307B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{534FC2B6-43E2-40B5-8B9D-90BD421B307B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
