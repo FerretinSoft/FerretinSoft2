@@ -12,7 +12,7 @@
         <RowDefinition Height="23*"/>
         <RowDefinition Height="38*"/>
     </Grid.RowDefinitions>
-    <TabControl x:Name="personalTab" Margin="0" Grid.RowSpan="2" Grid.ColumnSpan="2">
+        <TabControl x:Name="personalTabControl" Margin="0" Grid.RowSpan="2" Grid.ColumnSpan="2" >
         <TabItem Header="Búsqueda">
             <Grid Background="#FFE5E5E5">
                 <Grid.RowDefinitions>
@@ -32,7 +32,7 @@
                     </Button.Background>
                 </Button>
 
-                <DataGrid x:Name="personalDg"  Margin="5,52,5,5" Grid.Row="2" AutoGenerateColumns="False" CanUserAddRows="False" CanUserDeleteRows="False" IsReadOnly="True">
+                    <DataGrid x:Name="empleadosGrid"  Margin="5,52,5,5" Grid.Row="2" AutoGenerateColumns="False" CanUserAddRows="False" CanUserDeleteRows="False" IsReadOnly="True" ItemsSource="{Binding Path=ListaEmpleados}" >
                     <DataGrid.Columns>
                         <DataGridHyperlinkColumn Width="2*" Binding="{Binding Path=codigo}" Header="Código">
                             <DataGridHyperlinkColumn.ElementStyle>
@@ -67,8 +67,8 @@
                 <Label Content="Código: " HorizontalAlignment="Left" Height="26" VerticalAlignment="Top" Width="107" Margin="26,67,0,0"/>
                 <TextBox HorizontalAlignment="Left" Height="20" Margin="83,73,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
                 <Label Content="Tienda:" HorizontalAlignment="Left" Height="26" VerticalAlignment="Top" Width="45" Margin="438,74,0,0"/>
-                <ComboBox HorizontalAlignment="Left" Margin="290,74,0,0" VerticalAlignment="Top" Width="120"/>
-                <ComboBox HorizontalAlignment="Left" Margin="502,74,0,0" VerticalAlignment="Top" Width="120">
+                <ComboBox ItemsSource="{Binding cargoMenu}"  SelectedIndex="{Binding selectedCargoM,Mode=TwoWay}"  DisplayMemberPath="nombre" SelectedValuePath="id"  HorizontalAlignment="Left" Margin="290,74,0,0" VerticalAlignment="Top" Width="120"/>
+                    <ComboBox ItemsSource="{Binding tiendaMenu}"  SelectedIndex="{Binding selectedTiendaM,Mode=TwoWay}"  DisplayMemberPath="nombre" SelectedValuePath="id" HorizontalAlignment="Left" Margin="502,74,0,0" VerticalAlignment="Top" Width="120">
                     <ListBoxItem Content="Tienda 1"/>
                     <ListBoxItem Content="Tienda 2"/>
                 </ComboBox>
@@ -76,8 +76,11 @@
                 <Label Content="Cargo: " HorizontalAlignment="Left" Height="26" VerticalAlignment="Top" Width="57" Margin="223,70,0,0"/>
             </Grid>
         </TabItem>
-        <TabItem Header="Edición" IsEnabled="True">
-            <Grid Background="#FFE5E5E5">
+            <TabItem x:Name="edicionTab">
+                <TabItem.Header>
+                    <TextBlock Text="{Binding detallesTabHeader,Mode=OneWay,FallbackValue=Edicion}"/>
+                </TabItem.Header>
+                <Grid Background="#FFE5E5E5">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="18*"></ColumnDefinition>
                     <ColumnDefinition Width="9*"/>
@@ -99,7 +102,7 @@
                 <Label Content="Apellido Materno:" HorizontalAlignment="Left" Margin="10,181,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.464,1.231" Grid.ColumnSpan="4"/>
                 <TextBox x:Name="apMatTxtBox" HorizontalAlignment="Left" Height="23" Margin="73.75,185,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="219" Grid.Column="3"/>
                 <ComboBox ItemsSource="{Binding distrito}" SelectedIndex="{Binding selectedDistrito, Mode=TwoWay}" DisplayMemberPath="nombre" SelectedValuePath="id" HorizontalAlignment="Left" Margin="46.75,252,0,0" VerticalAlignment="Top" Width="97" Grid.Column="3"/>
-                <ComboBox HorizontalAlignment="Left" Margin="195.75,252,0,0" VerticalAlignment="Top" Width="97" Grid.Column="3"/>
+                <TextBox x:Name="codPosTxtBox" HorizontalAlignment="Left" Margin="195.75,252,0,0" VerticalAlignment="Top" Width="97" Grid.Column="3"/>
                 <Label Content="Dpto:" HorizontalAlignment="Left" Margin="148.75,279,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.464,1.231" Grid.Column="3"/>
                 <Label Content="País:" HorizontalAlignment="Left" Margin="10,279,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.464,1.231" Grid.ColumnSpan="4"/>
                 <ComboBox HorizontalAlignment="Left" Margin="46.75,283,0,0" VerticalAlignment="Top" Width="97" Grid.Column="3"/>
@@ -123,15 +126,14 @@
                 <Button Content="CANCELAR" HorizontalAlignment="Left" Margin="207,0,0,13" VerticalAlignment="Bottom" Width="75" RenderTransformOrigin="1.347,-0.05" Grid.Column="4" Height="30"/>
                 <Label Content="Dirección:&#x9;" HorizontalAlignment="Left" Margin="10,213,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.464,1.231" Grid.ColumnSpan="4"/>
                 <TextBox x:Name="dirTxtBox" HorizontalAlignment="Left" Height="23" Margin="73.75,217,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="219" Grid.Column="3"/>
-                <ComboBox HorizontalAlignment="Left" Margin="74,57,0,0" VerticalAlignment="Top" Width="90" Grid.Column="4"/>
-                <Label Content="Grado de instrucción:" HorizontalAlignment="Left" Margin="25,87,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.464,1.231" Grid.Column="4"/>
+                    <ComboBox ItemsSource="{Binding cargo}"  SelectedIndex="{Binding selectedCargo,Mode=TwoWay}"  DisplayMemberPath="nombre" SelectedValuePath="id" HorizontalAlignment="Left" Margin="74,57,0,0" VerticalAlignment="Top" Width="90" Grid.Column="4"/>
+                    <Label Content="Grado de instrucción:" HorizontalAlignment="Left" Margin="25,87,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.464,1.231" Grid.Column="4"/>
                 <ComboBox HorizontalAlignment="Left" Margin="152,91,0,0" VerticalAlignment="Top" Width="181" IsReadOnly="True" SelectedIndex="0" Grid.Column="4">
                     <ListBoxItem Content="Secundaria Completa"/>
                     <ListBoxItem Content="Tecnico"/>
                 </ComboBox>
-                <ComboBox x:Name="tiendaComboBox" HorizontalAlignment="Left" Margin="250,57,0,0" VerticalAlignment="Top" Width="85" Grid.Column="4">
-                    <ListBoxItem Content="Tienda 1"/>
-                    <ListBoxItem Content="Tienda 2"/>
+                <ComboBox x:Name="tiendaComboBox"  ItemsSource="{Binding tienda}"  SelectedIndex="{Binding selectedTienda,Mode=TwoWay}"  DisplayMemberPath="nombre" SelectedValuePath="id" HorizontalAlignment="Left" Margin="250,57,0,0" VerticalAlignment="Top" Width="85" Grid.Column="4">
+                  
                 </ComboBox>
                 <TextBox HorizontalAlignment="Left" Height="23" Margin="152,121,0,0" TextWrapping="Wrap" Text="S/. 1200.00" VerticalAlignment="Top" Width="181" Grid.Column="4"/>
                 <Label Content="Historial:" HorizontalAlignment="Left" Margin="27,185,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.464,1.231" Grid.Column="4"/>

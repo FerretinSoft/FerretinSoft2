@@ -41,6 +41,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Class1.cs" />
+    <Compile Include="MR_CargTieService.cs" />
+    <Compile Include="MR_EmpleadoService.cs" />
     <Compile Include="MR_UbigeoService.cs" />
     <Compile Include="MV_ClienteService.cs" />
     <Compile Include="MovimientosService.cs" />
