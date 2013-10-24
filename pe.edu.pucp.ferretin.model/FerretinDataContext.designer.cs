@@ -1125,7 +1125,7 @@ namespace pe.edu.pucp.ferretin.model
 			}
 			set
 			{
-                this._Tbl_Producto_Almacen.Assign(value);
+                //this._Tbl_Producto_Almacen.Assign(value);
 			}
 		}
 		
