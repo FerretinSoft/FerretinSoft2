@@ -99,6 +99,15 @@ namespace pe.edu.pucp.ferretin.view.MSeguridad
                 NotifyPropertyChanged("usuario");
             }
         }
+
+        public  IEnumerable<Perfil> perfiles
+        {
+            get
+            {
+                return MS_UsuarioService.obtenerPerfiles();
+            }
+        }
+
         #region INotifyPropertyChanged Members
         public event PropertyChangedEventHandler PropertyChanged;
         public void NotifyPropertyChanged(string propName)
@@ -136,7 +145,7 @@ namespace pe.edu.pucp.ferretin.view.MSeguridad
                 }
             ));
             thread.Start();
-            usuariosTabControl.DataContext = MS_UsuariosViewModel;
+            DataContext = MS_UsuariosViewModel;
             //usuariosDg.ItemsSource = listUsuarios();
         }
         /******************************************************/
@@ -170,19 +179,36 @@ namespace pe.edu.pucp.ferretin.view.MSeguridad
             MS_UsuariosViewModel.statusTab = (int)MS_UsuariosViewModel.tabs.BUSQUEDA;
         }
         /******************************************************/
-        private void buscarUsuarioBtn_Click(object sender, RoutedEventArgs e)
+        private void buscarUsuariosBtn_Click(object sender, RoutedEventArgs e)
         {
             Usuario usuario = new Usuario();
             usuario.dni = (MS_UsuariosViewModel.searchCodigo == null) ? "" : MS_UsuariosViewModel.searchCodigo;
             usuario.nombre = (MS_UsuariosViewModel.searchNombreUsuario == null) ? "" : MS_UsuariosViewModel.searchNombreUsuario;
-            usuario.id_perfil = MS_UsuariosViewModel.searchPerfil > 0 ? (MS_UsuariosViewModel.searchPerfil == 1 ? (short)MS_UsuariosViewModel.searchPerfil : (short)MS_UsuariosViewModel.searchPerfil) : (short)0;
+            
+            if(MS_UsuariosViewModel.searchPerfil > 0){
+                Perfil perfil =  MS_UsuariosViewModel.perfiles.ElementAt(MS_UsuariosViewModel.searchPerfil);
+                usuario.id_perfil = perfil.id;
+            }
 
-            /*Empleado empleado = new Empleado();
+            if (MS_UsuariosViewModel.searchEstado == 1)
+            {
+                usuario.estado = true;
+            }
+            else if (MS_UsuariosViewModel.searchEstado == 2)
+            {
+                usuario.estado = false;
+            }
+            else
+            {
+                usuario.estado = null;
+            }
+
+            Empleado empleado = new Empleado();
             empleado.nombre = (MS_UsuariosViewModel.searchNombres == null) ? "" : MS_UsuariosViewModel.searchNombres;
             empleado.apPaterno = (MS_UsuariosViewModel.searchApellidos == null) ? "" : MS_UsuariosViewModel.searchApellidos;
             empleado.apMaterno = (MS_UsuariosViewModel.searchApellidos == null) ? "" : MS_UsuariosViewModel.searchApellidos;
-            empleado.tipoDocumento = MS_UsuariosViewModel.searchPerfil > 0 ? (MS_UsuariosViewModel.searchPerfil == 1 ? "DNI" : "RUC") : "";
-            usuariosGrid.ItemsSource = UsuarioService.obtenerListaUsuariosBy(usuario, empleado);*/
+            
+            usuariosGrid.ItemsSource = MS_UsuarioService.obtenerListaUsuariosBy(usuario, empleado);
         }
         /******************************************************/
         private void guardarDetalleUsuarioBtn_Click(object sender, RoutedEventArgs e)
@@ -198,6 +224,9 @@ namespace pe.edu.pucp.ferretin.view.MSeguridad
             }
             MS_UsuariosViewModel.statusTab = (int)MS_UsuariosViewModel.tabs.BUSQUEDA;
         }
+
+
+
         /******************************************************/
 
     }

@@ -31,7 +31,7 @@
                             <ImageBrush ImageSource="/Resources/refresh2_48.png"/>
                         </Button.Background>
                     </Button>
-                    <DataGrid x:Name="tiendasGrid" ItemsSource="{Binding Path=ListaTiendas}" Margin="0,33,10,10" Grid.Row="1" Grid.ColumnSpan="3" SelectionChanged="DataGrid_SelectionChanged" Grid.Column="1" AutoGenerateColumns="False" CanUserAddRows="False" CanUserDeleteRows="False" IsReadOnly="True">
+                    <DataGrid x:Name="tiendasGrid"  Margin="0,33,10,10" Grid.Row="1" Grid.ColumnSpan="3" SelectionChanged="DataGrid_SelectionChanged" Grid.Column="1" AutoGenerateColumns="False" CanUserAddRows="False" CanUserDeleteRows="False" IsReadOnly="True">
                         <DataGrid.Columns>
                             <DataGridHyperlinkColumn Width="2.5*" Binding="{Binding Path=codigo}" Header="Código">
                                 <DataGridHyperlinkColumn.ElementStyle>
@@ -47,12 +47,8 @@
                     </DataGrid>
                     <Label Content="Nombre Tienda:" HorizontalAlignment="Left" Height="26" VerticalAlignment="Top" Width="102" Margin="15,82,0,0" Grid.Column="1"/>
                     <Label Content="Provincia:" HorizontalAlignment="Left" Margin="206,39,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.464,1.231" Height="28" Grid.Column="3" Width="60"/>
-                    <ComboBox HorizontalAlignment="Left" Margin="271,39,0,0" VerticalAlignment="Top" Width="102" Height="26" Grid.Column="3" SelectionChanged="ComboBox_SelectionChanged">
-                        <ComboBoxItem/> Amazonas
-                        <ComboBoxItem/> Ancash
-                        <ComboBoxItem/> Apurimac
-                        <ComboBoxItem/> Arequipa
-                        <ComboBoxItem/> Otros
+                    <ComboBox ItemsSource="{Binding provincias,Mode=OneWay}" DisplayMemberPath="nombre" SelectedIndex="{Binding searchProvincia,Mode=TwoWay}" HorizontalAlignment="Left" Margin="271,39,0,0" VerticalAlignment="Top" Width="102" Height="26" Grid.Column="3">
+                        
                     </ComboBox>
                     <ToolBar HorizontalAlignment="Left" VerticalAlignment="Top" Height="24" Grid.Row="1" Width="68" Grid.Column="1">
                         <Button x:Name="nuevoPerfilBtn" Content="" VerticalAlignment="Bottom" Width="20" Margin="0,0,2,-1" Height="20" Click="nuevaTiendaBtn_Click">
@@ -70,30 +66,20 @@
                     <TextBox x:Name="codTiendaSearchTxtBox" Text="{Binding searchCodTienda, Mode=TwoWay}" HorizontalAlignment="Left" Height="24" TextWrapping="Wrap" VerticalAlignment="Top" Width="186" RenderTransformOrigin="0.799,0.3" Margin="5,41,0,0" Grid.Column="3"/>
                     <TextBox x:Name="nombreTiendaSearchTxtBox" Text="{Binding searchNombre, Mode=TwoWay}" HorizontalAlignment="Left" Height="24" TextWrapping="Wrap" VerticalAlignment="Top" Width="186" Margin="5,84,0,0" Grid.Column="3"/>
                     <Label Content="Tipo:" HorizontalAlignment="Left" Margin="206,82,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.464,1.231" Height="28" Grid.Column="3" Width="60"/>
-                    <ComboBox SelectedIndex="{Binding searchTipo, Mode=TwoWay}" x:Name="tipCombo" HorizontalAlignment="Left" Margin="271,84,0,0" VerticalAlignment="Top" Width="102" Height="26" Grid.Column="3" SelectionChanged="ComboBox_SelectionChanged">
-                        <ComboBoxItem/> Venta
-                        <ComboBoxItem/> Compra/Venta
+                    <ComboBox SelectedIndex="{Binding searchTipo, Mode=TwoWay}" x:Name="tipCombo" HorizontalAlignment="Left" Margin="271,84,0,0" VerticalAlignment="Top" Width="102" Height="26" Grid.Column="3">
+                        <ComboBoxItem Content="Todos"/>
+                        <ComboBoxItem Content="Venta"/>
+                        <ComboBoxItem Content="Compra/Venta"/>
                     </ComboBox>
                     <Label Content="Distrito:" HorizontalAlignment="Left" Margin="396,39,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.464,1.231" Height="28" Grid.Column="3" Width="51"/>
-                    <ComboBox HorizontalAlignment="Left" Margin="452,39,0,0" VerticalAlignment="Top" Width="102" Height="26" Grid.Column="3">
-                        <ComboBoxItem/>
-                        <System:String xml:space="preserve"> San Miguel </System:String>
-                        <ComboBoxItem/>
-                        <System:String xml:space="preserve"> Jesus Maria </System:String>
-                        <ComboBoxItem/>
-                        <System:String xml:space="preserve"> Barranco </System:String>
-                        <ComboBoxItem/>
-                        <System:String xml:space="preserve"> San Isidro </System:String>
-                        <ComboBoxItem/>
-                        <System:String xml:space="preserve"> Callao </System:String>
-                        <ComboBoxItem/>
-                        <System:String xml:space="preserve"> Otros</System:String>
+                    <ComboBox ItemsSource="{Binding distritos,Mode=OneWay}" DisplayMemberPath="nombre" SelectedIndex="{Binding searchDistrito, Mode=TwoWay}" HorizontalAlignment="Left" Margin="452,39,0,0" VerticalAlignment="Top" Width="102" Height="26" Grid.Column="3">
+                        
                     </ComboBox>
                     <Label Content="Estado:" HorizontalAlignment="Left" Margin="396,80,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.464,1.231" Height="28" Grid.Column="3" Width="51"/>
-                    <ComboBox HorizontalAlignment="Left" Margin="452,82,0,0" VerticalAlignment="Top" Width="102" Height="26" Grid.Column="3" SelectionChanged="ComboBox_SelectionChanged">
-                        <CheckBox Content="Todos" IsChecked="True"/>
-                        <CheckBox Content="Inactivo" IsChecked="True"/>
-                        <CheckBox Content="Activo" IsChecked="True"/>
+                    <ComboBox  SelectedIndex="{Binding searchEstado, Mode=TwoWay}" HorizontalAlignment="Left" Margin="452,82,0,0" VerticalAlignment="Top" Width="102" Height="26" Grid.Column="3">
+                        <ComboBoxItem Content="Todos"/>
+                        <ComboBoxItem Content="Activo"/>
+                        <ComboBoxItem Content="Inactivo"/>
                     </ComboBox>
                 </Grid>
 
