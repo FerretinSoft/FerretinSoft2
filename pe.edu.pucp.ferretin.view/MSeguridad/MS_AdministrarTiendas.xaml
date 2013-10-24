@@ -11,7 +11,7 @@
         <Grid.ColumnDefinitions>
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
-        <TabControl x:Name="tiendasTabControl" SelectedIndex="{Binding statusTab,Mode=TwoWay,FallbackValue=0}" Margin="0" Grid.RowSpan="2">
+        <TabControl x:Name="tiendasTabControl" SelectedIndex="{Binding statusTab,Mode=TwoWay,FallbackValue=0}">
             <TabItem Header="Búsqueda" Margin="-2,-1">
                 <Grid Background="#FFE5E5E5" Margin="0,0,-2,0">
                     <Grid.ColumnDefinitions>
@@ -26,7 +26,7 @@
                     </Grid.RowDefinitions>
                     <GroupBox Header="Tienda" Margin="0,10,10,10" BorderBrush="Black" Grid.ColumnSpan="3" Grid.Column="1"/>
                     <Label Content="Código Tienda:" HorizontalAlignment="Left" Height="26" VerticalAlignment="Top" Width="93" Margin="15,39,0,0" Grid.Column="1"/>
-                    <Button x:Name="buscarClienteBtn" HorizontalAlignment="Left" Margin="589,76,0,0" VerticalAlignment="Top" Width="32" Height="32" RenderTransformOrigin="0.3,-0.35" Grid.Column="3">
+                    <Button x:Name="buscarTiendaBtn" Click="buscarTiendaBtn_Click" HorizontalAlignment="Left" Margin="589,76,0,0" VerticalAlignment="Top" Width="32" Height="32" RenderTransformOrigin="0.3,-0.35" Grid.Column="3">
                         <Button.Background>
                             <ImageBrush ImageSource="/Resources/refresh2_48.png"/>
                         </Button.Background>
@@ -70,7 +70,7 @@
                     <TextBox x:Name="codTiendaSearchTxtBox" Text="{Binding searchCodTienda, Mode=TwoWay}" HorizontalAlignment="Left" Height="24" TextWrapping="Wrap" VerticalAlignment="Top" Width="186" RenderTransformOrigin="0.799,0.3" Margin="5,41,0,0" Grid.Column="3"/>
                     <TextBox x:Name="nombreTiendaSearchTxtBox" Text="{Binding searchNombre, Mode=TwoWay}" HorizontalAlignment="Left" Height="24" TextWrapping="Wrap" VerticalAlignment="Top" Width="186" Margin="5,84,0,0" Grid.Column="3"/>
                     <Label Content="Tipo:" HorizontalAlignment="Left" Margin="206,82,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.464,1.231" Height="28" Grid.Column="3" Width="60"/>
-                    <ComboBox HorizontalAlignment="Left" Margin="271,84,0,0" VerticalAlignment="Top" Width="102" Height="26" Grid.Column="3" SelectionChanged="ComboBox_SelectionChanged">
+                    <ComboBox SelectedIndex="{Binding searchTipo, Mode=TwoWay}" x:Name="tipCombo" HorizontalAlignment="Left" Margin="271,84,0,0" VerticalAlignment="Top" Width="102" Height="26" Grid.Column="3" SelectionChanged="ComboBox_SelectionChanged">
                         <ComboBoxItem/> Venta
                         <ComboBoxItem/> Compra/Venta
                     </ComboBox>

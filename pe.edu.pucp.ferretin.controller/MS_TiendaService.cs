@@ -39,6 +39,31 @@ namespace pe.edu.pucp.ferretin.controller
             return listaTiendas;
         }
 
+        public static Tienda obtenerTiendaByCodigo(String codigoTienda)
+        {
+            IEnumerable<Tienda> tiendas = (from t in listaTiendas
+                                             where t.codigo != null && t.codigo.Contains(codigoTienda)
+                                             select t);
+            if (tiendas.Count() > 0)
+                return tiendas.First();
+            else
+                return null;
+        }
+
+        public static IEnumerable<Tienda> obtenerListaTiendasBy(Tienda tienda)
+        {
+            return from t in listaTiendas
+                   where
+                   (t.codigo != null && t.codigo.Contains(tienda.codigo)
+                       && t.nombre != null && t.nombre.Contains(tienda.nombre)
+                       && t.tipo != null && t.tipo.Equals(tienda.tipo)
+                       && t.estado != null && t.estado.Equals(tienda.estado)
+                       && t.UbigeoDistrito != null && t.UbigeoDistrito.Equals(tienda.UbigeoDistrito)
+                    )
+                   orderby t.codigo
+                   select t;
+        }
+
         public static void insertarTienda(Tienda tienda)
         {
             db.Tiendas.InsertOnSubmit(tienda);

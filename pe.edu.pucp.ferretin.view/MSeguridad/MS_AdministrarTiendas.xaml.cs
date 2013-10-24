@@ -25,8 +25,10 @@ namespace pe.edu.pucp.ferretin.view.MSeguridad
     {
         #region Valores para el cuadro de Búsqueda
         public String searchCodTienda { get; set; }
-        public String searchNombre { get; set; }        
-        public int searchTipoDocumento { get; set; }
+        public String searchNombre { get; set; }
+        public bool searchEstado { get; set; }
+        public bool searchTipo { get; set; }
+        public int searchUbigeo { get; set; }
         #endregion
 
         public enum tabs
@@ -163,6 +165,18 @@ namespace pe.edu.pucp.ferretin.view.MSeguridad
         {
             MS_TiendasViewModel.statusTab = (int)MS_TiendasViewModel.tabs.BUSQUEDA;
         }
+
+        private void buscarTiendaBtn_Click(object sender, RoutedEventArgs e)
+        {
+            Tienda tienda = new Tienda();
+            tienda.codigo = (MS_TiendasViewModel.searchCodTienda == null) ? "" : MS_TiendasViewModel.searchCodTienda;
+            tienda.nombre = (MS_TiendasViewModel.searchNombre == null) ? "" : MS_TiendasViewModel.searchNombre;
+            tienda.estado = (MS_TiendasViewModel.searchEstado ? MS_TiendasViewModel.searchEstado == true : false);
+            tienda.tipo = (MS_TiendasViewModel.searchTipo) ? MS_TiendasViewModel.searchTipo == true: false;
+            
+            tiendasGrid.ItemsSource = MS_TiendaService.obtenerListaTiendasBy(tienda);
+        }
+
 
         private void guardarDetalleTiendaBtn_Click(object sender, RoutedEventArgs e)
         {
