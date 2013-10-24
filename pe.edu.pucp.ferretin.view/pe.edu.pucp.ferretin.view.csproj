@@ -93,6 +93,14 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="MRecursosHumanos\MR_AdministrarPersonalWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="MRecursosHumanos\MR_MainWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="MSeguridad\MS_AdministrarPerfiles.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -151,6 +159,12 @@
     </Compile>
     <Compile Include="MAlmacen\MA_SolicitudAbastecimientoWindow.xaml.cs">
       <DependentUpon>MA_SolicitudAbastecimientoWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="MRecursosHumanos\MR_AdministrarPersonalWindow.xaml.cs">
+      <DependentUpon>MR_AdministrarPersonalWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="MRecursosHumanos\MR_MainWindow.xaml.cs">
+      <DependentUpon>MR_MainWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="MSeguridad\MS_AdministrarPerfiles.xaml.cs">
       <DependentUpon>MS_AdministrarPerfiles.xaml</DependentUpon>
@@ -254,7 +268,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="MCompras\" />
-    <Folder Include="MRecursosHumanos\" />
     <Folder Include="MVentas\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
