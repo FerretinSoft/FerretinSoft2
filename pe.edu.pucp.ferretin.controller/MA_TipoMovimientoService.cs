@@ -11,9 +11,9 @@ namespace pe.edu.pucp.ferretin.controller
     {
         static FerretinDataContext dc = new FerretinDataContext();
 
-        private static IEnumerable<Movimiento_Tipo> _listaTipoMovimientos = null;
+        private static IEnumerable<MovimientoTipo> _listaTipoMovimientos = null;
 
-        private static IEnumerable<Movimiento_Tipo> listaTipoMovimientos
+        private static IEnumerable<MovimientoTipo> listaTipoMovimientos
         {
             get
             {
@@ -29,9 +29,9 @@ namespace pe.edu.pucp.ferretin.controller
             }
         }
 
-        public static IEnumerable<Movimiento_Tipo> ObtenerListaTipoMovimientos()
+        public static IEnumerable<MovimientoTipo> ObtenerListaTipoMovimientos()
         {
-            listaTipoMovimientos = from tipo in dc.Movimiento_Tipo
+            listaTipoMovimientos = from tipo in dc.MovimientoTipo
                                    orderby tipo.nombre
                                    select tipo;
             return listaTipoMovimientos;

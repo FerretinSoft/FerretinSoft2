@@ -32,7 +32,7 @@ namespace pe.edu.pucp.ferretin.controller
 
         public static IEnumerable<Usuario> obtenerListaUsuarios()
         {
-            listaUsuarios = from p in db.Usuarios
+            listaUsuarios = from p in db.Usuario
                             orderby p.dni
                             select p;
             return listaUsuarios;
@@ -55,7 +55,7 @@ namespace pe.edu.pucp.ferretin.controller
         /*******************************************************/
         public static void insertarUsuario(Usuario usuario)
         {
-            db.Usuarios.InsertOnSubmit(usuario);
+            db.Usuario.InsertOnSubmit(usuario);
             db.SubmitChanges();
         }
         /*******************************************************/

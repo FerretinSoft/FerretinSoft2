@@ -13,9 +13,9 @@ namespace pe.edu.pucp.ferretin.controller
 
         private static FerretinDataContext db = new FerretinDataContext();
 
-        private static IEnumerable<Tienda> _listaTiendas = null;
+        private static IEnumerable<Almacen> _listaTiendas = null;
 
-        private static IEnumerable<Tienda> listaTiendas
+        private static IEnumerable<Almacen> listaTiendas
         {
             get
             {
@@ -31,17 +31,17 @@ namespace pe.edu.pucp.ferretin.controller
             }
         }
 
-        public static IEnumerable<Tienda> obtenerListaTiendas()
+        public static IEnumerable<Almacen> obtenerListaTiendas()
         {
-            listaTiendas = from p in db.Tiendas
+            listaTiendas = from p in db.Almacen
                             orderby p.id
                             select p;
             return listaTiendas;
         }
 
-        public static Tienda obtenerTiendaByCodigo(String codigoTienda)
+        public static Almacen obtenerTiendaByCodigo(String codigoTienda)
         {
-            IEnumerable<Tienda> tiendas = (from t in listaTiendas
+            IEnumerable<Almacen> tiendas = (from t in listaTiendas
                                              where t.codigo != null && t.codigo.Contains(codigoTienda)
                                              select t);
             if (tiendas.Count() > 0)
@@ -50,7 +50,7 @@ namespace pe.edu.pucp.ferretin.controller
                 return null;
         }
 
-        public static IEnumerable<Tienda> obtenerListaTiendasBy(Tienda tienda)
+        public static IEnumerable<Almacen> obtenerListaTiendasBy(Almacen tienda)
         {
             return from t in listaTiendas
                    where
@@ -64,13 +64,13 @@ namespace pe.edu.pucp.ferretin.controller
                    select t;
         }
 
-        public static void insertarTienda(Tienda tienda)
+        public static void insertarTienda(Almacen tienda)
         {
-            db.Tiendas.InsertOnSubmit(tienda);
+            db.Almacen.InsertOnSubmit(tienda);
             db.SubmitChanges();
         }
 
-        public static void actualizarTienda(Tienda tienda)
+        public static void actualizarTienda(Almacen tienda)
         {
             db.SubmitChanges();
         }

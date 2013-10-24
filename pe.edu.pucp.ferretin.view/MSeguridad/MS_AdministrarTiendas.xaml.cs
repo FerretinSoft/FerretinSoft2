@@ -53,11 +53,11 @@ namespace pe.edu.pucp.ferretin.view.MSeguridad
                 //Si la pestaña es para agregar nuevo, limpio los input
                 switch (value)
                 {
-                    case (int)tabs.BUSQUEDA: detallesTabHeader = "Agregar"; tienda = new Tienda(); break;//Si es agregar, creo un nuevo objeto Tienda
-                    case (int)tabs.AGREGAR: detallesTabHeader = "Agregar"; tienda = new Tienda(); break;//Si es agregar, creo un nuevo objeto Tienda
+                    case (int)tabs.BUSQUEDA: detallesTabHeader = "Agregar"; tienda = new Almacen(); break;//Si es agregar, creo un nuevo objeto Tienda
+                    case (int)tabs.AGREGAR: detallesTabHeader = "Agregar"; tienda = new Almacen(); break;//Si es agregar, creo un nuevo objeto Tienda
                     case (int)tabs.MODIFICAR: detallesTabHeader = "Modificar"; break;
                     case (int)tabs.DETALLES: detallesTabHeader = "Detalles"; break;
-                    default: detallesTabHeader = "Agregar"; tienda = new Tienda(); break;//Si es agregar, creo un nuevo objeto Tienda
+                    default: detallesTabHeader = "Agregar"; tienda = new Almacen(); break;//Si es agregar, creo un nuevo objeto Tienda
                 }
                 //Cuando se cambia el status, tambien se tiene que cambiar el currentIndex del tab
                 //currentIndexTab = _statusTab == 0 ? 0 : 1;
@@ -87,9 +87,9 @@ namespace pe.edu.pucp.ferretin.view.MSeguridad
             }
         }
 
-        private Tienda _tienda = new Tienda();
+        private Almacen _tienda = new Almacen();
         
-        public Tienda tienda
+        public Almacen tienda
         {
             get
             {
@@ -141,7 +141,7 @@ namespace pe.edu.pucp.ferretin.view.MSeguridad
             tiendasGrid.ItemsSource = MS_TiendaService.obtenerListaTiendas();
         }
 
-        private IEnumerable<Tienda> ListaTiendas()
+        private IEnumerable<Almacen> ListaTiendas()
         {
             return MS_TiendaService.obtenerListaTiendas();
         }
@@ -150,7 +150,7 @@ namespace pe.edu.pucp.ferretin.view.MSeguridad
         {
             if (tiendasGrid.SelectedItem != null)
             {
-                MS_TiendasViewModel.tienda = (Tienda)tiendasGrid.SelectedItem;
+                MS_TiendasViewModel.tienda = (Almacen)tiendasGrid.SelectedItem;
                 MS_TiendasViewModel.statusTab = (int)MS_TiendasViewModel.tabs.MODIFICAR;//Modificar                 
             }
         }
@@ -168,7 +168,7 @@ namespace pe.edu.pucp.ferretin.view.MSeguridad
 
         private void buscarTiendaBtn_Click(object sender, RoutedEventArgs e)
         {
-            Tienda tienda = new Tienda();
+            Almacen tienda = new Almacen();
             tienda.codigo = (MS_TiendasViewModel.searchCodTienda == null) ? "" : MS_TiendasViewModel.searchCodTienda;
             tienda.nombre = (MS_TiendasViewModel.searchNombre == null) ? "" : MS_TiendasViewModel.searchNombre;
             tienda.estado = (MS_TiendasViewModel.searchEstado ? MS_TiendasViewModel.searchEstado == true : false);

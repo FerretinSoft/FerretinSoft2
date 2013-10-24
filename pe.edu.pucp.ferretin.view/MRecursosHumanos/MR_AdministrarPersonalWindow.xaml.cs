@@ -84,7 +84,7 @@ namespace pe.edu.pucp.ferretin.view.MRecursosHumanos
             }           
         }
 
-        public IEnumerable<Tienda> tienda
+        public IEnumerable<Almacen> tienda
         {
             get
             {

@@ -21,7 +21,7 @@ namespace pe.edu.pucp.ferretin.view.MAlmacen
 {
     public class MA_MovimientosViewModel : INotifyPropertyChanged
     {
-        public IEnumerable<Tienda> tiendas
+        public IEnumerable<Almacen> tiendas
         {
             get
             {
@@ -45,7 +45,7 @@ namespace pe.edu.pucp.ferretin.view.MAlmacen
             }
         }
 
-        public IEnumerable<Movimiento_Tipo> tiposMovimiento
+        public IEnumerable<MovimientoTipo> tiposMovimiento
         {
             get
             {
@@ -255,7 +255,7 @@ namespace pe.edu.pucp.ferretin.view.MAlmacen
                 detallesTab.Header = "Detalle";
 
                 
-                //movViewModel.selectedTipoMovimiento = movViewModel.tiposMovimiento.FirstOrDefault(tipo => tipo.Equals(movViewModel.movimiento.Movimiento_Tipo));
+                //movViewModel.selectedTipoMovimiento = movViewModel.tiposMovimiento.FirstOrDefault(tipo => tipo.Equals(movViewModel.movimiento.MovimientoTipo));
 
                 //FillForm();
                 //movViewModel.statusTab = (int)MA_MovimientosViewModel.tabs.MODIFICAR;//Modificar
@@ -267,7 +267,7 @@ namespace pe.edu.pucp.ferretin.view.MAlmacen
             codMovimientoTxt.Text = movViewModel.movimiento.codigo;
             codMovimientoTxt.IsEnabled = false;
             
-            Movimiento_Tipo tipo = movViewModel.movimiento.Movimiento_Tipo;
+            MovimientoTipo tipo = movViewModel.movimiento.MovimientoTipo;
             if (tipo != null)
             {
                 for (int i = 0; i < movViewModel.tiposMovimiento.Count(); i++)
@@ -284,7 +284,7 @@ namespace pe.edu.pucp.ferretin.view.MAlmacen
             fechaMovDate.SelectedDate = movViewModel.movimiento.fecha;
             fechaMovDate.IsEnabled = false;
             
-            Tienda tiendaDesde = movViewModel.movimiento.Tienda;
+            Almacen tiendaDesde = movViewModel.movimiento.Almacen;
             if (tiendaDesde != null)
             {
                 for (int i = 0; i < movViewModel.tiendas.Count(); i++)
@@ -298,7 +298,7 @@ namespace pe.edu.pucp.ferretin.view.MAlmacen
             }
             tiendaDesdeCombo.IsEnabled = false;
             
-            Tienda tiendaHasta = movViewModel.movimiento.Tienda1;
+            Almacen tiendaHasta = movViewModel.movimiento.Almacen;
             if (tiendaHasta != null)
             {
                 for (int i = 0; i < movViewModel.tiendas.Count(); i++)
