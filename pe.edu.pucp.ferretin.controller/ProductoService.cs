@@ -34,12 +34,27 @@ namespace pe.edu.pucp.ferretin.controller
             return listaProductos;
         }
 
-        public static IEnumerable<Producto> obtenerProductosPorNombre(String searchNombre)
+        public static IEnumerable<Producto> obtenerProductosPorNombre(Producto producto, int flagAll)
         {
-            listaProductos=
-                from p in db.Producto
-                where (p.nombre.Contains(searchNombre))
-                select p;
+            if (flagAll == 0)
+            {
+                listaProductos =
+                    from p in db.Producto
+                    where
+                    p.nombre.Contains(producto.nombre) &&
+                    p.estado == producto.estado
+                    select p;
+            }
+            else
+            {
+                listaProductos =
+                    from p in db.Producto
+                    where
+                    p.nombre.Contains(producto.nombre) &&
+                    p.estado==true || p.estado==false
+                    select p;
+            }
+
 
             List<Producto> pList = listaProductos.ToList();
 
@@ -56,6 +71,19 @@ namespace pe.edu.pucp.ferretin.controller
 
             return listaProductos;
         }
+
+        public static void agregarProducto(Producto prod,Tbl_Producto_Almacen prodAlm)
+        {
+            db.Producto.InsertOnSubmit(prod);
+            db.SubmitChanges();
+
+            prodAlm.id_producto = prod.id;
+            db.Tbl_Producto_Almacen.InsertOnSubmit(prodAlm);
+            db.SubmitChanges();
+
+        }
+
+
 
 
     }

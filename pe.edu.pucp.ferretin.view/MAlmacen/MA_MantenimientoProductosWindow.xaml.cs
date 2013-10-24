@@ -24,10 +24,16 @@ namespace pe.edu.pucp.ferretin.view.MAlmacen
     public partial class MA_MantinimientoProductosViewModel : INotifyPropertyChanged
     {
         public String searchNombre{get;set;}
+        public String searchIdCategoria { get; set; }
         public IEnumerable<Categoria> listaCategorias { get; set; }
+        public IEnumerable<Tbl_Unidad_Medida> listaUMed { get; set; }
+        public IEnumerable<Tbl_Material> listaMatBase { get; set; }
+        public IEnumerable<Tbl_Material> listaMatSec { get; set; }
+        public IEnumerable<Tienda> listaTiendas { get; set; }
+        
         
         private Producto _prod;
-        public Producto prod
+        public Producto producto
         {
             get
             {
@@ -40,7 +46,21 @@ namespace pe.edu.pucp.ferretin.view.MAlmacen
             }
         }
 
-        private String _detallesTabHeader = "Agregar"; //Default
+        private Tbl_Producto_Almacen _prodAlm;
+        public Tbl_Producto_Almacen prodAlm
+        {
+            get
+            {
+                return _prodAlm;
+            }
+            set
+            {
+                _prodAlm = value;
+                NotifyPropertyChanged("prodAlm");
+            }
+        }
+
+        private String _detallesTabHeader = "Agregar Producto"; //Default
         public String detallesTabHeader
         {
             get
@@ -74,9 +94,12 @@ namespace pe.edu.pucp.ferretin.view.MAlmacen
                 //Si la pestaña es para agregar nuevo, limpio los input
                 switch (value)
                 {
-                    case (int)tabs.BUSQUEDA: detallesTabHeader = "Agregar"; prod = new Producto(); break;//Si es agregar, creo un nuevo objeto Cliente
-                    case (int)tabs.AGREGAR: detallesTabHeader = "Agregar"; prod = new Producto(); break;//Si es agregar, creo un nuevo objeto Cliente
-                    //case (int)tabs.MODIFICAR: detallesTabHeader = "Modificar"; break;
+                    case (int)tabs.BUSQUEDA: detallesTabHeader = "Agregar Producto"; producto = new Producto(); break;//Si es agregar, creo un nuevo objeto Cliente
+                    case (int)tabs.AGREGAR: detallesTabHeader = "Agregar Producto"; producto = new Producto(); prodAlm = new Tbl_Producto_Almacen(); break;//Si es agregar, creo un nuevo objeto Cliente
+                    case (int)tabs.MODIFICAR:detallesTabHeader = "Edición de Producto"; break;
+                            
+
+                        
                     //case (int)tabs.DETALLES: detallesTabHeader = "Detalles"; break;
                     //default: detallesTabHeader = "Agregar"; cliente = new Cliente(); break;//Si es agregar, creo un nuevo objeto Cliente
                 }
@@ -86,9 +109,6 @@ namespace pe.edu.pucp.ferretin.view.MAlmacen
             }
         }
 
-
-
-
         #region INotifyPropertyChanged Members
         public event PropertyChangedEventHandler PropertyChanged;
         public void NotifyPropertyChanged(string propName)
@@ -97,9 +117,6 @@ namespace pe.edu.pucp.ferretin.view.MAlmacen
                 this.PropertyChanged(this, new PropertyChangedEventArgs(propName));
         }
         #endregion
-
-
-
 
 
     }
@@ -113,29 +130,89 @@ namespace pe.edu.pucp.ferretin.view.MAlmacen
         {
             InitializeComponent();
             productoTabControl.DataContext = pvm;
+            pvm.listaUMed = UnidadMedidaServiceMateriales.obtenerUnidadesMedida();
             pvm.listaCategorias = CategoriaService.obtenerTodasCategorias();
+            pvm.listaMatBase = UnidadMedidaServiceMateriales.obtenerMaterialesPrimario();
+            pvm.listaMatSec = UnidadMedidaServiceMateriales.obtenerMaterialesPrimario();
+            pvm.listaTiendas = MS_TiendaService.obtenerListaTiendas();
+            
         }
 
         private void nuevoProductoBtn_Click(object sender, RoutedEventArgs e)
         {
-            //mantenimientoTab.SelectedIndex = 1;
+            productoTabControl.SelectedIndex = 1;
+            txtCodigo.IsEnabled = true;
+            
         }
 
         private void editarProductoBtn_Click(object sender, RoutedEventArgs e)
         {
-            //mantenimientoTab.SelectedIndex = 1;
+            irTabEditarProducto();
         }
 
         private void buscarClienteBtn_Click(object sender, RoutedEventArgs e)
         {
-            pvm.searchNombre= (pvm.searchNombre==null)?"":pvm.searchNombre;
-            if (pvm.searchNombre != null) 
+            Producto producto = new Producto();
+            producto.nombre=(pvm.searchNombre==null)?"":pvm.searchNombre;
+            int flagAll = 0;
+            
+            if (chkActivo.IsChecked.Value && chkInactivo.IsChecked.Value)
             {
-                gridProductos.ItemsSource = ProductoService.obtenerProductosPorNombre(pvm.searchNombre);
-                
+                flagAll = 1;
             }
             else
-                gridProductos.ItemsSource=ProductoService.obtenerTodosProductos();
+            {
+                producto.estado=(chkActivo.IsChecked==true)?true:false;
+            }
+
+            gridProductos.ItemsSource = ProductoService.obtenerProductosPorNombre(producto,flagAll);
+
+        }
+
+        private void btnGuardar(object sender, RoutedEventArgs e)
+        {
+            //Console.WriteLine(this.detallesTab.Header);
+            pvm.producto.estado=(this.rbtnActivo.IsChecked==true)?true:false;
+            //pvm.prodAlm.id_producto = pvm.producto.codigo;
+            ProductoService.agregarProducto(pvm.producto,pvm.prodAlm);
+        }
+
+        private void irTabEditarProducto()
+        {
+            if (gridProductos.SelectedItem != null)
+            {
+                enable_disable_campos(false);
+                pvm.producto = (Producto)gridProductos.SelectedItem;
+                pvm.statusTab = (int)MA_MantinimientoProductosViewModel.tabs.MODIFICAR;//Modificar
+            }
+        }
+
+        private void codProducto_click(object sender, RoutedEventArgs e)
+        {
+            irTabEditarProducto();
+        }
+
+        private void enable_disable_campos(Boolean valor)
+        {
+            this.txtCodigo.IsEnabled = valor;
+            this.txtDescuento.IsEnabled = valor;
+            this.txtPuntos.IsEnabled = valor;
+            this.txtStockAct.IsEnabled = valor;
+            this.txtStockMin.IsEnabled = valor;
+            this.cmbMatBase.IsEnabled = valor;
+            this.cmbMatSec.IsEnabled = valor;
+            this.cmbUnidadMed.IsEnabled = valor;
+            this.cmbTienda.IsEnabled = valor;
+        }
+
+        private void tabBúsqueda_Click(object sender, MouseButtonEventArgs e)
+        {
+            enable_disable_campos(true);
+        }
+
+        private void btnEliminar(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }

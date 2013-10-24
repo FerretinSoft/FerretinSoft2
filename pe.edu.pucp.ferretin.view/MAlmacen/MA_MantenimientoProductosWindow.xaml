@@ -4,7 +4,7 @@
         Title="Administración de Productos" Height="487" Width="704" Icon="../Resources/ferretin_ico.ico" ResizeMode="CanMinimize">
     <Grid>
         <TabControl x:Name="productoTabControl" SelectedIndex="{Binding statusTab,Mode=TwoWay,FallbackValue=0}">
-            <TabItem Header="Búsqueda">
+            <TabItem Header="Búsqueda de Productos" MouseUp="tabBúsqueda_Click">
                 <Grid Background="#FFE5E5E5">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition/>
@@ -22,31 +22,32 @@
                     </Button>
                     <DataGrid Name="gridProductos" CanUserAddRows="False" Grid.Row="1" Margin="5,153,5,5" AutoGenerateColumns="False" ItemsSource="{Binding Path=listaProductos}">
                         <DataGrid.Columns>
-                            <DataGridHyperlinkColumn Width="1*" Binding="{Binding Path=codigo}" ContentBinding="{x:Null}" ClipboardContentBinding="{x:Null}" Header="Cód. Producto"/>
+                            <DataGridHyperlinkColumn Width="1*" Binding="{Binding Path=codigo}" ContentBinding="{x:Null}" ClipboardContentBinding="{x:Null}" Header="Cód. Producto">
+                                <DataGridHyperlinkColumn.ElementStyle>
+                                    <Style>
+                                        <EventSetter Event="Hyperlink.Click" Handler="codProducto_click"/>
+                                    </Style>
+                                </DataGridHyperlinkColumn.ElementStyle>
+                            </DataGridHyperlinkColumn>
                             <DataGridTextColumn Width="2*" Binding="{Binding Path=nombre}" ClipboardContentBinding="{x:Null}" Header="Nombre"/>
                             <DataGridTextColumn Width="2*" Binding="{Binding Path=cadenaCategoria}" ClipboardContentBinding="{x:Null}" Header="Categorías"/>
                             <DataGridCheckBoxColumn Header="Estado" Binding="{Binding Path=estado}" Width="1*"/>
                         </DataGrid.Columns>
                     </DataGrid>
-                    <ComboBox x:Name="categoriaCombo" ItemsSource="{Binding Path=listaCategorias}" DisplayMemberPath="nombre" SelectedValuePath="id" SelectedValue="{Binding Path=listaCategorias}"  HorizontalAlignment="Left" Margin="402,43,0,0" VerticalAlignment="Top" Width="180" Height="22">
+                    <ComboBox x:Name="categoriaCombo" ItemsSource="{Binding Path=listaCategorias}" DisplayMemberPath="nombre" SelectedValuePath="nombre" SelectedValue="{Binding Path=searchIdCategoria}"  HorizontalAlignment="Left" Margin="402,43,0,0" VerticalAlignment="Top" Width="180" Height="22">
 
                     </ComboBox>
                     <Label Content="Nombre:" HorizontalAlignment="Left" Height="26" VerticalAlignment="Top" Width="64" Margin="15,43,0,0"/>
                     <TextBox x:Name="txtNombre" Text="{Binding searchNombre, Mode=TwoWay}"  HorizontalAlignment="Left" Height="23" Margin="82,42,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="236"/>
                     <ToolBar HorizontalAlignment="Left" Margin="9,119,0,0" VerticalAlignment="Top" Height="24">
-                        <Button x:Name="nuevoProductoBtn" Content="" Height="20" VerticalAlignment="Top" Width="20" Margin="0,0,2,-1" Click="nuevoProductoBtn_Click">
+                        <Button x:Name="nuevoProductoBtn" Content="" VerticalAlignment="Bottom" Width="20" Margin="0,0,2,-1" Click="nuevoProductoBtn_Click" Height="20">
                             <Button.Background>
                                 <ImageBrush ImageSource="../Resources/add_20.png" Stretch="None"/>
                             </Button.Background>
                         </Button>
-                        <Button x:Name="editarProductoBtn" Content="" Height="20" VerticalAlignment="Bottom" Width="20" Margin="0,0,2,-1" Click="editarProductoBtn_Click">
+                        <Button x:Name="editarProductoBtn" Content="" VerticalAlignment="Top" Width="20" Margin="0,0,2,-1" Click="editarProductoBtn_Click" Height="20">
                             <Button.Background>
                                 <ImageBrush ImageSource="../Resources/edit_20.png"/>
-                            </Button.Background>
-                        </Button>
-                        <Button Content="" VerticalAlignment="Bottom" Width="20" Margin="0,0,2,-1" Height="20">
-                            <Button.Background>
-                                <ImageBrush ImageSource="../Resources/trash_20.png"/>
                             </Button.Background>
                         </Button>
 
@@ -66,31 +67,21 @@
                     </Grid.ColumnDefinitions>
                     <Image HorizontalAlignment="Left" Height="119" VerticalAlignment="Top" Width="100" Source="../Resources/sanitarios.png" Stretch="Fill" Margin="10,10,0,0"/>
                     <Label Content="Código:" HorizontalAlignment="Left" Margin="115,10,0,0" VerticalAlignment="Top"/>
-                    <TextBox HorizontalAlignment="Left" Height="23" Margin="184,14,0,0" TextWrapping="Wrap" Text="02013B5874" VerticalAlignment="Top" Width="151" IsEnabled="False"/>
+                    <TextBox x:Name="txtCodigo" Text="{Binding Path=producto.codigo, Mode=TwoWay,  ValidatesOnExceptions=true, NotifyOnValidationError=true}" HorizontalAlignment="Left" Height="23" Margin="184,14,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="151"/>
                     <Label Content="Nombre:" HorizontalAlignment="Left" Margin="115,41,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.464,1.231"/>
-                    <TextBox HorizontalAlignment="Left" Height="23" Margin="115,72,0,0" TextWrapping="Wrap" Text="Sanitario Italgrif" VerticalAlignment="Top" Width="220" />
+                    <TextBox Text="{Binding Path=producto.nombre, Mode=TwoWay,  ValidatesOnExceptions=true, NotifyOnValidationError=true}" HorizontalAlignment="Left" Height="23" Margin="115,72,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="220" />
                     <Label Content="Descripción:" HorizontalAlignment="Left" Margin="115,100,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.464,1.231"/>
-                    <TextBox HorizontalAlignment="Left" Height="36" Margin="115,131,0,0" TextWrapping="Wrap" Text="&lt;Descripción&gt;" VerticalAlignment="Top" Width="220"/>
+                    <TextBox Text="{Binding Path=producto.descripcion, Mode=TwoWay,  ValidatesOnExceptions=true, NotifyOnValidationError=true}" HorizontalAlignment="Left" Height="36" Margin="115,131,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="220"/>
                     <Label Content="Material Secundario:" HorizontalAlignment="Left" Margin="10,73,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.464,1.231" Grid.Column="1"/>
                     <Label Content="Material Base:" HorizontalAlignment="Left" Margin="10,42,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.464,1.231" Grid.Column="1"/>
-                    <ComboBox HorizontalAlignment="Left" Margin="130,46,0,0" VerticalAlignment="Top" Width="205" Grid.Column="1">
-                        <ComboBoxItem Content="Cerámico" IsSelected="True"/>
-                        <ComboBoxItem Content="Textil"/>
-                        <ComboBoxItem Content="Acero Inox."/>
-                        <ComboBoxItem Content="Madera"/>
-                    </ComboBox>
-                    <ComboBox HorizontalAlignment="Left" Margin="128,75,0,0" VerticalAlignment="Top" Width="207" Grid.Column="1">
-                        <ComboBoxItem Content="Cerámico"/>
-                        <ComboBoxItem Content="Textil"/>
-                        <ComboBoxItem Content="Acero Inox." IsSelected="True"/>
-                        <ComboBoxItem Content="Madera"/>
-                    </ComboBox>
+                    <ComboBox x:Name="cmbMatBase"   ItemsSource="{Binding Path=listaMatBase}" DisplayMemberPath="nombre" SelectedValuePath="id" SelectedValue="{Binding Path=producto.id_material_base}" HorizontalAlignment="Left" Margin="130,46,0,0" VerticalAlignment="Top" Width="205" Grid.Column="1"/>
+                    <ComboBox x:Name="cmbMatSec" ItemsSource="{Binding Path=listaMatSec}" DisplayMemberPath="nombre" SelectedValuePath="id" SelectedValue="{Binding Path=producto.id_material_sec}" HorizontalAlignment="Left" Margin="128,75,0,0" VerticalAlignment="Top" Width="207" Grid.Column="1"/>
                     <Label Content="Producto Activo:" HorizontalAlignment="Left" Margin="11,211,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.464,1.231"/>
-                    <RadioButton Content="Sí" HorizontalAlignment="Left" Margin="129,217,0,0" VerticalAlignment="Top" IsChecked="True"/>
-                    <RadioButton Content="No" HorizontalAlignment="Left" Margin="220,217,0,0" VerticalAlignment="Top"/>
+                    <RadioButton x:Name="rbtnActivo" Content="Sí" HorizontalAlignment="Left" Margin="129,217,0,0" VerticalAlignment="Top" IsChecked="True" GroupName="radioStatus"/>
+                    <RadioButton x:Name="rbtnInactivo" Content="No" HorizontalAlignment="Left" Margin="220,217,0,0" VerticalAlignment="Top" GroupName="radioStatus"/>
                     <Label Content="Precio Lista:" HorizontalAlignment="Left" Margin="11,242,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.464,1.231"/>
                     <Label Content="Puntos:" HorizontalAlignment="Left" Margin="189,273,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.464,1.231"/>
-                    <TextBox HorizontalAlignment="Left" Height="23" Margin="243,277,0,0" TextWrapping="Wrap" Text="-" VerticalAlignment="Top" Width="92"/>
+                    <TextBox x:Name="txtPuntos" Text="{Binding Path=prodAlm.puntos, Mode=TwoWay,  ValidatesOnExceptions=true, NotifyOnValidationError=true}" HorizontalAlignment="Left" Height="23" Margin="243,277,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="92"/>
                     <Label Content="Descuento:" HorizontalAlignment="Left" Margin="11,273,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.464,1.231"/>
                     <Label Content="Colores:" HorizontalAlignment="Left" Margin="10,110,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.464,1.231" Grid.Column="1"/>
                     <Button Content="" HorizontalAlignment="Left" Margin="130,104,0,0" VerticalAlignment="Top" Width="32" Height="32" Background="White" Grid.Column="1"/>
@@ -101,27 +92,18 @@
                     </Button>
                     <Button Content="" HorizontalAlignment="Left" Margin="204,104,0,0" VerticalAlignment="Top" Width="32" Height="32" Background="#FF815555" Grid.Column="1"/>
                     <Button Content="" HorizontalAlignment="Left" Margin="167,104,0,0" VerticalAlignment="Top" Width="32" Height="32" Background="Black" Grid.Column="1"/>
-                    <TextBox HorizontalAlignment="Left" Height="23" Margin="128,245,0,0" TextWrapping="Wrap" Text="S/. 399" VerticalAlignment="Top" Width="207"/>
-                    <TextBox HorizontalAlignment="Left" Height="23" Margin="85,276,0,0" TextWrapping="Wrap" Text="-" VerticalAlignment="Top" Width="86"/>
+                    <TextBox Text="{Binding Path=producto.precioLista, Mode=TwoWay,  ValidatesOnExceptions=true, NotifyOnValidationError=true}" HorizontalAlignment="Left" Height="23" Margin="128,245,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="207"/>
+                    <TextBox x:Name="txtDescuento" Text="{Binding Path=prodAlm.descuento, Mode=TwoWay,  ValidatesOnExceptions=true, NotifyOnValidationError=true}" HorizontalAlignment="Left" Height="23" Margin="85,276,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="86"/>
                     <Label Content="Stock Mínimo:" HorizontalAlignment="Left" Margin="11,335,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.464,1.231"/>
                     <Label Content="Stock Actual:" HorizontalAlignment="Left" Margin="11,304,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.464,1.231"/>
-                    <TextBox HorizontalAlignment="Left" Height="23" Margin="115,308,0,0" TextWrapping="Wrap" Text="12" VerticalAlignment="Top" Width="220"/>
-                    <TextBox HorizontalAlignment="Left" Height="23" Margin="115,339,0,0" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" Width="220"/>
+                    <TextBox x:Name="txtStockAct" Text="{Binding Path=prodAlm.stock, Mode=TwoWay,  ValidatesOnExceptions=true, NotifyOnValidationError=true}" HorizontalAlignment="Left" Height="23" Margin="115,308,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="220"/>
+                    <TextBox x:Name="txtStockMin" Text="{Binding Path=prodAlm.stockMin, Mode=TwoWay,  ValidatesOnExceptions=true, NotifyOnValidationError=true}" HorizontalAlignment="Left" Height="23" Margin="115,339,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="220"/>
                     <Label Content="Unidad de medida:" HorizontalAlignment="Left" Margin="10,11,0,0" VerticalAlignment="Top" Grid.Column="1"/>
-                    <ComboBox x:Name="almacenCombo_Copy1" HorizontalAlignment="Left" Margin="128,14,0,0" VerticalAlignment="Top" Width="207" Height="22" Grid.Column="1">
-                        <ComboBoxItem Content="Kg"/>
-                        <ComboBoxItem Content="Metro"/>
-                        <ComboBoxItem Content="Unidad" IsSelected="True"/>
-                    </ComboBox>
-                    <Button Content="GUARDAR" HorizontalAlignment="Left" Margin="230,378,0,0" VerticalAlignment="Top" Width="75" Height="30"/>
+                    <ComboBox x:Name="cmbUnidadMed"  ItemsSource="{Binding Path=listaUMed}" DisplayMemberPath="abreviatura" SelectedValuePath="id" SelectedValue="{Binding Path=producto.id_unidad_medida}" HorizontalAlignment="Left" Margin="128,14,0,0" VerticalAlignment="Top" Width="207" Height="22" Grid.Column="1"/>
+                    <Button Content="GUARDAR" HorizontalAlignment="Left" Margin="230,378,0,0" VerticalAlignment="Top" Width="75" Height="30" Click="btnGuardar"/>
                     <Button Content="CANCELAR" Grid.Column="1" HorizontalAlignment="Left" Margin="44,378,0,0" VerticalAlignment="Top" Width="75" Height="30"/>
                     <Label Content="Seleccione tienda:" HorizontalAlignment="Left" Margin="11,180,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.464,1.231"/>
-                    <ComboBox x:Name="almacenCombo_Copy2" HorizontalAlignment="Left" Margin="129,184,0,0" VerticalAlignment="Top" Width="207" Height="22">
-                        <ComboBoxItem Content="Almacén Central"/>
-                        <ComboBoxItem Content="Tienda 1" IsSelected="True"/>
-                        <ComboBoxItem Content="Tienda 2"/>
-                        <ComboBoxItem Content="Tienda 3"/>
-                    </ComboBox>
+                    <ComboBox x:Name="cmbTienda"  ItemsSource="{Binding Path=listaTiendas}" DisplayMemberPath="nombre" SelectedValuePath="id" SelectedValue="{Binding Path=prodAlm.id_almacen}" HorizontalAlignment="Left" Margin="129,184,0,0" VerticalAlignment="Top" Width="207" Height="22"/>
                     <Button Content="CAMBIAR IMG" HorizontalAlignment="Left" Margin="10,137,0,0" VerticalAlignment="Top" Width="100" Height="30" RenderTransformOrigin="0.48,-0.033"/>
                     <TreeView Background="#FFF5F5F5" HorizontalAlignment="Left" Height="182" Margin="10,180,0,0" VerticalAlignment="Top" Width="325" Grid.Column="1">
                         <TreeViewItem Header="Baños" IsExpanded="True">
