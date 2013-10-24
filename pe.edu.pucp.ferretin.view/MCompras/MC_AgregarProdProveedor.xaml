@@ -1,0 +1,30 @@
+﻿<Window x:Class="pe.edu.pucp.ferretin.view.MCompras.MC_AgregarProdProveedor"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Agregar Productos Proveedor" Height="399" Width="377" Icon="/Resources/ferretin_ico.ico" ResizeMode="NoResize" WindowStartupLocation="CenterScreen">
+    <Grid Background="#FFE5E5E5" HorizontalAlignment="Left" Width="367">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <TextBox Margin="10,61,54,0" TextWrapping="Wrap" Height="244" VerticalAlignment="Top"/>
+        <Label Content="Productos del Proveedor" HorizontalAlignment="Left" Margin="8,10,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.464,1.231"/>
+        <Button Content="GUARDAR" Margin="100,315,0,0" VerticalAlignment="Top" RenderTransformOrigin="1.347,-0.05" Height="30" HorizontalAlignment="Left" Width="70"/>
+        <Button Content="CANCELAR" HorizontalAlignment="Left" Margin="18,315,0,0" VerticalAlignment="Top" Width="70" RenderTransformOrigin="1.347,-0.05" Height="30" Grid.Column="1" Click="Button_Click"/>
+        <Label Content="Productos Orden de Compra" HorizontalAlignment="Left" Margin="16,10,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.464,1.231" Grid.Column="1"/>
+        <TextBox Height="244" Margin="18,61,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Grid.Column="1" HorizontalAlignment="Left" Width="144"/>
+        <Label Content="Producto 1" HorizontalAlignment="Left" Margin="19,65,0,0" VerticalAlignment="Top" />
+        <Label Content="Producto 2" HorizontalAlignment="Left" Margin="19,86,0,0" VerticalAlignment="Top"/>
+        <Label Content="Producto 3" HorizontalAlignment="Left" Margin="19,107,0,0" VerticalAlignment="Top"/>
+        <Label Content="Producto 4" HorizontalAlignment="Left" Margin="32,89,0,0" VerticalAlignment="Top" Grid.Column="1"/>
+        <Label Content="Producto 5" HorizontalAlignment="Left" Margin="19,128,0,0" VerticalAlignment="Top"/>
+        <Label Content="Producto 6" HorizontalAlignment="Left" Margin="19,150,0,0" VerticalAlignment="Top"/>
+        <Label Content="Producto 7" HorizontalAlignment="Left" Margin="32,65,0,0" VerticalAlignment="Top" Grid.Column="1"/>
+        <Label Content="Producto 8" HorizontalAlignment="Left" Margin="19,173,0,0" VerticalAlignment="Top"/>
+        <ScrollBar Margin="132,61,0,0" Width="17" HorizontalAlignment="Left" Height="244" VerticalAlignment="Top"/>
+        <Button Content=">" Margin="0,149,181,0" VerticalAlignment="Top" HorizontalAlignment="Right" Width="32" Grid.ColumnSpan="2"/>
+        <Button Content="&lt;" Margin="0,176,181,0" VerticalAlignment="Top" HorizontalAlignment="Right" Width="32" Grid.ColumnSpan="2"/>
+        <CheckBox Content="Seleccionar Todos" HorizontalAlignment="Left" Margin="10,44,0,0" VerticalAlignment="Top"/>
+        <CheckBox Content="Seleccionar Todos" HorizontalAlignment="Left" Margin="18,45,0,0" VerticalAlignment="Top" Grid.Column="1"/>
+    </Grid>
+</Window>

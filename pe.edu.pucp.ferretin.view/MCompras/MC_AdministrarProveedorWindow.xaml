@@ -1,0 +1,144 @@
+﻿<Window x:Class="pe.edu.pucp.ferretin.view.MCompras.MC_AdministrarProveedorWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+       Title="Proveedores" Height="580" Width="900" Icon="/Resources/ferretin_ico.ico" ResizeMode="CanMinimize" WindowStartupLocation="CenterScreen">
+    <Grid>
+        <TabControl x:Name="proveedorTab" Margin="0" Grid.RowSpan="2">
+            <TabItem Header="Búsqueda">
+                <Grid Background="#FFE5E5E5">
+                    <GroupBox Header="Parámetros" Margin="10,8,10,0" BorderBrush="Black" Height="72" VerticalAlignment="Top"/>
+                    <Label Content="RUC:" Height="26" Width="45" Margin="21,35,0,0" VerticalAlignment="Top" HorizontalAlignment="Left"/>
+                    <Label Content="Razón Social:" Height="26"  Width="90" Margin="210,35,0,0" VerticalAlignment="Top" HorizontalAlignment="Left"/>
+                    <TextBox HorizontalAlignment="Left" Height="20" Margin="65,41,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
+                    <TextBox HorizontalAlignment="Left" Height="20" Margin="300,41,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="250"/>
+                    <Label Content="Rubro:" HorizontalAlignment="Left" Margin="567,35,0,0" VerticalAlignment="Top"/>
+                    <ComboBox HorizontalAlignment="Left" Margin="620,39,0,0" VerticalAlignment="Top" Height="20" Width="120" RenderTransformOrigin="1.625,5.182">
+                        <ListBoxItem Content="Cemento"/>
+                        <ListBoxItem Content="Electrificación"/>
+                    </ComboBox>
+                    <Button x:Name="buscarClienteBtn" HorizontalAlignment="Left" Margin="819,33,0,0" VerticalAlignment="Top" Width="32" Height="32" RenderTransformOrigin="0.3,-0.35">
+                        <Button.Background>
+                            <ImageBrush ImageSource="../../Resources/refresh2_48.png"/>
+                        </Button.Background>
+                    </Button>
+                    <DataGrid x:Name="proveedoresDg" Margin="10,114,10,10" AutoGenerateColumns="False" CanUserAddRows="False" CanUserDeleteRows="False" IsReadOnly="True">
+                        <DataGrid.Columns>
+                            <DataGridHyperlinkColumn Width="0.7*" Header="ID" Binding="{Binding Path=ID}">
+                                <DataGridHyperlinkColumn.ElementStyle>
+                                    <Style>
+                                        <EventSetter Event="Hyperlink.Click" Handler="rucProveedor_Click"/>
+                                    </Style>
+                                </DataGridHyperlinkColumn.ElementStyle>
+                            </DataGridHyperlinkColumn>
+                            <DataGridTextColumn Width="4.8*" Header="Razón Social" Binding="{Binding Path=razSoc}"/>
+                            <DataGridTextColumn Width="2.5*" Header="RUC" Binding="{Binding Path=codigo}">
+                            </DataGridTextColumn>
+                            <DataGridTextColumn Width="3*" Header="Rubro" Binding="{Binding Path=rubro}"/>
+                            <DataGridTextColumn Width="2.7*" Header="Teléfono" Binding="{Binding Path=telefono}"/>
+                            <DataGridCheckBoxColumn Width="1.28*" Binding="{x:Null}" ClipboardContentBinding="{x:Null}" Header="Seleccionar"/>
+                        </DataGrid.Columns>
+                    </DataGrid>
+                    <ToolBar HorizontalAlignment="Left" Margin="10,85,0,0" VerticalAlignment="Top" Height="24">
+                        <Button x:Name="nuevoProveedorBtn" Content="" VerticalAlignment="Stretch" Width="20" Margin="0,0,2,-1" Click="nuevoProveedorBtn_Click">
+                            <Button.Background>
+                                <ImageBrush ImageSource="../../Resources/add_20.png" Stretch="None"/>
+                            </Button.Background>
+                        </Button>
+
+                        <Button x:Name="eliminarProveedorBtn" Content="" Height="20" VerticalAlignment="Top" Width="20" Margin="0,0,2,0">
+                            <Button.Background>
+                                <ImageBrush ImageSource="../../Resources/trash_20.png"/>
+                            </Button.Background>
+                        </Button>
+
+                    </ToolBar>
+                </Grid>
+            </TabItem>
+            <TabItem Header="Detalle">
+                <Grid Background="#FFE5E5E5">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="13*"></ColumnDefinition>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="17*"/>
+                        <ColumnDefinition Width="339*"/>
+                        <ColumnDefinition Width="438*"></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <Label Content="Código:" HorizontalAlignment="Left" Margin="10,16,0,0" VerticalAlignment="Top" RenderTransformOrigin="-1.412,0.385" Grid.ColumnSpan="4" Height="26" Width="51"/>
+                    <Label Content="Tipo Proveedor:" HorizontalAlignment="Left" Margin="10,45,0,0" VerticalAlignment="Top" Grid.ColumnSpan="4" Height="26" Width="94"/>
+                    <TextBox x:Name="idTxtBox" HorizontalAlignment="Left" Height="23" Margin="101,19,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="144" IsEnabled="False" Grid.Column="3"/>
+                    <ComboBox x:Name="tipoProvCbx" HorizontalAlignment="Left" Margin="101,48,0,0" VerticalAlignment="Top" Width="144" Grid.Column="3" Height="22">
+                        <ListBoxItem Content="Empresa"/>
+                        <ListBoxItem Content="Persona natural"/>
+                    </ComboBox>
+                    <Label Content="DNI/RUC:" HorizontalAlignment="Left" Margin="10,75,0,0" VerticalAlignment="Top" Grid.ColumnSpan="4" Height="26" Width="61"/>
+                    <TextBox x:Name="rucTxtBox" HorizontalAlignment="Left" Height="23" Margin="101,77,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="144" Grid.Column="3" />
+                    <Label Content="Razón Social:" HorizontalAlignment="Left" Margin="10,108,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.464,1.231" Grid.ColumnSpan="4" Height="26" Width="79"/>
+                    <TextBox x:Name="razSocTxtBox" HorizontalAlignment="Left" Height="23" Margin="101,110,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="214" Grid.Column="3"/>
+                    <Label Content="Rubro:" HorizontalAlignment="Left" Margin="10,140,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.464,1.231" Grid.ColumnSpan="4" Height="26" Width="45"/>
+                    <ComboBox x:Name="rubroCbx" HorizontalAlignment="Left" Margin="101,141,0,0" VerticalAlignment="Top" Width="144" Grid.Column="3" Height="22">
+                        <ListBoxItem Content="Cemento"/>
+                        <ListBoxItem Content="Electrificación"/>
+                    </ComboBox>
+                    <Label Content="Departamento:" HorizontalAlignment="Left" Margin="10,206,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.464,1.231" Grid.ColumnSpan="4" Height="26" Width="89"/>
+                    <Label Content="Domicilio:" HorizontalAlignment="Left" Margin="10,172,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.464,1.231" Grid.ColumnSpan="4" Height="26" Width="63"/>
+                    <TextBox x:Name="domTxtBox" HorizontalAlignment="Left" Height="23" Margin="101,173,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="214" Grid.Column="3"/>
+                    <ComboBox x:Name="departCbx" HorizontalAlignment="Left" Margin="101,206,0,0" VerticalAlignment="Top" Width="144" Grid.Column="3" Height="22">
+                        <ListBoxItem Content="Lima"/>
+                        <ListBoxItem Content="La Libertad"/>
+                    </ComboBox>
+                    <Label Content="Provincia:" HorizontalAlignment="Left" Margin="10,238,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.464,1.231" Height="26" Width="61" Grid.ColumnSpan="4"/>
+                    <ComboBox x:Name="provinciaCbx" HorizontalAlignment="Left" Margin="101,240,0,0" VerticalAlignment="Top" Width="144" Grid.Column="3" Height="22">
+                        <ListBoxItem Content="Lima"/>
+                    </ComboBox>
+                    <Label Content="Distrito:" HorizontalAlignment="Left" Margin="10,272,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.464,1.231" Grid.ColumnSpan="4" Height="26" Width="89"/>
+                    <ComboBox x:Name="distritoCbx1" HorizontalAlignment="Left" Margin="101,274,0,0" VerticalAlignment="Top" Width="144" Grid.Column="3" Height="22">
+                        <ListBoxItem Content="Lima"/>
+                        <ListBoxItem Content="Ate Vitarte"/>
+                    </ComboBox>
+                    <Label Content="CP:" HorizontalAlignment="Left" Margin="10,306,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.464,1.231" Grid.ColumnSpan="4" Height="26" Width="89"/>
+                    <ComboBox x:Name="cpCbx" HorizontalAlignment="Left" Margin="101,306,0,0" VerticalAlignment="Top" Width="144" Grid.Column="3" Height="22">
+                        <ListBoxItem Content="Lima 14"/>
+                        <ListBoxItem Content="Lima 18"/>
+                    </ComboBox>
+                    <Label Content="Teléfono:" HorizontalAlignment="Left" Margin="10,335,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.464,1.231" Height="26" Width="59" Grid.ColumnSpan="4"/>
+                    <Label Content="Página Web:" HorizontalAlignment="Left" Margin="10,364,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.464,1.231" Grid.ColumnSpan="4" Height="26" Width="76"/>
+                    <TextBox x:Name="pagWebTxtBox" HorizontalAlignment="Left" Height="23" Margin="101,367,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="214" Grid.Column="3"/>
+                    <Label Content="Nombre contacto:" HorizontalAlignment="Left" Margin="10,397,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.464,1.231" Grid.ColumnSpan="4" Height="26" Width="106"/>
+                    <TextBox x:Name="contactoTxtBox" HorizontalAlignment="Left" Height="23" Margin="101,399,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="214" Grid.Column="3"/>
+                    <Button x:Name="guardarBtn" Content="GUARDAR" Margin="295,474,1,0" VerticalAlignment="Top" RenderTransformOrigin="1.347,-0.05" Grid.Column="3" Height="28"/>
+                    <Button x:Name="cancelarBtn" Content="CANCELAR" HorizontalAlignment="Left" Margin="30,474,0,0" VerticalAlignment="Top" Width="75" RenderTransformOrigin="1.347,-0.05" Grid.Column="4" Height="28" Click="Button_Click"/>
+                    <Label Content="Teléfono contacto:" HorizontalAlignment="Left" Margin="10,428,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.464,1.231" Grid.ColumnSpan="4" Height="26" Width="108"/>
+                    <TextBox x:Name="contactoTlfTxtBox" HorizontalAlignment="Left" Height="23" Margin="101,430,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="144" Grid.Column="3"/>
+                    <TextBox x:Name="tlfTxtBox" HorizontalAlignment="Left" Height="23" Margin="101,337,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="144" Grid.Column="3" RenderTransformOrigin="0.514,1.435"/>
+                    <DataGrid x:Name="dgwCatalogo" Grid.Column="3" Margin="355,70,10,0" VerticalAlignment="Top" Height="392" AutoGenerateColumns="False" CanUserAddRows="False" CanUserDeleteRows="False" Grid.ColumnSpan="2" IsReadOnly="True">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Width="2.6*" Header="Producto" Binding="{Binding Path=producto}"/>
+                            <DataGridTextColumn Width="1.1*" Header="Unidad" Binding="{Binding Path=unidad}"/>
+                            <DataGridTextColumn Width="1.1*" Header="Precio" Binding="{Binding Path=precio}"/>
+                            <DataGridTextColumn Width="2.0*" Header="Tiempo de entrega" Binding="{Binding Path=tiempoEentrega}"/>
+                            <DataGridCheckBoxColumn Width="1.25*" Binding="{x:Null}" ClipboardContentBinding="{x:Null}" Header="Seleccionar"/>
+                        </DataGrid.Columns>
+                    </DataGrid>
+                    <ToolBar Grid.Column="3" HorizontalAlignment="Left" Margin="355,40,0,0" VerticalAlignment="Top" Height="25" Width="92" Grid.ColumnSpan="2">
+                        <Button x:Name="nuevoProductoBtn" Content="" Height="20" VerticalAlignment="Top" Width="20" Margin="0,0,4,0" Click="nuevoProductoBtn_Click">
+                            <Button.Background>
+                                <ImageBrush ImageSource="../../Resources/add_20.png" Stretch="None"/>
+                            </Button.Background>
+                        </Button>
+                        <Button x:Name="eliminarProdBtn" Content="" Height="20" VerticalAlignment="Top" Width="20" Margin="0,0,4,0">
+                            <Button.Background>
+                                <ImageBrush ImageSource="../../Resources/trash_20.png"/>
+                            </Button.Background>
+                        </Button>
+                        <Button x:Name="importarProducto" Content="" VerticalAlignment="Top" Width="20" Height="20" Click="importarProducto_Click" Margin="0,0,0,0">
+                            <Button.Background>
+                                <ImageBrush ImageSource="../../Resources/back_20.png" Stretch="None"/>
+                            </Button.Background>
+                        </Button>
+                    </ToolBar>
+                    <Label Content="Catálogo de Productos:" Grid.Column="3" HorizontalAlignment="Left" Margin="355,15,0,0" VerticalAlignment="Top" Height="26" Width="131" Grid.ColumnSpan="2"/>
+                </Grid>
+            </TabItem>
+        </TabControl>
+    </Grid>
+</Window>
