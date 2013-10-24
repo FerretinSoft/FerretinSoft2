@@ -3,7 +3,10 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         Title="Administrar Perfiles" WindowStartupLocation="CenterScreen" Height="448" Width="650" Icon="/Resources/ferretin_ico.ico" ResizeMode="CanMinimize">
     <Grid>
-        <TabControl x:Name="perfilesTab" Margin="0" Grid.RowSpan="2">
+
+        <!-- TAB CONTROL-->
+        <TabControl x:Name="perfilesTabControl" SelectedIndex="{Binding statusTab, Mode=TwoWay,FallbackValue=0}" Margin="0" Grid.RowSpan="2">
+            <!-- TAB BUSQUEDA-->
             <TabItem Header="Búsqueda">
                 <Grid Background="#FFE5E5E5">
                     <Grid.ColumnDefinitions>
@@ -20,7 +23,9 @@
 
                     <Label Content="Módulo:" HorizontalAlignment="Left" Height="26" VerticalAlignment="Top" Width="62" Margin="261,21,0,0" Grid.Column="1"/>
 
-                    <ComboBox x:Name="perfil" HorizontalAlignment="Left" Margin="10,25,0,0" VerticalAlignment="Top" Width="133" Height="22" Grid.Column="1">
+                    <!--Aca estan los textBox de la ventana-->
+                    <!--checkbox perfil-->
+                    <ComboBox SelectedIndex="{Binding searchPerfil, Mode=TwoWay}" x:Name="perfilCombo" HorizontalAlignment="Left" Margin="10,25,0,0" VerticalAlignment="Top" Width="133" Height="22" Grid.Column="1">
                         <CheckBox Content="Todos" IsChecked="True"/>
                         <CheckBox Content="Administrador de Sistema" IsChecked="True"/>
                         <CheckBox Content="Asistente de Almacen" IsChecked="True"/>
@@ -28,33 +33,8 @@
                         <CheckBox Content="Jefe de Tienda" IsChecked="True"/>
                         <CheckBox Content="Vendedor" IsChecked="True"/>
                     </ComboBox>
-
-                    <Button x:Name="buscarUsuariosBtn" HorizontalAlignment="Left" Margin="494,21,0,0" VerticalAlignment="Top" Width="32" Height="32" RenderTransformOrigin="0.3,-0.35" Grid.Column="1">
-                        <Button.Background>
-                            <ImageBrush ImageSource="../Resources/refresh2_48.png"/>
-                        </Button.Background>
-                    </Button>
-                    <DataGrid x:Name="perfilDg" Margin="5,30,5,5" Grid.Row="1" Grid.RowSpan="2" Grid.ColumnSpan="2"  AutoGenerateColumns="False" CanUserAddRows="False" CanUserDeleteRows="False" IsReadOnly="True" >
-                        <DataGrid.Columns>
-                            <DataGridTextColumn Width="3*" Binding="{Binding Path=nombrePerfil}" Header="Perfil"/>
-                            <DataGridTextColumn Width="3*" Binding="{Binding Path=modulo}"  Header="Módulo"/>
-                            <DataGridTextColumn Width="4*" Binding="{Binding Path=descripcion}" Header="Descripción"/>
-                        </DataGrid.Columns>
-                    </DataGrid>
-                    <ToolBar HorizontalAlignment="Left" Margin="11,1,0,0" VerticalAlignment="Top" Height="24" Width="68" Grid.Row="1">
-                        <Button x:Name="nuevoPerfilBtn" Content="" VerticalAlignment="Bottom" Width="20" Margin="0,0,2,-1" Height="20" Click="nuevoPerfilBtn_click">
-                            <Button.Background>
-                                <ImageBrush ImageSource="../Resources/add_20.png" Stretch="None"/>
-                            </Button.Background>
-                        </Button>
-                        <Button x:Name="edPerfilBtn" Content="" Height="20" VerticalAlignment="Top" Width="20" Margin="0,0,2,0" Click="edPerfilBtn_Click">
-                            <Button.Background>
-                                <ImageBrush ImageSource="../Resources/edit_20.png"/>
-                            </Button.Background>
-                        </Button>
-
-                    </ToolBar>
-                    <ComboBox x:Name="modulo" HorizontalAlignment="Left" Margin="328,25,0,0" VerticalAlignment="Top" Width="133" Height="22" Grid.Column="1">
+                    <!--checkbox modulo-->
+                    <ComboBox SelectedIndex="{Binding searchModulo, Mode=TwoWay}" x:Name="moduloCombo" HorizontalAlignment="Left" Margin="328,25,0,0" VerticalAlignment="Top" Width="133" Height="22" Grid.Column="1">
                         <CheckBox Content="Todos" IsChecked="True"/>
                         <CheckBox Content="Almacén" IsChecked="True"/>
                         <CheckBox Content="Compras" IsChecked="True"/>
@@ -63,8 +43,42 @@
                         <CheckBox Content="Seguridad" IsChecked="True"/>
                     </ComboBox>
 
+
+                    <Button x:Name="buscarUsuariosBtn" HorizontalAlignment="Left" Margin="494,21,0,0" VerticalAlignment="Top" Width="32" Height="32" RenderTransformOrigin="0.3,-0.35" Grid.Column="1">
+                        <Button.Background>
+                            <ImageBrush ImageSource="../Resources/refresh2_48.png"/>
+                        </Button.Background>
+                    </Button>
+
+                    <!-- Aca se encuentra el Grid de la ventana-->
+                    <DataGrid x:Name="perfilesGrid" Margin="5,30,5,5" Grid.Row="1" Grid.RowSpan="2" Grid.ColumnSpan="2"  AutoGenerateColumns="False" CanUserAddRows="False" CanUserDeleteRows="False" IsReadOnly="True" >
+                        <DataGrid.Columns>
+                            <!-- Columnas del Grid -->
+                            <DataGridHyperlinkColumn Width="2*" Binding="{Binding Path=nombre}" Header="Perfil">
+                                <DataGridHyperlinkColumn.ElementStyle>
+                                    <Style>
+                                        <EventSetter Event="Hyperlink.Click" Handler="perfil_Click"/>
+                                    </Style>
+                                </DataGridHyperlinkColumn.ElementStyle>
+                            </DataGridHyperlinkColumn>
+
+                            <DataGridTextColumn Width="3*" Binding="{Binding Path=id}"  Header="Módulo"/>
+                            <DataGridTextColumn Width="4*" Binding="{Binding Path=descripcion}" Header="Descripción"/>
+                        </DataGrid.Columns>
+                    </DataGrid>
+
+                    <ToolBar HorizontalAlignment="Left" Margin="11,1,0,0" VerticalAlignment="Top" Height="24" Width="46" Grid.Row="1">
+                        <Button x:Name="nuevoPerfilBtn" Content="" VerticalAlignment="Bottom" Width="20" Margin="0,0,2,-1" Height="20" Click="nuevoPerfilBtn_Click">
+                            <Button.Background>
+                                <ImageBrush ImageSource="../Resources/add_20.png" Stretch="None"/>
+                            </Button.Background>
+                        </Button>
+                    </ToolBar>
+
                 </Grid>
             </TabItem>
+
+            <!-- TAB EDICION-->
             <TabItem Header="Edición">
                 <Grid Background="#FFE5E5E5">
                     <Grid.ColumnDefinitions>
@@ -73,13 +87,26 @@
                     </Grid.ColumnDefinitions>
 
                     <Label Content="Perfil:" HorizontalAlignment="Left" Margin="22,51,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.464,1.231" Height="26" Width="39"/>
-                    <TextBox HorizontalAlignment="Left" Height="26" Margin="80,51,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="207"/>
-                    <TextBox HorizontalAlignment="Left" Height="203" Margin="22,118,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="265"/>
+                    <TextBox Text="{Binding Path=perfil.nombre, Mode=TwoWay, ValidatesOnExceptions=true, NotifyOnValidationError=true}" x:Name="nombreTxtBox" HorizontalAlignment="Left" Height="26" Margin="80,51,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="207"/>
+                    <TextBox Text="{Binding Path=perfil.descripcion, Mode=TwoWay, ValidatesOnExceptions=true, NotifyOnValidationError=true}" x:Name="descripcionTxtBox" HorizontalAlignment="Left" Height="203" Margin="22,118,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="265"/>
 
+                    <!-- STACK PANEL DE GUARDAR Y CANCELAR-->
+                    <StackPanel x:Name="guardarDetallePanel" Orientation="Horizontal" Margin="232,337,0,10" HorizontalAlignment="Center" Width="402" Grid.ColumnSpan="2">
+                        <Button Height="30" x:Name="guardarDetallePerfilBtn" Content="GUARDAR" Padding="5,0" Margin="5,7,5,4" Click="guardarDetallePerfilBtn_Click" Width="73" RenderTransformOrigin="0.5,0.5">
+                            <Button.RenderTransform>
+                                <TransformGroup>
+                                    <ScaleTransform/>
+                                    <SkewTransform/>
+                                    <RotateTransform Angle="-1.136"/>
+                                    <TranslateTransform/>
+                                </TransformGroup>
+                            </Button.RenderTransform>
+                        </Button>
+                        <Button Height="30" Content="CANCELAR" Padding="5,0" Margin="5,0" Click="cancelarListaPerfilBtn_Click" />
+                    </StackPanel>
+
+                    
                     <Label Content="Descripción:" HorizontalAlignment="Left" Margin="22,92,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.464,1.231" Height="26" Width="74"/>
-                    <Button Content="GUARDAR" Margin="210,335,30,0" VerticalAlignment="Top" RenderTransformOrigin="1.347,-0.05" Height="30"/>
-                    <Button Content="CANCELAR" HorizontalAlignment="Left" Margin="29,335,0,0" VerticalAlignment="Top" Width="77" RenderTransformOrigin="1.347,-0.05" Grid.Column="1" Height="30"/>
-                    <Label Content="Asignar Privilegios:" HorizontalAlignment="Left" Margin="29,20,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.464,1.231" Grid.Column="1" Height="26" Width="109"/>
                     <TreeView Margin="29,51,10,67" Grid.Column="1">
 
                         <TreeView.Resources>

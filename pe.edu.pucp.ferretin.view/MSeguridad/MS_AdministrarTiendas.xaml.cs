@@ -26,9 +26,39 @@ namespace pe.edu.pucp.ferretin.view.MSeguridad
         #region Valores para el cuadro de Búsqueda
         public String searchCodTienda { get; set; }
         public String searchNombre { get; set; }
-        public bool searchEstado { get; set; }
-        public bool searchTipo { get; set; }
-        public int searchUbigeo { get; set; }
+        private int _searchEstado;
+        public int searchEstado { get { return _searchEstado; } set { _searchEstado = value; NotifyPropertyChanged("searchEstado"); } }
+        private int  _searchProvincia { get; set; }
+        public int searchProvincia
+        {
+            get
+            {
+                return _searchProvincia > 0 ? _searchProvincia : 0;
+            }
+            set
+            {
+                _searchProvincia = value;
+                NotifyPropertyChanged("searchProvincia");
+                NotifyPropertyChanged("provincias");
+                NotifyPropertyChanged("distritos");
+            }
+        }
+        private int _searchTipo;
+        public int searchTipo { get { return _searchTipo; } set { _searchTipo = value; NotifyPropertyChanged("searchTipo"); } }
+        public int _searchDistrito;
+        public int searchDistrito
+        {
+            get
+            {
+                return _searchDistrito;
+            }
+            set
+            {
+                _searchDistrito = value;
+                NotifyPropertyChanged("searchDistrito");
+                NotifyPropertyChanged("distritos");
+            }
+        }
         #endregion
 
         public enum tabs
@@ -101,7 +131,25 @@ namespace pe.edu.pucp.ferretin.view.MSeguridad
                 NotifyPropertyChanged("tienda");
             }
         }
-        
+
+        int selectedDepartamento = 14; //index Lima default
+        public IEnumerable<UbigeoProvincia> provincias
+        {
+            get
+            {
+                
+                return MR_UbigeoService.departamentos.ElementAt(selectedDepartamento).UbigeoProvincia;
+            }
+        }
+
+        public IEnumerable<UbigeoDistrito> distritos
+        {
+            get
+            {
+                return MR_UbigeoService.departamentos.ElementAt(selectedDepartamento).UbigeoProvincia.ElementAt(searchProvincia).UbigeoDistrito;
+            }
+        }
+
         #region INotifyPropertyChanged Members
         public event PropertyChangedEventHandler PropertyChanged;
         public void NotifyPropertyChanged(string propName)
@@ -123,22 +171,9 @@ namespace pe.edu.pucp.ferretin.view.MSeguridad
         public MS_AdministrarTiendas()
         {
             InitializeComponent();
-            Thread thread = new Thread(
-              new ThreadStart(
-                delegate()
-                {
-                    tiendasGrid.Dispatcher.Invoke(
-                      DispatcherPriority.Normal,
-                      new Action(
-                        delegate()
-                        { 
-                            tiendasTabControl.DataContext = MS_TiendasViewModel;
-                        }
-                    ));
-                }
-            ));
-            thread.Start();
+            
             tiendasGrid.ItemsSource = MS_TiendaService.obtenerListaTiendas();
+            DataContext = MS_TiendasViewModel;
         }
 
         private IEnumerable<Almacen> ListaTiendas()
@@ -171,9 +206,20 @@ namespace pe.edu.pucp.ferretin.view.MSeguridad
             Almacen tienda = new Almacen();
             tienda.codigo = (MS_TiendasViewModel.searchCodTienda == null) ? "" : MS_TiendasViewModel.searchCodTienda;
             tienda.nombre = (MS_TiendasViewModel.searchNombre == null) ? "" : MS_TiendasViewModel.searchNombre;
-            tienda.estado = (MS_TiendasViewModel.searchEstado ? MS_TiendasViewModel.searchEstado == true : false);
-            tienda.tipo = (MS_TiendasViewModel.searchTipo) ? MS_TiendasViewModel.searchTipo == true: false;
-            
+
+            if (MS_TiendasViewModel.searchEstado > 0)
+            {
+                tienda.estado = (MS_TiendasViewModel.searchEstado == 1 ? true : false);
+            }
+            if( MS_TiendasViewModel.searchTipo > 0){
+                tienda.tipo = MS_TiendasViewModel.searchTipo==1 ? true : false;
+            }
+
+            if (MS_TiendasViewModel.searchDistrito >= 0)
+            {
+                tienda.id_ubigeo = MS_TiendasViewModel.distritos.ElementAt(MS_TiendasViewModel.searchDistrito).id;
+            }
+
             tiendasGrid.ItemsSource = MS_TiendaService.obtenerListaTiendasBy(tienda);
         }
 

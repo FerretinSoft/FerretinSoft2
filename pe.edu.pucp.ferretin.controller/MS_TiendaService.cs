@@ -56,9 +56,9 @@ namespace pe.edu.pucp.ferretin.controller
                    where
                    (t.codigo != null && t.codigo.Contains(tienda.codigo)
                        && t.nombre != null && t.nombre.Contains(tienda.nombre)
-                       && t.tipo != null && t.tipo.Equals(tienda.tipo)
-                       && t.estado != null && t.estado.Equals(tienda.estado)
-                       && t.UbigeoDistrito != null && t.UbigeoDistrito.Equals(tienda.UbigeoDistrito)
+                       && (tienda.tipo == null || (t.tipo != null && t.tipo.Equals(tienda.tipo)))
+                       && (tienda.estado == null || ( t.estado != null && t.estado.Equals(tienda.estado)))
+                       && (tienda.id_ubigeo == null || (t.id_ubigeo != null && t.id_ubigeo.Equals(tienda.id_ubigeo)))
                     )
                    orderby t.codigo
                    select t;

@@ -47,6 +47,7 @@
     <Compile Include="MR_CargTieService.cs" />
     <Compile Include="MR_EmpleadoService.cs" />
     <Compile Include="MR_UbigeoService.cs" />
+    <Compile Include="MS_PerfilService.cs" />
     <Compile Include="MS_UsuarioService.cs" />
     <Compile Include="MV_ClienteService.cs" />
     <Compile Include="ProductoService.cs" />
