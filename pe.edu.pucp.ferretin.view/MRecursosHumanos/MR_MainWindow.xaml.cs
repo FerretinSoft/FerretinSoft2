@@ -21,7 +21,7 @@ namespace pe.edu.pucp.ferretin.view.MRecursosHumanos
     {
         public MR_MainWindow()
         {
-            InitializeComponent();
+            InitializeComponent(); 
         }
 
         private void homeBtn_Click(object sender, RoutedEventArgs e)
