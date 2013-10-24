@@ -84,18 +84,18 @@ namespace pe.edu.pucp.ferretin.model
     partial void InsertTbl_Menu(Tbl_Menu instance);
     partial void UpdateTbl_Menu(Tbl_Menu instance);
     partial void DeleteTbl_Menu(Tbl_Menu instance);
-    partial void InsertTbl_Movimiento(Tbl_Movimiento instance);
-    partial void UpdateTbl_Movimiento(Tbl_Movimiento instance);
-    partial void DeleteTbl_Movimiento(Tbl_Movimiento instance);
-    partial void InsertTbl_Movimiento_Estado(Tbl_Movimiento_Estado instance);
-    partial void UpdateTbl_Movimiento_Estado(Tbl_Movimiento_Estado instance);
-    partial void DeleteTbl_Movimiento_Estado(Tbl_Movimiento_Estado instance);
-    partial void InsertTbl_Movimiento_Producto(Tbl_Movimiento_Producto instance);
-    partial void UpdateTbl_Movimiento_Producto(Tbl_Movimiento_Producto instance);
-    partial void DeleteTbl_Movimiento_Producto(Tbl_Movimiento_Producto instance);
-    partial void InsertTbl_Movimiento_Tipo(Tbl_Movimiento_Tipo instance);
-    partial void UpdateTbl_Movimiento_Tipo(Tbl_Movimiento_Tipo instance);
-    partial void DeleteTbl_Movimiento_Tipo(Tbl_Movimiento_Tipo instance);
+    partial void InsertMovimiento(Movimiento instance);
+    partial void UpdateMovimiento(Movimiento instance);
+    partial void DeleteMovimiento(Movimiento instance);
+    partial void InsertMovimiento_Estado(Movimiento_Estado instance);
+    partial void UpdateMovimiento_Estado(Movimiento_Estado instance);
+    partial void DeleteMovimiento_Estado(Movimiento_Estado instance);
+    partial void InsertMovimiento_Producto(Movimiento_Producto instance);
+    partial void UpdateMovimiento_Producto(Movimiento_Producto instance);
+    partial void DeleteMovimiento_Producto(Movimiento_Producto instance);
+    partial void InsertMovimiento_Tipo(Movimiento_Tipo instance);
+    partial void UpdateMovimiento_Tipo(Movimiento_Tipo instance);
+    partial void DeleteMovimiento_Tipo(Movimiento_Tipo instance);
     partial void InsertTbl_Nota_Credito(Tbl_Nota_Credito instance);
     partial void UpdateTbl_Nota_Credito(Tbl_Nota_Credito instance);
     partial void DeleteTbl_Nota_Credito(Tbl_Nota_Credito instance);
@@ -356,35 +356,35 @@ namespace pe.edu.pucp.ferretin.model
 			}
 		}
 		
-		public System.Data.Linq.Table<Tbl_Movimiento> Tbl_Movimiento
+		public System.Data.Linq.Table<Movimiento> Movimiento
 		{
 			get
 			{
-				return this.GetTable<Tbl_Movimiento>();
+				return this.GetTable<Movimiento>();
 			}
 		}
 		
-		public System.Data.Linq.Table<Tbl_Movimiento_Estado> Tbl_Movimiento_Estado
+		public System.Data.Linq.Table<Movimiento_Estado> Movimiento_Estado
 		{
 			get
 			{
-				return this.GetTable<Tbl_Movimiento_Estado>();
+				return this.GetTable<Movimiento_Estado>();
 			}
 		}
 		
-		public System.Data.Linq.Table<Tbl_Movimiento_Producto> Tbl_Movimiento_Producto
+		public System.Data.Linq.Table<Movimiento_Producto> Movimiento_Producto
 		{
 			get
 			{
-				return this.GetTable<Tbl_Movimiento_Producto>();
+				return this.GetTable<Movimiento_Producto>();
 			}
 		}
 		
-		public System.Data.Linq.Table<Tbl_Movimiento_Tipo> Tbl_Movimiento_Tipo
+		public System.Data.Linq.Table<Movimiento_Tipo> Movimiento_Tipo
 		{
 			get
 			{
-				return this.GetTable<Tbl_Movimiento_Tipo>();
+				return this.GetTable<Movimiento_Tipo>();
 			}
 		}
 		
@@ -609,7 +609,7 @@ namespace pe.edu.pucp.ferretin.model
 			get
 			{
 				return this.GetTable<Tbl_Documento_Compra_Producto>();
-			}
+	}
 		}
 	}
 	
@@ -657,9 +657,9 @@ namespace pe.edu.pucp.ferretin.model
 		
 		private EntitySet<Tbl_Lote> _Tbl_Lote;
 		
-		private EntitySet<Tbl_Movimiento> _Tbl_Movimiento;
+		private EntitySet<Movimiento> _Tbl_Movimiento;
 		
-		private EntitySet<Tbl_Movimiento> _Tbl_Movimiento1;
+		private EntitySet<Movimiento> _Movimiento;
 		
 		private EntitySet<Tbl_Producto_Almacen> _Tbl_Producto_Almacen;
 		
@@ -715,8 +715,8 @@ namespace pe.edu.pucp.ferretin.model
 			this._Tbl_Almacen_Horario = new EntitySet<Tbl_Almacen_Horario>(new Action<Tbl_Almacen_Horario>(this.attach_Tbl_Almacen_Horario), new Action<Tbl_Almacen_Horario>(this.detach_Tbl_Almacen_Horario));
 			this._Tbl_Empleado_Almacen = new EntitySet<Tbl_Empleado_Almacen>(new Action<Tbl_Empleado_Almacen>(this.attach_Tbl_Empleado_Almacen), new Action<Tbl_Empleado_Almacen>(this.detach_Tbl_Empleado_Almacen));
 			this._Tbl_Lote = new EntitySet<Tbl_Lote>(new Action<Tbl_Lote>(this.attach_Tbl_Lote), new Action<Tbl_Lote>(this.detach_Tbl_Lote));
-			this._Tbl_Movimiento = new EntitySet<Tbl_Movimiento>(new Action<Tbl_Movimiento>(this.attach_Tbl_Movimiento), new Action<Tbl_Movimiento>(this.detach_Tbl_Movimiento));
-			this._Tbl_Movimiento1 = new EntitySet<Tbl_Movimiento>(new Action<Tbl_Movimiento>(this.attach_Tbl_Movimiento1), new Action<Tbl_Movimiento>(this.detach_Tbl_Movimiento1));
+			this._Tbl_Movimiento = new EntitySet<Movimiento>(new Action<Movimiento>(this.attach_Tbl_Movimiento), new Action<Movimiento>(this.detach_Tbl_Movimiento));
+			this._Movimiento = new EntitySet<Movimiento>(new Action<Movimiento>(this.attach_Movimiento), new Action<Movimiento>(this.detach_Movimiento));
 			this._Tbl_Producto_Almacen = new EntitySet<Tbl_Producto_Almacen>(new Action<Tbl_Producto_Almacen>(this.attach_Tbl_Producto_Almacen), new Action<Tbl_Producto_Almacen>(this.detach_Tbl_Producto_Almacen));
 			this._Tbl_Solicitud_Abastecimiento = new EntitySet<Tbl_Solicitud_Abastecimiento>(new Action<Tbl_Solicitud_Abastecimiento>(this.attach_Tbl_Solicitud_Abastecimiento), new Action<Tbl_Solicitud_Abastecimiento>(this.detach_Tbl_Solicitud_Abastecimiento));
 			this._Tbl_Turno = new EntitySet<Tbl_Turno>(new Action<Tbl_Turno>(this.attach_Tbl_Turno), new Action<Tbl_Turno>(this.detach_Tbl_Turno));
@@ -1091,7 +1091,7 @@ namespace pe.edu.pucp.ferretin.model
 		}
 		
 		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Tbl_Almacen_Tbl_Movimiento", Storage="_Tbl_Movimiento", ThisKey="id", OtherKey="id_almacen_desde")]
-		public EntitySet<Tbl_Movimiento> Tbl_Movimiento
+		public EntitySet<Movimiento> Tbl_Movimiento
 		{
 			get
 			{
@@ -1103,16 +1103,16 @@ namespace pe.edu.pucp.ferretin.model
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Tbl_Almacen_Tbl_Movimiento1", Storage="_Tbl_Movimiento1", ThisKey="id", OtherKey="id_almacen_hasta")]
-		public EntitySet<Tbl_Movimiento> Tbl_Movimiento1
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Tbl_Almacen_Tbl_Movimiento1", Storage="_Movimiento", ThisKey="id", OtherKey="id_almacen_hasta")]
+		public EntitySet<Movimiento> Movimiento
 		{
 			get
 			{
-				return this._Tbl_Movimiento1;
+				return this._Movimiento;
 			}
 			set
 			{
-				this._Tbl_Movimiento1.Assign(value);
+				this._Movimiento.Assign(value);
 			}
 		}
 		
@@ -1325,25 +1325,25 @@ namespace pe.edu.pucp.ferretin.model
 			entity.Tienda = null;
 		}
 		
-		private void attach_Tbl_Movimiento(Tbl_Movimiento entity)
+		private void attach_Tbl_Movimiento(Movimiento entity)
 		{
 			this.SendPropertyChanging();
 			entity.Tbl_Almacen = this;
 		}
 		
-		private void detach_Tbl_Movimiento(Tbl_Movimiento entity)
+		private void detach_Tbl_Movimiento(Movimiento entity)
 		{
 			this.SendPropertyChanging();
 			entity.Tbl_Almacen = null;
 		}
 		
-		private void attach_Tbl_Movimiento1(Tbl_Movimiento entity)
+		private void attach_Movimiento(Movimiento entity)
 		{
 			this.SendPropertyChanging();
 			entity.Tienda = this;
 		}
 		
-		private void detach_Tbl_Movimiento1(Tbl_Movimiento entity)
+		private void detach_Movimiento(Movimiento entity)
 		{
 			this.SendPropertyChanging();
 			entity.Tienda = null;
@@ -5825,7 +5825,7 @@ namespace pe.edu.pucp.ferretin.model
 	}
 	
 	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Tbl_Movimiento")]
-	public partial class Tbl_Movimiento : INotifyPropertyChanging, INotifyPropertyChanged
+	public partial class Movimiento : INotifyPropertyChanging, INotifyPropertyChanged
 	{
 		
 		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
@@ -5846,15 +5846,15 @@ namespace pe.edu.pucp.ferretin.model
 		
 		private System.Nullable<byte> _id_estado;
 		
-		private EntitySet<Tbl_Movimiento_Producto> _Tbl_Movimiento_Producto;
+		private EntitySet<Movimiento_Producto> _Movimiento_Producto;
 		
 		private EntityRef<Tienda> _Tbl_Almacen;
 		
 		private EntityRef<Tienda> _Tbl_Almacen1;
 		
-		private EntityRef<Tbl_Movimiento_Estado> _Tbl_Movimiento_Estado;
+		private EntityRef<Movimiento_Estado> _Movimiento_Estado;
 		
-		private EntityRef<Tbl_Movimiento_Tipo> _Tbl_Movimiento_Tipo;
+		private EntityRef<Movimiento_Tipo> _Movimiento_Tipo;
 		
     #region Extensibility Method Definitions
     partial void OnLoaded();
@@ -5878,13 +5878,13 @@ namespace pe.edu.pucp.ferretin.model
     partial void Onid_estadoChanged();
     #endregion
 		
-		public Tbl_Movimiento()
+		public Movimiento()
 		{
-			this._Tbl_Movimiento_Producto = new EntitySet<Tbl_Movimiento_Producto>(new Action<Tbl_Movimiento_Producto>(this.attach_Tbl_Movimiento_Producto), new Action<Tbl_Movimiento_Producto>(this.detach_Tbl_Movimiento_Producto));
+			this._Movimiento_Producto = new EntitySet<Movimiento_Producto>(new Action<Movimiento_Producto>(this.attach_Movimiento_Producto), new Action<Movimiento_Producto>(this.detach_Movimiento_Producto));
 			this._Tbl_Almacen = default(EntityRef<Tienda>);
-			this._Tbl_Almacen1 = default(EntityRef<Tienda>);
-			this._Tbl_Movimiento_Estado = default(EntityRef<Tbl_Movimiento_Estado>);
-			this._Tbl_Movimiento_Tipo = default(EntityRef<Tbl_Movimiento_Tipo>);
+            this._Tbl_Almacen1 = default(EntityRef<Tienda>);
+			this._Movimiento_Estado = default(EntityRef<Movimiento_Estado>);
+			this._Movimiento_Tipo = default(EntityRef<Movimiento_Tipo>);
 			OnCreated();
 		}
 		
@@ -5979,7 +5979,7 @@ namespace pe.edu.pucp.ferretin.model
 			{
 				if ((this._id_tipo != value))
 				{
-					if (this._Tbl_Movimiento_Tipo.HasLoadedOrAssignedValue)
+					if (this._Movimiento_Tipo.HasLoadedOrAssignedValue)
 					{
 						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
 					}
@@ -6051,7 +6051,7 @@ namespace pe.edu.pucp.ferretin.model
 			{
 				if ((this._id_estado != value))
 				{
-					if (this._Tbl_Movimiento_Estado.HasLoadedOrAssignedValue)
+					if (this._Movimiento_Estado.HasLoadedOrAssignedValue)
 					{
 						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
 					}
@@ -6064,16 +6064,16 @@ namespace pe.edu.pucp.ferretin.model
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Tbl_Movimiento_Tbl_Movimiento_Producto", Storage="_Tbl_Movimiento_Producto", ThisKey="id", OtherKey="id_movimiento")]
-		public EntitySet<Tbl_Movimiento_Producto> Tbl_Movimiento_Producto
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Tbl_Movimiento_Tbl_Movimiento_Producto", Storage="_Movimiento_Producto", ThisKey="id", OtherKey="id_movimiento")]
+		public EntitySet<Movimiento_Producto> Movimiento_Producto
 		{
 			get
 			{
-				return this._Tbl_Movimiento_Producto;
+				return this._Movimiento_Producto;
 			}
 			set
 			{
-				this._Tbl_Movimiento_Producto.Assign(value);
+				this._Movimiento_Producto.Assign(value);
 			}
 		}
 		
@@ -6128,12 +6128,12 @@ namespace pe.edu.pucp.ferretin.model
 					if ((previousValue != null))
 					{
 						this._Tbl_Almacen1.Entity = null;
-						previousValue.Tbl_Movimiento1.Remove(this);
+						previousValue.Movimiento.Remove(this);
 					}
 					this._Tbl_Almacen1.Entity = value;
 					if ((value != null))
 					{
-						value.Tbl_Movimiento1.Add(this);
+						value.Movimiento.Add(this);
 						this._id_almacen_hasta = value.id;
 					}
 					else
@@ -6145,70 +6145,70 @@ namespace pe.edu.pucp.ferretin.model
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Tbl_Movimiento_Estado_Tbl_Movimiento", Storage="_Tbl_Movimiento_Estado", ThisKey="id_estado", OtherKey="id", IsForeignKey=true)]
-		public Tbl_Movimiento_Estado Tbl_Movimiento_Estado
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Tbl_Movimiento_Estado_Tbl_Movimiento", Storage="_Movimiento_Estado", ThisKey="id_estado", OtherKey="id", IsForeignKey=true)]
+		public Movimiento_Estado Movimiento_Estado
 		{
 			get
 			{
-				return this._Tbl_Movimiento_Estado.Entity;
+				return this._Movimiento_Estado.Entity;
 			}
 			set
 			{
-				Tbl_Movimiento_Estado previousValue = this._Tbl_Movimiento_Estado.Entity;
+				Movimiento_Estado previousValue = this._Movimiento_Estado.Entity;
 				if (((previousValue != value) 
-							|| (this._Tbl_Movimiento_Estado.HasLoadedOrAssignedValue == false)))
+							|| (this._Movimiento_Estado.HasLoadedOrAssignedValue == false)))
 				{
 					this.SendPropertyChanging();
 					if ((previousValue != null))
 					{
-						this._Tbl_Movimiento_Estado.Entity = null;
-						previousValue.Tbl_Movimiento.Remove(this);
+						this._Movimiento_Estado.Entity = null;
+						previousValue.Movimiento.Remove(this);
 					}
-					this._Tbl_Movimiento_Estado.Entity = value;
+					this._Movimiento_Estado.Entity = value;
 					if ((value != null))
 					{
-						value.Tbl_Movimiento.Add(this);
+						value.Movimiento.Add(this);
 						this._id_estado = value.id;
 					}
 					else
 					{
 						this._id_estado = default(Nullable<byte>);
 					}
-					this.SendPropertyChanged("Tbl_Movimiento_Estado");
+					this.SendPropertyChanged("Movimiento_Estado");
 				}
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Tbl_Movimiento_Tipo_Tbl_Movimiento", Storage="_Tbl_Movimiento_Tipo", ThisKey="id_tipo", OtherKey="id", IsForeignKey=true)]
-		public Tbl_Movimiento_Tipo Tbl_Movimiento_Tipo
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Tbl_Movimiento_Tipo_Tbl_Movimiento", Storage="_Movimiento_Tipo", ThisKey="id_tipo", OtherKey="id", IsForeignKey=true)]
+		public Movimiento_Tipo Movimiento_Tipo
 		{
 			get
 			{
-				return this._Tbl_Movimiento_Tipo.Entity;
+				return this._Movimiento_Tipo.Entity;
 			}
 			set
 			{
-				Tbl_Movimiento_Tipo previousValue = this._Tbl_Movimiento_Tipo.Entity;
+				Movimiento_Tipo previousValue = this._Movimiento_Tipo.Entity;
 				if (((previousValue != value) 
-							|| (this._Tbl_Movimiento_Tipo.HasLoadedOrAssignedValue == false)))
+							|| (this._Movimiento_Tipo.HasLoadedOrAssignedValue == false)))
 				{
 					this.SendPropertyChanging();
 					if ((previousValue != null))
 					{
-						this._Tbl_Movimiento_Tipo.Entity = null;
-						previousValue.Tbl_Movimiento.Remove(this);
+						this._Movimiento_Tipo.Entity = null;
+						previousValue.Movimiento.Remove(this);
 					}
-					this._Tbl_Movimiento_Tipo.Entity = value;
+					this._Movimiento_Tipo.Entity = value;
 					if ((value != null))
 					{
-						value.Tbl_Movimiento.Add(this);
+						value.Movimiento.Add(this);
 						this._id_tipo = value.id;
 					}
 					else
 					{
 						this._id_tipo = default(Nullable<short>);
 					}
-					this.SendPropertyChanged("Tbl_Movimiento_Tipo");
+					this.SendPropertyChanged("Movimiento_Tipo");
 				}
 			}
 		}
@@ -6233,21 +6233,21 @@ namespace pe.edu.pucp.ferretin.model
 			}
 		}
 		
-		private void attach_Tbl_Movimiento_Producto(Tbl_Movimiento_Producto entity)
+		private void attach_Movimiento_Producto(Movimiento_Producto entity)
 		{
 			this.SendPropertyChanging();
-			entity.Tbl_Movimiento = this;
+			entity.Movimiento = this;
 		}
 		
-		private void detach_Tbl_Movimiento_Producto(Tbl_Movimiento_Producto entity)
+		private void detach_Movimiento_Producto(Movimiento_Producto entity)
 		{
 			this.SendPropertyChanging();
-			entity.Tbl_Movimiento = null;
+			entity.Movimiento = null;
 		}
 	}
 	
 	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Tbl_Movimiento_Estado")]
-	public partial class Tbl_Movimiento_Estado : INotifyPropertyChanging, INotifyPropertyChanged
+	public partial class Movimiento_Estado : INotifyPropertyChanging, INotifyPropertyChanged
 	{
 		
 		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
@@ -6258,7 +6258,7 @@ namespace pe.edu.pucp.ferretin.model
 		
 		private string _descripcion;
 		
-		private EntitySet<Tbl_Movimiento> _Tbl_Movimiento;
+		private EntitySet<Movimiento> _Movimiento;
 		
     #region Extensibility Method Definitions
     partial void OnLoaded();
@@ -6272,9 +6272,9 @@ namespace pe.edu.pucp.ferretin.model
     partial void OndescripcionChanged();
     #endregion
 		
-		public Tbl_Movimiento_Estado()
+		public Movimiento_Estado()
 		{
-			this._Tbl_Movimiento = new EntitySet<Tbl_Movimiento>(new Action<Tbl_Movimiento>(this.attach_Tbl_Movimiento), new Action<Tbl_Movimiento>(this.detach_Tbl_Movimiento));
+			this._Movimiento = new EntitySet<Movimiento>(new Action<Movimiento>(this.attach_Movimiento), new Action<Movimiento>(this.detach_Movimiento));
 			OnCreated();
 		}
 		
@@ -6338,16 +6338,16 @@ namespace pe.edu.pucp.ferretin.model
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Tbl_Movimiento_Estado_Tbl_Movimiento", Storage="_Tbl_Movimiento", ThisKey="id", OtherKey="id_estado")]
-		public EntitySet<Tbl_Movimiento> Tbl_Movimiento
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Tbl_Movimiento_Estado_Tbl_Movimiento", Storage="_Movimiento", ThisKey="id", OtherKey="id_estado")]
+		public EntitySet<Movimiento> Movimiento
 		{
 			get
 			{
-				return this._Tbl_Movimiento;
+				return this._Movimiento;
 			}
 			set
 			{
-				this._Tbl_Movimiento.Assign(value);
+				this._Movimiento.Assign(value);
 			}
 		}
 		
@@ -6371,21 +6371,21 @@ namespace pe.edu.pucp.ferretin.model
 			}
 		}
 		
-		private void attach_Tbl_Movimiento(Tbl_Movimiento entity)
+		private void attach_Movimiento(Movimiento entity)
 		{
 			this.SendPropertyChanging();
-			entity.Tbl_Movimiento_Estado = this;
+			entity.Movimiento_Estado = this;
 		}
 		
-		private void detach_Tbl_Movimiento(Tbl_Movimiento entity)
+		private void detach_Movimiento(Movimiento entity)
 		{
 			this.SendPropertyChanging();
-			entity.Tbl_Movimiento_Estado = null;
+			entity.Movimiento_Estado = null;
 		}
 	}
 	
 	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Tbl_Movimiento_Producto")]
-	public partial class Tbl_Movimiento_Producto : INotifyPropertyChanging, INotifyPropertyChanged
+	public partial class Movimiento_Producto : INotifyPropertyChanging, INotifyPropertyChanged
 	{
 		
 		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
@@ -6396,7 +6396,7 @@ namespace pe.edu.pucp.ferretin.model
 		
 		private System.Nullable<decimal> _cantidad;
 		
-		private EntityRef<Tbl_Movimiento> _Tbl_Movimiento;
+		private EntityRef<Movimiento> _Movimiento;
 		
 		private EntityRef<Tbl_Producto> _Tbl_Producto;
 		
@@ -6412,9 +6412,9 @@ namespace pe.edu.pucp.ferretin.model
     partial void OncantidadChanged();
     #endregion
 		
-		public Tbl_Movimiento_Producto()
+		public Movimiento_Producto()
 		{
-			this._Tbl_Movimiento = default(EntityRef<Tbl_Movimiento>);
+			this._Movimiento = default(EntityRef<Movimiento>);
 			this._Tbl_Producto = default(EntityRef<Tbl_Producto>);
 			OnCreated();
 		}
@@ -6430,7 +6430,7 @@ namespace pe.edu.pucp.ferretin.model
 			{
 				if ((this._id_movimiento != value))
 				{
-					if (this._Tbl_Movimiento.HasLoadedOrAssignedValue)
+					if (this._Movimiento.HasLoadedOrAssignedValue)
 					{
 						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
 					}
@@ -6487,36 +6487,36 @@ namespace pe.edu.pucp.ferretin.model
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Tbl_Movimiento_Tbl_Movimiento_Producto", Storage="_Tbl_Movimiento", ThisKey="id_movimiento", OtherKey="id", IsForeignKey=true)]
-		public Tbl_Movimiento Tbl_Movimiento
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Tbl_Movimiento_Tbl_Movimiento_Producto", Storage="_Movimiento", ThisKey="id_movimiento", OtherKey="id", IsForeignKey=true)]
+		public Movimiento Movimiento
 		{
 			get
 			{
-				return this._Tbl_Movimiento.Entity;
+				return this._Movimiento.Entity;
 			}
 			set
 			{
-				Tbl_Movimiento previousValue = this._Tbl_Movimiento.Entity;
+				Movimiento previousValue = this._Movimiento.Entity;
 				if (((previousValue != value) 
-							|| (this._Tbl_Movimiento.HasLoadedOrAssignedValue == false)))
+							|| (this._Movimiento.HasLoadedOrAssignedValue == false)))
 				{
 					this.SendPropertyChanging();
 					if ((previousValue != null))
 					{
-						this._Tbl_Movimiento.Entity = null;
-						previousValue.Tbl_Movimiento_Producto.Remove(this);
+						this._Movimiento.Entity = null;
+						previousValue.Movimiento_Producto.Remove(this);
 					}
-					this._Tbl_Movimiento.Entity = value;
+					this._Movimiento.Entity = value;
 					if ((value != null))
 					{
-						value.Tbl_Movimiento_Producto.Add(this);
+						value.Movimiento_Producto.Add(this);
 						this._id_movimiento = value.id;
 					}
 					else
 					{
 						this._id_movimiento = default(long);
 					}
-					this.SendPropertyChanged("Tbl_Movimiento");
+					this.SendPropertyChanged("Movimiento");
 				}
 			}
 		}
@@ -6538,12 +6538,12 @@ namespace pe.edu.pucp.ferretin.model
 					if ((previousValue != null))
 					{
 						this._Tbl_Producto.Entity = null;
-						previousValue.Tbl_Movimiento_Producto.Remove(this);
+						previousValue.Movimiento_Producto.Remove(this);
 					}
 					this._Tbl_Producto.Entity = value;
 					if ((value != null))
 					{
-						value.Tbl_Movimiento_Producto.Add(this);
+						value.Movimiento_Producto.Add(this);
 						this._id_producto = value.id;
 					}
 					else
@@ -6577,7 +6577,7 @@ namespace pe.edu.pucp.ferretin.model
 	}
 	
 	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Tbl_Movimiento_Tipo")]
-	public partial class Tbl_Movimiento_Tipo : INotifyPropertyChanging, INotifyPropertyChanged
+	public partial class Movimiento_Tipo : INotifyPropertyChanging, INotifyPropertyChanged
 	{
 		
 		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
@@ -6592,7 +6592,7 @@ namespace pe.edu.pucp.ferretin.model
 		
 		private System.Nullable<bool> _estado;
 		
-		private EntitySet<Tbl_Movimiento> _Tbl_Movimiento;
+		private EntitySet<Movimiento> _Movimiento;
 		
     #region Extensibility Method Definitions
     partial void OnLoaded();
@@ -6610,9 +6610,9 @@ namespace pe.edu.pucp.ferretin.model
     partial void OnestadoChanged();
     #endregion
 		
-		public Tbl_Movimiento_Tipo()
+		public Movimiento_Tipo()
 		{
-			this._Tbl_Movimiento = new EntitySet<Tbl_Movimiento>(new Action<Tbl_Movimiento>(this.attach_Tbl_Movimiento), new Action<Tbl_Movimiento>(this.detach_Tbl_Movimiento));
+			this._Movimiento = new EntitySet<Movimiento>(new Action<Movimiento>(this.attach_Movimiento), new Action<Movimiento>(this.detach_Movimiento));
 			OnCreated();
 		}
 		
@@ -6716,16 +6716,16 @@ namespace pe.edu.pucp.ferretin.model
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Tbl_Movimiento_Tipo_Tbl_Movimiento", Storage="_Tbl_Movimiento", ThisKey="id", OtherKey="id_tipo")]
-		public EntitySet<Tbl_Movimiento> Tbl_Movimiento
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Tbl_Movimiento_Tipo_Tbl_Movimiento", Storage="_Movimiento", ThisKey="id", OtherKey="id_tipo")]
+		public EntitySet<Movimiento> Movimiento
 		{
 			get
 			{
-				return this._Tbl_Movimiento;
+				return this._Movimiento;
 			}
 			set
 			{
-				this._Tbl_Movimiento.Assign(value);
+				this._Movimiento.Assign(value);
 			}
 		}
 		
@@ -6749,16 +6749,16 @@ namespace pe.edu.pucp.ferretin.model
 			}
 		}
 		
-		private void attach_Tbl_Movimiento(Tbl_Movimiento entity)
+		private void attach_Movimiento(Movimiento entity)
 		{
 			this.SendPropertyChanging();
-			entity.Tbl_Movimiento_Tipo = this;
+			entity.Movimiento_Tipo = this;
 		}
 		
-		private void detach_Tbl_Movimiento(Tbl_Movimiento entity)
+		private void detach_Movimiento(Movimiento entity)
 		{
 			this.SendPropertyChanging();
-			entity.Tbl_Movimiento_Tipo = null;
+			entity.Movimiento_Tipo = null;
 		}
 	}
 	
@@ -7598,7 +7598,7 @@ namespace pe.edu.pucp.ferretin.model
 		
 		private EntitySet<Tbl_Lote> _Tbl_Lote;
 		
-		private EntitySet<Tbl_Movimiento_Producto> _Tbl_Movimiento_Producto;
+		private EntitySet<Movimiento_Producto> _Movimiento_Producto;
 		
 		private EntitySet<Tbl_Producto_Almacen> _Tbl_Producto_Almacen;
 		
@@ -7647,7 +7647,7 @@ namespace pe.edu.pucp.ferretin.model
 			this._Tbl_Venta_Producto = new EntitySet<Tbl_Venta_Producto>(new Action<Tbl_Venta_Producto>(this.attach_Tbl_Venta_Producto), new Action<Tbl_Venta_Producto>(this.detach_Tbl_Venta_Producto));
 			this._Tbl_Devolucion_Producto = new EntitySet<Tbl_Devolucion_Producto>(new Action<Tbl_Devolucion_Producto>(this.attach_Tbl_Devolucion_Producto), new Action<Tbl_Devolucion_Producto>(this.detach_Tbl_Devolucion_Producto));
 			this._Tbl_Lote = new EntitySet<Tbl_Lote>(new Action<Tbl_Lote>(this.attach_Tbl_Lote), new Action<Tbl_Lote>(this.detach_Tbl_Lote));
-			this._Tbl_Movimiento_Producto = new EntitySet<Tbl_Movimiento_Producto>(new Action<Tbl_Movimiento_Producto>(this.attach_Tbl_Movimiento_Producto), new Action<Tbl_Movimiento_Producto>(this.detach_Tbl_Movimiento_Producto));
+			this._Movimiento_Producto = new EntitySet<Movimiento_Producto>(new Action<Movimiento_Producto>(this.attach_Movimiento_Producto), new Action<Movimiento_Producto>(this.detach_Movimiento_Producto));
 			this._Tbl_Producto_Almacen = new EntitySet<Tbl_Producto_Almacen>(new Action<Tbl_Producto_Almacen>(this.attach_Tbl_Producto_Almacen), new Action<Tbl_Producto_Almacen>(this.detach_Tbl_Producto_Almacen));
 			this._Tbl_Producto_Categoria = new EntitySet<Tbl_Producto_Categoria>(new Action<Tbl_Producto_Categoria>(this.attach_Tbl_Producto_Categoria), new Action<Tbl_Producto_Categoria>(this.detach_Tbl_Producto_Categoria));
 			this._Tbl_Producto_Color = new EntitySet<Tbl_Producto_Color>(new Action<Tbl_Producto_Color>(this.attach_Tbl_Producto_Color), new Action<Tbl_Producto_Color>(this.detach_Tbl_Producto_Color));
@@ -7910,16 +7910,16 @@ namespace pe.edu.pucp.ferretin.model
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Tbl_Producto_Tbl_Movimiento_Producto", Storage="_Tbl_Movimiento_Producto", ThisKey="id", OtherKey="id_producto")]
-		public EntitySet<Tbl_Movimiento_Producto> Tbl_Movimiento_Producto
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Tbl_Producto_Tbl_Movimiento_Producto", Storage="_Movimiento_Producto", ThisKey="id", OtherKey="id_producto")]
+		public EntitySet<Movimiento_Producto> Movimiento_Producto
 		{
 			get
 			{
-				return this._Tbl_Movimiento_Producto;
+				return this._Movimiento_Producto;
 			}
 			set
 			{
-				this._Tbl_Movimiento_Producto.Assign(value);
+				this._Movimiento_Producto.Assign(value);
 			}
 		}
 		
@@ -8146,13 +8146,13 @@ namespace pe.edu.pucp.ferretin.model
 			entity.Tbl_Producto = null;
 		}
 		
-		private void attach_Tbl_Movimiento_Producto(Tbl_Movimiento_Producto entity)
+		private void attach_Movimiento_Producto(Movimiento_Producto entity)
 		{
 			this.SendPropertyChanging();
 			entity.Tbl_Producto = this;
 		}
 		
-		private void detach_Tbl_Movimiento_Producto(Tbl_Movimiento_Producto entity)
+		private void detach_Movimiento_Producto(Movimiento_Producto entity)
 		{
 			this.SendPropertyChanging();
 			entity.Tbl_Producto = null;
@@ -8210,8 +8210,8 @@ namespace pe.edu.pucp.ferretin.model
 		{
 			this.SendPropertyChanging();
 			entity.Tbl_Producto = this;
-		}
-		
+	}
+	
 		private void detach_Tbl_Documento_Compra_Productos(Tbl_Documento_Compra_Producto entity)
 		{
 			this.SendPropertyChanging();
@@ -9736,8 +9736,8 @@ namespace pe.edu.pucp.ferretin.model
 		{
 			this.SendPropertyChanging();
 			entity.Tbl_Proveedor = this;
-		}
-		
+	}
+	
 		private void detach_Tbl_Documento_Compras(Tbl_Documento_Compra entity)
 		{
 			this.SendPropertyChanging();
@@ -13187,8 +13187,8 @@ namespace pe.edu.pucp.ferretin.model
 					this._estado = value;
 					this.SendPropertyChanged("estado");
 					this.OnestadoChanged();
-				}
 			}
+		}
 		}
 		
 		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Tbl_Usuario_Tbl_Proforma", Storage="_Tbl_Proformas", ThisKey="dni,id_perfil", OtherKey="dni,id_perfil")]
@@ -13384,10 +13384,10 @@ namespace pe.edu.pucp.ferretin.model
 		{
 			this.SendPropertyChanging();
 			entity.Tbl_Usuario = this;
-		}
-		
+	}
+	
 		private void detach_Tbl_Documento_Compras(Tbl_Documento_Compra entity)
-		{
+	{
 			this.SendPropertyChanging();
 			entity.Tbl_Usuario = null;
 		}
@@ -13874,7 +13874,7 @@ namespace pe.edu.pucp.ferretin.model
 			get
 			{
 				return this._Tbl_Documento_Compra_Productos;
-			}
+				}
 			set
 			{
 				this._Tbl_Documento_Compra_Productos.Assign(value);
@@ -14146,9 +14146,9 @@ namespace pe.edu.pucp.ferretin.model
 			set
 			{
 				if ((this._id != value))
-				{
+		{
 					this.OnidChanging(value);
-					this.SendPropertyChanging();
+			this.SendPropertyChanging();
 					this._id = value;
 					this.SendPropertyChanged("id");
 					this.OnidChanged();
@@ -14166,9 +14166,9 @@ namespace pe.edu.pucp.ferretin.model
 			set
 			{
 				if ((this._nombre != value))
-				{
+		{
 					this.OnnombreChanging(value);
-					this.SendPropertyChanging();
+			this.SendPropertyChanging();
 					this._nombre = value;
 					this.SendPropertyChanged("nombre");
 					this.OnnombreChanged();
@@ -14186,9 +14186,9 @@ namespace pe.edu.pucp.ferretin.model
 			set
 			{
 				if ((this._descripcion != value))
-				{
+		{
 					this.OndescripcionChanging(value);
-					this.SendPropertyChanging();
+			this.SendPropertyChanging();
 					this._descripcion = value;
 					this.SendPropertyChanged("descripcion");
 					this.OndescripcionChanged();
@@ -14206,9 +14206,9 @@ namespace pe.edu.pucp.ferretin.model
 			set
 			{
 				if ((this._tipo != value))
-				{
+		{
 					this.OntipoChanging(value);
-					this.SendPropertyChanging();
+			this.SendPropertyChanging();
 					this._tipo = value;
 					this.SendPropertyChanged("tipo");
 					this.OntipoChanged();
