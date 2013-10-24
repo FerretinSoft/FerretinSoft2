@@ -25,8 +25,10 @@ namespace pe.edu.pucp.ferretin.view
 
         public MainWindow(Usuario usuario)
         {
-            usuarioLog = usuario;
+            
             InitializeComponent();
+            usuarioLog = usuario;
+            usuarioMenu.Header = "Tienda ABC, " + usuarioLog.nombre;
         }
 
         private void comprasBtn_Click(object sender, RoutedEventArgs e)
