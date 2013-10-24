@@ -9,19 +9,32 @@
         </Grid.ColumnDefinitions>
 
         <GroupBox Header="Sistema" Margin="11,8,9,193" BorderBrush="Black"/>
-        <Label Content="Tiempo Máximo de Sesión Inactiva:" HorizontalAlignment="Left" Margin="22,61,0,0" VerticalAlignment="Top" Height="26" Width="203"/>
-        <TextBox HorizontalAlignment="Left" Height="23" Margin="267,65,0,0" TextWrapping="Wrap" Text="30" VerticalAlignment="Top" Width="86"/>
+
+        <!-- Numero de intentos para ingresar contraseña-->
+        
         <Label Content="N° de intentos para ingresar contraseña:" HorizontalAlignment="Left" Margin="22,34,0,0" VerticalAlignment="Top" Height="42" Width="230"/>
-        <TextBox HorizontalAlignment="Left" Height="23" Margin="267,34,0,0" TextWrapping="Wrap" Text="5" VerticalAlignment="Top" Width="86"/>
+        <TextBox x:Name="intContasena" HorizontalAlignment="Left" Height="23" Margin="267,34,0,0" TextWrapping="Wrap" Text="5" VerticalAlignment="Top" Width="86"/>
+
+        <!-- Tiempo Maximo de sesion inactiva-->
+
+        <Label Content="Tiempo Máximo de Sesión Inactiva:" HorizontalAlignment="Left" Margin="22,61,0,0" VerticalAlignment="Top" Height="26" Width="203"/>
+        <TextBox x:Name="tMaxSesion" HorizontalAlignment="Left" Height="23" Margin="267,65,0,0" TextWrapping="Wrap" Text="30" VerticalAlignment="Top" Width="86"/>
 
 
+        <!-- Duracion de la clave de los usuarios -->
+        
         <Label Content="Duración de la clave de los usuarios:" HorizontalAlignment="Left" Margin="22,97,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.464,1.231" Height="26" Width="203"/>
-        <TextBox HorizontalAlignment="Left" Height="23" Margin="267,97,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="86" Text="6"/>
+        <TextBox x:Name="durClave" HorizontalAlignment="Left" Height="23" Margin="267,97,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="86" Text="6"/>
 
         <GroupBox Header="Ventas" Margin="10,205,10,0" BorderBrush="Black" Height="128" VerticalAlignment="Top"/>
+        
+        <!--Vigencia de la Proforma-->
+        
         <Label Content="Vigencia de las Proforma:" HorizontalAlignment="Left" Margin="22,226,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.464,1.231" Height="26" Width="192"/>
-        <TextBox HorizontalAlignment="Left" Height="23" Margin="268,228,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="86" Text="5"/>
+        <TextBox x:Name="vigProforma" HorizontalAlignment="Left" Height="23" Margin="268,228,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="86" Text="5"/>
 
+        <!-- Tiempo Maximo de sesion inactiva-->
+        
         <Label Content="Tipo de cambio del dólar:" HorizontalAlignment="Left" Margin="23,126,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.464,1.231" Height="26" Width="151"/>
         <TextBox HorizontalAlignment="Left" Height="23" Margin="268,127,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="86" Text="2.83"/>
         <Button Content="GUARDAR" HorizontalAlignment="Left" Margin="113,345,0,0" VerticalAlignment="Top" Width="75" RenderTransformOrigin="1.347,-0.05" Height="30"/>

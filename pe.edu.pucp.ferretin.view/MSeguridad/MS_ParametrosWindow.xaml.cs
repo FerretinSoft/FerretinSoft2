@@ -23,5 +23,6 @@ namespace pe.edu.pucp.ferretin.view.MSeguridad
         {
             InitializeComponent();
         }
+        
     }
 }
