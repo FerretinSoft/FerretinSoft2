@@ -23,7 +23,7 @@ namespace pe.edu.pucp.ferretin.model
 	
 	
 	[global::System.Data.Linq.Mapping.DatabaseAttribute(Name="inf245g2")]
-	public partial class FerretinDataContextDataContext : System.Data.Linq.DataContext
+	public partial class FerretinDataContext : System.Data.Linq.DataContext
 	{
 		
 		private static System.Data.Linq.Mapping.MappingSource mappingSource = new AttributeMappingSource();
@@ -45,9 +45,9 @@ namespace pe.edu.pucp.ferretin.model
     partial void InsertTbl_Categoria(Tbl_Categoria instance);
     partial void UpdateTbl_Categoria(Tbl_Categoria instance);
     partial void DeleteTbl_Categoria(Tbl_Categoria instance);
-    partial void InsertTbl_Cliente(Tbl_Cliente instance);
-    partial void UpdateTbl_Cliente(Tbl_Cliente instance);
-    partial void DeleteTbl_Cliente(Tbl_Cliente instance);
+    partial void InsertCliente(Cliente instance);
+    partial void UpdateCliente(Cliente instance);
+    partial void DeleteCliente(Cliente instance);
     partial void InsertTbl_Color(Tbl_Color instance);
     partial void UpdateTbl_Color(Tbl_Color instance);
     partial void DeleteTbl_Color(Tbl_Color instance);
@@ -150,15 +150,15 @@ namespace pe.edu.pucp.ferretin.model
     partial void InsertTbl_Turno(Tbl_Turno instance);
     partial void UpdateTbl_Turno(Tbl_Turno instance);
     partial void DeleteTbl_Turno(Tbl_Turno instance);
-    partial void InsertTbl_Ubigeo_Departamento(Tbl_Ubigeo_Departamento instance);
-    partial void UpdateTbl_Ubigeo_Departamento(Tbl_Ubigeo_Departamento instance);
-    partial void DeleteTbl_Ubigeo_Departamento(Tbl_Ubigeo_Departamento instance);
-    partial void InsertTbl_Ubigeo_Distrito(Tbl_Ubigeo_Distrito instance);
-    partial void UpdateTbl_Ubigeo_Distrito(Tbl_Ubigeo_Distrito instance);
-    partial void DeleteTbl_Ubigeo_Distrito(Tbl_Ubigeo_Distrito instance);
-    partial void InsertTbl_Ubigeo_Provincia(Tbl_Ubigeo_Provincia instance);
-    partial void UpdateTbl_Ubigeo_Provincia(Tbl_Ubigeo_Provincia instance);
-    partial void DeleteTbl_Ubigeo_Provincia(Tbl_Ubigeo_Provincia instance);
+    partial void InsertUbigeoDepartamento(UbigeoDepartamento instance);
+    partial void UpdateUbigeoDepartamento(UbigeoDepartamento instance);
+    partial void DeleteUbigeoDepartamento(UbigeoDepartamento instance);
+    partial void InsertUbigeoDistrito(UbigeoDistrito instance);
+    partial void UpdateUbigeoDistrito(UbigeoDistrito instance);
+    partial void DeleteUbigeoDistrito(UbigeoDistrito instance);
+    partial void InsertUbigeoProvincia(UbigeoProvincia instance);
+    partial void UpdateUbigeoProvincia(UbigeoProvincia instance);
+    partial void DeleteUbigeoProvincia(UbigeoProvincia instance);
     partial void InsertTbl_Unidad_Medida(Tbl_Unidad_Medida instance);
     partial void UpdateTbl_Unidad_Medida(Tbl_Unidad_Medida instance);
     partial void DeleteTbl_Unidad_Medida(Tbl_Unidad_Medida instance);
@@ -182,31 +182,31 @@ namespace pe.edu.pucp.ferretin.model
     partial void DeleteTbl_Documento_Compra_Producto(Tbl_Documento_Compra_Producto instance);
     #endregion
 		
-		public FerretinDataContextDataContext() : 
+		public FerretinDataContext() : 
 				base(global::pe.edu.pucp.ferretin.model.Properties.Settings.Default.inf245g2ConnectionString, mappingSource)
 		{
 			OnCreated();
 		}
 		
-		public FerretinDataContextDataContext(string connection) : 
+		public FerretinDataContext(string connection) : 
 				base(connection, mappingSource)
 		{
 			OnCreated();
 		}
 		
-		public FerretinDataContextDataContext(System.Data.IDbConnection connection) : 
+		public FerretinDataContext(System.Data.IDbConnection connection) : 
 				base(connection, mappingSource)
 		{
 			OnCreated();
 		}
 		
-		public FerretinDataContextDataContext(string connection, System.Data.Linq.Mapping.MappingSource mappingSource) : 
+		public FerretinDataContext(string connection, System.Data.Linq.Mapping.MappingSource mappingSource) : 
 				base(connection, mappingSource)
 		{
 			OnCreated();
 		}
 		
-		public FerretinDataContextDataContext(System.Data.IDbConnection connection, System.Data.Linq.Mapping.MappingSource mappingSource) : 
+		public FerretinDataContext(System.Data.IDbConnection connection, System.Data.Linq.Mapping.MappingSource mappingSource) : 
 				base(connection, mappingSource)
 		{
 			OnCreated();
@@ -252,11 +252,11 @@ namespace pe.edu.pucp.ferretin.model
 			}
 		}
 		
-		public System.Data.Linq.Table<Tbl_Cliente> Tbl_Cliente
+		public System.Data.Linq.Table<Cliente> Cliente
 		{
 			get
 			{
-				return this.GetTable<Tbl_Cliente>();
+				return this.GetTable<Cliente>();
 			}
 		}
 		
@@ -532,27 +532,27 @@ namespace pe.edu.pucp.ferretin.model
 			}
 		}
 		
-		public System.Data.Linq.Table<Tbl_Ubigeo_Departamento> Tbl_Ubigeo_Departamento
+		public System.Data.Linq.Table<UbigeoDepartamento> UbigeoDepartamento
 		{
 			get
 			{
-				return this.GetTable<Tbl_Ubigeo_Departamento>();
+				return this.GetTable<UbigeoDepartamento>();
 			}
 		}
 		
-		public System.Data.Linq.Table<Tbl_Ubigeo_Distrito> Tbl_Ubigeo_Distrito
+		public System.Data.Linq.Table<UbigeoDistrito> UbigeoDistrito
 		{
 			get
 			{
-				return this.GetTable<Tbl_Ubigeo_Distrito>();
+				return this.GetTable<UbigeoDistrito>();
 			}
 		}
 		
-		public System.Data.Linq.Table<Tbl_Ubigeo_Provincia> Tbl_Ubigeo_Provincia
+		public System.Data.Linq.Table<UbigeoProvincia> UbigeoProvincia
 		{
 			get
 			{
-				return this.GetTable<Tbl_Ubigeo_Provincia>();
+				return this.GetTable<UbigeoProvincia>();
 			}
 		}
 		
@@ -671,7 +671,7 @@ namespace pe.edu.pucp.ferretin.model
 		
 		private EntityRef<Tbl_Empleado> _Tbl_Empleado;
 		
-		private EntityRef<Tbl_Ubigeo_Distrito> _Tbl_Ubigeo_Distrito;
+		private EntityRef<UbigeoDistrito> _Tbl_Ubigeo_Distrito;
 		
     #region Extensibility Method Definitions
     partial void OnLoaded();
@@ -722,7 +722,7 @@ namespace pe.edu.pucp.ferretin.model
 			this._Tbl_Turno = new EntitySet<Tbl_Turno>(new Action<Tbl_Turno>(this.attach_Tbl_Turno), new Action<Tbl_Turno>(this.detach_Tbl_Turno));
 			this._Tbl_Almacen1 = default(EntityRef<Tienda>);
 			this._Tbl_Empleado = default(EntityRef<Tbl_Empleado>);
-			this._Tbl_Ubigeo_Distrito = default(EntityRef<Tbl_Ubigeo_Distrito>);
+			this._Tbl_Ubigeo_Distrito = default(EntityRef<UbigeoDistrito>);
 			OnCreated();
 		}
 		
@@ -1223,8 +1223,8 @@ namespace pe.edu.pucp.ferretin.model
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Tbl_Ubigeo_Distrito_Tbl_Almacen", Storage="_Tbl_Ubigeo_Distrito", ThisKey="id_ubigeo", OtherKey="id", IsForeignKey=true)]
-		public Tbl_Ubigeo_Distrito Tbl_Ubigeo_Distrito
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="UbigeoDistrito_Tbl_Almacen", Storage="_Tbl_Ubigeo_Distrito", ThisKey="id_ubigeo", OtherKey="id", IsForeignKey=true)]
+		public UbigeoDistrito UbigeoDistrito
 		{
 			get
 			{
@@ -1232,7 +1232,7 @@ namespace pe.edu.pucp.ferretin.model
 			}
 			set
 			{
-				Tbl_Ubigeo_Distrito previousValue = this._Tbl_Ubigeo_Distrito.Entity;
+				UbigeoDistrito previousValue = this._Tbl_Ubigeo_Distrito.Entity;
 				if (((previousValue != value) 
 							|| (this._Tbl_Ubigeo_Distrito.HasLoadedOrAssignedValue == false)))
 				{
@@ -1252,7 +1252,7 @@ namespace pe.edu.pucp.ferretin.model
 					{
 						this._id_ubigeo = default(string);
 					}
-					this.SendPropertyChanged("Tbl_Ubigeo_Distrito");
+					this.SendPropertyChanged("UbigeoDistrito");
 				}
 			}
 		}
@@ -2284,7 +2284,7 @@ namespace pe.edu.pucp.ferretin.model
 	}
 	
 	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Tbl_Cliente")]
-	public partial class Tbl_Cliente : INotifyPropertyChanging, INotifyPropertyChanged
+	public partial class Cliente : INotifyPropertyChanging, INotifyPropertyChanged
 	{
 		
 		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
@@ -2343,7 +2343,7 @@ namespace pe.edu.pucp.ferretin.model
 		
 		private EntityRef<Tbl_Empleado> _Tbl_Empleado;
 		
-		private EntityRef<Tbl_Ubigeo_Distrito> _Tbl_Ubigeo_Distrito;
+		private EntityRef<UbigeoDistrito> _Tbl_Ubigeo_Distrito;
 		
     #region Extensibility Method Definitions
     partial void OnLoaded();
@@ -2399,12 +2399,12 @@ namespace pe.edu.pucp.ferretin.model
     partial void Ondni_empleado_registroChanged();
     #endregion
 		
-		public Tbl_Cliente()
+		public Cliente()
 		{
 			this._Tbl_Proforma = new EntitySet<Tbl_Proforma>(new Action<Tbl_Proforma>(this.attach_Tbl_Proforma), new Action<Tbl_Proforma>(this.detach_Tbl_Proforma));
 			this._Tbl_Venta = new EntitySet<Tbl_Venta>(new Action<Tbl_Venta>(this.attach_Tbl_Venta), new Action<Tbl_Venta>(this.detach_Tbl_Venta));
 			this._Tbl_Empleado = default(EntityRef<Tbl_Empleado>);
-			this._Tbl_Ubigeo_Distrito = default(EntityRef<Tbl_Ubigeo_Distrito>);
+			this._Tbl_Ubigeo_Distrito = default(EntityRef<UbigeoDistrito>);
 			OnCreated();
 		}
 		
@@ -2896,7 +2896,7 @@ namespace pe.edu.pucp.ferretin.model
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Tbl_Cliente_Tbl_Proforma", Storage="_Tbl_Proforma", ThisKey="id", OtherKey="id_cliente")]
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Cliente_Tbl_Proforma", Storage="_Tbl_Proforma", ThisKey="id", OtherKey="id_cliente")]
 		public EntitySet<Tbl_Proforma> Tbl_Proforma
 		{
 			get
@@ -2909,7 +2909,7 @@ namespace pe.edu.pucp.ferretin.model
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Tbl_Cliente_Tbl_Venta", Storage="_Tbl_Venta", ThisKey="id", OtherKey="id_cliente")]
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Cliente_Tbl_Venta", Storage="_Tbl_Venta", ThisKey="id", OtherKey="id_cliente")]
 		public EntitySet<Tbl_Venta> Tbl_Venta
 		{
 			get
@@ -2922,7 +2922,7 @@ namespace pe.edu.pucp.ferretin.model
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Tbl_Empleado_Tbl_Cliente", Storage="_Tbl_Empleado", ThisKey="dni_empleado_registro", OtherKey="dni", IsForeignKey=true)]
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Tbl_Empleado_Cliente", Storage="_Tbl_Empleado", ThisKey="dni_empleado_registro", OtherKey="dni", IsForeignKey=true)]
 		public Tbl_Empleado Tbl_Empleado
 		{
 			get
@@ -2939,12 +2939,12 @@ namespace pe.edu.pucp.ferretin.model
 					if ((previousValue != null))
 					{
 						this._Tbl_Empleado.Entity = null;
-						previousValue.Tbl_Cliente.Remove(this);
+						previousValue.Cliente.Remove(this);
 					}
 					this._Tbl_Empleado.Entity = value;
 					if ((value != null))
 					{
-						value.Tbl_Cliente.Add(this);
+						value.Cliente.Add(this);
 						this._dni_empleado_registro = value.dni;
 					}
 					else
@@ -2956,8 +2956,8 @@ namespace pe.edu.pucp.ferretin.model
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Tbl_Ubigeo_Distrito_Tbl_Cliente", Storage="_Tbl_Ubigeo_Distrito", ThisKey="id_ubigeo", OtherKey="id", IsForeignKey=true)]
-		public Tbl_Ubigeo_Distrito Tbl_Ubigeo_Distrito
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="UbigeoDistrito_Cliente", Storage="_Tbl_Ubigeo_Distrito", ThisKey="id_ubigeo", OtherKey="id", IsForeignKey=true)]
+		public UbigeoDistrito UbigeoDistrito
 		{
 			get
 			{
@@ -2965,7 +2965,7 @@ namespace pe.edu.pucp.ferretin.model
 			}
 			set
 			{
-				Tbl_Ubigeo_Distrito previousValue = this._Tbl_Ubigeo_Distrito.Entity;
+				UbigeoDistrito previousValue = this._Tbl_Ubigeo_Distrito.Entity;
 				if (((previousValue != value) 
 							|| (this._Tbl_Ubigeo_Distrito.HasLoadedOrAssignedValue == false)))
 				{
@@ -2973,19 +2973,19 @@ namespace pe.edu.pucp.ferretin.model
 					if ((previousValue != null))
 					{
 						this._Tbl_Ubigeo_Distrito.Entity = null;
-						previousValue.Tbl_Cliente.Remove(this);
+						previousValue.Cliente.Remove(this);
 					}
 					this._Tbl_Ubigeo_Distrito.Entity = value;
 					if ((value != null))
 					{
-						value.Tbl_Cliente.Add(this);
+						value.Cliente.Add(this);
 						this._id_ubigeo = value.id;
 					}
 					else
 					{
 						this._id_ubigeo = default(string);
 					}
-					this.SendPropertyChanged("Tbl_Ubigeo_Distrito");
+					this.SendPropertyChanged("UbigeoDistrito");
 				}
 			}
 		}
@@ -3013,25 +3013,25 @@ namespace pe.edu.pucp.ferretin.model
 		private void attach_Tbl_Proforma(Tbl_Proforma entity)
 		{
 			this.SendPropertyChanging();
-			entity.Tbl_Cliente = this;
+			entity.Cliente = this;
 		}
 		
 		private void detach_Tbl_Proforma(Tbl_Proforma entity)
 		{
 			this.SendPropertyChanging();
-			entity.Tbl_Cliente = null;
+			entity.Cliente = null;
 		}
 		
 		private void attach_Tbl_Venta(Tbl_Venta entity)
 		{
 			this.SendPropertyChanging();
-			entity.Tbl_Cliente = this;
+			entity.Cliente = this;
 		}
 		
 		private void detach_Tbl_Venta(Tbl_Venta entity)
 		{
 			this.SendPropertyChanging();
-			entity.Tbl_Cliente = null;
+			entity.Cliente = null;
 		}
 	}
 	
@@ -3848,7 +3848,7 @@ namespace pe.edu.pucp.ferretin.model
 		
 		private EntitySet<Tienda> _Tbl_Almacen;
 		
-		private EntitySet<Tbl_Cliente> _Tbl_Cliente;
+		private EntitySet<Cliente> _Tbl_Cliente;
 		
 		private EntitySet<Tbl_Empleado_Almacen> _Tbl_Empleado_Almacen;
 		
@@ -3858,7 +3858,7 @@ namespace pe.edu.pucp.ferretin.model
 		
 		private EntityRef<Tbl_Grado_Instruccion> _Tbl_Grado_Instruccion;
 		
-		private EntityRef<Tbl_Ubigeo_Distrito> _Tbl_Ubigeo_Distrito;
+		private EntityRef<UbigeoDistrito> _Tbl_Ubigeo_Distrito;
 		
     #region Extensibility Method Definitions
     partial void OnLoaded();
@@ -3899,12 +3899,12 @@ namespace pe.edu.pucp.ferretin.model
 		public Tbl_Empleado()
 		{
 			this._Tbl_Almacen = new EntitySet<Tienda>(new Action<Tienda>(this.attach_Tbl_Almacen), new Action<Tienda>(this.detach_Tbl_Almacen));
-			this._Tbl_Cliente = new EntitySet<Tbl_Cliente>(new Action<Tbl_Cliente>(this.attach_Tbl_Cliente), new Action<Tbl_Cliente>(this.detach_Tbl_Cliente));
+			this._Tbl_Cliente = new EntitySet<Cliente>(new Action<Cliente>(this.attach_Tbl_Cliente), new Action<Cliente>(this.detach_Tbl_Cliente));
 			this._Tbl_Empleado_Almacen = new EntitySet<Tbl_Empleado_Almacen>(new Action<Tbl_Empleado_Almacen>(this.attach_Tbl_Empleado_Almacen), new Action<Tbl_Empleado_Almacen>(this.detach_Tbl_Empleado_Almacen));
 			this._Tbl_Empleado_Turno = new EntitySet<Tbl_Empleado_Turno>(new Action<Tbl_Empleado_Turno>(this.attach_Tbl_Empleado_Turno), new Action<Tbl_Empleado_Turno>(this.detach_Tbl_Empleado_Turno));
 			this._Tbl_Usuarios = new EntitySet<Tbl_Usuario>(new Action<Tbl_Usuario>(this.attach_Tbl_Usuarios), new Action<Tbl_Usuario>(this.detach_Tbl_Usuarios));
 			this._Tbl_Grado_Instruccion = default(EntityRef<Tbl_Grado_Instruccion>);
-			this._Tbl_Ubigeo_Distrito = default(EntityRef<Tbl_Ubigeo_Distrito>);
+			this._Tbl_Ubigeo_Distrito = default(EntityRef<UbigeoDistrito>);
 			OnCreated();
 		}
 		
@@ -4229,8 +4229,8 @@ namespace pe.edu.pucp.ferretin.model
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Tbl_Empleado_Tbl_Cliente", Storage="_Tbl_Cliente", ThisKey="dni", OtherKey="dni_empleado_registro")]
-		public EntitySet<Tbl_Cliente> Tbl_Cliente
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Tbl_Empleado_Cliente", Storage="_Tbl_Cliente", ThisKey="dni", OtherKey="dni_empleado_registro")]
+		public EntitySet<Cliente> Cliente
 		{
 			get
 			{
@@ -4315,8 +4315,8 @@ namespace pe.edu.pucp.ferretin.model
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Tbl_Ubigeo_Distrito_Tbl_Empleado", Storage="_Tbl_Ubigeo_Distrito", ThisKey="id_ubigeo", OtherKey="id", IsForeignKey=true)]
-		public Tbl_Ubigeo_Distrito Tbl_Ubigeo_Distrito
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="UbigeoDistrito_Tbl_Empleado", Storage="_Tbl_Ubigeo_Distrito", ThisKey="id_ubigeo", OtherKey="id", IsForeignKey=true)]
+		public UbigeoDistrito UbigeoDistrito
 		{
 			get
 			{
@@ -4324,7 +4324,7 @@ namespace pe.edu.pucp.ferretin.model
 			}
 			set
 			{
-				Tbl_Ubigeo_Distrito previousValue = this._Tbl_Ubigeo_Distrito.Entity;
+				UbigeoDistrito previousValue = this._Tbl_Ubigeo_Distrito.Entity;
 				if (((previousValue != value) 
 							|| (this._Tbl_Ubigeo_Distrito.HasLoadedOrAssignedValue == false)))
 				{
@@ -4344,7 +4344,7 @@ namespace pe.edu.pucp.ferretin.model
 					{
 						this._id_ubigeo = default(string);
 					}
-					this.SendPropertyChanged("Tbl_Ubigeo_Distrito");
+					this.SendPropertyChanged("UbigeoDistrito");
 				}
 			}
 		}
@@ -4381,13 +4381,13 @@ namespace pe.edu.pucp.ferretin.model
 			entity.Tbl_Empleado = null;
 		}
 		
-		private void attach_Tbl_Cliente(Tbl_Cliente entity)
+		private void attach_Tbl_Cliente(Cliente entity)
 		{
 			this.SendPropertyChanging();
 			entity.Tbl_Empleado = this;
 		}
 		
-		private void detach_Tbl_Cliente(Tbl_Cliente entity)
+		private void detach_Tbl_Cliente(Cliente entity)
 		{
 			this.SendPropertyChanging();
 			entity.Tbl_Empleado = null;
@@ -7851,7 +7851,7 @@ namespace pe.edu.pucp.ferretin.model
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_imagen", DbType="VarBinary(1)", CanBeNull=true, UpdateCheck=UpdateCheck.Never)]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_imagen", DbType="VarBinary(1)", UpdateCheck=UpdateCheck.Never)]
 		public System.Data.Linq.Binary imagen
 		{
 			get
@@ -8873,7 +8873,7 @@ namespace pe.edu.pucp.ferretin.model
 		
 		private System.Nullable<short> _id_perfil;
 		
-		private EntityRef<Tbl_Cliente> _Tbl_Cliente;
+		private EntityRef<Cliente> _Tbl_Cliente;
 		
 		private EntityRef<Tbl_Usuario> _Tbl_Usuario;
 		
@@ -8909,7 +8909,7 @@ namespace pe.edu.pucp.ferretin.model
 		
 		public Tbl_Proforma()
 		{
-			this._Tbl_Cliente = default(EntityRef<Tbl_Cliente>);
+			this._Tbl_Cliente = default(EntityRef<Cliente>);
 			this._Tbl_Usuario = default(EntityRef<Tbl_Usuario>);
 			OnCreated();
 		}
@@ -9166,8 +9166,8 @@ namespace pe.edu.pucp.ferretin.model
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Tbl_Cliente_Tbl_Proforma", Storage="_Tbl_Cliente", ThisKey="id_cliente", OtherKey="id", IsForeignKey=true)]
-		public Tbl_Cliente Tbl_Cliente
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Cliente_Tbl_Proforma", Storage="_Tbl_Cliente", ThisKey="id_cliente", OtherKey="id", IsForeignKey=true)]
+		public Cliente Cliente
 		{
 			get
 			{
@@ -9175,7 +9175,7 @@ namespace pe.edu.pucp.ferretin.model
 			}
 			set
 			{
-				Tbl_Cliente previousValue = this._Tbl_Cliente.Entity;
+				Cliente previousValue = this._Tbl_Cliente.Entity;
 				if (((previousValue != value) 
 							|| (this._Tbl_Cliente.HasLoadedOrAssignedValue == false)))
 				{
@@ -9195,7 +9195,7 @@ namespace pe.edu.pucp.ferretin.model
 					{
 						this._id_cliente = default(Nullable<int>);
 					}
-					this.SendPropertyChanged("Tbl_Cliente");
+					this.SendPropertyChanged("Cliente");
 				}
 			}
 		}
@@ -9295,7 +9295,7 @@ namespace pe.edu.pucp.ferretin.model
 		
 		private EntityRef<Tbl_Rubro> _Tbl_Rubro;
 		
-		private EntityRef<Tbl_Ubigeo_Distrito> _Tbl_Ubigeo_Distrito;
+		private EntityRef<UbigeoDistrito> _Tbl_Ubigeo_Distrito;
 		
     #region Extensibility Method Definitions
     partial void OnLoaded();
@@ -9334,7 +9334,7 @@ namespace pe.edu.pucp.ferretin.model
 			this._Tbl_Proveedor_Catalogo = new EntitySet<Tbl_Proveedor_Catalogo>(new Action<Tbl_Proveedor_Catalogo>(this.attach_Tbl_Proveedor_Catalogo), new Action<Tbl_Proveedor_Catalogo>(this.detach_Tbl_Proveedor_Catalogo));
 			this._Tbl_Documento_Compras = new EntitySet<Tbl_Documento_Compra>(new Action<Tbl_Documento_Compra>(this.attach_Tbl_Documento_Compras), new Action<Tbl_Documento_Compra>(this.detach_Tbl_Documento_Compras));
 			this._Tbl_Rubro = default(EntityRef<Tbl_Rubro>);
-			this._Tbl_Ubigeo_Distrito = default(EntityRef<Tbl_Ubigeo_Distrito>);
+			this._Tbl_Ubigeo_Distrito = default(EntityRef<UbigeoDistrito>);
 			OnCreated();
 		}
 		
@@ -9666,8 +9666,8 @@ namespace pe.edu.pucp.ferretin.model
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Tbl_Ubigeo_Distrito_Tbl_Proveedor", Storage="_Tbl_Ubigeo_Distrito", ThisKey="id_ubigeo", OtherKey="id", IsForeignKey=true)]
-		public Tbl_Ubigeo_Distrito Tbl_Ubigeo_Distrito
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="UbigeoDistrito_Tbl_Proveedor", Storage="_Tbl_Ubigeo_Distrito", ThisKey="id_ubigeo", OtherKey="id", IsForeignKey=true)]
+		public UbigeoDistrito UbigeoDistrito
 		{
 			get
 			{
@@ -9675,7 +9675,7 @@ namespace pe.edu.pucp.ferretin.model
 			}
 			set
 			{
-				Tbl_Ubigeo_Distrito previousValue = this._Tbl_Ubigeo_Distrito.Entity;
+				UbigeoDistrito previousValue = this._Tbl_Ubigeo_Distrito.Entity;
 				if (((previousValue != value) 
 							|| (this._Tbl_Ubigeo_Distrito.HasLoadedOrAssignedValue == false)))
 				{
@@ -9695,7 +9695,7 @@ namespace pe.edu.pucp.ferretin.model
 					{
 						this._id_ubigeo = default(string);
 					}
-					this.SendPropertyChanged("Tbl_Ubigeo_Distrito");
+					this.SendPropertyChanged("UbigeoDistrito");
 				}
 			}
 		}
@@ -11614,7 +11614,7 @@ namespace pe.edu.pucp.ferretin.model
 	}
 	
 	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Tbl_Ubigeo_Departamento")]
-	public partial class Tbl_Ubigeo_Departamento : INotifyPropertyChanging, INotifyPropertyChanged
+	public partial class UbigeoDepartamento : INotifyPropertyChanging, INotifyPropertyChanged
 	{
 		
 		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
@@ -11623,7 +11623,7 @@ namespace pe.edu.pucp.ferretin.model
 		
 		private string _nombre;
 		
-		private EntitySet<Tbl_Ubigeo_Provincia> _Tbl_Ubigeo_Provincia;
+		private EntitySet<UbigeoProvincia> _Tbl_Ubigeo_Provincia;
 		
     #region Extensibility Method Definitions
     partial void OnLoaded();
@@ -11635,9 +11635,9 @@ namespace pe.edu.pucp.ferretin.model
     partial void OnnombreChanged();
     #endregion
 		
-		public Tbl_Ubigeo_Departamento()
+		public UbigeoDepartamento()
 		{
-			this._Tbl_Ubigeo_Provincia = new EntitySet<Tbl_Ubigeo_Provincia>(new Action<Tbl_Ubigeo_Provincia>(this.attach_Tbl_Ubigeo_Provincia), new Action<Tbl_Ubigeo_Provincia>(this.detach_Tbl_Ubigeo_Provincia));
+			this._Tbl_Ubigeo_Provincia = new EntitySet<UbigeoProvincia>(new Action<UbigeoProvincia>(this.attach_Tbl_Ubigeo_Provincia), new Action<UbigeoProvincia>(this.detach_Tbl_Ubigeo_Provincia));
 			OnCreated();
 		}
 		
@@ -11681,8 +11681,8 @@ namespace pe.edu.pucp.ferretin.model
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Tbl_Ubigeo_Departamento_Tbl_Ubigeo_Provincia", Storage="_Tbl_Ubigeo_Provincia", ThisKey="id", OtherKey="id_ubig_departamento")]
-		public EntitySet<Tbl_Ubigeo_Provincia> Tbl_Ubigeo_Provincia
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="UbigeoDepartamento_UbigeoProvincia", Storage="_Tbl_Ubigeo_Provincia", ThisKey="id", OtherKey="id_ubig_departamento")]
+		public EntitySet<UbigeoProvincia> UbigeoProvincia
 		{
 			get
 			{
@@ -11714,21 +11714,21 @@ namespace pe.edu.pucp.ferretin.model
 			}
 		}
 		
-		private void attach_Tbl_Ubigeo_Provincia(Tbl_Ubigeo_Provincia entity)
+		private void attach_Tbl_Ubigeo_Provincia(UbigeoProvincia entity)
 		{
 			this.SendPropertyChanging();
-			entity.Tbl_Ubigeo_Departamento = this;
+			entity.UbigeoDepartamento = this;
 		}
 		
-		private void detach_Tbl_Ubigeo_Provincia(Tbl_Ubigeo_Provincia entity)
+		private void detach_Tbl_Ubigeo_Provincia(UbigeoProvincia entity)
 		{
 			this.SendPropertyChanging();
-			entity.Tbl_Ubigeo_Departamento = null;
+			entity.UbigeoDepartamento = null;
 		}
 	}
 	
 	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Tbl_Ubigeo_Distrito")]
-	public partial class Tbl_Ubigeo_Distrito : INotifyPropertyChanging, INotifyPropertyChanged
+	public partial class UbigeoDistrito : INotifyPropertyChanging, INotifyPropertyChanged
 	{
 		
 		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
@@ -11741,13 +11741,13 @@ namespace pe.edu.pucp.ferretin.model
 		
 		private EntitySet<Tienda> _Tbl_Almacen;
 		
-		private EntitySet<Tbl_Cliente> _Tbl_Cliente;
+		private EntitySet<Cliente> _Tbl_Cliente;
 		
 		private EntitySet<Tbl_Empleado> _Tbl_Empleado;
 		
 		private EntitySet<Tbl_Proveedor> _Tbl_Proveedor;
 		
-		private EntityRef<Tbl_Ubigeo_Provincia> _Tbl_Ubigeo_Provincia;
+		private EntityRef<UbigeoProvincia> _Tbl_Ubigeo_Provincia;
 		
     #region Extensibility Method Definitions
     partial void OnLoaded();
@@ -11761,13 +11761,13 @@ namespace pe.edu.pucp.ferretin.model
     partial void Onid_ubig_provinciaChanged();
     #endregion
 		
-		public Tbl_Ubigeo_Distrito()
+		public UbigeoDistrito()
 		{
 			this._Tbl_Almacen = new EntitySet<Tienda>(new Action<Tienda>(this.attach_Tbl_Almacen), new Action<Tienda>(this.detach_Tbl_Almacen));
-			this._Tbl_Cliente = new EntitySet<Tbl_Cliente>(new Action<Tbl_Cliente>(this.attach_Tbl_Cliente), new Action<Tbl_Cliente>(this.detach_Tbl_Cliente));
+			this._Tbl_Cliente = new EntitySet<Cliente>(new Action<Cliente>(this.attach_Tbl_Cliente), new Action<Cliente>(this.detach_Tbl_Cliente));
 			this._Tbl_Empleado = new EntitySet<Tbl_Empleado>(new Action<Tbl_Empleado>(this.attach_Tbl_Empleado), new Action<Tbl_Empleado>(this.detach_Tbl_Empleado));
 			this._Tbl_Proveedor = new EntitySet<Tbl_Proveedor>(new Action<Tbl_Proveedor>(this.attach_Tbl_Proveedor), new Action<Tbl_Proveedor>(this.detach_Tbl_Proveedor));
-			this._Tbl_Ubigeo_Provincia = default(EntityRef<Tbl_Ubigeo_Provincia>);
+			this._Tbl_Ubigeo_Provincia = default(EntityRef<UbigeoProvincia>);
 			OnCreated();
 		}
 		
@@ -11835,7 +11835,7 @@ namespace pe.edu.pucp.ferretin.model
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Tbl_Ubigeo_Distrito_Tbl_Almacen", Storage="_Tbl_Almacen", ThisKey="id", OtherKey="id_ubigeo")]
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="UbigeoDistrito_Tbl_Almacen", Storage="_Tbl_Almacen", ThisKey="id", OtherKey="id_ubigeo")]
 		public EntitySet<Tienda> Tbl_Almacen
 		{
 			get
@@ -11848,8 +11848,8 @@ namespace pe.edu.pucp.ferretin.model
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Tbl_Ubigeo_Distrito_Tbl_Cliente", Storage="_Tbl_Cliente", ThisKey="id", OtherKey="id_ubigeo")]
-		public EntitySet<Tbl_Cliente> Tbl_Cliente
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="UbigeoDistrito_Cliente", Storage="_Tbl_Cliente", ThisKey="id", OtherKey="id_ubigeo")]
+		public EntitySet<Cliente> Cliente
 		{
 			get
 			{
@@ -11861,7 +11861,7 @@ namespace pe.edu.pucp.ferretin.model
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Tbl_Ubigeo_Distrito_Tbl_Empleado", Storage="_Tbl_Empleado", ThisKey="id", OtherKey="id_ubigeo")]
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="UbigeoDistrito_Tbl_Empleado", Storage="_Tbl_Empleado", ThisKey="id", OtherKey="id_ubigeo")]
 		public EntitySet<Tbl_Empleado> Tbl_Empleado
 		{
 			get
@@ -11874,7 +11874,7 @@ namespace pe.edu.pucp.ferretin.model
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Tbl_Ubigeo_Distrito_Tbl_Proveedor", Storage="_Tbl_Proveedor", ThisKey="id", OtherKey="id_ubigeo")]
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="UbigeoDistrito_Tbl_Proveedor", Storage="_Tbl_Proveedor", ThisKey="id", OtherKey="id_ubigeo")]
 		public EntitySet<Tbl_Proveedor> Tbl_Proveedor
 		{
 			get
@@ -11887,8 +11887,8 @@ namespace pe.edu.pucp.ferretin.model
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Tbl_Ubigeo_Provincia_Tbl_Ubigeo_Distrito", Storage="_Tbl_Ubigeo_Provincia", ThisKey="id_ubig_provincia", OtherKey="id", IsForeignKey=true)]
-		public Tbl_Ubigeo_Provincia Tbl_Ubigeo_Provincia
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="UbigeoProvincia_UbigeoDistrito", Storage="_Tbl_Ubigeo_Provincia", ThisKey="id_ubig_provincia", OtherKey="id", IsForeignKey=true)]
+		public UbigeoProvincia UbigeoProvincia
 		{
 			get
 			{
@@ -11896,7 +11896,7 @@ namespace pe.edu.pucp.ferretin.model
 			}
 			set
 			{
-				Tbl_Ubigeo_Provincia previousValue = this._Tbl_Ubigeo_Provincia.Entity;
+				UbigeoProvincia previousValue = this._Tbl_Ubigeo_Provincia.Entity;
 				if (((previousValue != value) 
 							|| (this._Tbl_Ubigeo_Provincia.HasLoadedOrAssignedValue == false)))
 				{
@@ -11904,19 +11904,19 @@ namespace pe.edu.pucp.ferretin.model
 					if ((previousValue != null))
 					{
 						this._Tbl_Ubigeo_Provincia.Entity = null;
-						previousValue.Tbl_Ubigeo_Distrito.Remove(this);
+						previousValue.UbigeoDistrito.Remove(this);
 					}
 					this._Tbl_Ubigeo_Provincia.Entity = value;
 					if ((value != null))
 					{
-						value.Tbl_Ubigeo_Distrito.Add(this);
+						value.UbigeoDistrito.Add(this);
 						this._id_ubig_provincia = value.id;
 					}
 					else
 					{
 						this._id_ubig_provincia = default(string);
 					}
-					this.SendPropertyChanged("Tbl_Ubigeo_Provincia");
+					this.SendPropertyChanged("UbigeoProvincia");
 				}
 			}
 		}
@@ -11944,54 +11944,54 @@ namespace pe.edu.pucp.ferretin.model
 		private void attach_Tbl_Almacen(Tienda entity)
 		{
 			this.SendPropertyChanging();
-			entity.Tbl_Ubigeo_Distrito = this;
+			entity.UbigeoDistrito = this;
 		}
 		
 		private void detach_Tbl_Almacen(Tienda entity)
 		{
 			this.SendPropertyChanging();
-			entity.Tbl_Ubigeo_Distrito = null;
+			entity.UbigeoDistrito = null;
 		}
 		
-		private void attach_Tbl_Cliente(Tbl_Cliente entity)
+		private void attach_Tbl_Cliente(Cliente entity)
 		{
 			this.SendPropertyChanging();
-			entity.Tbl_Ubigeo_Distrito = this;
+			entity.UbigeoDistrito = this;
 		}
 		
-		private void detach_Tbl_Cliente(Tbl_Cliente entity)
+		private void detach_Tbl_Cliente(Cliente entity)
 		{
 			this.SendPropertyChanging();
-			entity.Tbl_Ubigeo_Distrito = null;
+			entity.UbigeoDistrito = null;
 		}
 		
 		private void attach_Tbl_Empleado(Tbl_Empleado entity)
 		{
 			this.SendPropertyChanging();
-			entity.Tbl_Ubigeo_Distrito = this;
+			entity.UbigeoDistrito = this;
 		}
 		
 		private void detach_Tbl_Empleado(Tbl_Empleado entity)
 		{
 			this.SendPropertyChanging();
-			entity.Tbl_Ubigeo_Distrito = null;
+			entity.UbigeoDistrito = null;
 		}
 		
 		private void attach_Tbl_Proveedor(Tbl_Proveedor entity)
 		{
 			this.SendPropertyChanging();
-			entity.Tbl_Ubigeo_Distrito = this;
+			entity.UbigeoDistrito = this;
 		}
 		
 		private void detach_Tbl_Proveedor(Tbl_Proveedor entity)
 		{
 			this.SendPropertyChanging();
-			entity.Tbl_Ubigeo_Distrito = null;
+			entity.UbigeoDistrito = null;
 		}
 	}
 	
 	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Tbl_Ubigeo_Provincia")]
-	public partial class Tbl_Ubigeo_Provincia : INotifyPropertyChanging, INotifyPropertyChanged
+	public partial class UbigeoProvincia : INotifyPropertyChanging, INotifyPropertyChanged
 	{
 		
 		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
@@ -12002,9 +12002,9 @@ namespace pe.edu.pucp.ferretin.model
 		
 		private string _id_ubig_departamento;
 		
-		private EntitySet<Tbl_Ubigeo_Distrito> _Tbl_Ubigeo_Distrito;
+		private EntitySet<UbigeoDistrito> _Tbl_Ubigeo_Distrito;
 		
-		private EntityRef<Tbl_Ubigeo_Departamento> _Tbl_Ubigeo_Departamento;
+		private EntityRef<UbigeoDepartamento> _Tbl_Ubigeo_Departamento;
 		
     #region Extensibility Method Definitions
     partial void OnLoaded();
@@ -12018,10 +12018,10 @@ namespace pe.edu.pucp.ferretin.model
     partial void Onid_ubig_departamentoChanged();
     #endregion
 		
-		public Tbl_Ubigeo_Provincia()
+		public UbigeoProvincia()
 		{
-			this._Tbl_Ubigeo_Distrito = new EntitySet<Tbl_Ubigeo_Distrito>(new Action<Tbl_Ubigeo_Distrito>(this.attach_Tbl_Ubigeo_Distrito), new Action<Tbl_Ubigeo_Distrito>(this.detach_Tbl_Ubigeo_Distrito));
-			this._Tbl_Ubigeo_Departamento = default(EntityRef<Tbl_Ubigeo_Departamento>);
+			this._Tbl_Ubigeo_Distrito = new EntitySet<UbigeoDistrito>(new Action<UbigeoDistrito>(this.attach_Tbl_Ubigeo_Distrito), new Action<UbigeoDistrito>(this.detach_Tbl_Ubigeo_Distrito));
+			this._Tbl_Ubigeo_Departamento = default(EntityRef<UbigeoDepartamento>);
 			OnCreated();
 		}
 		
@@ -12089,8 +12089,8 @@ namespace pe.edu.pucp.ferretin.model
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Tbl_Ubigeo_Provincia_Tbl_Ubigeo_Distrito", Storage="_Tbl_Ubigeo_Distrito", ThisKey="id", OtherKey="id_ubig_provincia")]
-		public EntitySet<Tbl_Ubigeo_Distrito> Tbl_Ubigeo_Distrito
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="UbigeoProvincia_UbigeoDistrito", Storage="_Tbl_Ubigeo_Distrito", ThisKey="id", OtherKey="id_ubig_provincia")]
+		public EntitySet<UbigeoDistrito> UbigeoDistrito
 		{
 			get
 			{
@@ -12102,8 +12102,8 @@ namespace pe.edu.pucp.ferretin.model
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Tbl_Ubigeo_Departamento_Tbl_Ubigeo_Provincia", Storage="_Tbl_Ubigeo_Departamento", ThisKey="id_ubig_departamento", OtherKey="id", IsForeignKey=true)]
-		public Tbl_Ubigeo_Departamento Tbl_Ubigeo_Departamento
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="UbigeoDepartamento_UbigeoProvincia", Storage="_Tbl_Ubigeo_Departamento", ThisKey="id_ubig_departamento", OtherKey="id", IsForeignKey=true)]
+		public UbigeoDepartamento UbigeoDepartamento
 		{
 			get
 			{
@@ -12111,7 +12111,7 @@ namespace pe.edu.pucp.ferretin.model
 			}
 			set
 			{
-				Tbl_Ubigeo_Departamento previousValue = this._Tbl_Ubigeo_Departamento.Entity;
+				UbigeoDepartamento previousValue = this._Tbl_Ubigeo_Departamento.Entity;
 				if (((previousValue != value) 
 							|| (this._Tbl_Ubigeo_Departamento.HasLoadedOrAssignedValue == false)))
 				{
@@ -12119,19 +12119,19 @@ namespace pe.edu.pucp.ferretin.model
 					if ((previousValue != null))
 					{
 						this._Tbl_Ubigeo_Departamento.Entity = null;
-						previousValue.Tbl_Ubigeo_Provincia.Remove(this);
+						previousValue.UbigeoProvincia.Remove(this);
 					}
 					this._Tbl_Ubigeo_Departamento.Entity = value;
 					if ((value != null))
 					{
-						value.Tbl_Ubigeo_Provincia.Add(this);
+						value.UbigeoProvincia.Add(this);
 						this._id_ubig_departamento = value.id;
 					}
 					else
 					{
 						this._id_ubig_departamento = default(string);
 					}
-					this.SendPropertyChanged("Tbl_Ubigeo_Departamento");
+					this.SendPropertyChanged("UbigeoDepartamento");
 				}
 			}
 		}
@@ -12156,16 +12156,16 @@ namespace pe.edu.pucp.ferretin.model
 			}
 		}
 		
-		private void attach_Tbl_Ubigeo_Distrito(Tbl_Ubigeo_Distrito entity)
+		private void attach_Tbl_Ubigeo_Distrito(UbigeoDistrito entity)
 		{
 			this.SendPropertyChanging();
-			entity.Tbl_Ubigeo_Provincia = this;
+			entity.UbigeoProvincia = this;
 		}
 		
-		private void detach_Tbl_Ubigeo_Distrito(Tbl_Ubigeo_Distrito entity)
+		private void detach_Tbl_Ubigeo_Distrito(UbigeoDistrito entity)
 		{
 			this.SendPropertyChanging();
-			entity.Tbl_Ubigeo_Provincia = null;
+			entity.UbigeoProvincia = null;
 		}
 	}
 	
@@ -12371,7 +12371,7 @@ namespace pe.edu.pucp.ferretin.model
 		
 		private EntitySet<Tbl_Venta_Medio_Pago> _Tbl_Venta_Medio_Pago;
 		
-		private EntityRef<Tbl_Cliente> _Tbl_Cliente;
+		private EntityRef<Cliente> _Tbl_Cliente;
 		
 		private EntityRef<Tbl_Usuario> _Tbl_Usuario;
 		
@@ -12410,7 +12410,7 @@ namespace pe.edu.pucp.ferretin.model
 			this._Tbl_Venta_Producto = new EntitySet<Tbl_Venta_Producto>(new Action<Tbl_Venta_Producto>(this.attach_Tbl_Venta_Producto), new Action<Tbl_Venta_Producto>(this.detach_Tbl_Venta_Producto));
 			this._Tbl_Devolucion = new EntitySet<Tbl_Devolucion>(new Action<Tbl_Devolucion>(this.attach_Tbl_Devolucion), new Action<Tbl_Devolucion>(this.detach_Tbl_Devolucion));
 			this._Tbl_Venta_Medio_Pago = new EntitySet<Tbl_Venta_Medio_Pago>(new Action<Tbl_Venta_Medio_Pago>(this.attach_Tbl_Venta_Medio_Pago), new Action<Tbl_Venta_Medio_Pago>(this.detach_Tbl_Venta_Medio_Pago));
-			this._Tbl_Cliente = default(EntityRef<Tbl_Cliente>);
+			this._Tbl_Cliente = default(EntityRef<Cliente>);
 			this._Tbl_Usuario = default(EntityRef<Tbl_Usuario>);
 			OnCreated();
 		}
@@ -12706,8 +12706,8 @@ namespace pe.edu.pucp.ferretin.model
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Tbl_Cliente_Tbl_Venta", Storage="_Tbl_Cliente", ThisKey="id_cliente", OtherKey="id", IsForeignKey=true)]
-		public Tbl_Cliente Tbl_Cliente
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Cliente_Tbl_Venta", Storage="_Tbl_Cliente", ThisKey="id_cliente", OtherKey="id", IsForeignKey=true)]
+		public Cliente Cliente
 		{
 			get
 			{
@@ -12715,7 +12715,7 @@ namespace pe.edu.pucp.ferretin.model
 			}
 			set
 			{
-				Tbl_Cliente previousValue = this._Tbl_Cliente.Entity;
+				Cliente previousValue = this._Tbl_Cliente.Entity;
 				if (((previousValue != value) 
 							|| (this._Tbl_Cliente.HasLoadedOrAssignedValue == false)))
 				{
@@ -12735,7 +12735,7 @@ namespace pe.edu.pucp.ferretin.model
 					{
 						this._id_cliente = default(Nullable<int>);
 					}
-					this.SendPropertyChanged("Tbl_Cliente");
+					this.SendPropertyChanged("Cliente");
 				}
 			}
 		}

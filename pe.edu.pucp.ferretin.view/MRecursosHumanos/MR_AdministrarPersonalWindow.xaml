@@ -76,7 +76,7 @@
                 <Label Content="Cargo: " HorizontalAlignment="Left" Height="26" VerticalAlignment="Top" Width="57" Margin="223,70,0,0"/>
             </Grid>
         </TabItem>
-        <TabItem Header="Edición" IsEnabled="False">
+        <TabItem Header="Edición" IsEnabled="True">
             <Grid Background="#FFE5E5E5">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="18*"></ColumnDefinition>
@@ -98,13 +98,13 @@
                 <Label Content="Distrito:" HorizontalAlignment="Left" Margin="10,248,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.464,1.231" Grid.ColumnSpan="4"/>
                 <Label Content="Apellido Materno:" HorizontalAlignment="Left" Margin="10,181,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.464,1.231" Grid.ColumnSpan="4"/>
                 <TextBox x:Name="apMatTxtBox" HorizontalAlignment="Left" Height="23" Margin="73.75,185,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="219" Grid.Column="3"/>
-                <ComboBox HorizontalAlignment="Left" Margin="46.75,252,0,0" VerticalAlignment="Top" Width="97" Grid.Column="3"/>
+                <ComboBox ItemsSource="{Binding distrito}" SelectedIndex="{Binding selectedDistrito, Mode=TwoWay}" DisplayMemberPath="nombre" SelectedValuePath="id" HorizontalAlignment="Left" Margin="46.75,252,0,0" VerticalAlignment="Top" Width="97" Grid.Column="3"/>
                 <ComboBox HorizontalAlignment="Left" Margin="195.75,252,0,0" VerticalAlignment="Top" Width="97" Grid.Column="3"/>
                 <Label Content="Dpto:" HorizontalAlignment="Left" Margin="148.75,279,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.464,1.231" Grid.Column="3"/>
                 <Label Content="País:" HorizontalAlignment="Left" Margin="10,279,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.464,1.231" Grid.ColumnSpan="4"/>
                 <ComboBox HorizontalAlignment="Left" Margin="46.75,283,0,0" VerticalAlignment="Top" Width="97" Grid.Column="3"/>
-                <ComboBox HorizontalAlignment="Left" Margin="195.75,283,0,0" VerticalAlignment="Top" Width="97" Grid.Column="3"/>
-                <Label Content="Telf1:" HorizontalAlignment="Left" Margin="12,345,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.464,1.231" Grid.ColumnSpan="4"/>
+                    <ComboBox ItemsSource="{Binding departamento}" SelectedIndex="{Binding selectedDepartamento, Mode=TwoWay}" DisplayMemberPath="nombre" HorizontalAlignment="Left" Margin="195.75,283,0,0" VerticalAlignment="Top" Width="97" Grid.Column="3" />
+                    <Label Content="Telf1:" HorizontalAlignment="Left" Margin="12,345,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.464,1.231" Grid.ColumnSpan="4"/>
                 <Label Content="Telf2:" HorizontalAlignment="Left" Margin="151,345,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.464,1.231" Grid.Column="3"/>
                 <TextBox x:Name="telf1TxtBox" HorizontalAlignment="Left" Height="23" Margin="49,349,0,0" TextWrapping="Wrap" Text="999999999" VerticalAlignment="Top" Width="97" Grid.Column="3"/>
                 <TextBox x:Name="telf2TxtBox" HorizontalAlignment="Left" Height="23" Margin="198,349,0,0" TextWrapping="Wrap" Text="22222222" VerticalAlignment="Top" Width="97" Grid.Column="3"/>
@@ -158,8 +158,8 @@
                     <ListBoxItem Content="Inactivo"/>
                 </ComboBox>
                 <Label Content="Provincia:" HorizontalAlignment="Left" Margin="12,312,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.464,1.231" Grid.ColumnSpan="4"/>
-                <ComboBox HorizontalAlignment="Left" Margin="47,316,0,0" VerticalAlignment="Top" Width="97" Grid.Column="3"/>
-                <Label Content="Cargo:" HorizontalAlignment="Left" Margin="25,54,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.464,1.231" Grid.Column="4"/>
+                    <ComboBox ItemsSource="{Binding provincia}" SelectedIndex="{Binding selectedProvincia, Mode=TwoWay}" DisplayMemberPath="nombre" SelectedValuePath="id" HorizontalAlignment="Left" Margin="47,316,0,0" VerticalAlignment="Top" Width="97" Grid.Column="3"/>
+                    <Label Content="Cargo:" HorizontalAlignment="Left" Margin="25,54,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.464,1.231" Grid.Column="4"/>
                 <Label Content="Sueldo:" HorizontalAlignment="Left" Margin="25,121,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.464,1.231" Grid.Column="4"/>
                 <Label Content="Estado:" HorizontalAlignment="Left" Margin="25,154,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.464,1.231" Grid.Column="4"/>
             </Grid>
