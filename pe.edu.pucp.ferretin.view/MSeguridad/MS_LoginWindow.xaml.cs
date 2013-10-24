@@ -19,6 +19,7 @@ using System.Windows.Shapes;
 
 namespace pe.edu.pucp.ferretinsoft.view.MSeguridad
 {
+
     /// <summary>
     /// Interaction logic for MS_LoginWindow.xaml
     /// </summary>
@@ -38,6 +39,8 @@ namespace pe.edu.pucp.ferretinsoft.view.MSeguridad
                 statusLabel.Content = "Mayusculas Activadas";
             }
 
+            fechaHora.Content = System.DateTime.Now.Date;
+                     
         }
 
         private void iniSesionBtn_Click(object sender, RoutedEventArgs e)
@@ -118,7 +121,10 @@ namespace pe.edu.pucp.ferretinsoft.view.MSeguridad
             }
 
 
+
+
         }
+
 
 
     }

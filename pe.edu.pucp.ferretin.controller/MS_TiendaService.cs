@@ -13,9 +13,9 @@ namespace pe.edu.pucp.ferretin.controller
 
         private static FerretinDataContext db = new FerretinDataContext();
 
-        private static IEnumerable<Tienda> _listaTiendas = null;
+        private static IEnumerable<Almacen> _listaTiendas = null;
 
-        private static IEnumerable<Tienda> listaTiendas
+        private static IEnumerable<Almacen> listaTiendas
         {
             get
             {
@@ -31,21 +31,46 @@ namespace pe.edu.pucp.ferretin.controller
             }
         }
 
-        public static IEnumerable<Tienda> obtenerListaTiendas()
+        public static IEnumerable<Almacen> obtenerListaTiendas()
         {
-            listaTiendas = from p in db.Tiendas
+            listaTiendas = from p in db.Almacen
                             orderby p.id
                             select p;
             return listaTiendas;
         }
 
-        public static void insertarTienda(Tienda tienda)
+        public static Almacen obtenerTiendaByCodigo(String codigoTienda)
         {
-            db.Tiendas.InsertOnSubmit(tienda);
+            IEnumerable<Almacen> tiendas = (from t in listaTiendas
+                                             where t.codigo != null && t.codigo.Contains(codigoTienda)
+                                             select t);
+            if (tiendas.Count() > 0)
+                return tiendas.First();
+            else
+                return null;
+        }
+
+        public static IEnumerable<Almacen> obtenerListaTiendasBy(Almacen tienda)
+        {
+            return from t in listaTiendas
+                   where
+                   (t.codigo != null && t.codigo.Contains(tienda.codigo)
+                       && t.nombre != null && t.nombre.Contains(tienda.nombre)
+                       && (tienda.tipo == null || (t.tipo != null && t.tipo.Equals(tienda.tipo)))
+                       && (tienda.estado == null || ( t.estado != null && t.estado.Equals(tienda.estado)))
+                       && (tienda.id_ubigeo == null || (t.id_ubigeo != null && t.id_ubigeo.Equals(tienda.id_ubigeo)))
+                    )
+                   orderby t.codigo
+                   select t;
+        }
+
+        public static void insertarTienda(Almacen tienda)
+        {
+            db.Almacen.InsertOnSubmit(tienda);
             db.SubmitChanges();
         }
 
-        public static void actualizarTienda(Tienda tienda)
+        public static void actualizarTienda(Almacen tienda)
         {
             db.SubmitChanges();
         }

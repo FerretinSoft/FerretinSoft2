@@ -23,7 +23,7 @@ namespace pe.edu.pucp.ferretin.controller
             foreach (Producto p in pList)
             {
                 String cad = "";
-                foreach (Producto_Categoria pc in p.Producto_Categoria)
+                foreach (ProductoCategoria pc in p.ProductoCategoria)
                 {
                     if (cad != "") cad += ", ";
                     cad += pc.Categoria.nombre;
@@ -61,7 +61,7 @@ namespace pe.edu.pucp.ferretin.controller
             foreach (Producto p in pList)
             {
                 String cad = "";
-                foreach (Producto_Categoria pc in p.Producto_Categoria)
+                foreach (ProductoCategoria pc in p.ProductoCategoria)
                 {
                     if (cad != "") cad += ", ";
                     cad += pc.Categoria.nombre;

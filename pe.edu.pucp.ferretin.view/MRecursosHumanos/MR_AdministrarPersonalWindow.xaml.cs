@@ -21,6 +21,76 @@ namespace pe.edu.pucp.ferretin.view.MRecursosHumanos
 
     public class MR_AdministrarPersonalViewModel : INotifyPropertyChanged
     {
+        public String searchDni { get; set; }
+        public String searchNombre { get; set; }
+        public int searchCodigo { get; set; }
+        public String searchCargo { get; set; }
+        public String searchTienda { get; set; }
+
+        public enum tabs
+        {
+            //Pestañas virtuales:
+            //0       1        2          3
+            BUSQUEDA, EDICION , MODIFICAR, DETALLES
+        }
+        private int _statusTab = (int)tabs.BUSQUEDA; //pestaña default 
+
+        public int statusTab
+        {
+            get
+            {
+                return _statusTab;
+            }
+            set
+            {
+                _statusTab = value == 0 ? 0 : 1;
+                //Si cambió el estado de las pestañas también cambio los Header
+                //Si la pestaña es para agregar nuevo, limpio los input
+                switch (value)
+                {
+                    case (int)tabs.BUSQUEDA: detallesTabHeader = "Agregar"; empleado = new Empleado(); break;//Si es agregar, creo un nuevo objeto Cliente
+                    case (int)tabs.EDICION: detallesTabHeader = "Edicion"; empleado = new Empleado(); break;//Si es agregar, creo un nuevo objeto Cliente
+                    case (int)tabs.MODIFICAR: detallesTabHeader = "Modificar"; break;
+                    case (int)tabs.DETALLES: detallesTabHeader = "Detalles"; break;
+                    default: detallesTabHeader = "Agregar"; empleado = new Empleado(); break;//Si es agregar, creo un nuevo objeto Cliente
+                }
+                //Cuando se cambia el status, tambien se tiene que cambiar el currentIndex del tab
+                //currentIndexTab = _statusTab == 0 ? 0 : 1;
+                NotifyPropertyChanged("statusTab");
+            }
+
+        }
+
+        private String _detallesTabHeader = "Agregar"; //Default
+        public String detallesTabHeader
+        {
+            get
+            {
+                return _detallesTabHeader;
+            }
+            set
+            {
+                _detallesTabHeader = value;
+                NotifyPropertyChanged("detallesTabHeader");
+            }
+        }
+
+
+        public IEnumerable<Cargo> cargo
+        {
+            get 
+            {
+                return MR_CargTieService.cargos;        
+            }           
+        }
+
+        public IEnumerable<Almacen> tienda
+        {
+            get
+            {
+                return MR_CargTieService.tiendas;
+            }
+        }
 
         public IEnumerable<UbigeoDepartamento> departamento
         {
@@ -29,6 +99,23 @@ namespace pe.edu.pucp.ferretin.view.MRecursosHumanos
                 return MR_UbigeoService.departamentos;
             }
         }
+
+        public IEnumerable<UbigeoProvincia> provincia
+        {
+            get
+            {
+                return MR_UbigeoService.departamentos.ElementAt(selectedDepartamento).UbigeoProvincia;
+            }
+        }
+
+        public IEnumerable<UbigeoDistrito> distrito
+        {
+            get
+            {
+                return MR_UbigeoService.departamentos.ElementAt(selectedDepartamento).UbigeoProvincia.ElementAt(selectedProvincia).UbigeoDistrito;
+            }
+        }
+        private int selectedDistrito { get; set; }
         private int _selectedDepartamento;
         public int selectedDepartamento
         {
@@ -45,13 +132,7 @@ namespace pe.edu.pucp.ferretin.view.MRecursosHumanos
             }
         }
 
-        public IEnumerable<UbigeoProvincia> provincia
-        {
-            get
-            {
-                return MR_UbigeoService.departamentos.ElementAt(selectedDepartamento).UbigeoProvincia;
-            }
-        }
+        
         private int _selectedProvincia;
         public int selectedProvincia
         {
@@ -66,14 +147,42 @@ namespace pe.edu.pucp.ferretin.view.MRecursosHumanos
             }
         }
 
-        public IEnumerable<UbigeoDistrito> distrito
+        private int _selectedCargo;
+        public int selectedCargo
         {
             get
             {
-                return MR_UbigeoService.departamentos.ElementAt(selectedDepartamento).UbigeoProvincia.ElementAt(selectedProvincia).UbigeoDistrito;
+                return _selectedCargo > 0 ? _selectedCargo : 0;
+            }
+            set
+            {
+                _selectedCargo = value;
+                NotifyPropertyChanged("selectedCargo");
+                NotifyPropertyChanged("cargo");
+                NotifyPropertyChanged("cargoMenu");
+                
             }
         }
-        private int selectedDistrito { get; set; }
+
+        private int _selectedTienda;
+        public int selectedTienda
+        {
+            get
+            {
+                return _selectedTienda > 0 ? _selectedCargo : 0;
+            }
+            set
+            {
+                _selectedTienda = value;
+                NotifyPropertyChanged("selectedTienda");
+                NotifyPropertyChanged("tienda");
+                NotifyPropertyChanged("tiendaMenu");
+
+            }
+        }
+
+
+      
 
 
         #region INotifyPropertyChanged Members
@@ -84,6 +193,20 @@ namespace pe.edu.pucp.ferretin.view.MRecursosHumanos
                 this.PropertyChanged(this, new PropertyChangedEventArgs(propName));
         }
         #endregion
+
+        private Empleado _empleado = new Empleado();
+        public Empleado empleado
+        {
+            get
+            {
+                return _empleado;
+            }
+            set
+            {
+                _empleado = value;
+                NotifyPropertyChanged("empleado");
+            }
+        }
     }
 
 
@@ -97,81 +220,28 @@ namespace pe.edu.pucp.ferretin.view.MRecursosHumanos
         public MR_AdministrarPersonalWindow()
         {
             InitializeComponent();
-            DataContext = MR_AdministrarPersonalViewModel;
+          
+
+            empleadosGrid.ItemsSource = MR_EmpleadoService.obtenerListaEmpleados();
+            personalTabControl.DataContext = MR_AdministrarPersonalViewModel;          
         }
 
         private void nuevoEmpleadoBtn_Click(object sender, RoutedEventArgs e)
         {
-            personalTab.SelectedIndex = 1;
+         
         }
 
         private void edEmpleadoBtn_Click(object sender, RoutedEventArgs e)
         {
-            personalTab.SelectedIndex = 1;
+            
         }
 
-        /*private List<Personal> ListPersonal()
-        {
-            List<Personal> personal = new List<Personal>();
 
-            Personal per1 = new Personal();
-            Personal per2 = new Personal();
-            Personal per3 = new Personal();
-
-            per1.codigo = "000001";
-            per1.dni = "23453412";
-            per1.nombreCompleto = "Heidy Hernandez Breton";
-            per1.nombre = "Heidy";
-            per1.apPat = "Hernandez";
-            per1.apMat = "Breton";
-            per1.cargo = "Jefe de Tienda";
-            per1.tienda = "Tienda 1";
-            per1.direccion = "Av. Constructores 1150";
-            per1.telefono = "923456231";
-            personal.Add(per1);
-
-            per2.codigo = "000002";
-            per2.dni = "45342312";
-            per2.nombreCompleto = "Luis Ezpinoza Sanchez";
-            per2.nombre = "Luis ";
-            per2.apPat = "Ezpinoza ";
-            per2.apMat = "Sanchez";
-            per2.cargo = "Asistente Venta";
-            per2.tienda = "Tienda 3";
-            per2.direccion = "Av. Universitaria 590";
-            per2.telefono = "999009131";
-            personal.Add(per2);
-
-            per3.codigo = "000003";
-            per3.dni = "81453412";
-            per3.nombreCompleto = "Juan Carlos Condori Tipula";
-            per3.nombre = "Juan Carlos ";
-            per3.apPat = "Condori ";
-            per3.apMat = "Tipula";
-            per3.cargo = "Jefe de RRHH";
-            per3.tienda = "Tienda 5";
-            per3.direccion = "Av. Palmares 9021";
-            per3.telefono = "800080808";
-            personal.Add(per3);
-
-            return personal;
-        }*/
 
         public void codigoPersonal_Click(object sender, RoutedEventArgs e)
         {
 
-          /*  var rowData = ((Hyperlink)e.OriginalSource).DataContext as Personal;
 
-            codTxtBox.Text = rowData.codigo;
-            dniTxtBox.Text = rowData.dni;
-            nomTxtBox.Text = rowData.nombre;
-            apPatTxtBox.Text = rowData.apPat;
-            apMatTxtBox.Text = rowData.apMat;
-            telf1TxtBox.Text = rowData.telefono;
-            telf2TxtBox.Text = rowData.telefono;
-            dirTxtBox.Text = rowData.direccion;
-
-            personalTab.SelectedIndex = 1;*/
         }
 
 

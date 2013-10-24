@@ -65,8 +65,13 @@ namespace pe.edu.pucp.ferretin.view
 
         private void cambiarPasswMenuItem_Click(object sender, RoutedEventArgs e)
         {
-            MSeguridad.MS_CambiarContraseñaUsuario wCambiar = new MSeguridad.MS_CambiarContraseñaUsuario();
+            MSeguridad.MS_CambiarContraseñaUsuario wCambiar = new MSeguridad.MS_CambiarContraseñaUsuario(usuarioLog);
             wCambiar.Show();
+        }
+
+        private void cerrarSesionMenuItem_Click(object sender, RoutedEventArgs e)
+        {
+            this.Close();
         }
     }
 }

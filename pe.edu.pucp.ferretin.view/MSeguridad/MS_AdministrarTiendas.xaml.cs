@@ -25,8 +25,40 @@ namespace pe.edu.pucp.ferretin.view.MSeguridad
     {
         #region Valores para el cuadro de Búsqueda
         public String searchCodTienda { get; set; }
-        public String searchNombre { get; set; }        
-        public int searchTipoDocumento { get; set; }
+        public String searchNombre { get; set; }
+        private int _searchEstado;
+        public int searchEstado { get { return _searchEstado; } set { _searchEstado = value; NotifyPropertyChanged("searchEstado"); } }
+        private int  _searchProvincia { get; set; }
+        public int searchProvincia
+        {
+            get
+            {
+                return _searchProvincia > 0 ? _searchProvincia : 0;
+            }
+            set
+            {
+                _searchProvincia = value;
+                NotifyPropertyChanged("searchProvincia");
+                NotifyPropertyChanged("provincias");
+                NotifyPropertyChanged("distritos");
+            }
+        }
+        private int _searchTipo;
+        public int searchTipo { get { return _searchTipo; } set { _searchTipo = value; NotifyPropertyChanged("searchTipo"); } }
+        public int _searchDistrito;
+        public int searchDistrito
+        {
+            get
+            {
+                return _searchDistrito;
+            }
+            set
+            {
+                _searchDistrito = value;
+                NotifyPropertyChanged("searchDistrito");
+                NotifyPropertyChanged("distritos");
+            }
+        }
         #endregion
 
         public enum tabs
@@ -51,11 +83,11 @@ namespace pe.edu.pucp.ferretin.view.MSeguridad
                 //Si la pestaña es para agregar nuevo, limpio los input
                 switch (value)
                 {
-                    case (int)tabs.BUSQUEDA: detallesTabHeader = "Agregar"; tienda = new Tienda(); break;//Si es agregar, creo un nuevo objeto Tienda
-                    case (int)tabs.AGREGAR: detallesTabHeader = "Agregar"; tienda = new Tienda(); break;//Si es agregar, creo un nuevo objeto Tienda
+                    case (int)tabs.BUSQUEDA: detallesTabHeader = "Agregar"; tienda = new Almacen(); break;//Si es agregar, creo un nuevo objeto Tienda
+                    case (int)tabs.AGREGAR: detallesTabHeader = "Agregar"; tienda = new Almacen(); break;//Si es agregar, creo un nuevo objeto Tienda
                     case (int)tabs.MODIFICAR: detallesTabHeader = "Modificar"; break;
                     case (int)tabs.DETALLES: detallesTabHeader = "Detalles"; break;
-                    default: detallesTabHeader = "Agregar"; tienda = new Tienda(); break;//Si es agregar, creo un nuevo objeto Tienda
+                    default: detallesTabHeader = "Agregar"; tienda = new Almacen(); break;//Si es agregar, creo un nuevo objeto Tienda
                 }
                 //Cuando se cambia el status, tambien se tiene que cambiar el currentIndex del tab
                 //currentIndexTab = _statusTab == 0 ? 0 : 1;
@@ -85,9 +117,9 @@ namespace pe.edu.pucp.ferretin.view.MSeguridad
             }
         }
 
-        private Tienda _tienda = new Tienda();
+        private Almacen _tienda = new Almacen();
         
-        public Tienda tienda
+        public Almacen tienda
         {
             get
             {
@@ -99,7 +131,25 @@ namespace pe.edu.pucp.ferretin.view.MSeguridad
                 NotifyPropertyChanged("tienda");
             }
         }
-        
+
+        int selectedDepartamento = 14; //index Lima default
+        public IEnumerable<UbigeoProvincia> provincias
+        {
+            get
+            {
+                
+                return MR_UbigeoService.departamentos.ElementAt(selectedDepartamento).UbigeoProvincia;
+            }
+        }
+
+        public IEnumerable<UbigeoDistrito> distritos
+        {
+            get
+            {
+                return MR_UbigeoService.departamentos.ElementAt(selectedDepartamento).UbigeoProvincia.ElementAt(searchProvincia).UbigeoDistrito;
+            }
+        }
+
         #region INotifyPropertyChanged Members
         public event PropertyChangedEventHandler PropertyChanged;
         public void NotifyPropertyChanged(string propName)
@@ -121,25 +171,12 @@ namespace pe.edu.pucp.ferretin.view.MSeguridad
         public MS_AdministrarTiendas()
         {
             InitializeComponent();
-            Thread thread = new Thread(
-              new ThreadStart(
-                delegate()
-                {
-                    tiendasGrid.Dispatcher.Invoke(
-                      DispatcherPriority.Normal,
-                      new Action(
-                        delegate()
-                        { 
-                            tiendasTabControl.DataContext = MS_TiendasViewModel;
-                        }
-                    ));
-                }
-            ));
-            thread.Start();
+            
             tiendasGrid.ItemsSource = MS_TiendaService.obtenerListaTiendas();
+            DataContext = MS_TiendasViewModel;
         }
 
-        private IEnumerable<Tienda> ListaTiendas()
+        private IEnumerable<Almacen> ListaTiendas()
         {
             return MS_TiendaService.obtenerListaTiendas();
         }
@@ -148,7 +185,7 @@ namespace pe.edu.pucp.ferretin.view.MSeguridad
         {
             if (tiendasGrid.SelectedItem != null)
             {
-                MS_TiendasViewModel.tienda = (Tienda)tiendasGrid.SelectedItem;
+                MS_TiendasViewModel.tienda = (Almacen)tiendasGrid.SelectedItem;
                 MS_TiendasViewModel.statusTab = (int)MS_TiendasViewModel.tabs.MODIFICAR;//Modificar                 
             }
         }
@@ -163,6 +200,29 @@ namespace pe.edu.pucp.ferretin.view.MSeguridad
         {
             MS_TiendasViewModel.statusTab = (int)MS_TiendasViewModel.tabs.BUSQUEDA;
         }
+
+        private void buscarTiendaBtn_Click(object sender, RoutedEventArgs e)
+        {
+            Almacen tienda = new Almacen();
+            tienda.codigo = (MS_TiendasViewModel.searchCodTienda == null) ? "" : MS_TiendasViewModel.searchCodTienda;
+            tienda.nombre = (MS_TiendasViewModel.searchNombre == null) ? "" : MS_TiendasViewModel.searchNombre;
+
+            if (MS_TiendasViewModel.searchEstado > 0)
+            {
+                tienda.estado = (MS_TiendasViewModel.searchEstado == 1 ? true : false);
+            }
+            if( MS_TiendasViewModel.searchTipo > 0){
+                tienda.tipo = MS_TiendasViewModel.searchTipo==1 ? true : false;
+            }
+
+            if (MS_TiendasViewModel.searchDistrito >= 0)
+            {
+                tienda.id_ubigeo = MS_TiendasViewModel.distritos.ElementAt(MS_TiendasViewModel.searchDistrito).id;
+            }
+
+            tiendasGrid.ItemsSource = MS_TiendaService.obtenerListaTiendasBy(tienda);
+        }
+
 
         private void guardarDetalleTiendaBtn_Click(object sender, RoutedEventArgs e)
         {

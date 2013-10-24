@@ -1,4 +1,6 @@
-﻿using System;
+﻿using pe.edu.pucp.ferretin.controller;
+using pe.edu.pucp.ferretin.model;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -19,9 +21,29 @@ namespace pe.edu.pucp.ferretin.view.MSeguridad
     /// </summary>
     public partial class MS_CambiarContraseñaUsuario : Window
     {
-        public MS_CambiarContraseñaUsuario()
+        Usuario usuarioLog;
+
+        public MS_CambiarContraseñaUsuario(Usuario usuario)
         {
+            usuarioLog = usuario;
             InitializeComponent();
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            if(usuarioLog.contrasena == conActual.Password && nuevaCon.Password == confirmarCon.Password && !String.IsNullOrEmpty(nuevaCon.Password))
+            {
+                usuarioLog.contrasena = nuevaCon.Password;
+                MS_UsuarioService.actualizarUsuario(usuarioLog);
+                MessageBox.Show("Contraseña Cambiada Correctamente");
+                this.Close();
+            }
+
+        }
+
+        private void Button_Click_1(object sender, RoutedEventArgs e)
+        {
+            this.Close();
         }
     }
 }

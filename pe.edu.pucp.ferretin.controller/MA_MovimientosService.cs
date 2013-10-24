@@ -8,7 +8,7 @@ using System.Data.Linq;
 
 namespace pe.edu.pucp.ferretin.controller
 {
-    public class MovimientosService
+    public class MA_MovimientosService
     {
         static FerretinDataContext dc = new FerretinDataContext();
 
@@ -45,7 +45,7 @@ namespace pe.edu.pucp.ferretin.controller
         {
             return from m in listaMovimientos
                    where
-                   ((!parametros.ContainsKey("almacen") || m.id_almacen_desde == null || m.id_almacen_desde.Equals(((Tienda)parametros["almacen"]).codigo)) &&
+                   ((!parametros.ContainsKey("tienda") || m.Almacen == null || m.id_almacen_desde == (int)parametros["tienda"]) &&
                     (!parametros.ContainsKey("fechaDesde") || m.fecha >= (DateTime)parametros["fechaDesde"])  && 
                     (!parametros.ContainsKey("fechaDesde") || m.fecha <= (DateTime)parametros["fechaHasta"]))
                    orderby m.fecha
@@ -54,13 +54,14 @@ namespace pe.edu.pucp.ferretin.controller
 
         public static void ActualizarMovimiento(Movimiento mov)
         {
-            dc.Movimiento.InsertOnSubmit(mov);
+            //dc.Movimiento.InsertOnSubmit(mov);
             dc.SubmitChanges();
         }
 
         public static void InsertarMovimiento(Movimiento mov)
         {
-            //mov.co;
+            //mov.Movimiento_Tipo;
+            dc.Movimiento.InsertOnSubmit(mov);
             dc.SubmitChanges();
         }
     }
