@@ -9,7 +9,7 @@ namespace pe.edu.pucp.ferretin.controller
 {
     public class CategoriaService
     {
-        private static FerretinDataContextDataContext db = new FerretinDataContextDataContext();
+        private static FerretinDataContext db = new FerretinDataContext();
         private static IEnumerable<Categoria> listaCategoria=null;
 
         public static IEnumerable<Categoria> obtenerTodasCategorias()

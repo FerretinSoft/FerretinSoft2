@@ -9,7 +9,7 @@ namespace pe.edu.pucp.ferretin.controller
 {
     public class ProductoService
     {
-        private static FerretinDataContextDataContext db=new FerretinDataContextDataContext();
+        private static FerretinDataContext db = new FerretinDataContext();
         private static IEnumerable<Producto> listaProductos = null;
         
         public static IEnumerable<Producto> obtenerTodosProductos()
