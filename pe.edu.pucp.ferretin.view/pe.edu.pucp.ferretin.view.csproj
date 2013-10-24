@@ -93,6 +93,46 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="MCompras\MC_AdministrarGuiaRemiWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="MCompras\MC_AdministrarOCCotizacionWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="MCompras\MC_AdministrarProveedorWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="MCompras\MC_AgregarProdCatalogoWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="MCompras\MC_AgregarProdProveedor.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="MCompras\MC_AtenderSolicitudWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="MCompras\MC_BuscarProveedorProductoWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="MCompras\MC_ConsolidarSolicitudesWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="MCompras\MC_MainWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="MCompras\MC_ReportesWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="MSeguridad\MS_AdministrarPerfiles.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -195,6 +235,36 @@
     </Compile>
     <Compile Include="MAlmacen\MA_SolicitudAbastecimientoWindow.xaml.cs">
       <DependentUpon>MA_SolicitudAbastecimientoWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="MCompras\MC_AdministrarGuiaRemiWindow.xaml.cs">
+      <DependentUpon>MC_AdministrarGuiaRemiWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="MCompras\MC_AdministrarOCCotizacionWindow.xaml.cs">
+      <DependentUpon>MC_AdministrarOCCotizacionWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="MCompras\MC_AdministrarProveedorWindow.xaml.cs">
+      <DependentUpon>MC_AdministrarProveedorWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="MCompras\MC_AgregarProdCatalogoWindow.xaml.cs">
+      <DependentUpon>MC_AgregarProdCatalogoWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="MCompras\MC_AgregarProdProveedor.xaml.cs">
+      <DependentUpon>MC_AgregarProdProveedor.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="MCompras\MC_AtenderSolicitudWindow.xaml.cs">
+      <DependentUpon>MC_AtenderSolicitudWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="MCompras\MC_BuscarProveedorProductoWindow.xaml.cs">
+      <DependentUpon>MC_BuscarProveedorProductoWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="MCompras\MC_ConsolidarSolicitudesWindow.xaml.cs">
+      <DependentUpon>MC_ConsolidarSolicitudesWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="MCompras\MC_MainWindow.xaml.cs">
+      <DependentUpon>MC_MainWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="MCompras\MC_ReportesWindow.xaml.cs">
+      <DependentUpon>MC_ReportesWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="MSeguridad\MS_AdministrarPerfiles.xaml.cs">
       <DependentUpon>MS_AdministrarPerfiles.xaml</DependentUpon>
@@ -330,7 +400,6 @@
     <Resource Include="Resources\view_48.png" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="MCompras\" />
     <Folder Include="MRecursosHumanos\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
