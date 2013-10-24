@@ -111,25 +111,25 @@
       </nestedChildShapes>
     </classShape>
     <classShape Id="7143e971-7313-4985-b9ef-f039c7f8c407" absoluteBounds="14.75, 28.125, 2, 2.3478011067708309">
-      <DataClassMoniker Name="/FerretinDataContextDataContext/Tbl_Movimiento" />
+      <DataClassMoniker Name="/FerretinDataContextDataContext/Movimiento" />
       <nestedChildShapes>
         <elementListCompartment Id="e8ee3d20-8768-4b7f-a1e2-0b2935293513" absoluteBounds="14.765, 28.585, 1.9700000000000002, 1.7878011067708335" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
     <classShape Id="3f46d3d2-b38c-4fc7-99dc-f1ea9e115e3b" absoluteBounds="12, 35.375, 2, 1.3862939453125023">
-      <DataClassMoniker Name="/FerretinDataContextDataContext/Tbl_Movimiento_Estado" />
+      <DataClassMoniker Name="/FerretinDataContextDataContext/Movimiento_Estado" />
       <nestedChildShapes>
         <elementListCompartment Id="a437f15d-813d-4476-abf0-16fe0b5971b5" absoluteBounds="12.015, 35.835, 1.9700000000000002, 0.8262939453125" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
     <classShape Id="dd83b0c5-78ea-4221-a789-70613d9ff410" absoluteBounds="17.5, 29.625, 2, 1.3862939453125023">
-      <DataClassMoniker Name="/FerretinDataContextDataContext/Tbl_Movimiento_Producto" />
+      <DataClassMoniker Name="/FerretinDataContextDataContext/Movimiento_Producto" />
       <nestedChildShapes>
         <elementListCompartment Id="5a53b599-702b-4c91-b316-770bc46ec966" absoluteBounds="17.515, 30.085, 1.9700000000000002, 0.8262939453125" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
     <classShape Id="276c81c2-03c3-4e18-93ec-2ac3d2988596" absoluteBounds="12, 37.5, 2, 1.7708968098958309">
-      <DataClassMoniker Name="/FerretinDataContextDataContext/Tbl_Movimiento_Tipo" />
+      <DataClassMoniker Name="/FerretinDataContextDataContext/Movimiento_Tipo" />
       <nestedChildShapes>
         <elementListCompartment Id="513a8e8b-bf0f-418e-a8c9-fac9772bf604" absoluteBounds="12.015, 37.96, 1.9700000000000002, 1.2108968098958333" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
@@ -397,21 +397,21 @@
       </nodes>
     </associationConnector>
     <associationConnector edgePoints="[(14 : 36.0681469726563); (14.84375 : 36.0681469726563); (14.84375 : 30.4728011067708)]" fixedFrom="Algorithm" fixedTo="Algorithm">
-      <AssociationMoniker Name="/FerretinDataContextDataContext/Tbl_Movimiento_Estado/Tbl_Movimiento_Estado_Tbl_Movimiento" />
+      <AssociationMoniker Name="/FerretinDataContextDataContext/Movimiento_Estado/Tbl_Movimiento_Estado_Tbl_Movimiento" />
       <nodes>
         <classShapeMoniker Id="3f46d3d2-b38c-4fc7-99dc-f1ea9e115e3b" />
         <classShapeMoniker Id="7143e971-7313-4985-b9ef-f039c7f8c407" />
       </nodes>
     </associationConnector>
     <associationConnector edgePoints="[(16.75 : 30.0489005533854); (17.5 : 30.0489005533854)]" fixedFrom="Algorithm" fixedTo="Algorithm">
-      <AssociationMoniker Name="/FerretinDataContextDataContext/Tbl_Movimiento/Tbl_Movimiento_Tbl_Movimiento_Producto" />
+      <AssociationMoniker Name="/FerretinDataContextDataContext/Movimiento/Tbl_Movimiento_Tbl_Movimiento_Producto" />
       <nodes>
         <classShapeMoniker Id="7143e971-7313-4985-b9ef-f039c7f8c407" />
         <classShapeMoniker Id="dd83b0c5-78ea-4221-a789-70613d9ff410" />
       </nodes>
     </associationConnector>
     <associationConnector edgePoints="[(14 : 38.3854484049479); (14.8124975 : 38.3854484049479); (14.8124975 : 30.4728011067708)]" fixedFrom="Algorithm" fixedTo="Algorithm">
-      <AssociationMoniker Name="/FerretinDataContextDataContext/Tbl_Movimiento_Tipo/Tbl_Movimiento_Tipo_Tbl_Movimiento" />
+      <AssociationMoniker Name="/FerretinDataContextDataContext/Movimiento_Tipo/Tbl_Movimiento_Tipo_Tbl_Movimiento" />
       <nodes>
         <classShapeMoniker Id="276c81c2-03c3-4e18-93ec-2ac3d2988596" />
         <classShapeMoniker Id="7143e971-7313-4985-b9ef-f039c7f8c407" />
