@@ -418,6 +418,13 @@
       <Project>{534fc2b6-43e2-40b5-8b9d-90bd421b307b}</Project>
       <Name>pe.edu.pucp.ferretin.controller</Name>
     </ProjectReference>
+    <ProjectReference Include="..\pe.edu.pucp.ferretin.model\pe.edu.pucp.ferretin.model.csproj">
+      <Project>{b2b09083-747c-4467-a7ef-a09ef13e3039}</Project>
+      <Name>pe.edu.pucp.ferretin.model</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Service References\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

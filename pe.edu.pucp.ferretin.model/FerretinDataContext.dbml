@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?><Database Name="inf245g2" Class="FerretinDataContextDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
   <Connection Mode="AppSettings" ConnectionString="Data Source=inti.lab.inf.pucp.edu.pe;Initial Catalog=inf245g2;Persist Security Info=True;User ID=inf245g2usr" SettingsObjectName="pe.edu.pucp.ferretin.model.Properties.Settings" SettingsPropertyName="inf245g2ConnectionString" Provider="System.Data.SqlClient" />
-  <Table Name="dbo.Tbl_Almacen" Member="Tbl_Almacen">
-    <Type Name="Tbl_Almacen">
+  <Table Name="dbo.Tbl_Almacen" Member="Tiendas">
+    <Type Name="Tienda">
       <Column Name="id" Type="System.Int16" DbType="SmallInt NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
       <Column Name="id_abastecedor" Type="System.Int16" DbType="SmallInt" CanBeNull="true" />
       <Column Name="nombre" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
@@ -17,7 +17,7 @@
       <Column Name="codigoPostal" Type="System.String" DbType="VarChar(15)" CanBeNull="true" />
       <Column Name="fecCierre" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
       <Column Name="id_jefe" Type="System.String" DbType="Char(8)" CanBeNull="true" />
-      <Association Name="Tbl_Almacen_Tbl_Almacen" Member="Tbl_Almacen2" ThisKey="id" OtherKey="id_abastecedor" Type="Tbl_Almacen" />
+      <Association Name="Tbl_Almacen_Tbl_Almacen" Member="Tbl_Almacen2" ThisKey="id" OtherKey="id_abastecedor" Type="Tienda" />
       <Association Name="Tbl_Almacen_Tbl_Almacen_Horario" Member="Tbl_Almacen_Horario" ThisKey="id" OtherKey="id_tienda" Type="Tbl_Almacen_Horario" />
       <Association Name="Tbl_Almacen_Tbl_Empleado_Almacen" Member="Tbl_Empleado_Almacen" ThisKey="id" OtherKey="id_almacen" Type="Tbl_Empleado_Almacen" />
       <Association Name="Tbl_Almacen_Tbl_Lote" Member="Tbl_Lote" ThisKey="id" OtherKey="id_almacen" Type="Tbl_Lote" />
@@ -26,7 +26,7 @@
       <Association Name="Tbl_Almacen_Tbl_Producto_Almacen" Member="Tbl_Producto_Almacen" ThisKey="id" OtherKey="id_almacen" Type="Tbl_Producto_Almacen" />
       <Association Name="Tbl_Almacen_Tbl_Solicitud_Abastecimiento" Member="Tbl_Solicitud_Abastecimiento" ThisKey="id" OtherKey="id_almacen" Type="Tbl_Solicitud_Abastecimiento" />
       <Association Name="Tbl_Almacen_Tbl_Turno" Member="Tbl_Turno" ThisKey="id" OtherKey="id_almacen" Type="Tbl_Turno" />
-      <Association Name="Tbl_Almacen_Tbl_Almacen" Member="Tbl_Almacen1" ThisKey="id_abastecedor" OtherKey="id" Type="Tbl_Almacen" IsForeignKey="true" />
+      <Association Name="Tbl_Almacen_Tbl_Almacen" Member="Tbl_Almacen1" ThisKey="id_abastecedor" OtherKey="id" Type="Tienda" IsForeignKey="true" />
       <Association Name="Tbl_Empleado_Tbl_Almacen" Member="Tbl_Empleado" ThisKey="id_jefe" OtherKey="dni" Type="Tbl_Empleado" IsForeignKey="true" />
       <Association Name="Tbl_Ubigeo_Distrito_Tbl_Almacen" Member="Tbl_Ubigeo_Distrito" ThisKey="id_ubigeo" OtherKey="id" Type="Tbl_Ubigeo_Distrito" IsForeignKey="true" />
     </Type>
@@ -48,7 +48,7 @@
       <Column Name="id_tienda" Type="System.Int16" DbType="SmallInt NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
       <Column Name="horaInicio" Type="System.String" DbType="VarChar(10)" CanBeNull="true" />
       <Column Name="horaFin" Type="System.String" DbType="VarChar(10)" CanBeNull="true" />
-      <Association Name="Tbl_Almacen_Tbl_Almacen_Horario" Member="Tbl_Almacen" ThisKey="id_tienda" OtherKey="id" Type="Tbl_Almacen" IsForeignKey="true" />
+      <Association Name="Tbl_Almacen_Tbl_Almacen_Horario" Member="Tienda" Storage="_Tbl_Almacen" ThisKey="id_tienda" OtherKey="id" Type="Tienda" IsForeignKey="true" />
       <Association Name="Tbl_Dia_Tbl_Almacen_Horario" Member="Tbl_Dia" ThisKey="id_dia" OtherKey="id" Type="Tbl_Dia" IsForeignKey="true" />
     </Type>
   </Table>
@@ -162,7 +162,7 @@
       <Column Name="codigoPostal" Type="System.String" DbType="VarChar(15)" CanBeNull="true" />
       <Column Name="id_ubigeo" Type="System.String" DbType="Char(6)" CanBeNull="true" />
       <Column Name="codEmpleado" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsDbGenerated="true" CanBeNull="false" />
-      <Association Name="Tbl_Empleado_Tbl_Almacen" Member="Tbl_Almacen" ThisKey="dni" OtherKey="id_jefe" Type="Tbl_Almacen" />
+      <Association Name="Tbl_Empleado_Tbl_Almacen" Member="Tbl_Almacen" ThisKey="dni" OtherKey="id_jefe" Type="Tienda" />
       <Association Name="Tbl_Empleado_Tbl_Cliente" Member="Tbl_Cliente" ThisKey="dni" OtherKey="dni_empleado_registro" Type="Tbl_Cliente" />
       <Association Name="Tbl_Empleado_Tbl_Empleado_Almacen" Member="Tbl_Empleado_Almacen" ThisKey="dni" OtherKey="dni" Type="Tbl_Empleado_Almacen" />
       <Association Name="Tbl_Empleado_Tbl_Empleado_Turno" Member="Tbl_Empleado_Turno" ThisKey="dni" OtherKey="dni" Type="Tbl_Empleado_Turno" />
@@ -179,7 +179,7 @@
       <Column Name="fecFin" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
       <Column Name="sueldo" Type="System.Decimal" DbType="Decimal(8,2)" CanBeNull="true" />
       <Column Name="id_almacen" Type="System.Int16" DbType="SmallInt NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
-      <Association Name="Tbl_Almacen_Tbl_Empleado_Almacen" Member="Tbl_Almacen" ThisKey="id_almacen" OtherKey="id" Type="Tbl_Almacen" IsForeignKey="true" />
+      <Association Name="Tbl_Almacen_Tbl_Empleado_Almacen" Member="Tienda" Storage="_Tbl_Almacen" ThisKey="id_almacen" OtherKey="id" Type="Tienda" IsForeignKey="true" />
       <Association Name="Tbl_Cargo_Tbl_Empleado_Almacen" Member="Tbl_Cargo" ThisKey="id_cargo" OtherKey="id" Type="Tbl_Cargo" IsForeignKey="true" />
       <Association Name="Tbl_Empleado_Tbl_Empleado_Almacen" Member="Tbl_Empleado" ThisKey="dni" OtherKey="dni" Type="Tbl_Empleado" IsForeignKey="true" />
     </Type>
@@ -207,7 +207,7 @@
       <Column Name="cantidad" Type="System.Int32" DbType="Int" CanBeNull="true" />
       <Column Name="id_producto" Type="System.Int16" DbType="SmallInt" CanBeNull="true" />
       <Column Name="id_almacen" Type="System.Int16" DbType="SmallInt" CanBeNull="true" />
-      <Association Name="Tbl_Almacen_Tbl_Lote" Member="Tbl_Almacen" ThisKey="id_almacen" OtherKey="id" Type="Tbl_Almacen" IsForeignKey="true" />
+      <Association Name="Tbl_Almacen_Tbl_Lote" Member="Tienda" Storage="_Tbl_Almacen" ThisKey="id_almacen" OtherKey="id" Type="Tienda" IsForeignKey="true" />
       <Association Name="Tbl_Producto_Tbl_Lote" Member="Tbl_Producto" ThisKey="id_producto" OtherKey="id" Type="Tbl_Producto" IsForeignKey="true" />
     </Type>
   </Table>
@@ -250,8 +250,8 @@
       <Column Name="id_almacen_hasta" Type="System.Int16" DbType="SmallInt" CanBeNull="true" />
       <Column Name="id_estado" Type="System.Byte" DbType="TinyInt" CanBeNull="true" />
       <Association Name="Tbl_Movimiento_Tbl_Movimiento_Producto" Member="Tbl_Movimiento_Producto" ThisKey="id" OtherKey="id_movimiento" Type="Tbl_Movimiento_Producto" />
-      <Association Name="Tbl_Almacen_Tbl_Movimiento" Member="Tbl_Almacen" ThisKey="id_almacen_desde" OtherKey="id" Type="Tbl_Almacen" IsForeignKey="true" />
-      <Association Name="Tbl_Almacen_Tbl_Movimiento1" Member="Tbl_Almacen1" ThisKey="id_almacen_hasta" OtherKey="id" Type="Tbl_Almacen" IsForeignKey="true" />
+      <Association Name="Tbl_Almacen_Tbl_Movimiento" Member="Tbl_Almacen" ThisKey="id_almacen_desde" OtherKey="id" Type="Tienda" IsForeignKey="true" />
+      <Association Name="Tbl_Almacen_Tbl_Movimiento1" Member="Tienda" Storage="_Tbl_Almacen1" ThisKey="id_almacen_hasta" OtherKey="id" Type="Tienda" IsForeignKey="true" />
       <Association Name="Tbl_Movimiento_Estado_Tbl_Movimiento" Member="Tbl_Movimiento_Estado" ThisKey="id_estado" OtherKey="id" Type="Tbl_Movimiento_Estado" IsForeignKey="true" />
       <Association Name="Tbl_Movimiento_Tipo_Tbl_Movimiento" Member="Tbl_Movimiento_Tipo" ThisKey="id_tipo" OtherKey="id" Type="Tbl_Movimiento_Tipo" IsForeignKey="true" />
     </Type>
@@ -358,7 +358,7 @@
       <Column Name="stockMax" Type="System.Decimal" DbType="Decimal(12,2)" CanBeNull="true" />
       <Column Name="descuento" Type="System.Byte" DbType="TinyInt" CanBeNull="true" />
       <Column Name="puntos" Type="System.Int16" DbType="SmallInt" CanBeNull="true" />
-      <Association Name="Tbl_Almacen_Tbl_Producto_Almacen" Member="Tbl_Almacen" ThisKey="id_almacen" OtherKey="id" Type="Tbl_Almacen" IsForeignKey="true" />
+      <Association Name="Tbl_Almacen_Tbl_Producto_Almacen" Member="Tienda" Storage="_Tbl_Almacen" ThisKey="id_almacen" OtherKey="id" Type="Tienda" IsForeignKey="true" />
       <Association Name="Tbl_Producto_Tbl_Producto_Almacen" Member="Tbl_Producto" ThisKey="id_producto" OtherKey="id" Type="Tbl_Producto" IsForeignKey="true" />
     </Type>
   </Table>
@@ -444,7 +444,7 @@
       <Column Name="id_almacen" Type="System.Int16" DbType="SmallInt" CanBeNull="true" />
       <Column Name="id_estado" Type="System.Byte" DbType="TinyInt" CanBeNull="true" />
       <Association Name="Tbl_Solicitud_Abastecimiento_Tbl_Solicitud_Abastecimiento_Producto" Member="Tbl_Solicitud_Abastecimiento_Producto" ThisKey="id" OtherKey="id" Type="Tbl_Solicitud_Abastecimiento_Producto" />
-      <Association Name="Tbl_Almacen_Tbl_Solicitud_Abastecimiento" Member="Tbl_Almacen" ThisKey="id_almacen" OtherKey="id" Type="Tbl_Almacen" IsForeignKey="true" />
+      <Association Name="Tbl_Almacen_Tbl_Solicitud_Abastecimiento" Member="Tienda" Storage="_Tbl_Almacen" ThisKey="id_almacen" OtherKey="id" Type="Tienda" IsForeignKey="true" />
       <Association Name="Tbl_Solicitud_Abastecimiento_Estado_Tbl_Solicitud_Abastecimiento" Member="Tbl_Solicitud_Abastecimiento_Estado" ThisKey="id_estado" OtherKey="id" Type="Tbl_Solicitud_Abastecimiento_Estado" IsForeignKey="true" />
     </Type>
   </Table>
@@ -502,7 +502,7 @@
       <Column Name="id_almacen" Type="System.Int16" DbType="SmallInt" CanBeNull="true" />
       <Column Name="id_dia" Type="System.Byte" DbType="TinyInt" CanBeNull="true" />
       <Association Name="Tbl_Turno_Tbl_Empleado_Turno" Member="Tbl_Empleado_Turno" ThisKey="id" OtherKey="id_turno" Type="Tbl_Empleado_Turno" />
-      <Association Name="Tbl_Almacen_Tbl_Turno" Member="Tbl_Almacen" ThisKey="id_almacen" OtherKey="id" Type="Tbl_Almacen" IsForeignKey="true" />
+      <Association Name="Tbl_Almacen_Tbl_Turno" Member="Tienda" Storage="_Tbl_Almacen" ThisKey="id_almacen" OtherKey="id" Type="Tienda" IsForeignKey="true" />
       <Association Name="Tbl_Dia_Tbl_Turno" Member="Tbl_Dia" ThisKey="id_dia" OtherKey="id" Type="Tbl_Dia" IsForeignKey="true" />
     </Type>
   </Table>
@@ -518,7 +518,7 @@
       <Column Name="id" Type="System.String" DbType="Char(6) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
       <Column Name="nombre" Type="System.String" DbType="VarChar(200)" CanBeNull="true" />
       <Column Name="id_ubig_provincia" Type="System.String" DbType="Char(4)" CanBeNull="true" />
-      <Association Name="Tbl_Ubigeo_Distrito_Tbl_Almacen" Member="Tbl_Almacen" ThisKey="id" OtherKey="id_ubigeo" Type="Tbl_Almacen" />
+      <Association Name="Tbl_Ubigeo_Distrito_Tbl_Almacen" Member="Tbl_Almacen" ThisKey="id" OtherKey="id_ubigeo" Type="Tienda" />
       <Association Name="Tbl_Ubigeo_Distrito_Tbl_Cliente" Member="Tbl_Cliente" ThisKey="id" OtherKey="id_ubigeo" Type="Tbl_Cliente" />
       <Association Name="Tbl_Ubigeo_Distrito_Tbl_Empleado" Member="Tbl_Empleado" ThisKey="id" OtherKey="id_ubigeo" Type="Tbl_Empleado" />
       <Association Name="Tbl_Ubigeo_Distrito_Tbl_Proveedor" Member="Tbl_Proveedor" ThisKey="id" OtherKey="id_ubigeo" Type="Tbl_Proveedor" />
