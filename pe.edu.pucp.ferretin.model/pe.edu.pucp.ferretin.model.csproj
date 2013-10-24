@@ -41,6 +41,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Class1.cs" />
+    <Compile Include="FerretinDataContext.cs">
+      <DependentUpon>FerretinDataContext.dbml</DependentUpon>
+    </Compile>
     <Compile Include="FerretinDataContext.designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
