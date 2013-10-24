@@ -24,11 +24,11 @@
                     <DataGrid x:Name="busquedaMovGrid" Margin="5,30,5,5" CanUserAddRows="False" Grid.Row="1" Grid.ColumnSpan="2" AutoGenerateColumns="False" ItemsSource="{Binding Path=ListaMovimientos}" >
                         <DataGrid.Columns>
                             <DataGridTextColumn Width="1*" Binding="{Binding Path=fecha}" ClipboardContentBinding="{x:Null}" Header="Fecha"/>
-                            <DataGridTextColumn Width="1*" Binding="{Binding Path=TipoMov}" ClipboardContentBinding="{x:Null}" Header="Tipo Mov."/>
-                            <DataGridTextColumn Width="2*" Binding="{Binding Path=Desde}" ClipboardContentBinding="{x:Null}" Header="Desde"/>
-                            <DataGridTextColumn Width="2*" Binding="{Binding Path=Hasta}" ClipboardContentBinding="{x:Null}" Header="Hasta"/>
-                            <DataGridTextColumn Width="1*" Binding="{Binding Path=TotalProd}" ClipboardContentBinding="{x:Null}" Header="Total Prod."/>
-                            <DataGridTextColumn Width="3*" Binding="{Binding Path=Comentario}" ClipboardContentBinding="{x:Null}" Header="Comentario"/>
+                            <DataGridTextColumn Width="1*" Binding="{Binding Path=Movimiento_Tipo.nombre}" ClipboardContentBinding="{x:Null}" Header="Tipo Mov."/>
+                            <DataGridTextColumn Width="2*" Binding="{Binding Path=Tienda.nombre}" ClipboardContentBinding="{x:Null}" Header="Desde"/>
+                            <DataGridTextColumn Width="2*" Binding="{Binding Path=Tienda1.nombre}" ClipboardContentBinding="{x:Null}" Header="Hasta"/>
+                            <DataGridTextColumn Width="1*" Binding="{Binding Path=Movimiento_Producto.Count}" ClipboardContentBinding="{x:Null}" Header="Total Prod."/>
+                            <DataGridTextColumn Width="3*" Binding="{Binding Path=comentario}" ClipboardContentBinding="{x:Null}" Header="Comentario"/>
                         </DataGrid.Columns>
                     </DataGrid>
                     <ComboBox x:Name="almacenCombo" SelectedIndex="{Binding searchAlmacen, Mode=TwoWay}" HorizontalAlignment="Left" Margin="28,43,0,0" VerticalAlignment="Top" Width="161" Height="22" Grid.Column="1">
