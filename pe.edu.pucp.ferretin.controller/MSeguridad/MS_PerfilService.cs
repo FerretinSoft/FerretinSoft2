@@ -6,12 +6,10 @@ using System.Threading.Tasks;
 
 using pe.edu.pucp.ferretin.model;
 
-namespace pe.edu.pucp.ferretin.controller
+namespace pe.edu.pucp.ferretin.controller.MSeguridad
 {
-    public static class MS_PerfilService
+    public class MS_PerfilService : MS_ComunService
     {
-
-        private static FerretinDataContext db = new FerretinDataContext();
 
         private static IEnumerable<Perfil> _listaPerfiles = null;
 

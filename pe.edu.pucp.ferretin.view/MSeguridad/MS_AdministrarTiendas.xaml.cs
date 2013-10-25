@@ -17,6 +17,8 @@ using pe.edu.pucp.ferretin.controller;
 using System.Threading;
 using System.Windows.Threading;
 using System.ComponentModel;
+using pe.edu.pucp.ferretin.controller.MSeguridad;
+using pe.edu.pucp.ferretin.controller.MRecursosHumanos;
 
 namespace pe.edu.pucp.ferretin.view.MSeguridad
 {
@@ -138,7 +140,7 @@ namespace pe.edu.pucp.ferretin.view.MSeguridad
             get
             {
                 
-                return MR_UbigeoService.departamentos.ElementAt(selectedDepartamento).UbigeoProvincia;
+                return MR_ComunService.departamentos.ElementAt(selectedDepartamento).UbigeoProvincia;
             }
         }
 
@@ -146,7 +148,7 @@ namespace pe.edu.pucp.ferretin.view.MSeguridad
         {
             get
             {
-                return MR_UbigeoService.departamentos.ElementAt(selectedDepartamento).UbigeoProvincia.ElementAt(searchProvincia).UbigeoDistrito;
+                return MR_ComunService.departamentos.ElementAt(selectedDepartamento).UbigeoProvincia.ElementAt(searchProvincia).UbigeoDistrito;
             }
         }
 

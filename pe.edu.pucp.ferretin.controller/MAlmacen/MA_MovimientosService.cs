@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 using pe.edu.pucp.ferretin.model;
 using System.Data.Linq;
 
-namespace pe.edu.pucp.ferretin.controller
+namespace pe.edu.pucp.ferretin.controller.MAlmacen
 {
-    public class MA_MovimientosService
+    public class MA_MovimientosService : MA_ComunService
     {
         static FerretinDataContext dc = new FerretinDataContext();
 

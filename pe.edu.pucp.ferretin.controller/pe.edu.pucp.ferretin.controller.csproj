@@ -40,23 +40,32 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="BaseService.cs" />
-    <Compile Include="CategoriaService.cs" />
-    <Compile Include="ComunService.cs" />
-    <Compile Include="MA_EstadoMovimientoService.cs" />
-    <Compile Include="MA_TipoMovimientoService.cs" />
-    <Compile Include="MR_CargTieService.cs" />
-    <Compile Include="MR_EmpleadoService.cs" />
-    <Compile Include="MR_UbigeoService.cs" />
-    <Compile Include="MS_ParametroService.cs" />
-    <Compile Include="MS_PerfilService.cs" />
-    <Compile Include="MS_UsuarioService.cs" />
-    <Compile Include="MV_ClienteService.cs" />
-    <Compile Include="ProductoService.cs" />
-    <Compile Include="MA_MovimientosService.cs" />
+    <Compile Include="Base\BaseService.cs" />
+    <Compile Include="MAlmacen\MA_CategoriaService.cs" />
+    <Compile Include="Base\ComunService.cs" />
+    <Compile Include="MAlmacen\MA_ComunService.cs" />
+    <Compile Include="MAlmacen\MA_EstadoMovimientoService.cs" />
+    <Compile Include="MAlmacen\MA_SharedService.cs" />
+    <Compile Include="MAlmacen\MA_TipoMovimientoService.cs" />
+    <Compile Include="MCompras\MC_ComunService.cs" />
+    <Compile Include="MCompras\MC_SharedService.cs" />
+    <Compile Include="MRecursosHumanos\MC_SharedService.cs" />
+    <Compile Include="MRecursosHumanos\MR_CargTieService.cs" />
+    <Compile Include="MRecursosHumanos\MR_ComunService.cs" />
+    <Compile Include="MRecursosHumanos\MR_EmpleadoService.cs" />
+    <Compile Include="MSeguridad\MS_ComunService.cs" />
+    <Compile Include="MSeguridad\MS_ParametroService.cs" />
+    <Compile Include="MSeguridad\MS_PerfilService.cs" />
+    <Compile Include="MSeguridad\MS_UsuarioService.cs" />
+    <Compile Include="MSeguridad\MS_SharedService.cs" />
+    <Compile Include="MVentas\MV_ClienteService.cs" />
+    <Compile Include="MAlmacen\MA_ProductoService.cs" />
+    <Compile Include="MAlmacen\MA_MovimientosService.cs" />
+    <Compile Include="MVentas\MV_ComunService.cs" />
+    <Compile Include="MVentas\MV_SharedService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="MS_TiendaService.cs" />
-    <Compile Include="UnidadMedidaServiceMateriales.cs" />
+    <Compile Include="MSeguridad\MS_TiendaService.cs" />
+    <Compile Include="MAlmacen\MA_UnidadMedidaServiceMateriales.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\pe.edu.pucp.ferretin.model\pe.edu.pucp.ferretin.model.csproj">
@@ -64,6 +73,7 @@
       <Name>pe.edu.pucp.ferretin.model</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

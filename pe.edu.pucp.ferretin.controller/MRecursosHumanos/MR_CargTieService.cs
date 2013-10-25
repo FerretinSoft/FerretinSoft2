@@ -5,12 +5,11 @@ using System.Text;
 using System.Threading.Tasks;
 using pe.edu.pucp.ferretin.model;
 
-namespace pe.edu.pucp.ferretin.controller
+namespace pe.edu.pucp.ferretin.controller.MRecursosHumanos
 {
-    public static class MR_CargTieService
+    public class MR_CargTieService : MR_ComunService
     {
-        private static FerretinDataContext db = new FerretinDataContext();
-
+        
         private static IEnumerable<Cargo> _cargos;
         public static IEnumerable<Cargo> cargos
         {

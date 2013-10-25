@@ -6,10 +6,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace pe.edu.pucp.ferretin.controller
+namespace pe.edu.pucp.ferretin.controller.MVentas
 {
-    public class MV_ClienteService : ComunService
+    public class MV_ClienteService : MV_ComunService
     {
+        
         ///<summary>
         ///Variable privada que almacena la lista de clientes en memoria, para su posterior uso
         ///</summary>

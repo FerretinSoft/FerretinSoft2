@@ -1,6 +1,5 @@
 ﻿using pe.edu.pucp.ferretin.model;
 using pe.edu.pucp.ferretin.view;
-using pe.edu.pucp.ferretin.controller;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -15,6 +14,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using pe.edu.pucp.ferretin.controller.MSeguridad;
 
 
 namespace pe.edu.pucp.ferretinsoft.view.MSeguridad

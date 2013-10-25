@@ -6,9 +6,9 @@ using System.Text;
 using System.Threading.Tasks;
 using pe.edu.pucp.ferretin.model;
 
-namespace pe.edu.pucp.ferretin.controller
+namespace pe.edu.pucp.ferretin.controller.MSeguridad
 {
-    public class MS_TiendaService : ComunService
+    public class MS_TiendaService : MS_ComunService
     {
 
 

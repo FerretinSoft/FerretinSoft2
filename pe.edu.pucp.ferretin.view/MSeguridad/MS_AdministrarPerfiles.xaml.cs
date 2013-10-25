@@ -17,6 +17,7 @@ using pe.edu.pucp.ferretin.controller;
 using pe.edu.pucp.ferretin.model;
 using System.Threading;
 using System.Windows.Threading;
+using pe.edu.pucp.ferretin.controller.MSeguridad;
 
 namespace pe.edu.pucp.ferretin.view.MSeguridad
 {

@@ -5,11 +5,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace pe.edu.pucp.ferretin.controller
+namespace pe.edu.pucp.ferretin.controller.MAlmacen
 {
-    public class CategoriaService
+    public class MA_CategoriaService : MA_ComunService
     {
-        private static FerretinDataContext db = new FerretinDataContext();
+        
         private static IEnumerable<Categoria> listaCategoria=null;
 
         public static IEnumerable<Categoria> obtenerTodasCategorias()

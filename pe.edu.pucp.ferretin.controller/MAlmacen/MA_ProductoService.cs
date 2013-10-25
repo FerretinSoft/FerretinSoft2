@@ -5,9 +5,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace pe.edu.pucp.ferretin.controller
+namespace pe.edu.pucp.ferretin.controller.MAlmacen
 {
-    public class ProductoService : ComunService
+    public class MA_ProductoService : MA_ComunService
     {
         
         private static IEnumerable<Producto> listaProductos = null;

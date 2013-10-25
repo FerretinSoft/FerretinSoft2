@@ -5,10 +5,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Collections;
+using pe.edu.pucp.ferretin.controller.MRecursosHumanos;
 
-namespace pe.edu.pucp.ferretin.controller
+namespace pe.edu.pucp.ferretin.controller.MSeguridad
 {
-    public class MS_UsuarioService : ComunService
+    public class MS_UsuarioService : MS_ComunService
     {
 
         private static IEnumerable<Usuario> _listaUsuarios = null;

@@ -5,12 +5,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace pe.edu.pucp.ferretin.controller
+namespace pe.edu.pucp.ferretin.controller.MSeguridad
 {
-    public static class MS_ParametroService
+    public class MS_ParametroService : MS_ComunService
     {
-        private static FerretinDataContext db = new FerretinDataContext();
-
+        
         private static IEnumerable<Parametro> _listaParametros = null;
 
         private static IEnumerable<Parametro> listaParametros
