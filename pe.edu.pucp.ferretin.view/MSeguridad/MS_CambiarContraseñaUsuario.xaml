@@ -6,16 +6,16 @@
         <Grid Background="#FFE5E5E5" Height="270" VerticalAlignment="Top">
 
             <Label Content="Contraseña Actual:" HorizontalAlignment="Left" Height="26" VerticalAlignment="Top" Width="124" Margin="28,43,0,0" />
-            <PasswordBox HorizontalAlignment="Left" Height="20" VerticalAlignment="Top" Width="180" Margin="206,49,0,0"/>
+            <PasswordBox x:Name="conActual" HorizontalAlignment="Left" Height="20" VerticalAlignment="Top" Width="180" Margin="206,49,0,0"/>
 
             <Label Content="Nueva Contraseña:" HorizontalAlignment="Left" Height="26" VerticalAlignment="Top" Width="124" Margin="28,87,0,0" />
-            <PasswordBox HorizontalAlignment="Left" Height="20" VerticalAlignment="Top" Width="180" Margin="206,93,0,0"/>
+            <PasswordBox x:Name="nuevaCon" HorizontalAlignment="Left" Height="20" VerticalAlignment="Top" Width="180" Margin="206,93,0,0"/>
 
             <Label Content="Confirmar Nueva Contraseña:" HorizontalAlignment="Left" Height="26" VerticalAlignment="Top" Width="173" Margin="28,133,0,0" />
-            <PasswordBox HorizontalAlignment="Left" Height="20" VerticalAlignment="Top" Width="180" Margin="206,139,0,0"/>
+            <PasswordBox x:Name="confirmarCon" HorizontalAlignment="Left" Height="20" VerticalAlignment="Top" Width="180" Margin="206,139,0,0"/>
 
-            <Button Content="ACEPTAR" HorizontalAlignment="Left" Margin="116,208,0,0" VerticalAlignment="Top" Width="75" RenderTransformOrigin="1.347,-0.05" Height="30"/>
-            <Button Content="CANCELAR" HorizontalAlignment="Left" Margin="230,208,0,0" VerticalAlignment="Top" Width="75" RenderTransformOrigin="1.347,-0.05" Height="30"/>
+            <Button Content="ACEPTAR" HorizontalAlignment="Left" Margin="116,208,0,0" VerticalAlignment="Top" Width="75" RenderTransformOrigin="1.347,-0.05" Height="30" Click="Button_Click"/>
+            <Button Content="CANCELAR" HorizontalAlignment="Left" Margin="230,208,0,0" VerticalAlignment="Top" Width="75" RenderTransformOrigin="1.347,-0.05" Height="30" Click="Button_Click_1"/>
 
         </Grid>
 

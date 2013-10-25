@@ -190,6 +190,8 @@ namespace pe.edu.pucp.ferretin.view.MSeguridad
                 MS_ParametroService.actualizarParametro(solesPorPunto);
             }
 
+            MessageBox.Show("Parametros Actualizados Correctamente");
+
         }
 
         private void Button_Click_1(object sender, RoutedEventArgs e)
