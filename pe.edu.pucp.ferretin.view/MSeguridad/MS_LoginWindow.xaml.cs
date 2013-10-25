@@ -27,7 +27,9 @@ namespace pe.edu.pucp.ferretinsoft.view.MSeguridad
     {
         private String nombreUsuario;
         private String contrasena;
-        
+
+        public List<Parametro> listaParametros;
+        public short intentos;
 
 
         public MS_LoginWindow()
@@ -40,7 +42,9 @@ namespace pe.edu.pucp.ferretinsoft.view.MSeguridad
             }
 
             fechaHora.Content = System.DateTime.Now.Date;
-                     
+
+            listaParametros = MS_ParametroService.obtenerListaParametros().ToList();
+            intentos = Convert.ToInt16(listaParametros[0].valor);         
         }
 
         private void iniSesionBtn_Click(object sender, RoutedEventArgs e)
@@ -114,13 +118,25 @@ namespace pe.edu.pucp.ferretinsoft.view.MSeguridad
                     {
 
                         lbLoginError.Content = "Nombre de Usuario y Contraseña invalidos.";
-
+                        
                     }
 
                 }
+
             }
 
+            if (!String.IsNullOrEmpty(this.nombreUsuario) && !String.IsNullOrEmpty(this.contrasena))
+            {
+                intentos--;
+                numIntentos.Content = "Número de intentos restantes: " + intentos;
 
+                if (intentos == 0) 
+                {
+                    MessageBox.Show("FerretinSoft se cerrara por medidas de seguridad");
+                    this.Close();
+                }
+
+            }
 
 
         }
