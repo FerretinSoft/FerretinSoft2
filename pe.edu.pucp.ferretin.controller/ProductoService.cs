@@ -7,9 +7,9 @@ using System.Threading.Tasks;
 
 namespace pe.edu.pucp.ferretin.controller
 {
-    public class ProductoService
+    public class ProductoService : ComunService
     {
-        private static FerretinDataContext db = new FerretinDataContext();
+        
         private static IEnumerable<Producto> listaProductos = null;
         
         public static IEnumerable<Producto> obtenerTodosProductos()

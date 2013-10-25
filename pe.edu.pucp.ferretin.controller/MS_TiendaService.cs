@@ -8,10 +8,9 @@ using pe.edu.pucp.ferretin.model;
 
 namespace pe.edu.pucp.ferretin.controller
 {
-    public static class MS_TiendaService
+    public class MS_TiendaService : ComunService
     {
 
-        private static FerretinDataContext db = new FerretinDataContext();
 
         private static IEnumerable<Almacen> _listaTiendas = null;
 

@@ -4,11 +4,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{534FC2B6-43E2-40B5-8B9D-90BD421B307B}</ProjectGuid>
+    <ProjectGuid>{FBF7538A-F51A-4F45-84D1-B90FD464C71A}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>pe.edu.pucp.ferretin.controller</RootNamespace>
-    <AssemblyName>pe.edu.pucp.ferretin.controller</AssemblyName>
+    <RootNamespace>pe.edu.pucp.ferretin.viewmodel</RootNamespace>
+    <AssemblyName>pe.edu.pucp.ferretin.viewmodel</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -32,7 +32,6 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
-    <Reference Include="System.Data.Linq" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -40,25 +39,15 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="BaseService.cs" />
-    <Compile Include="CategoriaService.cs" />
-    <Compile Include="ComunService.cs" />
-    <Compile Include="MA_EstadoMovimientoService.cs" />
-    <Compile Include="MA_TipoMovimientoService.cs" />
-    <Compile Include="MR_CargTieService.cs" />
-    <Compile Include="MR_EmpleadoService.cs" />
-    <Compile Include="MR_UbigeoService.cs" />
-    <Compile Include="MS_ParametroService.cs" />
-    <Compile Include="MS_PerfilService.cs" />
-    <Compile Include="MS_UsuarioService.cs" />
-    <Compile Include="MV_ClienteService.cs" />
-    <Compile Include="ProductoService.cs" />
-    <Compile Include="MA_MovimientosService.cs" />
+    <Compile Include="MVentas\MV_ClientesViewModel.cs" />
+    <Compile Include="ViewModelBase.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="MS_TiendaService.cs" />
-    <Compile Include="UnidadMedidaServiceMateriales.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\pe.edu.pucp.ferretin.controller\pe.edu.pucp.ferretin.controller.csproj">
+      <Project>{534fc2b6-43e2-40b5-8b9d-90bd421b307b}</Project>
+      <Name>pe.edu.pucp.ferretin.controller</Name>
+    </ProjectReference>
     <ProjectReference Include="..\pe.edu.pucp.ferretin.model\pe.edu.pucp.ferretin.model.csproj">
       <Project>{b2b09083-747c-4467-a7ef-a09ef13e3039}</Project>
       <Name>pe.edu.pucp.ferretin.model</Name>

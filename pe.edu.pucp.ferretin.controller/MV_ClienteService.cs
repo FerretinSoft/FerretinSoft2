@@ -1,53 +1,76 @@
 ﻿using pe.edu.pucp.ferretin.model;
 using System;
 using System.Collections.Generic;
+using System.Data.Linq;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace pe.edu.pucp.ferretin.controller
 {
-    public static class MV_ClienteService
+    public class MV_ClienteService : ComunService
     {
-        private static FerretinDataContext db = new FerretinDataContext();
+        ///<summary>
+        ///Variable privada que almacena la lista de clientes en memoria, para su posterior uso
+        ///</summary>
+        ///<remarks>
+        ///Todas las operaciones se realizan en base a esta lista
+        ///</remarks>
+        private static IEnumerable<Cliente> listaClientes;
 
-        private static IEnumerable<Cliente> _listaClientes = null;
-
-        private static IEnumerable<Cliente> listaClientes
-        {
-            get
-            {
-                if (_listaClientes == null)
-                {
-                    obtenerListaClientes();
-                }
-                return _listaClientes;
-            }
-            set
-            {
-                _listaClientes = value;
-            }
-        }
-
+        ///<summary>
+        ///Realiza una consulta sobre los clientes
+        ///</summary>
+        ///<return>
+        ///Devuelve una lista de Clientes, si aún no se ha solicitado, actualiza los datos
+        ///</return>
         public static IEnumerable<Cliente> obtenerListaClientes()
         {
-            listaClientes = from p in db.Cliente
+            return obtenerListaClientes(false);
+        }
+
+        ///<summary>
+        ///Realiza una consulta sobre los clientes
+        ///</summary>
+        ///<return>
+        ///Devuelve una lista de Clientes, si aún no se ha solicitado, actualiza los datos
+        ///</return>
+        ///<param name="realdata">
+        ///Si es True, se obtendrán nuevos Datos de la BD, si es False, se obtendrán datos en caché
+        ///</param>
+        public static IEnumerable<Cliente> obtenerListaClientes(Boolean realdata)
+        {
+            if(realdata || listaClientes == null){
+                listaClientes = from p in db.Cliente
                             orderby p.nroDoc
                             select p;
+            }
+            
             return listaClientes;
         }
 
+        ///<summary>
+        ///Busca un Cliente por el Número de Documento
+        ///</summary>
+        ///<return>
+        ///Devuelve un Cliente que coincida el Número de Documento 
+        ///</return>
+        ///<param name="nroDoc">
+        ///El Número de Documento que se usará para la busqueda
+        ///</param>
         public static Cliente obtenerClienteByNroDoc(String nroDoc)
         {
-            IEnumerable<Cliente> clientes = (from c in listaClientes
-                                             where c.nroDoc != null && c.nroDoc.Equals(nroDoc)
-                                             select c);
-            if (clientes.Count() > 0)
-                return clientes.First();
-            else
-                return null;
+            Cliente cliente = (from c in listaClientes
+                                where c.nroDoc != null && c.nroDoc.Equals(nroDoc)
+                                select c).Single();
+            return cliente;
         }
 
+        /// <summary>
+        /// Busca Clientes por Numero de Documento, Nombre, Apellido Panterno, Apellido Materno, Tipo de Documento
+        /// </summary>
+        /// <param name="cliente">El Objeto Cliente que contiene los parámetros de Búsqueda/// </param>
+        /// <returns>Una lista de Clientes con los resultados encontrados</returns>
         public static IEnumerable<Cliente> obtenerListaClientesBy(Cliente cliente)
         {
             return from c in listaClientes
@@ -62,15 +85,19 @@ namespace pe.edu.pucp.ferretin.controller
                    select c;
         }
 
+        /// <summary>
+        /// Guarda un nuevo Cliente en la Base de Datos
+        /// </summary>
+        /// <param name="cliente">el Cliente a guardar</param>
         public static void insertarCliente(Cliente cliente)
         {
-            db.Cliente.InsertOnSubmit(cliente);
-            db.SubmitChanges();
+            if (!db.Cliente.Contains(cliente))
+            {
+                db.Cliente.InsertOnSubmit(cliente);
+                enviarCambios();
+            }
         }
 
-        public static void actualizarCliente(Cliente cliente)
-        {
-            db.SubmitChanges();
-        }
+        
     }
 }

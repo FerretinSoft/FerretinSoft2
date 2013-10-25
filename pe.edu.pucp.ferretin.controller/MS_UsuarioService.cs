@@ -8,10 +8,8 @@ using System.Collections;
 
 namespace pe.edu.pucp.ferretin.controller
 {
-    public static class MS_UsuarioService
+    public class MS_UsuarioService : ComunService
     {
-
-        private static FerretinDataContext db = new FerretinDataContext();
 
         private static IEnumerable<Usuario> _listaUsuarios = null;
 
