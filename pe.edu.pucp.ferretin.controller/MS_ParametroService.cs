@@ -36,5 +36,10 @@ namespace pe.edu.pucp.ferretin.controller
                             select p;
             return listaParametros;
         }
+
+        public static void actualizarParametro(Parametro parametro)
+        {
+            db.SubmitChanges();
+        }
     }
 }

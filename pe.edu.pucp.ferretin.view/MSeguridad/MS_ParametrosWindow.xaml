@@ -13,46 +13,46 @@
         <!-- Numero de intentos para ingresar contraseña-->
         
         <Label Content="N° de intentos para ingresar contraseña:" HorizontalAlignment="Left" Margin="22,34,0,0" VerticalAlignment="Top" Height="42" Width="230"/>
-        <TextBox x:Name="intContrasena" HorizontalAlignment="Left" Height="23" Margin="267,34,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="86"/>
+        <TextBox x:Name="intContrasena" HorizontalAlignment="Left" Height="23" Margin="267,34,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="86" TextChanged="intContrasena_TextChanged"/>
 
         <!-- Tiempo Maximo de sesion inactiva-->
 
         <Label Content="Tiempo Máximo de Sesión Inactiva:" HorizontalAlignment="Left" Margin="22,61,0,0" VerticalAlignment="Top" Height="26" Width="203"/>
-        <TextBox x:Name="tMaxSesion" HorizontalAlignment="Left" Height="23" Margin="267,65,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="86"/>
+        <TextBox x:Name="tMaxSesion" HorizontalAlignment="Left" Height="23" Margin="267,65,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="86" TextChanged="tMaxSesion_TextChanged"/>
 
 
         <!-- Duracion de la clave de los usuarios -->
         
         <Label Content="Duración de la clave de los usuarios:" HorizontalAlignment="Left" Margin="22,97,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.464,1.231" Height="26" Width="203"/>
-        <TextBox x:Name="durClave" HorizontalAlignment="Left" Height="23" Margin="267,97,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="86"/>
+        <TextBox x:Name="durClave" HorizontalAlignment="Left" Height="23" Margin="267,97,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="86" TextChanged="durClave_TextChanged"/>
 
         <GroupBox Header="Ventas" Margin="10,205,10,0" BorderBrush="Black" Height="128" VerticalAlignment="Top"/>
         
         <!--Vigencia de la Proforma-->
         
         <Label Content="Vigencia de las Proforma:" HorizontalAlignment="Left" Margin="22,226,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.464,1.231" Height="26" Width="192"/>
-        <TextBox x:Name="vigProforma" HorizontalAlignment="Left" Height="23" Margin="268,228,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="86" />
+        <TextBox x:Name="vigProforma" HorizontalAlignment="Left" Height="23" Margin="268,228,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="86" TextChanged="vigProforma_TextChanged" />
 
         <!-- Tiempo Maximo de sesion inactiva-->
         
         <Label Content="Tipo de cambio del dólar:" HorizontalAlignment="Left" Margin="23,126,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.464,1.231" Height="26" Width="151"/>
-        <TextBox x:Name="tipCambio" HorizontalAlignment="Left" Height="23" Margin="268,127,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="86" />
-        <Button Content="GUARDAR" HorizontalAlignment="Left" Margin="113,345,0,0" VerticalAlignment="Top" Width="75" RenderTransformOrigin="1.347,-0.05" Height="30"/>
-        <Button Content="CANCELAR" HorizontalAlignment="Left" Margin="267,345,0,0" VerticalAlignment="Top" Width="75" RenderTransformOrigin="1.347,-0.05" Height="30"/>
+        <TextBox x:Name="tipCambio" HorizontalAlignment="Left" Height="23" Margin="268,127,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="86" TextChanged="tipCambio_TextChanged" />
+        <Button Content="GUARDAR" HorizontalAlignment="Left" Margin="113,345,0,0" VerticalAlignment="Top" Width="75" RenderTransformOrigin="1.347,-0.05" Height="30" Click="Button_Click"/>
+        <Button Content="CANCELAR" HorizontalAlignment="Left" Margin="267,345,0,0" VerticalAlignment="Top" Width="75" RenderTransformOrigin="1.347,-0.05" Height="30" Click="Button_Click_1"/>
         <Label Content="(minutos)" HorizontalAlignment="Left" Margin="358,62,0,0" VerticalAlignment="Top" Height="26" Width="61"/>
         <Label Content="(meses)" HorizontalAlignment="Left" Margin="358,93,0,0" VerticalAlignment="Top" Height="26" Width="61" RenderTransformOrigin="0.462,0.994"/>
         <Label Content="(días)" HorizontalAlignment="Left" Margin="359,226,0,0" VerticalAlignment="Top" Height="26" Width="61"/>
         <Label Content="(soles)" HorizontalAlignment="Left" Margin="359,126,0,0" VerticalAlignment="Top" Height="26" Width="61"/>
         <Label Content="Vigencia de las Notas de Crédito:" HorizontalAlignment="Left" Margin="22,255,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.464,1.231" Height="26" Width="192"/>
-        <TextBox x:Name="vigNotaCredito" HorizontalAlignment="Left" Height="23" Margin="267,257,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="86"/>
+        <TextBox x:Name="vigNotaCredito" HorizontalAlignment="Left" Height="23" Margin="267,257,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="86" TextChanged="vigNotaCredito_TextChanged"/>
         <Label Content="(días)" HorizontalAlignment="Left" Margin="358,254,0,0" VerticalAlignment="Top" Height="26" Width="61"/>
 
         <Label Content="Cantidad de Soles por punto:" HorizontalAlignment="Left" Margin="22,284,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.464,1.231" Height="26" Width="245"/>
-        <TextBox x:Name="solesPunto" HorizontalAlignment="Left" Height="23" Margin="267,286,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="86" />
+        <TextBox x:Name="solesPunto" HorizontalAlignment="Left" Height="23" Margin="267,286,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="86" TextChanged="solesPunto_TextChanged" />
         <Label Content="(soles)" HorizontalAlignment="Left" Margin="358,283,0,0" VerticalAlignment="Top" Height="26" Width="61"/>
         <Label Content="IGV" HorizontalAlignment="Left" Margin="23,156,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.464,1.231" Height="26" Width="151"/>
         
-        <TextBox x:Name="igv" HorizontalAlignment="Left" Height="23" Margin="268,158,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="86" />
+        <TextBox x:Name="igv" HorizontalAlignment="Left" Height="23" Margin="268,158,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="86" TextChanged="igv_TextChanged" />
         <Label Content="(Porcentaje)" HorizontalAlignment="Left" Margin="359,156,0,0" VerticalAlignment="Top" Height="26" Width="74"/>
 
     </Grid>
