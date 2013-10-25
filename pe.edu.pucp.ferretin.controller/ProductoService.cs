@@ -72,13 +72,13 @@ namespace pe.edu.pucp.ferretin.controller
             return listaProductos;
         }
 
-        public static void agregarProducto(Producto prod,Tbl_Producto_Almacen prodAlm)
+        public static void agregarProducto(Producto prod,ProductoAlmacen prodAlm)
         {
             db.Producto.InsertOnSubmit(prod);
             db.SubmitChanges();
 
             prodAlm.id_producto = prod.id;
-            db.Tbl_Producto_Almacen.InsertOnSubmit(prodAlm);
+            db.ProductoAlmacen.InsertOnSubmit(prodAlm);
             db.SubmitChanges();
 
         }
