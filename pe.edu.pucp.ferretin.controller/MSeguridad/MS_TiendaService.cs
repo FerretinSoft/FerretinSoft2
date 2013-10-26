@@ -53,8 +53,8 @@ namespace pe.edu.pucp.ferretin.controller.MSeguridad
         {
             return from t in listaTiendas
                    where
-                   (t.codigo != null && t.codigo.Contains(tienda.codigo)
-                       && t.nombre != null && t.nombre.Contains(tienda.nombre)
+                          (tienda.codigo==null || (t.codigo != null && t.codigo.ToLower().Contains(tienda.codigo.ToLower().Trim()))
+                       && (tienda.nombre == null || (t.nombre != null && t.nombre.ToLower().Contains(tienda.nombre.ToLower().Trim())))
                        && (tienda.tipo == null || (t.tipo != null && t.tipo.Equals(tienda.tipo)))
                        && (tienda.estado == null || ( t.estado != null && t.estado.Equals(tienda.estado)))
                        && (tienda.id_ubigeo == null || (t.id_ubigeo != null && t.id_ubigeo.Equals(tienda.id_ubigeo)))
