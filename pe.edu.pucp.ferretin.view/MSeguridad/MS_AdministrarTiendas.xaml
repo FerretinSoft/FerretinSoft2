@@ -118,12 +118,7 @@
                     <Label Content="Dirección:" HorizontalAlignment="Left" Margin="1,137,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.464,1.231" Grid.Column="3" Height="26" Width="62"/>
                     <TextBox Text="{Binding Path=tienda.direccion, Mode=TwoWay, ValidatesOnExceptions=true, NotifyOnValidationError=true}" x:Name="direccTiendaTxtBox" HorizontalAlignment="Left" Height="23" Margin="21,139,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="272" Grid.Column="4"/>                    
                     <Label Content="Distrito:" HorizontalAlignment="Left" Margin="1,177,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.464,1.231" Height="30" Grid.Column="3" Width="51"/>
-                    <ComboBox HorizontalAlignment="Left" Margin="21,175,0,0" VerticalAlignment="Top" Width="102" Grid.Column="4" Height="26">
-                        <ComboBoxItem/> San Miguel
-                        <ComboBoxItem/> Jesus Maria
-                        <ComboBoxItem/> Barranco
-                        <ComboBoxItem/> San Isidro
-                        <ComboBoxItem/> Otros
+                    <ComboBox  ItemsSource="{Binding Path=tienda.id_ubigeo,Mode=TwoWay}" DisplayMemberPath="nombre" SelectedIndex="{Binding searchProvincia,Mode=TwoWay}" HorizontalAlignment="Left" Margin="21,175,0,0" VerticalAlignment="Top" Width="102" Grid.Column="4" Height="26">                    
                     </ComboBox>
                     <Label Content="CP:" HorizontalAlignment="Left" Margin="144,177,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.464,1.231" Grid.Column="4" Height="30" Width="27"/>
                     <TextBox Text="{Binding Path=tienda.codigoPostal, Mode=TwoWay, ValidatesOnExceptions=true, NotifyOnValidationError=true}" x:Name="cpTiendaTxtBox" HorizontalAlignment="Left" Height="26" Margin="188,175,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="106" Grid.Column="4"/>
