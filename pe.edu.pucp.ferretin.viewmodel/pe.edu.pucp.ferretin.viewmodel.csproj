@@ -30,6 +30,8 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -37,10 +39,14 @@
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
+    <Reference Include="UIAutomationProvider" />
+    <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Helper\DatetimeToDateConverter.cs" />
+    <Compile Include="Helper\RelayCommand.cs" />
     <Compile Include="MVentas\MV_ClientesViewModel.cs" />
-    <Compile Include="ViewModelBase.cs" />
+    <Compile Include="Base\ViewModelBase.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -52,6 +58,12 @@
       <Project>{b2b09083-747c-4467-a7ef-a09ef13e3039}</Project>
       <Name>pe.edu.pucp.ferretin.model</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="MAlmacen\" />
+    <Folder Include="MCompras\" />
+    <Folder Include="MRecursosHumanos\" />
+    <Folder Include="MSeguridad\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
