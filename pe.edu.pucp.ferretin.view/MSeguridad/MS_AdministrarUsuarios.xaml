@@ -33,7 +33,7 @@
                     <TextBox HorizontalAlignment="Left" x:Name="codigoSearchTxtBox" Text="{Binding searchCodigo, Mode=TwoWay}" Height="20" Margin="137,32,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="116"/>
                     <TextBox HorizontalAlignment="Left" x:Name="nombreUsuarioSearchTxtBox" Text="{Binding searchNombreUsuario, Mode=TwoWay}" Height="20" TextWrapping="Wrap" VerticalAlignment="Top" Width="116" Margin="137,57,0,0"/>
                     <ComboBox ItemsSource="{Binding perfiles,Mode=OneWay}" SelectedIndex="{Binding searchPerfil, Mode=TwoWay}" DisplayMemberPath="nombre" x:Name="perfilCombo" HorizontalAlignment="Left" Margin="137,83,0,0" VerticalAlignment="Top" Width="116" Height="22" Grid.RowSpan="2">
-                        
+
                     </ComboBox>
                     <!--Fila 2-->
                     <TextBox HorizontalAlignment="Left" x:Name="nombresTxtBox" Text="{Binding searchNombres, Mode=TwoWay}" Height="20" Margin="404,32,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="154"/>
@@ -87,40 +87,42 @@
             <TabItem Header="Edición">
                 <Grid Background="#FFE5E5E5">
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition/>
-                        <ColumnDefinition/>
+                        <ColumnDefinition Width="3*"/>
+                        <ColumnDefinition Width="40*"/>
+                        <ColumnDefinition Width="43*"/>
                     </Grid.ColumnDefinitions>
-                    <Image HorizontalAlignment="Left" Height="100" VerticalAlignment="Top" Width="100" Source="/Resources/cliente_1.png" Stretch="Fill" Margin="177,13,0,0"/>
-                    <Label Content="Código:" HorizontalAlignment="Left" Margin="301,43,0,0" VerticalAlignment="Top" Grid.ColumnSpan="2"/>
-                    <Label Content="DNI:" HorizontalAlignment="Left" Margin="301,73,0,0" VerticalAlignment="Top"/>
-                    <Label Content="Nombre de Usuario:" HorizontalAlignment="Left" Margin="177,119,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.464,1.231"/>
-                    <Label Content="Nombre:" HorizontalAlignment="Left" Margin="177,147,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.464,1.231"/>
-                    <Label Content="Apellido Paterno:" HorizontalAlignment="Left" Margin="177,174,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.464,1.231"/>
-                    <Label Content="Apellido Materno:" HorizontalAlignment="Left" Margin="177,202,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.464,1.231"/>
-                    <Label Content="Estado:" HorizontalAlignment="Left" Margin="177,229,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.464,1.231"/>
-                    <Label Content="Perfil:" HorizontalAlignment="Left" Margin="177,256,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.464,1.231"/>
-                    <Label Content="Nueva Contraseña:" HorizontalAlignment="Left" Margin="174,283,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.464,1.231"/>
-                    <Label Content="Confirmar Contraseña:" HorizontalAlignment="Left" Margin="174,311,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.464,1.231"/>
+                    <Image HorizontalAlignment="Left" Height="100" VerticalAlignment="Top" Width="100" Source="/Resources/cliente_1.png" Stretch="Fill" Margin="152.747,13,0,0" Grid.Column="1"/>
+                    <Label Content="Código:" HorizontalAlignment="Left" Margin="276.747,43,0,0" VerticalAlignment="Top" Grid.ColumnSpan="2" Grid.Column="1"/>
+                    <Label Content="DNI:" HorizontalAlignment="Left" Margin="276.747,73,0,0" VerticalAlignment="Top" Grid.Column="1"/>
+                    <Label Content="Nombre de Usuario:" HorizontalAlignment="Left" Margin="152.747,119,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.464,1.231" Grid.Column="1"/>
+                    <Label Content="Nombre:" HorizontalAlignment="Left" Margin="152.747,147,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.464,1.231" Grid.Column="1"/>
+                    <Label Content="Apellido Paterno:" HorizontalAlignment="Left" Margin="152.747,174,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.464,1.231" Grid.Column="1"/>
+                    <Label Content="Apellido Materno:" HorizontalAlignment="Left" Margin="152.747,202,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.464,1.231" Grid.Column="1"/>
+                    <Label Content="Estado:" HorizontalAlignment="Left" Margin="152.747,229,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.464,1.231" Grid.Column="1"/>
+                    <Label Content="Perfil:" HorizontalAlignment="Left" Margin="152.747,256,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.464,1.231" Grid.Column="1"/>
+                    <Label Content="Nueva Contraseña:" HorizontalAlignment="Left" Margin="149.747,283,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.464,1.231" Grid.Column="1"/>
+                    <Label Content="Confirmar Contraseña:" HorizontalAlignment="Left" Margin="149.747,311,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.464,1.231" Grid.Column="1"/>
 
                     <!-- Text Box de la ventana-->
-                    <TextBox Text="4141910" HorizontalAlignment="Left" Height="23" Margin="20,45,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="160" IsEnabled="False" Grid.Column="1" x:Name="codigoUsuarioTxtBox"/>
-                    <TextBox Text="{Binding Path=usuario.dni, Mode=TwoWay, ValidatesOnExceptions=true, NotifyOnValidationError=true}" x:Name="dniUsuarioTxtBox" HorizontalAlignment="Left" Height="23" Margin="20,75,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="172" Grid.Column="1" IsEnabled="False"/>
-                    <TextBox Text="{Binding Path=usuario.nombre, Mode=TwoWay, ValidatesOnExceptions=true, NotifyOnValidationError=true}" HorizontalAlignment="Left" Height="23" Margin="310,121,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="225" Grid.ColumnSpan="2" x:Name="nombreUsuarioTxtBox"/>
-                    <TextBox Text="{Binding Path=usuario.Empleado.nombre, Mode=TwoWay, ValidatesOnExceptions=true, NotifyOnValidationError=true}" HorizontalAlignment="Left" Height="23" Margin="310,149,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="225" Grid.ColumnSpan="2" IsEnabled="False" />
-                    <TextBox Text="{Binding Path=usuario.Empleado.apPaterno, Mode=TwoWay, ValidatesOnExceptions=true, NotifyOnValidationError=true}" HorizontalAlignment="Left" Height="23" Margin="310,177,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="225" Grid.ColumnSpan="2" IsEnabled="False" />
-                    <TextBox Text="{Binding Path=usuario.Empleado.apMaterno, Mode=TwoWay, ValidatesOnExceptions=true, NotifyOnValidationError=true}" HorizontalAlignment="Left" Height="23" Margin="310,205,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="225" Grid.ColumnSpan="2" IsEnabled="False" />
-                    <ComboBox SelectedItem="{Binding Path=usuario.estadoAux, Mode=TwoWay,  ValidatesOnExceptions=true, NotifyOnValidationError=true}" x:Name="estadoCombo2" HorizontalAlignment="Left" Margin="310,233,0,0" VerticalAlignment="Top" Width="225" Grid.ColumnSpan="2">
+                    <TextBox Text="4141910" HorizontalAlignment="Left" Height="23" Margin="20,45,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="160" IsEnabled="False" Grid.Column="2" x:Name="codigoUsuarioTxtBox"/>
+                    <TextBox Text="{Binding Path=usuario.dni, Mode=TwoWay, ValidatesOnExceptions=true, NotifyOnValidationError=true}" x:Name="dniUsuarioTxtBox" HorizontalAlignment="Left" Height="23" Margin="20,75,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="172" Grid.Column="2" IsEnabled="True"/>
+                    <TextBox Text="{Binding Path=usuario.nombre, Mode=TwoWay, ValidatesOnExceptions=true, NotifyOnValidationError=true}" HorizontalAlignment="Left" Height="23" Margin="287,121,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="225" Grid.ColumnSpan="2" x:Name="nombreUsuarioTxtBox" Grid.Column="1"/>
+                    <TextBox Text="{Binding Path=usuario.Empleado.nombre, Mode=TwoWay, ValidatesOnExceptions=true, NotifyOnValidationError=true}" HorizontalAlignment="Left" Height="23" Margin="285.747,149,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="225" Grid.ColumnSpan="2" IsEnabled="False" Grid.Column="1" />
+                    <TextBox Text="{Binding Path=usuario.Empleado.apPaterno, Mode=TwoWay, ValidatesOnExceptions=true, NotifyOnValidationError=true}" HorizontalAlignment="Left" Height="23" Margin="285.747,177,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="225" Grid.ColumnSpan="2" IsEnabled="False" Grid.Column="1" />
+                    <TextBox Text="{Binding Path=usuario.Empleado.apMaterno, Mode=TwoWay, ValidatesOnExceptions=true, NotifyOnValidationError=true}" HorizontalAlignment="Left" Height="23" Margin="285.747,205,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="225" Grid.ColumnSpan="2" IsEnabled="False" Grid.Column="1" />
+                    <ComboBox SelectedItem="{Binding Path=usuario.estadoAux, Mode=TwoWay,  ValidatesOnExceptions=true, NotifyOnValidationError=true}" x:Name="estadoCombo2" HorizontalAlignment="Left" Margin="285.747,233,0,0" VerticalAlignment="Top" Width="225" Grid.ColumnSpan="2" Grid.Column="1">
                         <ComboBoxItem Content="Activo"></ComboBoxItem>
                         <ComboBoxItem Content="Inactivo"></ComboBoxItem>
                     </ComboBox>
-                    <ComboBox ItemsSource="{Binding perfiles}" DisplayMemberPath="nombre" SelectedItem="{Binding Path=usuario.Perfil, Mode=TwoWay,  ValidatesOnExceptions=true, NotifyOnValidationError=true}" x:Name="perfilCombo2"  HorizontalAlignment="Left" Margin="310,260,0,0" VerticalAlignment="Top" Width="225" Grid.ColumnSpan="2">
+                    <ComboBox ItemsSource="{Binding perfiles}" DisplayMemberPath="nombre" SelectedItem="{Binding Path=usuario.Perfil, Mode=TwoWay,  ValidatesOnExceptions=true, NotifyOnValidationError=true}" x:Name="perfilCombo2"  HorizontalAlignment="Left" Margin="285.747,260,0,0" VerticalAlignment="Top" Width="225" Grid.ColumnSpan="2" Grid.Column="1">
                     </ComboBox>
-                    <PasswordBox HorizontalAlignment="Left" Height="23" Margin="310,287,0,0" VerticalAlignment="Top" Width="225" Grid.ColumnSpan="2"  RenderTransformOrigin="0.5,1.812" Password=""/>
-                    <PasswordBox HorizontalAlignment="Left" Height="23" Margin="310,315,0,0" VerticalAlignment="Top" Width="225" Grid.ColumnSpan="2"  RenderTransformOrigin="0.5,1.812" Password=""/>
+                    
+                    <PasswordBox x:Name="pwboxContrasena" PasswordChanged="pwboxContrasena_PasswordChanged" HorizontalAlignment="Left" Height="23" Margin="285.747,287,0,0" VerticalAlignment="Top" Width="225" Grid.ColumnSpan="2"  RenderTransformOrigin="0.5,1.812" Grid.Column="1"/>                    
+                    <PasswordBox HorizontalAlignment="Left" Height="23" Margin="285.747,315,0,0" VerticalAlignment="Top" Width="225" Grid.ColumnSpan="2"  RenderTransformOrigin="0.5,1.812" Password="" Grid.Column="1"/>
 
                     <!-- STACK PANEL DE GUARDAR Y CANCELAR-->
-                    <StackPanel x:Name="guardarDetallePanel" Orientation="Horizontal" Margin="276,342,10,5" HorizontalAlignment="Center" Width="402" Grid.ColumnSpan="2">
-                        <Button Height="30" x:Name="guardarDetalleUsuarioBtn" Content="GUARDAR" Padding="5,0" Margin="5,0" Click="guardarDetalleUsuarioBtn_Click"/>
+                    <StackPanel x:Name="guardarDetallePanel" Orientation="Horizontal" Margin="251.747,342,10,5" HorizontalAlignment="Center" Width="402" Grid.ColumnSpan="2" Grid.Column="1">
+                        <Button Command="{Binding Path=GUARDARCommand}" CommandParameter="{Binding ElementName=txtPassword}" Height="30" x:Name="guardarDetalleUsuarioBtn" Content="GUARDAR" Padding="5,0" Margin="5,0" Click="guardarDetalleUsuarioBtn_Click"/>
                         <Button Height="30" Content="CANCELAR" Padding="5,0" Margin="5,0" Click="cancelarListaUsuarioBtn_Click" />
                     </StackPanel>
 

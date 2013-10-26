@@ -126,6 +126,8 @@ namespace pe.edu.pucp.ferretin.view.MSeguridad
     /// </summary>
     public partial class MS_AdministrarUsuarios : Window
     {
+
+        private String contrasena;
         MS_UsuariosViewModel MS_UsuariosViewModel = new MS_UsuariosViewModel();
         /******************************************************/
         public MS_AdministrarUsuarios()
@@ -217,15 +219,22 @@ namespace pe.edu.pucp.ferretin.view.MSeguridad
             //Puede ser nuevo o modificar
             if (MS_UsuariosViewModel.usuario.dni != null)
             {
+                MS_UsuariosViewModel.usuario.contrasena = this.contrasena;
                 MS_UsuarioService.actualizarUsuario(MS_UsuariosViewModel.usuario);
             }
             else
             {
+                MS_UsuariosViewModel.usuario.contrasena = this.contrasena;
                 MS_UsuarioService.insertarUsuario(MS_UsuariosViewModel.usuario);
             }
             MS_UsuariosViewModel.statusTab = (int)MS_UsuariosViewModel.tabs.BUSQUEDA;
         }
 
+
+        private void pwboxContrasena_PasswordChanged(object sender, RoutedEventArgs e)
+        {
+            this.contrasena = pwboxContrasena.Password.ToString();
+        }
 
 
         /******************************************************/
