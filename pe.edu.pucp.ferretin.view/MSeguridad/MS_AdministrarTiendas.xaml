@@ -2,8 +2,12 @@
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:System="clr-namespace:System;assembly=mscorlib"
+        xmlns:viewmodel="clr-namespace:pe.edu.pucp.ferretin.viewmodel.MSeguridad;assembly=pe.edu.pucp.ferretin.viewmodel"
         Title="Administrar Tiendas" WindowStartupLocation="CenterScreen" Height="706" Width="787" Icon="/Resources/ferretin_ico.ico" ResizeMode="CanMinimize">
-    <Grid x:Name="principalGrid" >
+    <Window.Resources>
+        <viewmodel:MS_AdministrarTiendasViewModel x:Key="MS_AdministrarTiendasViewModel"/>
+    </Window.Resources>
+    <Grid>
         <Grid.Background>
             <ImageBrush ImageSource="/Resources/texture_3_100.png" TileMode="FlipX" 
             Viewport="0,0,100,100" ViewportUnits="Absolute"/>

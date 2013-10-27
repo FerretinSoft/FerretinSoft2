@@ -45,6 +45,7 @@
   <ItemGroup>
     <Compile Include="Helper\DatetimeToDateConverter.cs" />
     <Compile Include="Helper\RelayCommand.cs" />
+    <Compile Include="MSeguridad\MS_AdministrarTiendasViewModel.cs" />
     <Compile Include="MVentas\MV_ClientesViewModel.cs" />
     <Compile Include="Base\ViewModelBase.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -63,7 +64,6 @@
     <Folder Include="MAlmacen\" />
     <Folder Include="MCompras\" />
     <Folder Include="MRecursosHumanos\" />
-    <Folder Include="MSeguridad\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

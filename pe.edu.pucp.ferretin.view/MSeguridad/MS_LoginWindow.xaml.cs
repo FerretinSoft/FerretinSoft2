@@ -17,7 +17,7 @@ using System.Windows.Shapes;
 using pe.edu.pucp.ferretin.controller.MSeguridad;
 
 
-namespace pe.edu.pucp.ferretinsoft.view.MSeguridad
+namespace pe.edu.pucp.ferretin.view.MSeguridad
 {
 
     /// <summary>

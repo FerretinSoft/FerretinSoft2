@@ -1,4 +1,4 @@
-﻿<Window x:Class="pe.edu.pucp.ferretinsoft.view.MSeguridad.MS_LoginWindow"
+﻿<Window x:Class="pe.edu.pucp.ferretin.view.MSeguridad.MS_LoginWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         Title="Inicio de Sesión" WindowStartupLocation="CenterScreen" Height="639" Width="586" Icon="/Resources/ferretin_ico.ico" KeyDown="Window_KeyDown">
