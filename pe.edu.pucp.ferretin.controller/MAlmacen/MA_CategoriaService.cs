@@ -14,10 +14,10 @@ namespace pe.edu.pucp.ferretin.controller.MAlmacen
 
         public static IEnumerable<Categoria> obtenerTodasCategorias()
         {
+
             listaCategoria =
                 from c in db.Categoria
                 select c;
-
             List<Categoria> listCat = listaCategoria.ToList();
             return listCat;
         }    
