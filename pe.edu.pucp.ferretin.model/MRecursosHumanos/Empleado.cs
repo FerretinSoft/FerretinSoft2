@@ -6,7 +6,11 @@ using System.Threading.Tasks;
 
 namespace pe.edu.pucp.ferretin.model
 {
-    public class Class1
+    partial class Empleado
     {
+        String nombreCompleto
+        {
+            get { return String.Join(" ", nombre, apPaterno, apMaterno); }
+        }
     }
 }
