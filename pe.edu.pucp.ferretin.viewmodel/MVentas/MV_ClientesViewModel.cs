@@ -184,13 +184,20 @@ namespace pe.edu.pucp.ferretin.viewmodel.MVentas
         
         public void viewEditCliente(Object id)
         {
-            this.cliente = listaClientes.Where(cliente => cliente.id == (int)id).Single();
-            if (this.cliente.id_ubigeo != null)
+            try
             {
-                selectedProvincia = this.cliente.UbigeoDistrito.UbigeoProvincia;
-                selectedDepartamento = selectedProvincia.UbigeoDepartamento;
+                this.cliente = listaClientes.Single(cliente => cliente.id == (int)id);
+                if (this.cliente.id_ubigeo != null)
+                {
+                    selectedProvincia = this.cliente.UbigeoDistrito.UbigeoProvincia;
+                    selectedDepartamento = selectedProvincia.UbigeoDepartamento;
+                }
+                this.statusTab = Tab.MODIFICAR;
             }
-            this.statusTab = Tab.MODIFICAR;
+            catch (Exception e)
+            {
+                MessageBox.Show(e.Message);
+            }
         }
         public void saveCliente(Object obj)
         {
@@ -221,7 +228,7 @@ namespace pe.edu.pucp.ferretin.viewmodel.MVentas
         public void cancelCliente(Object obj)
         {
             this.statusTab = Tab.BUSQUEDA;
-            listaClientes = MV_ClienteService.obtenerListaClientes(true);
+            listaClientes = MV_ClienteService.listaClientes;
         }
         #endregion
     }

@@ -5,6 +5,7 @@ using System.Data.Linq;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 
 namespace pe.edu.pucp.ferretin.controller
 {
@@ -41,6 +42,10 @@ namespace pe.edu.pucp.ferretin.controller
             }
         }
 
+        public static void refresh()
+        {
+            db.Refresh(RefreshMode.OverwriteCurrentValues);
+        }
 
         /// <summary>
         /// Envia a la Base de Datos todos los cambios realizados en los objetos recuperados
@@ -55,9 +60,17 @@ namespace pe.edu.pucp.ferretin.controller
             }
             catch (ChangeConflictException e)
             {
-                //Console.WriteLine(e.Message);
-                db.SubmitChanges(ConflictMode.ContinueOnConflict);//Reintentar
-                return false;
+                db.ChangeConflicts.ResolveAll(RefreshMode.KeepCurrentValues);  
+                try
+                {
+                    db.SubmitChanges(ConflictMode.ContinueOnConflict);
+                    return true;
+                }
+                catch (ChangeConflictException ex)
+                {
+                    MessageBox.Show(ex.Message);
+                    return false;
+                }
             }
         }
 

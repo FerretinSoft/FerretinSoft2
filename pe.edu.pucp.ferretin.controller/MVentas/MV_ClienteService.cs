@@ -12,12 +12,6 @@ namespace pe.edu.pucp.ferretin.controller.MVentas
     {
 
         #region Private Zone
-        private static IEnumerable<Cliente> getClientesBD()
-        {
-            return from p in db.Cliente
-                   orderby p.nroDoc
-                   select p;
-        }
         #endregion
 
         #region Public Zone
@@ -29,38 +23,24 @@ namespace pe.edu.pucp.ferretin.controller.MVentas
         ///Todas las operaciones se realizan en base a esta lista
         ///</remarks>
         private static IEnumerable<Cliente> _listaClientes;
-
         public static IEnumerable<Cliente> listaClientes
         {
             get
             {
                 if (_listaClientes == null)
                 {
-                    _listaClientes = getClientesBD();
+                    _listaClientes = db.Cliente;
                 }
+                //Usando concurrencia pesimista:
+                ///La lista de clientes se actualizara para ver los cambios
+                ///Si quisiera usar concurrencia optimista quito la siguiente linea
+                db.Refresh(RefreshMode.OverwriteCurrentValues, _listaClientes);
                 return _listaClientes;
             }
             set
             {
                 _listaClientes = value;
             }
-        }
-
-        ///<summary>
-        ///Realiza una consulta sobre los clientes
-        ///</summary>
-        ///<return>
-        ///Devuelve una lista de Clientes, si aún no se ha solicitado, actualiza los datos
-        ///</return>
-        ///<param name="realdata">
-        ///Si es True, se obtendrán nuevos Datos de la BD, si es False, se obtendrán datos en caché
-        ///</param>
-        public static IEnumerable<Cliente> obtenerListaClientes(Boolean realdata)
-        {
-            if(realdata){
-                listaClientes = getClientesBD();
-            }
-            return listaClientes;
         }
 
         ///<summary>
@@ -127,5 +107,6 @@ namespace pe.edu.pucp.ferretin.controller.MVentas
         }
 
         #endregion
+
     }
 }
