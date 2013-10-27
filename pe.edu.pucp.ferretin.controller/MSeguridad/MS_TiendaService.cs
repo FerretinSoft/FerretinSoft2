@@ -5,42 +5,38 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using pe.edu.pucp.ferretin.model;
+using System.Data.Linq;
 
 namespace pe.edu.pucp.ferretin.controller.MSeguridad
 {
     public class MS_TiendaService : MS_ComunService
     {
 
-
-        private static IEnumerable<Almacen> _listaTiendas = null;
-
-        private static IEnumerable<Almacen> listaTiendas
+        public static IEnumerable<Almacen> _listaAlmacenes;
+        public static IEnumerable<Almacen> listaAlmacenes
         {
             get
             {
-                if (_listaTiendas == null)
+                if (_listaAlmacenes == null)
                 {
-                    obtenerListaTiendas();
+                    _listaAlmacenes = db.Almacen;
                 }
-                return _listaTiendas;
+                //Usando concurrencia pesimista:
+                ///La lista de clientes se actualizara para ver los cambios
+                ///Si quisiera usar concurrencia optimista quito la siguiente linea
+                db.Refresh(RefreshMode.OverwriteCurrentValues, _listaAlmacenes);
+                return _listaAlmacenes;
             }
             set
             {
-                _listaTiendas = value;
+                _listaAlmacenes = value;
             }
         }
 
-        public static IEnumerable<Almacen> obtenerListaTiendas()
-        {
-            listaTiendas = from p in db.Almacen
-                            orderby p.id
-                            select p;
-            return listaTiendas;
-        }
 
         public static Almacen obtenerTiendaByCodigo(String codigoTienda)
         {
-            IEnumerable<Almacen> tiendas = (from t in listaTiendas
+            IEnumerable<Almacen> tiendas = (from t in listaAlmacenes
                                              where t.codigo != null && t.codigo.Contains(codigoTienda)
                                              select t);
             if (tiendas.Count() > 0)
@@ -49,19 +45,6 @@ namespace pe.edu.pucp.ferretin.controller.MSeguridad
                 return null;
         }
 
-        public static IEnumerable<Almacen> obtenerListaTiendasBy(Almacen tienda)
-        {
-            return from t in listaTiendas
-                   where
-                          (tienda.codigo==null || (t.codigo != null && t.codigo.ToLower().Contains(tienda.codigo.ToLower().Trim()))
-                       && (tienda.nombre == null || (t.nombre != null && t.nombre.ToLower().Contains(tienda.nombre.ToLower().Trim())))
-                       && (tienda.tipo == null || (t.tipo != null && t.tipo.Equals(tienda.tipo)))
-                       && (tienda.estado == null || ( t.estado != null && t.estado.Equals(tienda.estado)))
-                       && (tienda.id_ubigeo == null || (t.id_ubigeo != null && t.id_ubigeo.Equals(tienda.id_ubigeo)))
-                    )
-                   orderby t.codigo
-                   select t;
-        }
 
         public static void insertarTienda(Almacen tienda)
         {
@@ -73,5 +56,35 @@ namespace pe.edu.pucp.ferretin.controller.MSeguridad
         {
             db.SubmitChanges();
         }
+
+        public static IEnumerable<Almacen> buscar(string codTienda, string nombre, UbigeoDistrito distrito, int tipo, int estado)
+        {
+            return from t in listaAlmacenes
+                   where (
+                       //Cada fila es un filtro
+                          (t.codigo != null && t.codigo.ToLower().Contains(codTienda.ToLower().Trim()))
+                       && ((t.nombre != null && t.nombre.ToLower().Contains(nombre.ToLower().Trim())))
+                       && (tipo == 0 || (t.tipo != null && t.tipo.Equals(tipo == 1 ? true : false)))
+                       && (estado == 0 || (t.estado != null && t.estado.Equals(estado == 1 ? true : false)))
+                       && (distrito == null || (t.UbigeoDistrito.id != null && t.UbigeoDistrito.id == distrito.id ))
+                    )
+                   orderby t.codigo
+                   select t;
+        }
+
+        public static bool insertarAlmacen(Almacen almacen)
+        {
+            if (!db.Almacen.Contains(almacen))
+            {
+                db.Almacen.InsertOnSubmit(almacen);
+                return enviarCambios();
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        
     }
 }

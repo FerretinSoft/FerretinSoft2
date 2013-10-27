@@ -8,7 +8,7 @@ namespace pe.edu.pucp.ferretin.model
 {
     partial class Empleado
     {
-        String nombreCompleto
+        public String nombreCompleto
         {
             get { return String.Join(" ", nombre, apPaterno, apMaterno); }
         }

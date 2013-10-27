@@ -37,6 +37,22 @@ namespace pe.edu.pucp.ferretin.viewmodel
 
         #endregion INotifyPropertyChanged Members
 
+        private IEnumerable<Almacen> _almacenes;
+        public IEnumerable<Almacen> almacenes
+        {
+            get
+            {
+                if (_almacenes == null)
+                {
+                    _almacenes = ComunService.almacenes;
+                }
+                return _almacenes;
+            }
+            set
+            {
+                _almacenes = value;
+            }
+        }
 
         public UbigeoDistrito selectedDistrito { get; set; }
         private UbigeoDepartamento _selectedDepartamento;

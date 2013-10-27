@@ -18,19 +18,13 @@ using System.Threading;
 using System.Windows.Threading;
 using pe.edu.pucp.ferretin.controller.MSeguridad;
 using pe.edu.pucp.ferretin.controller.MAlmacen;
+using pe.edu.pucp.ferretin.viewmodel;
 
 namespace pe.edu.pucp.ferretin.view.MAlmacen
 {
-    public class MA_MovimientosViewModel : INotifyPropertyChanged
+    public class MA_MovimientosViewModel : ViewModelBase
     {
-        public IEnumerable<Almacen> tiendas
-        {
-            get
-            {
-                return MS_TiendaService.obtenerListaTiendas();
-            }
-        }
-
+        
         private int _selectedTienda;
         public int selectedTienda
         {
@@ -170,18 +164,6 @@ namespace pe.edu.pucp.ferretin.view.MAlmacen
             }
         }
 
-        
-
-        #region INotifyPropertyChanged Members
-
-        public event PropertyChangedEventHandler PropertyChanged;
-        public void NotifyPropertyChanged(string propName)
-        {
-            if (this.PropertyChanged != null)
-                this.PropertyChanged(this, new PropertyChangedEventArgs(propName));
-        }
-
-        #endregion
 
     }
 
@@ -266,6 +248,7 @@ namespace pe.edu.pucp.ferretin.view.MAlmacen
 
         private void FillForm()
         {
+            /*
             codMovimientoTxt.Text = movViewModel.movimiento.codigo;
             codMovimientoTxt.IsEnabled = false;
             
@@ -331,6 +314,7 @@ namespace pe.edu.pucp.ferretin.view.MAlmacen
             estadoCombo.IsEnabled = true;
 
             comentarioTxt.Text = movViewModel.movimiento.comentario;
+             * */
         }
 
         private void cancelarMovimientoBtn_Click(object sender, RoutedEventArgs e)
@@ -340,6 +324,7 @@ namespace pe.edu.pucp.ferretin.view.MAlmacen
 
         private void buscarMovimientoBtn_Click(object sender, RoutedEventArgs e)
         {
+            /*
             Dictionary<String, Object> parametros = new Dictionary<string, object>();
             int tiendaId = movViewModel.tiendas.ElementAt(movViewModel.selectedTienda).id;
             if (movViewModel.selectedTienda>= 0) parametros.Add("tienda", tiendaId);
@@ -348,6 +333,7 @@ namespace pe.edu.pucp.ferretin.view.MAlmacen
             if (movViewModel.searchFechaHasta != null) parametros.Add("fechaHasta", movViewModel.searchFechaHasta);
 
             busquedaMovGrid.ItemsSource = MA_MovimientosService.ObtenerListaMovimientos(parametros);
+             */
         }  
 
         private void guardarMovimientoBtn_Click(object sender, RoutedEventArgs e)

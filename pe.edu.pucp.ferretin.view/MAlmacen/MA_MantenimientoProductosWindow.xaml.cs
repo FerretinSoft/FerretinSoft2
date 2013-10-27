@@ -132,13 +132,14 @@ namespace pe.edu.pucp.ferretin.view.MAlmacen
         public MA_MantenimientoProductosWindow()
         {
             InitializeComponent();
+            /*
             productoTabControl.DataContext = pvm;
             pvm.listaUMed = MA_UnidadMedidaServiceMateriales.obtenerUnidadesMedida();
             pvm.listaCategorias = MA_CategoriaService.obtenerTodasCategorias();
             pvm.listaMatBase = MA_UnidadMedidaServiceMateriales.obtenerMaterialesPrimario();
             pvm.listaMatSec = MA_UnidadMedidaServiceMateriales.obtenerMaterialesPrimario();
             pvm.listaTiendas = MS_TiendaService.obtenerListaTiendas();
-            
+            */
         }
 
         private void nuevoProductoBtn_Click(object sender, RoutedEventArgs e)

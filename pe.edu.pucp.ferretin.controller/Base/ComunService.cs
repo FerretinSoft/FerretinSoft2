@@ -72,14 +72,27 @@ namespace pe.edu.pucp.ferretin.controller
             }
         }
 
-        public static IEnumerable<Dia> _dias;
-
+        private static IEnumerable<Dia> _dias;
         public static IEnumerable<Dia> dias
         {
             get
             {
                 if (_dias == null) _dias = from d in db.Dia select d;
                 return _dias;
+            }
+        }
+
+        private static IEnumerable<Almacen> _almacenes;
+        public static IEnumerable<Almacen> almacenes
+        {
+            get
+            {
+                if(_almacenes==null)_almacenes = db.Almacen;
+                return _almacenes;
+            }
+            set
+            {
+                _almacenes = value;
             }
         }
     }

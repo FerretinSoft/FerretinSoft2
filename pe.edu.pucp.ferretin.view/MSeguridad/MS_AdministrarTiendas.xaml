@@ -7,7 +7,7 @@
     <Window.Resources>
         <viewmodel:MS_AdministrarTiendasViewModel x:Key="MS_AdministrarTiendasViewModel"/>
     </Window.Resources>
-    <Grid>
+    <Grid DataContext="{Binding Source={StaticResource MS_AdministrarTiendasViewModel}}">
         <Grid.Background>
             <ImageBrush ImageSource="/Resources/texture_3_100.png" TileMode="FlipX" 
             Viewport="0,0,100,100" ViewportUnits="Absolute"/>
@@ -15,7 +15,7 @@
         <Grid.ColumnDefinitions>
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
-        <TabControl x:Name="tiendasTabControl" SelectedIndex="{Binding statusTab,Mode=TwoWay,FallbackValue=0}">
+        <TabControl SelectedIndex="{Binding currentIndexTab,Mode=TwoWay}">
             <TabItem Header="Búsqueda" Margin="-2,-1">
                 <Grid Background="#FFE5E5E5" Margin="0,0,-2,0">
                     <Grid.ColumnDefinitions>
@@ -30,20 +30,26 @@
                     </Grid.RowDefinitions>
                     <GroupBox Header="Tienda" Margin="0,10,10,10" BorderBrush="Black" Grid.ColumnSpan="3" Grid.Column="1"/>
                     <Label Content="Código Tienda:" HorizontalAlignment="Left" Height="26" VerticalAlignment="Top" Width="93" Margin="15,39,0,0" Grid.Column="1"/>
-                    <Button x:Name="buscarTiendaBtn" Click="buscarTiendaBtn_Click" HorizontalAlignment="Left" Margin="589,76,0,0" VerticalAlignment="Top" Width="32" Height="32" RenderTransformOrigin="0.3,-0.35" Grid.Column="3">
+                    <Button Command="{Binding actualizarListaAlmacenesCommand}" x:Name="buscarTiendaBtn"  HorizontalAlignment="Left" Margin="589,76,0,0" VerticalAlignment="Top" Width="32" Height="32" RenderTransformOrigin="0.3,-0.35" Grid.Column="3">
                         <Button.Background>
                             <ImageBrush ImageSource="/Resources/refresh2_48.png"/>
                         </Button.Background>
                     </Button>
-                    <DataGrid x:Name="tiendasGrid"  Margin="0,33,10,10" Grid.Row="1" Grid.ColumnSpan="3" SelectionChanged="DataGrid_SelectionChanged" Grid.Column="1" AutoGenerateColumns="False" CanUserAddRows="False" CanUserDeleteRows="False" IsReadOnly="True">
+                    <DataGrid ItemsSource="{Binding Path=listaAlmacenes,Mode=OneWay}" x:Name="tiendasGrid"  Margin="0,33,10,10" Grid.Row="1" Grid.ColumnSpan="3" Grid.Column="1" AutoGenerateColumns="False" CanUserAddRows="False" CanUserDeleteRows="False" IsReadOnly="True">
                         <DataGrid.Columns>
-                            <DataGridHyperlinkColumn Width="2.5*" Binding="{Binding Path=codigo}" Header="Código">
-                                <DataGridHyperlinkColumn.ElementStyle>
-                                    <Style>
-                                        <EventSetter Event="Hyperlink.Click" Handler="codTienda_Click"/>
-                                    </Style>
-                                </DataGridHyperlinkColumn.ElementStyle>
-                            </DataGridHyperlinkColumn>
+                            <DataGridTemplateColumn Width="100" Header="Código">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <TextBlock>
+                                        <Hyperlink 
+                                            Command="{Binding Path=DataContext.viewEditAlmacenCommand, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type DataGrid}}}" 
+                                            CommandParameter="{Binding Path=id}">
+                                            <TextBlock Text="{Binding Path=codigo}" />
+                                        </Hyperlink>
+                                        </TextBlock>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
                             <DataGridTextColumn Width="2*" Binding="{Binding Path=nombre}" ClipboardContentBinding="{x:Null}" Header="Nombre Tienda"/>
                             <DataGridTextColumn Width="2*" Binding="{Binding Path=direccion}" ClipboardContentBinding="{x:Null}" Header="Dirección"/>
 
@@ -51,18 +57,13 @@
                     </DataGrid>
                     <Label Content="Nombre Tienda:" HorizontalAlignment="Left" Height="26" VerticalAlignment="Top" Width="102" Margin="15,82,0,0" Grid.Column="1"/>
                     <Label Content="Provincia:" HorizontalAlignment="Left" Margin="206,39,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.464,1.231" Height="28" Grid.Column="3" Width="60"/>
-                    <ComboBox ItemsSource="{Binding provincias,Mode=OneWay}" DisplayMemberPath="nombre" SelectedIndex="{Binding searchProvincia,Mode=TwoWay}" HorizontalAlignment="Left" Margin="271,39,0,0" VerticalAlignment="Top" Width="102" Height="26" Grid.Column="3">
-                        
+                    <ComboBox ItemsSource="{Binding searchDepartamento.UbigeoProvincia,Mode=TwoWay}" DisplayMemberPath="nombre" SelectedItem="{Binding searchProvincia,Mode=TwoWay}" HorizontalAlignment="Left" Margin="271,39,0,0" VerticalAlignment="Top" Width="102" Height="26" Grid.Column="3">
+
                     </ComboBox>
                     <ToolBar HorizontalAlignment="Left" VerticalAlignment="Top" Height="24" Grid.Row="1" Width="68" Grid.Column="1">
-                        <Button x:Name="nuevoPerfilBtn" Content="" VerticalAlignment="Bottom" Width="20" Margin="0,0,2,-1" Height="20" Click="nuevaTiendaBtn_Click">
+                        <Button Command="{Binding Path=agregarAlmacenCommand}" x:Name="nuevoPerfilBtn" Content="" VerticalAlignment="Bottom" Width="20" Margin="0,0,2,-1" Height="20" >
                             <Button.Background>
                                 <ImageBrush ImageSource="/Resources/add_20.png" Stretch="None"/>
-                            </Button.Background>
-                        </Button>
-                        <Button x:Name="edPerfilBtn" Content="" Height="20" VerticalAlignment="Top" Width="20" Margin="0,0,2,0" Click="edTiendaBtn_Click">
-                            <Button.Background>
-                                <ImageBrush ImageSource="/Resources/edit_20.png"/>
                             </Button.Background>
                         </Button>
 
@@ -76,8 +77,8 @@
                         <ComboBoxItem Content="Compra/Venta"/>
                     </ComboBox>
                     <Label Content="Distrito:" HorizontalAlignment="Left" Margin="396,39,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.464,1.231" Height="28" Grid.Column="3" Width="51"/>
-                    <ComboBox ItemsSource="{Binding distritos,Mode=OneWay}" DisplayMemberPath="nombre" SelectedIndex="{Binding searchDistrito, Mode=TwoWay}" HorizontalAlignment="Left" Margin="452,39,0,0" VerticalAlignment="Top" Width="102" Height="26" Grid.Column="3">
-                        
+                    <ComboBox ItemsSource="{Binding distritos,Mode=TwoWay}" DisplayMemberPath="nombre" SelectedItem="{Binding searchDistrito, Mode=TwoWay}" HorizontalAlignment="Left" Margin="452,39,0,0" VerticalAlignment="Top" Width="102" Height="26" Grid.Column="3">
+
                     </ComboBox>
                     <Label Content="Estado:" HorizontalAlignment="Left" Margin="396,80,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.464,1.231" Height="28" Grid.Column="3" Width="51"/>
                     <ComboBox  SelectedIndex="{Binding searchEstado, Mode=TwoWay}" HorizontalAlignment="Left" Margin="452,82,0,0" VerticalAlignment="Top" Width="102" Height="26" Grid.Column="3">
@@ -116,41 +117,31 @@
                     <GroupBox Header="Tienda" Margin="10,0,0,181" BorderBrush="Black" Grid.ColumnSpan="4" Grid.Column="1"/>
                     <Image HorizontalAlignment="Left" Height="155" VerticalAlignment="Top" Width="172" Source="/Resources/ferreteriaTienda.jpg" Stretch="Fill" Margin="99,28,0,0" Grid.Column="6" Grid.ColumnSpan="2"/>
                     <Label Content="Código:" HorizontalAlignment="Left" Margin="1,26,0,0" VerticalAlignment="Top" Grid.Column="3" Height="26" Width="50"/>
-                    <TextBox Text="{Binding Path=tienda.codigo, Mode=TwoWay, ValidatesOnExceptions=true, NotifyOnValidationError=true}" x:Name="codigoTiendaTxtBox" HorizontalAlignment="Left" Height="23" Margin="21,28,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="84" IsEnabled="False" Grid.Column="4"/>
+                    <TextBox Text="{Binding Path=almacen.codigo, Mode=TwoWay, ValidatesOnExceptions=true, NotifyOnValidationError=true}" x:Name="codigoTiendaTxtBox" HorizontalAlignment="Left" Height="23" Margin="21,28,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="84"  Grid.Column="4"/>
                     <Label Content="Nombre Tienda:" HorizontalAlignment="Left" Margin="1,62,0,0" VerticalAlignment="Top" Grid.ColumnSpan="2" Grid.Column="3" Height="26" Width="94"/>
-                    <TextBox Text="{Binding Path=tienda.nombre, Mode=TwoWay, ValidatesOnExceptions=true, NotifyOnValidationError=true}" x:Name="nombreTiendaTxtBox" HorizontalAlignment="Left" Height="23" Margin="21,64,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="156" Grid.Column="4"/>
+                    <TextBox Text="{Binding Path=almacen.nombre, Mode=TwoWay, ValidatesOnExceptions=true, NotifyOnValidationError=true}" x:Name="nombreTiendaTxtBox" HorizontalAlignment="Left" Height="23" Margin="21,64,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="156" Grid.Column="4"/>
                     <Label Content="Dirección:" HorizontalAlignment="Left" Margin="1,137,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.464,1.231" Grid.Column="3" Height="26" Width="62"/>
-                    <TextBox Text="{Binding Path=tienda.direccion, Mode=TwoWay, ValidatesOnExceptions=true, NotifyOnValidationError=true}" x:Name="direccTiendaTxtBox" HorizontalAlignment="Left" Height="23" Margin="21,139,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="272" Grid.Column="4"/>                    
-                    <Label Content="Distrito:" HorizontalAlignment="Left" Margin="1,177,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.464,1.231" Height="30" Grid.Column="3" Width="51"/>
-                    <ComboBox  ItemsSource="{Binding Path=tienda.id_ubigeo,Mode=TwoWay}" DisplayMemberPath="nombre" SelectedIndex="{Binding searchProvincia,Mode=TwoWay}" HorizontalAlignment="Left" Margin="21,175,0,0" VerticalAlignment="Top" Width="102" Grid.Column="4" Height="26">                    
+                    <TextBox Text="{Binding Path=almacen.direccion, Mode=TwoWay, ValidatesOnExceptions=true, NotifyOnValidationError=true}" x:Name="direccTiendaTxtBox" HorizontalAlignment="Left" Height="23" Margin="21,139,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="272" Grid.Column="4"/>
+                    <Label Content="Departamento:" HorizontalAlignment="Left" Margin="1,177,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.464,1.231" Height="30" Grid.Column="3" Width="51"/>
+                    <ComboBox  ItemsSource="{Binding Path=departamentos}" SelectedItem="{Binding Path=selectedDepartamento}" DisplayMemberPath="nombre" HorizontalAlignment="Left" Margin="21,175,0,0" VerticalAlignment="Top" Width="102" Grid.Column="4" Height="26">
                     </ComboBox>
                     <Label Content="CP:" HorizontalAlignment="Left" Margin="144,177,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.464,1.231" Grid.Column="4" Height="30" Width="27"/>
-                    <TextBox Text="{Binding Path=tienda.codigoPostal, Mode=TwoWay, ValidatesOnExceptions=true, NotifyOnValidationError=true}" x:Name="cpTiendaTxtBox" HorizontalAlignment="Left" Height="26" Margin="188,175,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="106" Grid.Column="4"/>
-                    <Label Content="País:" HorizontalAlignment="Left" Margin="144,213,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.464,1.231" Grid.Column="4" Height="29" Width="33"/>
+                    <TextBox Text="{Binding Path=almacen.codigoPostal, Mode=TwoWay, ValidatesOnExceptions=true, NotifyOnValidationError=true}" x:Name="cpTiendaTxtBox" HorizontalAlignment="Left" Height="26" Margin="188,175,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="106" Grid.Column="4"/>
+                    <Label Content="Distrito:" HorizontalAlignment="Left" Margin="144,213,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.464,1.231" Grid.Column="4" Height="29" Width="33"/>
                     <Label Content="Provincia:" HorizontalAlignment="Left" Margin="2,214,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.464,1.231" Grid.ColumnSpan="2" Height="29" Grid.Column="2" Width="61"/>
-                    <ComboBox HorizontalAlignment="Left" Margin="21,214,0,0" VerticalAlignment="Top" Width="102" Grid.Column="4" Height="25">
-                        <ComboBoxItem/> Amazonas
-                        <ComboBoxItem/> Ancash
-                        <ComboBoxItem/> Apurimac
-                        <ComboBoxItem/> Arequipa
-                        <ComboBoxItem/> Otros
+                    <ComboBox ItemsSource="{Binding Path=selectedDepartamento.UbigeoProvincia}" SelectedItem="{Binding Path=selectedProvincia}" DisplayMemberPath="nombre" HorizontalAlignment="Left" Margin="21,214,0,0" VerticalAlignment="Top" Width="102" Grid.Column="4" Height="25">
                     </ComboBox>
-                    <ComboBox HorizontalAlignment="Left" Margin="187,214,0,0" VerticalAlignment="Top" Width="106" Grid.Column="4" Height="25">
-                        <ComboBoxItem/> Alemania
-                        <ComboBoxItem/> Belgica
-                        <ComboBoxItem/> Chile
-                        <ComboBoxItem/> Perú
-                        <ComboBoxItem/> Otros
+                    <ComboBox ItemsSource="{Binding Path=distritos}" SelectedItem="{Binding Path=almacen.UbigeoDistrito}" DisplayMemberPath="nombre" HorizontalAlignment="Left" Margin="187,214,0,0" VerticalAlignment="Top" Width="106" Grid.Column="4" Height="25">
                     </ComboBox>
                     <Label Content="Telf1:" HorizontalAlignment="Left" Margin="1,252,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.464,1.231" Grid.ColumnSpan="2" Height="28" Grid.Column="2" Width="38"/>
                     <Label Content="Telf2:" HorizontalAlignment="Left" Margin="144,252,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.464,1.231" Grid.Column="4" Height="28" Width="38"/>
-                    <TextBox Text="{Binding Path=tienda.telefono1, Mode=TwoWay, ValidatesOnExceptions=true, NotifyOnValidationError=true}" x:Name="telf1TiendaTxtBox" HorizontalAlignment="Left" Height="26" Margin="21,252,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="102" Grid.Column="4"/>
-                    <TextBox Text="{Binding Path=tienda.telefono2, Mode=TwoWay, ValidatesOnExceptions=true, NotifyOnValidationError=true}" x:Name="telf2TiendaTxtBox" HorizontalAlignment="Left" Height="26" Margin="187,252,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="106" Grid.Column="4"/>
+                    <TextBox Text="{Binding Path=almacen.telefono1, Mode=TwoWay, ValidatesOnExceptions=true, NotifyOnValidationError=true}" x:Name="telf1TiendaTxtBox" HorizontalAlignment="Left" Height="26" Margin="21,252,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="102" Grid.Column="4"/>
+                    <TextBox Text="{Binding Path=almacen.telefono2, Mode=TwoWay, ValidatesOnExceptions=true, NotifyOnValidationError=true}" x:Name="telf2TiendaTxtBox" HorizontalAlignment="Left" Height="26" Margin="187,252,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="106" Grid.Column="4"/>
                     <Label Content="Fecha de &#xA;Creacion:" HorizontalAlignment="Left" Margin="2,282,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.464,1.231" Grid.ColumnSpan="2" Height="40" Grid.Column="2" Width="75"/>
-                    <DatePicker Text="{Binding Path=tienda.fecCreacion, Mode=TwoWay, ValidatesOnExceptions=true, NotifyOnValidationError=true}" HorizontalAlignment="Left" Margin="21,295,0,0" VerticalAlignment="Top" Grid.Column="4" Height="27" Width="119"/>
-                    <TextBox Text="{Binding Path=tienda.descripcion, Mode=TwoWay, ValidatesOnExceptions=true, NotifyOnValidationError=true}" x:Name="descripTiendaTxtBox" HorizontalAlignment="Left" Height="75" Margin="21,375,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="272" Grid.Column="4"/>
+                    <DatePicker SelectedDate="{Binding Path=almacen.fecCreacion, Mode=TwoWay, ValidatesOnExceptions=true, NotifyOnValidationError=true}" HorizontalAlignment="Left" Margin="21,295,0,0" VerticalAlignment="Top" Grid.Column="4" Height="27" Width="119"/>
+                    <TextBox Text="{Binding Path=almacen.descripcion, Mode=TwoWay, ValidatesOnExceptions=true, NotifyOnValidationError=true}" x:Name="descripTiendaTxtBox" HorizontalAlignment="Left" Height="75" Margin="21,375,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="272" Grid.Column="4"/>
                     <Label Content="Descripcion:" HorizontalAlignment="Left" Margin="2,373,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.464,1.231" Height="26" Width="74" Grid.Column="3"/>
-                    <ListBox Grid.Column="6" HorizontalAlignment="Left" Height="22" Margin="94,274,0,0" VerticalAlignment="Top" Width="59" IsSynchronizedWithCurrentItem="True" SelectionChanged="ListBox_SelectionChanged" RenderTransformOrigin="0.423,1.538" ScrollViewer.HorizontalScrollBarVisibility="Disabled">
+                    <ListBox Grid.Column="6" HorizontalAlignment="Left" Height="22" Margin="94,274,0,0" VerticalAlignment="Top" Width="59" IsSynchronizedWithCurrentItem="True" RenderTransformOrigin="0.423,1.538" ScrollViewer.HorizontalScrollBarVisibility="Disabled">
 
                         <System:String>8:00</System:String>
                         <System:String>8:30</System:String>
@@ -224,10 +215,10 @@
                         <System:String>23:30</System:String>
 
                     </ListBox>
-                    <TextBox HorizontalAlignment="Left" Height="26" Margin="29,481,0,0" TextWrapping="Wrap" Text="Juan Perez" VerticalAlignment="Top" Width="262" Grid.Column="4"/>
-                    <Label Content="Nombre:" HorizontalAlignment="Left" Margin="10,482,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.464,1.231" Height="30" Grid.Column="2" Grid.ColumnSpan="3" Width="94"/>
+                    <TextBox HorizontalAlignment="Left" Height="26" Margin="32,520,0,0" TextWrapping="Wrap" Text="{Binding Path=almacen.Empleado.nombreCompleto,Mode=OneWay}" VerticalAlignment="Top" Width="262" Grid.Column="4" IsEnabled="False"/>
+                    <Label Content="DNI:" HorizontalAlignment="Left" Margin="10,482,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.464,1.231" Height="30" Grid.Column="2" Grid.ColumnSpan="3" Width="94"/>
                     <Label Content="Lunes:" HorizontalAlignment="Left" Margin="2,271,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.464,1.231" Height="30" Grid.Column="6" Width="53"/>
-                    <ListBox Grid.Column="6" HorizontalAlignment="Left" Height="22" Margin="94,309,0,0" VerticalAlignment="Top" Width="59" IsSynchronizedWithCurrentItem="True" SelectionChanged="ListBox_SelectionChanged" RenderTransformOrigin="0.423,1.538" ScrollViewer.HorizontalScrollBarVisibility="Disabled">
+                    <ListBox Grid.Column="6" HorizontalAlignment="Left" Height="22" Margin="94,309,0,0" VerticalAlignment="Top" Width="59" IsSynchronizedWithCurrentItem="True" RenderTransformOrigin="0.423,1.538" ScrollViewer.HorizontalScrollBarVisibility="Disabled">
 
                         <System:String>8:00</System:String>
                         <System:String>8:30</System:String>
@@ -299,7 +290,7 @@
 
                     </ListBox>
                     <Label Content="Martes:" HorizontalAlignment="Left" Margin="2,306,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.464,1.231" Height="30" Grid.Column="6" Width="53"/>
-                    <ListBox Grid.Column="6" HorizontalAlignment="Left" Height="22" Margin="94,344,0,0" VerticalAlignment="Top" Width="59" IsSynchronizedWithCurrentItem="True" SelectionChanged="ListBox_SelectionChanged" RenderTransformOrigin="0.423,1.538" ScrollViewer.HorizontalScrollBarVisibility="Disabled">
+                    <ListBox Grid.Column="6" HorizontalAlignment="Left" Height="22" Margin="94,344,0,0" VerticalAlignment="Top" Width="59" IsSynchronizedWithCurrentItem="True" RenderTransformOrigin="0.423,1.538" ScrollViewer.HorizontalScrollBarVisibility="Disabled">
 
                         <System:String>8:00</System:String>
                         <System:String>8:30</System:String>
@@ -370,7 +361,7 @@
                         <System:String>23:30</System:String>
                     </ListBox>
                     <Label Content="Miercoles:" HorizontalAlignment="Left" Margin="2,341,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.464,1.231" Height="30" Grid.Column="6" Width="65"/>
-                    <ListBox Grid.Column="6" HorizontalAlignment="Left" Height="22" Margin="94,379,0,0" VerticalAlignment="Top" Width="59" IsSynchronizedWithCurrentItem="True" SelectionChanged="ListBox_SelectionChanged" RenderTransformOrigin="0.423,1.538" ScrollViewer.HorizontalScrollBarVisibility="Disabled">
+                    <ListBox Grid.Column="6" HorizontalAlignment="Left" Height="22" Margin="94,379,0,0" VerticalAlignment="Top" Width="59" IsSynchronizedWithCurrentItem="True" RenderTransformOrigin="0.423,1.538" ScrollViewer.HorizontalScrollBarVisibility="Disabled">
 
                         <System:String>8:00</System:String>
                         <System:String>8:30</System:String>
@@ -441,7 +432,7 @@
                         <System:String>23:30</System:String>
                     </ListBox>
                     <Label Content="Jueves:" HorizontalAlignment="Left" Margin="2,376,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.464,1.231" Height="30" Grid.Column="6" Width="53"/>
-                    <ListBox Grid.Column="6" HorizontalAlignment="Left" Height="22" Margin="94,414,0,0" VerticalAlignment="Top" Width="59" IsSynchronizedWithCurrentItem="True" SelectionChanged="ListBox_SelectionChanged" RenderTransformOrigin="0.423,1.538" ScrollViewer.HorizontalScrollBarVisibility="Disabled">
+                    <ListBox Grid.Column="6" HorizontalAlignment="Left" Height="22" Margin="94,414,0,0" VerticalAlignment="Top" Width="59" IsSynchronizedWithCurrentItem="True" RenderTransformOrigin="0.423,1.538" ScrollViewer.HorizontalScrollBarVisibility="Disabled">
 
                         <System:String>8:00</System:String>
                         <System:String>8:30</System:String>
@@ -514,7 +505,7 @@
 
                     </ListBox>
                     <Label Content="Viernes:" HorizontalAlignment="Left" Margin="2,411,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.464,1.231" Height="30" Grid.Column="6" Width="53"/>
-                    <ListBox Grid.Column="6" HorizontalAlignment="Left" Height="22" Margin="94,449,0,0" VerticalAlignment="Top" Width="59" IsSynchronizedWithCurrentItem="True" SelectionChanged="ListBox_SelectionChanged" RenderTransformOrigin="0.423,1.538" ScrollViewer.HorizontalScrollBarVisibility="Disabled">
+                    <ListBox Grid.Column="6" HorizontalAlignment="Left" Height="22" Margin="94,449,0,0" VerticalAlignment="Top" Width="59" IsSynchronizedWithCurrentItem="True" RenderTransformOrigin="0.423,1.538" ScrollViewer.HorizontalScrollBarVisibility="Disabled">
 
                         <System:String>8:00</System:String>
                         <System:String>8:30</System:String>
@@ -587,7 +578,7 @@
 
                     </ListBox>
                     <Label Content="Sabado:" HorizontalAlignment="Left" Margin="2,446,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.464,1.231" Height="30" Grid.Column="6" Width="53"/>
-                    <ListBox Grid.Column="6" HorizontalAlignment="Left" Height="22" Margin="94,485,0,0" VerticalAlignment="Top" Width="59" IsSynchronizedWithCurrentItem="True" SelectionChanged="ListBox_SelectionChanged" RenderTransformOrigin="0.423,1.538" ScrollViewer.HorizontalScrollBarVisibility="Disabled">
+                    <ListBox Grid.Column="6" HorizontalAlignment="Left" Height="22" Margin="94,485,0,0" VerticalAlignment="Top" Width="59" IsSynchronizedWithCurrentItem="True" RenderTransformOrigin="0.423,1.538" ScrollViewer.HorizontalScrollBarVisibility="Disabled">
 
                         <System:String>8:00</System:String>
                         <System:String>8:30</System:String>
@@ -660,29 +651,27 @@
 
                     </ListBox>
                     <Label Content="Domingo:" HorizontalAlignment="Left" Margin="2,482,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.464,1.231" Height="30" Grid.Column="6" Width="65"/>
-                    <Label Content="Código:" HorizontalAlignment="Left" Margin="9,516,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.464,1.231" Height="30" Grid.Column="3" Grid.ColumnSpan="2" Width="94"/>
-                    <TextBox HorizontalAlignment="Left" Height="26" Margin="29,518,0,0" TextWrapping="Wrap" Text="45767888" VerticalAlignment="Top" Width="102" Grid.Column="4" IsEnabled="False"/>
+                    <Label Content="Nombre:" HorizontalAlignment="Left" Margin="9,516,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.464,1.231" Height="30" Grid.Column="3" Grid.ColumnSpan="2" Width="94"/>
+                    <TextBox HorizontalAlignment="Left" Height="26" Margin="31,486,0,0" TextWrapping="Wrap" Text="{Binding Path=almacenEmpleadoDni,Mode=TwoWay}" VerticalAlignment="Top" Width="102" Grid.Column="4"/>
                     <Label Content="Almacén &#xD;&#xA;Abastecedor:" HorizontalAlignment="Left" Margin="88,87,0,0" VerticalAlignment="Top" Grid.Column="4" Height="41" Width="94"/>
-                    <ComboBox HorizontalAlignment="Left" Margin="186,97,0,0" VerticalAlignment="Top" Width="105" Grid.Column="4" Height="26">
-                        <ComboBoxItem/> Almacen Central
-                        <ComboBoxItem/> Tienda 2
+                    <ComboBox ItemsSource="{Binding Path=almacenes}" SelectedItem="{Binding Path=almacen.Tbl_Almacen1}" DisplayMemberPath="nombre" HorizontalAlignment="Left" Margin="186,97,0,0" VerticalAlignment="Top" Width="105" Grid.Column="4" Height="26">
                     </ComboBox>
                     <Label Content="Tipo:" HorizontalAlignment="Left" Margin="1,97,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.464,1.231" Grid.Column="3" Height="30" Width="36"/>
-                    <ComboBox SelectedIndex="{Binding Path=tienda.tipo, Mode=TwoWay,  ValidatesOnExceptions=true, NotifyOnValidationError=true}" x:Name="tipoCombo" HorizontalAlignment="Left" Margin="44,98,0,0" VerticalAlignment="Top" Width="108" Grid.Column="3" Height="25" Grid.ColumnSpan="2">
+                    <ComboBox SelectedIndex="{Binding Path=almacen.tipo, Mode=TwoWay,  ValidatesOnExceptions=true, NotifyOnValidationError=true}" x:Name="tipoCombo" HorizontalAlignment="Left" Margin="44,98,0,0" VerticalAlignment="Top" Width="108" Grid.Column="3" Height="25" Grid.ColumnSpan="2">
                         <ComboBoxItem Content="Venta"></ComboBoxItem>
                         <ComboBoxItem Content="Venta/Compra"></ComboBoxItem>
                     </ComboBox>
                     <Label Content="Email:" HorizontalAlignment="Left" Margin="10,553,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.464,1.231" Height="30" Width="41" Grid.Column="3"/>
-                    <TextBox HorizontalAlignment="Left" Height="26" Margin="31,554,0,0" TextWrapping="Wrap" Text="example@domain.com" VerticalAlignment="Top" Width="260" Grid.Column="4"/>                    
+                    <TextBox HorizontalAlignment="Left" Height="26" Margin="31,554,0,0" TextWrapping="Wrap" Text="{Binding Path=almacen.Empleado.email,Mode=OneWay}" VerticalAlignment="Top" Width="260" Grid.Column="4" IsEnabled="False"/>
                     <Label Content="Fecha de &#xA;Cierre:" HorizontalAlignment="Left" Margin="2,321,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.464,1.231" Grid.ColumnSpan="2" Height="40" Grid.Column="2" Width="75"/>
-                    <DatePicker Text="{Binding Path=tienda.fecCierre, Mode=TwoWay, ValidatesOnExceptions=true, NotifyOnValidationError=true}" x:Name="fechCierreTiendaTxtBox" HorizontalAlignment="Left" Margin="21,334,0,0" VerticalAlignment="Top" Grid.Column="4" Height="27" Width="119"/>
+                    <DatePicker SelectedDate="{Binding Path=almacen.fecCierre, Mode=TwoWay, ValidatesOnExceptions=true, NotifyOnValidationError=true}" x:Name="fechCierreTiendaTxtBox" HorizontalAlignment="Left" Margin="21,334,0,0" VerticalAlignment="Top" Grid.Column="4" Height="27" Width="119"/>
                     <Label Content="Estado:" HorizontalAlignment="Left" Margin="121,26,0,0" VerticalAlignment="Top" Grid.Column="4" Height="26" Width="50"/>
-                    <ComboBox SelectedIndex="{Binding Path=tienda.estado, Mode=TwoWay,  ValidatesOnExceptions=true, NotifyOnValidationError=true}" x:Name="estadoCombo" HorizontalAlignment="Left" Margin="186,26,0,0" VerticalAlignment="Top" Width="105" Grid.Column="4" Height="26">
+                    <ComboBox SelectedIndex="{Binding Path=almacen.estado, Mode=TwoWay,  ValidatesOnExceptions=true, NotifyOnValidationError=true}" x:Name="estadoCombo" HorizontalAlignment="Left" Margin="186,26,0,0" VerticalAlignment="Top" Width="105" Grid.Column="4" Height="26">
                         <ComboBoxItem Content="Inactivo"></ComboBoxItem>
                         <ComboBoxItem Content="Activo"></ComboBoxItem>
                     </ComboBox>
-                    <Button Content="GUARDAR" HorizontalAlignment="Left" Margin="186,602,0,0" VerticalAlignment="Top" Width="76" RenderTransformOrigin="1.347,-0.05" Grid.Column="4" Height="30" Click="guardarDetalleTiendaBtn_Click"/>
-                    <Button Content="CANCELAR" HorizontalAlignment="Left" Margin="0,602,0,0" VerticalAlignment="Top" Width="75" RenderTransformOrigin="1.347,-0.05" Grid.Column="6" Height="30" Click="cancelarListaTiendaBtn_Click" />
+                    <Button Command="{Binding saveAlmacenCommand}"  Content="GUARDAR" HorizontalAlignment="Left" Margin="186,602,0,0" VerticalAlignment="Top" Width="76" RenderTransformOrigin="1.347,-0.05" Grid.Column="4" Height="30"/>
+                    <Button Command="{Binding cancelAlmacenCommand}" Content="CANCELAR" HorizontalAlignment="Left" Margin="0,602,0,0" VerticalAlignment="Top" Width="75" RenderTransformOrigin="1.347,-0.05" Grid.Column="6" Height="30" />
                 </Grid>
             </TabItem>
         </TabControl>
