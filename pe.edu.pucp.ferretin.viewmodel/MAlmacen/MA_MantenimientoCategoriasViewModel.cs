@@ -11,7 +11,8 @@ namespace pe.edu.pucp.ferretin.viewmodel.MAlmacen
 {
     public class MA_MantenimientoCategoriasViewModel : ViewModelBase
     {
-        public String nombre { get { return "Hola"; } set; }
+        public String _nombre = "Hola";
+        public String nombre { get { return _nombre; } set { _nombre = value; } }
 
         public MA_MantenimientoCategoriasViewModel()
         {
