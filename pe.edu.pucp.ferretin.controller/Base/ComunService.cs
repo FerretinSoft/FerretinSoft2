@@ -82,12 +82,12 @@ namespace pe.edu.pucp.ferretin.controller
             }
         }
         */
-        private static IEnumerable<Almacen> _almacenes;
-        public static IEnumerable<Almacen> almacenes
+        private static IEnumerable<Tienda> _almacenes;
+        public static IEnumerable<Tienda> almacenes
         {
             get
             {
-                if(_almacenes==null)_almacenes = db.Almacen;
+                if(_almacenes==null)_almacenes = db.Tienda;
                 return _almacenes;
             }
             set

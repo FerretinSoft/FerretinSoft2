@@ -25,13 +25,13 @@ namespace pe.edu.pucp.ferretin.controller.MRecursosHumanos
             }
         }
 
-        private static IEnumerable<Almacen> _tiendas;
-        public static IEnumerable<Almacen> tiendas
+        private static IEnumerable<Tienda> _tiendas;
+        public static IEnumerable<Tienda> tiendas
         {
             get
             {
                 if (_tiendas == null)
-                    _tiendas = from p in db.Almacen select p;
+                    _tiendas = from p in db.Tienda select p;
                 return _tiendas;
             }
             set
@@ -49,7 +49,7 @@ namespace pe.edu.pucp.ferretin.controller.MRecursosHumanos
                    select c;
         }
 
-        internal static IEnumerable<Almacen> obtenerAlmacen(string selectedTienda)
+        internal static IEnumerable<Tienda> obtenerAlmacen(string selectedTienda)
         {
             return from t in tiendas
                    where t.id.Equals(selectedTienda)

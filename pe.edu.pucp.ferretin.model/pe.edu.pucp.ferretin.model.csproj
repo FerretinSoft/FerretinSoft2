@@ -54,7 +54,7 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
       <DependentUpon>Settings.settings</DependentUpon>
     </Compile>
-    <Compile Include="MAlmacen\Almacen.cs" />
+    <Compile Include="MAlmacen\Tienda.cs" />
     <Compile Include="MSeguridad\Usuario.cs" />
   </ItemGroup>
   <ItemGroup>

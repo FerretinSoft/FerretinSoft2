@@ -32,7 +32,7 @@ namespace pe.edu.pucp.ferretin.view.MAlmacen
         public IEnumerable<UnidadMedida> listaUMed { get; set; }
         public IEnumerable<Material> listaMatBase { get; set; }
         public IEnumerable<Material> listaMatSec { get; set; }
-        public IEnumerable<Almacen> listaTiendas { get; set; }
+        public IEnumerable<Tienda> listaTiendas { get; set; }
         
         
         private Producto _prod;

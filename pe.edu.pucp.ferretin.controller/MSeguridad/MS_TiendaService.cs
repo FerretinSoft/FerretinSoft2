@@ -12,14 +12,14 @@ namespace pe.edu.pucp.ferretin.controller.MSeguridad
     public class MS_TiendaService : MS_ComunService
     {
 
-        public static IEnumerable<Almacen> _listaAlmacenes;
-        public static IEnumerable<Almacen> listaAlmacenes
+        public static IEnumerable<Tienda> _listaAlmacenes;
+        public static IEnumerable<Tienda> listaAlmacenes
         {
             get
             {
                 if (_listaAlmacenes == null)
                 {
-                    _listaAlmacenes = db.Almacen;
+                    _listaAlmacenes = db.Tienda;
                 }
                 //Usando concurrencia pesimista:
                 ///La lista de clientes se actualizara para ver los cambios
@@ -34,9 +34,9 @@ namespace pe.edu.pucp.ferretin.controller.MSeguridad
         }
 
 
-        public static Almacen obtenerTiendaByCodigo(String codigoTienda)
+        public static Tienda obtenerTiendaByCodigo(String codigoTienda)
         {
-            IEnumerable<Almacen> tiendas = (from t in listaAlmacenes
+            IEnumerable<Tienda> tiendas = (from t in listaAlmacenes
                                              where t.codigo != null && t.codigo.Contains(codigoTienda)
                                              select t);
             if (tiendas.Count() > 0)
@@ -46,18 +46,18 @@ namespace pe.edu.pucp.ferretin.controller.MSeguridad
         }
 
 
-        public static void insertarTienda(Almacen tienda)
+        public static void insertarTienda(Tienda tienda)
         {
-            db.Almacen.InsertOnSubmit(tienda);
+            db.Tienda.InsertOnSubmit(tienda);
             db.SubmitChanges();
         }
 
-        public static void actualizarTienda(Almacen tienda)
+        public static void actualizarTienda(Tienda tienda)
         {
             db.SubmitChanges();
         }
 
-        public static IEnumerable<Almacen> buscar(string codTienda, string nombre, UbigeoDistrito distrito, int tipo, int estado)
+        public static IEnumerable<Tienda> buscar(string codTienda, string nombre, UbigeoDistrito distrito, int tipo, int estado)
         {
             return from t in listaAlmacenes
                    where (
@@ -72,11 +72,11 @@ namespace pe.edu.pucp.ferretin.controller.MSeguridad
                    select t;
         }
 
-        public static bool insertarAlmacen(Almacen almacen)
+        public static bool insertarAlmacen(Tienda almacen)
         {
-            if (!db.Almacen.Contains(almacen))
+            if (!db.Tienda.Contains(almacen))
             {
-                db.Almacen.InsertOnSubmit(almacen);
+                db.Tienda.InsertOnSubmit(almacen);
                 return enviarCambios();
             }
             else

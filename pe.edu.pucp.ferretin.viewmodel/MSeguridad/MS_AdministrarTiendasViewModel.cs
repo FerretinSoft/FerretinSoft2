@@ -84,11 +84,11 @@ namespace pe.edu.pucp.ferretin.viewmodel.MSeguridad
                 //Si la pestaña es para agregar nuevo, limpio los input
                 switch (_statusTab)
                 {
-                    case Tab.BUSQUEDA: detallesTabHeader = "Agregar"; almacen = new Almacen(); break;//Si es agregar, creo un nuevo objeto Almacen
-                    case Tab.AGREGAR: detallesTabHeader = "Agregar"; almacen = new Almacen(); break;//Si es agregar, creo un nuevo objeto Almacen
+                    case Tab.BUSQUEDA: detallesTabHeader = "Agregar"; almacen = new Tienda(); break;//Si es agregar, creo un nuevo objeto Almacen
+                    case Tab.AGREGAR: detallesTabHeader = "Agregar"; almacen = new Tienda(); break;//Si es agregar, creo un nuevo objeto Almacen
                     case Tab.MODIFICAR: detallesTabHeader = "Modificar"; break;
                     case Tab.DETALLES: detallesTabHeader = "Detalles"; break;
-                    default: detallesTabHeader = "Agregar"; almacen = new Almacen(); break;//Si es agregar, creo un nuevo objeto Almacen
+                    default: detallesTabHeader = "Agregar"; almacen = new Tienda(); break;//Si es agregar, creo un nuevo objeto Almacen
                 }
                 NotifyPropertyChanged("statusTab");
                 //Cuando se cambia el status, tambien se tiene que actualizar el currentIndex del tab
@@ -117,8 +117,8 @@ namespace pe.edu.pucp.ferretin.viewmodel.MSeguridad
         #endregion
 
         #region Lista de Tiendas y Edición de Tiendas
-        private Almacen _almacen;
-        public Almacen almacen
+        private Tienda _almacen;
+        public Tienda almacen
         {
             get
             {
@@ -142,8 +142,8 @@ namespace pe.edu.pucp.ferretin.viewmodel.MSeguridad
             }
         }
 
-        private IEnumerable<Almacen> _listaAlmacenes;
-        public IEnumerable<Almacen> listaAlmacenes
+        private IEnumerable<Tienda> _listaAlmacenes;
+        public IEnumerable<Tienda> listaAlmacenes
         {
             get
             {

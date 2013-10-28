@@ -37,8 +37,8 @@ namespace pe.edu.pucp.ferretin.viewmodel
 
         #endregion INotifyPropertyChanged Members
 
-        private IEnumerable<Almacen> _almacenes;
-        public IEnumerable<Almacen> almacenes
+        private IEnumerable<Tienda> _almacenes;
+        public IEnumerable<Tienda> almacenes
         {
             get
             {
