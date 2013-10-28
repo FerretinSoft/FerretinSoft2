@@ -12,15 +12,15 @@ namespace pe.edu.pucp.ferretin.model
         {
             get
             {
-                if (estado == true) return "Activo";
+                if (estado == 1) return "Activo";
                 else
                     return "Inactivo";
             }
             set
             {
-                if (value == "Activo") estado = true;
+                if (value == "Activo") estado = 1;
                 else
-                    estado = false;
+                    estado = 2;
                 this.SendPropertyChanged("estadoAux");
             }
 

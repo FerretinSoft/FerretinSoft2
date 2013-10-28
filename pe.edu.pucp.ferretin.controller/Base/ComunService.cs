@@ -55,23 +55,23 @@ namespace pe.edu.pucp.ferretin.controller
             }
         }
 
-        private static IEnumerable<Unidad_Medida> _unidadesMedida;
+        private static IEnumerable<UnidadMedida> _unidadesMedida;
 
         /// <summary>
         /// Obtiene una lista de las Unidades de Medidas contenidas en la Base de datos
         /// </summary>
-        public static IEnumerable<Unidad_Medida> unidadesMedida
+        public static IEnumerable<UnidadMedida> unidadesMedida
         {
             get
             {
                 if (_unidadesMedida == null)
                 {
-                    _unidadesMedida = from u in db.Unidad_Medida select u;
+                    _unidadesMedida = from u in db.UnidadMedida select u;
                 }
                 return _unidadesMedida;
             }
         }
-
+        /*
         private static IEnumerable<Dia> _dias;
         public static IEnumerable<Dia> dias
         {
@@ -81,7 +81,7 @@ namespace pe.edu.pucp.ferretin.controller
                 return _dias;
             }
         }
-
+        */
         private static IEnumerable<Almacen> _almacenes;
         public static IEnumerable<Almacen> almacenes
         {

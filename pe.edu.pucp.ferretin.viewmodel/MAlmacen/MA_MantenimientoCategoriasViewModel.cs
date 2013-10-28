@@ -48,7 +48,7 @@ namespace pe.edu.pucp.ferretin.viewmodel.MAlmacen
             {
                 _CategoriaSeleccionada = value;
                 //Actualizo el combobox de categorias padre
-                categoriasPadre = MA_CategoriaService.categorias.Where(c => c.nivel == _CategoriaSeleccionada.Tbl_Categoria1.nivel);
+                categoriasPadre = MA_CategoriaService.categorias.Where(c => c.nivel == _CategoriaSeleccionada.Categoria1.nivel);
                 OnPropertyChanged("CategoriaSeleccionada");
             }
         }
@@ -87,7 +87,7 @@ namespace pe.edu.pucp.ferretin.viewmodel.MAlmacen
         {
             Categoria categoria = new Categoria();
             categoria.nivel = (byte)(CategoriaSeleccionada.nivel + 1);
-            categoria.Tbl_Categoria1 = CategoriaSeleccionada;
+            categoria.Categoria1 = CategoriaSeleccionada;
             CategoriaSeleccionada = categoria;
         }
 

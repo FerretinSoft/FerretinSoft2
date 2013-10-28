@@ -33,7 +33,7 @@ namespace pe.edu.pucp.ferretin.controller.MSeguridad
         public static IEnumerable<Usuario> obtenerListaUsuarios()
         {
             listaUsuarios = from p in db.Usuario
-                            orderby p.dni
+                            orderby p.Empleado.dni
                             select p;
             return listaUsuarios;
         }
@@ -43,7 +43,7 @@ namespace pe.edu.pucp.ferretin.controller.MSeguridad
         {
             return from c in listaUsuarios
                    where
-                   (c.dni != null && c.dni.Contains(usuario.dni)
+                   (c.Empleado.dni != null && c.Empleado.dni.Contains(usuario.Empleado.dni)
                        && c.nombre != null && c.nombre.ToLower().Contains(usuario.nombre.ToLower().Trim())
                        && c.contrasena != null && c.contrasena.Contains(usuario.contrasena)
                        /*&& c.id_perfil != null && c.id_perfil.Contains(usuario.id_perfil)
@@ -86,7 +86,7 @@ namespace pe.edu.pucp.ferretin.controller.MSeguridad
             
             return from u in listaUsuarios
                    where
-                   (u.dni != null && u.dni.Contains(usuario.dni)
+                   (u.Empleado.dni != null && u.Empleado.dni.Contains(usuario.Empleado.dni)
                        && u.nombre != null && u.nombre.ToLower().Contains(usuario.nombre.ToLower().Trim())
                        && u.Empleado != null &&
                             (u.Empleado.nombre != null && u.Empleado.nombre.ToLower().Contains(empleado.nombre.ToLower().Trim())

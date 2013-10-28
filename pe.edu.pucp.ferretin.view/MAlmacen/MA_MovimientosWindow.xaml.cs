@@ -65,7 +65,7 @@ namespace pe.edu.pucp.ferretin.view.MAlmacen
             }
         }
 
-        public IEnumerable<Movimiento_Estado> estadosMovimiento
+        public IEnumerable<MovimientoEstado> estadosMovimiento
         {
             get
             {

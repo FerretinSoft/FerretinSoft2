@@ -29,7 +29,7 @@ namespace pe.edu.pucp.ferretin.view.MAlmacen
         public String searchNombre{get;set;}
         public String searchIdCategoria { get; set; }
         public IEnumerable<Categoria> listaCategorias { get; set; }
-        public IEnumerable<Unidad_Medida> listaUMed { get; set; }
+        public IEnumerable<UnidadMedida> listaUMed { get; set; }
         public IEnumerable<Material> listaMatBase { get; set; }
         public IEnumerable<Material> listaMatSec { get; set; }
         public IEnumerable<Almacen> listaTiendas { get; set; }
@@ -166,7 +166,7 @@ namespace pe.edu.pucp.ferretin.view.MAlmacen
             }
             else
             {
-                producto.estado=(chkActivo.IsChecked==true)?true:false;
+                producto.estado = chkActivo.IsChecked==true?1:0;
             }
 
             gridProductos.ItemsSource = MA_ProductoService.obtenerProductosPorNombre(producto,flagAll);
@@ -176,7 +176,7 @@ namespace pe.edu.pucp.ferretin.view.MAlmacen
         private void btnGuardar(object sender, RoutedEventArgs e)
         {
             //Console.WriteLine(this.detallesTab.Header);
-            pvm.producto.estado=(this.rbtnActivo.IsChecked==true)?true:false;
+            pvm.producto.estado=(this.rbtnActivo.IsChecked==true)?1:2;
             //pvm.prodAlm.id_producto = pvm.producto.codigo;
             MA_ProductoService.agregarProducto(pvm.producto,pvm.prodAlm);
         }

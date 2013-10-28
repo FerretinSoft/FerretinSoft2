@@ -51,7 +51,7 @@ namespace pe.edu.pucp.ferretin.controller.MAlmacen
                     from p in db.Producto
                     where
                     p.nombre.Contains(producto.nombre) &&
-                    p.estado==true || p.estado==false
+                    p.estado==1 || p.estado==2 //esto tiene sentido?
                     select p;
             }
 

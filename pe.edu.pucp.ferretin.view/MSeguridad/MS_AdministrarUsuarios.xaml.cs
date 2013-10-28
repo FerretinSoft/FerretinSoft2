@@ -186,7 +186,7 @@ namespace pe.edu.pucp.ferretin.view.MSeguridad
         private void buscarUsuariosBtn_Click(object sender, RoutedEventArgs e)
         {
             Usuario usuario = new Usuario();
-            usuario.dni = (MS_UsuariosViewModel.searchCodigo == null) ? "" : MS_UsuariosViewModel.searchCodigo;
+            usuario.Empleado.dni = (MS_UsuariosViewModel.searchCodigo == null) ? "" : MS_UsuariosViewModel.searchCodigo;
             usuario.nombre = (MS_UsuariosViewModel.searchNombreUsuario == null) ? "" : MS_UsuariosViewModel.searchNombreUsuario;
             
             if(MS_UsuariosViewModel.searchPerfil > 0){
@@ -195,7 +195,7 @@ namespace pe.edu.pucp.ferretin.view.MSeguridad
             }
 
             if (MS_UsuariosViewModel.searchEstado > 0){
-                usuario.estado = (MS_UsuariosViewModel.searchEstado == 1 ? true : false);
+                usuario.estado = MS_UsuariosViewModel.searchEstado;
             }
             /*else if (MS_UsuariosViewModel.searchEstado == 2)
             {
@@ -217,7 +217,7 @@ namespace pe.edu.pucp.ferretin.view.MSeguridad
         private void guardarDetalleUsuarioBtn_Click(object sender, RoutedEventArgs e)
         {
             //Puede ser nuevo o modificar
-            if (MS_UsuariosViewModel.usuario.dni != null)
+            if (MS_UsuariosViewModel.usuario.Empleado.dni != null)
             {
                 //MS_UsuariosViewModel.usuario.contrasena = this.contrasena;
                 MS_UsuarioService.actualizarUsuario(MS_UsuariosViewModel.usuario);

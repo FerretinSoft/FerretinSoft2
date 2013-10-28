@@ -44,7 +44,14 @@ namespace pe.edu.pucp.ferretin.view.MSeguridad
             fechaHora.Content = System.DateTime.Now.Date;
 
             listaParametros = MS_ParametroService.obtenerListaParametros().ToList();
-            intentos = Convert.ToInt16(listaParametros[0].valor);         
+            try
+            {
+                intentos = Convert.ToInt16(listaParametros[0].valor);
+            }
+            catch
+            {
+                intentos = 0;
+            }
         }
 
         private void iniSesionBtn_Click(object sender, RoutedEventArgs e)

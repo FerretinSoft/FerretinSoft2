@@ -11,9 +11,9 @@ namespace pe.edu.pucp.ferretin.controller.MAlmacen
     {
         static FerretinDataContext dc = new FerretinDataContext();
 
-        private static IEnumerable<Movimiento_Estado> _listaEstadoMovimientos = null;
+        private static IEnumerable<MovimientoEstado> _listaEstadoMovimientos = null;
 
-        private static IEnumerable<Movimiento_Estado> listaEstadoMovimientos
+        private static IEnumerable<MovimientoEstado> listaEstadoMovimientos
         {
             get
             {
@@ -29,9 +29,9 @@ namespace pe.edu.pucp.ferretin.controller.MAlmacen
             }
         }
 
-        public static IEnumerable<Movimiento_Estado> ObtenerListaEstadoMovimientos()
+        public static IEnumerable<MovimientoEstado> ObtenerListaEstadoMovimientos()
         {
-            listaEstadoMovimientos = from estado in dc.Movimiento_Estado
+            listaEstadoMovimientos = from estado in dc.MovimientoEstado
                                      orderby estado.nombre
                                      select estado;
             return listaEstadoMovimientos;

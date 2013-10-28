@@ -10,9 +10,9 @@ namespace pe.edu.pucp.ferretin.controller.MAlmacen
     public class MA_UnidadMedidaServiceMateriales : MA_ComunService
     {
 
-        public static IEnumerable<Unidad_Medida> obtenerUnidadesMedida()
+        public static IEnumerable<UnidadMedida> obtenerUnidadesMedida()
         {
-            return (from um in db.Unidad_Medida orderby um.nombre select um);
+            return (from um in db.UnidadMedida orderby um.nombre select um);
         }
 
         public static IEnumerable<Material> obtenerMaterialesPrimario()

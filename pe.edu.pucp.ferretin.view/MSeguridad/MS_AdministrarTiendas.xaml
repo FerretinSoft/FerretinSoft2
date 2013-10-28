@@ -654,7 +654,7 @@
                     <Label Content="Nombre:" HorizontalAlignment="Left" Margin="9,516,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.464,1.231" Height="30" Grid.Column="3" Grid.ColumnSpan="2" Width="94"/>
                     <TextBox HorizontalAlignment="Left" Height="26" Margin="31,486,0,0" TextWrapping="Wrap" Text="{Binding Path=almacenEmpleadoDni,Mode=TwoWay}" VerticalAlignment="Top" Width="102" Grid.Column="4"/>
                     <Label Content="Almacén &#xD;&#xA;Abastecedor:" HorizontalAlignment="Left" Margin="88,87,0,0" VerticalAlignment="Top" Grid.Column="4" Height="41" Width="94"/>
-                    <ComboBox ItemsSource="{Binding Path=almacenes}" SelectedItem="{Binding Path=almacen.Tbl_Almacen1}" DisplayMemberPath="nombre" HorizontalAlignment="Left" Margin="186,97,0,0" VerticalAlignment="Top" Width="105" Grid.Column="4" Height="26">
+                    <ComboBox ItemsSource="{Binding Path=almacenes}" SelectedItem="{Binding Path=almacen.Almacen2}" DisplayMemberPath="nombre" HorizontalAlignment="Left" Margin="186,97,0,0" VerticalAlignment="Top" Width="105" Grid.Column="4" Height="26">
                     </ComboBox>
                     <Label Content="Tipo:" HorizontalAlignment="Left" Margin="1,97,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.464,1.231" Grid.Column="3" Height="30" Width="36"/>
                     <ComboBox SelectedIndex="{Binding Path=almacen.tipo, Mode=TwoWay,  ValidatesOnExceptions=true, NotifyOnValidationError=true}" x:Name="tipoCombo" HorizontalAlignment="Left" Margin="44,98,0,0" VerticalAlignment="Top" Width="108" Grid.Column="3" Height="25" Grid.ColumnSpan="2">
