@@ -26,10 +26,10 @@ namespace pe.edu.pucp.ferretin.view.MAlmacen
         public String searchNombre{get;set;}
         public String searchIdCategoria { get; set; }
         public IEnumerable<Categoria> listaCategorias { get; set; }
-        public IEnumerable<Tbl_Unidad_Medida> listaUMed { get; set; }
-        public IEnumerable<Tbl_Material> listaMatBase { get; set; }
-        public IEnumerable<Tbl_Material> listaMatSec { get; set; }
-        public IEnumerable<Tienda> listaTiendas { get; set; }
+        public IEnumerable<Unidad_Medida> listaUMed { get; set; }
+        public IEnumerable<Material> listaMatBase { get; set; }
+        public IEnumerable<Material> listaMatSec { get; set; }
+        public IEnumerable<Almacen> listaTiendas { get; set; }
         
         
         private Producto _prod;
@@ -46,8 +46,8 @@ namespace pe.edu.pucp.ferretin.view.MAlmacen
             }
         }
 
-        private Tbl_Producto_Almacen _prodAlm;
-        public Tbl_Producto_Almacen prodAlm
+        private ProductoAlmacen _prodAlm;
+        public ProductoAlmacen prodAlm
         {
             get
             {
@@ -95,7 +95,7 @@ namespace pe.edu.pucp.ferretin.view.MAlmacen
                 switch (value)
                 {
                     case (int)tabs.BUSQUEDA: detallesTabHeader = "Agregar Producto"; producto = new Producto(); break;//Si es agregar, creo un nuevo objeto Cliente
-                    case (int)tabs.AGREGAR: detallesTabHeader = "Agregar Producto"; producto = new Producto(); prodAlm = new Tbl_Producto_Almacen(); break;//Si es agregar, creo un nuevo objeto Cliente
+                    case (int)tabs.AGREGAR: detallesTabHeader = "Agregar Producto"; producto = new Producto(); prodAlm = new ProductoAlmacen(); break;//Si es agregar, creo un nuevo objeto Cliente
                     case (int)tabs.MODIFICAR:detallesTabHeader = "Edición de Producto"; break;
                             
 
@@ -135,7 +135,7 @@ namespace pe.edu.pucp.ferretin.view.MAlmacen
             pvm.listaMatBase = UnidadMedidaServiceMateriales.obtenerMaterialesPrimario();
             pvm.listaMatSec = UnidadMedidaServiceMateriales.obtenerMaterialesPrimario();
             pvm.listaTiendas = MS_TiendaService.obtenerListaTiendas();
-            
+            gridProductos.ItemsSource = ProductoService.obtenerTodosProductos();
         }
 
         private void nuevoProductoBtn_Click(object sender, RoutedEventArgs e)

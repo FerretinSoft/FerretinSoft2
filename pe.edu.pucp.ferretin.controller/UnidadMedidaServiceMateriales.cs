@@ -11,14 +11,14 @@ namespace pe.edu.pucp.ferretin.controller
     {
         private static FerretinDataContext db = new FerretinDataContext();
 
-        public static IEnumerable<Tbl_Unidad_Medida> obtenerUnidadesMedida()
+        public static IEnumerable<Unidad_Medida> obtenerUnidadesMedida()
         {
-            return (from um in db.Tbl_Unidad_Medida orderby um.nombre select um);
+            return (from um in db.Unidad_Medida orderby um.nombre select um);
         }
 
-        public static IEnumerable<Tbl_Material> obtenerMaterialesPrimario()
+        public static IEnumerable<Material> obtenerMaterialesPrimario()
         {
-            return (from m in db.Tbl_Material orderby m.nombre select m);
+            return (from m in db.Material orderby m.nombre select m);
         }
 
     }
