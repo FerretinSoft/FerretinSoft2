@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace pe.edu.pucp.ferretin.model
+namespace pe.edu.pucp.ferretin.controller.MVentas
 {
-    public class Class1
+    public class MV_ComunService : MV_SharedService
     {
     }
 }

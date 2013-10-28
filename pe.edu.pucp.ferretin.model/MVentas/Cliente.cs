@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
 namespace pe.edu.pucp.ferretin.model
@@ -45,6 +46,32 @@ namespace pe.edu.pucp.ferretin.model
             get
             {
                 return String.Join(" ", nombre, apPaterno, apMaterno);
+            }
+        }
+
+        partial void Ontelefono1Changing(String value)
+        {
+            Regex telefonoNumero = new Regex(@"^[2-9]\d{2}-\d{4}$");
+            if (telefonoNumero.IsMatch(value) == false)
+            {
+                throw new Exception("Numero de teléfono no válido");
+            }
+        }
+
+        partial void OnnroDocChanging(String value)
+        {
+            Int64 nroDoc = Int64.Parse(value);
+            if (nroDoc <= 0)
+            {
+                throw new Exception("El número de documento debe contener un valor numérico");
+            }
+            if (tipoDocumento.Equals("DNI") && (nroDoc>99999999 || nroDoc<10000000))
+            {
+                throw new Exception("El DNI debe tener exactamente 8 números");
+            }
+            if (tipoDocumento.Equals("RUC") && (nroDoc>99999999999 || nroDoc<10000000000))
+            {
+                throw new Exception("El RUC debe tener exactamente 11 números");
             }
         }
     }

@@ -1,4 +1,4 @@
-﻿using pe.edu.pucp.ferretin.controller;
+﻿using pe.edu.pucp.ferretin.controller.MSeguridad;
 using pe.edu.pucp.ferretin.model;
 using System;
 using System.Collections.Generic;

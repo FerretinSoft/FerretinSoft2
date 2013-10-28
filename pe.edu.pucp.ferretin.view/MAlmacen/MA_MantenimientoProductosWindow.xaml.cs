@@ -14,6 +14,9 @@ using System.Windows.Shapes;
 using pe.edu.pucp.ferretin.controller;
 using pe.edu.pucp.ferretin.model;
 using System.ComponentModel;
+using pe.edu.pucp.ferretin.controller.MSeguridad;
+using pe.edu.pucp.ferretin.controller.MAlmacen;
+
 
 namespace pe.edu.pucp.ferretin.view.MAlmacen
 {
@@ -129,13 +132,14 @@ namespace pe.edu.pucp.ferretin.view.MAlmacen
         public MA_MantenimientoProductosWindow()
         {
             InitializeComponent();
+            /*
             productoTabControl.DataContext = pvm;
-            pvm.listaUMed = UnidadMedidaServiceMateriales.obtenerUnidadesMedida();
-            pvm.listaCategorias = CategoriaService.obtenerTodasCategorias();
-            pvm.listaMatBase = UnidadMedidaServiceMateriales.obtenerMaterialesPrimario();
-            pvm.listaMatSec = UnidadMedidaServiceMateriales.obtenerMaterialesPrimario();
+            pvm.listaUMed = MA_UnidadMedidaServiceMateriales.obtenerUnidadesMedida();
+            pvm.listaCategorias = MA_CategoriaService.obtenerTodasCategorias();
+            pvm.listaMatBase = MA_UnidadMedidaServiceMateriales.obtenerMaterialesPrimario();
+            pvm.listaMatSec = MA_UnidadMedidaServiceMateriales.obtenerMaterialesPrimario();
             pvm.listaTiendas = MS_TiendaService.obtenerListaTiendas();
-            gridProductos.ItemsSource = ProductoService.obtenerTodosProductos();
+            */
         }
 
         private void nuevoProductoBtn_Click(object sender, RoutedEventArgs e)
@@ -165,7 +169,7 @@ namespace pe.edu.pucp.ferretin.view.MAlmacen
                 producto.estado=(chkActivo.IsChecked==true)?true:false;
             }
 
-            gridProductos.ItemsSource = ProductoService.obtenerProductosPorNombre(producto,flagAll);
+            gridProductos.ItemsSource = MA_ProductoService.obtenerProductosPorNombre(producto,flagAll);
 
         }
 
@@ -174,7 +178,7 @@ namespace pe.edu.pucp.ferretin.view.MAlmacen
             //Console.WriteLine(this.detallesTab.Header);
             pvm.producto.estado=(this.rbtnActivo.IsChecked==true)?true:false;
             //pvm.prodAlm.id_producto = pvm.producto.codigo;
-            ProductoService.agregarProducto(pvm.producto,pvm.prodAlm);
+            MA_ProductoService.agregarProducto(pvm.producto,pvm.prodAlm);
         }
 
         private void irTabEditarProducto()

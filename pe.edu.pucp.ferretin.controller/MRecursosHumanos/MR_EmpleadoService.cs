@@ -5,12 +5,11 @@ using System.Text;
 using System.Threading.Tasks;
 using pe.edu.pucp.ferretin.model;//Para el FerretinDataContext
 
-namespace pe.edu.pucp.ferretin.controller
+namespace pe.edu.pucp.ferretin.controller.MRecursosHumanos
 {
-    public static class MR_EmpleadoService
+    public class MR_EmpleadoService : MR_ComunService
     {
-        private static FerretinDataContext db = new FerretinDataContext();
-
+        
         private static IEnumerable<Empleado> _listaEmpleados = null;
 
         private static IEnumerable<Empleado> listaEmpleados 

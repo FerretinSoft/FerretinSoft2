@@ -1,4 +1,5 @@
 ﻿using pe.edu.pucp.ferretin.controller;
+using pe.edu.pucp.ferretin.controller.MRecursosHumanos;
 using pe.edu.pucp.ferretin.model;
 using System;
 using System.Collections.Generic;
@@ -96,7 +97,7 @@ namespace pe.edu.pucp.ferretin.view.MRecursosHumanos
         {
             get
             {
-                return MR_UbigeoService.departamentos;
+                return MR_ComunService.departamentos;
             }
         }
 
@@ -104,7 +105,7 @@ namespace pe.edu.pucp.ferretin.view.MRecursosHumanos
         {
             get
             {
-                return MR_UbigeoService.departamentos.ElementAt(selectedDepartamento).UbigeoProvincia;
+                return MR_ComunService.departamentos.ElementAt(selectedDepartamento).UbigeoProvincia;
             }
         }
 
@@ -112,7 +113,7 @@ namespace pe.edu.pucp.ferretin.view.MRecursosHumanos
         {
             get
             {
-                return MR_UbigeoService.departamentos.ElementAt(selectedDepartamento).UbigeoProvincia.ElementAt(selectedProvincia).UbigeoDistrito;
+                return MR_ComunService.departamentos.ElementAt(selectedDepartamento).UbigeoProvincia.ElementAt(selectedProvincia).UbigeoDistrito;
             }
         }
         private int selectedDistrito { get; set; }

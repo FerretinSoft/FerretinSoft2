@@ -5,13 +5,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Collections;
+using pe.edu.pucp.ferretin.controller.MRecursosHumanos;
 
-namespace pe.edu.pucp.ferretin.controller
+namespace pe.edu.pucp.ferretin.controller.MSeguridad
 {
-    public static class MS_UsuarioService
+    public class MS_UsuarioService : MS_ComunService
     {
-
-        private static FerretinDataContext db = new FerretinDataContext();
 
         private static IEnumerable<Usuario> _listaUsuarios = null;
 
@@ -45,7 +44,7 @@ namespace pe.edu.pucp.ferretin.controller
             return from c in listaUsuarios
                    where
                    (c.dni != null && c.dni.Contains(usuario.dni)
-                       && c.nombre != null && c.nombre.Contains(usuario.nombre)
+                       && c.nombre != null && c.nombre.ToLower().Contains(usuario.nombre.ToLower().Trim())
                        && c.contrasena != null && c.contrasena.Contains(usuario.contrasena)
                        /*&& c.id_perfil != null && c.id_perfil.Contains(usuario.id_perfil)
                        && c.estado != null && c.estado.Contains(usuario.estado)*/
@@ -88,14 +87,14 @@ namespace pe.edu.pucp.ferretin.controller
             return from u in listaUsuarios
                    where
                    (u.dni != null && u.dni.Contains(usuario.dni)
-                       && u.nombre != null && u.nombre.Contains(usuario.nombre)
-                       && u.Empleado != null && 
-                            ( u.Empleado.nombre != null && u.Empleado.nombre.Contains(empleado.nombre)
-                            && u.Empleado.apPaterno != null && u.Empleado.apPaterno.Contains(empleado.apPaterno)
-                            && u.Empleado.apMaterno != null && u.Empleado.apMaterno.Contains(empleado.apMaterno) 
+                       && u.nombre != null && u.nombre.ToLower().Contains(usuario.nombre.ToLower().Trim())
+                       && u.Empleado != null &&
+                            (u.Empleado.nombre != null && u.Empleado.nombre.ToLower().Contains(empleado.nombre.ToLower().Trim())
+                            && u.Empleado.apPaterno != null && u.Empleado.apPaterno.ToLower().Contains(empleado.apPaterno.ToLower().Trim())
+                            //&& u.Empleado.apMaterno != null && u.Empleado.apMaterno.ToLower().Contains(empleado.apMaterno.ToLower().Trim()) 
                             )
-                       && (usuario.id_perfil == 0 || ( u.id_perfil > 0 && u.id_perfil == usuario.id_perfil ) )
-                       && (usuario.estado == null  || ( u.estado == null && u.estado == usuario.estado ) )
+                       && (usuario.id_perfil == null || ( u.id_perfil != null && u.id_perfil.Equals(usuario.id_perfil)))
+                       && (usuario.estado == null || (u.estado != null && u.estado.Equals(usuario.estado)))
                     )
                    orderby u.nombre
                    select u;

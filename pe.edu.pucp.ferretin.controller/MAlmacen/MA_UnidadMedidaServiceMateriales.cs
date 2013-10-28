@@ -5,11 +5,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace pe.edu.pucp.ferretin.controller
+namespace pe.edu.pucp.ferretin.controller.MAlmacen
 {
-    public class UnidadMedidaServiceMateriales
+    public class MA_UnidadMedidaServiceMateriales : MA_ComunService
     {
-        private static FerretinDataContext db = new FerretinDataContext();
 
         public static IEnumerable<Unidad_Medida> obtenerUnidadesMedida()
         {

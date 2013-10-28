@@ -17,6 +17,7 @@ using pe.edu.pucp.ferretin.controller;
 using pe.edu.pucp.ferretin.model;
 using System.Threading;
 using System.Windows.Threading;
+using pe.edu.pucp.ferretin.controller.MSeguridad;
 
 namespace pe.edu.pucp.ferretin.view.MSeguridad
 {
@@ -30,7 +31,8 @@ namespace pe.edu.pucp.ferretin.view.MSeguridad
         public int searchPerfil { get; set; }
         public String searchNombres { get; set; }
         public String searchApellidos { get; set; }
-        public int searchEstado { get; set; }
+        private int _searchEstado;
+        public int searchEstado { get { return _searchEstado; } set { _searchEstado = value; NotifyPropertyChanged("searchEstado"); } }
         #endregion
 
         public enum tabs
@@ -125,6 +127,8 @@ namespace pe.edu.pucp.ferretin.view.MSeguridad
     /// </summary>
     public partial class MS_AdministrarUsuarios : Window
     {
+
+        //private String contrasena;
         MS_UsuariosViewModel MS_UsuariosViewModel = new MS_UsuariosViewModel();
         /******************************************************/
         public MS_AdministrarUsuarios()
@@ -190,18 +194,17 @@ namespace pe.edu.pucp.ferretin.view.MSeguridad
                 usuario.id_perfil = perfil.id;
             }
 
-            if (MS_UsuariosViewModel.searchEstado == 1)
-            {
-                usuario.estado = true;
+            if (MS_UsuariosViewModel.searchEstado > 0){
+                usuario.estado = (MS_UsuariosViewModel.searchEstado == 1 ? true : false);
             }
-            else if (MS_UsuariosViewModel.searchEstado == 2)
+            /*else if (MS_UsuariosViewModel.searchEstado == 2)
             {
                 usuario.estado = false;
             }
             else
             {
                 usuario.estado = null;
-            }
+            }*/
 
             Empleado empleado = new Empleado();
             empleado.nombre = (MS_UsuariosViewModel.searchNombres == null) ? "" : MS_UsuariosViewModel.searchNombres;
@@ -216,15 +219,22 @@ namespace pe.edu.pucp.ferretin.view.MSeguridad
             //Puede ser nuevo o modificar
             if (MS_UsuariosViewModel.usuario.dni != null)
             {
+                //MS_UsuariosViewModel.usuario.contrasena = this.contrasena;
                 MS_UsuarioService.actualizarUsuario(MS_UsuariosViewModel.usuario);
             }
             else
             {
+                //MS_UsuariosViewModel.usuario.contrasena = this.contrasena;
                 MS_UsuarioService.insertarUsuario(MS_UsuariosViewModel.usuario);
             }
             MS_UsuariosViewModel.statusTab = (int)MS_UsuariosViewModel.tabs.BUSQUEDA;
         }
 
+
+       /*private void pwboxContrasena_PasswordChanged(object sender, RoutedEventArgs e)
+        {
+            this.contrasena = pwboxContrasena.Password.ToString();
+        }*/
 
 
         /******************************************************/
