@@ -256,7 +256,7 @@ namespace pe.edu.pucp.ferretin.viewmodel.MSeguridad
         {
             try
             {
-                this.almacen = listaAlmacenes.Single(almacen => almacen.id == (short)id);
+                this.almacen = listaAlmacenes.Single(almacen => almacen.id == (int)id);
                 if (this.almacen.id_ubigeo != null)
                 {
                     selectedProvincia = this.almacen.UbigeoDistrito.UbigeoProvincia;
