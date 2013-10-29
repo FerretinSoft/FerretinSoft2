@@ -7,7 +7,7 @@
             <ImageBrush ImageSource="/Resources/texture_1_100.png" TileMode="FlipX" 
             Viewport="0,0,100,100" ViewportUnits="Absolute"/>
         </Grid.Background>
-        <Button x:Name="homeBtn" Content="" HorizontalAlignment="Left" Margin="20,20,0,0" VerticalAlignment="Top" Width="32" Height="32" >
+        <Button x:Name="homeBtn" Content="" HorizontalAlignment="Left" Margin="20,20,0,0" VerticalAlignment="Top" Width="32" Height="32" Click="homeBtn_Click" >
             <Button.Background>
                 <ImageBrush ImageSource="/Resources/home_32.png" Stretch="None"/>
             </Button.Background>
@@ -15,30 +15,30 @@
 
         <Label Content="Compras" Margin="198,35,0,0" FontSize="24" FontWeight="Bold" Height="42" VerticalAlignment="Top" HorizontalAlignment="Left" Width="110"/>
 
-        <Button x:Name="adminProveedoresBtn" Content="" HorizontalAlignment="Left" Margin="108,120,0,0" VerticalAlignment="Top" Width="32" Height="32" >
+        <Button x:Name="adminProveedoresBtn" Content="" HorizontalAlignment="Left" Margin="108,120,0,0" VerticalAlignment="Top" Width="32" Height="32" Click="adminProveedoresBtn_Click" >
             <Button.Background>
                 <ImageBrush ImageSource="/Resources/forward_32.png"/>
             </Button.Background>
         </Button>
 
-        <Button x:Name="solicitudAbastBtn" Content="" HorizontalAlignment="Left" Margin="108,180,0,0"  VerticalAlignment="Top" Width="32" Height="32" RenderTransformOrigin="0.44,-0.101" >
+        <Button x:Name="solicitudAbastBtn" Content="" HorizontalAlignment="Left" Margin="108,180,0,0"  VerticalAlignment="Top" Width="32" Height="32" RenderTransformOrigin="0.44,-0.101" Click="solicitudAbastBtn_Click" >
             <Button.Background>
                 <ImageBrush ImageSource="/Resources/forward_32.png"/>
             </Button.Background>
         </Button>
 
-        <Button x:Name="ordCompraBtn" Content="" HorizontalAlignment="Left" Margin="108,240,0,0" VerticalAlignment="Top" Width="32" Height="32">
+        <Button x:Name="ordCompraBtn" Content="" HorizontalAlignment="Left" Margin="108,240,0,0" VerticalAlignment="Top" Width="32" Height="32" Click="ordCompraBtn_Click">
             <Button.Background>
                 <ImageBrush ImageSource="/Resources/forward_32.png"/>
             </Button.Background>
         </Button>
 
-        <Button x:Name="repComprasBtn" Content="" HorizontalAlignment="Left" Margin="108,359,0,0" VerticalAlignment="Top" Width="32" Height="32" RenderTransformOrigin="0.44,-0.101" >
+        <Button x:Name="repComprasBtn" Content="" HorizontalAlignment="Left" Margin="108,359,0,0" VerticalAlignment="Top" Width="32" Height="32" RenderTransformOrigin="0.44,-0.101" Click="repComprasBtn_Click" >
             <Button.Background>
                 <ImageBrush ImageSource="/Resources/forward_32.png"/>
             </Button.Background>
         </Button>
-        <Button x:Name="gRemisioinBtn" Content="" HorizontalAlignment="Left" Margin="108,300,0,0" VerticalAlignment="Top" Width="32" Height="32" RenderTransformOrigin="0.44,-0.101">
+        <Button x:Name="gRemisioinBtn" Content="" HorizontalAlignment="Left" Margin="108,300,0,0" VerticalAlignment="Top" Width="32" Height="32" RenderTransformOrigin="0.44,-0.101" Click="gRemisioinBtn_Click">
             <Button.Background>
                 <ImageBrush ImageSource="/Resources/forward_32.png"/>
             </Button.Background>
