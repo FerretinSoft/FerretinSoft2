@@ -13,7 +13,8 @@ namespace pe.edu.pucp.ferretin.controller.MSeguridad
 {
     public class MS_UsuarioService : MS_ComunService
     {
-
+        /*******************************************************
+                            PARA USUARIOS
         /*******************************************************/
         public static IEnumerable<Usuario> _listaUsuarios = null;
         public static IEnumerable<Usuario> listaUsuarios
@@ -70,6 +71,10 @@ namespace pe.edu.pucp.ferretin.controller.MSeguridad
             db.SubmitChanges();
         }
 
+
+        /*******************************************************
+                            PARA EMPLEADOS
+        /*******************************************************/
         private static IEnumerable<Empleado> _listaEmpleados;
         private static IEnumerable<Empleado> listaEmpleados
         {
@@ -86,7 +91,7 @@ namespace pe.edu.pucp.ferretin.controller.MSeguridad
                 _listaEmpleados = value;
             }
         }
-
+        /*******************************************************/
         public static System.Collections.IEnumerable obtenerListaUsuariosBy(Usuario usuario, Empleado empleado)
         {
 
@@ -105,7 +110,6 @@ namespace pe.edu.pucp.ferretin.controller.MSeguridad
                    orderby u.nombre
                    select u;
         }
-
         /*******************************************************/
         public static IEnumerable<Usuario> buscar(string codigo, string nomUsuario, int perfil, string nombres, string apellidos, int estado)
         {
@@ -140,10 +144,10 @@ namespace pe.edu.pucp.ferretin.controller.MSeguridad
             }
         }
 
+        /*******************************************************
+                            PARA PERFILES
         /*******************************************************/
-
         private static IEnumerable<Perfil> _listaPerfiles;
-
         private static IEnumerable<Perfil> listaPerfiles
         {
             get
@@ -160,7 +164,7 @@ namespace pe.edu.pucp.ferretin.controller.MSeguridad
                 _listaPerfiles = value;
             }
         }
-
+        /*******************************************************/
         public static IEnumerable<Perfil> obtenerPerfiles()
         {
             return listaPerfiles;

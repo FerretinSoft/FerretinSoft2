@@ -14,26 +14,14 @@ using pe.edu.pucp.ferretin.viewmodel.Helper;
 
 namespace pe.edu.pucp.ferretin.viewmodel.MSeguridad
 {
-    public class MS_AdministrarUsuariosViewModel : ViewModelBase
+    public class MS_AdministrarPerfilesViewModel : ViewModelBase
     {
         #region Valores para el cuadro de Búsqueda
-        private String _searchCodigo = "";
-        public String searchCodigo { get { return _searchCodigo; } set { _searchCodigo = value; } }
-
-        private String _searchNombreUsuario = "";
-        public String searchNombreUsuario { get { return _searchNombreUsuario; } set { _searchNombreUsuario = value; } }
-
         private int _searchPerfil = 0;
         public int searchPerfil { get { return _searchPerfil; } set { _searchPerfil = value; NotifyPropertyChanged("searchPerfil"); } }
 
-        private String _searchNombres = "";
-        public String searchNombres { get { return _searchNombres; } set { _searchNombres = value; } }
-
-        private String _searchApellidos = "";
-        public String searchApellidos { get { return _searchApellidos; } set { _searchApellidos = value; } }
-
-        private int _searchEstado = 0;
-        public int searchEstado { get { return _searchEstado; } set { _searchEstado = value; NotifyPropertyChanged("searchEstado"); } }
+        private int _searchModulo = 0;
+        public int searchModulo { get { return _searchModulo; } set { _searchModulo = value; NotifyPropertyChanged("searchModulo"); } }
         #endregion
 
 
@@ -60,11 +48,11 @@ namespace pe.edu.pucp.ferretin.viewmodel.MSeguridad
                 //Si la pestaña es para agregar nuevo, limpio los input
                 switch (value)
                 {
-                    case tabs.BUSQUEDA: detallesTabHeader = "Agregar"; usuario = new Usuario(); break;//Si es agregar, creo un nuevo objeto Usuario
-                    case tabs.AGREGAR: detallesTabHeader = "Agregar"; usuario = new Usuario(); break;//Si es agregar, creo un nuevo objeto Usuario
+                    case tabs.BUSQUEDA: detallesTabHeader = "Agregar"; perfil = new Perfil(); break;//Si es agregar, creo un nuevo objeto Cliente
+                    case tabs.AGREGAR: detallesTabHeader = "Agregar"; perfil = new Perfil(); break;//Si es agregar, creo un nuevo objeto Cliente
                     case tabs.MODIFICAR: detallesTabHeader = "Modificar"; break;
                     case tabs.DETALLES: detallesTabHeader = "Detalles"; break;
-                    default: detallesTabHeader = "Agregar"; usuario = new Usuario(); break;//Si es agregar, creo un nuevo objeto Cliente
+                    default: detallesTabHeader = "Agregar"; perfil = new Perfil(); break;//Si es agregar, creo un nuevo objeto Cliente
                 }
                 //Cuando se cambia el status, tambien se tiene que cambiar el currentIndex del tab
                 //currentIndexTab = _statusTab == 0 ? 0 : 1;
@@ -79,7 +67,6 @@ namespace pe.edu.pucp.ferretin.viewmodel.MSeguridad
         {
             get { return _statusTab == tabs.BUSQUEDA ? 0 : 1; }
             set { statusTab = value == 0 ? tabs.BUSQUEDA : tabs.AGREGAR; }
-
         }
         /************************************************/
         private String _detallesTabHeader = "Agregar"; //Default
@@ -98,111 +85,116 @@ namespace pe.edu.pucp.ferretin.viewmodel.MSeguridad
         /************************************************/
         #endregion
 
-        #region Lista de Usuarios y Edición de Usuarios
-        /**************************************************/
-        private Usuario _usuario = new Usuario();
-        public Usuario usuario
+        #region Lista de Perfiles y Edición de Perfiles
+        /************************************************/
+        private Perfil _perfil = new Perfil();
+        public Perfil perfil
         {
             get
             {
-                return _usuario;
+                return _perfil;
             }
             set
             {
-                _usuario = value;
-                NotifyPropertyChanged("usuario");
+                _perfil = value;
+                NotifyPropertyChanged("perfil");
             }
         }
-        /**************************************************/
+        /************************************************/
+        /************************************************
         public IEnumerable<Perfil> perfiles
         {
             get
             {
                 return MS_UsuarioService.obtenerPerfiles();
             }
-        }
-        /**************************************************/
-        private IEnumerable<Usuario> _listaUsuarios;
-        public IEnumerable<Usuario> listaUsuarios
+         }
+         * lo mismo pero para modulos porque debemos traer la lista de modulos
+         * 
+         * /
+
+        /************************************************/
+        private IEnumerable<Perfil> _listaPerfiles;
+        public IEnumerable<Perfil> listaPerfiles
         {
             get
             {
-                _listaUsuarios = MS_UsuarioService.buscar(searchCodigo, searchNombreUsuario, searchPerfil, searchNombres, searchApellidos, searchEstado);
-                return _listaUsuarios;
+                _listaPerfiles = MS_PerfilService.buscar(searchPerfil, searchModulo);
+                return _listaPerfiles;
             }
             set
             {
-                _listaUsuarios = value;
-                NotifyPropertyChanged("listaUsuarios");
+                _listaPerfiles = value;
+                NotifyPropertyChanged("listaPerfiles");
             }
         }
         /**************************************************/
         #endregion
-        
+
         #region RalayCommand
         /**************************************************/
-        RelayCommand _actualizarListaUsuariosCommand;
-        public ICommand actualizarListaUsuariosCommand
+        RelayCommand _actualizarListaPerfilesCommand;
+        public ICommand actualizarListaPerfilesCommand
         {
             get
             {
-                if (_actualizarListaUsuariosCommand == null)
+                if (_actualizarListaPerfilesCommand == null)
                 {
-                    _actualizarListaUsuariosCommand = new RelayCommand(param => NotifyPropertyChanged("listaUsuarios"));
+                    _actualizarListaPerfilesCommand = new RelayCommand(param => NotifyPropertyChanged("listaPerfiles"));
                 }
-                return _actualizarListaUsuariosCommand;
+                return _actualizarListaPerfilesCommand;
             }
         }
         /**************************************************/
-        RelayCommand _agregarUsuarioCommand;
-        public ICommand agregarUsuarioCommand
+        RelayCommand _agregarPerfilCommand;
+        public ICommand agregarPerfilCommand
         {
             get
             {
-                if (_agregarUsuarioCommand == null)
+                if (_agregarPerfilCommand == null)
                 {
-                    _agregarUsuarioCommand = new RelayCommand(p => statusTab = tabs.AGREGAR);
+                    _agregarPerfilCommand = new RelayCommand(p => statusTab = tabs.AGREGAR);
                 }
-                return _agregarUsuarioCommand;
+                return _agregarPerfilCommand;
             }
         }
         /**************************************************/
-        RelayCommand _viewEditUsuarioCommand;
-        public ICommand viewEditUsuarioCommand
+        RelayCommand _viewEditPerfilCommand;
+        public ICommand viewEditPerfilCommand
         {
             get
             {
-                if (_viewEditUsuarioCommand == null)
+                if (_viewEditPerfilCommand == null)
                 {
-                    _viewEditUsuarioCommand = new RelayCommand(viewEditUsuario);
+                    _viewEditPerfilCommand = new RelayCommand(viewEditPerfil);
                 }
-                return _viewEditUsuarioCommand;
+                return _viewEditPerfilCommand;
             }
         }
         /**************************************************/
-        RelayCommand _saveUsuarioCommand;
-        public ICommand saveUsuarioCommand
+        RelayCommand _savePerfilCommand;
+        public ICommand savePerfilCommand
         {
             get
             {
-                if (_saveUsuarioCommand == null)
+                if (_savePerfilCommand == null)
                 {
-                    _saveUsuarioCommand = new RelayCommand(saveUsuario);
+                    _savePerfilCommand = new RelayCommand(savePerfil);
                 }
-                return _saveUsuarioCommand;
+                return _savePerfilCommand;
             }
         }
         /**************************************************/
-        RelayCommand _cancelUsuarioCommand;
-        public ICommand cancelUsuarioCommand
+        RelayCommand _cancelPerfilCommand;
+        public ICommand cancelPerfilCommand
         {
             get
             {
-                if (_cancelUsuarioCommand == null)
+                if (_cancelPerfilCommand == null)
                 {
-                    _cancelUsuarioCommand = new RelayCommand(cancelUsuario);
+                    _cancelPerfilCommand = new RelayCommand(cancelPerfil);
                 }
-                return _cancelUsuarioCommand;
+                return _cancelPerfilCommand;
             }
         }
         /**************************************************/
@@ -210,11 +202,11 @@ namespace pe.edu.pucp.ferretin.viewmodel.MSeguridad
 
         #region Comandos
         /**************************************************/
-        public void viewEditUsuario(Object id)
+        public void viewEditPerfil(Object id)
         {
             try
             {
-                this.usuario = listaUsuarios.Single(usuario => usuario.id == (int)id);
+                this.perfil = listaPerfiles.Single(perfil => perfil.id == (int)id);
                 //if (this.almacen.id_ubigeo != null)
                 //{
                 //    selectedProvincia = this.almacen.UbigeoDistrito.UbigeoProvincia;
@@ -228,43 +220,42 @@ namespace pe.edu.pucp.ferretin.viewmodel.MSeguridad
             }
         }
         /**************************************************/
-        public void saveUsuario(Object obj)
+        public void savePerfil(Object obj)
         {
             /*Para actualizar un usuario existente*/
-            if (usuario.id > 0)//Si existe
+            if (perfil.id > 0)//Si existe
             {
-                if (!MS_UsuarioService.enviarCambios())
+                if (!MS_PerfilService.enviarCambios())
                 {
-                    MessageBox.Show("No se pudo actualizar el usuario");
+                    MessageBox.Show("No se pudo actualizar el perfil");
                 }
                 else
                 {
-                    MessageBox.Show("El usuario fue actualizado con éxito");
+                    MessageBox.Show("El perfil fue actualizado con éxito");
                 }
             }
             /*Para agregar un usuario nuevo*/
             else
             {
-                if (!MS_UsuarioService.insertarUsuario(usuario))
+                if (!MS_PerfilService.insertarPerfil(perfil))
                 {
-                    MessageBox.Show("No se pudo agregar el nuevo usuario");
+                    MessageBox.Show("No se pudo agregar el nuevo perfil");
                 }
                 else
                 {
-                    MessageBox.Show("El usuario fue agregado con éxito");
+                    MessageBox.Show("El perfil fue agregado con éxito");
                 }
             }
-            NotifyPropertyChanged("listaUsuarios");
+            NotifyPropertyChanged("listaPerfiles");
         }
         /**************************************************/
-        public void cancelUsuario(Object obj)
+        public void cancelPerfil(Object obj)
         {
             this.statusTab = tabs.BUSQUEDA;
-            listaUsuarios = MS_UsuarioService.listaUsuarios;
+            listaPerfiles = MS_PerfilService.listaPerfiles;
         }
         /**************************************************/
         #endregion
 
     }
 }
-
