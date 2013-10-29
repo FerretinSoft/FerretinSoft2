@@ -136,6 +136,7 @@ namespace pe.edu.pucp.ferretin.viewmodel.MSeguridad
         #endregion
         
         #region RalayCommand
+        /**************************************************/
         RelayCommand _actualizarListaUsuariosCommand;
         public ICommand actualizarListaUsuariosCommand
         {
@@ -148,6 +149,7 @@ namespace pe.edu.pucp.ferretin.viewmodel.MSeguridad
                 return _actualizarListaUsuariosCommand;
             }
         }
+        /**************************************************/
         RelayCommand _agregarUsuarioCommand;
         public ICommand agregarUsuarioCommand
         {
@@ -160,6 +162,7 @@ namespace pe.edu.pucp.ferretin.viewmodel.MSeguridad
                 return _agregarUsuarioCommand;
             }
         }
+        /**************************************************/
         RelayCommand _viewEditUsuarioCommand;
         public ICommand viewEditUsuarioCommand
         {
@@ -172,6 +175,7 @@ namespace pe.edu.pucp.ferretin.viewmodel.MSeguridad
                 return _viewEditUsuarioCommand;
             }
         }
+        /**************************************************/
         RelayCommand _saveUsuarioCommand;
         public ICommand saveUsuarioCommand
         {
@@ -184,6 +188,7 @@ namespace pe.edu.pucp.ferretin.viewmodel.MSeguridad
                 return _saveUsuarioCommand;
             }
         }
+        /**************************************************/
         RelayCommand _cancelUsuarioCommand;
         public ICommand cancelUsuarioCommand
         {
@@ -196,14 +201,16 @@ namespace pe.edu.pucp.ferretin.viewmodel.MSeguridad
                 return _cancelUsuarioCommand;
             }
         }
+        /**************************************************/
         #endregion
 
         #region Comandos
+        /**************************************************/
         public void viewEditUsuario(Object id)
         {
             try
             {
-                //this.usuario = listaAlmacenes.Single(almacen => almacen.id == (short)id);
+                this.usuario = listaUsuarios.Single(usuario => usuario.id == (int)id);
                 //if (this.almacen.id_ubigeo != null)
                 //{
                 //    selectedProvincia = this.almacen.UbigeoDistrito.UbigeoProvincia;
@@ -216,10 +223,11 @@ namespace pe.edu.pucp.ferretin.viewmodel.MSeguridad
                 MessageBox.Show(e.Message);
             }
         }
+        /**************************************************/
         public void saveUsuario(Object obj)
         {
-
-            if (usuario.id_empleado != null)//Si existe
+            /*Para actualizar un usuario existente*/
+            if (usuario.id > 0)//Si existe
             {
                 if (!MS_UsuarioService.enviarCambios())
                 {
@@ -227,9 +235,10 @@ namespace pe.edu.pucp.ferretin.viewmodel.MSeguridad
                 }
                 else
                 {
-                    MessageBox.Show("El usuario fue guardado con éxito");
+                    MessageBox.Show("El usuario fue actualizado con éxito");
                 }
             }
+            /*Para agregar un usuario nuevo*/
             else
             {
                 if (!MS_UsuarioService.insertarUsuario(usuario))
@@ -243,11 +252,13 @@ namespace pe.edu.pucp.ferretin.viewmodel.MSeguridad
             }
             NotifyPropertyChanged("listaAlmacenes");
         }
+        /**************************************************/
         public void cancelUsuario(Object obj)
         {
             this.statusTab = tabs.BUSQUEDA;
             listaUsuarios = MS_UsuarioService.listaUsuarios;
         }
+        /**************************************************/
         #endregion
 
     }

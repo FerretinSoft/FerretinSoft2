@@ -112,16 +112,17 @@ namespace pe.edu.pucp.ferretin.controller.MSeguridad
             return from u in listaUsuarios
                    where (
                        //Cada fila es un filtro
-                   (u.id_empleado != null && u.id_empleado == perfil
+                   (u.codUsuario != null && u.codUsuario.Contains(codigo.ToLower().Trim())
                        && u.nombre != null && u.nombre.ToLower().Contains(nomUsuario.ToLower().Trim())
                        && (perfil == 0 || (u.id_perfil != null && u.id_perfil.Equals(perfil)))
                        && u.Empleado != null &&
                             (u.Empleado.nombre != null && u.Empleado.nombre.ToLower().Contains(nombres.ToLower().Trim())
                             && u.Empleado.apPaterno != null && u.Empleado.apPaterno.ToLower().Contains(apellidos.ToLower().Trim())
-                       //&& u.Empleado.apMaterno != null && u.Empleado.apMaterno.ToLower().Contains(empleado.apMaterno.ToLower().Trim()) 
-                            )
+                       //&& u.Empleado.apMaterno != null && u.Empleado.apMaterno.ToLower().Contains(apellidos.apMaterno.ToLower().Trim()) 
+                       )
                        && (estado == 0 || (u.estado != null && u.estado.Equals(estado == 1 ? true : false)))
-                    ))
+                    )
+                    )
                    orderby u.nombre
                    select u;
         }

@@ -53,9 +53,9 @@
                     </ComboBox>
                     <!--Fin textBox-->
 
-                    <Button Command="{Binding actualizarListaUsuariosCommand}" x:Name="buscarUsuariosBtn" HorizontalAlignment="Left" Margin="629,77,0,0" VerticalAlignment="Top" Width="32" Height="32" RenderTransformOrigin="0.3,-0.35" Grid.RowSpan="2">
+                    <Button Command="{Binding actualizarListaUsuariosCommand}" x:Name="buscarUsuariosBtn" HorizontalAlignment="Left" Margin="629,77,0,0" VerticalAlignment="Top" Width="32" Height="32" RenderTransformOrigin="0.3,-0.35" Grid.RowSpan="3">
                         <Button.Background>
-                            <ImageBrush ImageSource="../Resources/refresh2_48.png"/>
+                            <ImageBrush ImageSource="/Resources/refresh2_48.png"/>
                         </Button.Background>
                     </Button>
                     <!-- Aca se encuentra el Grid de la ventana-->
@@ -73,14 +73,14 @@
                                 </DataGridHyperlinkColumn.ElementStyle>
                             </DataGridHyperlinkColumn>
                             -->
-                            <DataGridTemplateColumn Width="100" Header="Nro Documento">
+                            <DataGridTemplateColumn Width="1.7*" Header="Codigo">
                                 <DataGridTemplateColumn.CellTemplate>
                                     <DataTemplate>
                                         <TextBlock>
                                         <Hyperlink 
                                             Command="{Binding Path=DataContext.viewEditUsuarioCommand, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type DataGrid}}}" 
                                             CommandParameter="{Binding Path=id}">
-                                            <TextBlock Text="{Binding Path=dni}" />
+                                            <TextBlock Text="{Binding Path=codUsuario}" />
                                         </Hyperlink>
                                         </TextBlock>
                                     </DataTemplate>
@@ -88,11 +88,11 @@
                             </DataGridTemplateColumn>
 
                             <!-- Otras columnas -->
-                            <DataGridTextColumn Width="3*" Binding="{Binding Path=nombre}" ClipboardContentBinding="{x:Null}" Header="Nombre de Usuario"/>
-                            <DataGridTextColumn Width="3*" Binding="{Binding Path=Empleado.nombre}"  Header="Nombres"/>
-                            <DataGridTextColumn Width="3*" Binding="{Binding Path=Empleado.apPaterno}" Header="Apellidos"/>
-                            <DataGridTextColumn Width="2.5*" Binding="{Binding Path=Perfil.nombre}"  Header="Perfil"/>
-                            <DataGridTextColumn Width="2*" Binding="{Binding Path=estadoAux}"   Header="Estado"/>
+                            <DataGridTextColumn Width="2*" Binding="{Binding Path=nombre}" ClipboardContentBinding="{x:Null}" Header="UserName"/>
+                            <DataGridTextColumn Width="2.5*" Binding="{Binding Path=Empleado.nombre}" ClipboardContentBinding="{x:Null}" Header="Nombres"/>
+                            <DataGridTextColumn Width="3.2*" Binding="{Binding Path=Empleado.apPaterno}" ClipboardContentBinding="{x:Null}" Header="Apellidos"/>
+                            <DataGridTextColumn Width="5*" Binding="{Binding Path=Perfil.nombre}" ClipboardContentBinding="{x:Null}" Header="Perfil"/>
+                            <DataGridTextColumn Width="1.5*" Binding="{Binding Path=estadoAux}" ClipboardContentBinding="{x:Null}" Header="Estado"/>
                         </DataGrid.Columns>
                     </DataGrid>
                     <ToolBar HorizontalAlignment="Left" Margin="10,25,0,0" Grid.Row="1" VerticalAlignment="Top" Height="24" Width="58" Grid.RowSpan="2">
@@ -109,7 +109,10 @@
             </TabItem>
 
             <!-- TAB EDICION-->
-            <TabItem Header="Edición">
+            <TabItem x:Name="detallesTab" Margin="1,-1,-5,-2">
+                <TabItem.Header>
+                    <TextBlock Text="{Binding detallesTabHeader,Mode=OneWay,FallbackValue=Agregar}"/>
+                </TabItem.Header>
                 <Grid Background="#FFE5E5E5">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="3*"/>
@@ -117,9 +120,9 @@
                         <ColumnDefinition Width="43*"/>
                     </Grid.ColumnDefinitions>
                     <Image HorizontalAlignment="Left" Height="100" VerticalAlignment="Top" Width="95" Source="/Resources/cliente_1.png" Stretch="Fill" Margin="165,13,0,0" Grid.Column="1"/>
-                    <Label Content="Código:" HorizontalAlignment="Left" Margin="276.747,43,0,0" VerticalAlignment="Top" Grid.ColumnSpan="2" Grid.Column="1"/>
-                    <Label Content="DNI:" HorizontalAlignment="Left" Margin="276.747,73,0,0" VerticalAlignment="Top" Grid.Column="1"/>
-                    <Label Content="Nombre de Usuario:" HorizontalAlignment="Left" Margin="152.747,119,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.464,1.231" Grid.Column="1"/>
+                    <Label Content="ID Empleado:" HorizontalAlignment="Left" Margin="276.747,43,0,0" VerticalAlignment="Top" Grid.ColumnSpan="2" Grid.Column="1"/>
+                    <Label Content="Codigo Usuario:" HorizontalAlignment="Left" Margin="277,73,0,0" VerticalAlignment="Top" Grid.Column="1" Height="48" Grid.ColumnSpan="2" Width="97"/>
+                    <Label Content="UserName:" HorizontalAlignment="Left" Margin="152.747,119,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.464,1.231" Grid.Column="1"/>
                     <Label Content="Nombre:" HorizontalAlignment="Left" Margin="152.747,147,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.464,1.231" Grid.Column="1"/>
                     <Label Content="Apellido Paterno:" HorizontalAlignment="Left" Margin="152.747,174,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.464,1.231" Grid.Column="1"/>
                     <Label Content="Apellido Materno:" HorizontalAlignment="Left" Margin="152.747,202,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.464,1.231" Grid.Column="1"/>
@@ -129,8 +132,8 @@
                     <Label Content="Confirmar Contraseña:" HorizontalAlignment="Left" Margin="149.747,311,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.464,1.231" Grid.Column="1"/>-->
 
                     <!-- Text Box de la ventana-->
-                    <TextBox Text="4141910" HorizontalAlignment="Left" Height="23" Margin="20,45,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="79" IsEnabled="False" Grid.Column="2" x:Name="codigoUsuarioTxtBox"/>
-                    <TextBox Text="{Binding Path=usuario.dni, Mode=TwoWay, ValidatesOnExceptions=true, NotifyOnValidationError=true}" x:Name="dniUsuarioTxtBox" HorizontalAlignment="Left" Height="23" Margin="20,75,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="79" Grid.Column="2" IsEnabled="True"/>
+                    <TextBox Text="{Binding Path=usuario.id_empleado, Mode=TwoWay, ValidatesOnExceptions=true, NotifyOnValidationError=true}" HorizontalAlignment="Left" Height="23" Margin="59,46,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="79" IsEnabled="False" Grid.Column="2" x:Name="codigoUsuarioTxtBox"/>
+                    <TextBox Text="{Binding Path=usuario.codUsuario, Mode=TwoWay, ValidatesOnExceptions=true, NotifyOnValidationError=true}" x:Name="dniUsuarioTxtBox" HorizontalAlignment="Left" Height="23" Margin="59,74,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="79" Grid.Column="2" IsEnabled="True"/>
                     <TextBox Text="{Binding Path=usuario.nombre, Mode=TwoWay, ValidatesOnExceptions=true, NotifyOnValidationError=true}" HorizontalAlignment="Left" Height="23" Margin="287,121,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="225" Grid.ColumnSpan="2" x:Name="nombreUsuarioTxtBox" Grid.Column="1"/>
                     <TextBox Text="{Binding Path=usuario.Empleado.nombre, Mode=TwoWay, ValidatesOnExceptions=true, NotifyOnValidationError=true}" HorizontalAlignment="Left" Height="23" Margin="285.747,149,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="225" Grid.ColumnSpan="2" IsEnabled="False" Grid.Column="1" />
                     <TextBox Text="{Binding Path=usuario.Empleado.apPaterno, Mode=TwoWay, ValidatesOnExceptions=true, NotifyOnValidationError=true}" HorizontalAlignment="Left" Height="23" Margin="285.747,177,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="225" Grid.ColumnSpan="2" IsEnabled="False" Grid.Column="1" />
