@@ -24,11 +24,6 @@ namespace pe.edu.pucp.ferretin.view.MCompras
             InitializeComponent();
         }
 
-        private void edOrdenCompraBtn_Click(object sender, RoutedEventArgs e)
-        {
-            ordenesCompraTab.SelectedIndex = 1;
-        }
-
         private void nuevoProdProveedorBtn_Click(object sender, RoutedEventArgs e)
         {
             MC_AgregarProdProveedor agprodp = new MC_AgregarProdProveedor();
@@ -43,21 +38,11 @@ namespace pe.edu.pucp.ferretin.view.MCompras
             busqProv.ShowDialog();
         }
 
-        private void cancelarBtn_Click(object sender, RoutedEventArgs e)
-        {
-            ordenesCompraTab.SelectedIndex = 0;
-        }
-
         private void buscarProveedorBtn2_Click(object sender, RoutedEventArgs e)
         {
             MC_AdministrarProveedorWindow busqProv = new MC_AdministrarProveedorWindow();
             busqProv.Owner = this;
             busqProv.ShowDialog();
-        }
-
-        private void TextBox_TextChanged(object sender, TextChangedEventArgs e)
-        {
-
         }
     }
 }
