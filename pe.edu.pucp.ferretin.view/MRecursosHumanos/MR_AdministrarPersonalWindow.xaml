@@ -97,14 +97,14 @@
                     <Label Content="Código:" HorizontalAlignment="Left" Margin="72.75,22,0,0" VerticalAlignment="Top" Grid.Column="3"/>
                     <TextBox Text="{Binding Path=empleado.codEmpleado, Mode=TwoWay,  ValidatesOnExceptions=true, NotifyOnValidationError=true}"  HorizontalAlignment="Left" Height="23" Margin="148.75,26,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="144" IsEnabled="False" Grid.Column="3"/>
                     <Label Content="DNI:" HorizontalAlignment="Left" Margin="72.75,53,0,0" VerticalAlignment="Top" Grid.Column="3"/>
-                    <TextBox HorizontalAlignment="Left" Height="23" Margin="148.75,57,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="144" Grid.Column="3"/>
+                    <TextBox Text="{Binding Path=empleado.dni, Mode=TwoWay,  ValidatesOnExceptions=true, NotifyOnValidationError=true}"  HorizontalAlignment="Left" Height="23" Margin="149,57,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="144" Grid.Column="3"/>
                     <Label Content="Nombre:" HorizontalAlignment="Left" Margin="10,119,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.464,1.231" Grid.ColumnSpan="4"/>
-                    <TextBox HorizontalAlignment="Left" Height="23" Margin="74,123,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="219" Grid.Column="3"/>
+                    <TextBox Text="{Binding Path=empleado.nombre, Mode=TwoWay,  ValidatesOnExceptions=true, NotifyOnValidationError=true}"  HorizontalAlignment="Left" Height="23" Margin="74,123,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="219" Grid.Column="3"/>
                     <Label Content="Apellido Paterno:" HorizontalAlignment="Left" Margin="10,150,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.464,1.231" Grid.ColumnSpan="4"/>
-                    <TextBox x:Name="apPatTxtBox" HorizontalAlignment="Left" Height="23" Margin="73.75,154,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="219" Grid.Column="3"/>
+                    <TextBox Text="{Binding Path=empleado.apPaterno, Mode=TwoWay,  ValidatesOnExceptions=true, NotifyOnValidationError=true}" HorizontalAlignment="Left" Height="23" Margin="73.75,154,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="219" Grid.Column="3"/>
                     <Label Content="Distrito:" HorizontalAlignment="Left" Margin="145,291,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.464,1.231" Grid.Column="3"/>
                     <Label Content="Apellido Materno:" HorizontalAlignment="Left" Margin="10,181,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.464,1.231" Grid.ColumnSpan="4"/>
-                    <TextBox x:Name="apMatTxtBox" HorizontalAlignment="Left" Height="23" Margin="73.75,185,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="219" Grid.Column="3"/>
+                    <TextBox Text="{Binding Path=empleado.apMaterno, Mode=TwoWay,  ValidatesOnExceptions=true, NotifyOnValidationError=true}" HorizontalAlignment="Left" Height="23" Margin="73.75,185,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="219" Grid.Column="3"/>
                     <ComboBox ItemsSource="{Binding distrito}" SelectedIndex="{Binding selectedDistrito, Mode=TwoWay}" DisplayMemberPath="nombre" SelectedValuePath="id" HorizontalAlignment="Left" Margin="196,295,0,0" VerticalAlignment="Top" Width="97" Grid.Column="3"/>
                     <Label Content="Dpto:" HorizontalAlignment="Left" Margin="148,260,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.464,1.231" Grid.Column="3"/>
                     <Label Content="País:" HorizontalAlignment="Left" Margin="12,260,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.464,1.231" Grid.ColumnSpan="4"/>
@@ -112,23 +112,23 @@
                     <ComboBox ItemsSource="{Binding departamento}" SelectedIndex="{Binding selectedDepartamento, Mode=TwoWay}" DisplayMemberPath="nombre" HorizontalAlignment="Left" Margin="196,260,0,0" VerticalAlignment="Top" Width="97" Grid.Column="3" />
                     <Label Content="Telf1:" HorizontalAlignment="Left" Margin="12,335,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.464,1.231" Grid.ColumnSpan="4"/>
                     <Label Content="Telf2:" HorizontalAlignment="Left" Margin="151,335,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.464,1.231" Grid.Column="3"/>
-                    <TextBox x:Name="telf1TxtBox" HorizontalAlignment="Left" Height="23" Margin="47,335,0,0" TextWrapping="Wrap" Text="999999999" VerticalAlignment="Top" Width="97" Grid.Column="3"/>
-                    <TextBox x:Name="telf2TxtBox" HorizontalAlignment="Left" Height="23" Margin="196,338,0,0" TextWrapping="Wrap" Text="22222222" VerticalAlignment="Top" Width="97" Grid.Column="3"/>
+                    <TextBox Text="{Binding Path=empleado.telefono1, Mode=TwoWay,  ValidatesOnExceptions=true, NotifyOnValidationError=true}" HorizontalAlignment="Left" Height="23" Margin="47,335,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="97" Grid.Column="3"/>
+                    <TextBox Text="{Binding Path=empleado.telefono2, Mode=TwoWay,  ValidatesOnExceptions=true, NotifyOnValidationError=true}"  HorizontalAlignment="Left" Height="23" Margin="196,338,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="97" Grid.Column="3"/>
                     <Label Content="Email:" HorizontalAlignment="Left" Margin="12,374,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.464,1.231" Grid.ColumnSpan="4"/>
-                    <TextBox HorizontalAlignment="Left" Height="23" Margin="47,374,0,0" TextWrapping="Wrap" Text="example@domain.com" VerticalAlignment="Top" Width="246" Grid.Column="3"/>
+                    <TextBox  Text="{Binding Path=empleado.email, Mode=TwoWay,  ValidatesOnExceptions=true, NotifyOnValidationError=true}" HorizontalAlignment="Left" Height="23" Margin="47,374,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="246" Grid.Column="3"/>
                     <Label Content="Sexo:" HorizontalAlignment="Left" Margin="151,408,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.464,1.231" Grid.Column="3"/>
                     <ComboBox HorizontalAlignment="Left" Margin="198,412,0,0" VerticalAlignment="Top" Width="97" SelectedIndex="0" Grid.Column="3">
                         <ListBoxItem Content="Masculino"/>
                         <ListBoxItem Content="Femenino"/>
                     </ComboBox>
                     <Label Content="Fecha Nac." HorizontalAlignment="Left" Margin="12,408,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.464,1.231" Grid.ColumnSpan="4"/>
-                    <DatePicker HorizontalAlignment="Left" Margin="49,410,0,0" VerticalAlignment="Top" Grid.Column="3" Width="97"/>
+                    <DatePicker SelectedDate="{Binding Path=empleado.fecNacimiento,Mode=TwoWay}"  HorizontalAlignment="Left" Margin="49,410,0,0" VerticalAlignment="Top" Grid.Column="3" Width="97"/>
                     <Button Content="GUARDAR" HorizontalAlignment="Left" Margin="102,0,0,12" VerticalAlignment="Bottom" Width="75" RenderTransformOrigin="1.347,-0.05" Grid.Column="4" Height="30"/>
                     <Label Content="Fecha ingreso:" HorizontalAlignment="Left" Margin="25,22,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.464,1.231" Grid.Column="4"/>
                     <DatePicker HorizontalAlignment="Left" Margin="154,24,0,0" VerticalAlignment="Top" Grid.Column="4" Width="181"/>
                     <Button Content="CANCELAR" HorizontalAlignment="Left" Margin="207,0,0,13" VerticalAlignment="Bottom" Width="75" RenderTransformOrigin="1.347,-0.05" Grid.Column="4" Height="30"/>
                     <Label Content="Dirección:&#x9;" HorizontalAlignment="Left" Margin="10,213,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.464,1.231" Grid.ColumnSpan="4"/>
-                    <TextBox x:Name="dirTxtBox" HorizontalAlignment="Left" Height="23" Margin="73.75,217,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="219" Grid.Column="3"/>
+                    <TextBox Text="{Binding Path=empleado.direccion, Mode=TwoWay,  ValidatesOnExceptions=true, NotifyOnValidationError=true}"  HorizontalAlignment="Left" Height="23" Margin="73.75,217,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="219" Grid.Column="3"/>
                     <ComboBox ItemsSource="{Binding cargo}"  SelectedIndex="{Binding selectedCargo,Mode=TwoWay}"  DisplayMemberPath="nombre" SelectedValuePath="id" HorizontalAlignment="Left" Margin="74,57,0,0" VerticalAlignment="Top" Width="90" Grid.Column="4"/>
                     <Label Content="Grado de instrucción:" HorizontalAlignment="Left" Margin="25,87,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.464,1.231" Grid.Column="4"/>
                     <ComboBox HorizontalAlignment="Left" Margin="152,91,0,0" VerticalAlignment="Top" Width="181" IsReadOnly="True" SelectedIndex="0" Grid.Column="4">
