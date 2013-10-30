@@ -48,6 +48,7 @@
     <Compile Include="Helper\RelayCommand.cs" />
     <Compile Include="Helper\TreeViewHelper.cs" />
     <Compile Include="MAlmacen\MA_MantenimientoCategoriasViewModel.cs" />
+    <Compile Include="MCompras\MC_ProveedoresViewModel.cs" />
     <Compile Include="MSeguridad\MS_AdministrarTiendasViewModel.cs" />
     <Compile Include="MVentas\MV_ClientesViewModel.cs" />
     <Compile Include="Base\ViewModelBase.cs" />
@@ -64,7 +65,6 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="MCompras\" />
     <Folder Include="MRecursosHumanos\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
