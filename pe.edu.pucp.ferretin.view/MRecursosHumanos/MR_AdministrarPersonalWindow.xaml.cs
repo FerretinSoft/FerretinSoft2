@@ -31,24 +31,6 @@ namespace pe.edu.pucp.ferretin.view.MRecursosHumanos
                   
         }
 
-        private void nuevoEmpleadoBtn_Click(object sender, RoutedEventArgs e)
-        {
-         
-        }
-
-        private void edEmpleadoBtn_Click(object sender, RoutedEventArgs e)
-        {
-            
-        }
-
-
-
-        public void codigoPersonal_Click(object sender, RoutedEventArgs e)
-        {
-
-
-        }
-
 
 
 

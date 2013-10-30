@@ -67,13 +67,17 @@ namespace pe.edu.pucp.ferretin.controller.MRecursosHumanos
             db.SubmitChanges();
         }
 
-        public static IEnumerable<Empleado> buscarEmpleados(string searchDni, string searchNombre, Cargo searchCargo, Tienda searchTienda, int searchCodigo)
-        {
-            return listaEmpleados.Where(e => e.dni != null && e.dni.Contains(searchDni))
-               .Where(e => e.nombre != null && e.nombre.Contains(searchNombre));
 
-            //COMPLETAR
-            
+        public static IEnumerable<Empleado> buscarEmpleados(string searchDNI, string searchNombre, int searchCodigo, Cargo searchCargo, Tienda searchTienda)
+        {
+            return listaEmpleados.Where(e => e.dni != null && e.dni.Contains(searchDNI))
+              .Where(e => e.nombreCompleto.Contains(searchNombre))
+              .Where(e => (searchCodigo <=0) || (e.codEmpleado == searchCodigo))
+              //estado 1=inactivo, 2=activo
+              .Where(e => searchTienda == null || searchTienda.id <= 0 || (e.EmpleadoTienda.Single(et => et.estado == 2).Tienda == searchTienda))
+              .Where(e => searchCargo == null || searchCargo.id <= 0 || (e.EmpleadoTienda.Single(et=> et.estado == 2).Cargo == searchCargo ))
+              ;
+
         }
     }
 }
