@@ -30,14 +30,13 @@
                         <RowDefinition Height="125*"/>
                     </Grid.RowDefinitions>
                     <GroupBox Header="Parámetros" Margin="5,2,5,4" BorderBrush="Black" Grid.ColumnSpan="2"/>
-                    <Label Content="Perfil:" HorizontalAlignment="Left" Height="26" VerticalAlignment="Top" Width="54" Margin="21,21,0,0"/>
-                    <Label Content="Módulo:" HorizontalAlignment="Left" Height="26" VerticalAlignment="Top" Width="62" Margin="261,21,0,0" Grid.Column="1"/>
+                    <Label Content="Módulo:" HorizontalAlignment="Left" Height="26" VerticalAlignment="Top" Width="54" Margin="21,21,0,0"/>
+                    <Label Content="Descripción:" HorizontalAlignment="Left" Height="26" VerticalAlignment="Top" Width="80" Margin="222,25,0,0" Grid.Column="1" RenderTransformOrigin="0.781,0.538"/>
 
                     <!--Aca estan los textBox de la ventana-->
                     <!--checkbox perfil-->
-                    <ComboBox ItemsSource="{Binding perfiles,Mode=OneWay}" SelectedIndex="{Binding searchPerfil, Mode=TwoWay}" DisplayMemberPath="nombre" x:Name="perfilCombo" HorizontalAlignment="Left" Margin="75,25,0,0" VerticalAlignment="Top" Width="116" Height="22" Grid.ColumnSpan="2">
-                        
-                    </ComboBox>
+                    <TextBox Text="{Binding searchDescripcion}" HorizontalAlignment="Left" Margin="305,27,0,0" VerticalAlignment="Top" Width="182" Height="22" Grid.Column="1"/>
+
                     <!--
                     <ComboBox SelectedIndex="{Binding searchPerfil, Mode=TwoWay}" x:Name="perfilCombo" HorizontalAlignment="Left" Margin="10,25,0,0" VerticalAlignment="Top" Width="133" Height="22" Grid.Column="1">
                         <CheckBox Content="Todos" IsChecked="True"/>
@@ -49,7 +48,7 @@
                     </ComboBox>
                     -->
                     <!--checkbox modulo-->
-                    <ComboBox SelectedIndex="{Binding searchModulo, Mode=TwoWay}" x:Name="moduloCombo" HorizontalAlignment="Left" Margin="328,25,0,0" VerticalAlignment="Top" Width="133" Height="22" Grid.Column="1">
+                    <ComboBox SelectedIndex="{Binding searchModulo, Mode=TwoWay}" HorizontalAlignment="Left" Margin="80,25,0,0" VerticalAlignment="Top" Width="133" Height="22" Grid.ColumnSpan="2">
                         <ComboBoxItem Content="Todos"/>
                         <ComboBoxItem Content="Almacén"/>
                         <ComboBoxItem Content="Compras"/>
@@ -69,7 +68,7 @@
                     <DataGrid ItemsSource="{Binding Path=listaPerfiles,Mode=OneWay}" x:Name="perfilesGrid" Margin="5,30,5,5" Grid.Row="1" Grid.RowSpan="2" Grid.ColumnSpan="2"  AutoGenerateColumns="False" CanUserAddRows="False" CanUserDeleteRows="False" IsReadOnly="True" >
                         <DataGrid.Columns>
                             <!-- Columnas del Grid -->
-                            
+
                             <!--
                             <DataGridHyperlinkColumn Width="2*" Binding="{Binding Path=nombre}" Header="Perfil">
                                 <DataGridHyperlinkColumn.ElementStyle>
@@ -78,7 +77,7 @@
                                     </Style>
                                 </DataGridHyperlinkColumn.ElementStyle>
                             </DataGridHyperlinkColumn>
-                            -->                            
+                            -->
                             <DataGridTemplateColumn Width="3*" Header="Perfil">
                                 <DataGridTemplateColumn.CellTemplate>
                                     <DataTemplate>
@@ -94,7 +93,7 @@
                             </DataGridTemplateColumn>
 
                             <!-- Otras columnas -->
-                            <DataGridTextColumn Width="3*" Binding="{Binding Path=id}" ClipboardContentBinding="{x:Null}" Header="Módulo"/>
+                            <DataGridTextColumn Width="3*" Binding="{Binding Path=moduloNombre}" ClipboardContentBinding="{x:Null}" Header="Módulo"/>
                             <DataGridTextColumn Width="4*" Binding="{Binding Path=descripcion}" ClipboardContentBinding="{x:Null}" Header="Descripción"/>
                         </DataGrid.Columns>
                     </DataGrid>
@@ -188,7 +187,7 @@
 
                         <TreeViewItem x:Name="Compras" Header="Compras">
 
-                            <TreeViewItem Header="Cotizaciones"/>
+                            <TreeViewItem  Header="Cotizaciones"/>
                             <TreeViewItem Header="Ordenes de Compra"/>
                             <TreeViewItem Header="Administración de Proveedores"/>
                             <TreeViewItem Header="Reportes de Compras"/>
