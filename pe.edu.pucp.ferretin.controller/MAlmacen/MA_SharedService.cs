@@ -25,5 +25,19 @@ namespace pe.edu.pucp.ferretin.controller.MAlmacen
                 _estadosMovimiento = value;
             }
         }
+
+        private static IEnumerable<MovimientoTipo> _tiposMovimiento;
+        public static IEnumerable<MovimientoTipo> tiposMovimiento
+        {
+            get
+            {
+                if (_tiposMovimiento == null) _tiposMovimiento = db.MovimientoTipo;
+                return _tiposMovimiento;
+            }
+            set
+            {
+                _tiposMovimiento = value;
+            }
+        }
     }
 }

@@ -10,15 +10,15 @@ namespace pe.edu.pucp.ferretin.controller.MAlmacen
 {
     public class MA_MovimientosService : MA_ComunService
     {
-       private static IEnumerable<Movimiento> _listaMovimientos;
+       private static List<Movimiento> _listaMovimientos;
 
-        public static IEnumerable<Movimiento> ListaMovimientos
+        public static List<Movimiento> ListaMovimientos
         {
             get
             {
                 if (_listaMovimientos == null)
                 {
-                    _listaMovimientos = db.Movimiento;
+                    _listaMovimientos = db.Movimiento.ToList();
                 }
                 
                 //Usando concurrencia pesimista:
@@ -42,16 +42,18 @@ namespace pe.edu.pucp.ferretin.controller.MAlmacen
             return movimiento;
         }
 
-        public static IEnumerable<Movimiento> ObtenerListaMovimientos(Dictionary<string, object> parametros)
+        public static List<Movimiento> ObtenerListaMovimientos(Dictionary<string, object> parametros)
         {
-            return from m in ListaMovimientos
-                   where
-                   ((!parametros.ContainsKey("tienda") || m.Tienda == null || m.id_almacen_desde == (int)parametros["tienda"]) &&
+
+            var result = from m in ListaMovimientos
+                    where
+                    ((!parametros.ContainsKey("tienda") || m.Tienda == null || m.id_almacen_desde == (int)parametros["tienda"]) &&
                     (!parametros.ContainsKey("estado") || m.MovimientoEstado == null || m.id_estado == (int)parametros["estado"]) &&
                     (!parametros.ContainsKey("fechaDesde") || m.fecha >= (DateTime)parametros["fechaDesde"])  && 
                     (!parametros.ContainsKey("fechaDesde") || m.fecha <= (DateTime)parametros["fechaHasta"]))
-                   orderby m.fecha
-                   select m;
+                    orderby m.fecha
+                    select m;
+            return result.ToList();
         }
 
         public static void ActualizarMovimiento(Movimiento mov)
