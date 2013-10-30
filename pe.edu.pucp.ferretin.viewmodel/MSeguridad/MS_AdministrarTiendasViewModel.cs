@@ -16,6 +16,15 @@ namespace pe.edu.pucp.ferretin.viewmodel.MSeguridad
     public class MS_AdministrarTiendasViewModel : ViewModelBase
     {
         #region Valores para el cuadro de Búsqueda
+
+
+        public String _lunesHoraInicio = "";
+        public String lunesHoraInicio { get { return _lunesHoraInicio; } set { lunesHoraInicio = value; NotifyPropertyChanged("lunesHoraInicio"); } }
+
+
+
+        public String _dniJefe = "";
+        public String dniJefe { get { return _dniJefe; } set { _dniJefe = value; NotifyPropertyChanged("dniJefe"); } }
         private String _searchCodTienda = "";
         public String searchCodTienda { get { return _searchCodTienda; } set { _searchCodTienda = value; } }
         public String _searchNombre = "";
@@ -84,8 +93,8 @@ namespace pe.edu.pucp.ferretin.viewmodel.MSeguridad
                 //Si la pestaña es para agregar nuevo, limpio los input
                 switch (_statusTab)
                 {
-                    case Tab.BUSQUEDA: detallesTabHeader = "Agregar"; almacen = new Tienda(); break;//Si es agregar, creo un nuevo objeto Almacen
-                    case Tab.AGREGAR: detallesTabHeader = "Agregar"; almacen = new Tienda(); break;//Si es agregar, creo un nuevo objeto Almacen
+                    case Tab.BUSQUEDA: detallesTabHeader = "Agregar"; almacen = new Tienda(); almacenHorario = new TiendaHorario(); break;//Si es agregar, creo un nuevo objeto Almacen
+                    case Tab.AGREGAR: detallesTabHeader = "Agregar"; almacen = new Tienda(); almacenHorario = new TiendaHorario(); break;//Si es agregar, creo un nuevo objeto Almacen
                     case Tab.MODIFICAR: detallesTabHeader = "Modificar"; break;
                     case Tab.DETALLES: detallesTabHeader = "Detalles"; break;
                     default: detallesTabHeader = "Agregar"; almacen = new Tienda(); break;//Si es agregar, creo un nuevo objeto Almacen
@@ -141,6 +150,21 @@ namespace pe.edu.pucp.ferretin.viewmodel.MSeguridad
                 NotifyPropertyChanged("almacen");
             }
         }
+
+        private TiendaHorario _almacenHorario;
+        public TiendaHorario almacenHorario
+        {
+            get
+            {
+                return _almacenHorario;
+            }
+            set
+            {
+                _almacenHorario = value;                
+                NotifyPropertyChanged("almacenHorario");
+            }
+        }
+
 
         private IEnumerable<Tienda> _listaAlmacenes;
         public IEnumerable<Tienda> listaAlmacenes
@@ -248,6 +272,19 @@ namespace pe.edu.pucp.ferretin.viewmodel.MSeguridad
                 return _cancelAlmacenCommand;
             }
         }
+        /**************************************************/
+        RelayCommand _buscarJefeCommand;
+        public ICommand buscarJefeCommand
+        {
+            get
+            {
+                if (_buscarJefeCommand == null)
+                {
+                    _buscarJefeCommand = new RelayCommand(buscarJefe);
+                }
+                return _buscarJefeCommand;
+            }
+        }        
         #endregion
 
         #region Comandos
@@ -302,5 +339,29 @@ namespace pe.edu.pucp.ferretin.viewmodel.MSeguridad
             listaAlmacenes = MS_TiendaService.listaAlmacenes;
         }
         #endregion
+
+        void buscarJefe(object var)
+        {
+            if (dniJefe.Trim().Length > 0)
+            {
+                Empleado empleado = MR_SharedService.obtenerEmpleadoPorDNI(dniJefe);
+                if (empleado != null)
+                {
+                    
+                    MessageBox.Show("El DNI ingresado no le pertenece a un Jefe");
+                
+                    almacen.Empleado = empleado;
+                }
+                else
+                {
+                    MessageBox.Show("No se encontro un Jefe con el DNI ingresado");
+                }
+            }
+            else
+            {
+                MessageBox.Show("Debe ingresar el DNI de algún Jefe");                
+            }
+        }
+      
     }
 }
