@@ -85,7 +85,7 @@ namespace pe.edu.pucp.ferretin.controller.MSeguridad
             return from p in listaPerfiles
                    where (
                        //Cada fila es un filtro
-                   (perfil == 0 && (p.nombre != null && p.nombre.Equals(perfil))
+                   (perfil == 0 || (p.nombre != null && p.nombre.Equals(perfil))
                        //&& (modulo == 0 || (p.estado != null && u.estado.Equals(estado == 1 ? true : false)))
                     )
                     )

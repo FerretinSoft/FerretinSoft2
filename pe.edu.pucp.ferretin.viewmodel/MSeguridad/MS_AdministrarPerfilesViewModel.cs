@@ -206,7 +206,8 @@ namespace pe.edu.pucp.ferretin.viewmodel.MSeguridad
         {
             try
             {
-                this.perfil = listaPerfiles.Single(perfil => perfil.id == (int)id);
+                //se instancia un perfil paa cargar los textbox de la ventana edit
+                this.perfil = listaPerfiles.Single(perfil => perfil.id == (short)id);
                 //if (this.almacen.id_ubigeo != null)
                 //{
                 //    selectedProvincia = this.almacen.UbigeoDistrito.UbigeoProvincia;
