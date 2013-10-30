@@ -47,6 +47,7 @@
     <Compile Include="Helper\DatetimeToDateConverter.cs" />
     <Compile Include="Helper\RelayCommand.cs" />
     <Compile Include="Helper\TreeViewHelper.cs" />
+    <Compile Include="MAlmacen\MA_InventarioProductosViewModel.cs" />
     <Compile Include="MAlmacen\MA_MantenimientoCategoriasViewModel.cs" />
     <Compile Include="MAlmacen\MA_MovimientosViewModel.cs" />
     <Compile Include="MCompras\MC_ProveedoresViewModel.cs" />
