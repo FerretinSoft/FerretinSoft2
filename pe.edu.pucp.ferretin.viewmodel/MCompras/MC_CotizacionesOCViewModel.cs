@@ -31,11 +31,11 @@ namespace pe.edu.pucp.ferretin.viewmodel.MCompras
         public int _searchTipoDocumento = 0;
         public int searchTipoDocumento { get { return _searchTipoDocumento; } set { _searchTipoDocumento = value; NotifyPropertyChanged("searchTipoDocumento"); } }
 
-        public DateTime _searchFechaDesde = DateTime.MinValue;
-        public DateTime searchFechaDesde { get { return _searchFechaDesde; } set { _searchFechaDesde = value; NotifyPropertyChanged("searchFechaDesde"); } }
+        public DateTime? _searchFechaDesde = null;
+        public DateTime? searchFechaDesde { get { return _searchFechaDesde; } set { _searchFechaDesde = value; NotifyPropertyChanged("searchFechaDesde"); } }
 
-        public DateTime _searchFechaHasta = DateTime.MinValue;
-        public DateTime searchFechaHasta { get { return searchFechaHasta; } set { searchFechaHasta = value; NotifyPropertyChanged("searchFechaHasta"); } }
+        public DateTime? _searchFechaHasta = null;
+        public DateTime? searchFechaHasta { get { return searchFechaHasta; } set { searchFechaHasta = value; NotifyPropertyChanged("searchFechaHasta"); } }
         #endregion
 
         #region Lista Documentos de Compra y Edicion de Documentos de Compra

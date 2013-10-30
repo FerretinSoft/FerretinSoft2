@@ -1,8 +1,12 @@
 ﻿<Window x:Class="pe.edu.pucp.ferretin.view.MCompras.MC_AdministrarOCCotizacionWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:viewmodel="clr-namespace:pe.edu.pucp.ferretin.viewmodel.MCompras;assembly=pe.edu.pucp.ferretin.viewmodel"
         Title="Cotizaciones y Órdenes de Compra" Height="580" Width="900" Icon="../Resources/ferretin_ico.ico" ResizeMode="NoResize" WindowStartupLocation="CenterScreen">
-    <Grid>
+    <Window.Resources>
+        <viewmodel:MC_CotizacionesOCViewModel x:Key="MC_CotizacionesOCViewModel"/>
+    </Window.Resources>
+    <Grid DataContext="{Binding Source={StaticResource MC_CotizacionesOCViewModel}}">
         <TabControl SelectedIndex="{Binding currentIndexTab}">
             <TabItem Header="Búsqueda">
                 <Grid Background="#FFE5E5E5" Margin="0,-3,0.115,-1.408" RenderTransformOrigin="0.49,0.513">

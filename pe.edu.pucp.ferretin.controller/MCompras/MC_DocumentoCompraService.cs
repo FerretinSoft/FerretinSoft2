@@ -46,7 +46,7 @@ namespace pe.edu.pucp.ferretin.controller.MCompras
         ///<summary>
         ///Metodo que busca documentos de compra de acuerdo a los criterios seleccionados en los filtros
         ///</summary>
-        public static IEnumerable<DocumentoCompra> buscarDocumentosCompra(string codigo, string proveedor, int tipoDocumento, DateTime fechaDesde, DateTime fechaHasta)
+        public static IEnumerable<DocumentoCompra> buscarDocumentosCompra(string codigo, string proveedor, int tipoDocumento, DateTime? fechaDesde, DateTime? fechaHasta)
         {
             return from d in listaDocumentosCompra
                    where
