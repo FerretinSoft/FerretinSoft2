@@ -28,7 +28,6 @@ namespace pe.edu.pucp.ferretin.view.MSeguridad
     /// </summary>
     public partial class MS_AdministrarUsuarios : Window
     {
-
         public MS_AdministrarUsuarios()
         {
             InitializeComponent();

@@ -1,9 +1,13 @@
 ﻿<Window x:Class="pe.edu.pucp.ferretin.view.MAlmacen.MA_MovimientosWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:viewmodel="clr-namespace:pe.edu.pucp.ferretin.viewmodel.MAlmacen;assembly=pe.edu.pucp.ferretin.viewmodel"
         Title="Movimientos de Almacén" Height="487" Width="704" Icon="../Resources/ferretin_ico.ico" ResizeMode="CanMinimize">
-    <Grid>
-        <TabControl x:Name="movimientosTabControl" Margin="0" Grid.RowSpan="2">
+    <Window.Resources>
+        <viewmodel:MA_MovimientosViewModel x:Key="MA_MovimientosViewModel"/>
+    </Window.Resources>
+    <Grid DataContext="{Binding Source={StaticResource MA_MovimientosViewModel}}" >
+        <TabControl x:Name="movimientosTabControl" Margin="0" Grid.RowSpan="2" SelectedIndex="{Binding currentIndexTab}">
             <TabItem Header="Búsqueda">
                 <Grid Background="#FFE5E5E5">
                     <Grid.ColumnDefinitions>
@@ -16,43 +20,43 @@
                     </Grid.RowDefinitions>
                     <GroupBox x:Name="nombreFilterTxt" Header="Parámetros" Margin="10,14,10,10" BorderBrush="Black" Grid.ColumnSpan="2"/>
                     <Label Content="Almacén:" HorizontalAlignment="Left" Height="26" VerticalAlignment="Top" Width="64" Margin="22,39,0,0" Grid.ColumnSpan="2"/>
-                    <Button x:Name="buscarMovimientoBtn" HorizontalAlignment="Left" Margin="527,72,0,0" VerticalAlignment="Top" Width="32" Height="32" RenderTransformOrigin="0.3,-0.35" Grid.Column="1" Click="buscarMovimientoBtn_Click">
+                    <Button x:Name="buscarMovimientoBtn" Command="{Binding actualizarListaMovimientosCommand}" HorizontalAlignment="Left" Margin="527,72,0,0" VerticalAlignment="Top" Width="32" Height="32" RenderTransformOrigin="0.3,-0.35" Grid.Column="1">
                         <Button.Background>
                             <ImageBrush ImageSource="../Resources/refresh2_48.png"/>
                         </Button.Background>
                     </Button>
-                    <DataGrid x:Name="busquedaMovGrid" Margin="5,30,5,5" CanUserAddRows="False" Grid.Row="1" Grid.ColumnSpan="2" AutoGenerateColumns="False" ItemsSource="{Binding Path=ListaMovimientos}" >
+                    <DataGrid x:Name="busquedaMovGrid" Margin="5,30,5,5" CanUserAddRows="False" Grid.Row="1" Grid.ColumnSpan="2" AutoGenerateColumns="False" ItemsSource="{Binding Path=listaMovimientos}" >
                         <DataGrid.Columns>
                             <DataGridTextColumn Width="1*" Binding="{Binding Path=fecha}" ClipboardContentBinding="{x:Null}" Header="Fecha"/>
-                            <DataGridTextColumn Width="1*" Binding="{Binding Path=Movimiento_Tipo.nombre}" ClipboardContentBinding="{x:Null}" Header="Tipo Mov."/>
+                            <DataGridTextColumn Width="1*" Binding="{Binding Path=MovimientoTipo.nombre}" ClipboardContentBinding="{x:Null}" Header="Tipo Mov."/>
                             <DataGridTextColumn Width="2*" Binding="{Binding Path=Tienda.nombre}" ClipboardContentBinding="{x:Null}" Header="Desde"/>
                             <DataGridTextColumn Width="2*" Binding="{Binding Path=Tienda1.nombre}" ClipboardContentBinding="{x:Null}" Header="Hasta"/>
-                            <DataGridTextColumn Width="1*" Binding="{Binding Path=Movimiento_Producto.Count}" ClipboardContentBinding="{x:Null}" Header="Total Prod."/>
+                            <DataGridTextColumn Width="1*" Binding="{Binding Path=MovimientoProducto.Count}" ClipboardContentBinding="{x:Null}" Header="Total Prod."/>
                             <DataGridTextColumn Width="3*" Binding="{Binding Path=comentario}" ClipboardContentBinding="{x:Null}" Header="Comentario"/>
                         </DataGrid.Columns>
                     </DataGrid>
-                    <ComboBox x:Name="almacenCombo" ItemsSource="{Binding tiendas}" DisplayMemberPath="nombre" SelectedIndex="{Binding selectedTienda, Mode=TwoWay}" HorizontalAlignment="Left" Margin="28,43,0,0" VerticalAlignment="Top" Width="161" Height="22" Grid.Column="1">
+                    <ComboBox x:Name="almacenCombo" ItemsSource="{Binding searchAlmacen, Mode=TwoWay}" DisplayMemberPath="nombre" SelectedIndex="{Binding selectedTienda, Mode=TwoWay}" HorizontalAlignment="Left" Margin="28,43,0,0" VerticalAlignment="Top" Width="161" Height="22" Grid.Column="1">
                         
                     </ComboBox>
-                    <Label Content="Nombre Producto:" HorizontalAlignment="Left" Height="26" VerticalAlignment="Top" Width="110" Margin="210,39,0,0" Grid.Column="1"/>
-                    <TextBox Height="23" Text="{Binding searchNombreProducto, Mode=TwoWay}" Margin="325,42,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Grid.Column="1" HorizontalAlignment="Left" Width="162"/>
+                    <Label Content="Estado:" HorizontalAlignment="Left" Height="26" VerticalAlignment="Top" Width="110" Margin="210,39,0,0" Grid.Column="1"/>
                     <Label Content="Fecha hasta:" HorizontalAlignment="Left" Height="26" VerticalAlignment="Top" Width="75" Margin="210,80,0,0" Grid.Column="1"/>
                     <Label Content="Fecha desde:" HorizontalAlignment="Left" Height="26" VerticalAlignment="Top" Width="82" Margin="22,80,0,0" Grid.ColumnSpan="2"/>
                     <DatePicker SelectedDate="{Binding searchFechaDesde, Mode=TwoWay}" Grid.Column="1" HorizontalAlignment="Left" Margin="27,80,0,0" VerticalAlignment="Top" Width="162"/>
                     <DatePicker SelectedDate="{Binding searchFechaHasta, Mode=TwoWay}" Grid.Column="1" HorizontalAlignment="Left" Margin="325,80,0,0" VerticalAlignment="Top" Width="162"/>
                     <ToolBar HorizontalAlignment="Left" Margin="9,128,0,0" VerticalAlignment="Top" Height="24" Grid.ColumnSpan="2" Grid.RowSpan="2">
-                        <Button x:Name="nuevoMvimientoBtn" Content="" VerticalAlignment="Top" Width="20" Margin="0,0,2,-1" Height="20" Click="nuevoMvimientoBtn_Click">
+                        <Button x:Name="nuevoMvimientoBtn" Command="{Binding newMovimientoCommand}" Content="" VerticalAlignment="Top" Width="20" Margin="0,0,2,-1" Height="20">
                             <Button.Background>
                                 <ImageBrush ImageSource="../Resources/add_20.png" Stretch="None"/>
                             </Button.Background>
                         </Button>
-                        <Button x:Name="editarMovimientoBtn" Content="" Height="20" VerticalAlignment="Top" Width="20" Margin="0,0,2,0" Click="editarMovimientoBtn_Click">
+                        <Button x:Name="editarMovimientoBtn" Command="{Binding viewEditMovimientoCommand}"  Content="" Height="20" VerticalAlignment="Top" Width="20" Margin="0,0,2,0">
                             <Button.Background>
                                 <ImageBrush ImageSource="../Resources/edit_20.png"/>
                             </Button.Background>
                         </Button>
 
                     </ToolBar>
+                    <ComboBox x:Name="estadoCombo1" ItemsSource="{Binding searchEstado, Mode=TwoWay}" DisplayMemberPath="nombre" SelectedIndex="{Binding selectedTienda, Mode=TwoWay}" HorizontalAlignment="Left" Margin="326,43,0,0" VerticalAlignment="Top" Width="161" Height="22" Grid.Column="1"/>
                 </Grid>
             </TabItem>
             <TabItem Header="Nuevo Movimiento" x:Name="detallesTab">

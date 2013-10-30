@@ -23,8 +23,8 @@ namespace pe.edu.pucp.ferretin.viewmodel.MSeguridad
         private String _searchNombreUsuario = "";
         public String searchNombreUsuario { get { return _searchNombreUsuario; } set { _searchNombreUsuario = value; } }
 
-        private int _searchPerfil = 0;
-        public int searchPerfil { get { return _searchPerfil; } set { _searchPerfil = value; NotifyPropertyChanged("searchPerfil"); } }
+        private Perfil _searchPerfil = null;
+        public Perfil searchPerfil { get { return _searchPerfil; } set { _searchPerfil = value; NotifyPropertyChanged("searchPerfil"); } }
 
         private String _searchNombres = "";
         public String searchNombres { get { return _searchNombres; } set { _searchNombres = value; } }
@@ -36,14 +36,30 @@ namespace pe.edu.pucp.ferretin.viewmodel.MSeguridad
         public int searchEstado { get { return _searchEstado; } set { _searchEstado = value; NotifyPropertyChanged("searchEstado"); } }
         #endregion
 
+        public String _dniEmpleado = "";
+        public String dniEmpleado
+        {
+            get { return _dniEmpleado; }
+            set { _dniEmpleado = value; NotifyPropertyChanged("dniEmpleado"); }
+        }
+
+        public bool editEmpleadoEnabled
+        {
+            get
+            {
+                return statusTab == tabs.AGREGAR ? true : false;
+            }
+        }
 
         #region Manejo de los Tabs
+        /************************************************/
         public enum tabs
         {
             //Pestañas virtuales:
             //0       1        2          3
             BUSQUEDA, AGREGAR, MODIFICAR, DETALLES
         }
+        /************************************************/
         private tabs _statusTab = tabs.BUSQUEDA; //pestaña default 
         public tabs statusTab
         {
@@ -69,8 +85,10 @@ namespace pe.edu.pucp.ferretin.viewmodel.MSeguridad
                 NotifyPropertyChanged("statusTab");
                 //Cuando se cambia el status, tambien se tiene que actualizar el currentIndex del tab
                 NotifyPropertyChanged("currentIndexTab"); //Hace que cambie el tab automaticamente
+                NotifyPropertyChanged("editEmpleadoEnabled");
             }
         }
+        /************************************************/
         //Usado para mover los tabs de acuerdo a las acciones realizadas
         public int currentIndexTab
         {
@@ -78,7 +96,7 @@ namespace pe.edu.pucp.ferretin.viewmodel.MSeguridad
             set { statusTab = value == 0 ? tabs.BUSQUEDA : tabs.AGREGAR; }
 
         }
-
+        /************************************************/
         private String _detallesTabHeader = "Agregar"; //Default
         public String detallesTabHeader
         {
@@ -92,6 +110,7 @@ namespace pe.edu.pucp.ferretin.viewmodel.MSeguridad
                 NotifyPropertyChanged("detallesTabHeader");
             }
         }
+        /************************************************/
         #endregion
 
         #region Lista de Usuarios y Edición de Usuarios
@@ -106,6 +125,14 @@ namespace pe.edu.pucp.ferretin.viewmodel.MSeguridad
             set
             {
                 _usuario = value;
+                if (value != null && value.Empleado != null)
+                {
+                    dniEmpleado = value.Empleado.dni;
+                }
+                else
+                {
+                    dniEmpleado = "";
+                }
                 NotifyPropertyChanged("usuario");
             }
         }
@@ -114,7 +141,13 @@ namespace pe.edu.pucp.ferretin.viewmodel.MSeguridad
         {
             get
             {
-                return MS_UsuarioService.obtenerPerfiles();
+                //Creo una nueva secuencia
+                var sequence = Enumerable.Empty<Perfil>();
+                //Primero agrego un item de Todos para que salga al inicio
+                //Pongo el ID en 0 para que al buscar, no filtre nada cuando se selecciona todos
+                IEnumerable<Perfil> items = new Perfil[] { new Perfil{id=0,nombre="Todos"} };
+                //Luego concateno el itemcon los elementos del combobox
+                return items.Concat(MS_UsuarioService.obtenerPerfiles());
             }
         }
         /**************************************************/
@@ -202,6 +235,18 @@ namespace pe.edu.pucp.ferretin.viewmodel.MSeguridad
             }
         }
         /**************************************************/
+        RelayCommand _buscarClienteCommand;
+        public ICommand buscarClienteCommand
+        {
+            get
+            {
+                if (_buscarClienteCommand == null)
+                {
+                    _buscarClienteCommand = new RelayCommand(buscarCliente);
+                }
+                return _buscarClienteCommand;
+            }
+        }
         #endregion
 
         #region Comandos
@@ -250,7 +295,7 @@ namespace pe.edu.pucp.ferretin.viewmodel.MSeguridad
                     MessageBox.Show("El usuario fue agregado con éxito");
                 }
             }
-            NotifyPropertyChanged("listaAlmacenes");
+            NotifyPropertyChanged("listaUsuarios");
         }
         /**************************************************/
         public void cancelUsuario(Object obj)
@@ -260,6 +305,26 @@ namespace pe.edu.pucp.ferretin.viewmodel.MSeguridad
         }
         /**************************************************/
         #endregion
+
+        void buscarCliente(object var)
+        {
+            if (dniEmpleado.Trim().Length > 0)
+            {
+                Empleado empleado = MR_SharedService.obtenerEmpleadoPorDNI(dniEmpleado);
+                if (empleado != null)
+                {
+                    usuario.Empleado = empleado; 
+                }
+                else
+                {
+                    MessageBox.Show("No se encontro un cliente con el DNI ingresado");
+                }
+            }
+            else
+            {
+                MessageBox.Show("Debe ingresar el DNI de algún empleado");
+            }
+        }
 
     }
 }

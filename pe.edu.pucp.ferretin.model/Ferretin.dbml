@@ -1,5 +1,15 @@
 ﻿<?xml version="1.0" encoding="utf-8"?><Database Name="inf245g2" Class="FerretinDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
   <Connection Mode="AppSettings" ConnectionString="Data Source=inti.lab.inf.pucp.edu.pe;Initial Catalog=inf245g2;Persist Security Info=True;User ID=inf245g2dba" SettingsObjectName="pe.edu.pucp.ferretin.model.Properties.Settings" SettingsPropertyName="inf245g2ConnectionString" Provider="System.Data.SqlClient" />
+  <Table Name="dbo.Cargo" Member="Cargo">
+    <Type Name="Cargo">
+      <Column Name="id" Type="System.Int16" DbType="SmallInt NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="nombre" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="descripcion" Type="System.String" DbType="VarChar(200)" CanBeNull="true" />
+      <Column Name="sueldoBase" Type="System.Decimal" DbType="Decimal(8,2)" CanBeNull="true" />
+      <Column Name="estado" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Association Name="Cargo_EmpleadoTienda" Member="EmpleadoTienda" ThisKey="id" OtherKey="id_cargo" Type="EmpleadoTienda" />
+    </Type>
+  </Table>
   <Table Name="dbo.VentaProducto" Member="VentaProducto">
     <Type Name="VentaProducto">
       <Column Name="cantidad" Type="System.Decimal" DbType="Decimal(10,2)" CanBeNull="true" />
@@ -10,16 +20,6 @@
       <Column Name="id_producto" Type="System.Int32" DbType="Int" CanBeNull="true" />
       <Association Name="Producto_VentaProducto" Member="Producto" ThisKey="id_producto" OtherKey="id" Type="Producto" IsForeignKey="true" />
       <Association Name="Venta_VentaProducto" Member="Venta" ThisKey="id_venta" OtherKey="id" Type="Venta" IsForeignKey="true" />
-    </Type>
-  </Table>
-  <Table Name="dbo.Cargo" Member="Cargo">
-    <Type Name="Cargo">
-      <Column Name="id" Type="System.Int16" DbType="SmallInt NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
-      <Column Name="nombre" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
-      <Column Name="descripcion" Type="System.String" DbType="VarChar(200)" CanBeNull="true" />
-      <Column Name="sueldoBase" Type="System.Decimal" DbType="Decimal(8,2)" CanBeNull="true" />
-      <Column Name="estado" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
-      <Association Name="Cargo_EmpleadoAlmacen" Member="EmpleadoAlmacen" ThisKey="id" OtherKey="id_cargo" Type="EmpleadoAlmacen" />
     </Type>
   </Table>
   <Table Name="dbo.Categoria" Member="Categoria">
@@ -160,13 +160,12 @@
       <Column Name="telefono2" Type="System.String" DbType="VarChar(20)" CanBeNull="true" />
       <Column Name="email" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
       <Column Name="estado" Type="System.Byte" DbType="TinyInt" CanBeNull="true" />
-      <Column Name="codigoPostal" Type="System.String" DbType="VarChar(15)" CanBeNull="true" />
       <Column Name="codEmpleado" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
       <Column Name="id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
       <Column Name="id_ubigeo_distrito" Type="System.String" DbType="Char(6)" CanBeNull="true" />
       <Column Name="id_grado_instruccion" Type="System.Int16" DbType="SmallInt" CanBeNull="true" />
       <Association Name="Empleado_Cliente" Member="Cliente" ThisKey="id" OtherKey="id_empleado_registro" Type="Cliente" />
-      <Association Name="Empleado_EmpleadoAlmacen" Member="EmpleadoAlmacen" ThisKey="id" OtherKey="id_empleado" Type="EmpleadoAlmacen" />
+      <Association Name="Empleado_EmpleadoTienda" Member="EmpleadoTienda" ThisKey="id" OtherKey="id_empleado" Type="EmpleadoTienda" />
       <Association Name="Empleado_EmpleadoTurno" Member="EmpleadoTurno" ThisKey="id" OtherKey="id_empleado" Type="EmpleadoTurno" />
       <Association Name="Empleado_Tienda" Member="Tienda" ThisKey="id" OtherKey="id_jefe" Type="Tienda" />
       <Association Name="Empleado_Usuario" Member="Usuario" ThisKey="id" OtherKey="id_empleado" Type="Usuario" />
@@ -174,18 +173,19 @@
       <Association Name="UbigeoDistrito_Empleado" Member="UbigeoDistrito" ThisKey="id_ubigeo_distrito" OtherKey="id" Type="UbigeoDistrito" IsForeignKey="true" />
     </Type>
   </Table>
-  <Table Name="dbo.EmpleadoAlmacen" Member="EmpleadoAlmacen">
-    <Type Name="EmpleadoAlmacen">
+  <Table Name="dbo.EmpleadoTienda" Member="EmpleadoTienda">
+    <Type Name="EmpleadoTienda">
       <Column Name="fecInicio" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
       <Column Name="fecFin" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
       <Column Name="sueldo" Type="System.Decimal" DbType="Decimal(8,2)" CanBeNull="true" />
       <Column Name="id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
       <Column Name="id_cargo" Type="System.Int16" DbType="SmallInt" CanBeNull="true" />
       <Column Name="id_empleado" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="id_almacen" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Association Name="Cargo_EmpleadoAlmacen" Member="Cargo" ThisKey="id_cargo" OtherKey="id" Type="Cargo" IsForeignKey="true" />
-      <Association Name="Empleado_EmpleadoAlmacen" Member="Empleado" ThisKey="id_empleado" OtherKey="id" Type="Empleado" IsForeignKey="true" />
-      <Association Name="Tienda_EmpleadoAlmacen" Member="Tienda" ThisKey="id_almacen" OtherKey="id" Type="Tienda" IsForeignKey="true" />
+      <Column Name="id_tienda" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="estado" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Association Name="Cargo_EmpleadoTienda" Member="Cargo" ThisKey="id_cargo" OtherKey="id" Type="Cargo" IsForeignKey="true" />
+      <Association Name="Empleado_EmpleadoTienda" Member="Empleado" ThisKey="id_empleado" OtherKey="id" Type="Empleado" IsForeignKey="true" />
+      <Association Name="Tienda_EmpleadoTienda" Member="Tienda" ThisKey="id_tienda" OtherKey="id" Type="Tienda" IsForeignKey="true" />
     </Type>
   </Table>
   <Table Name="dbo.EmpleadoTurno" Member="EmpleadoTurno">
@@ -499,7 +499,7 @@
       <Column Name="codigoPostal" Type="System.String" DbType="VarChar(15)" CanBeNull="true" />
       <Column Name="fecCierre" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
       <Column Name="id_jefe" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Association Name="Tienda_EmpleadoAlmacen" Member="EmpleadoAlmacen" ThisKey="id" OtherKey="id_almacen" Type="EmpleadoAlmacen" />
+      <Association Name="Tienda_EmpleadoTienda" Member="EmpleadoTienda" ThisKey="id" OtherKey="id_tienda" Type="EmpleadoTienda" />
       <Association Name="Tienda_Lote" Member="Lote" ThisKey="id" OtherKey="id_almacen" Type="Lote" />
       <Association Name="Tienda_Movimiento" Member="Movimiento" ThisKey="id" OtherKey="id_almacen_desde" Type="Movimiento" />
       <Association Name="Tienda_Movimiento1" Member="Movimiento1" ThisKey="id" OtherKey="id_almacen_hasta" Type="Movimiento" />

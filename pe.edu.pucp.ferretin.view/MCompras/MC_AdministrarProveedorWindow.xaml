@@ -1,8 +1,12 @@
 ﻿<Window x:Class="pe.edu.pucp.ferretin.view.MCompras.MC_AdministrarProveedorWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+          xmlns:viewmodel="clr-namespace:pe.edu.pucp.ferretin.viewmodel.MCompras;assembly=pe.edu.pucp.ferretin.viewmodel"
        Title="Proveedores" Height="580" Width="900" Icon="/Resources/ferretin_ico.ico" ResizeMode="CanMinimize" WindowStartupLocation="CenterScreen">
-    <Grid>
+    <Window.Resources>
+        <viewmodel:MC_ProveedoresViewModel x:Key="MC_ProveedoresViewModel"/>
+    </Window.Resources>
+    <Grid DataContext="{Binding Source={StaticResource MC_ProveedoresViewModel}}">
         <TabControl x:Name="proveedorTab" Margin="0" Grid.RowSpan="2">
             <TabItem Header="Búsqueda">
                 <Grid Background="#FFE5E5E5">
@@ -21,13 +25,23 @@
                             <ImageBrush ImageSource="../Resources/refresh2_48.png"/>
                         </Button.Background>
                     </Button>
-                    <DataGrid x:Name="proveedoresDg" Margin="10,114,10,10" AutoGenerateColumns="False" CanUserAddRows="False" CanUserDeleteRows="False" IsReadOnly="True">
+                    <DataGrid ItemsSource="{Binding Path=listaProveedores}" Margin="10,114,10,10" AutoGenerateColumns="False" CanUserAddRows="False" CanUserDeleteRows="False" IsReadOnly="True">
                         <DataGrid.Columns>
-                            <DataGridHyperlinkColumn Width="0.7*" Header="ID" Binding="{Binding Path=ID}">
-                                
-                            </DataGridHyperlinkColumn>
-                            <DataGridTextColumn Width="4.8*" Header="Razón Social" Binding="{Binding Path=razSoc}"/>
-                            <DataGridTextColumn Width="2.5*" Header="RUC" Binding="{Binding Path=codigo}">
+                            <DataGridTemplateColumn Width="2.5*" Header="Código">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <TextBlock>
+                                        <Hyperlink 
+                                            Command="{Binding Path=DataContext.viewEditClienteCommand, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type DataGrid}}}" 
+                                            CommandParameter="{Binding id}">
+                                            <TextBlock Text="{Binding id}" />
+                                        </Hyperlink>
+                                        </TextBlock>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+                            <DataGridTextColumn Width="4.8*" Header="Razón Social" Binding="{Binding Path=razonSoc}"/>
+                            <DataGridTextColumn Width="2.5*" Header="RUC" Binding="{Binding Path=ruc}">
                             </DataGridTextColumn>
                             <DataGridTextColumn Width="3*" Header="Rubro" Binding="{Binding Path=rubro}"/>
                             <DataGridTextColumn Width="2.7*" Header="Teléfono" Binding="{Binding Path=telefono}"/>
