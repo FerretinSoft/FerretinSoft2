@@ -47,6 +47,7 @@ namespace pe.edu.pucp.ferretin.model
             }
             set
             {
+                //falta aqui.....
                 _ultimoSueldo = value;
                 //Agregar logica para cambiar el ultimo sueldo
             }
@@ -70,8 +71,30 @@ namespace pe.edu.pucp.ferretin.model
             }
             set
             {
+                if (nuevoEmpleoTienda == null)
+                {
+                    nuevoEmpleoTienda = new EmpleadoTienda();
+                }
+                nuevoEmpleoTienda.Tienda = value;
+                if (nuevoEmpleoTienda.Cargo == null)
+                {
+                    nuevoEmpleoTienda.Cargo = cargoActual;
+                }
                 //codigo cuando se cambie de tienda al empledo
                 _tiendaActual = value;
+            }
+        }
+
+        EmpleadoTienda _nuevoEmpleoTienda;
+        EmpleadoTienda nuevoEmpleoTienda{
+            get
+            {
+                return _nuevoEmpleoTienda;
+            }
+            set
+            {
+                _nuevoEmpleoTienda = value;
+                this.EmpleadoTienda.Single(et => et.estado == 2).estado = 1;//inactivar
             }
         }
 
@@ -85,6 +108,15 @@ namespace pe.edu.pucp.ferretin.model
             }
             set
             {
+                if (nuevoEmpleoTienda == null)
+                {
+                    nuevoEmpleoTienda = new EmpleadoTienda();
+                }
+                nuevoEmpleoTienda.Cargo = value;
+                if (nuevoEmpleoTienda.Tienda == null)
+                {
+                    nuevoEmpleoTienda.Tienda = tiendaActual;
+                }
                 //codigo cuando se cambie de tienda al empledo
                 _cargoActual = value;
             }
