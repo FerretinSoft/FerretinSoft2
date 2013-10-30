@@ -54,6 +54,9 @@ namespace pe.edu.pucp.ferretin.controller.MRecursosHumanos
         {
             if (!db.Empleado.Contains(empleado))
             {
+
+
+              // db.EmpleadoTienda.InsertOnSubmit(empleado.nuevoEmpleoTienda);//puede ser
                 db.Empleado.InsertOnSubmit(empleado); 
                 return enviarCambios();
                   
