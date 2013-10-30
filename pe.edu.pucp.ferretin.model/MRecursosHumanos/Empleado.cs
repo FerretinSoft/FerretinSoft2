@@ -17,45 +17,110 @@ namespace pe.edu.pucp.ferretin.model
         {
             get
             {
-                //estado == 2, activo, 1==inactivo
-                return this.EmpleadoTienda.Single(et => et.estado == 2).Tienda.nombre;
+                if (ultimoEmpleadoTienda != null)
+                    return ultimoEmpleadoTienda.Tienda.nombre;
+                else
+                    return "";
             }
         }
         public String nombreCargo
         {
             get
             {
-                //estado == 2, activo, 1==inactivo
-                return this.EmpleadoTienda.Single(et => et.estado == 2).Cargo.nombre;
+                if (ultimoEmpleadoTienda != null)
+                    return ultimoEmpleadoTienda.Cargo.nombre;
+                else
+                    return "";
             }
         }
         public String nombreEstado
         {
             get
             {
-                return this.estado == 1 ? "Activo" : "Inactivo";
+                return this.estado == 1 ? "Inactivo" : "Activo";
+            }
+        }
+
+        private EmpleadoTienda ultimoEmpleadoTienda
+        {
+            get
+            {
+                if (this.EmpleadoTienda.Count(et => et.estado == 2) > 0)
+                {
+                    return this.EmpleadoTienda.Last(et => et.estado == 2);
+                }
+                else
+                {
+                    return null;
+                }
             }
         }
 
         
-        private decimal _ultimoSueldo;
+        private decimal _ultimoSueldo=0;
         public decimal ultimoSueldo
         {
             get
             {
-                _ultimoSueldo = this.EmpleadoTienda.Single(et => et.estado == 2).sueldo.Value;
+                if (_ultimoSueldo <= 0 && ultimoEmpleadoTienda != null)
+                    _ultimoSueldo = ultimoEmpleadoTienda.sueldo.Value;
                 return _ultimoSueldo;
             }
             set
             {
-
                 verificaNuevoEmpleoTienda();  
                 nuevoEmpleoTienda.sueldo = value;
-               // _ultimoSueldo = value;
-                //Agregar logica para cambiar el ultimo sueldo
-
+                _ultimoSueldo = value;
             }
         }
+        public DateTime ultimafechaIngreso
+        {
+            get
+            {
+                if (ultimoEmpleadoTienda != null)
+                {
+                    return ultimoEmpleadoTienda.fecInicio.Value;
+                }
+                else
+                {
+                    return DateTime.Today;
+                }
+            }
+        }
+
+        public Tienda _tiendaActual;
+        public Tienda tiendaActual
+        {
+            get
+            {
+                if (_tiendaActual == null && ultimoEmpleadoTienda != null)
+                    _tiendaActual = ultimoEmpleadoTienda.Tienda;
+                return _tiendaActual;
+            }
+            set
+            {
+                verificaNuevoEmpleoTienda();
+                nuevoEmpleoTienda.Tienda = value;
+                _tiendaActual = value;
+            }
+        }
+        public Cargo _cargoActual;
+        public Cargo cargoActual
+        {
+            get
+            {
+                if (_cargoActual == null && ultimoEmpleadoTienda != null)
+                    _cargoActual = ultimoEmpleadoTienda.Cargo;
+                return _cargoActual;
+            }
+            set
+            {
+                verificaNuevoEmpleoTienda();
+                nuevoEmpleoTienda.Cargo = value;
+                _cargoActual = value;
+            }
+        }
+
 
         private void verificaNuevoEmpleoTienda (){
 
@@ -74,38 +139,19 @@ namespace pe.edu.pucp.ferretin.model
                 nuevoEmpleoTienda.Tienda = tiendaActual;
             }
 
-            if (nuevoEmpleoTienda.sueldo == null)
+            if (nuevoEmpleoTienda.sueldo <= 0)
             {
                 nuevoEmpleoTienda.sueldo = ultimoSueldo;         
             }
+            if (!this.EmpleadoTienda.Contains(nuevoEmpleoTienda))
+            {
+                this.EmpleadoTienda.Add(nuevoEmpleoTienda);
+            }
+        }
+
+       
+
         
-        }
-
-        public DateTime ultimafechaIngreso
-        {
-            get
-            {
-                return this.EmpleadoTienda.Single(et => et.estado == 2).fecInicio.Value;
-            }
-        }
-
-        public Tienda _tiendaActual;
-        public Tienda tiendaActual
-        {
-            get
-            {
-                _tiendaActual = this.EmpleadoTienda.Single(et => et.estado == 2).Tienda;
-                return _tiendaActual;
-            }
-            set
-            {
-                verificaNuevoEmpleoTienda(); 
-                nuevoEmpleoTienda.Tienda = value;
-                //codigo cuando se cambie de tienda al empledo                
-                _tiendaActual = value;
-            }
-        }
-
         private EmpleadoTienda _nuevoEmpleoTienda;
         public EmpleadoTienda nuevoEmpleoTienda{
             get
@@ -115,25 +161,16 @@ namespace pe.edu.pucp.ferretin.model
             set
             {
                 _nuevoEmpleoTienda = value;
-                this.EmpleadoTienda.Single(et => et.estado == 2).estado = 1;//inactivar
+                _nuevoEmpleoTienda.estado = 2;
+                _nuevoEmpleoTienda.fecInicio = DateTime.Today;
+                if (ultimoEmpleadoTienda != null)
+                {
+                    ultimoEmpleadoTienda.fecFin = DateTime.Today;
+                    ultimoEmpleadoTienda.estado = 1; //inactivar
+                }
             }
         }
 
-        public Cargo _cargoActual;
-        public Cargo cargoActual
-        {
-            get
-            {
-                _cargoActual =  this.EmpleadoTienda.Single(et => et.estado == 2).Cargo;
-                return _cargoActual;
-            }
-            set
-            {
-                verificaNuevoEmpleoTienda(); 
-                nuevoEmpleoTienda.Cargo = value;
-                //codigo cuando se cambie de tienda al empledo
-               // _cargoActual = value;
-            }
-        }
+        
     }
 }
