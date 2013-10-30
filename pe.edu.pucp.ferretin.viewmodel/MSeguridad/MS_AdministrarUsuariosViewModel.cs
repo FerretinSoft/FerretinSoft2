@@ -36,6 +36,20 @@ namespace pe.edu.pucp.ferretin.viewmodel.MSeguridad
         public int searchEstado { get { return _searchEstado; } set { _searchEstado = value; NotifyPropertyChanged("searchEstado"); } }
         #endregion
 
+        public String _dniEmpleado = "";
+        public String dniEmpleado
+        {
+            get { return _dniEmpleado; }
+            set { _dniEmpleado = value; }
+        }
+
+        public bool editEmpleadoEnabled
+        {
+            get
+            {
+                return statusTab == tabs.AGREGAR ? true : false;
+            }
+        }
 
         #region Manejo de los Tabs
         /************************************************/
@@ -71,6 +85,7 @@ namespace pe.edu.pucp.ferretin.viewmodel.MSeguridad
                 NotifyPropertyChanged("statusTab");
                 //Cuando se cambia el status, tambien se tiene que actualizar el currentIndex del tab
                 NotifyPropertyChanged("currentIndexTab"); //Hace que cambie el tab automaticamente
+                NotifyPropertyChanged("editEmpleadoEnabled");
             }
         }
         /************************************************/
@@ -110,6 +125,8 @@ namespace pe.edu.pucp.ferretin.viewmodel.MSeguridad
             set
             {
                 _usuario = value;
+                dniEmpleado = value.Empleado.dni;
+                NotifyPropertyChanged("dniEmpleado");
                 NotifyPropertyChanged("usuario");
             }
         }
@@ -206,6 +223,18 @@ namespace pe.edu.pucp.ferretin.viewmodel.MSeguridad
             }
         }
         /**************************************************/
+        RelayCommand _buscarClienteCommand;
+        public ICommand buscarClienteCommand
+        {
+            get
+            {
+                if (_buscarClienteCommand == null)
+                {
+                    _buscarClienteCommand = new RelayCommand(buscarCliente);
+                }
+                return _buscarClienteCommand;
+            }
+        }
         #endregion
 
         #region Comandos
@@ -264,6 +293,26 @@ namespace pe.edu.pucp.ferretin.viewmodel.MSeguridad
         }
         /**************************************************/
         #endregion
+
+        void buscarCliente(object var)
+        {
+            if (dniEmpleado.Trim().Length > 0)
+            {
+                Empleado empleado = MR_SharedService.obtenerEmpleadoPorDNI(dniEmpleado);
+                if (empleado != null)
+                {
+                    usuario.Empleado = empleado; 
+                }
+                else
+                {
+                    MessageBox.Show("No se encontro un cliente con el DNI ingresado");
+                }
+            }
+            else
+            {
+                MessageBox.Show("Debe ingresar el DNI de algún empleado");
+            }
+        }
 
     }
 }
