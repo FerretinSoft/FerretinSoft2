@@ -66,6 +66,7 @@
     <Compile Include="MAlmacen\MA_MovimientosService.cs" />
     <Compile Include="MVentas\MV_ComunService.cs" />
     <Compile Include="MVentas\MV_SharedService.cs" />
+    <Compile Include="MVentas\MV_VentaService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="MSeguridad\MS_TiendaService.cs" />
     <Compile Include="MAlmacen\MA_UnidadMedidaServiceMateriales.cs" />
