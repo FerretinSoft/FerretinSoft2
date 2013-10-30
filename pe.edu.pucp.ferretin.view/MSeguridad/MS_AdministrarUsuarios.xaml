@@ -40,7 +40,7 @@
                     <!--Fila 1-->
                     <TextBox HorizontalAlignment="Left" x:Name="codigoSearchTxtBox" Text="{Binding searchCodigo, Mode=TwoWay}" Height="20" Margin="137,32,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="116"/>
                     <TextBox HorizontalAlignment="Left" x:Name="nombreUsuarioSearchTxtBox" Text="{Binding searchNombreUsuario, Mode=TwoWay}" Height="20" TextWrapping="Wrap" VerticalAlignment="Top" Width="116" Margin="137,57,0,0"/>
-                    <ComboBox ItemsSource="{Binding perfiles,Mode=OneWay}" SelectedIndex="{Binding searchPerfil, Mode=TwoWay}" DisplayMemberPath="nombre" x:Name="perfilCombo" HorizontalAlignment="Left" Margin="137,83,0,0" VerticalAlignment="Top" Width="116" Height="22" Grid.RowSpan="2">
+                    <ComboBox ItemsSource="{Binding perfiles,Mode=OneWay}" SelectedIndex="0" SelectedItem="{Binding searchPerfil, Mode=TwoWay}" DisplayMemberPath="nombre" x:Name="perfilCombo" HorizontalAlignment="Left" Margin="137,83,0,0" VerticalAlignment="Top" Width="116" Height="22" Grid.RowSpan="2">
 
                     </ComboBox>
                     <!--Fila 2-->
