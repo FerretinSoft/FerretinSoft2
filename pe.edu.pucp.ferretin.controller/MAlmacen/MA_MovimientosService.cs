@@ -10,18 +10,21 @@ namespace pe.edu.pucp.ferretin.controller.MAlmacen
 {
     public class MA_MovimientosService : MA_ComunService
     {
-        static FerretinDataContext dc = new FerretinDataContext();
+       private static IEnumerable<Movimiento> _listaMovimientos;
 
-        private static IEnumerable<Movimiento> _listaMovimientos = null;
-
-        private static IEnumerable<Movimiento> listaMovimientos
+        public static IEnumerable<Movimiento> ListaMovimientos
         {
             get
             {
                 if (_listaMovimientos == null)
                 {
-                    ObtenerListaMovimientos();
+                    _listaMovimientos = db.Movimiento;
                 }
+                
+                //Usando concurrencia pesimista:
+                ///La lista de movimientos se actualizara para ver los cambios
+                ///Si quisiera usar concurrencia optimista quito la siguiente linea
+                db.Refresh(RefreshMode.OverwriteCurrentValues, _listaMovimientos);
                 return _listaMovimientos;
             }
             set
@@ -30,20 +33,18 @@ namespace pe.edu.pucp.ferretin.controller.MAlmacen
             }
         }
 
-        public static IEnumerable<Movimiento> ObtenerListaMovimientos()
+        public static Movimiento ObtenerMovimientoPorId(int id)
         {
-            listaMovimientos = from mov in dc.Movimiento
-                            orderby mov.fecha
-                            select mov;
-            return listaMovimientos;
+            Movimiento movimiento = (from m in ListaMovimientos
+                               where m.id.Equals(id)
+                               select m).Single();
+
+            return movimiento;
         }
-
-        
-
 
         public static IEnumerable<Movimiento> ObtenerListaMovimientos(Dictionary<string, object> parametros)
         {
-            return from m in listaMovimientos
+            return from m in ListaMovimientos
                    where
                    ((!parametros.ContainsKey("tienda") || m.Tienda == null || m.id_almacen_desde == (int)parametros["tienda"]) &&
                     (!parametros.ContainsKey("fechaDesde") || m.fecha >= (DateTime)parametros["fechaDesde"])  && 
@@ -55,14 +56,20 @@ namespace pe.edu.pucp.ferretin.controller.MAlmacen
         public static void ActualizarMovimiento(Movimiento mov)
         {
             //dc.Movimiento.InsertOnSubmit(mov);
-            dc.SubmitChanges();
+            //db.SubmitChanges();
         }
 
-        public static void InsertarMovimiento(Movimiento mov)
+        public static bool InsertarMovimiento(Movimiento movimiento)
         {
-            //mov.Movimiento_Tipo;
-            dc.Movimiento.InsertOnSubmit(mov);
-            dc.SubmitChanges();
+            if (!db.Movimiento.Contains(movimiento))
+            {
+                db.Movimiento.InsertOnSubmit(movimiento);
+                return enviarCambios();
+            }
+            else
+            {
+                return false;
+            }
         }
     }
 }

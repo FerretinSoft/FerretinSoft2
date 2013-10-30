@@ -82,6 +82,18 @@ namespace pe.edu.pucp.ferretin.controller.MSeguridad
         /*******************************************************/
         public static IEnumerable<Perfil> buscar(int perfil,int modulo)
         {
+            //IEnumerable<Perfil> perfiles = listaPerfiles;
+            
+            //////Filtro por perfil
+            //perfiles = perfiles.Where(u => (perfil == null) || (perfil.id <= 0) || (u.id == perfil.id));
+            
+            //////Filtro por estado
+            //perfiles = perfiles.Where(u => (modulo == 0) || (u.id == modulo));
+
+            //return perfiles;
+
+
+
             return from p in listaPerfiles
                    where (
                        //Cada fila es un filtro
@@ -93,5 +105,27 @@ namespace pe.edu.pucp.ferretin.controller.MSeguridad
                    select p;
         }
         /*******************************************************/
+        private static IEnumerable<Perfil> _listaPerfilesCombo;
+        private static IEnumerable<Perfil> listaPerfilesCombo
+        {
+            get
+            {
+                if (_listaPerfilesCombo == null)
+                {
+                    _listaPerfilesCombo = from p in db.Perfil
+                                     select p;
+                }
+                return _listaPerfilesCombo;
+            }
+            set
+            {
+                _listaPerfilesCombo = value;
+            }
+        }
+        /*******************************************************/
+        public static IEnumerable<Perfil> obtenerPerfiles()
+        {
+            return listaPerfilesCombo;
+        }
     }
 }

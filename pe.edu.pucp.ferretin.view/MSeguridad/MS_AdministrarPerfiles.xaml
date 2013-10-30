@@ -50,12 +50,12 @@
                     -->
                     <!--checkbox modulo-->
                     <ComboBox SelectedIndex="{Binding searchModulo, Mode=TwoWay}" x:Name="moduloCombo" HorizontalAlignment="Left" Margin="328,25,0,0" VerticalAlignment="Top" Width="133" Height="22" Grid.Column="1">
-                        <CheckBox Content="Todos" IsChecked="True"/>
-                        <CheckBox Content="Almacén" IsChecked="True"/>
-                        <CheckBox Content="Compras" IsChecked="True"/>
-                        <CheckBox Content="Recursos Humanos" IsChecked="True"/>
-                        <CheckBox Content="Ventas" IsChecked="True"/>
-                        <CheckBox Content="Seguridad" IsChecked="True"/>
+                        <ComboBoxItem Content="Todos"/>
+                        <ComboBoxItem Content="Almacén"/>
+                        <ComboBoxItem Content="Compras"/>
+                        <ComboBoxItem Content="Recursos Humanos"/>
+                        <ComboBoxItem Content="Ventas"/>
+                        <ComboBoxItem Content="Seguridad"/>
                     </ComboBox>
 
 
