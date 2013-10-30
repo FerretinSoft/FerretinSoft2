@@ -35,7 +35,9 @@
 
                     <!--Aca estan los textBox de la ventana-->
                     <!--checkbox perfil-->
-                    <ComboBox ItemsSource="{Binding perfiles,Mode=OneWay}" SelectedIndex="{Binding searchPerfil, Mode=TwoWay}" DisplayMemberPath="nombre" x:Name="perfilCombo" HorizontalAlignment="Left" Margin="75,25,0,0" VerticalAlignment="Top" Width="116" Height="22" Grid.ColumnSpan="2"/>
+                    <ComboBox ItemsSource="{Binding perfiles,Mode=OneWay}" SelectedIndex="{Binding searchPerfil, Mode=TwoWay}" DisplayMemberPath="nombre" x:Name="perfilCombo" HorizontalAlignment="Left" Margin="75,25,0,0" VerticalAlignment="Top" Width="116" Height="22" Grid.ColumnSpan="2">
+                        
+                    </ComboBox>
                     <!--
                     <ComboBox SelectedIndex="{Binding searchPerfil, Mode=TwoWay}" x:Name="perfilCombo" HorizontalAlignment="Left" Margin="10,25,0,0" VerticalAlignment="Top" Width="133" Height="22" Grid.Column="1">
                         <CheckBox Content="Todos" IsChecked="True"/>
@@ -77,7 +79,7 @@
                                 </DataGridHyperlinkColumn.ElementStyle>
                             </DataGridHyperlinkColumn>
                             -->                            
-                            <DataGridTemplateColumn Width="1.7*" Header="Perfil">
+                            <DataGridTemplateColumn Width="3*" Header="Perfil">
                                 <DataGridTemplateColumn.CellTemplate>
                                     <DataTemplate>
                                         <TextBlock>
