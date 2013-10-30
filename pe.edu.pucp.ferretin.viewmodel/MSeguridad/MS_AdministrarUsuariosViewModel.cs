@@ -40,7 +40,7 @@ namespace pe.edu.pucp.ferretin.viewmodel.MSeguridad
         public String dniEmpleado
         {
             get { return _dniEmpleado; }
-            set { _dniEmpleado = value; }
+            set { _dniEmpleado = value; NotifyPropertyChanged("dniEmpleado"); }
         }
 
         public bool editEmpleadoEnabled
@@ -125,8 +125,14 @@ namespace pe.edu.pucp.ferretin.viewmodel.MSeguridad
             set
             {
                 _usuario = value;
-                dniEmpleado = value.Empleado.dni;
-                NotifyPropertyChanged("dniEmpleado");
+                if (value != null && value.Empleado != null)
+                {
+                    dniEmpleado = value.Empleado.dni;
+                }
+                else
+                {
+                    dniEmpleado = "";
+                }
                 NotifyPropertyChanged("usuario");
             }
         }
