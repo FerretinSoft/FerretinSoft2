@@ -19,155 +19,10 @@ using System.Windows.Threading;
 using pe.edu.pucp.ferretin.controller.MSeguridad;
 using pe.edu.pucp.ferretin.controller.MAlmacen;
 using pe.edu.pucp.ferretin.viewmodel;
+using pe.edu.pucp.ferretin.viewmodel.MAlmacen;
 
 namespace pe.edu.pucp.ferretin.view.MAlmacen
 {
-    public class MA_MovimientosViewModel : ViewModelBase
-    {
-        
-        private int _selectedTienda;
-        public int selectedTienda
-        {
-            get
-            {
-                return _selectedTienda > 0 ? _selectedTienda : 0;
-            }
-            set
-            {
-                _selectedTienda = value;
-                NotifyPropertyChanged("selectedTienda");
-                //NotifyPropertyChanged("provincia");
-                //NotifyPropertyChanged("distrito");
-            }
-        }
-
-        public IEnumerable<MovimientoTipo> tiposMovimiento
-        {
-            get
-            {
-                return MA_TipoMovimientoService.ObtenerListaTipoMovimientos();
-            }
-        }
-
-        private int _selectedTipoMovimiento;
-        public int selectedTipoMovimiento
-        {
-            get
-            {
-                return _selectedTipoMovimiento > 0 ? _selectedTipoMovimiento : 0;
-            }
-            set
-            {
-                _selectedTipoMovimiento = value;
-                NotifyPropertyChanged("selectedTipoMovimiento");
-                //NotifyPropertyChanged("provincia");
-                //NotifyPropertyChanged("distrito");
-            }
-        }
-
-        public IEnumerable<MovimientoEstado> estadosMovimiento
-        {
-            get
-            {
-                return MA_EstadoMovimientoService.ObtenerListaEstadoMovimientos();
-            }
-        }
-
-        private int _selectedEstado;
-        public int selectedEstado
-        {
-            get
-            {
-                return _selectedEstado > 0 ? _selectedEstado : 0;
-            }
-            set
-            {
-                _selectedEstado = value;
-                NotifyPropertyChanged("selectedEstado");
-                //NotifyPropertyChanged("provincia");
-                //NotifyPropertyChanged("distrito");
-            }
-        }
-
-        
-
-        //public int searchAlmacen { get; set; }
-        public String searchNombreProducto { get; set; }
-        public DateTime searchFechaDesde { get; set; }
-        public DateTime searchFechaHasta { get; set; }
-        
-        public enum tabs
-        {
-            //Pestañas virtuales:
-            //0       1        2          3         4
-            BUSQUEDA, AGREGAR, MODIFICAR, DETALLES, TIPOMOV
-        }
-
-        private Movimiento _movimiento = new Movimiento();
-        public Movimiento movimiento
-        {
-            get
-            {
-                return _movimiento;
-            }
-            set
-            {
-                _movimiento = value;
-                NotifyPropertyChanged("movimiento");
-            }
-        }
-
-        private int _statusTab = (int)tabs.BUSQUEDA; //pestaña default 
-        public int statusTab
-        {
-            get
-            {
-                return _statusTab;
-            }
-            set
-            {
-                _statusTab = value == 0 ? 0 : 1;
-                //Si cambió el estado de las pestañas también cambio los Header
-                //Si la pestaña es para agregar nuevo, limpio los input
-                switch (value)
-                {
-                    case (int)tabs.BUSQUEDA: detallesTabHeader = "Agregar"; movimiento = new Movimiento(); break;//Si es agregar, creo un nuevo objeto Movimiento
-                    case (int)tabs.AGREGAR: detallesTabHeader = "Agregar"; movimiento = new Movimiento(); break;//Si es agregar, creo un nuevo objeto Movimiento
-                    case (int)tabs.MODIFICAR: detallesTabHeader = "Modificar"; break;
-                    case (int)tabs.DETALLES: detallesTabHeader = "Detalles"; break;
-                    default: detallesTabHeader = "Agregar"; movimiento = new Movimiento(); break;//Si es agregar, creo un nuevo objeto Movimiento
-                }
-                //Cuando se cambia el status, tambien se tiene que cambiar el currentIndex del tab
-                //currentIndexTab = _statusTab == 0 ? 0 : 1;
-                NotifyPropertyChanged("statusTab");
-            }
-        }
-
-        //Usado para mover los tabs de acuerdo a las acciones realizadas
-        public int currentIndexTab
-        {
-            get { return _statusTab == 0 ? 0 : 1; }
-            set { statusTab = (int)tabs.AGREGAR; NotifyPropertyChanged("currentIndexTab"); }
-        }
-
-        private String _detallesTabHeader = "Agregar"; //Default
-        public String detallesTabHeader
-        {
-            get
-            {
-                return _detallesTabHeader;
-            }
-            set
-            {
-                _detallesTabHeader = value;
-                NotifyPropertyChanged("detallesTabHeader");
-            }
-        }
-
-
-    }
-
-
     /// <summary>
     /// Lógica de interacción para MA_MovimientosWindow.xaml
     /// </summary>
@@ -186,7 +41,7 @@ namespace pe.edu.pucp.ferretin.view.MAlmacen
                       new Action(
                         delegate()
                         {
-                            busquedaMovGrid.ItemsSource = MA_MovimientosService.ObtenerListaMovimientos();
+                            busquedaMovGrid.ItemsSource = MA_MovimientosService.ListaMovimientos;
                         }
                     ));
                 }
@@ -199,7 +54,7 @@ namespace pe.edu.pucp.ferretin.view.MAlmacen
 
         private IEnumerable<Movimiento> ListaMovimientos()
         {
-            return MA_MovimientosService.ObtenerListaMovimientos();
+            return MA_MovimientosService.ListaMovimientos;
         }
 
         private void nuevoMvimientoBtn_Click(object sender, RoutedEventArgs e)
@@ -319,7 +174,7 @@ namespace pe.edu.pucp.ferretin.view.MAlmacen
 
         private void cancelarMovimientoBtn_Click(object sender, RoutedEventArgs e)
         {
-            movViewModel.statusTab = (int)MA_MovimientosViewModel.tabs.BUSQUEDA;
+            movViewModel.statusTab = (int)MA_MovimientosViewModel.Tab.BUSQUEDA;
         }
 
         private void buscarMovimientoBtn_Click(object sender, RoutedEventArgs e)
@@ -349,7 +204,7 @@ namespace pe.edu.pucp.ferretin.view.MAlmacen
             {
                 MA_MovimientosService.InsertarMovimiento(movViewModel.movimiento);
             }
-            movViewModel.statusTab = (int)MA_MovimientosViewModel.tabs.BUSQUEDA;
+            movViewModel.statusTab = (int)MA_MovimientosViewModel.Tab.BUSQUEDA;
         }
 
         

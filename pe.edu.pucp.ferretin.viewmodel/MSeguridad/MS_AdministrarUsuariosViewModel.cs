@@ -23,8 +23,8 @@ namespace pe.edu.pucp.ferretin.viewmodel.MSeguridad
         private String _searchNombreUsuario = "";
         public String searchNombreUsuario { get { return _searchNombreUsuario; } set { _searchNombreUsuario = value; } }
 
-        private int _searchPerfil = 0;
-        public int searchPerfil { get { return _searchPerfil; } set { _searchPerfil = value; NotifyPropertyChanged("searchPerfil"); } }
+        private Perfil _searchPerfil = null;
+        public Perfil searchPerfil { get { return _searchPerfil; } set { _searchPerfil = value; NotifyPropertyChanged("searchPerfil"); } }
 
         private String _searchNombres = "";
         public String searchNombres { get { return _searchNombres; } set { _searchNombres = value; } }
@@ -141,7 +141,13 @@ namespace pe.edu.pucp.ferretin.viewmodel.MSeguridad
         {
             get
             {
-                return MS_UsuarioService.obtenerPerfiles();
+                //Creo una nueva secuencia
+                var sequence = Enumerable.Empty<Perfil>();
+                //Primero agrego un item de Todos para que salga al inicio
+                //Pongo el ID en 0 para que al buscar, no filtre nada cuando se selecciona todos
+                IEnumerable<Perfil> items = new Perfil[] { new Perfil{id=0,nombre="Todos"} };
+                //Luego concateno el itemcon los elementos del combobox
+                return items.Concat(MS_UsuarioService.obtenerPerfiles());
             }
         }
         /**************************************************/
