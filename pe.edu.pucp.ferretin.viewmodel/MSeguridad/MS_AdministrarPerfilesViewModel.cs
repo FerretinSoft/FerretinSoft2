@@ -100,19 +100,14 @@ namespace pe.edu.pucp.ferretin.viewmodel.MSeguridad
                 NotifyPropertyChanged("perfil");
             }
         }
-        /************************************************/
-        /************************************************
+        /************************************************/        
         public IEnumerable<Perfil> perfiles
         {
             get
             {
                 return MS_UsuarioService.obtenerPerfiles();
             }
-         }
-         * lo mismo pero para modulos porque debemos traer la lista de modulos
-         * 
-         * /
-
+         }         
         /************************************************/
         private IEnumerable<Perfil> _listaPerfiles;
         public IEnumerable<Perfil> listaPerfiles

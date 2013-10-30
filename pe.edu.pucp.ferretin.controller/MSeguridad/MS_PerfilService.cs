@@ -93,5 +93,27 @@ namespace pe.edu.pucp.ferretin.controller.MSeguridad
                    select p;
         }
         /*******************************************************/
+        private static IEnumerable<Perfil> _listaPerfilesCombo;
+        private static IEnumerable<Perfil> listaPerfilesCombo
+        {
+            get
+            {
+                if (_listaPerfilesCombo == null)
+                {
+                    _listaPerfilesCombo = from p in db.Perfil
+                                     select p;
+                }
+                return _listaPerfilesCombo;
+            }
+            set
+            {
+                _listaPerfilesCombo = value;
+            }
+        }
+        /*******************************************************/
+        public static IEnumerable<Perfil> obtenerPerfiles()
+        {
+            return listaPerfilesCombo;
+        }
     }
 }
