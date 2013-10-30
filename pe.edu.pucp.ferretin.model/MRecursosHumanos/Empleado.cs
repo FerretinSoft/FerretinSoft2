@@ -37,6 +37,7 @@ namespace pe.edu.pucp.ferretin.model
             }
         }
 
+        
         private decimal _ultimoSueldo;
         public decimal ultimoSueldo
         {
@@ -47,10 +48,37 @@ namespace pe.edu.pucp.ferretin.model
             }
             set
             {
-                //falta aqui.....
-                _ultimoSueldo = value;
+
+                verificaNuevoEmpleoTienda();  
+                nuevoEmpleoTienda.sueldo = value;
+               // _ultimoSueldo = value;
                 //Agregar logica para cambiar el ultimo sueldo
+
             }
+        }
+
+        private void verificaNuevoEmpleoTienda (){
+
+            if (nuevoEmpleoTienda == null)
+            {
+                nuevoEmpleoTienda = new EmpleadoTienda();
+            }
+
+            if (nuevoEmpleoTienda.Cargo == null)
+            {
+                nuevoEmpleoTienda.Cargo = cargoActual;
+            }
+
+            if (nuevoEmpleoTienda.Tienda == null)
+            {
+                nuevoEmpleoTienda.Tienda = tiendaActual;
+            }
+
+            if (nuevoEmpleoTienda.sueldo == null)
+            {
+                nuevoEmpleoTienda.sueldo = ultimoSueldo;         
+            }
+        
         }
 
         public DateTime ultimafechaIngreso
@@ -71,22 +99,15 @@ namespace pe.edu.pucp.ferretin.model
             }
             set
             {
-                if (nuevoEmpleoTienda == null)
-                {
-                    nuevoEmpleoTienda = new EmpleadoTienda();
-                }
+                verificaNuevoEmpleoTienda(); 
                 nuevoEmpleoTienda.Tienda = value;
-                if (nuevoEmpleoTienda.Cargo == null)
-                {
-                    nuevoEmpleoTienda.Cargo = cargoActual;
-                }
-                //codigo cuando se cambie de tienda al empledo
+                //codigo cuando se cambie de tienda al empledo                
                 _tiendaActual = value;
             }
         }
 
-        EmpleadoTienda _nuevoEmpleoTienda;
-        EmpleadoTienda nuevoEmpleoTienda{
+        private EmpleadoTienda _nuevoEmpleoTienda;
+        public EmpleadoTienda nuevoEmpleoTienda{
             get
             {
                 return _nuevoEmpleoTienda;
@@ -108,17 +129,10 @@ namespace pe.edu.pucp.ferretin.model
             }
             set
             {
-                if (nuevoEmpleoTienda == null)
-                {
-                    nuevoEmpleoTienda = new EmpleadoTienda();
-                }
+                verificaNuevoEmpleoTienda(); 
                 nuevoEmpleoTienda.Cargo = value;
-                if (nuevoEmpleoTienda.Tienda == null)
-                {
-                    nuevoEmpleoTienda.Tienda = tiendaActual;
-                }
                 //codigo cuando se cambie de tienda al empledo
-                _cargoActual = value;
+               // _cargoActual = value;
             }
         }
     }
