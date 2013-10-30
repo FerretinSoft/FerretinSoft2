@@ -35,7 +35,7 @@ namespace pe.edu.pucp.ferretin.viewmodel.MCompras
         public DateTime? searchFechaDesde { get { return _searchFechaDesde; } set { _searchFechaDesde = value; NotifyPropertyChanged("searchFechaDesde"); } }
 
         public DateTime? _searchFechaHasta = null;
-        public DateTime? searchFechaHasta { get { return searchFechaHasta; } set { searchFechaHasta = value; NotifyPropertyChanged("searchFechaHasta"); } }
+        public DateTime? searchFechaHasta { get { return _searchFechaHasta; } set { _searchFechaHasta = value; NotifyPropertyChanged("searchFechaHasta"); } }
         #endregion
 
         #region Lista Documentos de Compra y Edicion de Documentos de Compra
