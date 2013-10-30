@@ -58,7 +58,7 @@ namespace pe.edu.pucp.ferretin.viewmodel.MCompras
         {
             get
             {
-                _listaDocumentosCompra = MC_DocumentoCompraService.buscarDocumentosCompra(searchCodigo, searchProveedor, searchTipoDocumento, _searchFechaDesde, _searchFechaHasta);
+                _listaDocumentosCompra = MC_DocumentoCompraService.buscarDocumentosCompra(searchCodigo,searchProveedor,searchTipoDocumento,searchFechaDesde,searchFechaHasta);
 
                 return _listaDocumentosCompra;
             }

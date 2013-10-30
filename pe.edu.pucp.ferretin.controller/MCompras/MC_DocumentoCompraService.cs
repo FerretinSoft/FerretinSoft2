@@ -51,10 +51,16 @@ namespace pe.edu.pucp.ferretin.controller.MCompras
             return from d in listaDocumentosCompra
                    where
                    (d.codigo != null && d.codigo.Contains(codigo) 
-                       && d.Proveedor.razonSoc != null && d.Proveedor.razonSoc.Contains(proveedor)
-                       && d.fechaEmision != null && d.fechaEmision >= fechaDesde && d.fechaEmision >= fechaHasta
-                       && d.tipo != null && d.tipo.Equals(tipoDocumento)
                     )
+                   orderby d.codigo
+                   select d;
+        }
+
+        public static IEnumerable<DocumentoCompra> buscarTodosDocumentosCompra()
+        {
+            return from d in listaDocumentosCompra
+                   where
+                   (d.codigo != null)
                    orderby d.codigo
                    select d;
         }

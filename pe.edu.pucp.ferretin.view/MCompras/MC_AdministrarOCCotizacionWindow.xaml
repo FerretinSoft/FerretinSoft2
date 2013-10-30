@@ -66,12 +66,12 @@
 
                     <DataGrid ItemsSource="{Binding Path=listaDocumentosCompra}" Margin="10,37,10,10" Grid.Row="1" RenderTransformOrigin="0.5,0.5" Grid.ColumnSpan="3" AutoGenerateColumns="False" CanUserAddRows="False" CanUserDeleteRows="False" IsReadOnly="True" Grid.RowSpan="2">
                         <DataGrid.Columns>
-                            <DataGridTextColumn Width="1.8*" Binding="{Binding Path=tipo}" Header="Tipo"/>
+                            <DataGridTextColumn Width="1.8*" Binding="{Binding Path=tipoDC}" Header="Tipo"/>
                             <DataGridHyperlinkColumn Width="1.8*" Binding="{Binding Path=codigo}" Header="Código">
 
                             </DataGridHyperlinkColumn>
-                            <DataGridTextColumn Width="3.5*" Binding="{Binding Path=proveedor.razSoc}" Header="Proveedor"/>
-                            <DataGridTextColumn Width="2.0*" Binding="{Binding Path=fecEmision}" Header="Fecha"/>
+                            <DataGridTextColumn Width="3.5*" Binding="{Binding Path=Proveedor.razonSoc}" Header="Proveedor"/>
+                            <DataGridTextColumn Width="2.0*" Binding="{Binding Path=fechaEmision}" Header="Fecha"/>
                             <DataGridTextColumn Width="1.8*" Binding="{Binding Path=estado}" Header="Estado"/>
                         </DataGrid.Columns>
                     </DataGrid>
