@@ -3,7 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using pe.edu.pucp.ferretin.model;//Para el FerretinDataContext
+using pe.edu.pucp.ferretin.model;
+using System.Data.Linq;//Para el FerretinDataContext
 
 namespace pe.edu.pucp.ferretin.controller.MRecursosHumanos
 {
@@ -11,15 +12,16 @@ namespace pe.edu.pucp.ferretin.controller.MRecursosHumanos
     {
         
         private static IEnumerable<Empleado> _listaEmpleados = null;
-
-        private static IEnumerable<Empleado> listaEmpleados 
+        public static IEnumerable<Empleado> listaEmpleados 
         {
             get
             {
                 if (_listaEmpleados == null)
                 {
-                    obtenerListaEmpleados();
+                    _listaEmpleados = db.Empleado;
                 }
+
+                db.Refresh(RefreshMode.OverwriteCurrentValues, _listaEmpleados);
                 return _listaEmpleados;
             }
             set
@@ -47,30 +49,31 @@ namespace pe.edu.pucp.ferretin.controller.MRecursosHumanos
                 return null;
         }
 
-        /*public static IEnumerable<Empleado> obtenerListaClientesBy(Empleado empleado)
-        {
-            return from c in listaEmpleados
-                   where
-                   (c.nroDoc != null && c.nroDoc.Contains(empleado.nroDoc)
-                       && c.nombre != null && c.nombre.Contains(empleado.nombre)
-                       && c.apPaterno != null && c.apPaterno.Contains(empleado.apPaterno)
-                       && c.apMaterno != null && c.apMaterno.Contains(cliente.apMaterno)
-                       && c.tipoDocumento != null && c.tipoDocumento.Contains(cliente.tipoDocumento)
-                    )
-                   orderby c.nroDoc
-                   select c; 
-        }*/
 
-        public static void insertarEmpleado(Empleado empleado) 
+        public static bool insertarEmpleado(Empleado empleado) 
         {
-  
-            db.Empleado.InsertOnSubmit(empleado); 
-            db.SubmitChanges();
+            if (!db.Empleado.Contains(empleado))
+            {
+                db.Empleado.InsertOnSubmit(empleado); 
+                return enviarCambios();
+                  
+            }
+            else
+                return false;
         }
 
         public static void actualizarEmpleado(Empleado empleado)
         {
             db.SubmitChanges();
+        }
+
+        public static IEnumerable<Empleado> buscarEmpleados(string searchDni, string searchNombre, Cargo searchCargo, Tienda searchTienda, int searchCodigo)
+        {
+            return listaEmpleados.Where(e => e.dni != null && e.dni.Contains(searchDni))
+               .Where(e => e.nombre != null && e.nombre.Contains(searchNombre));
+
+            //COMPLETAR
+            
         }
     }
 }
