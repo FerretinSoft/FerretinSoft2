@@ -47,6 +47,7 @@ namespace pe.edu.pucp.ferretin.controller.MAlmacen
             return from m in ListaMovimientos
                    where
                    ((!parametros.ContainsKey("tienda") || m.Tienda == null || m.id_almacen_desde == (int)parametros["tienda"]) &&
+                    (!parametros.ContainsKey("estado") || m.MovimientoEstado == null || m.id_estado == (int)parametros["estado"]) &&
                     (!parametros.ContainsKey("fechaDesde") || m.fecha >= (DateTime)parametros["fechaDesde"])  && 
                     (!parametros.ContainsKey("fechaDesde") || m.fecha <= (DateTime)parametros["fechaHasta"]))
                    orderby m.fecha

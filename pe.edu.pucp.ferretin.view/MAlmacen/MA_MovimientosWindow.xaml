@@ -25,7 +25,7 @@
                             <ImageBrush ImageSource="../Resources/refresh2_48.png"/>
                         </Button.Background>
                     </Button>
-                    <DataGrid x:Name="busquedaMovGrid" Margin="5,30,5,5" CanUserAddRows="False" Grid.Row="1" Grid.ColumnSpan="2" AutoGenerateColumns="False" ItemsSource="{Binding Path=listaMovimientos}" >
+                    <DataGrid x:Name="busquedaMovGrid" Margin="5,30,5,5" CanUserAddRows="False" Grid.Row="1" Grid.ColumnSpan="2" AutoGenerateColumns="False" ItemsSource="{Binding Path=listaMovimientos}" IsManipulationEnabled="False" IsReadOnly="True" CanUserSortColumns="True" CanUserDeleteRows="False">
                         <DataGrid.Columns>
                             <DataGridTextColumn Width="1*" Binding="{Binding Path=fecha}" ClipboardContentBinding="{x:Null}" Header="Fecha"/>
                             <DataGridTextColumn Width="1*" Binding="{Binding Path=MovimientoTipo.nombre}" ClipboardContentBinding="{x:Null}" Header="Tipo Mov."/>
@@ -35,7 +35,7 @@
                             <DataGridTextColumn Width="3*" Binding="{Binding Path=comentario}" ClipboardContentBinding="{x:Null}" Header="Comentario"/>
                         </DataGrid.Columns>
                     </DataGrid>
-                    <ComboBox x:Name="almacenCombo" ItemsSource="{Binding searchAlmacen, Mode=TwoWay}" DisplayMemberPath="nombre" SelectedIndex="{Binding selectedTienda, Mode=TwoWay}" HorizontalAlignment="Left" Margin="28,43,0,0" VerticalAlignment="Top" Width="161" Height="22" Grid.Column="1">
+                    <ComboBox x:Name="almacenCombo" ItemsSource="{Binding Path=almacenes}" DisplayMemberPath="nombre" SelectedIndex="{Binding searchAlmacen, Mode=TwoWay}" HorizontalAlignment="Left" Margin="28,43,0,0" VerticalAlignment="Top" Width="161" Height="22" Grid.Column="1">
                         
                     </ComboBox>
                     <Label Content="Estado:" HorizontalAlignment="Left" Height="26" VerticalAlignment="Top" Width="110" Margin="210,39,0,0" Grid.Column="1"/>
@@ -56,10 +56,13 @@
                         </Button>
 
                     </ToolBar>
-                    <ComboBox x:Name="estadoCombo1" ItemsSource="{Binding searchEstado, Mode=TwoWay}" DisplayMemberPath="nombre" SelectedIndex="{Binding selectedTienda, Mode=TwoWay}" HorizontalAlignment="Left" Margin="326,43,0,0" VerticalAlignment="Top" Width="161" Height="22" Grid.Column="1"/>
+                    <ComboBox x:Name="estadoCombo1" ItemsSource="{Binding Path=estadosMovimiento}" DisplayMemberPath="nombre" SelectedIndex="{Binding searchEstado, Mode=TwoWay}" HorizontalAlignment="Left" Margin="326,43,0,0" VerticalAlignment="Top" Width="161" Height="22" Grid.Column="1"/>
                 </Grid>
             </TabItem>
-            <TabItem Header="Nuevo Movimiento" x:Name="detallesTab">
+            <TabItem x:Name="detallesTab" >
+                <TabItem.Header>
+                    <TextBlock Text="{Binding detallesTabHeader,Mode=OneWay,FallbackValue=Nuevo}"/>
+                </TabItem.Header>
                 <Grid Background="#FFE5E5E5" Margin="0">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="48*"></ColumnDefinition>
