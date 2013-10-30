@@ -50,6 +50,7 @@
     <Compile Include="MAlmacen\MA_SharedService.cs" />
     <Compile Include="MAlmacen\MA_TipoMovimientoService.cs" />
     <Compile Include="MCompras\MC_ComunService.cs" />
+    <Compile Include="MCompras\MC_ProveedorService.cs" />
     <Compile Include="MCompras\MC_SharedService.cs" />
     <Compile Include="MRecursosHumanos\MR_SharedService.cs" />
     <Compile Include="MRecursosHumanos\MR_CargTieService.cs" />
