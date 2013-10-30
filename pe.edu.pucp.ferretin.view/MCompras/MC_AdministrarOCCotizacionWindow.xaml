@@ -64,7 +64,7 @@
                         </Button>
                     </ToolBar>
 
-                    <DataGrid x:Name="ordenesDgv" Margin="10,37,10,10" Grid.Row="1" RenderTransformOrigin="0.5,0.5" Grid.ColumnSpan="3" AutoGenerateColumns="False" CanUserAddRows="False" CanUserDeleteRows="False" IsReadOnly="True" Grid.RowSpan="2">
+                    <DataGrid ItemsSource="{Binding Path=listaDocumentosCompra}" Margin="10,37,10,10" Grid.Row="1" RenderTransformOrigin="0.5,0.5" Grid.ColumnSpan="3" AutoGenerateColumns="False" CanUserAddRows="False" CanUserDeleteRows="False" IsReadOnly="True" Grid.RowSpan="2">
                         <DataGrid.Columns>
                             <DataGridTextColumn Width="1.8*" Binding="{Binding Path=tipo}" Header="Tipo"/>
                             <DataGridHyperlinkColumn Width="1.8*" Binding="{Binding Path=codigo}" Header="Código">
