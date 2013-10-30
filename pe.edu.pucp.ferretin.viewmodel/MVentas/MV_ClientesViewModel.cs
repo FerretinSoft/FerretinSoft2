@@ -161,11 +161,12 @@ namespace pe.edu.pucp.ferretin.viewmodel.MVentas
             {
                 if (_saveClienteCommand == null)
                 {
-                    _saveClienteCommand = new RelayCommand(saveCliente);
+                    _saveClienteCommand = new RelayCommand(saveCliente, canSaveExecute);
                 }
                 return _saveClienteCommand;
             }
         }
+
         RelayCommand _cancelClienteCommand;
         public ICommand cancelClienteCommand
         {
@@ -229,6 +230,11 @@ namespace pe.edu.pucp.ferretin.viewmodel.MVentas
         {
             this.statusTab = Tab.BUSQUEDA;
             listaClientes = MV_ClienteService.listaClientes;
+        }
+
+        private bool canSaveExecute(object obj)
+        {
+            return base.UIValidationErrorCount == 0 && this.cliente.Errors.Count == 0;
         }
         #endregion
     }

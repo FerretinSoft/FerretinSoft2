@@ -37,6 +37,47 @@ namespace pe.edu.pucp.ferretin.viewmodel
 
         #endregion INotifyPropertyChanged Members
 
+        #region " Declaraciones "
+
+        private Dictionary<string, UIValidationError> _uIValidationErrorDictionary = new Dictionary<string, UIValidationError>();
+
+        #endregion 
+
+        #region " Propiedades "
+
+        public int UIValidationErrorCount
+        {
+            get { return _uIValidationErrorDictionary.Count; }
+        }
+
+        public string UIValidationErrorMessages
+        {
+            get
+            {
+
+                if (UIValidationErrorCount > 0)
+                {
+
+                    System.Text.StringBuilder sb = new System.Text.StringBuilder(1024);
+
+                    foreach (KeyValuePair<string, UIValidationError> kvp in _uIValidationErrorDictionary)
+                    {
+                        sb.AppendLine(kvp.Value.ToFriendlyErrorMessage());
+                    }
+
+                    return sb.ToString();
+                }
+
+                else
+                {
+                    return string.Empty;
+                }
+            }
+
+        }
+
+        #endregion 
+    
         private IEnumerable<Tienda> _almacenes;
         public IEnumerable<Tienda> almacenes
         {
