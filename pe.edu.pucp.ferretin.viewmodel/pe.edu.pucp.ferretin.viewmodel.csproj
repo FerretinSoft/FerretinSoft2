@@ -56,6 +56,7 @@
     <Compile Include="MSeguridad\MS_AdministrarUsuariosViewModel.cs" />
     <Compile Include="MVentas\MV_ClientesViewModel.cs" />
     <Compile Include="Base\ViewModelBase.cs" />
+    <Compile Include="MVentas\MV_VentasViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
