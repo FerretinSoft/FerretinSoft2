@@ -35,8 +35,8 @@ namespace pe.edu.pucp.ferretin.viewmodel.MAlmacen
             }
         }
 
-        private IEnumerable<Movimiento> _listaMovimientos;
-        public IEnumerable<Movimiento> listaMovimientos
+        private List<Movimiento> _listaMovimientos;
+        public List<Movimiento> listaMovimientos
         {
             get
             {
@@ -45,8 +45,8 @@ namespace pe.edu.pucp.ferretin.viewmodel.MAlmacen
                 //if (searchEstado >= 0) parametros.Add("estado", estadosMovimiento.ElementAt(searchEstado).id);
                 parametros.Add("fechaDesde", searchFechaDesde);
                 parametros.Add("fechaHasta", searchFechaHasta);
-                _listaMovimientos = MA_MovimientosService.ObtenerListaMovimientos(parametros);
-
+                //_listaMovimientos = MA_MovimientosService.ObtenerListaMovimientos(parametros);
+                _listaMovimientos = MA_MovimientosService.ListaMovimientos;
                 return _listaMovimientos;
             }
             set
@@ -71,6 +71,36 @@ namespace pe.edu.pucp.ferretin.viewmodel.MAlmacen
             set
             {
                 _estadosMovimiento = value;
+            }
+        }
+
+        private IEnumerable<MovimientoTipo> _tiposMovimiento;
+        public IEnumerable<MovimientoTipo> tiposMovimiento
+        {
+            get
+            {
+                if (_tiposMovimiento == null)
+                {
+                    _tiposMovimiento = MA_SharedService.tiposMovimiento;
+
+                }
+                return _tiposMovimiento;
+            }
+            set
+            {
+                _tiposMovimiento = value;
+            }
+        }
+
+        private int _selectedMovimiento;
+        public int selectedMovimiento
+        {
+            set
+            {
+                if(value >= 0 && value < listaMovimientos.Count) 
+                    movimiento = listaMovimientos[value];
+                //MessageBox.Show(value + movimiento.codigo);
+                _selectedMovimiento = value;
             }
         }
         #endregion
@@ -219,12 +249,12 @@ namespace pe.edu.pucp.ferretin.viewmodel.MAlmacen
         {
             try
             {
-                this.movimiento = listaMovimientos.Single(mov => mov.id == (int)id);
+                //this.movimiento = listaMovimientos.Single(mov => mov.id == (int)id);
                 this.statusTab = Tab.DETALLES;
             }
             catch (Exception e)
             {
-                MessageBox.Show(e.Message);
+                MessageBox.Show("Aqui" + e.Message);
             }
         }
 
