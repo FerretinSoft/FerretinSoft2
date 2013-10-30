@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using pe.edu.pucp.ferretin.model.MAlmacen;
 using pe.edu.pucp.ferretin.viewmodel.Helper;
 using System.Windows.Input;
+using pe.edu.pucp.ferretin.model;
 
 namespace pe.edu.pucp.ferretin.viewmodel.MAlmacen
 {
@@ -79,8 +79,8 @@ namespace pe.edu.pucp.ferretin.viewmodel.MAlmacen
         
 
 
-        private IEnumerable<ProductoTienda> _listaProdTienda;
-        public IEnumerable<ProductoTienda> listaProdTienda
+        private IEnumerable<ProductoAlmacen> _listaProdTienda;
+        public IEnumerable<ProductoAlmacen> listaProdTienda
         {
             get
             {

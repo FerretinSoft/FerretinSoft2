@@ -54,9 +54,6 @@ namespace pe.edu.pucp.ferretin.controller.MRecursosHumanos
         {
             if (!db.Empleado.Contains(empleado))
             {
-
-
-              // db.EmpleadoTienda.InsertOnSubmit(empleado.nuevoEmpleoTienda);//puede ser
                 db.Empleado.InsertOnSubmit(empleado); 
                 return enviarCambios();
                   
@@ -77,8 +74,8 @@ namespace pe.edu.pucp.ferretin.controller.MRecursosHumanos
               .Where(e => e.nombreCompleto.Contains(searchNombre))
               .Where(e => (searchCodigo <=0) || (e.codEmpleado == searchCodigo))
               //estado 1=inactivo, 2=activo
-              .Where(e => searchTienda == null || searchTienda.id <= 0 || (e.EmpleadoTienda.Single(et => et.estado == 2).Tienda == searchTienda))
-              .Where(e => searchCargo == null || searchCargo.id <= 0 || (e.EmpleadoTienda.Single(et=> et.estado == 2).Cargo == searchCargo ))
+              .Where(e => searchTienda == null || searchTienda.id <= 0 || (e.EmpleadoTienda.Single(et => et.estado == 2).Tienda.id == searchTienda.id))
+              .Where(e => searchCargo == null || searchCargo.id <= 0 || (e.EmpleadoTienda.Single(et=> et.estado == 2).Cargo.id == searchCargo.id ))
               ;
 
         }
