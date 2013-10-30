@@ -12,7 +12,7 @@ namespace pe.edu.pucp.ferretin.controller.MAlmacen
     {
        private static IEnumerable<Movimiento> _listaMovimientos;
 
-        private static IEnumerable<Movimiento> listaMovimientos
+        public static IEnumerable<Movimiento> ListaMovimientos
         {
             get
             {
@@ -35,7 +35,7 @@ namespace pe.edu.pucp.ferretin.controller.MAlmacen
 
         public static Movimiento ObtenerMovimientoPorId(int id)
         {
-            Movimiento movimiento = (from m in listaMovimientos
+            Movimiento movimiento = (from m in ListaMovimientos
                                where m.id.Equals(id)
                                select m).Single();
 
@@ -44,7 +44,7 @@ namespace pe.edu.pucp.ferretin.controller.MAlmacen
 
         public static IEnumerable<Movimiento> ObtenerListaMovimientos(Dictionary<string, object> parametros)
         {
-            return from m in listaMovimientos
+            return from m in ListaMovimientos
                    where
                    ((!parametros.ContainsKey("tienda") || m.Tienda == null || m.id_almacen_desde == (int)parametros["tienda"]) &&
                     (!parametros.ContainsKey("fechaDesde") || m.fecha >= (DateTime)parametros["fechaDesde"])  && 
@@ -59,7 +59,7 @@ namespace pe.edu.pucp.ferretin.controller.MAlmacen
             //db.SubmitChanges();
         }
 
-        public static bool insertarMovimiento(Movimiento movimiento)
+        public static bool InsertarMovimiento(Movimiento movimiento)
         {
             if (!db.Movimiento.Contains(movimiento))
             {

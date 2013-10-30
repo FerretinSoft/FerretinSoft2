@@ -10,5 +10,8 @@ namespace pe.edu.pucp.ferretin.model
     {
         public Categoria listaCategoria{get;set;}
         public String cadenaCategoria { get; set; }
+
+        
+        
     }
 }
