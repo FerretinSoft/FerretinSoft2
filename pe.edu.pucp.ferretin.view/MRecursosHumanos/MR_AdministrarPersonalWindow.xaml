@@ -74,8 +74,8 @@
                     <Label Content="Código: " HorizontalAlignment="Left" Height="26" VerticalAlignment="Top" Width="107" Margin="26,67,0,0"/>
                     <TextBox Text="{Binding searchCodigo, Mode=TwoWay}" HorizontalAlignment="Left" Height="20" Margin="83,73,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
                     <Label Content="Tienda:" HorizontalAlignment="Left" Height="26" VerticalAlignment="Top" Width="45" Margin="438,74,0,0"/>
-                    <ComboBox ItemsSource="{Binding listaCargos}"  SelectedItem="{Binding selectedCargo,Mode=TwoWay}" SelectedIndex="0"  DisplayMemberPath="nombre" SelectedValuePath="id"  HorizontalAlignment="Left" Margin="290,74,0,0" VerticalAlignment="Top" Width="120"/>
-                    <ComboBox ItemsSource="{Binding listaTiendas}"  SelectedItem="{Binding selectedTienda,Mode=TwoWay}" SelectedIndex="0"  DisplayMemberPath="nombre" SelectedValuePath="id" HorizontalAlignment="Left" Margin="502,74,0,0" VerticalAlignment="Top" Width="120">               
+                    <ComboBox ItemsSource="{Binding listaCargos}"  SelectedItem="{Binding searchCargo,Mode=TwoWay}" SelectedIndex="0"  DisplayMemberPath="nombre" SelectedValuePath="id"  HorizontalAlignment="Left" Margin="290,74,0,0" VerticalAlignment="Top" Width="120"/>
+                    <ComboBox ItemsSource="{Binding listaTiendas}"  SelectedItem="{Binding searchTienda,Mode=TwoWay}" SelectedIndex="0"  DisplayMemberPath="nombre" SelectedValuePath="id" HorizontalAlignment="Left" Margin="502,74,0,0" VerticalAlignment="Top" Width="120">               
                     </ComboBox>
 
                     <Label Content="Cargo: " HorizontalAlignment="Left" Height="26" VerticalAlignment="Top" Width="57" Margin="223,70,0,0"/>
@@ -127,8 +127,8 @@
                     <DatePicker SelectedDate="{Binding Path=empleado.fecNacimiento,Mode=TwoWay}"  HorizontalAlignment="Left" Margin="49,410,0,0" VerticalAlignment="Top" Grid.Column="3" Width="97"/>
                     <Button Command="{Binding saveEmpleadoCommand}" Content="GUARDAR" HorizontalAlignment="Left" Margin="102,0,0,12" VerticalAlignment="Bottom" Width="75" RenderTransformOrigin="1.347,-0.05" Grid.Column="4" Height="30"/>
                     <Label Content="Fecha ingreso:" HorizontalAlignment="Left" Margin="25,22,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.464,1.231" Grid.Column="4"/>
-                    <DatePicker SelectedDate="{Binding empleado.ultimafechaIngreso,Mode=OneWay}" HorizontalAlignment="Left" Margin="154,24,0,0" VerticalAlignment="Top" Grid.Column="4" Width="181"/>
-                    <Button Content="CANCELAR" HorizontalAlignment="Left" Margin="207,0,0,13" VerticalAlignment="Bottom" Width="75" RenderTransformOrigin="1.347,-0.05" Grid.Column="4" Height="30"/>
+                    <DatePicker IsEnabled="False" SelectedDate="{Binding empleado.ultimafechaIngreso,Mode=OneWay}" HorizontalAlignment="Left" Margin="154,24,0,0" VerticalAlignment="Top" Grid.Column="4" Width="181"/>
+                    <Button Command="{Binding cancelEmpleadoCommand}" Content="CANCELAR" HorizontalAlignment="Left" Margin="207,0,0,13" VerticalAlignment="Bottom" Width="75" RenderTransformOrigin="1.347,-0.05" Grid.Column="4" Height="30"/>
                     <Label Content="Dirección:&#x9;" HorizontalAlignment="Left" Margin="10,213,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.464,1.231" Grid.ColumnSpan="4"/>
                     <TextBox Text="{Binding Path=empleado.direccion, Mode=TwoWay,  ValidatesOnExceptions=true, NotifyOnValidationError=true}"  HorizontalAlignment="Left" Height="23" Margin="73.75,217,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="219" Grid.Column="3"/>
                     <ComboBox ItemsSource="{Binding listaCargos}"  SelectedItem="{Binding empleado.cargoActual,Mode=TwoWay}"  DisplayMemberPath="nombre" SelectedValuePath="id" HorizontalAlignment="Left" Margin="74,57,0,0" VerticalAlignment="Top" Width="90" Grid.Column="4"/>
@@ -147,12 +147,12 @@
                             <DataGridTextColumn Width="3*" Binding="{x:Null}" ClipboardContentBinding="{x:Null}" Header="Hora fin"/>
                         </DataGrid.Columns>
                     </DataGrid>
-                    <DataGrid Grid.Column="4" HorizontalAlignment="Left" Margin="29,213,0,0" VerticalAlignment="Top" Height="73" Width="306">
+                    <DataGrid ItemsSource="{Binding empleado.EmpleadoTienda}" AutoGenerateColumns="False" IsReadOnly="True" IsManipulationEnabled="False" Grid.Column="4" HorizontalAlignment="Left" Margin="29,213,0,0" VerticalAlignment="Top" Height="73" Width="306">
                         <DataGrid.Columns>
-                            <DataGridTextColumn Width="2*" Binding="{x:Null}" ClipboardContentBinding="{x:Null}" Header="Cargo"/>
-                            <DataGridTextColumn Width="3*" Binding="{x:Null}" ClipboardContentBinding="{x:Null}" Header="Fecha inicio"/>
-                            <DataGridTextColumn Width="3*" Binding="{x:Null}" ClipboardContentBinding="{x:Null}" Header="Fecha fin"/>
-                            <DataGridTextColumn Width="2*" Binding="{x:Null}" ClipboardContentBinding="{x:Null}" Header="Tienda"/>
+                            <DataGridTextColumn Width="3*" Binding="{Binding Path=Cargo.nombre}"  Header="Cargo"/>
+                            <DataGridTextColumn Width="2*" Binding="{Binding Path=fechaInicioString}" Header="Fecha inicio"/>
+                            <DataGridTextColumn Width="2*" Binding="{Binding Path=fechaFinString}" Header="Fecha fin"/>
+                            <DataGridTextColumn Width="2*" Binding="{Binding Path=Tienda.nombre}" Header="Tienda"/>
                         </DataGrid.Columns>
                     </DataGrid>
 
