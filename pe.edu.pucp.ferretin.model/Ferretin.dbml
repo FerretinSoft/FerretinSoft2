@@ -506,21 +506,11 @@
       <Association Name="Tienda_ProductoAlmacen" Member="ProductoAlmacen" ThisKey="id" OtherKey="id_almacen" Type="ProductoAlmacen" />
       <Association Name="Tienda_SolicitudAbastecimiento" Member="SolicitudAbastecimiento" ThisKey="id" OtherKey="id_almacen" Type="SolicitudAbastecimiento" />
       <Association Name="Tienda_Tienda" Member="Tienda2" ThisKey="id" OtherKey="id_abastecedor" Type="Tienda" />
-      <Association Name="Tienda_TiendaHorario" Member="TiendaHorario" ThisKey="id" OtherKey="id_almacen" Type="TiendaHorario" />
       <Association Name="Tienda_Turno" Member="Turno" ThisKey="id" OtherKey="id_almacen" Type="Turno" />
+      <Association Name="Tienda_TiendaHorario" Member="TiendaHorario" ThisKey="id" OtherKey="id_almacen" Type="TiendaHorario" />
       <Association Name="Tienda_Tienda" Member="Tienda1" ThisKey="id_abastecedor" OtherKey="id" Type="Tienda" IsForeignKey="true" />
       <Association Name="Empleado_Tienda" Member="Empleado" ThisKey="id_jefe" OtherKey="id" Type="Empleado" IsForeignKey="true" />
       <Association Name="UbigeoDistrito_Tienda" Member="UbigeoDistrito" ThisKey="id_ubigeo" OtherKey="id" Type="UbigeoDistrito" IsForeignKey="true" />
-    </Type>
-  </Table>
-  <Table Name="dbo.TiendaHorario" Member="TiendaHorario">
-    <Type Name="TiendaHorario">
-      <Column Name="id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
-      <Column Name="horaInicio" Type="System.String" DbType="VarChar(10)" CanBeNull="true" />
-      <Column Name="horaFin" Type="System.String" DbType="VarChar(10)" CanBeNull="true" />
-      <Column Name="dia" Type="System.String" DbType="VarChar(15)" CanBeNull="true" />
-      <Column Name="id_almacen" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Association Name="Tienda_TiendaHorario" Member="Tienda" ThisKey="id_almacen" OtherKey="id" Type="Tienda" IsForeignKey="true" />
     </Type>
   </Table>
   <Table Name="dbo.Transaccion" Member="Transaccion">
@@ -643,6 +633,16 @@
       <Column Name="id_medio_pago" Type="System.Int16" DbType="SmallInt" CanBeNull="true" />
       <Association Name="MedioPago_VentaMedioPago" Member="MedioPago" ThisKey="id_medio_pago" OtherKey="id" Type="MedioPago" IsForeignKey="true" />
       <Association Name="Venta_VentaMedioPago" Member="Venta" ThisKey="id_venta" OtherKey="id" Type="Venta" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.TiendaHorario" Member="TiendaHorario">
+    <Type Name="TiendaHorario">
+      <Column Name="id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="horaInicio" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="horaFin" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="dia" Type="System.String" DbType="VarChar(15)" CanBeNull="true" />
+      <Column Name="id_almacen" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Association Name="Tienda_TiendaHorario" Member="Tienda" ThisKey="id_almacen" OtherKey="id" Type="Tienda" IsForeignKey="true" />
     </Type>
   </Table>
 </Database>
