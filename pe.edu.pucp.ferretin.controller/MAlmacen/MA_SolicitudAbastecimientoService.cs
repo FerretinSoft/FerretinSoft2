@@ -59,6 +59,27 @@ namespace pe.edu.pucp.ferretin.controller.MAlmacen
             
         }
 
+        public static IEnumerable<SolicitudAbastecimiento> buscar(Tienda almacen, Tienda tienda, SolicitudAbastecimientoEstado estado, DateTime fechaDesde, DateTime fechaHasta)
+        {
+            return listaSolicitudes
+                .Where(m => (m.Tienda != null && m.Tienda.Tienda1 == almacen)) //obtener las solicitudes de todas las tiendas a las que abastezco
+                .Where(m => (tienda == null) || m.Tienda == tienda)
+                .Where(m => (estado == null) || (estado.id <= 0) || (m.SolicitudAbastecimientoEstado == estado))
+                .Where(m => (m.fecha >= fechaDesde) && (m.fecha <= fechaHasta))
+                .OrderBy(m => m.fecha);
+
+        }
+
+        public static bool atenderSolicitud(SolicitudAbastecimiento solicitud)
+        {
+            return false;
+        }
+
+        public static bool anularSolicitud(SolicitudAbastecimiento solicitud)
+        {
+            return false;
+        }
+
         public static bool insertarSolicitud(SolicitudAbastecimiento solicitud)
         {
             if (!db.SolicitudAbastecimiento.Contains(solicitud))

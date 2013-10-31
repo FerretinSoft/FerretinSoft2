@@ -11,9 +11,23 @@ using System.Windows.Input;
 
 namespace pe.edu.pucp.ferretin.viewmodel.MAlmacen
 {
-    public class MA_RegistroSolAbastecimientoViewModel : ViewModelBase
+    public class MA_AtencionSolAbastecimientoViewModel : ViewModelBase
     {
         #region Valores para el cuadro de Búsqueda
+
+        public Tienda _searchTienda;
+        public Tienda searchTienda
+        {
+            get
+            {
+                return _searchTienda;
+            }
+            set
+            {
+                _searchTienda = value;
+                NotifyPropertyChanged("searchTienda");
+            }
+        }
 
         public SolicitudAbastecimientoEstado _searchEstado;
         public SolicitudAbastecimientoEstado searchEstado
@@ -63,8 +77,8 @@ namespace pe.edu.pucp.ferretin.viewmodel.MAlmacen
         public enum Tab
         {
             //Pestañas virtuales:
-            //0       1        2         
-            BUSQUEDA, AGREGAR, DETALLES
+            //0       1                 
+            BUSQUEDA, DETALLES
         }
         private Tab _statusTab = Tab.BUSQUEDA; //pestaña default 
         public Tab statusTab
@@ -80,10 +94,9 @@ namespace pe.edu.pucp.ferretin.viewmodel.MAlmacen
                 //Si la pestaña es para agregar nuevo, limpio los input
                 switch (_statusTab)
                 {
-                    case Tab.BUSQUEDA: detallesTabHeader = "Nueva Solicitud"; solicitud = new SolicitudAbastecimiento(); solicitud.Tienda = currentTienda; break;//Si es agregar, creo un nuevo objeto Almacen
-                    case Tab.AGREGAR: detallesTabHeader = "Nueva Solicitud"; solicitud = new SolicitudAbastecimiento(); solicitud.Tienda = currentTienda; break;//Si es agregar, creo un nuevo objeto Almacen
+                    case Tab.BUSQUEDA: detallesTabHeader = "Detalles"; break;
                     case Tab.DETALLES: detallesTabHeader = "Detalles"; break;
-                    default: detallesTabHeader = "Nueva Solicitud"; solicitud = new SolicitudAbastecimiento(); solicitud.Tienda = currentTienda; break;//Si es agregar, creo un nuevo objeto Almacen
+                    default: detallesTabHeader = "Detalles"; break;//Si es agregar, creo un nuevo objeto Almacen
                 }
                 NotifyPropertyChanged("statusTab");
                 //Cuando se cambia el status, tambien se tiene que actualizar el currentIndex del tab
@@ -94,9 +107,9 @@ namespace pe.edu.pucp.ferretin.viewmodel.MAlmacen
         public int currentIndexTab
         {
             get { return _statusTab == Tab.BUSQUEDA ? 0 : 1; }
-            set { statusTab = value == 0 ? Tab.BUSQUEDA : Tab.AGREGAR; }
+            set { statusTab = value == 0 ? Tab.BUSQUEDA : Tab.DETALLES; }
         }
-        private String _detallesTabHeader = "Nueva Solicitud"; //Default
+        private String _detallesTabHeader = "Detalles"; //Default
         public String detallesTabHeader
         {
             get
@@ -113,11 +126,11 @@ namespace pe.edu.pucp.ferretin.viewmodel.MAlmacen
 
         #region Lista de Solicitudes y Edición de Solicitudes
 
-        public Tienda currentTienda
+        public Tienda currentAlmacen
         {
             get
             {
-                return tiendas.ElementAt(0);
+                return almacenes.ElementAt(0);
             }
         }
 
@@ -140,7 +153,7 @@ namespace pe.edu.pucp.ferretin.viewmodel.MAlmacen
         {
             get
             {
-                _listaSolicitudes = MA_SolicitudAbastecimientoService.buscar(currentTienda, searchEstado, searchFechaDesde, searchFechaHasta);
+                _listaSolicitudes = MA_SolicitudAbastecimientoService.buscar(currentAlmacen, searchTienda, searchEstado, searchFechaDesde, searchFechaHasta);
                 return _listaSolicitudes;
             }
             set
@@ -150,38 +163,10 @@ namespace pe.edu.pucp.ferretin.viewmodel.MAlmacen
             }
         }
 
-        private string _codigoNuevoProducto = "";
-        public string codigoNuevoProducto
-        {
-            get
-            {
-                return _codigoNuevoProducto;
-            }
-            set
-            {
-                _codigoNuevoProducto = value;
-            }
-        }
-
-        public IEnumerable<SolicitudAbastecimientoProducto> solicitudNuevoProducto
-        {
-            get
-            {
-                if (solicitud.SolicitudAbastecimientoProducto != null)
-                {
-                    return solicitud.SolicitudAbastecimientoProducto;
-                }
-                else
-                {
-                    return new SolicitudAbastecimientoProducto[] { };
-                }
-            }
-        }
-
         #endregion
 
         #region RelayCommand
-        
+
         RelayCommand _actualizarListaSolicitudesCommand;
         public ICommand actualizarListaSolicitudesCommand
         {
@@ -192,19 +177,6 @@ namespace pe.edu.pucp.ferretin.viewmodel.MAlmacen
                     _actualizarListaSolicitudesCommand = new RelayCommand(param => NotifyPropertyChanged("listaSolicitudes"));
                 }
                 return _actualizarListaSolicitudesCommand;
-            }
-        }
-
-        RelayCommand _agregarSolicitudCommand;
-        public ICommand agregarSolicitudCommand
-        {
-            get
-            {
-                if (_agregarSolicitudCommand == null)
-                {
-                    _agregarSolicitudCommand = new RelayCommand(p => statusTab = Tab.AGREGAR);
-                }
-                return _agregarSolicitudCommand;
             }
         }
 
@@ -221,16 +193,29 @@ namespace pe.edu.pucp.ferretin.viewmodel.MAlmacen
             }
         }
 
-        RelayCommand _saveSolicitudCommand;
-        public ICommand saveSolicitudCommand
+        RelayCommand _atenderSolicitudCommand;
+        public ICommand atenderSolicitudCommand
         {
             get
             {
-                if (_saveSolicitudCommand == null)
+                if (_atenderSolicitudCommand == null)
                 {
-                    _saveSolicitudCommand = new RelayCommand(saveSolicitud);
+                    _atenderSolicitudCommand = new RelayCommand(atenderSolicitud);
                 }
-                return _saveSolicitudCommand;
+                return _atenderSolicitudCommand;
+            }
+        }
+
+        RelayCommand _anularSolicitudCommand;
+        public ICommand anularSolicitudCommand
+        {
+            get
+            {
+                if (_anularSolicitudCommand == null)
+                {
+                    _anularSolicitudCommand = new RelayCommand(anularSolicitud);
+                }
+                return _anularSolicitudCommand;
             }
         }
 
@@ -247,19 +232,6 @@ namespace pe.edu.pucp.ferretin.viewmodel.MAlmacen
             }
         }
 
-        RelayCommand _agregarNuevoProductoCommand;
-        public ICommand agregarNuevoProductoCommand
-        {
-            get
-            {
-                if (_agregarNuevoProductoCommand == null)
-                {
-                    _agregarNuevoProductoCommand = new RelayCommand(agregarNuevoProducto);
-                }
-                return _agregarNuevoProductoCommand;
-            }
-        }
-        
         #endregion
 
         #region Comandos
@@ -278,32 +250,42 @@ namespace pe.edu.pucp.ferretin.viewmodel.MAlmacen
             }
         }
 
-        public void saveSolicitud(Object obj)
+        public void atenderSolicitud(Object obj)
         {
 
             if (solicitud.id > 0)//Si existe
             {
-                if (!MA_SolicitudAbastecimientoService.enviarCambios())
+                if (!MA_SolicitudAbastecimientoService.atenderSolicitud(solicitud))
                 {
-                    MessageBox.Show("No se pudo actualizar la solicitud de abastecimiento");
+                    MessageBox.Show("No se pudo atender la solicitud de abastecimiento");
                 }
                 else
                 {
-                    MessageBox.Show("La solicitud de abastecimiento fue guardada con éxito");
+                    MessageBox.Show("La solicitud de abastecimiento fue atendida con éxito");
                 }
+                NotifyPropertyChanged("solicitud");
+                NotifyPropertyChanged("listaSolicitudes");
+                
             }
-            else
+        }
+
+        public void anularSolicitud(Object obj)
+        {
+
+            if (solicitud.id > 0)//Si existe
             {
-                if (!MA_SolicitudAbastecimientoService.insertarSolicitud(solicitud))
+                if (!MA_SolicitudAbastecimientoService.anularSolicitud(solicitud))
                 {
-                    MessageBox.Show("No se pudo agregar la nueva solicitud");
+                    MessageBox.Show("No se pudo anular la solicitud de abastecimiento");
                 }
                 else
                 {
-                    MessageBox.Show("La solicitud fue agregada con éxito");
+                    MessageBox.Show("La solicitud de abastecimiento fue anulada con éxito");
                 }
+                NotifyPropertyChanged("solicitud");
+                NotifyPropertyChanged("listaSolicitudes");
+
             }
-            NotifyPropertyChanged("listaSolicitudes");
         }
 
         public void cancelSolicitud(Object obj)
@@ -312,32 +294,9 @@ namespace pe.edu.pucp.ferretin.viewmodel.MAlmacen
             listaSolicitudes = MA_SolicitudAbastecimientoService.listaSolicitudes;
         }
 
-        public void agregarNuevoProducto(Object atr)
-        {
-            Producto producto = null;
-            try
-            { 
-                producto = MA_ProductoService.obtenerTodosProductos()
-                    .First(p => !String.IsNullOrEmpty(p.codigo) && p.codigo.Equals(codigoNuevoProducto)); 
-            }
-            catch { }
-
-            if (producto != null && solicitud.SolicitudAbastecimientoProducto.Count(mp => mp.Producto == producto) <= 0)
-            {
-                SolicitudAbastecimientoProducto sProducto = new SolicitudAbastecimientoProducto 
-                                            { cantidad = 1, SolicitudAbastecimiento = solicitud, Producto = producto };
-                solicitud.SolicitudAbastecimientoProducto.Add(sProducto);
-                NotifyPropertyChanged("solicitud");
-                NotifyPropertyChanged("solicitud.SolicitudAbastecimientoProducto");
-            }
-            else
-            {
-                MessageBox.Show("No se encontró un producto con el código \"" + codigoNuevoProducto + "\".", 
-                    "No se encontró el Producto", MessageBoxButton.OK, MessageBoxImage.Error);
-            }
-        }
+        
         #endregion
 
-        
+
     }
 }
