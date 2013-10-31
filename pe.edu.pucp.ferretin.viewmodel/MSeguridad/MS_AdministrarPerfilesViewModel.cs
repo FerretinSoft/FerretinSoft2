@@ -174,8 +174,26 @@ namespace pe.edu.pucp.ferretin.viewmodel.MSeguridad
             get
             {
                 _listaPerfiles = MS_PerfilService.buscar(searchModulo,searchDescripcion);
+                string admin = "Administrador";
+                string recHumanos = "Recursos Humanos";
+                string alm = "Almacen";
+                string comp = "Compras";
+                string vent = "Ventas";
+                string tien = "Tienda";
+                string vend = "Vendedor";
+
+                foreach (Perfil valor in _listaPerfiles) {
+
+                    if (valor.nombre.ToLower().Contains(admin.ToLower().Trim())) valor.modulo = "Modulo Administrador";
+                    if (valor.nombre.ToLower().Contains(recHumanos.ToLower().Trim())) valor.modulo = "Modulo Recursos Humanos";
+                    if (valor.nombre.ToLower().Contains(comp.ToLower().Trim())) valor.modulo = "Modulo Compras";
+                    if (valor.nombre.ToLower().Contains(alm.ToLower().Trim())) valor.modulo = "Modulo Almacen";
+                    if (valor.nombre.ToLower().Contains(vent.ToLower().Trim())
+                        || valor.nombre.ToLower().Contains(tien.ToLower().Trim()) 
+                        || valor.nombre.ToLower().Contains(vend.ToLower().Trim())) valor.modulo = "Modulo Ventas";         
+                }
                 return _listaPerfiles;
-            }
+            }            
             set
             {
                 _listaPerfiles = value;
@@ -342,5 +360,6 @@ namespace pe.edu.pucp.ferretin.viewmodel.MSeguridad
         /**************************************************/
         #endregion
 
+        
     }
 }

@@ -54,13 +54,13 @@
                             <DataGridTextColumn Width="2*" Binding="{Binding Path=SolicitudAbastecimientoEstado.nombre}" Header="Estado"/>
                         </DataGrid.Columns>
                     </DataGrid>
-                    <ComboBox ItemsSource="{Binding estadoSolicitud,Mode=TwoWay}" DisplayMemberPath="nombre" SelectedItem="{Binding searchEstado, Mode=TwoWay}"  HorizontalAlignment="Left" Margin="402,43,0,0" VerticalAlignment="Top" Width="134" Height="22">
+                    <ComboBox SelectedIndex="0" ItemsSource="{Binding estadoSolicitud,Mode=TwoWay}" DisplayMemberPath="nombre" SelectedItem="{Binding searchEstado, Mode=TwoWay}"  HorizontalAlignment="Left" Margin="402,43,0,0" VerticalAlignment="Top" Width="134" Height="22">
                     </ComboBox>
                     <Label Content="Fecha hasta:" HorizontalAlignment="Left" Height="26" VerticalAlignment="Top" Width="89" Margin="323,80,0,0"/>
                     <Label Content="Fecha desde:" HorizontalAlignment="Left" Height="26" VerticalAlignment="Top" Width="92" Margin="22,80,0,0" RenderTransformOrigin="0.48,2.068"/>
                     <DatePicker SelectedDate="{Binding searchFechaHasta, Mode=TwoWay}" HorizontalAlignment="Left" Margin="404,81,0,0" VerticalAlignment="Top" Width="133"/>
                     <DatePicker SelectedDate="{Binding searchFechaDesde, Mode=TwoWay}" HorizontalAlignment="Left" Margin="116,81,0,0" VerticalAlignment="Top" Width="157"/>
-                    <TextBox HorizontalAlignment="Left" Height="23" Margin="116,44,0,0" TextWrapping="Wrap" Text="{Binding currentTienda.nombre}" VerticalAlignment="Top" Width="157"/>
+                    <TextBox HorizontalAlignment="Left" Height="23" Margin="116,44,0,0" TextWrapping="Wrap" Text="{Binding currentTienda.nombre}" VerticalAlignment="Top" Width="157" IsEnabled="False"/>
                 </Grid>
             </TabItem>
             <TabItem x:Name="generarSolTab">
@@ -80,29 +80,29 @@
 
                     <Label Content="Tienda:" HorizontalAlignment="Left" Height="26" VerticalAlignment="Top" Width="64" Margin="326,43,0,0"/>
                     <Label Content="Estado:" HorizontalAlignment="Left" Height="26" VerticalAlignment="Top" Width="65" Margin="325,82,0,0"/>
-                    <DataGrid ItemsSource="{Binding solicitud.SolicitudAbastecimientoProducto,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged,NotifyOnSourceUpdated=True,NotifyOnTargetUpdated=True}" Name="gridGenerar" Margin="8,30,2,3" Grid.Row="1" AutoGenerateColumns="False"  CanUserDeleteRows="False" IsManipulationEnabled="True" CanUserAddRows="False">
+                    <DataGrid IsReadOnly="{Binding isCreating}" ItemsSource="{Binding productosPorSolicitud,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged,NotifyOnSourceUpdated=True,NotifyOnTargetUpdated=True}" Name="gridGenerar" Margin="8,30,2,3" Grid.Row="1" AutoGenerateColumns="False"  CanUserDeleteRows="False" IsManipulationEnabled="True" CanUserAddRows="False">
                         <DataGrid.Columns>
-                            <DataGridTextColumn Width="2*" Binding="{Binding Path=Producto.codigo}"  IsReadOnly="True" Header="Cód. Producto"/>
-                            <DataGridTextColumn Width="2*" Binding="{Binding Path=Producto.nombre}"  IsReadOnly="True"  Header="Nombre"/>
-                            <DataGridTextColumn Width="2*" Binding="{Binding Path=cantidad}"  Header="Cantidad" />
-                            <DataGridTextColumn Width="2*"  Header="En Stock" />
-                            <DataGridTextColumn Width="2*" Binding="{Binding Path=Producto.stockmin}" Header="Stock mínimo" IsReadOnly="True" />
+                            <DataGridTextColumn Width="2*" Binding="{Binding Path=SolicitudAbastecimientoProducto.Producto.codigo}"  IsReadOnly="True" Header="Cód. Producto"/>
+                            <DataGridTextColumn Width="2*" Binding="{Binding Path=SolicitudAbastecimientoProducto.Producto.nombre}"  IsReadOnly="True"  Header="Nombre"/>
+                            <DataGridTextColumn Width="2*" Binding="{Binding Path=SolicitudAbastecimientoProducto.cantidad}"  Header="Cantidad" IsReadOnly="{Binding isCreating}"/>
+                            <DataGridTextColumn Width="2*" Binding="{Binding Path=ProductoAlmacen.stock}" Header="En Stock" IsReadOnly="True" />
+                            <DataGridTextColumn Width="2*" Binding="{Binding Path=ProductoAlmacen.stockMin}" Header="Stock mínimo" IsReadOnly="True" />
                         </DataGrid.Columns>
                     </DataGrid>
                     <Label Content="Fecha solicitud:" HorizontalAlignment="Left" Height="26" VerticalAlignment="Top" Width="111" Margin="22,81,0,0"/>
-                    <DatePicker SelectedDate="{Binding Path=solicitud.fecha, Mode=TwoWay, ValidatesOnExceptions=true, NotifyOnValidationError=true}" HorizontalAlignment="Left" Margin="133,82,0,0" VerticalAlignment="Top" Width="166"/>
-                    <TextBox Text="{Binding Path=solicitud.SolicitudAbastecimientoEstado.nombre, FallbackValue=Pendiente, Mode=TwoWay, ValidatesOnExceptions=true, NotifyOnValidationError=true}" x:Name="estadoTxtBox1" HorizontalAlignment="Left" Height="23" Margin="433,85,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="208" IsEnabled="False"/>
-                    <Button Command="{Binding agregarNuevoProductoCommand}" Content="" VerticalAlignment="Top" Width="20" Height="20" Margin="135,0,0,0" Grid.Row="1" HorizontalAlignment="Left">
+                    <DatePicker IsEnabled="{Binding isCreating}" SelectedDate="{Binding Path=solicitud.fecha, Mode=TwoWay, ValidatesOnExceptions=true, NotifyOnValidationError=true}" HorizontalAlignment="Left" Margin="133,82,0,0" VerticalAlignment="Top" Width="166"/>
+                    <Button IsEnabled="{Binding isCreating}" Command="{Binding agregarNuevoProductoCommand}" Content="" VerticalAlignment="Top" Width="20" Height="20" Margin="135,0,0,0" Grid.Row="1" HorizontalAlignment="Left">
                         <Button.Background>
                             <ImageBrush ImageSource="../Resources/add_20.png" Stretch="None"/>
                         </Button.Background>
                     </Button>
                     <Label Content="Código:" HorizontalAlignment="Left" Height="26" VerticalAlignment="Top" Width="65" Margin="22,43,0,0"/>
-                    <TextBox Text="{Binding Path=solicitud.codigo, Mode=TwoWay, ValidatesOnExceptions=true, NotifyOnValidationError=true}" x:Name="idTxtBox" HorizontalAlignment="Left" Height="23" Margin="133,46,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="166"/>
+                    <TextBox IsEnabled="{Binding isCreating}" Text="{Binding Path=solicitud.codigo, Mode=TwoWay, ValidatesOnExceptions=true, NotifyOnValidationError=true}" x:Name="idTxtBox" HorizontalAlignment="Left" Height="23" Margin="133,46,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="166"/>
                     <Button Command="{Binding saveSolicitudCommand}" Content="GUARDAR" HorizontalAlignment="Left" Margin="476,10,0,0" Grid.Row="2" VerticalAlignment="Top" Width="75" Height="30"/>
                     <Button Content="CANCELAR" Command="{Binding cancelSolicitudCommand}" HorizontalAlignment="Left" Margin="590,9,0,0" Grid.Row="2" VerticalAlignment="Top" Width="75" Height="30"/>
                     <TextBox Text="{Binding Path=currentTienda.nombre}" x:Name="estadoTxtBox1_Copy" HorizontalAlignment="Left" Height="23" Margin="433,46,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="208" IsEnabled="False"/>
-                    <TextBox Text="{Binding codigoNuevoProducto,Mode=TwoWay}"  HorizontalAlignment="Left" Height="20" Margin="10,0,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Grid.RowSpan="2" Grid.Row="1"/>
+                    <TextBox IsEnabled="{Binding isCreating}" Text="{Binding codigoNuevoProducto,Mode=TwoWay}"  HorizontalAlignment="Left" Height="20" Margin="10,0,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Grid.RowSpan="2" Grid.Row="1"/>
+                    <ComboBox ItemsSource="{Binding estadoSolicitud}" SelectedItem="{Binding solicitud.SolicitudAbastecimientoEstado}" DisplayMemberPath="nombre" HorizontalAlignment="Left" Margin="433,81,0,0" VerticalAlignment="Top" Width="208" Height="22" IsEnabled="False"/>
 
                 </Grid>
             </TabItem>
