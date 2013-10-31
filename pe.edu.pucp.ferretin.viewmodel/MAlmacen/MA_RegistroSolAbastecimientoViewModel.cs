@@ -112,6 +112,16 @@ namespace pe.edu.pucp.ferretin.viewmodel.MAlmacen
         #endregion
 
         #region Lista de Solicitudes y Edición de Solicitudes
+
+        private Tienda _currentTienda;
+        public Tienda currentTienda
+        {
+            get
+            {
+                return tiendas.ElementAt(0);
+            }
+        }
+
         private SolicitudAbastecimiento _solicitud;
         public SolicitudAbastecimiento solicitud
         {
@@ -131,7 +141,7 @@ namespace pe.edu.pucp.ferretin.viewmodel.MAlmacen
         {
             get
             {
-                _listaSolicitudes = MA_SolicitudAbastecimientoService.buscar(searchEstado, searchFechaDesde, searchFechaHasta);
+                _listaSolicitudes = MA_SolicitudAbastecimientoService.buscar(currentTienda, searchEstado, searchFechaDesde, searchFechaHasta);
                 return _listaSolicitudes;
             }
             set
@@ -141,14 +151,16 @@ namespace pe.edu.pucp.ferretin.viewmodel.MAlmacen
             }
         }
 
-        private List<SolicitudAbastecimientoEstado> _estadoSolicitud;
-        public List<SolicitudAbastecimientoEstado> estadoSolicitud
+        private IEnumerable<SolicitudAbastecimientoEstado> _estadoSolicitud;
+        public IEnumerable<SolicitudAbastecimientoEstado> estadoSolicitud
         {
             get
             {
                 if (_estadoSolicitud == null)
                 {
-                    _estadoSolicitud = MA_SharedService.estadosSolicitud;
+                    var sequence = Enumerable.Empty<SolicitudAbastecimientoEstado>();
+                    IEnumerable<SolicitudAbastecimientoEstado> items = new SolicitudAbastecimientoEstado[] { new SolicitudAbastecimientoEstado{ id = 0, nombre = "Todos" } };
+                    return items.Concat(MA_SharedService.estadosSolicitud);                    
                 }
                 return _estadoSolicitud;
             }
@@ -162,8 +174,9 @@ namespace pe.edu.pucp.ferretin.viewmodel.MAlmacen
         #endregion
 
         #region RelayCommand
+        
         RelayCommand _actualizarListaSolicitudesCommand;
-        public ICommand actualizarListaAlmacenesCommand
+        public ICommand actualizarListaSolicitudesCommand
         {
             get
             {

@@ -47,8 +47,8 @@ namespace pe.edu.pucp.ferretin.controller.MAlmacen
             }
         }
 
-        private static List<SolicitudAbastecimientoEstado> _estadosSolicitud;
-        public static List<SolicitudAbastecimientoEstado> estadosSolicitud
+        private static IEnumerable<SolicitudAbastecimientoEstado> _estadosSolicitud;
+        public static IEnumerable<SolicitudAbastecimientoEstado> estadosSolicitud
         {
             get
             {

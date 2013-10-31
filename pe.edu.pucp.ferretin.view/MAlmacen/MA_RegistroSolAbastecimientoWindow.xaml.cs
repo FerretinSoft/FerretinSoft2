@@ -40,5 +40,7 @@ namespace pe.edu.pucp.ferretin.view.MAlmacen
             MCompras.MC_ConsolidarSolicitudesWindow consoli = new MCompras.MC_ConsolidarSolicitudesWindow();
             consoli.Show();
         }
+
+        
     }
 }

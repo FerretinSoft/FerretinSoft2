@@ -49,17 +49,14 @@ namespace pe.edu.pucp.ferretin.controller.MAlmacen
             db.SubmitChanges();
         }
 
-        public static IEnumerable<SolicitudAbastecimiento> buscar(SolicitudAbastecimientoEstado estado, DateTime fechaDesde, DateTime fechaHasta)
+        public static IEnumerable<SolicitudAbastecimiento> buscar(Tienda tienda, SolicitudAbastecimientoEstado estado, DateTime fechaDesde, DateTime fechaHasta)
         {
-            return from s in listaSolicitudes
-                   where (
-                       //Cada fila es un filtro
-                          (estado == null || (s.SolicitudAbastecimientoEstado != null && s.SolicitudAbastecimientoEstado.Equals(estado)))
-                       && (fechaDesde == null || (s.fecha != null && s.fecha >= fechaDesde))
-                       && (fechaHasta == null || (s.fecha != null && s.fecha <= fechaHasta))
-                    )
-                   orderby s.codigo
-                   select s;
+            return listaSolicitudes
+                .Where(m => (tienda == null) || m.Tienda == tienda)
+                .Where(m => (estado == null) || (estado.id <= 0) || (m.SolicitudAbastecimientoEstado == estado))
+                .Where(m => (m.fecha >= fechaDesde) && (m.fecha <= fechaHasta))
+                .OrderBy(m => m.fecha);
+            
         }
 
         public static bool insertarSolicitud(SolicitudAbastecimiento solicitud)
