@@ -34,12 +34,55 @@ namespace pe.edu.pucp.ferretin.controller.MSeguridad
 
         /*******************************************************/
         public static IEnumerable<Transaccion> buscar(string nomUsuario, Perfil perfil)
-        {                        
-            return from t in listaTransacciones
-                   where
-                   (t.nroIP != null)
-                   orderby t.nroIP
-                   select t;            
+        {
+            Usuario user;
+            int id = 0;
+            if (nomUsuario != null)
+            {
+                try
+                {
+                    user = db.Usuario.Single(u => u.nombre.Contains(nomUsuario));
+                    if (user != null) id = user.id;
+                }
+                catch (Exception e)
+                {
+                    
+                }
+            }
+            
+            //return from t in listaTransacciones
+            //       where                   
+            //       (id==0 || (t.id_usuario != 0 && t.id_usuario==id))
+            //       && ()
+            //       orderby t.fecha
+            //       select t;       
+     
+            IEnumerable<Transaccion> transacciones = listaTransacciones;
+            
+            //Filtro por nombre
+            transacciones = transacciones.Where(t => ((id==0) || (t.id_usuario==id)) );
+            //Filtro por perfil
+            transacciones = transacciones.Where(t => (perfil==null) || (perfil.id<=0) || (t.Usuario.Perfil.id == perfil.id) );
+            return transacciones;
+        }
+
+        /*******************************************************/
+        private static IEnumerable<Perfil> _listaPerfiles;
+        private static IEnumerable<Perfil> listaPerfiles
+        {
+            get
+            {
+                if (_listaPerfiles == null)
+                {
+                    _listaPerfiles = from p in db.Perfil
+                                     select p;
+                }
+                return _listaPerfiles;
+            }
+            set
+            {
+                _listaPerfiles = value;
+            }
         }
 
 
