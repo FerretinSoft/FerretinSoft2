@@ -80,9 +80,9 @@ namespace pe.edu.pucp.ferretin.controller.MSeguridad
         {
             if (!db.Tienda.Contains(almacen))
             {
+                if (!db.TiendaHorario.Equals(almacen.TiendaHorario))              
+                    db.TiendaHorario.InsertAllOnSubmit(almacen.tiendasH);               
                 
-                    db.TiendaHorario.InsertAllOnSubmit(almacen.tiendasH);
-               
                 db.Tienda.InsertOnSubmit(almacen);
                 return enviarCambios();
             }
