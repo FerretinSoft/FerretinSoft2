@@ -53,7 +53,7 @@
                 </Button.Background>
             </Button>
             <Label Content="Administración de Categorías" HorizontalAlignment="Left" Margin="80,194,0,0" VerticalAlignment="Top" FontSize="16"/>
-            <Button x:Name="atencionSolicitudesBtn" Content="" HorizontalAlignment="Left" Margin="30,335,0,0" VerticalAlignment="Top" Width="32" Height="32" RenderTransformOrigin="0.44,-0.101" Click="solAbastecimientoBtn_Click">
+            <Button x:Name="atencionSolicitudesBtn" Content="" HorizontalAlignment="Left" Margin="30,335,0,0" VerticalAlignment="Top" Width="32" Height="32" RenderTransformOrigin="0.44,-0.101" Click="atencionSolicitudesBtn_Click">
                 <Button.Background>
                     <ImageBrush ImageSource="/pe.edu.pucp.ferretin.view;component/Resources/forward_32.png"/>
                 </Button.Background>
