@@ -80,14 +80,32 @@ namespace pe.edu.pucp.ferretin.viewmodel.MAlmacen
                 //Si la pestaña es para agregar nuevo, limpio los input
                 switch (_statusTab)
                 {
-                    case Tab.BUSQUEDA: detallesTabHeader = "Nueva Solicitud"; solicitud = new SolicitudAbastecimiento(); solicitud.Tienda = currentTienda; break;//Si es agregar, creo un nuevo objeto Almacen
-                    case Tab.AGREGAR: detallesTabHeader = "Nueva Solicitud"; solicitud = new SolicitudAbastecimiento(); solicitud.Tienda = currentTienda; break;//Si es agregar, creo un nuevo objeto Almacen
-                    case Tab.DETALLES: detallesTabHeader = "Detalles"; break;
-                    default: detallesTabHeader = "Nueva Solicitud"; solicitud = new SolicitudAbastecimiento(); solicitud.Tienda = currentTienda; break;//Si es agregar, creo un nuevo objeto Almacen
+                    case Tab.BUSQUEDA: 
+                        detallesTabHeader = "Nueva Solicitud"; 
+                        solicitud = new SolicitudAbastecimiento(); 
+                        solicitud.fecha = DateTime.Today; 
+                        solicitud.Tienda = currentTienda; 
+                        break;
+                    case Tab.AGREGAR: 
+                        detallesTabHeader = "Nueva Solicitud"; 
+                        solicitud = new SolicitudAbastecimiento(); 
+                        solicitud.fecha = DateTime.Today; 
+                        solicitud.Tienda = currentTienda; 
+                        break;//Si es agregar, creo un nuevo objeto Almacen
+                    case Tab.DETALLES: 
+                        detallesTabHeader = "Detalles"; 
+                        break;
+                    default: 
+                        detallesTabHeader = "Nueva Solicitud"; 
+                        solicitud = new SolicitudAbastecimiento(); 
+                        solicitud.fecha = DateTime.Today; 
+                        solicitud.Tienda = currentTienda; 
+                        break;//Si es agregar, creo un nuevo objeto Almacen
                 }
                 NotifyPropertyChanged("statusTab");
                 //Cuando se cambia el status, tambien se tiene que actualizar el currentIndex del tab
                 NotifyPropertyChanged("currentIndexTab"); //Hace que cambie el tab automaticamente
+                NotifyPropertyChanged("isCreating");
             }
         }
         //Usado para mover los tabs de acuerdo a las acciones realizadas
@@ -113,6 +131,28 @@ namespace pe.edu.pucp.ferretin.viewmodel.MAlmacen
 
         #region Lista de Solicitudes y Edición de Solicitudes
 
+        private bool _isCreating;
+        public bool isCreating
+        {
+            get
+            {
+                if (statusTab == Tab.AGREGAR)
+                {
+                    _isCreating = true; //Se Activaran
+                }
+                else
+                {
+                    _isCreating = false; //Se bloquearan par que no sean editables
+                }
+                return _isCreating;
+            }
+
+            set
+            {
+                _isCreating = value;
+            }
+        }
+
         public Tienda currentTienda
         {
             get
@@ -132,6 +172,22 @@ namespace pe.edu.pucp.ferretin.viewmodel.MAlmacen
             {
                 _solicitud = value;
                 NotifyPropertyChanged("solicitud");
+                NotifyPropertyChanged("productosPorSolicitud");                
+            }
+        }
+
+        private IEnumerable<Object> _productosPorSolicitud;
+        public IEnumerable<Object> productosPorSolicitud
+        {
+            get
+            {
+                _productosPorSolicitud = MA_SolicitudAbastecimientoService.buscarProductosPorSolicitud(currentTienda, solicitud);
+                return _productosPorSolicitud;
+            }
+            set
+            {
+                _productosPorSolicitud = value;
+                NotifyPropertyChanged("productosPorSolicitud");
             }
         }
 
@@ -271,6 +327,7 @@ namespace pe.edu.pucp.ferretin.viewmodel.MAlmacen
                 int idSolicitud = Int32.Parse(id.ToString());
                 this.solicitud = listaSolicitudes.Single(sol => sol.id == idSolicitud);
                 this.statusTab = Tab.DETALLES;
+                //isCreating = false;
             }
             catch (Exception e)
             {
@@ -294,13 +351,20 @@ namespace pe.edu.pucp.ferretin.viewmodel.MAlmacen
             }
             else
             {
-                if (!MA_SolicitudAbastecimientoService.insertarSolicitud(solicitud))
-                {
-                    MessageBox.Show("No se pudo agregar la nueva solicitud");
-                }
+                if (solicitud.codigo == null || solicitud.codigo == "") MessageBox.Show("Debe insertar el código de la solicitud");
+                else if (solicitud.SolicitudAbastecimientoProducto.Count <= 0) MessageBox.Show("Debe insertar al menos un producto en su solicitud");
                 else
                 {
-                    MessageBox.Show("La solicitud fue agregada con éxito");
+                    SolicitudAbastecimientoEstado estadoInicial = estadoSolicitud.FirstOrDefault(s => s.nombre == "Pendiente");
+                    if (estadoInicial != null) solicitud.SolicitudAbastecimientoEstado = estadoInicial;
+                    if (!MA_SolicitudAbastecimientoService.insertarSolicitud(solicitud))
+                    {
+                        MessageBox.Show("No se pudo agregar la nueva solicitud");
+                    }
+                    else
+                    {
+                        MessageBox.Show("La solicitud fue agregada con éxito");
+                    }
                 }
             }
             NotifyPropertyChanged("listaSolicitudes");
@@ -328,7 +392,7 @@ namespace pe.edu.pucp.ferretin.viewmodel.MAlmacen
                                             { cantidad = 1, SolicitudAbastecimiento = solicitud, Producto = producto };
                 solicitud.SolicitudAbastecimientoProducto.Add(sProducto);
                 NotifyPropertyChanged("solicitud");
-                NotifyPropertyChanged("solicitud.SolicitudAbastecimientoProducto");
+                NotifyPropertyChanged("productosPorSolicitud");
             }
             else
             {
