@@ -16,23 +16,48 @@ namespace pe.edu.pucp.ferretin.viewmodel.MAlmacen
     public class MA_MantenimientoProductosViewModel : ViewModelBase
     {
 
+        public IEnumerable<Categoria> listaCategoriasAsignadas { get; set; }
+
         public String searchNombre { get; set; }
         public Int16 searchIdCategoria { get; set; }
 
-        private IEnumerable<Categoria> _treeParents;
-        public IEnumerable<Categoria> treeParents
+        private IEnumerable<Categoria> _categoriasPadre;
+        public IEnumerable<Categoria> categoriasPadre { get { return _categoriasPadre; } set { _categoriasPadre = value; OnPropertyChanged("categoriasPadre"); } }
+
+
+        private IEnumerable<Categoria> _categoriaPrincipal;
+        public IEnumerable<Categoria> categoriaPrincipal
         {
             get
             {
-                _treeParents = MA_CategoriaService.obtenerCategoriasPadres();
-                foreach (Categoria c in _treeParents)
-                {
-                    c.listaHijos = MA_CategoriaService.obtenerCategoriasHijos();
-                }
-                return _treeParents;
+                //Devolver la categoría padre
+                _categoriaPrincipal = MA_CategoriaService.categorias.Where(c => c.id_padre == null);
+                
+                return _categoriaPrincipal;
             }
-            set { _treeParents = value; OnPropertyChanged("treeParents"); }
+            set
+            {
+                _categoriaPrincipal = value;
+                OnPropertyChanged("categoriaPrincipal");
+            }
         }
+        private Categoria _CategoriaSeleccionada;
+        public Categoria CategoriaSeleccionada
+        {
+
+            get
+            {
+                return _CategoriaSeleccionada;
+            }
+            set
+            {
+                _CategoriaSeleccionada = value;
+                //Actualizo el combobox de categorias padre
+                categoriasPadre = MA_CategoriaService.categorias.Where(c => c.nivel == _CategoriaSeleccionada.Categoria1.nivel);
+                OnPropertyChanged("CategoriaSeleccionada");
+            }
+        }
+
 
 
 
@@ -283,6 +308,21 @@ namespace pe.edu.pucp.ferretin.viewmodel.MAlmacen
         }
 
         #region RelayCommand
+
+
+        RelayCommand _checkTreeCommand;
+        public ICommand checkTreeCommand
+        {
+            get
+            {
+                if (_checkTreeCommand == null)
+                {
+                    _checkTreeCommand = new RelayCommand(checkTree);
+                }
+                return _checkTreeCommand;
+            }
+        }
+
         RelayCommand _nuevoProductoCommand;
         public ICommand nuevoProductoCommand
         {
@@ -337,6 +377,18 @@ namespace pe.edu.pucp.ferretin.viewmodel.MAlmacen
 
         #endregion
 
+        private void obtenerCategoriasDeProducto()
+        {
+            IEnumerable<Categoria> catxProd = MA_CategoriaService.obtenerCategoriasxProducto(producto.id);
+
+            IEnumerable<Categoria> res = _categoriaPrincipal.Intersect(catxProd);
+
+            foreach (Categoria r in res)
+            {
+                r.isChecked = true;
+            }
+        }
+
 
         private void nuevoProductoBtn(Object obj)
         {
@@ -352,11 +404,18 @@ namespace pe.edu.pucp.ferretin.viewmodel.MAlmacen
                 this.producto = listaProductos.Single(producto => producto.codigo == (String)codigo);
                 this.prodAlm = new ProductoAlmacen();
                 this.statusTab = (int)tabs.MODIFICAR;
+                obtenerCategoriasDeProducto();
             }
             catch (Exception e)
             {
                 //MessageBox.Show(e.Message);
             }
+        }
+
+
+        private void checkTree(Object id)
+        {
+            Console.WriteLine(id);
         }
 
 

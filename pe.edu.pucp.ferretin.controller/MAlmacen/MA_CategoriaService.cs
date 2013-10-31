@@ -33,10 +33,12 @@ namespace pe.edu.pucp.ferretin.controller.MAlmacen
         }
 
 
-        public static IEnumerable<Categoria> obtenerCategoriasHijos()
+        public static IEnumerable<Categoria> obtenerCategoriasxProducto(int idProd)
         {
             _listaCategoria = from c in db.Categoria
-                              where c.id_padre != null
+                              from pc in db.ProductoCategoria
+                              where (pc.id_producto==idProd) &&
+                              (c.id==pc.id_categoria)
                               select c;
             return _listaCategoria;
         }

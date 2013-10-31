@@ -6,13 +6,12 @@ using System.Threading.Tasks;
 using pe.edu.pucp.ferretin.viewmodel.Helper;
 using System.Windows.Input;
 using pe.edu.pucp.ferretin.model;
-
 using System.Windows;
 using pe.edu.pucp.ferretin.controller.MAlmacen;
 
 namespace pe.edu.pucp.ferretin.viewmodel.MAlmacen
 {
-    class MA_InventarioProductosViewModel : ViewModelBase
+    public class MA_InventarioProductosViewModel : ViewModelBase
     {
         #region Valores para el cuadro de Búsqueda de inventario de productos
         public string _searchAlmacen = "";
@@ -82,11 +81,7 @@ namespace pe.edu.pucp.ferretin.viewmodel.MAlmacen
 
         private Producto _producto;
         private ProductoAlmacen _productoAlmacen;
-        private ProductoCategoria _productoCategoria;
         private Tienda _tienda;
-
-        private UnidadMedida _unidadMedida;
-        private Material _material;
 
 
         //para mostrar los detalles.  

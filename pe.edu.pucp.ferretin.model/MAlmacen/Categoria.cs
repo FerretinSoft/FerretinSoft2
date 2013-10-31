@@ -8,6 +8,7 @@ namespace pe.edu.pucp.ferretin.model
 {
     public partial class Categoria
     {
-        public IEnumerable<Categoria> listaHijos { get; set; }
+        public bool isChecked{get;set;}
+
     }
 }

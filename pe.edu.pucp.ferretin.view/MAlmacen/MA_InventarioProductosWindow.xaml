@@ -4,11 +4,26 @@
         xmlns:viewmodel="clr-namespace:pe.edu.pucp.ferretin.viewmodel.MAlmacen;assembly=pe.edu.pucp.ferretin.viewmodel"
         xmlns:helper="clr-namespace:pe.edu.pucp.ferretin.viewmodel.Helper;assembly=pe.edu.pucp.ferretin.viewmodel"
         Title="Inventario de Productos" Height="487" Width="704" Icon="/pe.edu.pucp.ferretin.view;component/Resources/ferretin_ico.ico" ResizeMode="CanMinimize">
-    <Grid>
+    <Window.Resources>
+        <viewmodel:MA_InventarioProductosViewModel x:Key="MA_InventarioProductosViewModel"/>
+        <ControlTemplate x:Key="validationTemplate">
+            <DockPanel>
+                <TextBlock Margin="5,0,5,0" Foreground="Red" FontSize="16" VerticalAlignment="Center" Text="*" ToolTip="{Binding ElementName=errorAdorner, Path=AdornedElement.(Validation.Errors)[0].ErrorContent}" />
+                <AdornedElementPlaceholder x:Name="errorAdorner" />
+            </DockPanel>
+        </ControlTemplate>
+        <Style TargetType="{x:Type TextBox}">
+            <Setter Property="Validation.ErrorTemplate" Value="{DynamicResource validationTemplate}" />
+        </Style>
+        <Style TargetType="{x:Type ComboBox}">
+            <Setter Property="Validation.ErrorTemplate" Value="{DynamicResource validationTemplate}" />
+        </Style>
+    </Window.Resources>
+    <Grid DataContext="{Binding Source={StaticResource MA_InventarioProductosViewModel}}">
         <Grid.ColumnDefinitions>
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
-        <TabControl x:Name="inventarioTab" Margin="0">
+        <TabControl SelectedIndex="{Binding currentIndexTab}">
             <TabItem Header="Inventario">
                 <Grid Background="#FFE5E5E5">
                     <Grid.ColumnDefinitions>
@@ -22,7 +37,7 @@
                     <GroupBox x:Name="nombreFilterTxt" Header="Parámetros" Margin="10,12" BorderBrush="Black" Grid.ColumnSpan="2"/>
                     <Label Content="Almacén:" HorizontalAlignment="Left" Height="26" VerticalAlignment="Top" Width="64" Margin="22,39,0,0" Grid.ColumnSpan="2"/>
                     <Label Content="Categoría:" HorizontalAlignment="Left" Height="26" VerticalAlignment="Top" Width="65" Margin="241,39,0,0" Grid.Column="1"/>
-                    <Button Command="{Binding actualizarListaInventarioCommand}" HorizontalAlignment="Left" Margin="548,80,0,0" VerticalAlignment="Top" Width="32" Height="32" RenderTransformOrigin="0.3,-0.35" Grid.Column="1">
+                    <Button x:Name="BtnInventario" Command="{Binding actualizarListaInventarioCommand}" HorizontalAlignment="Left" Margin="548,80,0,0" VerticalAlignment="Top" Width="32" Height="32" RenderTransformOrigin="0.3,-0.35" Grid.Column="1">
                         <Button.Background>
                             <ImageBrush ImageSource="../Resources/refresh2_48.png"/>
                         </Button.Background>
