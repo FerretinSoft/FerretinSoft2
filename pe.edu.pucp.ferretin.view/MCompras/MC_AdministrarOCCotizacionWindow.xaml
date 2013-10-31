@@ -28,16 +28,16 @@
                     <Label Content="Proveedor:" HorizontalAlignment="Left" Height="26" VerticalAlignment="Top" Width="68" Margin="295,33,0,0" Grid.Column="2"/>
                     <Label Content="Fecha hasta:" HorizontalAlignment="Left" Width="75" Margin="295,64,341,0" Height="27" VerticalAlignment="Top" Grid.Column="2"/>
                     <Label Content="Fecha desde:" Height="26" VerticalAlignment="Top" Margin="24,64,588,0" Grid.ColumnSpan="3"/>
-                    <DatePicker SelectedDate="{Binding searchFechaDesde, Mode=OneWay}" HorizontalAlignment="Left" Margin="36,64,0,0" VerticalAlignment="Top" Width="130" Height="24" Grid.Column="2"/>
-                    <DatePicker SelectedDate="{Binding searchFechaHasta, Mode=OneWay}" HorizontalAlignment="Left" Margin="402,64,0,0" VerticalAlignment="Top" Width="130" Height="24" Grid.Column="2"/>
+                    <DatePicker SelectedDate="{Binding searchFechaDesde, Mode=TwoWay}" HorizontalAlignment="Left" Margin="36,64,0,0" VerticalAlignment="Top" Width="130" Height="24" Grid.Column="2"/>
+                    <DatePicker SelectedDate="{Binding searchFechaHasta, Mode=TwoWay}" HorizontalAlignment="Left" Margin="402,64,0,0" VerticalAlignment="Top" Width="130" Height="24" Grid.Column="2"/>
                     <TextBox HorizontalAlignment="Left" Text="{Binding searchCodigo, Mode=TwoWay}" Height="20" Margin="36,36,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="130" Grid.Column="2"/>
                     <TextBox HorizontalAlignment="Left" Text="{Binding searchProveedor, Mode=TwoWay}" Height="20" Margin="402,36,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="172" Grid.Column="2"/>
                     <ComboBox HorizontalAlignment="Left" SelectedIndex="{Binding searchTipoDocumento, Mode=TwoWay}"  Height="20" Margin="36,101,0,0" VerticalAlignment="Top" Width="130" Grid.Column="2">
-                        <ComboBoxItem  Content="Todos"></ComboBoxItem>
+                        <ComboBoxItem Content="Todos"></ComboBoxItem>
                         <ComboBoxItem Content="Cotizacion"></ComboBoxItem>
                         <ComboBoxItem Content="Orden de Compra"></ComboBoxItem>
                     </ComboBox>
-                    <ComboBox HorizontalAlignment="Left" ItemsSource="{Binding estados,Mode=OneWay}" SelectedIndex="{Binding searchEstado, Mode=TwoWay}" DisplayMemberPath="nombre" Height="20" Margin="402,101,0,0" VerticalAlignment="Top" Width="130" Grid.Column="2">
+                    <ComboBox HorizontalAlignment="Left" ItemsSource="{Binding listaEstadosDC,Mode=OneWay}" SelectedItem="{Binding searchEstado, Mode=TwoWay}" DisplayMemberPath="nombre" Height="20" Margin="402,101,0,0" VerticalAlignment="Top" Width="130" Grid.Column="2">
                     </ComboBox>
                     <Button Command="{Binding actualizarListaDocumentosCompraCommand}" HorizontalAlignment="Left" Margin="707,58,0,0" Width="32" RenderTransformOrigin="0.3,-0.35" Height="32" VerticalAlignment="Top" Grid.Column="2">
                         <Button.Background>
@@ -72,7 +72,7 @@
                             </DataGridHyperlinkColumn>
                             <DataGridTextColumn Width="3.5*" Binding="{Binding Path=Proveedor.razonSoc}" Header="Proveedor"/>
                             <DataGridTextColumn Width="2.0*" Binding="{Binding Path=fechaEmision}" Header="Fecha"/>
-                            <DataGridTextColumn Width="1.8*" Binding="{Binding Path=estado}" Header="Estado"/>
+                            <DataGridTextColumn Width="1.8*" Binding="{Binding Path=DocumentoCompraEstado.nombre}" Header="Estado"/>
                         </DataGrid.Columns>
                     </DataGrid>
                 </Grid>
