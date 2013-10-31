@@ -61,8 +61,7 @@ namespace pe.edu.pucp.ferretin.view.MRecursosHumanos
         }
         private void txtDireccion_KeyDown(object sender, KeyEventArgs e)
         {
-            //Validaciones para textbox de solo letras
-            if (!(e.Key >= Key.A && e.Key <= Key.Z)) e.Handled = true;
+           
         }
         private void txtTelf1_KeyDown(object sender, KeyEventArgs e)
         {
