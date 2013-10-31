@@ -42,15 +42,15 @@ namespace pe.edu.pucp.ferretin.controller.MAlmacen
             return movimiento;
         }
 
-        public static List<Movimiento> ObtenerListaMovimientos(Dictionary<string, object> parametros)
+        public static List<Movimiento> buscarMovimientos(int tiendaId, int estadoId, DateTime fechaDesde, DateTime fechaHasta)
         {
 
             var result = from m in ListaMovimientos
                     where
-                    ((!parametros.ContainsKey("tienda") || m.Tienda == null || m.id_almacen_desde == (int)parametros["tienda"]) &&
-                    (!parametros.ContainsKey("estado") || m.MovimientoEstado == null || m.id_estado == (int)parametros["estado"]) &&
-                    (!parametros.ContainsKey("fechaDesde") || m.fecha >= (DateTime)parametros["fechaDesde"])  && 
-                    (!parametros.ContainsKey("fechaDesde") || m.fecha <= (DateTime)parametros["fechaHasta"]))
+                    ((tiendaId <= 0 || m.Tienda == null || m.id_almacen_desde == tiendaId) &&
+                    (estadoId <= 0 || m.MovimientoEstado == null || m.id_estado == estadoId) &&
+                    (fechaDesde == default(DateTime) || m.fecha >= fechaDesde)  && 
+                    (fechaHasta == default(DateTime) || m.fecha <= fechaHasta))
                     orderby m.fecha
                     select m;
             return result.ToList();
