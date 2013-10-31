@@ -37,11 +37,10 @@
                 <DataGrid.Columns>
                     <!-- Otras columnas -->
                     <DataGridTextColumn Width="3.5*" Binding="{Binding Path=nroIP}" Header="IP"/>
-                    <DataGridTextColumn Width="4*" Binding="{Binding Path=nroMAC}" Header="MAC Address"/>
-                    <DataGridTextColumn Width="4*" Binding="{Binding Path=id_usuario}" Header="Nombre de Usuario"/>
-                    <DataGridTextColumn Width="5*" Binding="{Binding Path=perfil}" Header="Perfil"/>
-                    <DataGridTextColumn Width="2.5*" Binding="{Binding Path=fecha}" Header="Fecha"/>
-                    <DataGridTextColumn Width="2*" Binding="{Binding Path=hora}" Header="Hora"/>
+                    <DataGridTextColumn Width="4.3*" Binding="{Binding Path=nroMAC}" Header="MAC Address"/>
+                    <DataGridTextColumn Width="3*" Binding="{Binding Path=id_usuario}" Header="UserName"/>
+                    <DataGridTextColumn Width="4.5*" Binding="{Binding Path=perfil}" Header="Perfil"/>
+                    <DataGridTextColumn Width="5*" Binding="{Binding Path=fecha}" Header="Fecha y Hora"/>                    
                     <DataGridTextColumn Width="6*" Binding="{Binding Path=transaccion}" Header="Transacción"/>
 
                 </DataGrid.Columns>

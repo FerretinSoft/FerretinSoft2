@@ -96,6 +96,15 @@ namespace pe.edu.pucp.ferretin.controller
             }
         }
 
+        public static string userlog;
+        public static void usuarioLogeado (Usuario user)
+        {
+             userlog = user.nombre;
+        }
+                    
+
+
+
         private static IEnumerable<Tienda> _tiendas;
         public static IEnumerable<Tienda> tiendas
         {
