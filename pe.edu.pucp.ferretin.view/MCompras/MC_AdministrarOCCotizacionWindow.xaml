@@ -67,9 +67,19 @@
                     <DataGrid ItemsSource="{Binding Path=listaDocumentosCompra}" Margin="10,37,10,10" Grid.Row="1" RenderTransformOrigin="0.5,0.5" Grid.ColumnSpan="3" AutoGenerateColumns="False" CanUserAddRows="False" CanUserDeleteRows="False" IsReadOnly="True" Grid.RowSpan="2">
                         <DataGrid.Columns>
                             <DataGridTextColumn Width="1.8*" Binding="{Binding Path=tipoDC}" Header="Tipo"/>
-                            <DataGridHyperlinkColumn Width="1.8*" Binding="{Binding Path=codigo}" Header="Código">
-
-                            </DataGridHyperlinkColumn>
+                            <DataGridTemplateColumn Width="2.5*" Header="Código">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <TextBlock>
+                                        <Hyperlink 
+                                            Command="{Binding Path=DataContext.viewEditDocumentoCompraCommand, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type DataGrid}}}" 
+                                            CommandParameter="{Binding id}">
+                                            <TextBlock Text="{Binding codigo}" />
+                                        </Hyperlink>
+                                        </TextBlock>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
                             <DataGridTextColumn Width="3.5*" Binding="{Binding Path=Proveedor.razonSoc}" Header="Proveedor"/>
                             <DataGridTextColumn Width="2.0*" Binding="{Binding Path=fechaEmision}" Header="Fecha"/>
                             <DataGridTextColumn Width="1.8*" Binding="{Binding Path=DocumentoCompraEstado.nombre}" Header="Estado"/>
@@ -77,7 +87,10 @@
                     </DataGrid>
                 </Grid>
             </TabItem>
-            <TabItem Header="Detalle" IsHitTestVisible="False">
+            <TabItem>
+                <TabItem.Header>
+                    <TextBlock Text="{Binding detallesTabHeader,Mode=OneWay,FallbackValue=Agregar}"/>
+                </TabItem.Header>
                 <Grid Background="#FFE5E5E5" Margin="0,2,0,-2">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="19*"/>
@@ -87,7 +100,7 @@
                     <GroupBox Header="Parámetros" Margin="10,5,0,0" BorderBrush="Black" Height="95" VerticalAlignment="Top" HorizontalAlignment="Left" Width="691" Grid.ColumnSpan="3">
                     </GroupBox>
                     <Label x:Name="tipoDocLbl" Content="Código:" HorizontalAlignment="Left" Margin="15,30,0,0" VerticalAlignment="Top" Height="26" Width="105" Grid.ColumnSpan="2"/>
-                    <TextBox x:Name="codOrdenTxtBox" HorizontalAlignment="Left" Height="20" Margin="110,33,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="130" IsEnabled="False" Grid.Column="1"/>
+                    <TextBox Text="{Binding Path=documentoCompra.codigo, Mode=TwoWay, UpdateSourceTrigger=LostFocus, NotifyOnValidationError=True, ValidatesOnDataErrors=True, ValidatesOnExceptions=True}" HorizontalAlignment="Left" Height="20" Margin="110,33,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="130" IsEnabled="False" Grid.Column="1"/>
                     <Label x:Name="provedorLbl" Content="Proveedor:" HorizontalAlignment="Left" Margin="314,30,0,0" VerticalAlignment="Top" Height="26" Width="121" Grid.Column="1"/>
                     <TextBox x:Name="proveedorTxtBox" HorizontalAlignment="Left" Height="20" Margin="426,33,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="172" Grid.Column="1"/>
                     <Label x:Name="fecEmisioLbl" Content="Fecha de emision:" Margin="15,61,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.183,0.438" Height="26" HorizontalAlignment="Left" Width="105" Grid.ColumnSpan="2"/>
