@@ -64,7 +64,7 @@ namespace pe.edu.pucp.ferretin.controller
                     Transaccion transaccion = new Transaccion();
                     transaccion.nroIP = obtenerIp();
                     transaccion.nroMAC = obtenerMac();
-                    DateTime today = DateTime.Today;
+                    DateTime today = DateTime.Now;
                     transaccion.fecha = today;
                     db.Transaccion.InsertOnSubmit(transaccion);
                     return true;
@@ -95,7 +95,8 @@ namespace pe.edu.pucp.ferretin.controller
         public static string obtenerIp()
         {
             IPAddress[] a = Dns.GetHostByName(Dns.GetHostName()).AddressList;
-            string ip = a[0].ToString();            
+            string ip = a[0].ToString();
+            //MessageBox.Show(ip);
             return ip;
         }
         /**********************************************************************/
@@ -113,7 +114,7 @@ namespace pe.edu.pucp.ferretin.controller
                 }
             }
             string mac = sMacAddress.ToString();
-            MessageBox.Show(mac);
+            //MessageBox.Show(mac);
             return mac;
         }
 

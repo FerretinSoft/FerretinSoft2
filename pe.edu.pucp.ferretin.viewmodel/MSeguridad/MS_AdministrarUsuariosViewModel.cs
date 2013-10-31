@@ -286,7 +286,13 @@ namespace pe.edu.pucp.ferretin.viewmodel.MSeguridad
             /*Para agregar un usuario nuevo*/
             else
             {
-                usuario.contrasena = "ferretinSoft";
+                /*valores por defecto */
+                usuario.contrasena = MS_UsuarioService.encrypt("ferretinSoft");                
+                List<Parametro>  listaParametros;
+                listaParametros = MS_ParametroService.obtenerListaParametros().ToList();
+                usuario.intentosCon = Convert.ToInt16(listaParametros[0].valor);
+                /**********************/
+
                 if (!MS_UsuarioService.insertarUsuario(usuario))
                 {
                     MessageBox.Show("No se pudo agregar el nuevo usuario");

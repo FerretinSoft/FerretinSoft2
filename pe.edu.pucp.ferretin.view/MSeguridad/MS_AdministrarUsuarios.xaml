@@ -138,8 +138,8 @@
                     <TextBox Text="{Binding Path=usuario.Empleado.apPaterno, Mode=TwoWay, ValidatesOnExceptions=true, NotifyOnValidationError=true}" HorizontalAlignment="Left" Height="23" Margin="285.747,177,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="225" Grid.ColumnSpan="2" IsEnabled="False" Grid.Column="1" />
                     <TextBox Text="{Binding Path=usuario.Empleado.apMaterno, Mode=TwoWay, ValidatesOnExceptions=true, NotifyOnValidationError=true}" HorizontalAlignment="Left" Height="23" Margin="285.747,205,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="225" Grid.ColumnSpan="2" IsEnabled="False" Grid.Column="1" />
                     <ComboBox SelectedIndex="{Binding Path=usuario.estado, Mode=TwoWay,  ValidatesOnExceptions=true, NotifyOnValidationError=true}" x:Name="estadoCombo2" HorizontalAlignment="Left" Margin="285.747,233,0,0" VerticalAlignment="Top" Width="225" Grid.ColumnSpan="2" Grid.Column="1">
-                        <ComboBoxItem Content="Activo"></ComboBoxItem>
                         <ComboBoxItem Content="Inactivo"></ComboBoxItem>
+                        <ComboBoxItem Content="Activo"></ComboBoxItem>
                     </ComboBox>
                     <ComboBox ItemsSource="{Binding perfiles}" DisplayMemberPath="nombre" SelectedItem="{Binding Path=usuario.Perfil, Mode=TwoWay,  ValidatesOnExceptions=true, NotifyOnValidationError=true}" x:Name="perfilCombo2"  HorizontalAlignment="Left" Margin="285.747,260,0,0" VerticalAlignment="Top" Width="225" Grid.ColumnSpan="2" Grid.Column="1">
                     </ComboBox>
@@ -148,9 +148,9 @@
                     <PasswordBox HorizontalAlignment="Left" Height="23" Margin="285.747,315,0,0" VerticalAlignment="Top" Width="225" Grid.ColumnSpan="2"  RenderTransformOrigin="0.5,1.812" Password="" Grid.Column="1"/>-->
 
                     <!-- STACK PANEL DE GUARDAR Y CANCELAR-->
-                    <StackPanel x:Name="guardarDetallePanel" Orientation="Horizontal" Margin="251.747,342,10,5" HorizontalAlignment="Center" Width="402" Grid.ColumnSpan="2" Grid.Column="1">
+                    <StackPanel x:Name="guardarDetallePanel" Orientation="Horizontal" Margin="240,312,10,5" HorizontalAlignment="Center" Width="414" Grid.ColumnSpan="2" Grid.Column="1">
                         <Button Command="{Binding saveUsuarioCommand}"  Height="30"  Content="GUARDAR" Padding="5,0" Margin="5,19"/>
-                        <Button Command="{Binding cancelUsuarioCommand}" Height="30" Content="CANCELAR" Padding="5,0" Margin="5,0"/>
+                        <Button Command="{Binding cancelUsuarioCommand}" Height="30" Content="CANCELAR" Padding="5,0" Margin="5,19"/>
                     </StackPanel>
                     <Label Content="DNI Empleado" HorizontalAlignment="Left" Margin="277,47,0,0" VerticalAlignment="Top" Grid.ColumnSpan="2" Grid.Column="1"/>
                     <TextBox IsEnabled="{Binding editEmpleadoEnabled,Mode=OneWay}" Text="{Binding dniEmpleado, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" HorizontalAlignment="Left" Height="23" Margin="59,46,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="79" Grid.Column="2" />

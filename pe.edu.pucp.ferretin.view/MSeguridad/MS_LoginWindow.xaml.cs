@@ -95,6 +95,17 @@ namespace pe.edu.pucp.ferretin.view.MSeguridad
 
                 if (value.nombre == this.nombreUsuario && value.contrasena == MS_UsuarioService.encrypt(this.contrasena))
                 {
+                    if (MS_UsuarioService.encrypt(this.contrasena) == MS_UsuarioService.encrypt("ferretinSoft"))
+                    {
+                        usuarioLog = value;
+                        MS_CambiarContraseñaUsuario cc = new MS_CambiarContraseñaUsuario(usuarioLog);
+                        cc.Show();
+                        this.Close();
+                        break;
+
+
+                    }
+
                     value.intentosCon = Convert.ToInt16(listaParametros[0].valor);
                     MS_UsuarioService.actualizarUsuario(value);
                     usuarioLog = value;
@@ -144,7 +155,7 @@ namespace pe.edu.pucp.ferretin.view.MSeguridad
 
             }
 
-            if (!String.IsNullOrEmpty(this.nombreUsuario) && !String.IsNullOrEmpty(this.contrasena))
+            if (!String.IsNullOrEmpty(this.nombreUsuario))
             {
                 
                 numIntentos.Content = "Número de intentos restantes: " + intentos;
