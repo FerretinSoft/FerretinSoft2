@@ -11,9 +11,13 @@ namespace pe.edu.pucp.ferretin.model
 
         private int _lunesHoraInicio=-1;
         public int lunesHoraInicio { 
-            get {
+            get {               
                 _lunesHoraInicio = this.TiendaHorario.Single(t => t.dia == "lunes").horaInicio.Value;
-                return _lunesHoraInicio;
+                if (_lunesHoraInicio >= 0)
+                {
+                    return _lunesHoraInicio;
+                }
+                    return -1;                
             } 
             set {
                 this.verificaTiendaHorario();
@@ -27,9 +31,13 @@ namespace pe.edu.pucp.ferretin.model
         public int lunesHoraFin
         {
             get
-            {
+            {                
                 _lunesHoraFin = this.TiendaHorario.Single(t => t.dia == "lunes").horaFin.Value;
-                return _lunesHoraFin;
+                if (_lunesHoraFin >= 0)
+                {
+                    return _lunesHoraFin;
+                }
+                    return -1;
             }
             set
             {
@@ -46,7 +54,11 @@ namespace pe.edu.pucp.ferretin.model
             get
             {
                 _martesHoraInicio = this.TiendaHorario.Single(t => t.dia == "martes").horaInicio.Value;
-                return _martesHoraInicio;
+                if (_martesHoraInicio >= 0)
+                {
+                    return _martesHoraInicio;
+                }
+                return -1;
             }
             set
             {
@@ -63,7 +75,11 @@ namespace pe.edu.pucp.ferretin.model
             get
             {
                 _martesHoraFin = this.TiendaHorario.Single(t => t.dia == "martes").horaFin.Value;
-                return _martesHoraFin;
+                if (_martesHoraFin >= 0)
+                {
+                    return _martesHoraFin;
+                }
+                return -1;
             }
             set
             {
@@ -80,7 +96,11 @@ namespace pe.edu.pucp.ferretin.model
             get
             {
                 _miercolesHoraInicio = this.TiendaHorario.Single(t => t.dia == "miercoles").horaInicio.Value;
-                return _miercolesHoraInicio;
+                if (_miercolesHoraInicio >= 0)
+                {
+                    return _miercolesHoraInicio;
+                }
+                return -1;
             }
             set
             {
@@ -97,7 +117,11 @@ namespace pe.edu.pucp.ferretin.model
             get
             {
                 _miercolesHoraFin = this.TiendaHorario.Single(t => t.dia == "miercoles").horaFin.Value;
-                return _miercolesHoraFin;
+                if (_miercolesHoraFin >= 0)
+                {
+                    return _miercolesHoraFin;
+                }
+                return -1;
             }
             set
             {
@@ -114,7 +138,11 @@ namespace pe.edu.pucp.ferretin.model
             get
             {
                 _juevesHoraInicio = this.TiendaHorario.Single(t => t.dia == "jueves").horaInicio.Value;
-                return _juevesHoraInicio;
+                if (_juevesHoraInicio >= 0)
+                {
+                    return _juevesHoraInicio;
+                }
+                return -1;
             }
             set
             {
@@ -131,7 +159,11 @@ namespace pe.edu.pucp.ferretin.model
             get
             {
                 _juevesHoraFin = this.TiendaHorario.Single(t => t.dia == "jueves").horaFin.Value;
-                return _juevesHoraFin;
+                if (_juevesHoraFin >= 0)
+                {
+                    return _juevesHoraFin;
+                }
+                return -1;
             }
             set
             {
@@ -148,7 +180,11 @@ namespace pe.edu.pucp.ferretin.model
             get
             {
                 _viernesHoraInicio = this.TiendaHorario.Single(t => t.dia == "viernes").horaInicio.Value;
-                return _viernesHoraInicio;
+                if (_viernesHoraInicio >= 0)
+                {
+                    return _viernesHoraInicio;
+                }
+                return -1;
             }
             set
             {
@@ -165,7 +201,11 @@ namespace pe.edu.pucp.ferretin.model
             get
             {
                 _viernesHoraFin = this.TiendaHorario.Single(t => t.dia == "viernes").horaFin.Value;
-                return _viernesHoraFin;
+                if (_viernesHoraFin >= 0)
+                {
+                    return _viernesHoraFin;
+                }
+                return -1;
             }
             set
             {
@@ -182,7 +222,11 @@ namespace pe.edu.pucp.ferretin.model
             get
             {
                 _sabadoHoraInicio = this.TiendaHorario.Single(t => t.dia == "sabado").horaInicio.Value;
-                return _sabadoHoraInicio;
+                if (_sabadoHoraInicio >= 0)
+                {
+                    return _sabadoHoraInicio;
+                }
+                return -1;
             }
             set
             {
@@ -199,7 +243,11 @@ namespace pe.edu.pucp.ferretin.model
             get
             {
                 _sabadoHoraFin = this.TiendaHorario.Single(t => t.dia == "sabado").horaFin.Value;
-                return _sabadoHoraFin;
+                if (_sabadoHoraFin >= 0)
+                {
+                    return _sabadoHoraFin;
+                }
+                return -1;
             }
             set
             {
@@ -216,7 +264,11 @@ namespace pe.edu.pucp.ferretin.model
             get
             {
                 _domingoHoraInicio = this.TiendaHorario.Single(t => t.dia == "domingo").horaInicio.Value;
-                return _domingoHoraInicio;
+                if (_domingoHoraInicio >= 0)
+                {
+                    return _domingoHoraInicio;
+                }
+                return -1;
             }
             set
             {
@@ -233,7 +285,11 @@ namespace pe.edu.pucp.ferretin.model
             get
             {
                 _domingoHoraFin = this.TiendaHorario.Single(t => t.dia == "domingo").horaFin.Value;
-                return _domingoHoraFin;
+                if (_domingoHoraFin >= 0)
+                {
+                    return _domingoHoraFin;
+                }
+                return -1;
             }
             set
             {
