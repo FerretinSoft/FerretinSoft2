@@ -69,10 +69,10 @@
 
                         </DataGrid.Columns>
                     </DataGrid>
-                    <ComboBox ItemsSource="{Binding Path=listaAlmacen}" SelectedItem="{Binding searchAlmacen, Mode=TwoWay}" HorizontalAlignment="Left" Margin="9,43,0,0" VerticalAlignment="Top" Width="180" Height="22" Grid.Column="1">
+                    <ComboBox ItemsSource="{Binding Path=Tiendas}" SelectedItem="{Binding searchAlmacen, Mode=TwoWay}"  SelectedIndex="0"  DisplayMemberPath="nombre" SelectedValuePath="id" HorizontalAlignment="Left" Margin="9,43,0,0" VerticalAlignment="Top" Width="180" Height="22" Grid.Column="1">
                         
                     </ComboBox>
-                    <ComboBox ItemsSource="{Binding Path=listaCategoria}" SelectedItem="{Binding searchCategoria, Mode=TwoWay}" HorizontalAlignment="Left" Margin="320,43,0,0" VerticalAlignment="Top" Width="180" Height="22" Grid.Column="1">
+                    <ComboBox ItemsSource="{Binding Path=Categorias}" SelectedItem="{Binding searchCategoria, Mode=TwoWay}"  SelectedIndex="0"  DisplayMemberPath="nombre" SelectedValuePath="id" HorizontalAlignment="Left" Margin="320,43,0,0" VerticalAlignment="Top" Width="180" Height="22" Grid.Column="1">
                       
                     </ComboBox>
                     <Label Content="Nombre:" HorizontalAlignment="Left" Height="26" VerticalAlignment="Top" Width="64" Margin="22,80,0,0" Grid.ColumnSpan="2"/>
