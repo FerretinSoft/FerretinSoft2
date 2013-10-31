@@ -72,10 +72,25 @@ namespace pe.edu.pucp.ferretin.controller.MAlmacen
             return t;
         }
 
-        public static void agregarNuevoProducto(Producto prod)
+
+        public static Producto obtenerProductoxCodigo(String codigo)
         {
-            db.Producto.InsertOnSubmit(prod);
-            db.SubmitChanges();
+            Producto prod = (from p in db.Producto
+                             where p.codigo==codigo
+                             select p).SingleOrDefault();
+            return prod;
+        }
+
+        public static bool agregarNuevoProducto(Producto prod)
+        {
+            if (obtenerProductoxCodigo(prod.codigo)==null)
+            {
+                db.Producto.InsertOnSubmit(prod);
+                db.SubmitChanges();
+                return true;
+            }
+
+            return false;
 
         }
 
