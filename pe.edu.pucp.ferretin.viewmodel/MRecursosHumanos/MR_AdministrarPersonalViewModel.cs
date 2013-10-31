@@ -172,7 +172,7 @@ namespace pe.edu.pucp.ferretin.viewmodel.MRecursosHumanos
         }
         #endregion
 
-        #region RalayCommand
+        #region RelayCommand
         RelayCommand _actualizarListaEmpleadosCommand;
         public ICommand actualizarListaEmpleadosCommand
         {
@@ -183,6 +183,19 @@ namespace pe.edu.pucp.ferretin.viewmodel.MRecursosHumanos
                     _actualizarListaEmpleadosCommand = new RelayCommand(param => NotifyPropertyChanged("listaEmpleados"));
                 }
                 return _actualizarListaEmpleadosCommand;
+            }
+        }
+
+        RelayCommand _agregarEmpleadoCommand;
+        public ICommand agregarEmpleadoCommand
+        {
+            get
+            {
+                if (_agregarEmpleadoCommand == null)
+                {
+                    _agregarEmpleadoCommand = new RelayCommand(p => statusTab = Tab.AGREGAR);
+                }
+                return _agregarEmpleadoCommand;
             }
         }
         RelayCommand _viewEditEmpleadoCommand;
@@ -222,6 +235,8 @@ namespace pe.edu.pucp.ferretin.viewmodel.MRecursosHumanos
             }
         }
         #endregion
+
+
 
         #region Comandos
 

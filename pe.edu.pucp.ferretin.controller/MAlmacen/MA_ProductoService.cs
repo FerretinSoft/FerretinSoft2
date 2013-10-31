@@ -11,47 +11,37 @@ namespace pe.edu.pucp.ferretin.controller.MAlmacen
     {
         
         private static IEnumerable<Producto> listaProductos = null;
-        
+
         public static IEnumerable<Producto> obtenerTodosProductos()
         {
-            listaProductos =
-                from p in db.Producto
-                select p;
-
-            List<Producto> pList=listaProductos.ToList();
-
-            foreach (Producto p in pList)
-            {
-                String cad = "";
-                foreach (ProductoCategoria pc in p.ProductoCategoria)
-                {
-                    if (cad != "") cad += ", ";
-                    cad += pc.Categoria.nombre;
-                }
-                p.cadenaCategoria = cad;
-            }
-
-            return listaProductos;
+            IEnumerable<Producto> listaProd=from p in db.Producto
+                                            select p;
+            return listaProd;
         }
 
-        public static IEnumerable<Producto> obtenerProductosPorNombre(Producto producto, int flagAll)
+
+        public static IEnumerable<Producto> obtenerProductosPorNombre(String search, bool chkActivo, bool chkInactivo, Int16 idcategoria)
         {
-            if (flagAll == 0)
+            int intActivo = chkActivo == true ? 1 : 0;
+            int intInactivo = chkInactivo == true ? 0 : 1;
+
+            if (idcategoria == 0)
             {
                 listaProductos =
                     from p in db.Producto
                     where
-                    p.nombre.Contains(producto.nombre) &&
-                    p.estado == producto.estado
+                    p.nombre.Contains(search)
                     select p;
             }
             else
             {
                 listaProductos =
                     from p in db.Producto
+                    from pc in db.ProductoCategoria
                     where
-                    p.nombre.Contains(producto.nombre) &&
-                    p.estado==1 || p.estado==2 //esto tiene sentido?
+                    p.nombre.Contains(search) &&
+                    (pc.id_categoria == idcategoria) &&
+                    pc.id_producto == p.id
                     select p;
             }
 
@@ -69,18 +59,30 @@ namespace pe.edu.pucp.ferretin.controller.MAlmacen
                 p.cadenaCategoria = cad;
             }
 
-            return listaProductos;
+            return pList;
         }
 
-        public static void agregarProducto(Producto prod,ProductoAlmacen prodAlm)
+        public static ProductoAlmacen obtenerProdxTienda(int idProd,int idTienda)
+        {
+            ProductoAlmacen t = (from pt in db.ProductoAlmacen
+                        where pt.id_almacen == idTienda &&
+                        pt.id_producto == idProd
+                        select pt).SingleOrDefault();
+
+            return t;
+        }
+
+        public static void agregarNuevoProducto(Producto prod)
         {
             db.Producto.InsertOnSubmit(prod);
             db.SubmitChanges();
 
-            prodAlm.id_producto = prod.id;
-            db.ProductoAlmacen.InsertOnSubmit(prodAlm);
-            db.SubmitChanges();
+        }
 
+
+        public static void actualizarProducto()
+        {
+                db.SubmitChanges();
         }
 
 

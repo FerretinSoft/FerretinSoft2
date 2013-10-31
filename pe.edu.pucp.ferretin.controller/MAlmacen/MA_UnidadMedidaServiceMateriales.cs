@@ -20,5 +20,7 @@ namespace pe.edu.pucp.ferretin.controller.MAlmacen
             return (from m in db.Material orderby m.nombre select m);
         }
 
+
+
     }
 }

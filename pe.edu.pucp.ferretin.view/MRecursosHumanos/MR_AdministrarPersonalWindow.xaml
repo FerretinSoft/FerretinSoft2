@@ -5,6 +5,18 @@
         Title="Administración de Personal" Height="516.362" Width="704" Icon="/Resources/ferretin_ico.ico" Topmost="True" ResizeMode="CanMinimize">
     <Window.Resources>
         <viewmode:MR_AdministrarPersonalViewModel x:Key="MR_AdministrarPersonalViewModel" />
+        <ControlTemplate x:Key="validationTemplate">
+            <DockPanel>
+                <TextBlock Margin="5,0,5,0" Foreground="Red" FontSize="16" VerticalAlignment="Center" Text="*" ToolTip="{Binding ElementName=errorAdorner, Path=AdornedElement.(Validation.Errors)[0].ErrorContent}" />
+                <AdornedElementPlaceholder x:Name="errorAdorner" />
+            </DockPanel>
+        </ControlTemplate>
+        <Style TargetType="{x:Type TextBox}">
+            <Setter Property="Validation.ErrorTemplate" Value="{DynamicResource validationTemplate}" />
+        </Style>
+        <Style TargetType="{x:Type ComboBox}">
+            <Setter Property="Validation.ErrorTemplate" Value="{DynamicResource validationTemplate}" />
+        </Style>        
     </Window.Resources>
     <Grid DataContext="{Binding Source={StaticResource MR_AdministrarPersonalViewModel}}">
         <Grid.ColumnDefinitions>
@@ -64,7 +76,7 @@
                     </DataGrid>
 
                     <ToolBar HorizontalAlignment="Left" Margin="9,18,0,0" Grid.Row="2" VerticalAlignment="Top" Height="24">
-                        <Button x:Name="nuevoEmpleadoBtn" Content="" Height="20" VerticalAlignment="Top" Width="20" Margin="0,0,2,-1" >
+                        <Button Command="{Binding Path= agregarEmpleadoCommand}" x:Name="nuevoEmpleadoBtn" Content="" Height="20" VerticalAlignment="Top" Width="20" Margin="0,0,2,-1" >
                             <Button.Background>
                                 <ImageBrush ImageSource="../Resources/add_20.png" Stretch="None"/>
                             </Button.Background>
@@ -98,14 +110,14 @@
                     <Label Content="Código:" HorizontalAlignment="Left" Margin="14,22,0,0" VerticalAlignment="Top" Grid.Column="4"/>
                     <TextBox Text="{Binding Path=empleado.codEmpleado, Mode=TwoWay,  ValidatesOnExceptions=true, NotifyOnValidationError=true}"  HorizontalAlignment="Left" Height="23" Margin="90,26,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="144" IsEnabled="False" Grid.Column="4"/>
                     <Label Content="DNI:" HorizontalAlignment="Left" Margin="14,53,0,0" VerticalAlignment="Top" Grid.Column="4"/>
-                    <TextBox Text="{Binding Path=empleado.dni, Mode=TwoWay,  ValidatesOnExceptions=true, NotifyOnValidationError=true}"  HorizontalAlignment="Left" Height="23" Margin="90,57,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="144" Grid.Column="4"/>
+                    <TextBox Text="{Binding Path=empleado.dni, Mode=TwoWay,  ValidatesOnExceptions=true, NotifyOnValidationError=true, ValidatesOnDataErrors=True, UpdateSourceTrigger=LostFocus}"  HorizontalAlignment="Left" Height="23" Margin="90,57,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="144" Grid.Column="4"/>
                     <Label Content="Nombre:" HorizontalAlignment="Left" Margin="10,119,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.464,1.231" Grid.ColumnSpan="4"/>
-                    <TextBox Text="{Binding Path=empleado.nombre, Mode=TwoWay,  ValidatesOnExceptions=true, NotifyOnValidationError=true}"  HorizontalAlignment="Left" Height="23" Margin="15,123,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="219" Grid.Column="4"/>
+                    <TextBox Text="{Binding Path=empleado.nombre, Mode=TwoWay,  ValidatesOnExceptions=true, NotifyOnValidationError=true, ValidatesOnDataErrors=True, UpdateSourceTrigger=LostFocus}"  HorizontalAlignment="Left" Height="23" Margin="15,123,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="219" Grid.Column="4"/>
                     <Label Content="Apellido Paterno:" HorizontalAlignment="Left" Margin="10,150,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.464,1.231" Grid.ColumnSpan="5"/>
                     <TextBox Text="{Binding Path=empleado.apPaterno, Mode=TwoWay,  ValidatesOnExceptions=true, NotifyOnValidationError=true}" HorizontalAlignment="Left" Height="23" Margin="15,154,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="219" Grid.Column="4"/>
                     <Label Content="Distrito:" HorizontalAlignment="Left" Margin="86,291,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.464,1.231" Grid.Column="4"/>
                     <Label Content="Apellido Materno:" HorizontalAlignment="Left" Margin="10,181,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.464,1.231" Grid.ColumnSpan="5"/>
-                    <TextBox Text="{Binding Path=empleado.apMaterno, Mode=TwoWay,  ValidatesOnExceptions=true, NotifyOnValidationError=true}" HorizontalAlignment="Left" Height="23" Margin="15,185,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="219" Grid.Column="4"/>
+                    <TextBox Text="{Binding Path=empleado.apMaterno, Mode=TwoWay,  ValidatesOnExceptions=true, NotifyOnValidationError=true, ValidatesOnDataErrors=True, UpdateSourceTrigger=LostFocus}" HorizontalAlignment="Left" Height="23" Margin="15,185,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="219" Grid.Column="4"/>
                     <ComboBox ItemsSource="{Binding Path=distritos}" DisplayMemberPath="nombre" SelectedItem="{Binding Path=empleado.UbigeoDistrito}" SelectedValuePath="id" HorizontalAlignment="Left" Margin="137,295,0,0" VerticalAlignment="Top" Width="97" Grid.Column="4"/>
                     <Label Content="Dpto:" HorizontalAlignment="Left" Margin="89,260,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.464,1.231" Grid.Column="4"/>
                     <Label Content="País:" HorizontalAlignment="Left" Margin="12,260,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.464,1.231" Grid.ColumnSpan="4"/>
@@ -115,10 +127,10 @@
                     <ComboBox ItemsSource="{Binding Path=departamentos}" DisplayMemberPath="nombre" SelectedItem="{Binding Path=selectedDepartamento}" HorizontalAlignment="Left" Margin="137,260,0,0" VerticalAlignment="Top" Width="97" Grid.Column="4" />
                     <Label Content="Telf1:" HorizontalAlignment="Left" Margin="12,335,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.464,1.231" Grid.ColumnSpan="4"/>
                     <Label Content="Telf2:" HorizontalAlignment="Left" Margin="92,335,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.464,1.231" Grid.Column="4"/>
-                    <TextBox Text="{Binding Path=empleado.telefono1, Mode=TwoWay,  ValidatesOnExceptions=true, NotifyOnValidationError=true}" HorizontalAlignment="Left" Height="23" Margin="47,335,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="97" Grid.Column="3" Grid.ColumnSpan="2"/>
-                    <TextBox Text="{Binding Path=empleado.telefono2, Mode=TwoWay,  ValidatesOnExceptions=true, NotifyOnValidationError=true}"  HorizontalAlignment="Left" Height="23" Margin="137,338,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="97" Grid.Column="4"/>
+                    <TextBox Text="{Binding Path=empleado.telefono1, Mode=TwoWay,  ValidatesOnExceptions=true, NotifyOnValidationError=true, ValidatesOnDataErrors=True, UpdateSourceTrigger=LostFocus}" HorizontalAlignment="Left" Height="23" Margin="47,335,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="97" Grid.Column="3" Grid.ColumnSpan="2"/>
+                    <TextBox Text="{Binding Path=empleado.telefono2, Mode=TwoWay,  ValidatesOnExceptions=true, NotifyOnValidationError=true, ValidatesOnDataErrors=True, UpdateSourceTrigger=LostFocus}"  HorizontalAlignment="Left" Height="23" Margin="137,338,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="97" Grid.Column="4"/>
                     <Label Content="Email:" HorizontalAlignment="Left" Margin="12,374,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.464,1.231" Grid.ColumnSpan="4"/>
-                    <TextBox  Text="{Binding Path=empleado.email, Mode=TwoWay,  ValidatesOnExceptions=true, NotifyOnValidationError=true}" HorizontalAlignment="Left" Height="23" Margin="47,374,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="246" Grid.Column="3" Grid.ColumnSpan="2"/>
+                    <TextBox  Text="{Binding Path=empleado.email, Mode=TwoWay,  ValidatesOnExceptions=true, NotifyOnValidationError=true, ValidatesOnDataErrors=True, UpdateSourceTrigger=LostFocus}" HorizontalAlignment="Left" Height="23" Margin="47,374,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="246" Grid.Column="3" Grid.ColumnSpan="2"/>
                     <Label Content="Sexo:" HorizontalAlignment="Left" Margin="92,408,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.464,1.231" Grid.Column="4"/>
                     <ComboBox SelectedIndex="{Binding empleado.nombreSexo}"  HorizontalAlignment="Left" Margin="139,412,0,0" VerticalAlignment="Top" Width="97" Grid.Column="4">
                         <ListBoxItem Content=""/>
@@ -132,7 +144,7 @@
                     <DatePicker IsEnabled="False" SelectedDate="{Binding empleado.ultimafechaIngreso,Mode=OneWay}" HorizontalAlignment="Left" Margin="154,24,0,0" VerticalAlignment="Top" Grid.Column="5" Width="181"/>
                     <Button Command="{Binding cancelEmpleadoCommand}" Content="CANCELAR" HorizontalAlignment="Left" Margin="207,0,0,13" VerticalAlignment="Bottom" Width="75" RenderTransformOrigin="1.347,-0.05" Grid.Column="5" Height="30"/>
                     <Label Content="Dirección:&#x9;" HorizontalAlignment="Left" Margin="10,213,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.464,1.231" Grid.ColumnSpan="5"/>
-                    <TextBox Text="{Binding Path=empleado.direccion, Mode=TwoWay,  ValidatesOnExceptions=true, NotifyOnValidationError=true}"  HorizontalAlignment="Left" Height="23" Margin="15,217,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="219" Grid.Column="4"/>
+                    <TextBox Text="{Binding Path=empleado.direccion, Mode=TwoWay,  ValidatesOnExceptions=true, NotifyOnValidationError=true, ValidatesOnDataErrors=True, UpdateSourceTrigger=LostFocus}"  HorizontalAlignment="Left" Height="23" Margin="15,217,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="219" Grid.Column="4"/>
                     <ComboBox ItemsSource="{Binding listaCargos}"  SelectedItem="{Binding empleado.cargoActual,Mode=TwoWay}"  DisplayMemberPath="nombre" SelectedValuePath="id" HorizontalAlignment="Left" Margin="74,57,0,0" VerticalAlignment="Top" Width="90" Grid.Column="5"/>
                     <Label Content="Grado de instrucción:" HorizontalAlignment="Left" Margin="25,87,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.464,1.231" Grid.Column="5"/>
                     <ComboBox ItemsSource="{Binding gradosInstruccion}" SelectedItem="{Binding empleado.GradoInstruccion,Mode=TwoWay}" DisplayMemberPath="nombre" HorizontalAlignment="Left" Margin="152,91,0,0" VerticalAlignment="Top" Width="181" IsReadOnly="True" SelectedIndex="0" Grid.Column="5">
@@ -140,7 +152,7 @@
                     <ComboBox x:Name="tiendaComboBox"  ItemsSource="{Binding listaTiendas}"  SelectedItem="{Binding empleado.tiendaActual,Mode=TwoWay}"  DisplayMemberPath="nombre" SelectedValuePath="id" HorizontalAlignment="Left" Margin="250,57,0,0" VerticalAlignment="Top" Width="85" Grid.Column="5">
 
                     </ComboBox>
-                    <TextBox Text="{Binding empleado.ultimoSueldo}" HorizontalAlignment="Left" Height="23" Margin="152,121,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="181" Grid.Column="5"/>
+                    <TextBox Text="{Binding empleado.ultimoSueldo, ValidatesOnExceptions=true, NotifyOnValidationError=true , ValidatesOnDataErrors=True, UpdateSourceTrigger=LostFocus}" HorizontalAlignment="Left" Height="23" Margin="152,121,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="181" Grid.Column="5"/>
                     <Label Content="Historial:" HorizontalAlignment="Left" Margin="27,185,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.464,1.231" Grid.Column="5"/>
                     <DataGrid Grid.Column="5" HorizontalAlignment="Left" Margin="27,314,0,0" VerticalAlignment="Top" Height="85" Width="308">
                         <DataGrid.Columns>

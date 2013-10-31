@@ -191,6 +191,153 @@ namespace pe.edu.pucp.ferretin.model
             }
         }
 
+
+        #region Zona de Validaciones
+
+        #region Código por default de la interfaz heredada
+        public string Error
+        {
+            get { throw new NotImplementedException(); }
+        }
+
+        protected Dictionary<string, string> _errors = new Dictionary<string, string>();
+        public IDictionary<string, string> Errors
+        {
+            get { return _errors; }
+        }
+        #endregion
+
+        public string this[string columnName]
+        {
+            get
+            {
+                string errorMessage = string.Empty;
+                this.Errors.Remove(columnName);
+
+                switch (columnName)
+                {
+                    case "dni":
+                        if (String.IsNullOrEmpty(this.dni))
+                        {
+                            errorMessage = "Debe ingresar el DNI.";
+                        }
+                        else
+                        {
+                            Int64 nro = 0;
+                            Int64.TryParse(dni, out nro);
+
+                            if (nro < 10000000 || nro > 99999999)
+                            {
+                                errorMessage = "El DNI debe tener 8 números";
+                            }
+                        }
+                        break;
+
+                    case "nombre":
+                        if (String.IsNullOrEmpty(this.nombre))
+                        {
+                            errorMessage = "Debe ingresar un nombre del personal";
+                        }
+                        break;
+                    case "apPaterno":
+                        if (String.IsNullOrEmpty(this.apPaterno))
+                        {
+                            errorMessage = "Debe ingresar un Apellido Paterno del Personal";
+                        }
+                        break;
+                    case "apMaterno":
+                        if (String.IsNullOrEmpty(this.apMaterno))
+                        {
+                            errorMessage = "Debe ingresar un Apellido Materno del Personal";
+                        }
+                        break;
+
+                    case "telefono1":
+                        if (String.IsNullOrEmpty(this.telefono1))
+                        {
+                            errorMessage = "El Teléfono 1 no debe estar vacio.";
+                        }
+
+                        break;
+
+                    case "telefono2":
+                        if (String.IsNullOrEmpty(this.telefono2))
+                        {
+                            errorMessage = "El Teléfono 2 no debe estar vacio.";
+                        }
+                        break;
+
+                    case "email":
+                        if (String.IsNullOrEmpty(this.email))
+                        {
+                            errorMessage = "Debe ingresar un correo electronico";
+                        }
+                        break;
+                    case "direccion":
+                        if (String.IsNullOrEmpty(this.direccion))
+                        {
+                            errorMessage = "Debe ingresar la direccion del personal";
+                        }
+                        break;
+
+                    case "UbigeoDistrito":
+                        if (UbigeoDistrito == null || String.IsNullOrEmpty(UbigeoDistrito.id))
+                        {
+                            errorMessage = "Debe seleccionar un Pais, Provincia, Ciudad y Distrito";
+                        }
+                        break;
+
+                    case "ultimoSueldo":
+                        string strsueldo = "";
+                        this.ultimoSueldo.ToString(strsueldo);
+                        if (String.IsNullOrEmpty(strsueldo))
+                        {
+                            errorMessage = "Debe ingresar el Sueldo del empleado";
+                        }
+                        break;
+
+                    case "cargoActual":
+                        if (cargoActual == null || String.IsNullOrEmpty(this.cargoActual.nombre))
+                        {
+                            errorMessage = "Debe seleccionar un Cargo";
+                        }
+                        break;
+
+                    case "tiendaActual":
+                        if (tiendaActual == null || String.IsNullOrEmpty(this.tiendaActual.nombre))
+                        {
+                            errorMessage = "Debe seleccionar una Tienda";
+                        }
+                        break;
+                    case "GradoInstruccion":
+                        if (GradoInstruccion == null || String.IsNullOrEmpty(this.GradoInstruccion.nombre))
+                        {
+                            errorMessage = "Debe seleccionar un Grado de  Instruccion";
+                        }
+                        break;
+                    case "estado":
+                        if (String.IsNullOrEmpty(Convert.ToString(this.estado)))
+                        {
+                            errorMessage = "Debe seleccionar el estado";
+                        }
+                        break;
+
+                }
+
+                if (!string.IsNullOrEmpty(errorMessage))
+                {
+                    this.Errors.Add(columnName, errorMessage);
+                }
+
+                return errorMessage;
+            }
+        }
+
+        #endregion
+
+
+
+
         
     }
 }
