@@ -118,15 +118,15 @@ namespace pe.edu.pucp.ferretin.controller.MSeguridad
             
             IEnumerable<Usuario> usuarios = listaUsuarios;
             //Filtro por código
-            usuarios = usuarios.Where(u => u.codUsuario.Contains(codigo));
+            usuarios = usuarios.Where(u => u.codUsuario.ToLower().Contains(codigo.ToLower().Trim()));
             //Filtro por nombre
-            usuarios = usuarios.Where(u => u.nombre.Contains(nomUsuario));
+            usuarios = usuarios.Where(u => u.nombre.ToLower().Contains(nomUsuario.ToLower().Trim()));
             //Filtro por perfil
             usuarios = usuarios.Where(u => (perfil==null) || (perfil.id<=0) || (u.Perfil.id == perfil.id) );
             //Filtro por nombre y apellido
-            usuarios = usuarios.Where(u => u.Empleado.nombre.Contains(nombres) && (u.Empleado.apMaterno.Contains(apellidos) || u.Empleado.apPaterno.Contains(apellidos))) ;
+            usuarios = usuarios.Where(u => u.Empleado.nombre.ToLower().Contains(nombres.ToLower().Trim()) && (u.Empleado.apMaterno.ToLower().Contains(apellidos.ToLower().Trim()) || u.Empleado.apPaterno.ToLower().Contains(apellidos.ToLower().Trim())));
             //Filtro por estado
-            usuarios = usuarios.Where(u => (estado == 0) || (u.estado == estado));
+            usuarios = usuarios.Where(u => (estado == 0) || (u.estado != null && u.estado == estado - 1));
 
             return usuarios;
 
