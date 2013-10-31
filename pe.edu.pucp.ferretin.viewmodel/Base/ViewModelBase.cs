@@ -1,4 +1,5 @@
 ﻿using pe.edu.pucp.ferretin.controller;
+using pe.edu.pucp.ferretin.controller.MAlmacen;
 using pe.edu.pucp.ferretin.model;
 using System;
 using System.Collections.Generic;
@@ -186,6 +187,29 @@ namespace pe.edu.pucp.ferretin.viewmodel
             {
                 _distritos = value;
                 NotifyPropertyChanged("distritos");
+            }
+        }
+
+        /// <summary>
+        /// Estado de las solicitudes de abastecimiento
+        /// </summary>
+        private IEnumerable<SolicitudAbastecimientoEstado> _estadoSolicitud;
+        public IEnumerable<SolicitudAbastecimientoEstado> estadoSolicitud
+        {
+            get
+            {
+                if (_estadoSolicitud == null)
+                {
+                    var sequence = Enumerable.Empty<SolicitudAbastecimientoEstado>();
+                    IEnumerable<SolicitudAbastecimientoEstado> items = new SolicitudAbastecimientoEstado[] { new SolicitudAbastecimientoEstado { id = 0, nombre = "Todos" } };
+                    return items.Concat(MA_SharedService.estadosSolicitud);
+                }
+                return _estadoSolicitud;
+            }
+            set
+            {
+                _estadoSolicitud = value;
+                NotifyPropertyChanged("estadoSolicitud");
             }
         }
     }
