@@ -59,6 +59,7 @@
     <Compile Include="MSeguridad\MS_ComunService.cs" />
     <Compile Include="MSeguridad\MS_ParametroService.cs" />
     <Compile Include="MSeguridad\MS_PerfilService.cs" />
+    <Compile Include="MSeguridad\MS_TransaccionService.cs" />
     <Compile Include="MSeguridad\MS_UsuarioService.cs" />
     <Compile Include="MSeguridad\MS_SharedService.cs" />
     <Compile Include="MVentas\MV_ClienteService.cs" />

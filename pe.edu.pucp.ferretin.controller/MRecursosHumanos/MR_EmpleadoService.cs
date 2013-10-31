@@ -19,6 +19,7 @@ namespace pe.edu.pucp.ferretin.controller.MRecursosHumanos
                 if (_listaEmpleados == null)
                 {
                     _listaEmpleados = db.Empleado;
+                   
                 }
 
                 db.Refresh(RefreshMode.OverwriteCurrentValues, _listaEmpleados);
@@ -52,10 +53,12 @@ namespace pe.edu.pucp.ferretin.controller.MRecursosHumanos
 
         public static bool insertarEmpleado(Empleado empleado) 
         {
+            empleado.codEmpleado = 100000 + listaEmpleados.Count();
             if (!db.Empleado.Contains(empleado))
             {
                 db.Empleado.InsertOnSubmit(empleado); 
                 return enviarCambios();
+               
                   
             }
             else
@@ -80,5 +83,7 @@ namespace pe.edu.pucp.ferretin.controller.MRecursosHumanos
               ;
 
         }
+
+       
     }
 }

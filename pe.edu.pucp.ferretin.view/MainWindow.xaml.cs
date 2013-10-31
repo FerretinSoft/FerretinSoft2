@@ -70,6 +70,8 @@ namespace pe.edu.pucp.ferretin.view
 
         private void cerrarSesionMenuItem_Click(object sender, RoutedEventArgs e)
         {
+            MSeguridad.MS_LoginWindow lw = new MSeguridad.MS_LoginWindow();
+            lw.Show();
             this.Close();
         }
     }
