@@ -113,6 +113,26 @@ namespace pe.edu.pucp.ferretin.viewmodel
             }
         }
 
+        private IEnumerable<Tienda> _tiendasFiltro;
+        public IEnumerable<Tienda> tiendasFiltro
+        {
+            get
+            {
+                if (_tiendasFiltro == null)
+                {
+                    var sequence = Enumerable.Empty<Tienda>();
+                    IEnumerable<Tienda> items = new Tienda[] { new Tienda{ id = 0, nombre = "Todas" } };
+                    return items.Concat(ComunService.tiendas);
+                }
+                return _tiendasFiltro;
+            }
+            set
+            {
+                _tiendasFiltro = value;
+                NotifyPropertyChanged("tiendasFiltro");
+            }
+        }
+
         public UbigeoDistrito selectedDistrito { get; set; }
         private UbigeoDepartamento _selectedDepartamento;
         public UbigeoDepartamento selectedDepartamento

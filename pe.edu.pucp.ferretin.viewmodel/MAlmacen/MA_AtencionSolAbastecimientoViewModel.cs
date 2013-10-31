@@ -153,7 +153,8 @@ namespace pe.edu.pucp.ferretin.viewmodel.MAlmacen
         {
             get
             {
-                _listaSolicitudes = MA_SolicitudAbastecimientoService.buscar(currentAlmacen, searchTienda, searchEstado, searchFechaDesde, searchFechaHasta);
+                _listaSolicitudes = MA_SolicitudAbastecimientoService
+                    .buscar(currentAlmacen, ((searchTienda != null && searchTienda.nombre == "Todas")?null:searchTienda), searchEstado, searchFechaDesde, searchFechaHasta);
                 return _listaSolicitudes;
             }
             set
@@ -255,13 +256,22 @@ namespace pe.edu.pucp.ferretin.viewmodel.MAlmacen
 
             if (solicitud.id > 0)//Si existe
             {
-                if (!MA_SolicitudAbastecimientoService.atenderSolicitud(solicitud))
+                if (!MA_SolicitudAbastecimientoService.atenderSolicitud(currentAlmacen, solicitud))
                 {
                     MessageBox.Show("No se pudo atender la solicitud de abastecimiento");
                 }
                 else
                 {
-                    MessageBox.Show("La solicitud de abastecimiento fue atendida con éxito");
+                    solicitud.SolicitudAbastecimientoEstado = estadoSolicitud.FirstOrDefault(e => e.nombre == "Atendida");
+                    //falta descontar el stock del almacen central, para cada producto de la solicitud
+                    if (!MA_SolicitudAbastecimientoService.enviarCambios())
+                    {
+                        MessageBox.Show("No se pudo atender la solicitud de abastecimiento");
+                    }
+                    else
+                    {
+                        MessageBox.Show("La solicitud de abastecimiento fue atendida con éxito");
+                    }
                 }
                 NotifyPropertyChanged("solicitud");
                 NotifyPropertyChanged("listaSolicitudes");
@@ -274,7 +284,8 @@ namespace pe.edu.pucp.ferretin.viewmodel.MAlmacen
 
             if (solicitud.id > 0)//Si existe
             {
-                if (!MA_SolicitudAbastecimientoService.anularSolicitud(solicitud))
+                solicitud.SolicitudAbastecimientoEstado = estadoSolicitud.FirstOrDefault(e => e.nombre == "Anulada");
+                if (!MA_SolicitudAbastecimientoService.enviarCambios())
                 {
                     MessageBox.Show("No se pudo anular la solicitud de abastecimiento");
                 }
