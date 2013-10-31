@@ -234,7 +234,7 @@ namespace pe.edu.pucp.ferretin.model
 
         public void verificaTiendaHorario(){            
 
-            if ((this.tiendasH.Where(t => t.id_almacen == this.id)).Count() <= 0)
+            if ((this.TiendaHorario.Where(t => t.id_almacen == this.id)).Count() <= 0)
             {
                 //Creo una nueva secuencia
                 var sequence = Enumerable.Empty<TiendaHorario>();
