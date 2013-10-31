@@ -33,6 +33,48 @@ namespace pe.edu.pucp.ferretin.controller.MAlmacen
             }
         }
 
+        private static IEnumerable<Tienda> _listaAlmacen;
+        public static IEnumerable<Tienda> listaAlmacen
+        {
+            get
+            {
+                if (_listaAlmacen == null)
+                {
+                    _listaAlmacen = db.Tienda;
+                }
+                //Usando concurrencia pesimista:
+                ///La lista de productos se actualizara para ver los cambios
+                ///Si quisiera usar concurrencia optimista quito la siguiente linea
+                db.Refresh(RefreshMode.OverwriteCurrentValues, _listaAlmacen);
+                return _listaAlmacen;
+            }
+            set
+            {
+                _listaAlmacen = value;
+            }
+        }
+
+        private static IEnumerable<Categoria> _listaCategoria;
+        public static IEnumerable<Categoria> listaCategoria
+        {
+            get
+            {
+                if (_listaCategoria == null)
+                {
+                    _listaCategoria = db.Categoria;
+                }
+                //Usando concurrencia pesimista:
+                ///La lista de productos se actualizara para ver los cambios
+                ///Si quisiera usar concurrencia optimista quito la siguiente linea
+                db.Refresh(RefreshMode.OverwriteCurrentValues, _listaCategoria);
+                return _listaCategoria;
+            }
+            set
+            {
+                _listaCategoria = value;
+            }
+        }
+
 
         //todas las opearciones se basan en esta lista de productoAlmacen
         private static IEnumerable<ProductoAlmacen> _listaProductoAlmacen;
