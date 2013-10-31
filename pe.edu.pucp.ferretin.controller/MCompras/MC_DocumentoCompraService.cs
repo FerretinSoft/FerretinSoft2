@@ -48,12 +48,29 @@ namespace pe.edu.pucp.ferretin.controller.MCompras
         ///</summary>
         public static IEnumerable<DocumentoCompra> buscarDocumentosCompra(string codigo, string proveedor, int tipoDocumento, DateTime? fechaDesde, DateTime? fechaHasta)
         {
-            return from d in listaDocumentosCompra
-                   where
-                   (d.codigo != null && d.codigo.Contains(codigo) 
-                    )
-                   orderby d.codigo
-                   select d;
+
+            if (tipoDocumento == 0)
+            {
+                return from d in listaDocumentosCompra
+                       where
+                       (d.codigo != null && d.codigo.Contains(codigo)
+                       && d.Proveedor.razonSoc.Contains(proveedor)
+                        )
+                       orderby d.codigo
+                       select d;
+            }
+            else
+            {
+                return from d in listaDocumentosCompra
+                       where
+                       (d.codigo != null && d.codigo.Contains(codigo)
+                       && d.Proveedor.razonSoc.Contains(proveedor)
+                       && d.tipo == tipoDocumento
+                        )
+                       orderby d.codigo
+                       select d;
+            }
+            
         }
 
         public static IEnumerable<DocumentoCompra> buscarTodosDocumentosCompra()
