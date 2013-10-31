@@ -70,6 +70,16 @@ namespace pe.edu.pucp.ferretin.controller.MAlmacen
 
         }
 
+        public static IEnumerable<Object> buscarProductosPorSolicitud(Tienda almacen, SolicitudAbastecimiento solicitud)
+        {
+            var result = (from prodSol in db.SolicitudAbastecimientoProducto 
+                          join prodAlm in db.ProductoAlmacen on prodSol.Producto equals prodAlm.Producto
+                          where prodSol.SolicitudAbastecimiento == solicitud && prodAlm.Tienda == almacen
+                          select new {SolicitudAbastecimientoProducto = prodSol, ProductoAlmacen = prodAlm });
+            return result;
+
+        }        
+
         public static bool atenderSolicitud(SolicitudAbastecimiento solicitud)
         {
             return false;

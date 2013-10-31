@@ -44,31 +44,18 @@
                             <DataGridTextColumn Width="1*" Binding="{Binding Path=MovimientoTipo.nombre}" ClipboardContentBinding="{x:Null}" Header="Tipo Mov."/>
                             <DataGridTextColumn Width="2*" Binding="{Binding Path=Tienda.nombre}" ClipboardContentBinding="{x:Null}" Header="Desde"/>
                             <DataGridTextColumn Width="2*" Binding="{Binding Path=Tienda1.nombre}" ClipboardContentBinding="{x:Null}" Header="Hasta"/>
-                            <DataGridTextColumn Width="1*" Binding="{Binding Path=MovimientoProducto.Count}" ClipboardContentBinding="{x:Null}" Header="Total Prod."/>                            
+                            <DataGridTextColumn Width="1*" Binding="{Binding Path=MovimientoProducto.Count}" ClipboardContentBinding="{x:Null}" Header="Total Prod."/>
                         </DataGrid.Columns>
                     </DataGrid>
                     <ComboBox ItemsSource="{Binding Path=almacenesSearch,Mode=OneWay}" SelectedIndex="0" DisplayMemberPath="nombre" SelectedItem="{Binding searchAlmacen, Mode=TwoWay}" HorizontalAlignment="Left" Margin="28,43,0,0" VerticalAlignment="Top" Width="161" Height="22" Grid.Column="1">
-                        
+
                     </ComboBox>
                     <Label Content="Estado:" HorizontalAlignment="Left" Height="26" VerticalAlignment="Top" Width="110" Margin="210,39,0,0" Grid.Column="1"/>
                     <Label Content="Fecha hasta:" HorizontalAlignment="Left" Height="26" VerticalAlignment="Top" Width="75" Margin="210,80,0,0" Grid.Column="1"/>
                     <Label Content="Fecha desde:" HorizontalAlignment="Left" Height="26" VerticalAlignment="Top" Width="82" Margin="22,80,0,0" Grid.ColumnSpan="2"/>
                     <DatePicker SelectedDate="{Binding searchFechaDesde, Mode=TwoWay}" Grid.Column="1" HorizontalAlignment="Left" Margin="27,80,0,0" VerticalAlignment="Top" Width="162"/>
                     <DatePicker SelectedDate="{Binding searchFechaHasta, Mode=TwoWay}" Grid.Column="1" HorizontalAlignment="Left" Margin="325,80,0,0" VerticalAlignment="Top" Width="162"/>
-                    <ToolBar HorizontalAlignment="Left" Margin="9,128,0,0" VerticalAlignment="Top" Height="24" Grid.ColumnSpan="2" Grid.RowSpan="2">
-                        <Button x:Name="nuevoMvimientoBtn" Command="{Binding newMovimientoCommand}" Content="" VerticalAlignment="Top" Width="20" Margin="0,0,2,-1" Height="20">
-                            <Button.Background>
-                                <ImageBrush ImageSource="../Resources/add_20.png" Stretch="None"/>
-                            </Button.Background>
-                        </Button>
-                        <Button x:Name="editarMovimientoBtn" Command="{Binding viewEditMovimientoCommand}"  Content="" Height="20" VerticalAlignment="Top" Width="20" Margin="0,0,2,0">
-                            <Button.Background>
-                                <ImageBrush ImageSource="../Resources/edit_20.png"/>
-                            </Button.Background>
-                        </Button>
-
-                    </ToolBar>
-                    <ComboBox x:Name="estadoCombo1" ItemsSource="{Binding Path=estadosMovimiento}" DisplayMemberPath="nombre" SelectedIndex="{Binding searchEstado, Mode=TwoWay}" HorizontalAlignment="Left" Margin="326,43,0,0" VerticalAlignment="Top" Width="161" Height="22" Grid.Column="1"/>
+                    <ComboBox x:Name="estadoCombo1" SelectedIndex="0" ItemsSource="{Binding Path=estadosMovimiento}" DisplayMemberPath="nombre" SelectedItem="{Binding searchEstado, Mode=TwoWay}" HorizontalAlignment="Left" Margin="326,43,0,0" VerticalAlignment="Top" Width="161" Height="22" Grid.Column="1"/>
                 </Grid>
             </TabItem>
             <TabItem x:Name="detallesTab" >
@@ -88,12 +75,12 @@
                     <TextBox x:Name="comentarioTxt" Text="{Binding Path=movimiento.comentario, Mode=TwoWay}" HorizontalAlignment="Left" Margin="18,368,0,0" TextWrapping="Wrap" Width="252" Height="41" VerticalAlignment="Top"/>
                     <Label Content="Documento No.:" HorizontalAlignment="Left" Margin="15,224,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.464,1.231" Height="26" Width="99"/>
                     <ComboBox x:Name="tiendaDesdeCombo" ItemsSource="{Binding Path=tiendas}"  IsEnabled="{Binding isCreating}" SelectedItem="{Binding Path=movimiento.Tienda}" DisplayMemberPath="nombre" HorizontalAlignment="Left" Margin="123,142,0,0" VerticalAlignment="Top" Width="146" Height="22">
-                        
+
                     </ComboBox>
                     <ComboBox x:Name="tiendaHastaCombo" ItemsSource="{Binding Path=tiendas}" IsEnabled="{Binding isCreating}" SelectedItem="{Binding Path=movimiento.Tienda1}" DisplayMemberPath="nombre"  HorizontalAlignment="Left" Margin="121,186,0,0" VerticalAlignment="Top" Width="148" Height="22">
                     </ComboBox>
                     <ComboBox ItemsSource="{Binding Path=tiposMovimiento}" DisplayMemberPath="nombre" SelectedItem="{Binding Path=movimiento.MovimientoTipo}"  IsEnabled="{Binding isCreating}"  HorizontalAlignment="Left" Margin="123,61,0,0" VerticalAlignment="Top" Width="146" Height="22">
-                        
+
                     </ComboBox>
                     <Label Content="Comentario:" HorizontalAlignment="Left" Margin="15,337,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.464,1.231" Height="26" Width="84"/>
                     <DataGrid ItemsSource="{Binding movimiento.MovimientoProducto,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged,NotifyOnSourceUpdated=True,NotifyOnTargetUpdated=True}" Grid.Column="1" Margin="10,0,10,84" IsManipulationEnabled="True" CanUserAddRows="False"  IsEnabled="{Binding isCreating}" VerticalAlignment="Bottom" Height="285"  AutoGenerateColumns="False" >
@@ -109,7 +96,7 @@
                     <TextBox x:Name="noDocumentoTxt" HorizontalAlignment="Left" Height="23" IsEnabled="{Binding isCreating}" Margin="121,227,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="148"/>
                     <Label Content="Estado:" HorizontalAlignment="Left" Margin="15,300,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.464,1.231" Height="26" Width="74"/>
                     <ComboBox ItemsSource="{Binding Path=estadosMovimiento}" SelectedItem="{Binding Path=movimiento.MovimientoEstado}" DisplayMemberPath="nombre" HorizontalAlignment="Left" Margin="121,304,0,0" VerticalAlignment="Top" Width="148" Height="22">
-                        
+
                     </ComboBox>
                     <Button x:Name="guardarMovimientoBtn" Command="{Binding saveMovimientoCommand}" Content="GUARDAR" Grid.Column="1" HorizontalAlignment="Left" Margin="85,379,0,0" VerticalAlignment="Top" Width="75" Height="30" />
                     <Button x:Name="cancelarMovimientoBtn" Command="{Binding cancelMovimientoCommand}" Content="CANCELAR" Grid.Column="1" HorizontalAlignment="Left" Margin="227,379,0,0" VerticalAlignment="Top" Width="75" RenderTransformOrigin="2.495,0.446" Height="30"/>
@@ -121,21 +108,25 @@
                             <ImageBrush ImageSource="../Resources/add_20.png" Stretch="None"/>
                         </Button.Background>
                     </Button>
+                    <Label Content="*" HorizontalAlignment="Left" Margin="269,22,0,0" VerticalAlignment="Top" Foreground="Red" FontSize="14" Width="24" Height="23" Grid.ColumnSpan="2" RenderTransformOrigin="3.646,-0.402"/>
+                    <Label Content="*" HorizontalAlignment="Left" Margin="269,300,0,0" VerticalAlignment="Top" Foreground="Red" FontSize="14" Width="24" Height="23" Grid.ColumnSpan="2"/>
+                    <Label Content="*" HorizontalAlignment="Left" Margin="269,101,0,0" VerticalAlignment="Top" Foreground="Red" FontSize="14" Width="24" Height="23" Grid.ColumnSpan="2"/>
+                    <Label Content="*" HorizontalAlignment="Left" Margin="269,61,0,0" VerticalAlignment="Top" Foreground="Red" FontSize="14" Width="24" Height="23" Grid.ColumnSpan="2"/>
                 </Grid>
             </TabItem>
             <TabItem Header="Tipos de Movimiento">
                 <Grid Background="#FFE5E5E5" Margin="0">
                     <Grid Background="#FFE5E5E5" Margin="0">
-                        <DataGrid ItemsSource="{Binding Path=tiposMovimiento,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged,NotifyOnSourceUpdated=True,NotifyOnTargetUpdated=True}" CanUserAddRows="True" Margin="10,10,10,56" AutoGenerateColumns="False" >
-                        <DataGrid.Columns>
+                        <DataGrid ItemsSource="{Binding Path=tiposMovimiento,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged,NotifyOnSourceUpdated=True,NotifyOnTargetUpdated=True, NotifyOnValidationError=True, ValidatesOnDataErrors=True, ValidatesOnExceptions=True}" CanUserAddRows="True" Margin="10,10,10,56" AutoGenerateColumns="False" >
+                            <DataGrid.Columns>
                                 <DataGridTextColumn Header="Nombre de movimiento" Width="2*" Binding="{Binding Path=nombre}"/>
                                 <DataGridTextColumn Header="Categoría" Width="0.6*" Binding="{Binding Path=categoria}"/>
                                 <DataGridTextColumn Header="Descripción" Width="3*" Binding="{Binding Path=descripcion}"/>
                                 <DataGridCheckBoxColumn Header="Estado" Width="1*" Binding="{Binding Path=estado}"/>
-                        </DataGrid.Columns>
-                    </DataGrid>
+                            </DataGrid.Columns>
+                        </DataGrid>
                         <Button Command="{Binding saveTipoMovimientoCommand}" Content="GUARDAR CAMBIOS" HorizontalAlignment="Left" Margin="224,388,0,0" VerticalAlignment="Top" Width="122" Height="30"/>
-                        <Button Command="{Binding cancelTipoMovimientoCommand}" Content="CANCELAR" HorizontalAlignment="Left" Margin="356,388,0,0" VerticalAlignment="Top" Width="76" Height="30"/>
+                        <Button Command="{Binding cancelMovimientoCommand}" Content="CANCELAR" HorizontalAlignment="Left" Margin="356,388,0,0" VerticalAlignment="Top" Width="76" Height="30"/>
                     </Grid>
                 </Grid>
             </TabItem>
