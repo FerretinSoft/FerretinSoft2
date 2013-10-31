@@ -8,7 +8,7 @@ using System.Data.Linq;
 
 namespace pe.edu.pucp.ferretin.controller.MAlmacen
 {
-    public class MA_InventarioService
+    public class MA_InventarioService: MA_ComunService
     {
 
         //todas las operaciones se basan en esta lista de producto
