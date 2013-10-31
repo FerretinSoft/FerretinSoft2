@@ -95,6 +95,23 @@ namespace pe.edu.pucp.ferretin.viewmodel
             }
         }
 
+        private IEnumerable<Tienda> _tiendas;
+        public IEnumerable<Tienda> tiendas
+        {
+            get
+            {
+                if (_tiendas == null)
+                {
+                    _tiendas = ComunService.tiendas;
+                }
+                return _tiendas;
+            }
+            set
+            {
+                _tiendas = value;
+            }
+        }
+
         public UbigeoDistrito selectedDistrito { get; set; }
         private UbigeoDepartamento _selectedDepartamento;
         public UbigeoDepartamento selectedDepartamento

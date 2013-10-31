@@ -15,14 +15,13 @@ using System.Windows.Shapes;
 namespace pe.edu.pucp.ferretin.view.MAlmacen
 {
     /// <summary>
-    /// Lógica de interacción para MA_SolicitudAbastecimientoWindow.xaml
+    /// Lógica de interacción para MA_AtencionSolAbastecimientoWindow.xaml
     /// </summary>
-    public partial class MA_SolicitudAbastecimientoWindow : Window
+    public partial class MA_AtencionSolAbastecimientoWindow : Window
     {
-        public MA_SolicitudAbastecimientoWindow()
+        public MA_AtencionSolAbastecimientoWindow()
         {
             InitializeComponent();
-            
         }
 
         private void atenderSolBtn_Click(object sender, RoutedEventArgs e)
