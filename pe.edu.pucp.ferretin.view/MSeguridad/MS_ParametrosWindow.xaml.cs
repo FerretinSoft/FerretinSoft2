@@ -263,8 +263,17 @@ namespace pe.edu.pucp.ferretin.view.MSeguridad
                 MS_ParametroService.actualizarParametro(solesPorPunto);
             }
 
-            MessageBox.Show("Los Parametros Validos han sido Actualizados Correctamente");
+            if (String.IsNullOrEmpty(intContrasena.Text) && String.IsNullOrEmpty(tMaxSesion.Text) && String.IsNullOrEmpty(durClave.Text)
+                && String.IsNullOrEmpty(tipCambio.Text) && String.IsNullOrEmpty(igv.Text) && String.IsNullOrEmpty(vigProforma.Text)
+                && String.IsNullOrEmpty(vigNotaCredito.Text) && String.IsNullOrEmpty(solesPunto.Text))
+            {
+                MessageBox.Show("No hay parametros validos.");
 
+            }
+            else
+            {
+                MessageBox.Show("Los Parametros Validos han sido Actualizados Correctamente");
+            }
         }
 
         private void Button_Click_1(object sender, RoutedEventArgs e)
