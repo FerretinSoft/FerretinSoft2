@@ -80,19 +80,19 @@
 
                     <Label Content="Tienda:" HorizontalAlignment="Left" Height="26" VerticalAlignment="Top" Width="64" Margin="326,43,0,0"/>
                     <Label Content="Estado:" HorizontalAlignment="Left" Height="26" VerticalAlignment="Top" Width="65" Margin="325,82,0,0"/>
-                    <DataGrid ItemsSource="{Binding solicitud.SolicitudAbastecimientoProducto,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged,NotifyOnSourceUpdated=True,NotifyOnTargetUpdated=True}" Name="gridGenerar" Margin="8,30,2,3" Grid.Row="1" AutoGenerateColumns="False"  CanUserDeleteRows="False" IsReadOnly="True">
+                    <DataGrid ItemsSource="{Binding solicitud.SolicitudAbastecimientoProducto,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged,NotifyOnSourceUpdated=True,NotifyOnTargetUpdated=True}" Name="gridGenerar" Margin="8,30,2,3" Grid.Row="1" AutoGenerateColumns="False"  CanUserDeleteRows="False" IsManipulationEnabled="True" CanUserAddRows="False">
                         <DataGrid.Columns>
-                            <DataGridTextColumn Width="2*" Binding="{Binding Path=Producto.codigo}"  Header="Cód. Producto"/>
-                            <DataGridTextColumn Width="2*" Binding="{Binding Path=Producto.nombre}"  Header="Nombre"/>
-                            <DataGridTextColumn Width="2*" Binding="{Binding Path=cantidad}"  Header="Cantidad"/>
+                            <DataGridTextColumn Width="2*" Binding="{Binding Path=Producto.codigo}"  IsReadOnly="True" Header="Cód. Producto"/>
+                            <DataGridTextColumn Width="2*" Binding="{Binding Path=Producto.nombre}"  IsReadOnly="True"  Header="Nombre"/>
+                            <DataGridTextColumn Width="2*" Binding="{Binding Path=cantidad}"  Header="Cantidad" />
                             <DataGridTextColumn Width="2*"  Header="En Stock" />
-                            <DataGridTextColumn Width="2*" Binding="{Binding Path=Producto.stockmin}" Header="Stock mínimo"/>
+                            <DataGridTextColumn Width="2*" Binding="{Binding Path=Producto.stockmin}" Header="Stock mínimo" IsReadOnly="True" />
                         </DataGrid.Columns>
                     </DataGrid>
                     <Label Content="Fecha solicitud:" HorizontalAlignment="Left" Height="26" VerticalAlignment="Top" Width="111" Margin="22,81,0,0"/>
                     <DatePicker SelectedDate="{Binding Path=solicitud.fecha, Mode=TwoWay, ValidatesOnExceptions=true, NotifyOnValidationError=true}" HorizontalAlignment="Left" Margin="133,82,0,0" VerticalAlignment="Top" Width="166"/>
                     <TextBox Text="{Binding Path=solicitud.SolicitudAbastecimientoEstado.nombre, FallbackValue=Pendiente, Mode=TwoWay, ValidatesOnExceptions=true, NotifyOnValidationError=true}" x:Name="estadoTxtBox1" HorizontalAlignment="Left" Height="23" Margin="433,85,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="208" IsEnabled="False"/>
-                    <Button Command="{Binding agregarNuevoProductoCommand}" Content="" VerticalAlignment="Stretch" Width="20" Height="20" Margin="135,0,537,227" Grid.Row="1">
+                    <Button Command="{Binding agregarNuevoProductoCommand}" Content="" VerticalAlignment="Top" Width="20" Height="20" Margin="135,0,0,0" Grid.Row="1" HorizontalAlignment="Left">
                         <Button.Background>
                             <ImageBrush ImageSource="../Resources/add_20.png" Stretch="None"/>
                         </Button.Background>
