@@ -48,7 +48,6 @@
                     <!--checkbox modulo-->
                     <ComboBox SelectedIndex="{Binding searchModulo, Mode=TwoWay}" HorizontalAlignment="Left" Margin="80,25,0,0" VerticalAlignment="Top" Width="133" Height="22" Grid.ColumnSpan="2">
                         <ComboBoxItem Content="Todos"/>
-                        <ComboBoxItem Content="Administrador"/>
                         <ComboBoxItem Content="Almacen"/>
                         <ComboBoxItem Content="Compras"/>
                         <ComboBoxItem Content="Recursos Humanos"/>
@@ -148,8 +147,8 @@
                             </HierarchicalDataTemplate>
                         </TreeView.ItemTemplate>
                     </helper:MyTreeView>
-                    <Button  Command="{Binding cancelPerfilCommand}" Height="30" Content="CANCELAR" Padding="5,0" Margin="10,318,239,43" Grid.Column="1"/>
-                    <Button Command="{Binding savePerfilCommand}" Height="30" Content="GUARDAR" Padding="5,0" Margin="236,318,10,43"/>
+                    <Button  Command="{Binding cancelPerfilCommand}" Content="CANCELAR" Padding="5,0" Margin="10,298,224,55" Grid.Column="1"/>
+                    <Button Command="{Binding savePerfilCommand}" Content="GUARDAR" Padding="5,0" Margin="236,298,0,55"/>
 
                 </Grid>
             </TabItem>
