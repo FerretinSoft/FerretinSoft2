@@ -64,7 +64,7 @@ namespace pe.edu.pucp.ferretin.controller
                     Transaccion transaccion = new Transaccion();
                     transaccion.nroIP = obtenerIp();
                     transaccion.nroMAC = obtenerMac();
-                    DateTime today = DateTime.Today;
+                    DateTime today = DateTime.Now;
                     transaccion.fecha = today;
                     db.Transaccion.InsertOnSubmit(transaccion);
                     return true;

@@ -87,7 +87,7 @@ namespace pe.edu.pucp.ferretin.controller
         {
             get
             {
-                if(_almacenes==null)_almacenes = db.Tienda;
+                if(_almacenes==null)_almacenes = db.Tienda.Where(t => t.tipo == 1);
                 return _almacenes;
             }
             set

@@ -1,6 +1,7 @@
 ﻿using pe.edu.pucp.ferretin.model;
 using System;
 using System.Collections.Generic;
+using System.Data.Linq;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -26,17 +27,23 @@ namespace pe.edu.pucp.ferretin.controller.MAlmacen
             }
         }
 
-        private static List<MovimientoTipo> _tiposMovimiento;
-        public static List<MovimientoTipo> tiposMovimiento
+        private static IEnumerable<MovimientoTipo> _tiposMovimientos;
+
+        public static IEnumerable<MovimientoTipo> tiposMovimientos
         {
             get
             {
-                if (_tiposMovimiento == null) _tiposMovimiento = db.MovimientoTipo.ToList();
-                return _tiposMovimiento;
+                if (_tiposMovimientos == null)
+                {
+                    _tiposMovimientos = db.MovimientoTipo;
+                }
+                //pesimista
+                db.Refresh(RefreshMode.OverwriteCurrentValues, _tiposMovimientos);
+                return _tiposMovimientos;
             }
             set
             {
-                _tiposMovimiento = value;
+                _tiposMovimientos = value;
             }
         }
 

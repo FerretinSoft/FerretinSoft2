@@ -312,6 +312,7 @@ namespace pe.edu.pucp.ferretin.viewmodel.MSeguridad
             }
             NotifyPropertyChanged("listaAlmacenes");
         }
+
         public void cancelAlmacen(Object obj)
         {
             this.statusTab = Tab.BUSQUEDA;

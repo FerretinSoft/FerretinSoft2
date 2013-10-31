@@ -42,18 +42,13 @@ namespace pe.edu.pucp.ferretin.controller.MAlmacen
             return movimiento;
         }
 
-        public static IEnumerable<Movimiento> buscarMovimientos(int tiendaId, int estadoId, DateTime fechaDesde, DateTime fechaHasta)
+        public static IEnumerable<Movimiento> buscarMovimientos(Tienda searchAlmacen, MovimientoEstado searchEstado, DateTime searchFechaDesde, DateTime searchFechaHasta)
         {
-
-            var result = from m in listaMovimientos
-                    where
-                    ((tiendaId <= 0 || m.Tienda == null || m.id_almacen_desde == tiendaId) &&
-                    (estadoId <= 0 || m.MovimientoEstado == null || m.id_estado == estadoId) &&
-                    (fechaDesde == default(DateTime) || m.fecha >= fechaDesde)  && 
-                    (fechaHasta == default(DateTime) || m.fecha <= fechaHasta))
-                    orderby m.fecha
-                    select m;
-            return result;
+            return listaMovimientos
+                .Where(m => (searchAlmacen == null) || (searchAlmacen.id <= 0) || (m.Tienda == searchAlmacen || m.Tienda1 == searchAlmacen))
+                .Where(m => (searchEstado == null) || (searchEstado.id <= 0) || (m.MovimientoEstado == searchEstado))
+                .Where(m => (m.fecha >= searchFechaDesde) && (m.fecha <= searchFechaHasta))
+                .OrderBy(m => m.fecha);
         }
 
         public static void ActualizarMovimiento(Movimiento mov)
@@ -75,6 +70,6 @@ namespace pe.edu.pucp.ferretin.controller.MAlmacen
             }
         }
 
-        
+
     }
 }
