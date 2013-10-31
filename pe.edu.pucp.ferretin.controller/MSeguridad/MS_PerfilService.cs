@@ -104,14 +104,33 @@ namespace pe.edu.pucp.ferretin.controller.MSeguridad
         {
             return listaPerfilesCombo;
         }
-
-        public static IEnumerable<Perfil> buscar(int searchModulo, string searchDescripcion)
+        /*******************************************************/
+        public static string obtenerModulo(int valor)
         {
-            return listaPerfiles.Where(p => p.descripcion.Contains(searchDescripcion))
+            string modulo = null;
 
-                ;
+            if (valor == 1) modulo = "Modulo Almacen";
+            if (valor == 2) modulo = "Modulo Compras";
+            if (valor == 3) modulo =  "Modulo Recursos Humanos";
+            if (valor == 4) modulo =  "Modulo Ventas";
+            if (valor == 5) modulo =  "Modulo Administrador";            
+
+            return modulo;
         }
 
+        /*******************************************************/
+        public static IEnumerable<Perfil> buscar(int modulo, string descripcion)
+        {
+            IEnumerable<Perfil> perfiles = listaPerfiles;
+            //Filtro por modulo         
+            perfiles = perfiles.Where(p => (modulo == 0) || (p.modulo.ToLower().Contains(obtenerModulo(modulo).ToLower().Trim())) );
+            //Filtro por descripcion
+            perfiles = perfiles.Where(p => p.descripcion.ToLower().Contains(descripcion.ToLower().Trim()));
+            return perfiles;
+        }
+        /*
+        return listaPerfiles.Where(p => p.descripcion.Contains(searchDescripcion)) ;
+        /*******************************************************/
         public static Menu menuPadre
         {
             get
@@ -119,5 +138,7 @@ namespace pe.edu.pucp.ferretin.controller.MSeguridad
                 return db.Menu.Single(m => m.id_menu_padre == null || m.id_menu_padre <= 0);
             }
         }
+        
+
     }
 }

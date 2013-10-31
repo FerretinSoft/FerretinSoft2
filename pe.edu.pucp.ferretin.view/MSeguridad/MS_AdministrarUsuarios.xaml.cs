@@ -22,6 +22,7 @@ using pe.edu.pucp.ferretin.controller.MSeguridad;
 using pe.edu.pucp.ferretin.viewmodel.MSeguridad;
 using System.Net.NetworkInformation;
 using System.Management;
+using System.Text.RegularExpressions;
 
 namespace pe.edu.pucp.ferretin.view.MSeguridad
 {
@@ -41,40 +42,20 @@ namespace pe.edu.pucp.ferretin.view.MSeguridad
 
         }
 
-        //private void Button_Click(object sender, RoutedEventArgs e)
-        //{
-        //    //IPHostEntry hostEntry = Dns.GetHostEntry(Dns.GetHostName()); 
-        //    //IPAddress[] address = hostEntry.AddressList; 
-        //    ////textBox1.Text = address.GetValue(1).ToString(); 
-        //    //MessageBox.Show(address.Single().MapToIPv4().ToString());
-        //    try
-        //    {
-        //        IPAddress[] a = Dns.GetHostByName(Dns.GetHostName()).AddressList;
-        //        string ip = a[0].ToString();
-        //        //MessageBox.Show(ip);
+        #region Validaciones Campos de Texto
 
-        //        NetworkInterface[] nics = NetworkInterface.GetAllNetworkInterfaces();
-        //        String sMacAddress = string.Empty;
-        //        foreach (NetworkInterface adapter in nics)
-        //        {
-        //            if (sMacAddress == String.Empty)// only return MAC Address from first card  
-        //            {
-        //                IPInterfaceProperties properties = adapter.GetIPProperties();
-        //                sMacAddress = adapter.GetPhysicalAddress().ToString();
-        //                sMacAddress = string.Join(":", (from z in adapter.GetPhysicalAddress().GetAddressBytes() select z.ToString("X2")).ToArray());                        
-        //            }                    
-        //        }           
+        private void txtNomUsuario_KeyDown(object sender, KeyEventArgs e)
+        {
+            
+        }
 
-        //        MessageBox.Show(sMacAddress);
-        //    }
-        //    catch (Exception f)
-        //    {
-        //        MessageBox.Show(f.Message);
-        //    }
+        #endregion
 
- 
+        private void tipoCombo_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
 
-        //} 
+        }
+
     }
     
 }
