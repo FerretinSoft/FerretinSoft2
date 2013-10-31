@@ -60,8 +60,8 @@ namespace pe.edu.pucp.ferretin.controller.MSeguridad
                        //Cada fila es un filtro
                           (t.codigo != null && t.codigo.ToLower().Contains(codTienda.ToLower().Trim()))
                        && ((t.nombre != null && t.nombre.ToLower().Contains(nombre.ToLower().Trim())))
-                       && (tipo == 0 || (t.tipo != null && t.tipo.Equals(tipo == 1 ? true : false)))
-                       && (estado == 0 || (t.estado != null && t.estado.Equals(estado == 1 ? true : false)))
+                       && (tipo == 0 || (t.tipo != null && t.tipo==tipo-1))
+                       && (estado == 0 || (t.estado != null && t.estado == estado-1))
                        && (distrito == null || (t.UbigeoDistrito.id != null && t.UbigeoDistrito.id == distrito.id ))
                     )
                    orderby t.codigo
