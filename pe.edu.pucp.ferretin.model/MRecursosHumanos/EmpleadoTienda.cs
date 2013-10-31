@@ -19,7 +19,10 @@ namespace pe.edu.pucp.ferretin.model
         {
             get
             {
-                return fecFin.Value.ToString("d/MMM/yyyy");
+                if (fecFin != null)
+                    return fecFin.Value.ToString("d/MMM/yyyy");
+                else
+                    return "";
             }
         }
     }
