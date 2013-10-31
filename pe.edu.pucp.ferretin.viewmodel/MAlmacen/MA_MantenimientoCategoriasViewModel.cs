@@ -19,8 +19,11 @@ namespace pe.edu.pucp.ferretin.viewmodel.MAlmacen
             
         }
 
+
+
         private IEnumerable<Categoria> _categoriasPadre;
         public IEnumerable<Categoria> categoriasPadre { get { return _categoriasPadre; } set { _categoriasPadre = value; OnPropertyChanged("categoriasPadre"); } }
+
 
         private IEnumerable<Categoria> _categoriaPrincipal;
         public IEnumerable<Categoria> categoriaPrincipal
