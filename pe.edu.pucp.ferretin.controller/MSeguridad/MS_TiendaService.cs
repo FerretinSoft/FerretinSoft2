@@ -86,8 +86,7 @@ namespace pe.edu.pucp.ferretin.controller.MSeguridad
                 return enviarCambios();
             }
             else
-            {
-                MessageBox.Show("nunca entre");
+            {                
                 return false;
             }
         }
