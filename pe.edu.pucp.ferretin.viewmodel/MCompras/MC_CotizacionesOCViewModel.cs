@@ -90,6 +90,59 @@ namespace pe.edu.pucp.ferretin.viewmodel.MCompras
         
         #endregion
 
+        #region Manejo de los Tabs
+        public enum Tab
+        {
+            //Pestañas virtuales:
+            //0       1        2          3
+            BUSQUEDA, AGREGAR, MODIFICAR, DETALLES
+        }
+        private Tab _statusTab = Tab.BUSQUEDA; //pestaña default 
+        public Tab statusTab
+        {
+            get
+            {
+                return _statusTab;
+            }
+            set
+            {
+                _statusTab = value;
+                //Si cambió el estado de las pestañas también cambio los Header
+                //Si la pestaña es para agregar nuevo, limpio los input
+                switch (_statusTab)
+                {
+                    case Tab.BUSQUEDA: detallesTabHeader = "Agregar"; documentoCompra = new DocumentoCompra(); break;//Si es agregar, creo un nuevo objeto Cliente
+                    case Tab.AGREGAR: detallesTabHeader = "Agregar"; documentoCompra = new DocumentoCompra(); break;//Si es agregar, creo un nuevo objeto Cliente
+                    case Tab.MODIFICAR: detallesTabHeader = "Modificar"; break;
+                    case Tab.DETALLES: detallesTabHeader = "Detalles"; break;
+                    default: detallesTabHeader = "Agregar"; documentoCompra = new DocumentoCompra(); break;//Si es agregar, creo un nuevo objeto Cliente
+                }
+                NotifyPropertyChanged("statusTab");
+                //Cuando se cambia el status, tambien se tiene que actualizar el currentIndex del tab
+                NotifyPropertyChanged("currentIndexTab"); //Hace que cambie el tab automaticamente
+            }
+        }
+        //Usado para mover los tabs de acuerdo a las acciones realizadas
+        public int currentIndexTab
+        {
+            get { return _statusTab == Tab.BUSQUEDA ? 0 : 1; }
+            set { statusTab = value == 0 ? Tab.BUSQUEDA : Tab.AGREGAR; }
+        }
+        private String _detallesTabHeader = "Agregar"; //Default
+        public String detallesTabHeader
+        {
+            get
+            {
+                return _detallesTabHeader;
+            }
+            set
+            {
+                _detallesTabHeader = value;
+                NotifyPropertyChanged("detallesTabHeader");
+            }
+        }
+        #endregion
+
         #region Lista Documentos de Compra y Edicion de Documentos de Compra
         private DocumentoCompra _documentoCompra;
         public DocumentoCompra documentoCompra
@@ -182,8 +235,8 @@ namespace pe.edu.pucp.ferretin.viewmodel.MCompras
         {
             try
             {
-                this.documentoCompra = listaDocumentosCompra.Single(documentoCompra => documentoCompra.id == (int)id);
-                //this.statusTab = Tab.MODIFICAR;
+                this.documentoCompra = listaDocumentosCompra.Single(documentoCompra => documentoCompra.id == (long)id);
+                this.statusTab = Tab.MODIFICAR;
             }
             catch (Exception e)
             {
@@ -220,7 +273,7 @@ namespace pe.edu.pucp.ferretin.viewmodel.MCompras
 
         public void cancelDocumentoCompra(Object obj)
         {
-            //this.statusTab = Tab.BUSQUEDA;
+            this.statusTab = Tab.BUSQUEDA;
             listaDocumentosCompra = MC_DocumentoCompraService.listaDocumentosCompra;
         }
 

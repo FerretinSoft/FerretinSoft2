@@ -49,7 +49,7 @@ namespace pe.edu.pucp.ferretin.viewmodel.MAlmacen
                 {
                     case Tab.BUSQUEDA: detallesTabHeader = "Busqueda"; break;
                     case Tab.DETALLES: detallesTabHeader = "Detalles"; break;
-                    default: detallesTabHeader = "Agregar"; break;
+                    default: detallesTabHeader = "Busqueda"; break;
                 }
                 NotifyPropertyChanged("statusTab");
                 //Cuando se cambia el status, tambien se tiene que actualizar el currentIndex del tab
@@ -60,7 +60,7 @@ namespace pe.edu.pucp.ferretin.viewmodel.MAlmacen
         public int currentIndexTab
         {
             get { return _statusTab == Tab.BUSQUEDA ? 0 : 1; }
-            set { statusTab = value == 0 ? Tab.BUSQUEDA : Tab.BUSQUEDA; }//OBSERVACION
+            set { statusTab = value == 0 ? Tab.BUSQUEDA : Tab.DETALLES; }//OBSERVACION
         }
         private String _detallesTabHeader = "Detalles"; //Default
         public String detallesTabHeader
@@ -75,6 +75,38 @@ namespace pe.edu.pucp.ferretin.viewmodel.MAlmacen
                 NotifyPropertyChanged("detallesTabHeader");
             }
         }
+        #endregion
+
+        #region lista para combobox
+        public IEnumerable<Categoria> Categorias
+        {
+            get
+            {
+                //Creo una nueva secuencia
+                var sequence = Enumerable.Empty<Categoria>();
+                //Primero agrego un item de Todos para que salga al inicio
+                //Pongo el ID en 0 para que al buscar, no filtre nada cuando se selecciona todos
+                IEnumerable<Categoria> items = new Categoria[] { new Categoria{ id = 0, nombre = "Todos" } };
+                //Luego concateno el itemcon los elementos del combobox
+                return items.Concat(MA_InventarioService.listaCategoria);
+            }
+        }
+
+
+        public IEnumerable<Tienda> Tiendas
+        {
+            get
+            {
+                //Creo una nueva secuencia
+                var sequence = Enumerable.Empty<Tienda>();
+                //Primero agrego un item de Todos para que salga al inicio
+                //Pongo el ID en 0 para que al buscar, no filtre nada cuando se selecciona todos
+                IEnumerable<Tienda> items = new Tienda[] { new Tienda { id = 0, nombre = "Todos" } };
+                //Luego concateno el itemcon los elementos del combobox
+                return items.Concat(MA_InventarioService.listaAlmacen);
+            }
+        }
+
         #endregion
 
         #region Lista de inventario de productos y detalle producto

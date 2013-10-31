@@ -33,6 +33,15 @@ namespace pe.edu.pucp.ferretin.controller.MAlmacen
             }
         }
 
+
+        public static Producto obtenerProductoNombre(String nombre)
+        {
+            Producto producto = (from c in listaProducto
+                                 where c.nombre != null && c.nombre.Equals(nombre)
+                               select c).First();
+            return producto;
+        }
+
         private static IEnumerable<Tienda> _listaAlmacen;
         public static IEnumerable<Tienda> listaAlmacen
         {
@@ -54,7 +63,7 @@ namespace pe.edu.pucp.ferretin.controller.MAlmacen
             }
         }
 
-        private static IEnumerable<Categoria> _listaCategoria;
+       private static IEnumerable<Categoria> _listaCategoria;
         public static IEnumerable<Categoria> listaCategoria
         {
             get
@@ -130,7 +139,7 @@ namespace pe.edu.pucp.ferretin.controller.MAlmacen
                 foreach (ProductoAlmacen pa in p.ProductoAlmacen)
                 {
 
-                    if (pa.Tienda.nombre.Equals(searchTienda))
+                    if (pa.Tienda.nombre!=null && pa.Tienda.nombre.Equals(searchTienda))
                     {
                         p.almacen = pa.Tienda.nombre;
                         p.stock = (int)pa.stock;
