@@ -34,8 +34,9 @@ namespace pe.edu.pucp.ferretin.view.MRecursosHumanos
 
         private void txtDNI_KeyDown(object sender, KeyEventArgs e)
         {
+     
             //Validaciones para que acepte solo numeros
-            if (e.Key >= Key.D0 && e.Key <= Key.D9 || e.Key >= Key.NumPad0 && e.Key <= Key.NumPad9)
+            if (((e.Key >= Key.D0 && e.Key <= Key.D9) || (e.Key >= Key.NumPad0 && e.Key <= Key.NumPad9) || e.Key == Key.Back || e.Key == Key.Tab))
                 e.Handled = false;
             else
                 e.Handled = true;
@@ -43,38 +44,24 @@ namespace pe.edu.pucp.ferretin.view.MRecursosHumanos
 
         private void txtNombre_KeyDown(object sender, KeyEventArgs e)
         {
-            //Validaciones para que acepte solo numeros
-            if (e.Key >= Key.D0 && e.Key <= Key.D9 || e.Key >= Key.NumPad0 && e.Key <= Key.NumPad9)
-                e.Handled = false;
-            else
-                e.Handled = true;
-
-  
+            //Validaciones para textbox de solo letras
+            if (!(e.Key > Key.A && e.Key < Key.Z)) e.Handled = true;
 
         }
         private void txtApPaterno_KeyDown(object sender, KeyEventArgs e)
         {
-            //Validaciones para que acepte solo numeros
-            if (e.Key >= Key.D0 && e.Key <= Key.D9 || e.Key >= Key.NumPad0 && e.Key <= Key.NumPad9)
-                e.Handled = false;
-            else
-                e.Handled = true;
+            //Validaciones para textbox de solo letras
+            if (!(e.Key > Key.A && e.Key < Key.Z)) e.Handled = true;
         }
         private void txtApMaterno_KeyDown(object sender, KeyEventArgs e)
         {
-            //Validaciones para que acepte solo numeros
-            if (e.Key >= Key.D0 && e.Key <= Key.D9 || e.Key >= Key.NumPad0 && e.Key <= Key.NumPad9)
-                e.Handled = false;
-            else
-                e.Handled = true;
+            //Validaciones para textbox de solo letras
+            if (!(e.Key > Key.A && e.Key < Key.Z)) e.Handled = true;
         }
         private void txtDireccion_KeyDown(object sender, KeyEventArgs e)
         {
-            //Validaciones para que acepte solo numeros
-            if (e.Key >= Key.D0 && e.Key <= Key.D9 || e.Key >= Key.NumPad0 && e.Key <= Key.NumPad9)
-                e.Handled = false;
-            else
-                e.Handled = true;
+            //Validaciones para textbox de solo letras
+            if (!(e.Key > Key.A && e.Key < Key.Z)) e.Handled = true;
         }
         private void txtTelf1_KeyDown(object sender, KeyEventArgs e)
         {
