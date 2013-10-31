@@ -247,6 +247,21 @@ namespace pe.edu.pucp.ferretin.viewmodel.MSeguridad
                 return _buscarClienteCommand;
             }
         }
+        /*************************************************/
+        RelayCommand _restbContrasenaCommand;
+        public ICommand restbContrasenaCommand
+        {
+            get
+            {
+                if (_restbContrasenaCommand == null)
+                {
+                    _restbContrasenaCommand = new RelayCommand(restbContrasena);
+                }
+                return _restbContrasenaCommand;
+            }
+        }
+
+
         #endregion
 
         #region Comandos
@@ -311,6 +326,24 @@ namespace pe.edu.pucp.ferretin.viewmodel.MSeguridad
             listaUsuarios = MS_UsuarioService.listaUsuarios;
         }
         /**************************************************/
+
+        public void restbContrasena(Object obj)
+        {
+            if (usuario.id > 0)//Si existe
+            {
+                usuario.contrasena = MS_UsuarioService.encrypt("ferretinSoft");
+
+                if (!MS_UsuarioService.enviarCambios())
+                {
+                    MessageBox.Show("No se puedo cambiar la contraseña");
+                }
+                else
+                {
+                    MessageBox.Show("La contraseña se restablecio con éxito");
+                }
+            }           
+        }
+
         #endregion
 
         void buscarCliente(object var)

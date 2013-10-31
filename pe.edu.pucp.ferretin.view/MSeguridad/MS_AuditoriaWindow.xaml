@@ -33,13 +33,13 @@
                     <ImageBrush ImageSource="../Resources/refresh2_48.png"/>
                 </Button.Background>
             </Button>
-            <DataGrid ItemsSource="{Binding Path=listaTransacciones,Mode=OneWay}" x:Name="auditoriasDg" Margin="10,20,10,10" Grid.Row="1" Grid.ColumnSpan="3" AutoGenerateColumns="False" CanUserAddRows="False" CanUserDeleteRows="False">
+            <DataGrid ItemsSource="{Binding Path=listaTransacciones,Mode=OneWay}" x:Name="auditoriasDg" Margin="10,20,10,10" Grid.Row="1" Grid.ColumnSpan="3" AutoGenerateColumns="False" CanUserAddRows="False" CanUserDeleteRows="False" IsReadOnly="True">
                 <DataGrid.Columns>
                     <!-- Otras columnas -->
                     <DataGridTextColumn Width="3.5*" Binding="{Binding Path=nroIP}" Header="IP"/>
                     <DataGridTextColumn Width="4.3*" Binding="{Binding Path=nroMAC}" Header="MAC Address"/>
-                    <DataGridTextColumn Width="3*" Binding="{Binding Path=id_usuario}" Header="UserName"/>
-                    <DataGridTextColumn Width="4.5*" Binding="{Binding Path=perfil}" Header="Perfil"/>
+                    <DataGridTextColumn Width="3.6*" Binding="{Binding Path=Usuario.nombre}" Header="Nombre Usuario"/>
+                    <DataGridTextColumn Width="4.5*" Binding="{Binding Path=Usuario.Perfil.nombre}" Header="Perfil"/>
                     <DataGridTextColumn Width="5*" Binding="{Binding Path=fecha}" Header="Fecha y Hora"/>                    
                     <DataGridTextColumn Width="6*" Binding="{Binding Path=transaccion}" Header="Transacción"/>
 
