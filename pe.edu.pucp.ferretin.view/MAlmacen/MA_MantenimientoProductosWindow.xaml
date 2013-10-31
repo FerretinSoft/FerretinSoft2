@@ -121,13 +121,25 @@
                     <Label Content="Seleccione tienda:" HorizontalAlignment="Left" Margin="11,79,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.464,1.231" Grid.Row="1"/>
                     <ComboBox x:Name="cmbTienda" SelectedItem="{Binding selectedTienda}" ItemsSource="{Binding Path=listaTiendas}" DisplayMemberPath="nombre" SelectedValuePath="id" SelectedValue="{Binding Path=prodAlm.id_almacen}" HorizontalAlignment="Left" Margin="116,80,0,0" VerticalAlignment="Top" Width="220" Height="22" Grid.Row="1"/>
                     <Button Content="CAMBIAR IMG" HorizontalAlignment="Left" Margin="10,1,0,0" VerticalAlignment="Top" Width="100" Height="30" RenderTransformOrigin="0.48,-0.033" Grid.Row="1"/>
-                    <TreeView  ItemsSource="{Binding treeParents}" Background="#FFF5F5F5" HorizontalAlignment="Left" Height="182" Margin="10,44,0,0" VerticalAlignment="Top" Width="325" Grid.Column="1" Grid.Row="1">
+                    <helper:MyTreeView x:Name="treeCheckBoxes" ItemsSource="{Binding Path=categoriaPrincipal,Mode=TwoWay}" Background="#FFF5F5F5" HorizontalAlignment="Left" Height="182" Margin="10,44,0,0" VerticalAlignment="Top" Width="325" Grid.Column="1" Grid.Row="1">
+                        <TreeView.ItemContainerStyle>
+                            <Style TargetType="{x:Type TreeViewItem}">
+                                <Setter Property="IsExpanded" Value="{Binding IsExpanded, Mode=TwoWay,FallbackValue=True}" />
+                                <Setter Property="IsSelected" Value="{Binding IsSelected, Mode=TwoWay}" />
+                                <Setter Property="FontWeight" Value="Normal" />
+                                <Style.Triggers>
+                                    <Trigger Property="IsSelected" Value="True">
+                                        <Setter Property="FontWeight" Value="Bold" />
+                                    </Trigger>
+                                </Style.Triggers>
+                            </Style>
+                        </TreeView.ItemContainerStyle>
                         <TreeView.ItemTemplate>
-                            <HierarchicalDataTemplate ItemsSource="{Binding listaHijos}">
-                                <TextBlock Text="{Binding nombre}" />
+                            <HierarchicalDataTemplate  ItemsSource="{Binding Path=Categoria2}">
+                                <CheckBox x:Name="checkBoxTreeVal" IsChecked="{Binding isChecked}" VerticalAlignment="Center" Checked="checkTree" Content="{Binding nombre}"/>
                             </HierarchicalDataTemplate>
                         </TreeView.ItemTemplate>
-                    </TreeView>
+                    </helper:MyTreeView>
                     <Label Content="Categorías:" HorizontalAlignment="Left" Margin="10,5,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.464,1.231" Grid.Column="1" Grid.Row="1"/>
                     <TextBox HorizontalAlignment="Left" Height="23" Margin="130,9,0,0" TextWrapping="Wrap" Text="Sanitarios" VerticalAlignment="Top" Width="205" Grid.Column="1" Grid.Row="1"/>
                 </Grid>

@@ -51,7 +51,7 @@ namespace pe.edu.pucp.ferretin.view.MAlmacen
         private void txtCodigo_KeyDown(object sender, KeyEventArgs e)
         {
             //Validaciones para textbox de solo letras
-            if (!(e.Key > Key.A && e.Key < Key.Z)) e.Handled = true;
+            if (!(e.Key >= Key.A && e.Key <= Key.Z)) e.Handled = true;
         }
 
         private void txtPrecio_KeyDown(object sender, KeyEventArgs e)
@@ -78,6 +78,12 @@ namespace pe.edu.pucp.ferretin.view.MAlmacen
             if (MessageBox.Show("¿Está seguro que desea cerrar esta ventana?", "Confirmación",
                                 MessageBoxButton.YesNo) == MessageBoxResult.Yes)
                 this.productoTabControl.SelectedIndex = 0;
+        }
+
+        private void checkTree(object sender, RoutedEventArgs e)
+        {
+            
+                
         }
     }
 }
