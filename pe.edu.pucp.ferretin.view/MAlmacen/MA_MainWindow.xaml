@@ -15,7 +15,7 @@
                 <ImageBrush ImageSource="../Resources/home_32.png" Stretch="None"/>
             </Button.Background>
         </Button>
-        <Grid HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0" Height="400" Width="350">
+        <Grid HorizontalAlignment="Center" VerticalAlignment="Center" Margin="84,29,85,57" Height="435" Width="350">
             <Label Content="Almacén" HorizontalAlignment="Center" Margin="0,10,0,0" VerticalAlignment="Top" FontSize="24" FontWeight="Bold"/>
             <Button x:Name="invProdBtn" Content="" HorizontalAlignment="Left" Margin="30,100,0,0" VerticalAlignment="Top" Width="32" Height="32" Click="invProdBtn_Click">
                 <Button.Background>
@@ -32,7 +32,7 @@
                     <ImageBrush ImageSource="../Resources/forward_32.png"/>
                 </Button.Background>
             </Button>
-            <Button x:Name="solAbastecimientoBtn" Content="" HorizontalAlignment="Left" Margin="30,288,0,0" VerticalAlignment="Top" Width="32" Height="32" RenderTransformOrigin="0.44,-0.101" Click="solAbastecimientoBtn_Click">
+            <Button x:Name="registroSolicitudesBtn" Content="" HorizontalAlignment="Left" Margin="30,288,0,0" VerticalAlignment="Top" Width="32" Height="32" RenderTransformOrigin="0.44,-0.101" Click="solAbastecimientoBtn_Click">
                 <Button.Background>
                     <ImageBrush ImageSource="../Resources/forward_32.png"/>
                 </Button.Background>
@@ -40,19 +40,25 @@
             <Label Content="Inventario de Productos" HorizontalAlignment="Left" Margin="80,100,0,0" VerticalAlignment="Top" FontSize="16"/>
             <Label Content="Administración de Productos" HorizontalAlignment="Left" Margin="80,147,0,0" VerticalAlignment="Top" FontSize="16"/>
             <Label Content="Movimientos" HorizontalAlignment="Left" Margin="80,241,0,0" VerticalAlignment="Top" FontSize="16"/>
-            <Label Content="Solicitudes de Abastecimiento" HorizontalAlignment="Left" Margin="80,288,0,0" VerticalAlignment="Top" FontSize="16"/>
-            <Button x:Name="repAlmacenBtn" Content="" HorizontalAlignment="Left" Margin="30,335,0,0" VerticalAlignment="Top" Width="32" Height="32" RenderTransformOrigin="0.44,-0.101" Click="repAlmacenBtn_Click">
+            <Label Content="Registro de Solicitudes" HorizontalAlignment="Left" Margin="80,288,0,0" VerticalAlignment="Top" FontSize="16"/>
+            <Button x:Name="repAlmacenBtn" Content="" HorizontalAlignment="Left" Margin="30,382,0,0" VerticalAlignment="Top" Width="32" Height="32" RenderTransformOrigin="0.44,-0.101" Click="repAlmacenBtn_Click">
                 <Button.Background>
                     <ImageBrush ImageSource="../Resources/forward_32.png"/>
                 </Button.Background>
             </Button>
-            <Label Content="Reportes de Almacén" HorizontalAlignment="Left" Margin="80,335,0,0" VerticalAlignment="Top" FontSize="16"/>
+            <Label Content="Atención de Solicitudes" HorizontalAlignment="Left" Margin="80,335,0,0" VerticalAlignment="Top" FontSize="16"/>
             <Button x:Name="mantCatBtn" Content="" HorizontalAlignment="Left" Margin="30,194,0,0" VerticalAlignment="Top" Width="32" Height="32" Click="mantCatBtn_Click">
                 <Button.Background>
                     <ImageBrush ImageSource="../Resources/forward_32.png"/>
                 </Button.Background>
             </Button>
             <Label Content="Administración de Categorías" HorizontalAlignment="Left" Margin="80,194,0,0" VerticalAlignment="Top" FontSize="16"/>
+            <Button x:Name="atencionSolicitudesBtn" Content="" HorizontalAlignment="Left" Margin="30,335,0,0" VerticalAlignment="Top" Width="32" Height="32" RenderTransformOrigin="0.44,-0.101" Click="solAbastecimientoBtn_Click">
+                <Button.Background>
+                    <ImageBrush ImageSource="/pe.edu.pucp.ferretin.view;component/Resources/forward_32.png"/>
+                </Button.Background>
+            </Button>
+            <Label Content="Reportes de Almacén" HorizontalAlignment="Left" Margin="80,383,0,-14" VerticalAlignment="Top" FontSize="16"/>
         </Grid>
         <StatusBar Height="35" VerticalAlignment="Bottom">
             <StatusBar.ItemsPanel>
