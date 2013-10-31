@@ -159,7 +159,7 @@
                             <ImageBrush ImageSource="../Resources/search1_20.png"/>
                         </Button.Background>
                     </Button>
-                    <Button Height="30" Content="IP" Padding="5,0" Margin="54,309,194,76" Grid.Column="1" Click="Button_Click"/>
+                    <!--<Button Height="30" Content="IP" Padding="5,0" Margin="54,309,194,76" Grid.Column="1" Click="Button_Click"/>-->
                     <!--
                     <Button Content="GUARDAR" HorizontalAlignment="Left" Margin="227,361,0,0" VerticalAlignment="Top" Width="75" RenderTransformOrigin="1.347,-0.05" Height="30"/>
                     <Button Content="CANCELAR" HorizontalAlignment="Left" Margin="31,361,0,0" VerticalAlignment="Top" Width="75" RenderTransformOrigin="1.347,-0.05" Grid.Column="1" Height="30"/>

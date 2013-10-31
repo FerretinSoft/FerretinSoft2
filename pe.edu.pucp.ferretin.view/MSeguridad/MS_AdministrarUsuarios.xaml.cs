@@ -36,27 +36,40 @@ namespace pe.edu.pucp.ferretin.view.MSeguridad
             InitializeComponent();
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
-        {
-            //IPHostEntry hostEntry = Dns.GetHostEntry(Dns.GetHostName()); 
-            //IPAddress[] address = hostEntry.AddressList; 
-            ////textBox1.Text = address.GetValue(1).ToString(); 
-            //MessageBox.Show(address.Single().MapToIPv4().ToString());
-            try
-            {
-                IPAddress[] a = Dns.GetHostByName(Dns.GetHostName()).AddressList;
-                string ip = a[0].ToString();
-                //MessageBox.Show(ip);
+        //private void Button_Click(object sender, RoutedEventArgs e)
+        //{
+        //    //IPHostEntry hostEntry = Dns.GetHostEntry(Dns.GetHostName()); 
+        //    //IPAddress[] address = hostEntry.AddressList; 
+        //    ////textBox1.Text = address.GetValue(1).ToString(); 
+        //    //MessageBox.Show(address.Single().MapToIPv4().ToString());
+        //    try
+        //    {
+        //        IPAddress[] a = Dns.GetHostByName(Dns.GetHostName()).AddressList;
+        //        string ip = a[0].ToString();
+        //        //MessageBox.Show(ip);
 
-            }
-            catch (Exception f)
-            {
-                MessageBox.Show(f.Message);
-            }
+        //        NetworkInterface[] nics = NetworkInterface.GetAllNetworkInterfaces();
+        //        String sMacAddress = string.Empty;
+        //        foreach (NetworkInterface adapter in nics)
+        //        {
+        //            if (sMacAddress == String.Empty)// only return MAC Address from first card  
+        //            {
+        //                IPInterfaceProperties properties = adapter.GetIPProperties();
+        //                sMacAddress = adapter.GetPhysicalAddress().ToString();
+        //                sMacAddress = string.Join(":", (from z in adapter.GetPhysicalAddress().GetAddressBytes() select z.ToString("X2")).ToArray());                        
+        //            }                    
+        //        }           
+
+        //        MessageBox.Show(sMacAddress);
+        //    }
+        //    catch (Exception f)
+        //    {
+        //        MessageBox.Show(f.Message);
+        //    }
 
  
 
-        } 
+        //} 
     }
     
 }
