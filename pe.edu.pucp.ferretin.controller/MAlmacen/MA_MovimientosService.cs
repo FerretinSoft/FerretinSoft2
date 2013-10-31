@@ -10,15 +10,15 @@ namespace pe.edu.pucp.ferretin.controller.MAlmacen
 {
     public class MA_MovimientosService : MA_ComunService
     {
-       private static List<Movimiento> _listaMovimientos;
+       private static IEnumerable<Movimiento> _listaMovimientos;
 
-        public static List<Movimiento> ListaMovimientos
+        public static IEnumerable<Movimiento> listaMovimientos
         {
             get
             {
                 if (_listaMovimientos == null)
                 {
-                    _listaMovimientos = db.Movimiento.ToList();
+                    _listaMovimientos = db.Movimiento;
                 }
                 
                 //Usando concurrencia pesimista:
@@ -35,17 +35,17 @@ namespace pe.edu.pucp.ferretin.controller.MAlmacen
 
         public static Movimiento ObtenerMovimientoPorId(int id)
         {
-            Movimiento movimiento = (from m in ListaMovimientos
+            Movimiento movimiento = (from m in listaMovimientos
                                where m.id.Equals(id)
                                select m).Single();
 
             return movimiento;
         }
 
-        public static List<Movimiento> buscarMovimientos(int tiendaId, int estadoId, DateTime fechaDesde, DateTime fechaHasta)
+        public static IEnumerable<Movimiento> buscarMovimientos(int tiendaId, int estadoId, DateTime fechaDesde, DateTime fechaHasta)
         {
 
-            var result = from m in ListaMovimientos
+            var result = from m in listaMovimientos
                     where
                     ((tiendaId <= 0 || m.Tienda == null || m.id_almacen_desde == tiendaId) &&
                     (estadoId <= 0 || m.MovimientoEstado == null || m.id_estado == estadoId) &&
@@ -53,7 +53,7 @@ namespace pe.edu.pucp.ferretin.controller.MAlmacen
                     (fechaHasta == default(DateTime) || m.fecha <= fechaHasta))
                     orderby m.fecha
                     select m;
-            return result.ToList();
+            return result;
         }
 
         public static void ActualizarMovimiento(Movimiento mov)
@@ -74,5 +74,7 @@ namespace pe.edu.pucp.ferretin.controller.MAlmacen
                 return false;
             }
         }
+
+        
     }
 }

@@ -35,8 +35,8 @@ namespace pe.edu.pucp.ferretin.viewmodel.MAlmacen
             }
         }
 
-        private List<Movimiento> _listaMovimientos;
-        public List<Movimiento> listaMovimientos
+        private IEnumerable<Movimiento> _listaMovimientos;
+        public IEnumerable<Movimiento> listaMovimientos
         {
             get
             {
@@ -97,8 +97,8 @@ namespace pe.edu.pucp.ferretin.viewmodel.MAlmacen
         {
             set
             {
-                if(value >= 0 && value < listaMovimientos.Count) 
-                    movimiento = listaMovimientos[value];
+                if(value >= 0 && value < listaMovimientos.Count()) 
+                    movimiento = listaMovimientos.ElementAt(value);
                 //MessageBox.Show(value + movimiento.codigo);
                 _selectedMovimiento = value;
             }
@@ -296,6 +296,7 @@ namespace pe.edu.pucp.ferretin.viewmodel.MAlmacen
                     //listaMovimientos = MA_MovimientosService.ListaMovimientos;
                 }
             }
+            NotifyPropertyChanged("listaMovimientos");
         }
 
         public void cancelMovimiento(Object obj)
