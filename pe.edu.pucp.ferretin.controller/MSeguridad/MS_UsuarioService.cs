@@ -8,6 +8,8 @@ using System.Data.Linq;
 
 using pe.edu.pucp.ferretin.controller.MRecursosHumanos;
 using pe.edu.pucp.ferretin.model;
+using System.Security.Cryptography;
+using System.IO;
 
 namespace pe.edu.pucp.ferretin.controller.MSeguridad
 {
@@ -168,5 +170,62 @@ namespace pe.edu.pucp.ferretin.controller.MSeguridad
         {
             return listaPerfiles;
         }
+
+        /********************Para contraseña***********************/
+
+        public static string encrypt(string plainText)
+        {
+
+            string passPhrase = "rudy";        // can be any string
+            string saltValue = "akatsuki";        // can be any string
+            string hashAlgorithm = "MD5";             // can be "MD5"
+            int passwordIterations = 2;                  // can be any number
+            string initVector = "@1B2c3D4e5F6g7H8"; // must be 16 bytes
+            int keySize = 128;                // can be 192 or 128
+
+
+            byte[] initVectorBytes = Encoding.ASCII.GetBytes(initVector);
+            byte[] saltValueBytes = Encoding.ASCII.GetBytes(saltValue);
+
+            byte[] plainTextBytes = Encoding.UTF8.GetBytes(plainText);
+
+            PasswordDeriveBytes password = new PasswordDeriveBytes(
+                                                            passPhrase,
+                                                            saltValueBytes,
+                                                            hashAlgorithm,
+                                                            passwordIterations);
+
+            byte[] keyBytes = password.GetBytes(keySize / 8);
+
+            RijndaelManaged symmetricKey = new RijndaelManaged();
+
+            symmetricKey.Mode = CipherMode.CBC;
+
+            ICryptoTransform encryptor = symmetricKey.CreateEncryptor(
+                                                             keyBytes,
+                                                             initVectorBytes);
+
+            MemoryStream memoryStream = new MemoryStream();
+
+            CryptoStream cryptoStream = new CryptoStream(memoryStream,
+                                                         encryptor,
+                                                         CryptoStreamMode.Write);
+
+            cryptoStream.Write(plainTextBytes, 0, plainTextBytes.Length);
+
+
+            cryptoStream.FlushFinalBlock();
+
+            byte[] cipherTextBytes = memoryStream.ToArray();
+
+            memoryStream.Close();
+            cryptoStream.Close();
+
+            string cipherText = Convert.ToBase64String(cipherTextBytes);
+
+            return cipherText;
+        }
+
+
     }
 }
