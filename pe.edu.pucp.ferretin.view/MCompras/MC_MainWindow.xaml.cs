@@ -23,5 +23,46 @@ namespace pe.edu.pucp.ferretin.view.MCompras
         {
             InitializeComponent();
         }
+
+        private void adminProveedoresBtn_Click(object sender, RoutedEventArgs e)
+        {
+            MC_AdministrarProveedorWindow prove = new MC_AdministrarProveedorWindow();
+            prove.Show();
+        }
+
+        private void solicitudAbastBtn_Click(object sender, RoutedEventArgs e)
+        {
+            MAlmacen.MA_RegistroSolAbastecimientoWindow solabas = new MAlmacen.MA_RegistroSolAbastecimientoWindow();
+            solabas.consolidarBtn.Visibility = System.Windows.Visibility.Visible;
+            //solabas.atenderSolTab.Visibility = System.Windows.Visibility.Hidden;
+            solabas.generarSolTab.Visibility = System.Windows.Visibility.Hidden;
+            solabas.ShowDialog();
+        }
+
+        private void ordCompraBtn_Click(object sender, RoutedEventArgs e)
+        {
+            MC_AdministrarOCCotizacionWindow orden = new MC_AdministrarOCCotizacionWindow();
+            orden.Show();
+        }
+
+        private void gRemisioinBtn_Click(object sender, RoutedEventArgs e)
+        {
+            MC_AdministrarGuiaRemiWindow guia = new MC_AdministrarGuiaRemiWindow();
+            guia.Show();
+        }
+
+        private void repComprasBtn_Click(object sender, RoutedEventArgs e)
+        {
+            MC_ReportesWindow reporte = new MC_ReportesWindow();
+            reporte.Show();
+        }
+
+        private void homeBtn_Click(object sender, RoutedEventArgs e)
+        {
+            if (this.OwnedWindows.Count == 0)
+            {
+                this.Close();
+            }
+        }
     }
 }

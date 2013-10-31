@@ -1,4 +1,5 @@
 ﻿using pe.edu.pucp.ferretin.model;
+using pe.edu.pucp.ferretin.controller;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -29,13 +30,14 @@ namespace pe.edu.pucp.ferretin.view
             InitializeComponent();
             usuarioLog = usuario;
             usuarioMenu.Header = "Tienda ABC, " + usuarioLog.nombre;
+            ComunService.usuarioLogeado(usuario);
         }
+                
 
         private void comprasBtn_Click(object sender, RoutedEventArgs e)
         {
-            //MCompras.MC_MainWindow MCWindow = MCompras.MC_MainWindow.instance;
-            //MCWindow.Show();
-            //MCWindow.Focus();
+            MCompras.MC_MainWindow Mainw = new MCompras.MC_MainWindow();
+            Mainw.Show();
         }
 
         private void confBtn_Click(object sender, RoutedEventArgs e)
@@ -71,6 +73,8 @@ namespace pe.edu.pucp.ferretin.view
 
         private void cerrarSesionMenuItem_Click(object sender, RoutedEventArgs e)
         {
+            MSeguridad.MS_LoginWindow lw = new MSeguridad.MS_LoginWindow();
+            lw.Show();
             this.Close();
         }
     }

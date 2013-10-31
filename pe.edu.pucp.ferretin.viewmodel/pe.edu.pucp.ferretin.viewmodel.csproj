@@ -34,6 +34,7 @@
     <Reference Include="PresentationFramework" />
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Data.Linq" />
     <Reference Include="System.Xaml" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -44,14 +45,25 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Base\CamelCaseString.cs" />
+    <Compile Include="Base\UIValidationError.cs" />
     <Compile Include="Helper\DatetimeToDateConverter.cs" />
     <Compile Include="Helper\RelayCommand.cs" />
     <Compile Include="Helper\TreeViewHelper.cs" />
+    <Compile Include="MAlmacen\MA_InventarioProductosViewModel.cs" />
     <Compile Include="MAlmacen\MA_MantenimientoCategoriasViewModel.cs" />
-    <Compile Include="MAlmacen\MA_MantenimientoProductosViewModel.cs" />
+    <Compile Include="MAlmacen\MA_MovimientosViewModel.cs" />
+    <Compile Include="MAlmacen\MA_RegistroSolAbastecimientoViewModel.cs" />
+    <Compile Include="MAlmacen\MA_AtencionSolAbastecimientoViewModel.cs" />
+    <Compile Include="MCompras\MC_ProveedoresViewModel.cs" />
+    <Compile Include="MRecursosHumanos\MR_AdministrarPersonalViewModel.cs" />
+    <Compile Include="MSeguridad\MS_AdministrarPerfilesViewModel.cs" />
     <Compile Include="MSeguridad\MS_AdministrarTiendasViewModel.cs" />
+    <Compile Include="MSeguridad\MS_AdministrarUsuariosViewModel.cs" />
+    <Compile Include="MSeguridad\MS_AuditoriaWindowViewModel.cs" />
     <Compile Include="MVentas\MV_ClientesViewModel.cs" />
     <Compile Include="Base\ViewModelBase.cs" />
+    <Compile Include="MVentas\MV_VentasViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -64,10 +76,7 @@
       <Name>pe.edu.pucp.ferretin.model</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="MCompras\" />
-    <Folder Include="MRecursosHumanos\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

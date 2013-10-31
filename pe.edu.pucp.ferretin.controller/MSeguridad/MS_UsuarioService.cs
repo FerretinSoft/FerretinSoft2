@@ -1,27 +1,36 @@
-﻿using pe.edu.pucp.ferretin.model;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Collections;
+using System.Data.Linq;
+
 using pe.edu.pucp.ferretin.controller.MRecursosHumanos;
+using pe.edu.pucp.ferretin.model;
+using System.Security.Cryptography;
+using System.IO;
 
 namespace pe.edu.pucp.ferretin.controller.MSeguridad
 {
     public class MS_UsuarioService : MS_ComunService
     {
-
-        private static IEnumerable<Usuario> _listaUsuarios = null;
-
-        private static IEnumerable<Usuario> listaUsuarios
+        /*******************************************************
+                            PARA USUARIOS
+        /*******************************************************/
+        public static IEnumerable<Usuario> _listaUsuarios = null;
+        public static IEnumerable<Usuario> listaUsuarios
         {
             get
             {
                 if (_listaUsuarios == null)
                 {
-                    _listaUsuarios = obtenerListaUsuarios();
+                    _listaUsuarios = db.Usuario;
                 }
+                //Usando concurrencia pesimista:
+                ///La lista de clientes se actualizara para ver los cambios
+                ///Si quisiera usar concurrencia optimista quito la siguiente linea
+                db.Refresh(RefreshMode.OverwriteCurrentValues, _listaUsuarios);
                 return _listaUsuarios;
             }
             set
@@ -29,11 +38,11 @@ namespace pe.edu.pucp.ferretin.controller.MSeguridad
                 _listaUsuarios = value;
             }
         }
-
+        /*******************************************************/
         public static IEnumerable<Usuario> obtenerListaUsuarios()
         {
             listaUsuarios = from p in db.Usuario
-                            orderby p.Empleado.dni
+                            orderby p.id_empleado
                             select p;
             return listaUsuarios;
         }
@@ -43,7 +52,7 @@ namespace pe.edu.pucp.ferretin.controller.MSeguridad
         {
             return from c in listaUsuarios
                    where
-                   (c.Empleado.dni != null && c.Empleado.dni.Contains(usuario.Empleado.dni)
+                   (c.id_empleado != null && c.id_empleado == usuario.id_empleado
                        && c.nombre != null && c.nombre.ToLower().Contains(usuario.nombre.ToLower().Trim())
                        && c.contrasena != null && c.contrasena.Contains(usuario.contrasena)
                        /*&& c.id_perfil != null && c.id_perfil.Contains(usuario.id_perfil)
@@ -53,17 +62,21 @@ namespace pe.edu.pucp.ferretin.controller.MSeguridad
                    select c;
         }
         /*******************************************************/
-        public static void insertarUsuario(Usuario usuario)
-        {
-            db.Usuario.InsertOnSubmit(usuario);
-            db.SubmitChanges();
-        }
+        //public static void insertarUsuario(Usuario usuario)
+        //{
+        //    db.Usuario.InsertOnSubmit(usuario);
+        //    db.SubmitChanges();
+        //}
         /*******************************************************/
         public static void actualizarUsuario(Usuario usuario)
         {
             db.SubmitChanges();
         }
 
+
+        /*******************************************************
+                            PARA EMPLEADOS
+        /*******************************************************/
         private static IEnumerable<Empleado> _listaEmpleados;
         private static IEnumerable<Empleado> listaEmpleados
         {
@@ -71,7 +84,7 @@ namespace pe.edu.pucp.ferretin.controller.MSeguridad
             {
                 if (_listaEmpleados == null)
                 {
-                    _listaEmpleados = MR_EmpleadoService.obtenerListaEmpleados(); 
+                    _listaEmpleados = MR_EmpleadoService.obtenerListaEmpleados();
                 }
                 return _listaEmpleados;
             }
@@ -80,28 +93,62 @@ namespace pe.edu.pucp.ferretin.controller.MSeguridad
                 _listaEmpleados = value;
             }
         }
-
+        /*******************************************************/
         public static System.Collections.IEnumerable obtenerListaUsuariosBy(Usuario usuario, Empleado empleado)
         {
-            
+
             return from u in listaUsuarios
                    where
-                   (u.Empleado.dni != null && u.Empleado.dni.Contains(usuario.Empleado.dni)
+                   (u.id_empleado != null && u.id_empleado == usuario.id_empleado
                        && u.nombre != null && u.nombre.ToLower().Contains(usuario.nombre.ToLower().Trim())
                        && u.Empleado != null &&
                             (u.Empleado.nombre != null && u.Empleado.nombre.ToLower().Contains(empleado.nombre.ToLower().Trim())
                             && u.Empleado.apPaterno != null && u.Empleado.apPaterno.ToLower().Contains(empleado.apPaterno.ToLower().Trim())
-                            //&& u.Empleado.apMaterno != null && u.Empleado.apMaterno.ToLower().Contains(empleado.apMaterno.ToLower().Trim()) 
+                       //&& u.Empleado.apMaterno != null && u.Empleado.apMaterno.ToLower().Contains(empleado.apMaterno.ToLower().Trim()) 
                             )
-                       && (usuario.id_perfil == null || ( u.id_perfil != null && u.id_perfil.Equals(usuario.id_perfil)))
+                       && (usuario.id_perfil == null || (u.id_perfil != null && u.id_perfil.Equals(usuario.id_perfil)))
                        && (usuario.estado == null || (u.estado != null && u.estado.Equals(usuario.estado)))
                     )
                    orderby u.nombre
                    select u;
         }
+        /*******************************************************/
+        public static IEnumerable<Usuario> buscar(string codigo, string nomUsuario, Perfil perfil, string nombres, string apellidos, int estado)
+        {
+            
+            IEnumerable<Usuario> usuarios = listaUsuarios;
+            //Filtro por código
+            usuarios = usuarios.Where(u => u.codUsuario.Contains(codigo));
+            //Filtro por nombre
+            usuarios = usuarios.Where(u => u.nombre.Contains(nomUsuario));
+            //Filtro por perfil
+            usuarios = usuarios.Where(u => (perfil==null) || (perfil.id<=0) || (u.Perfil.id == perfil.id) );
+            //Filtro por nombre y apellido
+            usuarios = usuarios.Where(u => u.Empleado.nombre.Contains(nombres) && (u.Empleado.apMaterno.Contains(apellidos) || u.Empleado.apPaterno.Contains(apellidos))) ;
+            //Filtro por estado
+            usuarios = usuarios.Where(u => (estado == 0) || (u.estado == estado));
 
+            return usuarios;
+
+        }
+        /*******************************************************/
+        public static bool insertarUsuario(Usuario usuario)
+        {
+            if (!db.Usuario.Contains(usuario))
+            {
+                db.Usuario.InsertOnSubmit(usuario);
+                return enviarCambios();
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        /*******************************************************
+                            PARA PERFILES
+        /*******************************************************/
         private static IEnumerable<Perfil> _listaPerfiles;
-
         private static IEnumerable<Perfil> listaPerfiles
         {
             get
@@ -118,10 +165,68 @@ namespace pe.edu.pucp.ferretin.controller.MSeguridad
                 _listaPerfiles = value;
             }
         }
-
+        /*******************************************************/
         public static IEnumerable<Perfil> obtenerPerfiles()
         {
             return listaPerfiles;
         }
+
+        /********************Para contraseña***********************/
+
+        public static string encrypt(string plainText)
+        {
+
+            string passPhrase = "rudy";        // can be any string
+            string saltValue = "akatsuki";        // can be any string
+            string hashAlgorithm = "MD5";             // can be "MD5"
+            int passwordIterations = 2;                  // can be any number
+            string initVector = "@1B2c3D4e5F6g7H8"; // must be 16 bytes
+            int keySize = 128;                // can be 192 or 128
+
+            if (String.IsNullOrEmpty(plainText)) return "";
+
+            byte[] initVectorBytes = Encoding.ASCII.GetBytes(initVector);
+            byte[] saltValueBytes = Encoding.ASCII.GetBytes(saltValue);
+
+            byte[] plainTextBytes = Encoding.UTF8.GetBytes(plainText);
+
+            PasswordDeriveBytes password = new PasswordDeriveBytes(
+                                                            passPhrase,
+                                                            saltValueBytes,
+                                                            hashAlgorithm,
+                                                            passwordIterations);
+
+            byte[] keyBytes = password.GetBytes(keySize / 8);
+
+            RijndaelManaged symmetricKey = new RijndaelManaged();
+
+            symmetricKey.Mode = CipherMode.CBC;
+
+            ICryptoTransform encryptor = symmetricKey.CreateEncryptor(
+                                                             keyBytes,
+                                                             initVectorBytes);
+
+            MemoryStream memoryStream = new MemoryStream();
+
+            CryptoStream cryptoStream = new CryptoStream(memoryStream,
+                                                         encryptor,
+                                                         CryptoStreamMode.Write);
+
+            cryptoStream.Write(plainTextBytes, 0, plainTextBytes.Length);
+
+
+            cryptoStream.FlushFinalBlock();
+
+            byte[] cipherTextBytes = memoryStream.ToArray();
+
+            memoryStream.Close();
+            cryptoStream.Close();
+
+            string cipherText = Convert.ToBase64String(cipherTextBytes);
+
+            return cipherText;
+        }
+
+
     }
 }

@@ -3,7 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Collections;
+using System.Data.Linq;
 
+using pe.edu.pucp.ferretin.controller.MRecursosHumanos;
 using pe.edu.pucp.ferretin.model;
 
 namespace pe.edu.pucp.ferretin.controller.MSeguridad
@@ -11,16 +14,22 @@ namespace pe.edu.pucp.ferretin.controller.MSeguridad
     public class MS_PerfilService : MS_ComunService
     {
 
-        private static IEnumerable<Perfil> _listaPerfiles = null;
-
-        private static IEnumerable<Perfil> listaPerfiles
+        /*******************************************************
+                                PARA PERFILES
+        *******************************************************/
+        public static IEnumerable<Perfil> _listaPerfiles = null;
+        public static IEnumerable<Perfil> listaPerfiles
         {
             get
             {
                 if (_listaPerfiles == null)
                 {
-                    obtenerListaPerfiles();
+                    _listaPerfiles = db.Perfil;
                 }
+                //Usando concurrencia pesimista:
+                ///La lista de clientes se actualizara para ver los cambios
+                ///Si quisiera usar concurrencia optimista quito la siguiente linea
+                db.Refresh(RefreshMode.OverwriteCurrentValues, _listaPerfiles);
                 return _listaPerfiles;
             }
             set
@@ -53,17 +62,62 @@ namespace pe.edu.pucp.ferretin.controller.MSeguridad
            
         }
         /*******************************************************/
-        public static void insertarPerfil(Perfil perfil)
+        public static bool insertarPerfil(Perfil perfil)
         {
-            db.Perfil.InsertOnSubmit(perfil);
-            db.SubmitChanges();
+            if (!db.Perfil.Contains(perfil))
+            {
+                db.Perfil.InsertOnSubmit(perfil);
+                return enviarCambios();
+            }
+            else
+            {
+                return false;
+            }
         }
         /*******************************************************/
         public static void actualizarPerfil(Perfil perfil)
         {
             db.SubmitChanges();
         }
+        /*******************************************************/
+        
+        /*******************************************************/
+        private static IEnumerable<Perfil> _listaPerfilesCombo;
+        private static IEnumerable<Perfil> listaPerfilesCombo
+        {
+            get
+            {
+                if (_listaPerfilesCombo == null)
+                {
+                    _listaPerfilesCombo = from p in db.Perfil
+                                     select p;
+                }
+                return _listaPerfilesCombo;
+            }
+            set
+            {
+                _listaPerfilesCombo = value;
+            }
+        }
+        /*******************************************************/
+        public static IEnumerable<Perfil> obtenerPerfiles()
+        {
+            return listaPerfilesCombo;
+        }
 
+        public static IEnumerable<Perfil> buscar(int searchModulo, string searchDescripcion)
+        {
+            return listaPerfiles.Where(p => p.descripcion.Contains(searchDescripcion))
 
+                ;
+        }
+
+        public static Menu menuPadre
+        {
+            get
+            {
+                return db.Menu.Single(m => m.id_menu_padre == null || m.id_menu_padre <= 0);
+            }
+        }
     }
 }

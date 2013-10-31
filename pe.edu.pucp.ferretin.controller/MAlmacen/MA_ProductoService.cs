@@ -12,6 +12,14 @@ namespace pe.edu.pucp.ferretin.controller.MAlmacen
         
         private static IEnumerable<Producto> listaProductos = null;
 
+        public static IEnumerable<Producto> obtenerTodosProductos()
+        {
+            IEnumerable<Producto> listaProd=from p in db.Producto
+                                            select p;
+            return listaProd;
+        }
+
+
         public static IEnumerable<Producto> obtenerProductosPorNombre(String search, bool chkActivo, bool chkInactivo, Int16 idcategoria)
         {
             int intActivo = chkActivo == true ? 1 : 0;

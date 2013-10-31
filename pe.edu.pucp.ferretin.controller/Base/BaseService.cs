@@ -6,6 +6,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Net;
+using System.Net.NetworkInformation;
 
 namespace pe.edu.pucp.ferretin.controller
 {
@@ -56,7 +58,25 @@ namespace pe.edu.pucp.ferretin.controller
             try
             {
                 db.SubmitChanges(ConflictMode.ContinueOnConflict);
-                return true;
+                /***********************************************/
+                try
+                {
+                    Transaccion transaccion = new Transaccion();
+                    transaccion.nroIP = obtenerIp();
+                    transaccion.nroMAC = obtenerMac();
+                    DateTime today = DateTime.Now;
+                    transaccion.fecha = today;
+                    Usuario user =db.Usuario.Single(u=> u.nombre.Equals(ComunService.userlog));
+                    transaccion.id_usuario = user.id;
+                    db.Transaccion.InsertOnSubmit(transaccion);
+                    return true;
+                }
+                catch (ChangeConflictException ex)
+                {
+                    MessageBox.Show(ex.Message);
+                    return false;
+                }              
+
             }
             catch (ChangeConflictException e)
             {
@@ -72,6 +92,32 @@ namespace pe.edu.pucp.ferretin.controller
                     return false;
                 }
             }
+        }
+        /**********************************************************************/
+        public static string obtenerIp()
+        {
+            IPAddress[] a = Dns.GetHostByName(Dns.GetHostName()).AddressList;
+            string ip = a[0].ToString();
+            //MessageBox.Show(ip);
+            return ip;
+        }
+        /**********************************************************************/
+        public static string obtenerMac()
+        {
+            NetworkInterface[] nics = NetworkInterface.GetAllNetworkInterfaces();
+            String sMacAddress = string.Empty;
+            foreach (NetworkInterface adapter in nics)
+            {
+                if (sMacAddress == String.Empty)// only return MAC Address from first card  
+                {
+                    IPInterfaceProperties properties = adapter.GetIPProperties();
+                    sMacAddress = adapter.GetPhysicalAddress().ToString();
+                    sMacAddress = string.Join(":", (from z in adapter.GetPhysicalAddress().GetAddressBytes() select z.ToString("X2")).ToArray());
+                }
+            }
+            string mac = sMacAddress.ToString();
+            //MessageBox.Show(mac);
+            return mac;
         }
 
     }

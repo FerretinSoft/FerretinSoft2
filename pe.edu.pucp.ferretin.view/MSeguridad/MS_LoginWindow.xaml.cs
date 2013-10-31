@@ -29,7 +29,7 @@ namespace pe.edu.pucp.ferretin.view.MSeguridad
         private String contrasena;
 
         public List<Parametro> listaParametros;
-        public short intentos;
+        public int intentos;
 
 
         public MS_LoginWindow()
@@ -93,8 +93,21 @@ namespace pe.edu.pucp.ferretin.view.MSeguridad
 
             foreach(Usuario value in listaUsuarios){
 
-                if (value.nombre == this.nombreUsuario && value.contrasena == this.contrasena)
+                if (value.nombre == this.nombreUsuario && value.contrasena == MS_UsuarioService.encrypt(this.contrasena))
                 {
+                    if (MS_UsuarioService.encrypt(this.contrasena) == MS_UsuarioService.encrypt("ferretinSoft"))
+                    {
+                        usuarioLog = value;
+                        MS_CambiarContraseñaUsuario cc = new MS_CambiarContraseñaUsuario(usuarioLog);
+                        cc.Show();
+                        this.Close();
+                        break;
+
+
+                    }
+
+                    value.intentosCon = Convert.ToInt16(listaParametros[0].valor);
+                    MS_UsuarioService.actualizarUsuario(value);
                     usuarioLog = value;
                     MainWindow mainW = new MainWindow(usuarioLog);
                     this.Close();
@@ -103,6 +116,16 @@ namespace pe.edu.pucp.ferretin.view.MSeguridad
                 }
                 else
                 {
+                    if (value.nombre == this.nombreUsuario)
+                    {
+                        intentos = (int)value.intentosCon;
+                        if (value.intentosCon == 0) break;
+
+                        value.intentosCon--;
+                        intentos = (int)value.intentosCon;
+                        MS_UsuarioService.actualizarUsuario(value);
+                    }
+
                     if (String.IsNullOrEmpty(this.nombreUsuario) && String.IsNullOrEmpty(this.contrasena))
                     {
 
@@ -132,14 +155,14 @@ namespace pe.edu.pucp.ferretin.view.MSeguridad
 
             }
 
-            if (!String.IsNullOrEmpty(this.nombreUsuario) && !String.IsNullOrEmpty(this.contrasena))
+            if (!String.IsNullOrEmpty(this.nombreUsuario))
             {
-                intentos--;
+                
                 numIntentos.Content = "Número de intentos restantes: " + intentos;
 
                 if (intentos == 0) 
                 {
-                    MessageBox.Show("FerretinSoft se cerrara por medidas de seguridad");
+                    MessageBox.Show("Este usuario sera bloqueado, por favor comuniquese con el area de administración");
                     this.Close();
                 }
 
