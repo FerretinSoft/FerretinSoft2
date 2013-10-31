@@ -32,7 +32,7 @@
                                     <DataTemplate>
                                         <TextBlock>
                                         <Hyperlink 
-                                            Command="{Binding Path=DataContext.viewEditProveedorCommand, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type DataGrid}}}" 
+                                            Command="{Binding Path=DataContext.viewEditProveedoresCommand, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type DataGrid}}}" 
                                             CommandParameter="{Binding id}">
                                             <TextBlock Text="{Binding id}" />
                                         </Hyperlink>
@@ -64,7 +64,10 @@
                     </ToolBar>
                 </Grid>
             </TabItem>
-            <TabItem Header="Detalle">
+            <TabItem >
+                <TabItem.Header>
+                    <TextBlock Text="{Binding detallesTabHeader,Mode=OneWay,FallbackValue=Agregar}"/>
+                </TabItem.Header>
                 <Grid Background="#FFE5E5E5">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="13*"></ColumnDefinition>
@@ -75,15 +78,15 @@
                     </Grid.ColumnDefinitions>
                     <Label Content="Código:" HorizontalAlignment="Left" Margin="10,16,0,0" VerticalAlignment="Top" RenderTransformOrigin="-1.412,0.385" Grid.ColumnSpan="4" Height="26" Width="51"/>
                     <Label Content="Tipo Proveedor:" HorizontalAlignment="Left" Margin="10,45,0,0" VerticalAlignment="Top" Grid.ColumnSpan="4" Height="26" Width="94"/>
-                    <TextBox x:Name="idTxtBox" HorizontalAlignment="Left" Height="23" Margin="101,19,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="144" IsEnabled="False" Grid.Column="3"/>
+                    <TextBox Text="{Binding Path=proveedor.id, Mode=TwoWay, UpdateSourceTrigger=LostFocus, NotifyOnValidationError=True, ValidatesOnDataErrors=True, ValidatesOnExceptions=True}" HorizontalAlignment="Left" Height="23" Margin="101,19,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="144" IsEnabled="False" Grid.Column="3"/>
                     <ComboBox x:Name="tipoProvCbx" HorizontalAlignment="Left" Margin="101,48,0,0" VerticalAlignment="Top" Width="144" Grid.Column="3" Height="22">
                         <ListBoxItem Content="Empresa"/>
                         <ListBoxItem Content="Persona natural"/>
                     </ComboBox>
                     <Label Content="DNI/RUC:" HorizontalAlignment="Left" Margin="10,75,0,0" VerticalAlignment="Top" Grid.ColumnSpan="4" Height="26" Width="61"/>
-                    <TextBox x:Name="rucTxtBox" HorizontalAlignment="Left" Height="23" Margin="101,77,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="144" Grid.Column="3" />
+                    <TextBox Text="{Binding Path=proveedor.ruc, Mode=TwoWay, UpdateSourceTrigger=LostFocus, NotifyOnValidationError=True, ValidatesOnDataErrors=True, ValidatesOnExceptions=True}" HorizontalAlignment="Left" Height="23" Margin="101,77,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="144" Grid.Column="3" />
                     <Label Content="Razón Social:" HorizontalAlignment="Left" Margin="10,108,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.464,1.231" Grid.ColumnSpan="4" Height="26" Width="79"/>
-                    <TextBox x:Name="razSocTxtBox" HorizontalAlignment="Left" Height="23" Margin="101,110,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="214" Grid.Column="3"/>
+                    <TextBox Text="{Binding Path=proveedor.razonSoc, Mode=TwoWay, UpdateSourceTrigger=LostFocus, NotifyOnValidationError=True, ValidatesOnDataErrors=True, ValidatesOnExceptions=True}" HorizontalAlignment="Left" Height="23" Margin="101,110,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="214" Grid.Column="3"/>
                     <Label Content="Rubro:" HorizontalAlignment="Left" Margin="10,140,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.464,1.231" Grid.ColumnSpan="4" Height="26" Width="45"/>
                     <ComboBox x:Name="rubroCbx" HorizontalAlignment="Left" Margin="101,141,0,0" VerticalAlignment="Top" Width="144" Grid.Column="3" Height="22">
                         <ListBoxItem Content="Cemento"/>
@@ -91,7 +94,7 @@
                     </ComboBox>
                     <Label Content="Departamento:" HorizontalAlignment="Left" Margin="10,206,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.464,1.231" Grid.ColumnSpan="4" Height="26" Width="89"/>
                     <Label Content="Domicilio:" HorizontalAlignment="Left" Margin="10,172,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.464,1.231" Grid.ColumnSpan="4" Height="26" Width="63"/>
-                    <TextBox x:Name="domTxtBox" HorizontalAlignment="Left" Height="23" Margin="101,173,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="214" Grid.Column="3"/>
+                    <TextBox Text="{Binding Path=proveedor.direccion, Mode=TwoWay, UpdateSourceTrigger=LostFocus, NotifyOnValidationError=True, ValidatesOnDataErrors=True, ValidatesOnExceptions=True}" HorizontalAlignment="Left" Height="23" Margin="101,173,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="214" Grid.Column="3"/>
                     <ComboBox x:Name="departCbx" HorizontalAlignment="Left" Margin="101,206,0,0" VerticalAlignment="Top" Width="144" Grid.Column="3" Height="22">
                         <ListBoxItem Content="Lima"/>
                         <ListBoxItem Content="La Libertad"/>
@@ -112,14 +115,14 @@
                     </ComboBox>
                     <Label Content="Teléfono:" HorizontalAlignment="Left" Margin="10,335,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.464,1.231" Height="26" Width="59" Grid.ColumnSpan="4"/>
                     <Label Content="Página Web:" HorizontalAlignment="Left" Margin="10,364,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.464,1.231" Grid.ColumnSpan="4" Height="26" Width="76"/>
-                    <TextBox x:Name="pagWebTxtBox" HorizontalAlignment="Left" Height="23" Margin="101,367,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="214" Grid.Column="3"/>
+                    <TextBox Text="{Binding Path=proveedor.paginaWeb, Mode=TwoWay, UpdateSourceTrigger=LostFocus, NotifyOnValidationError=True, ValidatesOnDataErrors=True, ValidatesOnExceptions=True}" HorizontalAlignment="Left" Height="23" Margin="101,367,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="214" Grid.Column="3"/>
                     <Label Content="Nombre contacto:" HorizontalAlignment="Left" Margin="10,397,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.464,1.231" Grid.ColumnSpan="4" Height="26" Width="106"/>
-                    <TextBox x:Name="contactoTxtBox" HorizontalAlignment="Left" Height="23" Margin="101,399,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="214" Grid.Column="3"/>
-                    <Button x:Name="guardarBtn" Content="GUARDAR" Margin="295,474,1,0" VerticalAlignment="Top" RenderTransformOrigin="1.347,-0.05" Grid.Column="3" Height="28"/>
-                    <Button x:Name="cancelarBtn" Content="CANCELAR" HorizontalAlignment="Left" Margin="30,474,0,0" VerticalAlignment="Top" Width="75" RenderTransformOrigin="1.347,-0.05" Grid.Column="4" Height="28" />
+                    <TextBox Text="{Binding Path=proveedor.contacto, Mode=TwoWay, UpdateSourceTrigger=LostFocus, NotifyOnValidationError=True, ValidatesOnDataErrors=True, ValidatesOnExceptions=True}" HorizontalAlignment="Left" Height="23" Margin="101,399,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="214" Grid.Column="3"/>
+                    <Button Command="{Binding saveProveedoresCommand}" Content="GUARDAR" Margin="295,474,1,0" VerticalAlignment="Top" RenderTransformOrigin="1.347,-0.05" Grid.Column="3" Height="28"/>
+                    <Button Command="{Binding cancelProveedorCommand}" Content="CANCELAR" HorizontalAlignment="Left" Margin="30,474,0,0" VerticalAlignment="Top" Width="75" RenderTransformOrigin="1.347,-0.05" Grid.Column="4" Height="28" />
                     <Label Content="Teléfono contacto:" HorizontalAlignment="Left" Margin="10,428,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.464,1.231" Grid.ColumnSpan="4" Height="26" Width="108"/>
-                    <TextBox x:Name="contactoTlfTxtBox" HorizontalAlignment="Left" Height="23" Margin="101,430,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="144" Grid.Column="3"/>
-                    <TextBox x:Name="tlfTxtBox" HorizontalAlignment="Left" Height="23" Margin="101,337,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="144" Grid.Column="3" RenderTransformOrigin="0.514,1.435"/>
+                    <TextBox Text="{Binding Path=proveedor.contactoTlf, Mode=TwoWay, UpdateSourceTrigger=LostFocus, NotifyOnValidationError=True, ValidatesOnDataErrors=True, ValidatesOnExceptions=True}" HorizontalAlignment="Left" Height="23" Margin="101,430,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="144" Grid.Column="3"/>
+                    <TextBox Text="{Binding Path=proveedor.telefono, Mode=TwoWay, UpdateSourceTrigger=LostFocus, NotifyOnValidationError=True, ValidatesOnDataErrors=True, ValidatesOnExceptions=True}" HorizontalAlignment="Left" Height="23" Margin="101,337,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="144" Grid.Column="3" RenderTransformOrigin="0.514,1.435"/>
                     <DataGrid x:Name="dgwCatalogo" Grid.Column="3" Margin="355,70,10,0" VerticalAlignment="Top" Height="392" AutoGenerateColumns="False" CanUserAddRows="False" CanUserDeleteRows="False" Grid.ColumnSpan="2" IsReadOnly="True">
                         <DataGrid.Columns>
                             <DataGridTextColumn Width="2.6*" Header="Producto" Binding="{Binding Path=producto}"/>

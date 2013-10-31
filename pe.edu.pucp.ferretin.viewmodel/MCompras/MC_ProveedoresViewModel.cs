@@ -132,7 +132,7 @@ namespace pe.edu.pucp.ferretin.viewmodel.MCompras
                 //    selectedProvincia = this.cliente.UbigeoDistrito.UbigeoProvincia;
                 //    selectedDepartamento = selectedProvincia.UbigeoDepartamento;
                 //}
-                //this.statusTab = Tab.MODIFICAR;
+                this.statusTab = Tab.MODIFICAR;
             }
             catch (Exception e)
             {
@@ -167,8 +167,62 @@ namespace pe.edu.pucp.ferretin.viewmodel.MCompras
         }
         public void cancelProveedor(Object obj)
         {
-            //this.statusTab = Tab.BUSQUEDA;
+            this.statusTab = Tab.BUSQUEDA;
             listaProveedores = MC_ProveedorService.listaProveedores;
+        }
+        #endregion
+
+        #region Manejo de los Tabs
+        public enum Tab
+        {
+            //Pestañas virtuales:
+            //0       1        2          3
+            BUSQUEDA, AGREGAR, MODIFICAR, DETALLES
+        }
+        private Tab _statusTab = Tab.BUSQUEDA; //pestaña default 
+        public Tab statusTab
+        {
+            get
+            {
+                return _statusTab;
+            }
+            set
+            {
+                _statusTab = value;
+                //Si cambió el estado de las pestañas también cambio los Header
+                //Si la pestaña es para agregar nuevo, limpio los input
+                switch (_statusTab)
+                {
+                    case Tab.BUSQUEDA: detallesTabHeader = "Agregar"; proveedor = new Proveedor(); break;
+                    case Tab.AGREGAR: detallesTabHeader = "Agregar"; proveedor = new Proveedor(); break;
+                    case Tab.MODIFICAR: detallesTabHeader = "Modificar"; break;
+                    case Tab.DETALLES: detallesTabHeader = "Detalles"; break;
+                    default: detallesTabHeader = "Agregar"; proveedor = new Proveedor(); break;
+                }
+                NotifyPropertyChanged("statusTab");
+                //Cuando se cambia el status, tambien se tiene que actualizar el currentIndex del tab
+                NotifyPropertyChanged("currentIndexTab"); //Hace que cambie el tab automaticamente
+             
+            }
+        }
+        //Usado para mover los tabs de acuerdo a las acciones realizadas
+        public int currentIndexTab
+        {
+            get { return _statusTab == Tab.BUSQUEDA ? 0 : 1; }
+            set { statusTab = value == 0 ? Tab.BUSQUEDA : Tab.AGREGAR; }
+        }
+        private String _detallesTabHeader = "Agregar"; //Default
+        public String detallesTabHeader
+        {
+            get
+            {
+                return _detallesTabHeader;
+            }
+            set
+            {
+                _detallesTabHeader = value;
+                NotifyPropertyChanged("detallesTabHeader");
+            }
         }
         #endregion
 
