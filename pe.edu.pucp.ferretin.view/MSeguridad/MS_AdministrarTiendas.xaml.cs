@@ -44,7 +44,7 @@ namespace pe.edu.pucp.ferretin.view.MSeguridad
         private void txtDNI_KeyDown(object sender, KeyEventArgs e)
         {
             //Validaciones para que acepte solo numeros
-            if (e.Key >= Key.D0 && e.Key <= Key.D9 || e.Key >= Key.NumPad0 && e.Key <= Key.NumPad9)
+            if (((e.Key >= Key.D0 && e.Key <= Key.D9) || (e.Key >= Key.NumPad0 && e.Key <= Key.NumPad9) || e.Key == Key.Back || e.Key == Key.Tab))
                 e.Handled = false;
             else
                 e.Handled = true;
