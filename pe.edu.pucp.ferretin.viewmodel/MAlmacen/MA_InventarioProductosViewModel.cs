@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using pe.edu.pucp.ferretin.viewmodel.Helper;
 using System.Windows.Input;
 using pe.edu.pucp.ferretin.model;
+using System.Windows;
 
 namespace pe.edu.pucp.ferretin.viewmodel.MAlmacen
 {
@@ -75,46 +76,85 @@ namespace pe.edu.pucp.ferretin.viewmodel.MAlmacen
         }
         #endregion
 
-        #region Lista de inventario de productos
-        
+        #region Lista de inventario de productos y detalle producto
+
+        private Producto _producto;
+        private ProductoAlmacen _productoAlmacen;
+        private ProductoCategoria _productoCategoria;
+        private Tienda _tienda;
+
+        private UnidadMedida _unidadMedida;
+        private Material _material;
 
 
-        private IEnumerable<ProductoAlmacen> _listaProdTienda;
-        public IEnumerable<ProductoAlmacen> listaProdTienda
+        //para mostrar los detalles.  
+        #region
+        public Producto producto
         {
             get
             {
-                /* String searchAlmacen;
-                 if (this.searchAlmacen == 1) searchAlmacen="Almacén Central";
-                 if (this.searchAlmacen == 2) searchAlmacen = "Tienda 1";
-                 if (this.searchAlmacen == 3) searchAlmacen = "Tienda 2";
-                 if (this.searchAlmacen == 4) searchAlmacen = "Tienda 3";
-               
-
-                 String searchCategoria;
-                 if (this.searchCategoria == 1) searchCategoria = "Todas";
-                 if (this.searchCategoria == 2) searchCategoria = "Categoria A";
-                 if (this.searchCategoria == 3) searchCategoria = "Categoria B";
-                 if (this.searchCategoria == 4) searchCategoria = "Categoria C";*/
-
-
-                //falta crear el MA_inventarioService;
-             //   _listaProdTienda = MA_InventarioService.MostrarProductosInventario(searchAlmacen, searchCategoria, searchNombre);
-
-
-
-
-                return _listaProdTienda;
+                return _producto;
             }
             set
             {
-                _listaProdTienda = value;
-                NotifyPropertyChanged("listaProdTienda");
+                _producto = value;
+
+                NotifyPropertyChanged("producto");
+            }
+        }
+
+        public ProductoAlmacen productoAlmacen
+        {
+            get
+            {
+                return _productoAlmacen;
+            }
+            set
+            {
+                _productoAlmacen = value;
+
+                NotifyPropertyChanged("productoAlmacen");
+            }
+        }
+
+
+        public Tienda tienda
+        {
+            get
+            {
+                return _tienda;
+            }
+            set
+            {
+                _tienda = value;
+
+                NotifyPropertyChanged("tienda");
+            }
+        }
+
+        #endregion
+
+        private IEnumerable<Producto> _listaProducto;
+        public IEnumerable<Producto> listaProducto
+        {
+            get
+            {
+
+                _listaProducto = MA_InventarioService.obtenerProductosPorAlmacenCategoriaNombre(searchNombre, searchAlmacen);
+                return _listaProducto;
+            }
+            set
+            {
+                _listaProducto = value;
+                NotifyPropertyChanged("listaProducto");
             }
         }
         #endregion
 
+
         #region RelayCommand
+
+        //Permite  actualizar la lista de inventario de productos
         RelayCommand _actualizarListaInventarioCommand;
         public ICommand actualizarListaInventarioCommand
         {
@@ -125,6 +165,38 @@ namespace pe.edu.pucp.ferretin.viewmodel.MAlmacen
                     _actualizarListaInventarioCommand = new RelayCommand(param => NotifyPropertyChanged("listaProducto"));
                 }
                 return _actualizarListaInventarioCommand;
+            }
+        }
+
+        //Enlace para ver el detalle de inventario de productos
+        RelayCommand _viewDetalleInventarioCommand;
+        public ICommand viewDetalleInventarioCommand
+        {
+            get
+            {
+                if (_viewDetalleInventarioCommand == null)
+                {
+                    _viewDetalleInventarioCommand = new RelayCommand(viewDetalleInventario);
+                }
+                return _viewDetalleInventarioCommand;
+            }
+        }
+        #endregion;
+
+        #region comandos
+
+        //detalle de los productos de inventario
+        private void viewDetalleInventario(object id)
+        {
+            try
+            {
+                this.producto = listaProducto.Single(producto => producto.id == (int)id);
+
+                this.statusTab = Tab.DETALLES;
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show(e.Message);
             }
         }
         #endregion;
