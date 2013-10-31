@@ -17,7 +17,7 @@ namespace pe.edu.pucp.ferretin.viewmodel.MSeguridad
     public class MS_AuditoriaWindowViewModel : ViewModelBase
     {
         #region Valores para el cuadro de Búsqueda        
-        private String _searchNombreUsuario = "";
+        private String _searchNombreUsuario = null;
         public String searchNombreUsuario { get { return _searchNombreUsuario; } set { _searchNombreUsuario = value; } }
 
         private Perfil _searchPerfil = null;
@@ -102,19 +102,19 @@ namespace pe.edu.pucp.ferretin.viewmodel.MSeguridad
             }
         }
         /**************************************************/
-        //public IEnumerable<Perfil> perfiles
-        //{
-        //    get
-        //    {
-        //        //Creo una nueva secuencia
-        //        var sequence = Enumerable.Empty<Perfil>();
-        //        //Primero agrego un item de Todos para que salga al inicio
-        //        //Pongo el ID en 0 para que al buscar, no filtre nada cuando se selecciona todos
-        //        IEnumerable<Perfil> items = new Perfil[] { new Perfil { id = 0, nombre = "Todos" } };
-        //        //Luego concateno el itemcon los elementos del combobox
-        //        return items.Concat(MS_UsuarioService.obtenerPerfiles());
-        //    }
-        //}
+        public IEnumerable<Perfil> perfiles
+        {
+            get
+            {
+                //Creo una nueva secuencia
+                var sequence = Enumerable.Empty<Perfil>();
+                //Primero agrego un item de Todos para que salga al inicio
+                //Pongo el ID en 0 para que al buscar, no filtre nada cuando se selecciona todos
+                IEnumerable<Perfil> items = new Perfil[] { new Perfil { id = 0, nombre = "Todos" } };
+                //Luego concateno el itemcon los elementos del combobox
+                return items.Concat(MS_UsuarioService.obtenerPerfiles());
+            }
+        }
         /**************************************************/
         private IEnumerable<Transaccion> _listaTransacciones;
         public IEnumerable<Transaccion> listaTransacciones
@@ -132,6 +132,21 @@ namespace pe.edu.pucp.ferretin.viewmodel.MSeguridad
         }
         /**************************************************/
         #endregion
-                
+
+        #region RalayCommand
+        RelayCommand _actualizarListaTransaccionesCommand;
+        public ICommand actualizarListaTransaccionesCommand
+        {
+            get
+            {
+                if (_actualizarListaTransaccionesCommand == null)
+                {
+                    _actualizarListaTransaccionesCommand = new RelayCommand(param => NotifyPropertyChanged("listaTransacciones"));
+                }
+                return _actualizarListaTransaccionesCommand;
+            }
+        }
+        #endregion
+
     }
 }
