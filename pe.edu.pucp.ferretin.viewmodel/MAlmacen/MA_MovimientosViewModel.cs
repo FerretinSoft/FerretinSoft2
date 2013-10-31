@@ -35,18 +35,18 @@ namespace pe.edu.pucp.ferretin.viewmodel.MAlmacen
             }
         }
 
-        private List<Movimiento> _listaMovimientos;
-        public List<Movimiento> listaMovimientos
+        private IEnumerable<Movimiento> _listaMovimientos;
+        public IEnumerable<Movimiento> listaMovimientos
         {
             get
             {
-                Dictionary<String, Object> parametros = new Dictionary<String, Object>();
+                //Dictionary<String, Object> parametros = new Dictionary<String, Object>();
                 //if (searchAlmacen >= 0) parametros.Add("tienda", almacenes.ElementAt(searchAlmacen).id);
                 //if (searchEstado >= 0) parametros.Add("estado", estadosMovimiento.ElementAt(searchEstado).id);
-                parametros.Add("fechaDesde", searchFechaDesde);
-                parametros.Add("fechaHasta", searchFechaHasta);
+                //parametros.Add("fechaDesde", searchFechaDesde);
+                //parametros.Add("fechaHasta", searchFechaHasta);
                 //_listaMovimientos = MA_MovimientosService.ObtenerListaMovimientos(parametros);
-                _listaMovimientos = MA_MovimientosService.ListaMovimientos;
+                _listaMovimientos = MA_MovimientosService.buscarMovimientos(-1, -1, default(DateTime), default(DateTime));
                 return _listaMovimientos;
             }
             set
@@ -97,8 +97,8 @@ namespace pe.edu.pucp.ferretin.viewmodel.MAlmacen
         {
             set
             {
-                if(value >= 0 && value < listaMovimientos.Count) 
-                    movimiento = listaMovimientos[value];
+                if(value >= 0 && value < listaMovimientos.Count()) 
+                    movimiento = listaMovimientos.ElementAt(value);
                 //MessageBox.Show(value + movimiento.codigo);
                 _selectedMovimiento = value;
             }
@@ -281,7 +281,7 @@ namespace pe.edu.pucp.ferretin.viewmodel.MAlmacen
                 }
                 else
                 {
-                    MessageBox.Show("El movimiento fue guardado con éxito");
+                    MessageBox.Show("El movimiento fue guardado con éxito");                    
                 }
             }
             else
@@ -293,14 +293,16 @@ namespace pe.edu.pucp.ferretin.viewmodel.MAlmacen
                 else
                 {
                     MessageBox.Show("El movimiento fue agregado con éxito");
+                    //listaMovimientos = MA_MovimientosService.ListaMovimientos;
                 }
             }
+            NotifyPropertyChanged("listaMovimientos");
         }
 
         public void cancelMovimiento(Object obj)
         {
             this.statusTab = Tab.BUSQUEDA;
-            listaMovimientos = MA_MovimientosService.ListaMovimientos;
+            //listaMovimientos = MA_MovimientosService.ListaMovimientos;
         }
         #endregion
     }

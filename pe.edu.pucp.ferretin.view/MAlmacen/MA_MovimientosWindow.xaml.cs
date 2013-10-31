@@ -41,7 +41,7 @@ namespace pe.edu.pucp.ferretin.view.MAlmacen
                       new Action(
                         delegate()
                         {
-                            busquedaMovGrid.ItemsSource = MA_MovimientosService.ListaMovimientos;
+                            busquedaMovGrid.ItemsSource = MA_MovimientosService.listaMovimientos;
                         }
                     ));
                 }
@@ -54,7 +54,7 @@ namespace pe.edu.pucp.ferretin.view.MAlmacen
 
         private IEnumerable<Movimiento> ListaMovimientos()
         {
-            return MA_MovimientosService.ListaMovimientos;
+            return MA_MovimientosService.listaMovimientos;
         }
 
         private void nuevoMvimientoBtn_Click(object sender, RoutedEventArgs e)

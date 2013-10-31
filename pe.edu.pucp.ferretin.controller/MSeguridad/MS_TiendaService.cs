@@ -44,13 +44,7 @@ namespace pe.edu.pucp.ferretin.controller.MSeguridad
             else
                 return null;
         }
-
-
-        public static void insertarTienda(Tienda tienda)
-        {
-            db.Tienda.InsertOnSubmit(tienda);
-            db.SubmitChanges();
-        }
+        
 
         public static void actualizarTienda(Tienda tienda)
         {
@@ -86,6 +80,9 @@ namespace pe.edu.pucp.ferretin.controller.MSeguridad
         {
             if (!db.Tienda.Contains(almacen))
             {
+                
+                    db.TiendaHorario.InsertAllOnSubmit(almacen.tiendasH);
+               
                 db.Tienda.InsertOnSubmit(almacen);
                 return enviarCambios();
             }
