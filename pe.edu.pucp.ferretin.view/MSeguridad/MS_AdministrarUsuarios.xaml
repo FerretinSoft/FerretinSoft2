@@ -122,7 +122,7 @@
                     </Grid.ColumnDefinitions>
                     <Image HorizontalAlignment="Left" Height="100" VerticalAlignment="Top" Width="95" Source="/Resources/cliente_1.png" Stretch="Fill" Margin="165,13,0,0" Grid.Column="1"/>
                     <Label Content="Codigo Usuario:" HorizontalAlignment="Left" Margin="277,73,0,0" VerticalAlignment="Top" Grid.Column="1" Height="48" Grid.ColumnSpan="2" Width="97"/>
-                    <Label Content="UserName:" HorizontalAlignment="Left" Margin="152.747,119,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.464,1.231" Grid.Column="1"/>
+                    <Label Content="Nombre de Usuario:" HorizontalAlignment="Left" Margin="152.747,119,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.464,1.231" Grid.Column="1"/>
                     <Label Content="Nombre:" HorizontalAlignment="Left" Margin="152.747,147,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.464,1.231" Grid.Column="1"/>
                     <Label Content="Apellido Paterno:" HorizontalAlignment="Left" Margin="152.747,174,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.464,1.231" Grid.Column="1"/>
                     <Label Content="Apellido Materno:" HorizontalAlignment="Left" Margin="152.747,202,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.464,1.231" Grid.Column="1"/>
@@ -148,7 +148,7 @@
                     <PasswordBox HorizontalAlignment="Left" Height="23" Margin="285.747,315,0,0" VerticalAlignment="Top" Width="225" Grid.ColumnSpan="2"  RenderTransformOrigin="0.5,1.812" Password="" Grid.Column="1"/>-->
 
                     <!-- STACK PANEL DE GUARDAR Y CANCELAR-->
-                    <StackPanel x:Name="guardarDetallePanel" Orientation="Horizontal" Margin="240,312,10,5" HorizontalAlignment="Center" Width="414" Grid.ColumnSpan="2" Grid.Column="1">
+                    <StackPanel x:Name="guardarDetallePanel" Orientation="Horizontal" Margin="241,312,255,5" HorizontalAlignment="Center" Width="168" Grid.ColumnSpan="2" Grid.Column="1">
                         <Button Command="{Binding saveUsuarioCommand}"  Height="30"  Content="GUARDAR" Padding="5,0" Margin="5,19"/>
                         <Button Command="{Binding cancelUsuarioCommand}" Height="30" Content="CANCELAR" Padding="5,0" Margin="5,19"/>
                     </StackPanel>
@@ -159,6 +159,7 @@
                             <ImageBrush ImageSource="../Resources/search1_20.png"/>
                         </Button.Background>
                     </Button>
+                    <Button Name="buttonContrasena"  Command="{Binding restbContrasenaCommand}" Content="RESTABLECER CONTRASEÑA" Padding="5,0" Margin="211,291,227,84" Grid.Column="1" Grid.ColumnSpan="2"/>
                     <!--<Button Height="30" Content="IP" Padding="5,0" Margin="54,309,194,76" Grid.Column="1" Click="Button_Click"/>-->
                     <!--
                     <Button Content="GUARDAR" HorizontalAlignment="Left" Margin="227,361,0,0" VerticalAlignment="Top" Width="75" RenderTransformOrigin="1.347,-0.05" Height="30"/>

@@ -17,8 +17,8 @@ namespace pe.edu.pucp.ferretin.model
             } 
             set {
                 this.verificaTiendaHorario();
-                this.TiendaHorario.Single(t => t.dia == "lunes").horaInicio = _lunesHoraInicio;
                 _lunesHoraInicio = value;
+                this.TiendaHorario.Single(t => t.dia == "lunes").horaInicio = _lunesHoraInicio;                
             } 
         }
 
@@ -33,8 +33,8 @@ namespace pe.edu.pucp.ferretin.model
             set
             {
                 this.verificaTiendaHorario();
-                this.TiendaHorario.Single(t => t.dia == "lunes").horaFin = _lunesHoraFin;
                 _lunesHoraFin = value;
+                this.TiendaHorario.Single(t => t.dia == "lunes").horaFin = _lunesHoraFin;                
             }
         }
 
@@ -49,8 +49,8 @@ namespace pe.edu.pucp.ferretin.model
             set
             {
                 this.verificaTiendaHorario();
-                this.TiendaHorario.Single(t => t.dia == "martes").horaInicio = _martesHoraInicio;
                 _martesHoraInicio = value;
+                this.TiendaHorario.Single(t => t.dia == "martes").horaInicio = _martesHoraInicio;                
             }
         }
 
@@ -65,8 +65,8 @@ namespace pe.edu.pucp.ferretin.model
             set
             {
                 this.verificaTiendaHorario();
-                this.TiendaHorario.Single(t => t.dia == "martes").horaFin = _martesHoraFin;
                 _martesHoraFin = value;
+                this.TiendaHorario.Single(t => t.dia == "martes").horaFin = _martesHoraFin;                
             }
         }
 
@@ -81,8 +81,8 @@ namespace pe.edu.pucp.ferretin.model
             set
             {
                 this.verificaTiendaHorario();
-                this.TiendaHorario.Single(t => t.dia == "miercoles").horaInicio = _miercolesHoraInicio;
                 _miercolesHoraInicio = value;
+                this.TiendaHorario.Single(t => t.dia == "miercoles").horaInicio = _miercolesHoraInicio;             
             }
         }
 
@@ -97,8 +97,8 @@ namespace pe.edu.pucp.ferretin.model
             set
             {
                 this.verificaTiendaHorario();
-                this.TiendaHorario.Single(t => t.dia == "miercoles").horaFin = _miercolesHoraFin;
                 _miercolesHoraFin = value;
+                this.TiendaHorario.Single(t => t.dia == "miercoles").horaFin = _miercolesHoraFin;                
             }
         }
 
@@ -113,8 +113,8 @@ namespace pe.edu.pucp.ferretin.model
             set
             {
                 this.verificaTiendaHorario();
-                this.TiendaHorario.Single(t => t.dia == "jueves").horaInicio = _juevesHoraInicio;
                 _juevesHoraInicio = value;
+                this.TiendaHorario.Single(t => t.dia == "jueves").horaInicio = _juevesHoraInicio;                
             }
         }
 
@@ -129,8 +129,8 @@ namespace pe.edu.pucp.ferretin.model
             set
             {
                 this.verificaTiendaHorario();
-                this.TiendaHorario.Single(t => t.dia == "jueves").horaFin = _juevesHoraFin;
                 _juevesHoraFin = value;
+                this.TiendaHorario.Single(t => t.dia == "jueves").horaFin = _juevesHoraFin;                
             }
         }
 
@@ -145,8 +145,8 @@ namespace pe.edu.pucp.ferretin.model
             set
             {
                 this.verificaTiendaHorario();
-                this.TiendaHorario.Single(t => t.dia == "viernes").horaInicio = _viernesHoraInicio;
                 _viernesHoraInicio = value;
+                this.TiendaHorario.Single(t => t.dia == "viernes").horaInicio = _viernesHoraInicio;               
             }
         }
 
@@ -161,8 +161,8 @@ namespace pe.edu.pucp.ferretin.model
             set
             {
                 this.verificaTiendaHorario();
-                this.TiendaHorario.Single(t => t.dia == "viernes").horaFin = _viernesHoraFin;
                 _viernesHoraFin = value;
+                this.TiendaHorario.Single(t => t.dia == "viernes").horaFin = _viernesHoraFin;                
             }
         }
 
@@ -177,8 +177,8 @@ namespace pe.edu.pucp.ferretin.model
             set
             {
                 this.verificaTiendaHorario();
-                this.TiendaHorario.Single(t => t.dia == "sabado").horaInicio = _sabadoHoraInicio;
                 _sabadoHoraInicio = value;
+                this.TiendaHorario.Single(t => t.dia == "sabado").horaInicio = _sabadoHoraInicio;                
             }
         }
 
@@ -193,8 +193,8 @@ namespace pe.edu.pucp.ferretin.model
             set
             {
                 this.verificaTiendaHorario();
-                this.TiendaHorario.Single(t => t.dia == "sabado").horaFin = _sabadoHoraFin;
                 _sabadoHoraFin = value;
+                this.TiendaHorario.Single(t => t.dia == "sabado").horaFin = _sabadoHoraFin;                
             }
         }
 
@@ -209,8 +209,8 @@ namespace pe.edu.pucp.ferretin.model
             set
             {
                 this.verificaTiendaHorario();
-                this.TiendaHorario.Single(t => t.dia == "domingo").horaInicio = _domingoHoraInicio;
                 _domingoHoraInicio = value;
+                this.TiendaHorario.Single(t => t.dia == "domingo").horaInicio = _domingoHoraInicio;                
             }
         }
 
@@ -225,22 +225,22 @@ namespace pe.edu.pucp.ferretin.model
             set
             {
                 this.verificaTiendaHorario();
-                this.TiendaHorario.Single(t => t.dia == "domingo").horaFin = _domingoHoraFin;
                 _domingoHoraFin = value;
+                this.TiendaHorario.Single(t => t.dia == "domingo").horaFin = _domingoHoraFin;                
             }
         }
 
+        public IEnumerable<TiendaHorario> tiendasH = null;
 
-        public IEnumerable<TiendaHorario> tiendasH;
+        public void verificaTiendaHorario(){            
 
-        public void verificaTiendaHorario(){
-            if (this.tiendasH == null)
+            if ((this.TiendaHorario.Where(t => t.id_almacen == this.id)).Count() <= 0)
             {
                 //Creo una nueva secuencia
                 var sequence = Enumerable.Empty<TiendaHorario>();
                 //Primero agrego un item de Todos para que salga al inicio
                 //Pongo el ID en 0 para que al buscar, no filtre nada cuando se selecciona todos
-                IEnumerable<TiendaHorario> tiendasHorariosL = new TiendaHorario[] { new TiendaHorario {id_almacen=this.id,Tienda=this,dia="lunes" } };
+                IEnumerable<TiendaHorario> tiendasHorariosL = new TiendaHorario[] { new TiendaHorario { id_almacen = this.id, Tienda = this, dia = "lunes" } };
                 IEnumerable<TiendaHorario> tiendasHorariosM = new TiendaHorario[] { new TiendaHorario { id_almacen = this.id, Tienda = this, dia = "martes" } };
                 IEnumerable<TiendaHorario> tiendasHorariosMi = new TiendaHorario[] { new TiendaHorario { id_almacen = this.id, Tienda = this, dia = "miercoles" } };
                 IEnumerable<TiendaHorario> tiendasHorariosJ = new TiendaHorario[] { new TiendaHorario { id_almacen = this.id, Tienda = this, dia = "jueves" } };
@@ -249,7 +249,7 @@ namespace pe.edu.pucp.ferretin.model
                 IEnumerable<TiendaHorario> tiendasHorariosD = new TiendaHorario[] { new TiendaHorario { id_almacen = this.id, Tienda = this, dia = "domingo" } };
                 sequence.Concat(tiendasHorariosL).Concat(tiendasHorariosM).Concat(tiendasHorariosMi).Concat(tiendasHorariosJ).Concat(tiendasHorariosV).Concat(tiendasHorariosS).Concat(tiendasHorariosD);
                 tiendasH = sequence;
-            }            
+            }           
         }
         
 
