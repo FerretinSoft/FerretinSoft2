@@ -12,6 +12,5 @@ namespace pe.edu.pucp.ferretin.model
         public String cadenaCategoria { get; set; }
 
         
-        
     }
 }
