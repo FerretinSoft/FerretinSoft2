@@ -6,6 +6,8 @@ using System.Text;
 using System.Threading.Tasks;
 using pe.edu.pucp.ferretin.model;
 using System.Data.Linq;
+using System.Windows;
+using System.Windows.Input;
 
 namespace pe.edu.pucp.ferretin.controller.MSeguridad
 {
@@ -47,7 +49,7 @@ namespace pe.edu.pucp.ferretin.controller.MSeguridad
         
 
         public static void actualizarTienda(Tienda tienda)
-        {
+        {            
             db.SubmitChanges();
         }
 
@@ -79,15 +81,13 @@ namespace pe.edu.pucp.ferretin.controller.MSeguridad
         public static bool insertarAlmacen(Tienda almacen)
         {
             if (!db.Tienda.Contains(almacen))
-            {
-                if (!db.TiendaHorario.Equals(almacen.TiendaHorario))              
-                    db.TiendaHorario.InsertAllOnSubmit(almacen.tiendasH);               
-                
+            {                               
                 db.Tienda.InsertOnSubmit(almacen);
                 return enviarCambios();
             }
             else
             {
+                MessageBox.Show("nunca entre");
                 return false;
             }
         }
