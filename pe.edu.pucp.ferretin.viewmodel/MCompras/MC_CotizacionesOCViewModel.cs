@@ -29,13 +29,65 @@ namespace pe.edu.pucp.ferretin.viewmodel.MCompras
         public String searchProveedor { get { return _searchProveedor; } set { _searchProveedor = value; NotifyPropertyChanged("searchProveedor"); } }
 
         public int _searchTipoDocumento = 0;
-        public int searchTipoDocumento { get { return _searchTipoDocumento; } set { _searchTipoDocumento = value; NotifyPropertyChanged("searchTipoDocumento"); } }
+        public int searchTipoDocumento 
+        { 
+            get 
+            { 
+                return _searchTipoDocumento; 
+            } 
+            set 
+            { 
+                _searchTipoDocumento = value;
+                if (searchTipoDocumento != 0)
+                {
+                    listaEstadosDC = new DocumentoCompraEstado[] { new DocumentoCompraEstado { id = 0, nombre = "Todos" } };
+                    listaEstadosDC = listaEstadosDC.Concat(MC_DocumentoCompraService.obtenerEstadosPorTipoDC(searchTipoDocumento));                   
+                    _searchEstado = new DocumentoCompraEstado();
+                }
+                else
+                {
+                    listaEstadosDC = null;
+                    _searchEstado = new DocumentoCompraEstado();
+                }
+                NotifyPropertyChanged("searchTipoDocumento"); 
+            } 
+        }
+
+        private IEnumerable<DocumentoCompraEstado> _listaEstadosDC;
+        public IEnumerable<DocumentoCompraEstado> listaEstadosDC
+        {
+            get
+            { 
+                return _listaEstadosDC;
+            }
+            set
+            {
+                _listaEstadosDC = value;
+                NotifyPropertyChanged("listaEstadosDC");
+            }
+        }
+
+        private DocumentoCompraEstado _searchEstado = new DocumentoCompraEstado();
+        public DocumentoCompraEstado searchEstado
+        {
+            get
+            {
+                return _searchEstado;
+            }
+            set
+            {
+                _searchEstado = value;
+                NotifyPropertyChanged("searchEstado");
+            }
+        }
 
         public DateTime? _searchFechaDesde = null;
         public DateTime? searchFechaDesde { get { return _searchFechaDesde; } set { _searchFechaDesde = value; NotifyPropertyChanged("searchFechaDesde"); } }
 
         public DateTime? _searchFechaHasta = null;
         public DateTime? searchFechaHasta { get { return _searchFechaHasta; } set { _searchFechaHasta = value; NotifyPropertyChanged("searchFechaHasta"); } }
+        
+        
         #endregion
 
         #region Lista Documentos de Compra y Edicion de Documentos de Compra
@@ -58,7 +110,7 @@ namespace pe.edu.pucp.ferretin.viewmodel.MCompras
         {
             get
             {
-                _listaDocumentosCompra = MC_DocumentoCompraService.buscarDocumentosCompra(searchCodigo,searchProveedor,searchTipoDocumento,searchFechaDesde,searchFechaHasta);
+                _listaDocumentosCompra = MC_DocumentoCompraService.buscarDocumentosCompra(searchCodigo,searchProveedor,searchTipoDocumento,searchFechaDesde,searchFechaHasta,searchEstado.id);
 
                 return _listaDocumentosCompra;
             }
