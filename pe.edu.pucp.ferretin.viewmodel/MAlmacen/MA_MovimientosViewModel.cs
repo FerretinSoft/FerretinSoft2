@@ -130,6 +130,7 @@ namespace pe.edu.pucp.ferretin.viewmodel.MAlmacen
         public MA_MovimientosViewModel()
         {
             _movimiento = new Movimiento();
+            _movimiento.fecha = DateTime.Today;
         }
         #endregion
 
@@ -169,10 +170,10 @@ namespace pe.edu.pucp.ferretin.viewmodel.MAlmacen
                 //Si la pestaña es para agregar nuevo, limpio los input
                 switch (_statusTab)
                 {
-                    case Tab.BUSQUEDA: detallesTabHeader = "Nuevo"; movimiento = new Movimiento(); break;//Si es agregar, creo un nuevo objeto Cliente
-                    case Tab.NUEVO: detallesTabHeader = "Nuevo"; movimiento = new Movimiento(); break;//Si es agregar, creo un nuevo objeto Cliente
+                    case Tab.BUSQUEDA: detallesTabHeader = "Nuevo"; movimiento = new Movimiento(); movimiento.fecha = DateTime.Today; break;//Si es agregar, creo un nuevo objeto Cliente
+                    case Tab.NUEVO: detallesTabHeader = "Nuevo"; movimiento = new Movimiento(); movimiento.fecha = DateTime.Today; break;//Si es agregar, creo un nuevo objeto Cliente
                     case Tab.DETALLES: detallesTabHeader = "Detalles"; break;
-                    default: detallesTabHeader = "Nuevo"; movimiento = new Movimiento(); break;//Si es agregar, creo un nuevo objeto Cliente
+                    default: detallesTabHeader = "Nuevo"; movimiento = new Movimiento(); movimiento.fecha = DateTime.Today; break;//Si es agregar, creo un nuevo objeto Cliente
                 }
                 NotifyPropertyChanged("statusTab");
                 //Cuando se cambia el status, tambien se tiene que actualizar el currentIndex del tab
@@ -282,7 +283,7 @@ namespace pe.edu.pucp.ferretin.viewmodel.MAlmacen
             {
                 if (_saveTipoMovimientoCommand == null)
                 {
-                    _saveTipoMovimientoCommand = new RelayCommand(saveTipoMovimiento);
+                    _saveTipoMovimientoCommand = new RelayCommand(saveTipoMovimiento);//, canSaveTipoMovimientoExecute);
                 }
                 return _saveTipoMovimientoCommand;
             }
@@ -334,6 +335,16 @@ namespace pe.edu.pucp.ferretin.viewmodel.MAlmacen
 
         public void saveTipoMovimiento(object param)
         {
+            /*for (int i = 0; i < tiposMovimiento.Count(); i++)
+            {
+                if (tiposMovimiento.ElementAt(i).categoria != 'S' && tiposMovimiento.ElementAt(i).categoria != 'E')
+                {
+                    MessageBox.Show("Valor inválido de categoría en la fila " + (i + 1) + 
+                        ".\nLos valores permitidos son 'E' para los movimientos de entrada y 'S' para los de salida." );
+                    return;
+                }
+
+            }*/
             if (!MA_MovimientosService.enviarCambios())
             {
                 MessageBox.Show("Ocurrio un error al guardar, reintente.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
@@ -344,10 +355,12 @@ namespace pe.edu.pucp.ferretin.viewmodel.MAlmacen
             }
             NotifyPropertyChanged("tiposMovimiento");
         }
+
         public void cancelTipoMovimiento(object param)
         {
             NotifyPropertyChanged("tiposMovimiento");
         }
+
         public void agregarNuevoProducto(Object atr)
         {
             Producto producto = null;
@@ -410,14 +423,23 @@ namespace pe.edu.pucp.ferretin.viewmodel.MAlmacen
             }
             else
             {
-                if (!MA_MovimientosService.InsertarMovimiento(movimiento))
-                {
-                    MessageBox.Show("No se pudo agregar el nuevo movimiento");
-                }
+                //validación
+                if (movimiento.codigo == null || movimiento.codigo == "") MessageBox.Show("Debe llenar el campo código.");
+                else if (movimiento.MovimientoTipo == null) MessageBox.Show("Debe seleccionar un tipo de movimiento");
+                else if (movimiento.Tienda == null && movimiento.MovimientoTipo.categoria == 'S') MessageBox.Show("Debe seleccionar un almacén de salida de mercancía");
+                else if (movimiento.Tienda1 == null && movimiento.MovimientoTipo.categoria == 'E') MessageBox.Show("Debe seleccionar un almacén destino para la entrada de mercancía");
+                else if (movimiento.MovimientoEstado == null) MessageBox.Show("Debe seleccionar un estado para el movimiento");
+                else if (movimiento.MovimientoProducto.Count <= 0) MessageBox.Show("Debe registrar al menos un Producto en su movimiento");
                 else
                 {
-                    MessageBox.Show("El movimiento fue agregado con éxito");
-                    //listaMovimientos = MA_MovimientosService.ListaMovimientos;
+                    if (!MA_MovimientosService.InsertarMovimiento(movimiento))
+                    {
+                        MessageBox.Show("No se pudo agregar el nuevo movimiento");
+                    }
+                    else
+                    {
+                        MessageBox.Show("El movimiento fue agregado con éxito");                        
+                    }
                 }
             }
             NotifyPropertyChanged("listaMovimientos");
@@ -426,7 +448,16 @@ namespace pe.edu.pucp.ferretin.viewmodel.MAlmacen
         public void cancelMovimiento(Object obj)
         {
             this.statusTab = Tab.BUSQUEDA;
-            //listaMovimientos = MA_MovimientosService.ListaMovimientos;
+        }
+
+        private bool canSaveTipoMovimientoExecute(object obj)
+        {
+            for (int i = 0; i < tiposMovimiento.Count(); i++)
+            {
+                if (base.UIValidationErrorCount != 0 || this.tiposMovimiento.ElementAt(i).Errors.Count != 0)
+                    return false;
+            }
+            return true;
         }
         #endregion
     }

@@ -46,29 +46,66 @@ namespace pe.edu.pucp.ferretin.controller.MCompras
         ///<summary>
         ///Metodo que busca documentos de compra de acuerdo a los criterios seleccionados en los filtros
         ///</summary>
-        public static IEnumerable<DocumentoCompra> buscarDocumentosCompra(string codigo, string proveedor, int tipoDocumento, DateTime? fechaDesde, DateTime? fechaHasta)
+        public static IEnumerable<DocumentoCompra> buscarDocumentosCompra(string codigo, string proveedor, int tipoDocumento, DateTime? fechaDesde, DateTime? fechaHasta, int estado)
         {
 
             if (tipoDocumento == 0)
             {
-                return from d in listaDocumentosCompra
-                       where
-                       (d.codigo != null && d.codigo.Contains(codigo)
-                       && d.Proveedor.razonSoc.Contains(proveedor)
-                        )
-                       orderby d.codigo
-                       select d;
+                if (estado != 0)
+                {
+                    return from d in listaDocumentosCompra
+                           where
+                           (d.codigo != null && d.codigo.Contains(codigo)
+                           && d.Proveedor.razonSoc.Contains(proveedor)
+                           && d.id_estado == estado
+                           && (fechaDesde == null || (d.fechaEmision != null && d.fechaEmision >= fechaDesde))
+                           && (fechaHasta == null || (d.fechaEmision != null && d.fechaEmision <= fechaHasta))
+                           )
+                           orderby d.codigo
+                           select d;
+                }
+                else
+                {
+                    return from d in listaDocumentosCompra
+                           where
+                           (d.codigo != null && d.codigo.Contains(codigo)
+                           && d.Proveedor.razonSoc.Contains(proveedor)
+                           && (fechaDesde == null || (d.fechaEmision != null && d.fechaEmision >= fechaDesde))
+                           && (fechaHasta == null || (d.fechaEmision != null && d.fechaEmision <= fechaHasta))
+                            )
+                           orderby d.codigo
+                           select d;
+                }
             }
             else
             {
-                return from d in listaDocumentosCompra
-                       where
-                       (d.codigo != null && d.codigo.Contains(codigo)
-                       && d.Proveedor.razonSoc.Contains(proveedor)
-                       && d.tipo == tipoDocumento
-                        )
-                       orderby d.codigo
-                       select d;
+                if (estado != 0)
+                {
+                    return from d in listaDocumentosCompra
+                           where
+                           (d.codigo != null && d.codigo.Contains(codigo)
+                           && d.Proveedor.razonSoc.Contains(proveedor)
+                           && d.tipo == tipoDocumento
+                           && d.id_estado == estado
+                           && (fechaDesde == null || (d.fechaEmision != null && d.fechaEmision >= fechaDesde))
+                           && (fechaHasta == null || (d.fechaEmision != null && d.fechaEmision <= fechaHasta))
+                            )
+                           orderby d.codigo
+                           select d;
+                }
+                else
+                {
+                    return from d in listaDocumentosCompra
+                           where
+                           (d.codigo != null && d.codigo.Contains(codigo)
+                           && d.Proveedor.razonSoc.Contains(proveedor)
+                           && d.tipo == tipoDocumento
+                           && (fechaDesde == null || (d.fechaEmision != null && d.fechaEmision >= fechaDesde))
+                           && (fechaHasta == null || (d.fechaEmision != null && d.fechaEmision <= fechaHasta))
+                            )
+                           orderby d.codigo
+                           select d;
+                }
             }
             
         }
@@ -80,6 +117,25 @@ namespace pe.edu.pucp.ferretin.controller.MCompras
                    (d.codigo != null)
                    orderby d.codigo
                    select d;
+        }
+
+        public static IEnumerable<DocumentoCompraEstado> obtenerEstadosPorTipoDC(int tipoDocumento)
+        {
+            if (tipoDocumento == 1) // Es Cotizacion
+            {
+                return (from dce in db.DocumentoCompraEstado
+                        where dce.tipo.Equals(0)
+                        orderby dce.nombre
+                        select dce);
+            }
+            else
+            {
+                return (from dce in db.DocumentoCompraEstado
+                        where dce.tipo.Equals(1)
+                        orderby dce.nombre
+                        select dce);
+            }
+            
         }
 
         #endregion

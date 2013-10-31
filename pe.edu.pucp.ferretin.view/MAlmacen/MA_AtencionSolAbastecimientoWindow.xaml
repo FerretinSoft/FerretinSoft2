@@ -54,11 +54,11 @@
                             <DataGridTextColumn Width="2*" Binding="{Binding Path=SolicitudAbastecimientoEstado.nombre}"  Header="Estado"/>
                         </DataGrid.Columns>
                     </DataGrid>
-                    <ComboBox ItemsSource="{Binding tiendas,Mode=TwoWay}" DisplayMemberPath="nombre" SelectedItem="{Binding searchTienda, Mode=TwoWay}" HorizontalAlignment="Left" Margin="116,43,0,0" VerticalAlignment="Top" Width="155" Height="22">
-                        
+                    <ComboBox ItemsSource="{Binding tiendasFiltro,Mode=TwoWay}" SelectedIndex="0" DisplayMemberPath="nombre" SelectedItem="{Binding searchTienda, Mode=TwoWay}" HorizontalAlignment="Left" Margin="116,43,0,0" VerticalAlignment="Top" Width="155" Height="22">
+
                     </ComboBox>
-                    <ComboBox ItemsSource="{Binding estadoSolicitud,Mode=TwoWay}" DisplayMemberPath="nombre" SelectedItem="{Binding searchEstado, Mode=TwoWay}" HorizontalAlignment="Left" Margin="402,43,0,0" VerticalAlignment="Top" Width="134" Height="22">
-                        
+                    <ComboBox SelectedIndex="0" ItemsSource="{Binding estadoSolicitud,Mode=TwoWay}" DisplayMemberPath="nombre" SelectedItem="{Binding searchEstado, Mode=TwoWay}" HorizontalAlignment="Left" Margin="402,43,0,0" VerticalAlignment="Top" Width="134" Height="22">
+
                     </ComboBox>
                     <Label Content="Fecha hasta:" HorizontalAlignment="Left" Height="26" VerticalAlignment="Top" Width="89" Margin="323,80,0,0"/>
                     <Label Content="Fecha desde:" HorizontalAlignment="Left" Height="26" VerticalAlignment="Top" Width="92" Margin="22,80,0,0" RenderTransformOrigin="0.48,2.068"/>
@@ -81,12 +81,14 @@
                     </Grid.RowDefinitions>
                     <GroupBox Header="Resumen" Margin="10,12" BorderBrush="Black"/>
                     <Label Content="Tienda:" HorizontalAlignment="Left" Height="26" VerticalAlignment="Top" Width="64" Margin="326,43,0,0"/>
-                    <Label Content="Estado:" HorizontalAlignment="Left" Height="26" VerticalAlignment="Top" Width="65" Margin="325,82,0,0"/>
+                    <Label Content="Estado:" HorizontalAlignment="Left" Height="26" VerticalAlignment="Top" Width="65" Margin="325,82,0,0">
+                    </Label>
+                    <ComboBox ItemsSource="{Binding estadoSolicitud}" SelectedItem="{Binding solicitud.SolicitudAbastecimientoEstado}" DisplayMemberPath="nombre" HorizontalAlignment="Left" VerticalAlignment="Top" Width="208" Height="22" IsEnabled="False" Margin="433,82,0,0"/>
+                    
                     <Label Content="Código:" HorizontalAlignment="Left" Height="26" VerticalAlignment="Top" Width="65" Margin="22,43,0,0"/>
                     <TextBox Text="{Binding Path=solicitud.codigo, Mode=TwoWay}"  x:Name="idTxtBox" HorizontalAlignment="Left" Height="23" Margin="133,46,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="166" IsEnabled="False"/>
                     <Label Content="Fecha solicitud:" HorizontalAlignment="Left" Height="26" VerticalAlignment="Top" Width="111" Margin="22,81,0,0"/>
                     <DatePicker SelectedDate="{Binding Path=solicitud.fecha}" HorizontalAlignment="Left" Margin="133,82,0,0" VerticalAlignment="Top" Width="166"/>
-                    <TextBox HorizontalAlignment="Left" Height="23" Margin="433,85,0,0" TextWrapping="Wrap" Text="{Binding Path=solicitud.SolicitudAbastecimientoEstado.nombre}" VerticalAlignment="Top" Width="208" IsEnabled="False"/>
 
                     <DataGrid ItemsSource="{Binding Path=solicitud.SolicitudAbastecimientoProducto}" Name="gridDetalle" Margin="5,5,5,5"  Grid.Row="1" AutoGenerateColumns="False" IsReadOnly="True" >
                         <DataGrid.Columns>
