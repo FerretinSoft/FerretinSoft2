@@ -278,7 +278,7 @@ namespace pe.edu.pucp.ferretin.viewmodel.MSeguridad
                     selectedProvincia = this.almacen.UbigeoDistrito.UbigeoProvincia;
                     selectedDepartamento = selectedProvincia.UbigeoDepartamento;
                 }
-                this.statusTab = Tab.MODIFICAR;
+                this.statusTab = Tab.MODIFICAR;                
             }
             catch (Exception e)
             {
@@ -286,8 +286,7 @@ namespace pe.edu.pucp.ferretin.viewmodel.MSeguridad
             }
         }
         public void saveAlmacen(Object obj)
-        {
-
+        {            
             if (almacen.id > 0)//Si existe
             {
                 if (!MS_TiendaService.enviarCambios())
@@ -323,7 +322,7 @@ namespace pe.edu.pucp.ferretin.viewmodel.MSeguridad
         void buscarJefe(object var)
         {
             if (dniJefe.Trim().Length > 0)
-            {
+            {                
                 Empleado empleado = MR_SharedService.obtenerEmpleadoPorDNI(dniJefe);
                 if (empleado != null)
                 {
@@ -342,6 +341,25 @@ namespace pe.edu.pucp.ferretin.viewmodel.MSeguridad
                 MessageBox.Show("Debe ingresar el DNI de algún Jefe");                
             }
         }
-      
+
+        private Tienda _selectedTienda;
+        public Tienda selectedTienda
+        {
+            get
+            {                   
+                _selectedTienda = almacenes.Single(t => t.id==this.almacen.id_abastecedor);
+                return _selectedTienda;
+            }
+            set
+            {
+                _selectedTienda = value;
+                NotifyPropertyChanged("selectedTienda");
+                NotifyPropertyChanged("almacenes");
+                this.almacen.id_abastecedor = _selectedTienda.id;
+            }
+        }
+
+        
+
     }
 }

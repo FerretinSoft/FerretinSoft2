@@ -38,5 +38,24 @@ namespace pe.edu.pucp.ferretin.view.MSeguridad
         {
 
         }
+
+        #region Validaciones Campos de Texto
+
+        private void txtDNI_KeyDown(object sender, KeyEventArgs e)
+        {
+            //Validaciones para que acepte solo numeros
+            if (e.Key >= Key.D0 && e.Key <= Key.D9 || e.Key >= Key.NumPad0 && e.Key <= Key.NumPad9)
+                e.Handled = false;
+            else
+                e.Handled = true;
+        }
+
+        #endregion
+
+        private void tipoCombo_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+
+        }
+
     }
 }
