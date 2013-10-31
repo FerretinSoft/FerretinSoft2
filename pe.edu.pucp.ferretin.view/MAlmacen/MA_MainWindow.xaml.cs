@@ -58,7 +58,7 @@ namespace pe.edu.pucp.ferretin.view.MAlmacen
 
         private void solAbastecimientoBtn_Click(object sender, RoutedEventArgs e)
         {
-            MA_SolicitudAbastecimientoWindow solWindow = new MA_SolicitudAbastecimientoWindow();
+            MA_RegistroSolAbastecimientoWindow solWindow = new MA_RegistroSolAbastecimientoWindow();
             solWindow.Show();
         }
 
@@ -66,6 +66,12 @@ namespace pe.edu.pucp.ferretin.view.MAlmacen
         {
             MA_MantenimientoCategoriasWindow catWindow = new MA_MantenimientoCategoriasWindow();
             catWindow.Show();
+        }
+
+        private void atencionSolicitudesBtn_Click(object sender, RoutedEventArgs e)
+        {
+            MA_AtencionSolAbastecimientoWindow atenSol = new MA_AtencionSolAbastecimientoWindow();
+            atenSol.Show();
         }
     }
 }

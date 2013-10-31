@@ -1,4 +1,4 @@
-﻿<Window x:Class="pe.edu.pucp.ferretin.view.MAlmacen.MA_SolicitudAbastecimientoWindow"
+﻿<Window x:Class="pe.edu.pucp.ferretin.view.MAlmacen.MA_AtencionSolAbastecimientoWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         Title="Solicitudes de Abastecimiento" Height="487" Width="704" Icon="../Resources/ferretin_ico.ico" ResizeMode="CanMinimize">
@@ -33,7 +33,7 @@
                     <DataGrid Name="gridBusqueda" Margin="6,10,4,0" Grid.Row="1" ItemsSource="{Binding Path=listaSolicitudBusqueda}" AutoGenerateColumns="False" CanUserAddRows="False" CanUserDeleteRows="False" IsReadOnly="True">
                         <DataGrid.Columns>
                             <DataGridHyperlinkColumn Width="1*" Header="ID" Binding="{Binding Path=ID}">
-                                
+
                             </DataGridHyperlinkColumn>
                             <DataGridTextColumn Width="2*" Binding="{Binding Path=fecha}"  Header="Fecha"/>
                             <DataGridTextColumn Width="3*" Binding="{Binding Path=tienda}"  Header="Tienda"/>

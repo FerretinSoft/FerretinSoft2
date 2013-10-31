@@ -46,5 +46,19 @@ namespace pe.edu.pucp.ferretin.controller.MAlmacen
                 _tiposMovimientos = value;
             }
         }
+
+        private static IEnumerable<SolicitudAbastecimientoEstado> _estadosSolicitud;
+        public static IEnumerable<SolicitudAbastecimientoEstado> estadosSolicitud
+        {
+            get
+            {
+                if (_estadosSolicitud == null) _estadosSolicitud = db.SolicitudAbastecimientoEstado.ToList();
+                return _estadosSolicitud;
+            }
+            set
+            {
+                _estadosSolicitud = value;
+            }
+        }
     }
 }

@@ -111,5 +111,13 @@ namespace pe.edu.pucp.ferretin.controller.MSeguridad
 
                 ;
         }
+
+        public static Menu menuPadre
+        {
+            get
+            {
+                return db.Menu.Single(m => m.id_menu_padre == null || m.id_menu_padre <= 0);
+            }
+        }
     }
 }

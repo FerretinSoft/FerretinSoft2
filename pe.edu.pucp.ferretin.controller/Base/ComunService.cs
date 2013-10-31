@@ -12,7 +12,7 @@ namespace pe.edu.pucp.ferretin.controller
     /// para poder obtener los Datos Comunes en cualquier Clase Servicio de la Aplicación
     /// </summary>
     public partial class ComunService : BaseService
-    {        
+    {
 
         private static IEnumerable<UbigeoDepartamento> _departamentos;
         /// <summary>
@@ -104,5 +104,19 @@ namespace pe.edu.pucp.ferretin.controller
                     
 
 
+
+        private static IEnumerable<Tienda> _tiendas;
+        public static IEnumerable<Tienda> tiendas
+        {
+            get
+            {
+                if (_tiendas == null) _tiendas = db.Tienda;
+                return _tiendas;
+            }
+            set
+            {
+                _tiendas = value;
+            }
+        }
     }
 }
