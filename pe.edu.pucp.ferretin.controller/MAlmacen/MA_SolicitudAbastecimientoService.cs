@@ -70,15 +70,30 @@ namespace pe.edu.pucp.ferretin.controller.MAlmacen
 
         }
 
-        public static bool atenderSolicitud(SolicitudAbastecimiento solicitud)
+        public static IEnumerable<Object> buscarProductosPorSolicitud(Tienda almacen, SolicitudAbastecimiento solicitud)
         {
-            return false;
-        }
+            var result = (from prodSol in db.SolicitudAbastecimientoProducto 
+                          join prodAlm in db.ProductoAlmacen on prodSol.Producto equals prodAlm.Producto
+                          where prodSol.SolicitudAbastecimiento == solicitud && prodAlm.Tienda == almacen
+                          select new {SolicitudAbastecimientoProducto = prodSol, ProductoAlmacen = prodAlm });
+            return result;
 
-        public static bool anularSolicitud(SolicitudAbastecimiento solicitud)
+        }        
+
+        public static bool atenderSolicitud(Tienda almacen, SolicitudAbastecimiento solicitud)
         {
-            return false;
-        }
+            var productos = (from prodAlmacen in db.ProductoAlmacen
+                            where prodAlmacen.Tienda == almacen
+                            select prodAlmacen);
+            for (int i = 0; i < solicitud.SolicitudAbastecimientoProducto.Count; i++)
+            {
+                var stock = (from prod in productos
+                             where prod.Producto == solicitud.SolicitudAbastecimientoProducto[i].Producto
+                             select prod.stock).First();
+                if ((decimal)stock < solicitud.SolicitudAbastecimientoProducto[i].cantidad) return false;
+            }
+            return true;
+        }        
 
         public static bool insertarSolicitud(SolicitudAbastecimiento solicitud)
         {
