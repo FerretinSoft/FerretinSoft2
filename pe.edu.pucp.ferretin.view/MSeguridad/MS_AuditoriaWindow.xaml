@@ -22,13 +22,14 @@
             <Label Content="Perfil:" HorizontalAlignment="Left" Height="26" VerticalAlignment="Top" Width="68" Margin="0,33,0,0" Grid.Column="2"/>
             <TextBox HorizontalAlignment="Left" Height="20" TextWrapping="Wrap" VerticalAlignment="Top" Width="167" Margin="10,37,0,0" Grid.Column="1" />
 
-            <Button x:Name="buscarUsuariosBtn" HorizontalAlignment="Left" Margin="328,57,0,0" VerticalAlignment="Top" Width="32" Height="32" RenderTransformOrigin="0.3,-0.35" Grid.Column="2">
+            <Button x:Name="buscarTransaccionesBtn" HorizontalAlignment="Left" Margin="328,57,0,0" VerticalAlignment="Top" Width="32" Height="32" RenderTransformOrigin="0.3,-0.35" Grid.Column="2">
                 <Button.Background>
                     <ImageBrush ImageSource="../Resources/refresh2_48.png"/>
                 </Button.Background>
             </Button>
-            <DataGrid x:Name="auditoriasDg" Margin="10,20,10,10" Grid.Row="1" Grid.ColumnSpan="3" AutoGenerateColumns="False" CanUserAddRows="False" CanUserDeleteRows="False">
+            <DataGrid ItemsSource="{Binding Path=listaTransacciones,Mode=OneWay}" x:Name="auditoriasDg" Margin="10,20,10,10" Grid.Row="1" Grid.ColumnSpan="3" AutoGenerateColumns="False" CanUserAddRows="False" CanUserDeleteRows="False">
                 <DataGrid.Columns>
+                    <!-- Otras columnas -->
                     <DataGridTextColumn Width="3.5*" Binding="{Binding Path=ip}" Header="IP"/>
                     <DataGridTextColumn Width="4*" Binding="{Binding Path=macAddress}" Header="MAC Address"/>
                     <DataGridTextColumn Width="4*" Binding="{Binding Path=nombreUsuario}" Header="Nombre de Usuario"/>
