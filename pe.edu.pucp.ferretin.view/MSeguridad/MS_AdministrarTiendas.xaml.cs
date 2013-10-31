@@ -33,5 +33,10 @@ namespace pe.edu.pucp.ferretin.view.MSeguridad
         {
             InitializeComponent();
         }
+
+        private void estadoCombo_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+
+        }
     }
 }

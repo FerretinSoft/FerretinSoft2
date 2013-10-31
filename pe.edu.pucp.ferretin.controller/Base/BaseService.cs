@@ -7,6 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Net;
+using System.Net.NetworkInformation;
 
 namespace pe.edu.pucp.ferretin.controller
 {
@@ -94,15 +95,26 @@ namespace pe.edu.pucp.ferretin.controller
         public static string obtenerIp()
         {
             IPAddress[] a = Dns.GetHostByName(Dns.GetHostName()).AddressList;
-            string ip = a[0].ToString();
-            MessageBox.Show(ip);
+            string ip = a[0].ToString();            
             return ip;
         }
         /**********************************************************************/
         public static string obtenerMac()
         {
-
-            return null;
+            NetworkInterface[] nics = NetworkInterface.GetAllNetworkInterfaces();
+            String sMacAddress = string.Empty;
+            foreach (NetworkInterface adapter in nics)
+            {
+                if (sMacAddress == String.Empty)// only return MAC Address from first card  
+                {
+                    IPInterfaceProperties properties = adapter.GetIPProperties();
+                    sMacAddress = adapter.GetPhysicalAddress().ToString();
+                    sMacAddress = string.Join(":", (from z in adapter.GetPhysicalAddress().GetAddressBytes() select z.ToString("X2")).ToArray());
+                }
+            }
+            string mac = sMacAddress.ToString();
+            MessageBox.Show(mac);
+            return mac;
         }
 
     }
