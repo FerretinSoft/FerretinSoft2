@@ -183,6 +183,7 @@ namespace pe.edu.pucp.ferretin.controller.MSeguridad
             string initVector = "@1B2c3D4e5F6g7H8"; // must be 16 bytes
             int keySize = 128;                // can be 192 or 128
 
+            if (String.IsNullOrEmpty(plainText)) return "";
 
             byte[] initVectorBytes = Encoding.ASCII.GetBytes(initVector);
             byte[] saltValueBytes = Encoding.ASCII.GetBytes(saltValue);
