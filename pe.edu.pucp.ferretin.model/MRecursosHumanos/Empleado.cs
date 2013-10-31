@@ -41,6 +41,26 @@ namespace pe.edu.pucp.ferretin.model
             }
         }
 
+        public int nombreSexo
+        {
+            get
+            {
+                return this.sexo == 'M' ? 1 : 2; 
+            }
+
+            set
+            {
+                if (value == 1)
+                    this.sexo = 'M';
+                else
+                if (value == 2)
+                    this.sexo = 'F';
+            
+            }
+        
+        
+        }
+
         private EmpleadoTienda ultimoEmpleadoTienda
         {
             get

@@ -55,19 +55,6 @@
                     <Label Content="Fecha desde:" HorizontalAlignment="Left" Height="26" VerticalAlignment="Top" Width="82" Margin="22,80,0,0" Grid.ColumnSpan="2"/>
                     <DatePicker SelectedDate="{Binding searchFechaDesde, Mode=TwoWay}" Grid.Column="1" HorizontalAlignment="Left" Margin="27,80,0,0" VerticalAlignment="Top" Width="162"/>
                     <DatePicker SelectedDate="{Binding searchFechaHasta, Mode=TwoWay}" Grid.Column="1" HorizontalAlignment="Left" Margin="325,80,0,0" VerticalAlignment="Top" Width="162"/>
-                    <ToolBar HorizontalAlignment="Left" Margin="9,128,0,0" VerticalAlignment="Top" Height="24" Grid.ColumnSpan="2" Grid.RowSpan="2">
-                        <Button x:Name="nuevoMvimientoBtn" Command="{Binding newMovimientoCommand}" Content="" VerticalAlignment="Top" Width="20" Margin="0,0,2,-1" Height="20">
-                            <Button.Background>
-                                <ImageBrush ImageSource="../Resources/add_20.png" Stretch="None"/>
-                            </Button.Background>
-                        </Button>
-                        <Button x:Name="editarMovimientoBtn" Command="{Binding viewEditMovimientoCommand}"  Content="" Height="20" VerticalAlignment="Top" Width="20" Margin="0,0,2,0">
-                            <Button.Background>
-                                <ImageBrush ImageSource="../Resources/edit_20.png"/>
-                            </Button.Background>
-                        </Button>
-
-                    </ToolBar>
                     <ComboBox x:Name="estadoCombo1" ItemsSource="{Binding Path=estadosMovimiento}" DisplayMemberPath="nombre" SelectedIndex="{Binding searchEstado, Mode=TwoWay}" HorizontalAlignment="Left" Margin="326,43,0,0" VerticalAlignment="Top" Width="161" Height="22" Grid.Column="1"/>
                 </Grid>
             </TabItem>
