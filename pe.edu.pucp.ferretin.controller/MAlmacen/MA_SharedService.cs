@@ -12,12 +12,12 @@ namespace pe.edu.pucp.ferretin.controller.MAlmacen
     /// </summary>
     public class MA_SharedService : ComunService
     {
-        private static IEnumerable<MovimientoEstado> _estadosMovimiento;
-        public static IEnumerable<MovimientoEstado> estadosMovimiento
+        private static List<MovimientoEstado> _estadosMovimiento;
+        public static List<MovimientoEstado> estadosMovimiento
         {
             get
             {
-                if (_estadosMovimiento == null) _estadosMovimiento = db.MovimientoEstado;
+                if (_estadosMovimiento == null) _estadosMovimiento = db.MovimientoEstado.ToList();
                 return _estadosMovimiento;
             }
             set
@@ -26,12 +26,12 @@ namespace pe.edu.pucp.ferretin.controller.MAlmacen
             }
         }
 
-        private static IEnumerable<MovimientoTipo> _tiposMovimiento;
-        public static IEnumerable<MovimientoTipo> tiposMovimiento
+        private static List<MovimientoTipo> _tiposMovimiento;
+        public static List<MovimientoTipo> tiposMovimiento
         {
             get
             {
-                if (_tiposMovimiento == null) _tiposMovimiento = db.MovimientoTipo;
+                if (_tiposMovimiento == null) _tiposMovimiento = db.MovimientoTipo.ToList();
                 return _tiposMovimiento;
             }
             set

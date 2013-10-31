@@ -32,9 +32,9 @@ namespace pe.edu.pucp.ferretin.view.MSeguridad
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            if(usuarioLog.contrasena == conActual.Password && nuevaCon.Password == confirmarCon.Password && !String.IsNullOrEmpty(nuevaCon.Password))
+            if(usuarioLog.contrasena == MS_UsuarioService.encrypt(conActual.Password) && nuevaCon.Password == confirmarCon.Password && !String.IsNullOrEmpty(nuevaCon.Password))
             {
-                usuarioLog.contrasena = nuevaCon.Password;
+                usuarioLog.contrasena = MS_UsuarioService.encrypt(nuevaCon.Password);
                 MS_UsuarioService.actualizarUsuario(usuarioLog);
                 MessageBox.Show("Contraseña Cambiada Correctamente");
                 this.Close();

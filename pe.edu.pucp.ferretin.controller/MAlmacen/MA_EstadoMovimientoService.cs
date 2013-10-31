@@ -9,11 +9,11 @@ namespace pe.edu.pucp.ferretin.controller.MAlmacen
 {
     public class MA_EstadoMovimientoService : MA_ComunService
     {
-        static FerretinDataContext dc = new FerretinDataContext();
+        /*static FerretinDataContext dc = new FerretinDataContext();
 
-        private static IEnumerable<MovimientoEstado> _listaEstadoMovimientos = null;
+        private static List<MovimientoEstado> _listaEstadoMovimientos = null;
 
-        private static IEnumerable<MovimientoEstado> listaEstadoMovimientos
+        private static List<MovimientoEstado> listaEstadoMovimientos
         {
             get
             {
@@ -29,13 +29,14 @@ namespace pe.edu.pucp.ferretin.controller.MAlmacen
             }
         }
 
-        public static IEnumerable<MovimientoEstado> ObtenerListaEstadoMovimientos()
+        public static List<MovimientoEstado> ObtenerListaEstadoMovimientos()
         {
-            listaEstadoMovimientos = from estado in dc.MovimientoEstado
+            var result = from estado in db.MovimientoEstado
                                      orderby estado.nombre
                                      select estado;
-            return listaEstadoMovimientos;
-        }
+            
+            return result.ToList();
+        }*/
 
 
     }

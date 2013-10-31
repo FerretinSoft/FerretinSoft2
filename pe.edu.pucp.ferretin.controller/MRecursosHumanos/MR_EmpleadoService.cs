@@ -64,6 +64,7 @@ namespace pe.edu.pucp.ferretin.controller.MRecursosHumanos
 
         public static void actualizarEmpleado(Empleado empleado)
         {
+           
             db.SubmitChanges();
         }
 
