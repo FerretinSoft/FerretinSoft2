@@ -12,7 +12,7 @@ namespace pe.edu.pucp.ferretin.controller
     /// para poder obtener los Datos Comunes en cualquier Clase Servicio de la Aplicación
     /// </summary>
     public partial class ComunService : BaseService
-    {
+    {        
 
         private static IEnumerable<UbigeoDepartamento> _departamentos;
         /// <summary>
@@ -95,5 +95,14 @@ namespace pe.edu.pucp.ferretin.controller
                 _almacenes = value;
             }
         }
+
+        public static string userlog;
+        public static void usuarioLogeado (Usuario user)
+        {
+             userlog = user.nombre;
+        }
+                    
+
+
     }
 }
