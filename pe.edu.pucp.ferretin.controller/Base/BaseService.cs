@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Net;
 
 namespace pe.edu.pucp.ferretin.controller
 {
@@ -56,7 +57,23 @@ namespace pe.edu.pucp.ferretin.controller
             try
             {
                 db.SubmitChanges(ConflictMode.ContinueOnConflict);
-                return true;
+                /***********************************************/
+                try
+                {
+                    Transaccion transaccion = new Transaccion();
+                    transaccion.nroIP = obtenerIp();
+                    transaccion.nroMAC = obtenerMac();
+                    DateTime today = DateTime.Today;
+                    transaccion.fecha = today;
+                    db.Transaccion.InsertOnSubmit(transaccion);
+                    return true;
+                }
+                catch (ChangeConflictException ex)
+                {
+                    MessageBox.Show(ex.Message);
+                    return false;
+                }              
+
             }
             catch (ChangeConflictException e)
             {
@@ -72,6 +89,20 @@ namespace pe.edu.pucp.ferretin.controller
                     return false;
                 }
             }
+        }
+        /**********************************************************************/
+        public static string obtenerIp()
+        {
+            IPAddress[] a = Dns.GetHostByName(Dns.GetHostName()).AddressList;
+            string ip = a[0].ToString();
+            MessageBox.Show(ip);
+            return ip;
+        }
+        /**********************************************************************/
+        public static string obtenerMac()
+        {
+
+            return null;
         }
 
     }

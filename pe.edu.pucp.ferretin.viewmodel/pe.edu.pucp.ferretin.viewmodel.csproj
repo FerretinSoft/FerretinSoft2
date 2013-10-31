@@ -44,9 +44,12 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Base\CamelCaseString.cs" />
+    <Compile Include="Base\UIValidationError.cs" />
     <Compile Include="Helper\DatetimeToDateConverter.cs" />
     <Compile Include="Helper\RelayCommand.cs" />
     <Compile Include="Helper\TreeViewHelper.cs" />
+    <Compile Include="MAlmacen\MA_InventarioProductosViewModel.cs" />
     <Compile Include="MAlmacen\MA_MantenimientoCategoriasViewModel.cs" />
     <Compile Include="MAlmacen\MA_MovimientosViewModel.cs" />
     <Compile Include="MCompras\MC_ProveedoresViewModel.cs" />

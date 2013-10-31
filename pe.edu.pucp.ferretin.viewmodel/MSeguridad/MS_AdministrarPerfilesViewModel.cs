@@ -20,8 +20,8 @@ namespace pe.edu.pucp.ferretin.viewmodel.MSeguridad
         private int _searchModulo = 0;
         public int searchModulo { get { return _searchModulo; } set { _searchModulo = value; NotifyPropertyChanged("searchModulo"); } }
         
-        private int _searchPerfil = 0;
-        public int searchPerfil { get { return _searchPerfil; } set { _searchPerfil = value; } }
+        private string _searchDescripcion = "";
+        public string searchDescripcion { get { return _searchDescripcion; } set { _searchDescripcion = value; NotifyPropertyChanged("searchPerfil"); } }
         #endregion
         
         #region Manejo de los Tabs
@@ -119,7 +119,7 @@ namespace pe.edu.pucp.ferretin.viewmodel.MSeguridad
         {
             get
             {
-                _listaPerfiles = MS_PerfilService.buscar(searchPerfil,searchModulo);
+                _listaPerfiles = MS_PerfilService.buscar(searchModulo,searchDescripcion);
                 return _listaPerfiles;
             }
             set

@@ -149,7 +149,7 @@
 
                     <!-- STACK PANEL DE GUARDAR Y CANCELAR-->
                     <StackPanel x:Name="guardarDetallePanel" Orientation="Horizontal" Margin="251.747,342,10,5" HorizontalAlignment="Center" Width="402" Grid.ColumnSpan="2" Grid.Column="1">
-                        <Button Command="{Binding saveUsuarioCommand}"  Height="30"  Content="GUARDAR" Padding="5,0" Margin="5,0"/>
+                        <Button Command="{Binding saveUsuarioCommand}"  Height="30"  Content="GUARDAR" Padding="5,0" Margin="5,19"/>
                         <Button Command="{Binding cancelUsuarioCommand}" Height="30" Content="CANCELAR" Padding="5,0" Margin="5,0"/>
                     </StackPanel>
                     <Label Content="DNI Empleado" HorizontalAlignment="Left" Margin="277,47,0,0" VerticalAlignment="Top" Grid.ColumnSpan="2" Grid.Column="1"/>
@@ -159,6 +159,7 @@
                             <ImageBrush ImageSource="../Resources/search1_20.png"/>
                         </Button.Background>
                     </Button>
+                    <Button Height="30" Content="IP" Padding="5,0" Margin="54,309,194,76" Grid.Column="1" Click="Button_Click"/>
                     <!--
                     <Button Content="GUARDAR" HorizontalAlignment="Left" Margin="227,361,0,0" VerticalAlignment="Top" Width="75" RenderTransformOrigin="1.347,-0.05" Height="30"/>
                     <Button Content="CANCELAR" HorizontalAlignment="Left" Margin="31,361,0,0" VerticalAlignment="Top" Width="75" RenderTransformOrigin="1.347,-0.05" Grid.Column="1" Height="30"/>

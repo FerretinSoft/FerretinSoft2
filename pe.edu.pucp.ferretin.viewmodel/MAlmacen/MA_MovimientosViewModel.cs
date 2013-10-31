@@ -35,22 +35,72 @@ namespace pe.edu.pucp.ferretin.viewmodel.MAlmacen
             }
         }
 
-        private IEnumerable<Movimiento> _listaMovimientos;
-        public IEnumerable<Movimiento> listaMovimientos
+        private List<Movimiento> _listaMovimientos;
+        public List<Movimiento> listaMovimientos
         {
             get
             {
-                //String searchTipoDocumento = this.searchTipoDocumento == 1 ? "DNI" : (this.searchTipoDocumento == 2 ? "RUC" : "");
                 Dictionary<String, Object> parametros = new Dictionary<String, Object>();
-                //armar diccionario de parametros
-                _listaMovimientos = MA_MovimientosService.ObtenerListaMovimientos(parametros);
-
+                //if (searchAlmacen >= 0) parametros.Add("tienda", almacenes.ElementAt(searchAlmacen).id);
+                //if (searchEstado >= 0) parametros.Add("estado", estadosMovimiento.ElementAt(searchEstado).id);
+                parametros.Add("fechaDesde", searchFechaDesde);
+                parametros.Add("fechaHasta", searchFechaHasta);
+                //_listaMovimientos = MA_MovimientosService.ObtenerListaMovimientos(parametros);
+                _listaMovimientos = MA_MovimientosService.ListaMovimientos;
                 return _listaMovimientos;
             }
             set
             {
                 _listaMovimientos = value;
                 NotifyPropertyChanged("listaMovimientos");
+            }
+        }
+
+        private IEnumerable<MovimientoEstado> _estadosMovimiento;
+        public IEnumerable<MovimientoEstado> estadosMovimiento
+        {
+            get
+            {
+                if (_estadosMovimiento == null)
+                {
+                    _estadosMovimiento= MA_SharedService.estadosMovimiento;                  
+                    
+                }
+                return _estadosMovimiento;
+            }
+            set
+            {
+                _estadosMovimiento = value;
+            }
+        }
+
+        private IEnumerable<MovimientoTipo> _tiposMovimiento;
+        public IEnumerable<MovimientoTipo> tiposMovimiento
+        {
+            get
+            {
+                if (_tiposMovimiento == null)
+                {
+                    _tiposMovimiento = MA_SharedService.tiposMovimiento;
+
+                }
+                return _tiposMovimiento;
+            }
+            set
+            {
+                _tiposMovimiento = value;
+            }
+        }
+
+        private int _selectedMovimiento;
+        public int selectedMovimiento
+        {
+            set
+            {
+                if(value >= 0 && value < listaMovimientos.Count) 
+                    movimiento = listaMovimientos[value];
+                //MessageBox.Show(value + movimiento.codigo);
+                _selectedMovimiento = value;
             }
         }
         #endregion
@@ -63,16 +113,16 @@ namespace pe.edu.pucp.ferretin.viewmodel.MAlmacen
         #endregion
 
         #region Valores para el cuadro de Búsqueda
-        public Tienda _searchAlmacen;
-        public Tienda searchAlmacen { get { return _searchAlmacen; } set { _searchAlmacen = value; NotifyPropertyChanged("searchAlmacen"); } }
+        public int _searchAlmacen = 0;
+        public int searchAlmacen { get { return _searchAlmacen; } set { _searchAlmacen = value; NotifyPropertyChanged("searchAlmacen"); } }
 
-        public MovimientoEstado _searchEstado;
-        public MovimientoEstado searchEstado { get { return _searchEstado; } set { _searchEstado = value; NotifyPropertyChanged("searchEstado"); } }
+        public int _searchEstado = 0;
+        public int searchEstado { get { return _searchEstado; } set { _searchEstado = value; NotifyPropertyChanged("searchEstado"); } }
         
-        public DateTime _searchFechaDesde = DateTime.MinValue;
+        public DateTime _searchFechaDesde = new DateTime(2000, 1, 1);
         public DateTime searchFechaDesde { get { return _searchFechaDesde; } set { _searchFechaDesde= value; NotifyPropertyChanged("searchFechaDesde"); } }
 
-        public DateTime _searchFechaHasta = DateTime.MaxValue;
+        public DateTime _searchFechaHasta = DateTime.Today;
         public DateTime searchFechaHasta { get { return _searchFechaHasta; } set { _searchFechaHasta= value; NotifyPropertyChanged("searchFechaHasta"); } }
 
         #endregion
@@ -81,8 +131,8 @@ namespace pe.edu.pucp.ferretin.viewmodel.MAlmacen
         public enum Tab
         {
             //Pestañas virtuales:
-            //0       1        2          3
-            BUSQUEDA, AGREGAR, MODIFICAR, DETALLES
+            //0       1        2          3     
+            BUSQUEDA, NUEVO, DETALLES, TIPOMOV
         }
         private Tab _statusTab = Tab.BUSQUEDA; //pestaña default 
         public Tab statusTab
@@ -98,11 +148,10 @@ namespace pe.edu.pucp.ferretin.viewmodel.MAlmacen
                 //Si la pestaña es para agregar nuevo, limpio los input
                 switch (_statusTab)
                 {
-                    case Tab.BUSQUEDA: detallesTabHeader = "Agregar"; movimiento = new Movimiento(); break;//Si es agregar, creo un nuevo objeto Cliente
-                    case Tab.AGREGAR: detallesTabHeader = "Agregar"; movimiento = new Movimiento(); break;//Si es agregar, creo un nuevo objeto Cliente
-                    case Tab.MODIFICAR: detallesTabHeader = "Modificar"; break;
+                    case Tab.BUSQUEDA: detallesTabHeader = "Nuevo"; movimiento = new Movimiento(); break;//Si es agregar, creo un nuevo objeto Cliente
+                    case Tab.NUEVO: detallesTabHeader = "Nuevo"; movimiento = new Movimiento(); break;//Si es agregar, creo un nuevo objeto Cliente
                     case Tab.DETALLES: detallesTabHeader = "Detalles"; break;
-                    default: detallesTabHeader = "Agregar"; movimiento = new Movimiento(); break;//Si es agregar, creo un nuevo objeto Cliente
+                    default: detallesTabHeader = "Nuevo"; movimiento = new Movimiento(); break;//Si es agregar, creo un nuevo objeto Cliente
                 }
                 NotifyPropertyChanged("statusTab");
                 //Cuando se cambia el status, tambien se tiene que actualizar el currentIndex del tab
@@ -112,10 +161,10 @@ namespace pe.edu.pucp.ferretin.viewmodel.MAlmacen
         //Usado para mover los tabs de acuerdo a las acciones realizadas
         public int currentIndexTab
         {
-            get { return _statusTab == Tab.BUSQUEDA ? 0 : 1; }
-            set { statusTab = value == 0 ? Tab.BUSQUEDA : Tab.AGREGAR; }
+            get { return _statusTab == Tab.BUSQUEDA ? 0 : (_statusTab == Tab.TIPOMOV ? 2 : 1); }
+            set { statusTab = value == 0 ? Tab.BUSQUEDA : (value == 2 ? Tab.TIPOMOV : Tab.NUEVO); }
         }
-        private String _detallesTabHeader = "Agregar"; //Default
+        private String _detallesTabHeader = "Nuevo"; //Default
         public String detallesTabHeader
         {
             get
@@ -200,12 +249,12 @@ namespace pe.edu.pucp.ferretin.viewmodel.MAlmacen
         {
             try
             {
-                this.movimiento = listaMovimientos.Single(mov => mov.id == (int)id);
-                //aqui preparar las condiciones para cambiar el tab this.statusTab = Tab.MODIFICAR;
+                //this.movimiento = listaMovimientos.Single(mov => mov.id == (int)id);
+                this.statusTab = Tab.DETALLES;
             }
             catch (Exception e)
             {
-                MessageBox.Show(e.Message);
+                MessageBox.Show("Aqui" + e.Message);
             }
         }
 
@@ -213,7 +262,7 @@ namespace pe.edu.pucp.ferretin.viewmodel.MAlmacen
         {
             try
             {
-                //aqui preparar las condiciones para cambiar el tab this.statusTab = Tab.MODIFICAR;
+                this.statusTab = Tab.NUEVO;
             }
             catch (Exception e)
             {
@@ -250,7 +299,7 @@ namespace pe.edu.pucp.ferretin.viewmodel.MAlmacen
 
         public void cancelMovimiento(Object obj)
         {
-            //ir a la ventana de busqueda this.statusTab = Tab.BUSQUEDA;
+            this.statusTab = Tab.BUSQUEDA;
             listaMovimientos = MA_MovimientosService.ListaMovimientos;
         }
         #endregion
