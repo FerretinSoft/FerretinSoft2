@@ -6,7 +6,9 @@ using System.Threading.Tasks;
 using pe.edu.pucp.ferretin.viewmodel.Helper;
 using System.Windows.Input;
 using pe.edu.pucp.ferretin.model;
+
 using System.Windows;
+using pe.edu.pucp.ferretin.controller.MAlmacen;
 
 namespace pe.edu.pucp.ferretin.viewmodel.MAlmacen
 {
