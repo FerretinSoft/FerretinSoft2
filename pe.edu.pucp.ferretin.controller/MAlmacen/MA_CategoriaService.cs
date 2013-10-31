@@ -23,6 +23,26 @@ namespace pe.edu.pucp.ferretin.controller.MAlmacen
             }
         }
 
+
+        public static IEnumerable<Categoria> obtenerCategoriasPadres()
+        {
+            _listaCategoria = from c in db.Categoria
+                              where c.id_padre==null
+                              select c;
+            return _listaCategoria;
+        }
+
+
+        public static IEnumerable<Categoria> obtenerCategoriasHijos()
+        {
+            _listaCategoria = from c in db.Categoria
+                              where c.id_padre != null
+                              select c;
+            return _listaCategoria;
+        }
+
+
+
         public static bool insertarCategoria(Categoria categoria)
         {
             if (!db.Categoria.Contains(categoria))

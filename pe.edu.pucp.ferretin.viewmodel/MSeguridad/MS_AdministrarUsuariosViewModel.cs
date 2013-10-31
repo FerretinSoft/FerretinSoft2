@@ -288,7 +288,11 @@ namespace pe.edu.pucp.ferretin.viewmodel.MSeguridad
         {
             /*Para actualizar un usuario existente*/
             if (usuario.id > 0)//Si existe
-            {                
+            {
+                List<Parametro> listaParametros;
+                listaParametros = MS_ParametroService.obtenerListaParametros().ToList();
+                usuario.intentosCon = Convert.ToInt16(listaParametros[0].valor);
+
                 if (!MS_UsuarioService.enviarCambios())
                 {
                     MessageBox.Show("No se pudo actualizar el usuario");
@@ -329,9 +333,13 @@ namespace pe.edu.pucp.ferretin.viewmodel.MSeguridad
 
         public void restbContrasena(Object obj)
         {
+            List<Parametro> listaParametros;
+            listaParametros = MS_ParametroService.obtenerListaParametros().ToList();
+
             if (usuario.id > 0)//Si existe
             {
                 usuario.contrasena = MS_UsuarioService.encrypt("ferretinSoft");
+                usuario.intentosCon = Convert.ToInt16(listaParametros[0].valor);
 
                 if (!MS_UsuarioService.enviarCambios())
                 {
