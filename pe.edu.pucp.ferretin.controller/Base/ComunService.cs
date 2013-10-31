@@ -95,5 +95,19 @@ namespace pe.edu.pucp.ferretin.controller
                 _almacenes = value;
             }
         }
+
+        private static IEnumerable<Tienda> _tiendas;
+        public static IEnumerable<Tienda> tiendas
+        {
+            get
+            {
+                if (_tiendas == null) _tiendas = db.Tienda;
+                return _tiendas;
+            }
+            set
+            {
+                _tiendas = value;
+            }
+        }
     }
 }
