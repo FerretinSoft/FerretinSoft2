@@ -75,7 +75,7 @@ namespace pe.edu.pucp.ferretin.viewmodel.MSeguridad
                 switch (value)
                 {
                     case tabs.BUSQUEDA: detallesTabHeader = "Agregar"; usuario = new Usuario(); break;//Si es agregar, creo un nuevo objeto Usuario
-                    case tabs.AGREGAR: detallesTabHeader = "Agregar"; usuario = new Usuario(); break;//Si es agregar, creo un nuevo objeto Usuario
+                    case tabs.AGREGAR: detallesTabHeader = "Agregar"; usuario = new Usuario();  break;//Si es agregar, creo un nuevo objeto Usuario
                     case tabs.MODIFICAR: detallesTabHeader = "Modificar"; break;
                     case tabs.DETALLES: detallesTabHeader = "Detalles"; break;
                     default: detallesTabHeader = "Agregar"; usuario = new Usuario(); break;//Si es agregar, creo un nuevo objeto Cliente
