@@ -25,14 +25,26 @@
                             <ImageBrush ImageSource="../Resources/refresh2_48.png"/>
                         </Button.Background>
                     </Button>
-                    <DataGrid x:Name="busquedaMovGrid" Margin="5,30,5,5" CanUserAddRows="False" Grid.Row="1" Grid.ColumnSpan="2" AutoGenerateColumns="False" ItemsSource="{Binding Path=listaMovimientos}" SelectedIndex="{Binding selectedMovimiento, Mode=OneWayToSource}" IsManipulationEnabled="False" IsReadOnly="True" CanUserSortColumns="True" CanUserDeleteRows="False">
+                    <DataGrid x:Name="busquedaMovGrid" Margin="5,30,5,5" CanUserAddRows="False" Grid.Row="1" Grid.ColumnSpan="2" AutoGenerateColumns="False" ItemsSource="{Binding Path=listaMovimientos}" SelectedItem="{Binding selectedMovimiento, Mode=TwoWay}" IsManipulationEnabled="False" IsReadOnly="True" CanUserSortColumns="True" CanUserDeleteRows="False">
                         <DataGrid.Columns>
+                            <DataGridTemplateColumn Width="1*" Header="Código">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <TextBlock>
+                                        <Hyperlink 
+                                            Command="{Binding Path=DataContext.viewEditMovimientoCommand, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type DataGrid}}}" 
+                                            CommandParameter="{Binding Path=id}">
+                                            <TextBlock Text="{Binding Path=codigo}" />
+                                        </Hyperlink>
+                                        </TextBlock>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
                             <DataGridTextColumn Width="1*" Binding="{Binding Path=fecha}" ClipboardContentBinding="{x:Null}" Header="Fecha"/>
                             <DataGridTextColumn Width="1*" Binding="{Binding Path=MovimientoTipo.nombre}" ClipboardContentBinding="{x:Null}" Header="Tipo Mov."/>
                             <DataGridTextColumn Width="2*" Binding="{Binding Path=Tienda.nombre}" ClipboardContentBinding="{x:Null}" Header="Desde"/>
                             <DataGridTextColumn Width="2*" Binding="{Binding Path=Tienda1.nombre}" ClipboardContentBinding="{x:Null}" Header="Hasta"/>
-                            <DataGridTextColumn Width="1*" Binding="{Binding Path=MovimientoProducto.Count}" ClipboardContentBinding="{x:Null}" Header="Total Prod."/>
-                            <DataGridTextColumn Width="3*" Binding="{Binding Path=comentario}" ClipboardContentBinding="{x:Null}" Header="Comentario"/>
+                            <DataGridTextColumn Width="1*" Binding="{Binding Path=MovimientoProducto.Count}" ClipboardContentBinding="{x:Null}" Header="Total Prod."/>                            
                         </DataGrid.Columns>
                     </DataGrid>
                     <ComboBox x:Name="almacenCombo" ItemsSource="{Binding Path=almacenes}" DisplayMemberPath="nombre" SelectedIndex="{Binding searchAlmacen, Mode=TwoWay}" HorizontalAlignment="Left" Margin="28,43,0,0" VerticalAlignment="Top" Width="161" Height="22" Grid.Column="1">
