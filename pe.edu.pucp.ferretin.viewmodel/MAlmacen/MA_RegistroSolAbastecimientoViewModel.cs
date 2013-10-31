@@ -80,10 +80,10 @@ namespace pe.edu.pucp.ferretin.viewmodel.MAlmacen
                 //Si la pestaña es para agregar nuevo, limpio los input
                 switch (_statusTab)
                 {
-                    case Tab.BUSQUEDA: detallesTabHeader = "Nueva Solicitud"; solicitud = new SolicitudAbastecimiento(); break;//Si es agregar, creo un nuevo objeto Almacen
-                    case Tab.AGREGAR: detallesTabHeader = "Nueva Solicitud";  solicitud = new SolicitudAbastecimiento(); break;//Si es agregar, creo un nuevo objeto Almacen
+                    case Tab.BUSQUEDA: detallesTabHeader = "Nueva Solicitud"; solicitud = new SolicitudAbastecimiento(); solicitud.Tienda = currentTienda; break;//Si es agregar, creo un nuevo objeto Almacen
+                    case Tab.AGREGAR: detallesTabHeader = "Nueva Solicitud"; solicitud = new SolicitudAbastecimiento(); solicitud.Tienda = currentTienda; break;//Si es agregar, creo un nuevo objeto Almacen
                     case Tab.DETALLES: detallesTabHeader = "Detalles"; break;
-                    default: detallesTabHeader = "Nueva Solicitud"; solicitud= new SolicitudAbastecimiento(); break;//Si es agregar, creo un nuevo objeto Almacen
+                    default: detallesTabHeader = "Nueva Solicitud"; solicitud = new SolicitudAbastecimiento(); solicitud.Tienda = currentTienda; break;//Si es agregar, creo un nuevo objeto Almacen
                 }
                 NotifyPropertyChanged("statusTab");
                 //Cuando se cambia el status, tambien se tiene que actualizar el currentIndex del tab
