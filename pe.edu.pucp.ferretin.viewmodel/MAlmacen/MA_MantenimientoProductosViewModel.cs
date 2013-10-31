@@ -9,6 +9,7 @@ using pe.edu.pucp.ferretin.controller;
 using pe.edu.pucp.ferretin.model;
 using System.Windows.Input;
 using pe.edu.pucp.ferretin.viewmodel.Helper;
+using System.Windows;
 
 namespace pe.edu.pucp.ferretin.viewmodel.MAlmacen
 {
@@ -17,6 +18,23 @@ namespace pe.edu.pucp.ferretin.viewmodel.MAlmacen
 
         public String searchNombre { get; set; }
         public Int16 searchIdCategoria { get; set; }
+
+        private IEnumerable<Categoria> _treeParents;
+        public IEnumerable<Categoria> treeParents
+        {
+            get
+            {
+                _treeParents = MA_CategoriaService.obtenerCategoriasPadres();
+                foreach (Categoria c in _treeParents)
+                {
+                    c.listaHijos = MA_CategoriaService.obtenerCategoriasHijos();
+                }
+                return _treeParents;
+            }
+            set { _treeParents = value; OnPropertyChanged("treeParents"); }
+        }
+
+
 
         public Boolean _radioYes;
         public Boolean radioYes
@@ -67,12 +85,15 @@ namespace pe.edu.pucp.ferretin.viewmodel.MAlmacen
                 if (_selectedTienda != null)
                 {
                     prodAlm = MA_ProductoService.obtenerProdxTienda(producto.id, _selectedTienda.id);
-                    radioYes = false;
-                    radioNo = false;
-                    if (prodAlm.estado == 1)
-                        radioYes = true;
-                    else
-                        radioNo = true;
+                    if (prodAlm != null)
+                    {
+                        radioYes = false;
+                        radioNo = false;
+                        if (prodAlm.estado == 1)
+                            radioYes = true;
+                        else
+                            radioNo = true;
+                    }
                 }
             }
 
@@ -329,6 +350,7 @@ namespace pe.edu.pucp.ferretin.viewmodel.MAlmacen
             try
             {
                 this.producto = listaProductos.Single(producto => producto.codigo == (String)codigo);
+                this.prodAlm = new ProductoAlmacen();
                 this.statusTab = (int)tabs.MODIFICAR;
             }
             catch (Exception e)
@@ -343,11 +365,32 @@ namespace pe.edu.pucp.ferretin.viewmodel.MAlmacen
             String header=(String)obj;
             if (header.Contains("Agregar"))
             {
-                MA_ProductoService.agregarNuevoProducto(producto);
-                producto = new Producto();
+
+                //Validaciones
+
+                if (MA_ProductoService.agregarNuevoProducto(producto))
+                {
+                    MessageBox.Show("El producto fue agregado con éxito");
+                    producto = new Producto();
+                }
+                else
+                {
+                    MessageBox.Show("No se pudo agregar el producto");
+                }
+
+                //*************
+                
+                
             }
             else //Editar
             {
+                //Validaciones
+
+
+
+
+                //*************
+
                 MA_ProductoService.actualizarProducto();
             }
             
