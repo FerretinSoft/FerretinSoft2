@@ -112,6 +112,16 @@ namespace pe.edu.pucp.ferretin.viewmodel.MAlmacen
         #endregion
 
         #region Lista de Solicitudes y Edición de Solicitudes
+
+        private Tienda _currentTienda;
+        public Tienda currentTienda
+        {
+            get
+            {
+                return tiendas.ElementAt(0);
+            }
+        }
+
         private SolicitudAbastecimiento _solicitud;
         public SolicitudAbastecimiento solicitud
         {
@@ -131,7 +141,7 @@ namespace pe.edu.pucp.ferretin.viewmodel.MAlmacen
         {
             get
             {
-                _listaSolicitudes = MA_SolicitudAbastecimientoService.buscar(searchEstado, searchFechaDesde, searchFechaHasta);
+                _listaSolicitudes = MA_SolicitudAbastecimientoService.buscar(currentTienda, searchEstado, searchFechaDesde, searchFechaHasta);
                 return _listaSolicitudes;
             }
             set
@@ -141,14 +151,16 @@ namespace pe.edu.pucp.ferretin.viewmodel.MAlmacen
             }
         }
 
-        private List<SolicitudAbastecimientoEstado> _estadoSolicitud;
-        public List<SolicitudAbastecimientoEstado> estadoSolicitud
+        private IEnumerable<SolicitudAbastecimientoEstado> _estadoSolicitud;
+        public IEnumerable<SolicitudAbastecimientoEstado> estadoSolicitud
         {
             get
             {
                 if (_estadoSolicitud == null)
                 {
-                    _estadoSolicitud = MA_SharedService.estadosSolicitud;
+                    var sequence = Enumerable.Empty<SolicitudAbastecimientoEstado>();
+                    IEnumerable<SolicitudAbastecimientoEstado> items = new SolicitudAbastecimientoEstado[] { new SolicitudAbastecimientoEstado{ id = 0, nombre = "Todos" } };
+                    return items.Concat(MA_SharedService.estadosSolicitud);                    
                 }
                 return _estadoSolicitud;
             }
@@ -159,11 +171,40 @@ namespace pe.edu.pucp.ferretin.viewmodel.MAlmacen
             }
         }
 
+        private string _codigoNuevoProducto = "";
+        public string codigoNuevoProducto
+        {
+            get
+            {
+                return _codigoNuevoProducto;
+            }
+            set
+            {
+                _codigoNuevoProducto = value;
+            }
+        }
+
+        public IEnumerable<SolicitudAbastecimientoProducto> solicitudNuevoProducto
+        {
+            get
+            {
+                if (solicitud.SolicitudAbastecimientoProducto != null)
+                {
+                    return solicitud.SolicitudAbastecimientoProducto;
+                }
+                else
+                {
+                    return new SolicitudAbastecimientoProducto[] { };
+                }
+            }
+        }
+
         #endregion
 
         #region RelayCommand
+        
         RelayCommand _actualizarListaSolicitudesCommand;
-        public ICommand actualizarListaAlmacenesCommand
+        public ICommand actualizarListaSolicitudesCommand
         {
             get
             {
@@ -226,6 +267,19 @@ namespace pe.edu.pucp.ferretin.viewmodel.MAlmacen
                 return _cancelSolicitudCommand;
             }
         }
+
+        RelayCommand _agregarNuevoProductoCommand;
+        public ICommand agregarNuevoProductoCommand
+        {
+            get
+            {
+                if (_agregarNuevoProductoCommand == null)
+                {
+                    _agregarNuevoProductoCommand = new RelayCommand(agregarNuevoProducto);
+                }
+                return _agregarNuevoProductoCommand;
+            }
+        }
         
         #endregion
 
@@ -277,6 +331,31 @@ namespace pe.edu.pucp.ferretin.viewmodel.MAlmacen
         {
             this.statusTab = Tab.BUSQUEDA;
             listaSolicitudes = MA_SolicitudAbastecimientoService.listaSolicitudes;
+        }
+
+        public void agregarNuevoProducto(Object atr)
+        {
+            Producto producto = null;
+            try
+            { 
+                producto = MA_ProductoService.obtenerTodosProductos()
+                    .First(p => !String.IsNullOrEmpty(p.codigo) && p.codigo.Equals(codigoNuevoProducto)); 
+            }
+            catch { }
+
+            if (producto != null && solicitud.SolicitudAbastecimientoProducto.Count(mp => mp.Producto == producto) <= 0)
+            {
+                SolicitudAbastecimientoProducto sProducto = new SolicitudAbastecimientoProducto 
+                                            { cantidad = 1, SolicitudAbastecimiento = solicitud, Producto = producto };
+                solicitud.SolicitudAbastecimientoProducto.Add(sProducto);
+                NotifyPropertyChanged("solicitud");
+                NotifyPropertyChanged("solicitud.SolicitudAbastecimientoProducto");
+            }
+            else
+            {
+                MessageBox.Show("No se encontró un producto con el código \"" + codigoNuevoProducto + "\".", 
+                    "No se encontró el Producto", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
         }
         #endregion
 
