@@ -54,12 +54,8 @@
 
                         </DataGrid.Columns>
                     </DataGrid>
-                    <ComboBox SelectedItem="{Binding searchAlmacen, Mode=TwoWay}" HorizontalAlignment="Left" Margin="9,43,0,0" VerticalAlignment="Top" Width="180" Height="22" Grid.Column="1">
-                        <CheckBox Content="Todos" />
-                        <CheckBox Content="Almacén Central"/>
-                        <CheckBox Content="Tienda 1"/>
-                        <CheckBox Content="Tienda 2"/>
-                        <CheckBox Content="Tienda 3"/>
+                    <ComboBox ItemsSource="{Binding listaAlmacen}" SelectedItem="{Binding searchAlmacen, Mode=TwoWay}" HorizontalAlignment="Left" Margin="9,43,0,0" VerticalAlignment="Top" Width="180" Height="22" Grid.Column="1">
+                        
                     </ComboBox>
                     <ComboBox SelectedItem="{Binding searchCategoria, Mode=TwoWay}" HorizontalAlignment="Left" Margin="320,43,0,0" VerticalAlignment="Top" Width="180" Height="22" Grid.Column="1">
                         <CheckBox Content="Todas" />
