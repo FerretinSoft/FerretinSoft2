@@ -1,10 +1,8 @@
 ﻿<Window x:Class="pe.edu.pucp.ferretin.view.MSeguridad.MS_AdministrarPerfiles"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        
-        xmlns:System="clr-namespace:System;assembly=mscorlib"
         xmlns:viewmodel="clr-namespace:pe.edu.pucp.ferretin.viewmodel.MSeguridad;assembly=pe.edu.pucp.ferretin.viewmodel"
-        
+        xmlns:helper="clr-namespace:pe.edu.pucp.ferretin.viewmodel.Helper;assembly=pe.edu.pucp.ferretin.viewmodel"
         Title="Administracion de Perfiles" WindowStartupLocation="CenterScreen" Height="448" Width="650" Icon="/Resources/ferretin_ico.ico" ResizeMode="CanMinimize">
     <Window.Resources>
         <viewmodel:MS_AdministrarPerfilesViewModel x:Key="MS_AdministrarPerfilesViewModel"/>
@@ -122,98 +120,36 @@
                         <ColumnDefinition/>
                     </Grid.ColumnDefinitions>
 
-                    <Label Content="Perfil:" HorizontalAlignment="Left" Margin="22,51,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.464,1.231" Height="26" Width="39"/>
-                    <TextBox Text="{Binding Path=perfil.nombre, Mode=TwoWay, ValidatesOnExceptions=true, NotifyOnValidationError=true}" x:Name="nombreTxtBox" HorizontalAlignment="Left" Height="26" Margin="80,51,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="207"/>
-                    <TextBox Text="{Binding Path=perfil.descripcion, Mode=TwoWay, ValidatesOnExceptions=true, NotifyOnValidationError=true}" x:Name="descripcionTxtBox" HorizontalAlignment="Left" Height="203" Margin="22,118,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="265"/>
+                    <Label Content="Perfil:" HorizontalAlignment="Left" Margin="22,23,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.464,1.231" Height="26" Width="39"/>
+                    <Label Content="Permisos por Módulo:" HorizontalAlignment="Left" Margin="0,23,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.464,1.231" Height="26" Width="139" Grid.Column="1"/>
+                    <TextBox Text="{Binding Path=perfil.nombre, Mode=TwoWay, ValidatesOnExceptions=true, NotifyOnValidationError=true}" x:Name="nombreTxtBox" HorizontalAlignment="Left" Height="26" Margin="22,54,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="265"/>
+                    <TextBox Text="{Binding Path=perfil.descripcion, Mode=TwoWay, ValidatesOnExceptions=true, NotifyOnValidationError=true}" x:Name="descripcionTxtBox" HorizontalAlignment="Left" Height="163" Margin="22,130,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="265"/>
 
-                    <!-- STACK PANEL DE GUARDAR Y CANCELAR-->
-                    <StackPanel x:Name="guardarDetallePanel" Orientation="Horizontal" Margin="232,337,0,10" HorizontalAlignment="Center" Width="402" Grid.ColumnSpan="2">
-                        <Button Command="{Binding savePerfilCommand}" Height="30" x:Name="guardarDetallePerfilBtn" Content="GUARDAR" Padding="5,0" Margin="5,7,5,4" Width="73" RenderTransformOrigin="0.5,0.5">
-                            <Button.RenderTransform>
-                                <TransformGroup>
-                                    <ScaleTransform/>
-                                    <SkewTransform/>
-                                    <RotateTransform Angle="-1.136"/>
-                                    <TranslateTransform/>
-                                </TransformGroup>
-                            </Button.RenderTransform>
-                        </Button>
-                        <Button  Command="{Binding cancelPerfilCommand}" Height="30" Content="CANCELAR" Padding="5,0" Margin="5,0"/>
-                    </StackPanel>
-
-
-                    <Label Content="Descripción:" HorizontalAlignment="Left" Margin="22,92,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.464,1.231" Height="26" Width="74"/>
-                    <TreeView Margin="29,51,10,67" Grid.Column="1">
-
-                        <TreeView.Resources>
+                    <Label Content="Descripción:" HorizontalAlignment="Left" Margin="22,99,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.464,1.231" Height="26" Width="74"/>
+                    <helper:MyTreeView ItemsSource="{Binding Path=menuPadre.Menu2,Mode=TwoWay}" SelectedItem_="{Binding Path=CategoriaSeleccionada, Mode=TwoWay}" Background="#FFF5F5F5" HorizontalAlignment="Left" Height="239" Margin="0,54,0,0" VerticalAlignment="Top" Width="309" Grid.Column="1">
+                        <TreeView.ItemContainerStyle>
                             <Style TargetType="{x:Type TreeViewItem}">
-                                <Setter Property="HeaderTemplate">
-                                    <Setter.Value>
-                                        <DataTemplate>
-                                            <StackPanel Orientation="Horizontal">
-                                                <CheckBox x:Name="chk" Margin="2" Tag="{Binding}" />
-
-                                                <TextBlock Text="{Binding}"/>
-                                            </StackPanel>
-                                        </DataTemplate>
-                                    </Setter.Value>
-                                </Setter>
+                                <Setter Property="IsExpanded" Value="{Binding IsExpanded, Mode=TwoWay,FallbackValue=True}" />
+                                <Setter Property="IsSelected" Value="{Binding IsSelected, Mode=TwoWay}" />
+                                <Setter Property="FontWeight" Value="Normal" />
+                                <Style.Triggers>
+                                    <Trigger Property="IsSelected" Value="True">
+                                        <Setter Property="FontWeight" Value="Bold" />
+                                    </Trigger>
+                                </Style.Triggers>
                             </Style>
-                        </TreeView.Resources>
+                        </TreeView.ItemContainerStyle>
+                        <TreeView.ItemTemplate>
+                            <HierarchicalDataTemplate  ItemsSource="{Binding Path=Menu2}">
+                                <CheckBox IsChecked="{Binding isChecked}">
+                                    <TextBlock Text="{Binding nombre}"></TextBlock>
+                                </CheckBox>
+                            </HierarchicalDataTemplate>
+                        </TreeView.ItemTemplate>
+                    </helper:MyTreeView>
+                    <Button  Command="{Binding cancelPerfilCommand}" Height="30" Content="CANCELAR" Padding="5,0" Margin="10,318,239,43" Grid.Column="1"/>
+                    <Button Command="{Binding savePerfilCommand}" Height="30" Content="GUARDAR" Padding="5,0" Margin="236,318,10,43"/>
 
-
-
-                        <TreeViewItem x:Name="Almacen" Header="Almacen">
-
-
-                            <TreeViewItem Header="Inventario de Productos"/>
-                            <TreeViewItem Header="Mantenimiento de Productos"/>
-                            <TreeViewItem Header="Movimientos"/>
-                            <TreeViewItem Header="Solicitudes de Compra"/>
-                            <TreeViewItem Header="Reportes e Almacen"/>
-
-                        </TreeViewItem>
-
-
-                        <TreeViewItem x:Name="Ventas" Header="Ventas">
-
-
-                            <TreeViewItem Header="Registro de Ventas"/>
-                            <TreeViewItem Header="Administración de Clientes"/>
-                            <TreeViewItem Header="Servicios Postventa"/>
-                            <TreeViewItem Header="Reportes de Ventas"/>
-
-                        </TreeViewItem>
-
-                        <TreeViewItem x:Name="Compras" Header="Compras">
-
-                            <TreeViewItem  Header="Cotizaciones"/>
-                            <TreeViewItem Header="Ordenes de Compra"/>
-                            <TreeViewItem Header="Administración de Proveedores"/>
-                            <TreeViewItem Header="Reportes de Compras"/>
-
-                        </TreeViewItem>
-
-                        <TreeViewItem x:Name="RRHH" Header="RRHH">
-
-                            <TreeViewItem Header="Administración de Personal"/>
-                            <TreeViewItem Header="Planificación de Horarios"/>
-                            <TreeViewItem Header="Registro de Asistencia"/>
-                            <TreeViewItem Header="Reportes de RRHH"/>
-
-                        </TreeViewItem>
-
-                        <TreeViewItem x:Name="Seguridad" Header="Seguridad">
-
-                            <TreeViewItem Header="Administración de Personal"/>
-                            <TreeViewItem Header="Planificación de Horarios"/>
-                            <TreeViewItem Header="Registro de Asistencia"/>
-                            <TreeViewItem Header="Reportes de RRHH"/>
-
-                        </TreeViewItem>
-
-
-                    </TreeView>
                 </Grid>
             </TabItem>
         </TabControl>

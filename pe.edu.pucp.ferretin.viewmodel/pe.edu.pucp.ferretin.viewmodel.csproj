@@ -53,6 +53,8 @@
     <Compile Include="MAlmacen\MA_InventarioProductosViewModel.cs" />
     <Compile Include="MAlmacen\MA_MantenimientoCategoriasViewModel.cs" />
     <Compile Include="MAlmacen\MA_MovimientosViewModel.cs" />
+    <Compile Include="MAlmacen\MA_RegistroSolAbastecimientoViewModel.cs" />
+    <Compile Include="MAlmacen\MA_AtencionSolAbastecimientoViewModel.cs" />
     <Compile Include="MCompras\MC_ProveedoresViewModel.cs" />
     <Compile Include="MRecursosHumanos\MR_AdministrarPersonalViewModel.cs" />
     <Compile Include="MSeguridad\MS_AdministrarPerfilesViewModel.cs" />

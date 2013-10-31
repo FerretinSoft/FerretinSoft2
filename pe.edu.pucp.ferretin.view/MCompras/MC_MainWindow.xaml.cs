@@ -32,9 +32,9 @@ namespace pe.edu.pucp.ferretin.view.MCompras
 
         private void solicitudAbastBtn_Click(object sender, RoutedEventArgs e)
         {
-            MAlmacen.MA_SolicitudAbastecimientoWindow solabas = new MAlmacen.MA_SolicitudAbastecimientoWindow();
+            MAlmacen.MA_RegistroSolAbastecimientoWindow solabas = new MAlmacen.MA_RegistroSolAbastecimientoWindow();
             solabas.consolidarBtn.Visibility = System.Windows.Visibility.Visible;
-            solabas.atenderSolTab.Visibility = System.Windows.Visibility.Hidden;
+            //solabas.atenderSolTab.Visibility = System.Windows.Visibility.Hidden;
             solabas.generarSolTab.Visibility = System.Windows.Visibility.Hidden;
             solabas.ShowDialog();
         }

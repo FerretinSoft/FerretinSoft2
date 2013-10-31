@@ -8,7 +8,7 @@ namespace pe.edu.pucp.ferretin.model
 {
     partial class Producto
     {
-        public Categoria listaCategoria{get;set;}
+        public IEnumerable<Categoria> listaCategoria{get;set;}
         public String cadenaCategoria { get; set; }
         public String almacen { get; set; }
         public int stock { get; set; }
