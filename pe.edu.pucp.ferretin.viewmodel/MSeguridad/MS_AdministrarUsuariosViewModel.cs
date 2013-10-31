@@ -273,7 +273,7 @@ namespace pe.edu.pucp.ferretin.viewmodel.MSeguridad
         {
             /*Para actualizar un usuario existente*/
             if (usuario.id > 0)//Si existe
-            {
+            {                
                 if (!MS_UsuarioService.enviarCambios())
                 {
                     MessageBox.Show("No se pudo actualizar el usuario");
@@ -286,6 +286,7 @@ namespace pe.edu.pucp.ferretin.viewmodel.MSeguridad
             /*Para agregar un usuario nuevo*/
             else
             {
+                usuario.contrasena = "ferretinSoft";
                 if (!MS_UsuarioService.insertarUsuario(usuario))
                 {
                     MessageBox.Show("No se pudo agregar el nuevo usuario");

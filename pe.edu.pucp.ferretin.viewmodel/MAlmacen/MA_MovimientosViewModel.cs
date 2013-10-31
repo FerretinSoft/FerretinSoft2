@@ -92,13 +92,17 @@ namespace pe.edu.pucp.ferretin.viewmodel.MAlmacen
             }
         }
 
-        private int _selectedMovimiento;
-        public int selectedMovimiento
+        private Movimiento _selectedMovimiento;
+        public Movimiento selectedMovimiento
         {
+            get 
+            {
+                return _selectedMovimiento;
+            }
             set
             {
-                if(value >= 0 && value < listaMovimientos.Count()) 
-                    movimiento = listaMovimientos.ElementAt(value);
+                //if(value >= 0 && value < listaMovimientos.Count()) 
+                //    movimiento = listaMovimientos.ElementAt(value);
                 //MessageBox.Show(value + movimiento.codigo);
                 _selectedMovimiento = value;
             }
@@ -249,12 +253,13 @@ namespace pe.edu.pucp.ferretin.viewmodel.MAlmacen
         {
             try
             {
-                //this.movimiento = listaMovimientos.Single(mov => mov.id == (int)id);
+                int selId = Int32.Parse(id.ToString());
+                this.movimiento = listaMovimientos.Single(movimiento => movimiento.id == selId);
                 this.statusTab = Tab.DETALLES;
             }
             catch (Exception e)
             {
-                MessageBox.Show("Aqui" + e.Message);
+                MessageBox.Show(e.Message);
             }
         }
 
