@@ -54,14 +54,11 @@
 
                         </DataGrid.Columns>
                     </DataGrid>
-                    <ComboBox ItemsSource="{Binding listaAlmacen}" SelectedItem="{Binding searchAlmacen, Mode=TwoWay}" HorizontalAlignment="Left" Margin="9,43,0,0" VerticalAlignment="Top" Width="180" Height="22" Grid.Column="1">
+                    <ComboBox ItemsSource="{Binding Path=listaAlmacen}" SelectedItem="{Binding searchAlmacen, Mode=TwoWay}" HorizontalAlignment="Left" Margin="9,43,0,0" VerticalAlignment="Top" Width="180" Height="22" Grid.Column="1">
                         
                     </ComboBox>
-                    <ComboBox SelectedItem="{Binding searchCategoria, Mode=TwoWay}" HorizontalAlignment="Left" Margin="320,43,0,0" VerticalAlignment="Top" Width="180" Height="22" Grid.Column="1">
-                        <CheckBox Content="Todas" />
-                        <CheckBox Content="Categoría A" />
-                        <CheckBox Content="Categoría B" />
-                        <CheckBox Content="Categoría C" />
+                    <ComboBox ItemsSource="{Binding Path=listaCategoria}" SelectedItem="{Binding searchCategoria, Mode=TwoWay}" HorizontalAlignment="Left" Margin="320,43,0,0" VerticalAlignment="Top" Width="180" Height="22" Grid.Column="1">
+                      
                     </ComboBox>
                     <Label Content="Nombre:" HorizontalAlignment="Left" Height="26" VerticalAlignment="Top" Width="64" Margin="22,80,0,0" Grid.ColumnSpan="2"/>
                     <TextBox Text="{Binding searchNombre, Mode=TwoWay}" HorizontalAlignment="Left" Height="23" Margin="9,84,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="297" Grid.Column="1"/>
@@ -135,10 +132,7 @@
                     </ComboBox>
                     <Label Content="Seleccione tienda:" HorizontalAlignment="Left" Margin="10,13,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.464,1.231" Grid.Column="3"/>
                     <ComboBox SelectedIndex="{Binding Path=producto.tienda, Mode=TwoWay,  ValidatesOnExceptions=true, NotifyOnValidationError=true}" HorizontalAlignment="Left" Margin="128,17,0,0" VerticalAlignment="Top" Width="207" Height="22" Grid.Column="3">
-                        <ComboBoxItem Content="Almacén Central"/>
-                        <ComboBoxItem Content="Tienda 1" IsSelected="True"/>
-                        <ComboBoxItem Content="Tienda 2"/>
-                        <ComboBoxItem Content="Tienda 3"/>
+                        
                     </ComboBox>
                     <TextBox Text="{Binding Path=producto.listaCategoria, Mode=TwoWay,  ValidatesOnExceptions=true, NotifyOnValidationError=true}" HorizontalAlignment="Left" Height="23" Margin="157,76,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="151" Grid.Column="2" IsEnabled="False"/>
                 </Grid>
