@@ -17,13 +17,29 @@ namespace pe.edu.pucp.ferretin.viewmodel.MSeguridad
     public class MS_AdministrarPerfilesViewModel : ViewModelBase
     {
         #region Valores para el cuadro de Búsqueda
-        private int _searchPerfil = 0;
-        public int searchPerfil { get { return _searchPerfil; } set { _searchPerfil = value; NotifyPropertyChanged("searchPerfil"); } }
-
         private int _searchModulo = 0;
         public int searchModulo { get { return _searchModulo; } set { _searchModulo = value; NotifyPropertyChanged("searchModulo"); } }
+        
+        private string _searchDescripcion = "";
+        public string searchDescripcion { get { return _searchDescripcion; } set { _searchDescripcion = value; NotifyPropertyChanged("searchPerfil"); } }
         #endregion
 
+        public Menu CategoriaSeleccionada { get; set; }
+
+        private Menu _menuPadre;
+        public Menu menuPadre
+        {
+            get
+            {
+                //Devolver la categoría padre
+                _menuPadre = MS_PerfilService.menuPadre;
+                return _menuPadre;
+            }
+            set
+            {
+                _menuPadre = value;
+            }
+        }
 
         #region Manejo de los Tabs
         /************************************************/
@@ -87,39 +103,77 @@ namespace pe.edu.pucp.ferretin.viewmodel.MSeguridad
 
         #region Lista de Perfiles y Edición de Perfiles
         /************************************************/
+
+        private IEnumerable<Menu> _menus;
+        public IEnumerable<Menu> menus
+        {
+            get
+            {
+                if (_menus == null)
+                {
+                    _menus = MS_PerfilService.db.Menu.ToList();
+                }
+                return _menus;
+            }
+            set
+            {
+                _menus = value;
+            }
+        }
+
         private Perfil _perfil = new Perfil();
         public Perfil perfil
         {
             get
             {
+                foreach (var perfilMenu in _perfil.PerfilMenu)
+                {
+                    for (int i=0;i<menus.Count();i++)
+                    {
+
+                        if (perfilMenu.Menu == menus.ElementAt(i) )
+                        {
+                            if (perfilMenu.estado.Value)
+                            {
+                                menus.ElementAt(i).isChecked = true;
+                            }else
+                            {
+                                menus.ElementAt(i).isChecked = false;
+                            }
+                        }
+                        
+                    }
+                }
                 return _perfil;
             }
             set
             {
                 _perfil = value;
+                NotifyPropertyChanged("menuPadre");
                 NotifyPropertyChanged("perfil");
             }
         }
         /************************************************/
-        /************************************************
         public IEnumerable<Perfil> perfiles
         {
             get
             {
-                return MS_UsuarioService.obtenerPerfiles();
+                //Creo una nueva secuencia
+                var sequence = Enumerable.Empty<Perfil>();
+                //Primero agrego un item de Todos para que salga al inicio
+                //Pongo el ID en 0 para que al buscar, no filtre nada cuando se selecciona todos
+                IEnumerable<Perfil> items = new Perfil[] { new Perfil { id = 0, nombre = "Todos" } };
+                //Luego concateno el itemcon los elementos del combobox
+                return items.Concat(MS_PerfilService.obtenerPerfiles());
             }
-         }
-         * lo mismo pero para modulos porque debemos traer la lista de modulos
-         * 
-         * /
-
+        }         
         /************************************************/
         private IEnumerable<Perfil> _listaPerfiles;
         public IEnumerable<Perfil> listaPerfiles
         {
             get
             {
-                _listaPerfiles = MS_PerfilService.buscar(searchPerfil, searchModulo);
+                _listaPerfiles = MS_PerfilService.buscar(searchModulo,searchDescripcion);
                 return _listaPerfiles;
             }
             set
@@ -223,6 +277,36 @@ namespace pe.edu.pucp.ferretin.viewmodel.MSeguridad
         /**************************************************/
         public void savePerfil(Object obj)
         {
+            //Actulizo los checkbox seleccionados
+
+            foreach (var menu in menus)
+            {
+                
+                int cantidad = perfil.PerfilMenu.Count(pm => (pm.Menu == menu));
+                if (cantidad <= 0)
+                {
+                    perfil.PerfilMenu.Add(new PerfilMenu { Menu = menu, estado = menu.isChecked, Perfil = perfil });
+                }
+            }
+
+            for (int i = 0; i < perfil.PerfilMenu.Count(); i++)
+            {
+                foreach (var menu in menus)
+                {
+                    if (perfil.PerfilMenu[i].Menu == menu)
+                    {
+                        if (!menu.isChecked)
+                        {
+                            perfil.PerfilMenu[i].estado = false;
+                        }
+                        else
+                        {
+                            perfil.PerfilMenu[i].estado = true;
+                        }
+                    }
+                }
+            }
+
             /*Para actualizar un usuario existente*/
             if (perfil.id > 0)//Si existe
             {

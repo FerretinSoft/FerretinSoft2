@@ -17,9 +17,9 @@ namespace pe.edu.pucp.ferretin.view.MAlmacen
     /// <summary>
     /// Lógica de interacción para MA_SolicitudAbastecimientoWindow.xaml
     /// </summary>
-    public partial class MA_SolicitudAbastecimientoWindow : Window
+    public partial class MA_RegistroSolAbastecimientoWindow : Window
     {
-        public MA_SolicitudAbastecimientoWindow()
+        public MA_RegistroSolAbastecimientoWindow()
         {
             InitializeComponent();
             
@@ -40,5 +40,7 @@ namespace pe.edu.pucp.ferretin.view.MAlmacen
             MCompras.MC_ConsolidarSolicitudesWindow consoli = new MCompras.MC_ConsolidarSolicitudesWindow();
             consoli.Show();
         }
+
+        
     }
 }

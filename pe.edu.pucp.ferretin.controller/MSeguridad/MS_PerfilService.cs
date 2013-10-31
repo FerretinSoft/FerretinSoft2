@@ -80,18 +80,44 @@ namespace pe.edu.pucp.ferretin.controller.MSeguridad
             db.SubmitChanges();
         }
         /*******************************************************/
-        public static IEnumerable<Perfil> buscar(int perfil,int modulo)
+        
+        /*******************************************************/
+        private static IEnumerable<Perfil> _listaPerfilesCombo;
+        private static IEnumerable<Perfil> listaPerfilesCombo
         {
-            return from p in listaPerfiles
-                   where (
-                       //Cada fila es un filtro
-                   (perfil == 0 || (p.nombre != null && p.nombre.Equals(perfil))
-                       //&& (modulo == 0 || (p.estado != null && u.estado.Equals(estado == 1 ? true : false)))
-                    )
-                    )
-                   orderby p.nombre
-                   select p;
+            get
+            {
+                if (_listaPerfilesCombo == null)
+                {
+                    _listaPerfilesCombo = from p in db.Perfil
+                                     select p;
+                }
+                return _listaPerfilesCombo;
+            }
+            set
+            {
+                _listaPerfilesCombo = value;
+            }
         }
         /*******************************************************/
+        public static IEnumerable<Perfil> obtenerPerfiles()
+        {
+            return listaPerfilesCombo;
+        }
+
+        public static IEnumerable<Perfil> buscar(int searchModulo, string searchDescripcion)
+        {
+            return listaPerfiles.Where(p => p.descripcion.Contains(searchDescripcion))
+
+                ;
+        }
+
+        public static Menu menuPadre
+        {
+            get
+            {
+                return db.Menu.Single(m => m.id_menu_padre == null || m.id_menu_padre <= 0);
+            }
+        }
     }
 }

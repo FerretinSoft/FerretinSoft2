@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Net;
 using System.Linq;
 using System.Text;
 using System.Collections.Generic;
@@ -19,6 +20,8 @@ using pe.edu.pucp.ferretin.controller;
 using pe.edu.pucp.ferretin.model;
 using pe.edu.pucp.ferretin.controller.MSeguridad;
 using pe.edu.pucp.ferretin.viewmodel.MSeguridad;
+using System.Net.NetworkInformation;
+using System.Management;
 
 namespace pe.edu.pucp.ferretin.view.MSeguridad
 {
@@ -32,249 +35,48 @@ namespace pe.edu.pucp.ferretin.view.MSeguridad
         {
             InitializeComponent();
         }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        //private void Button_Click(object sender, RoutedEventArgs e)
+        //{
+        //    //IPHostEntry hostEntry = Dns.GetHostEntry(Dns.GetHostName()); 
+        //    //IPAddress[] address = hostEntry.AddressList; 
+        //    ////textBox1.Text = address.GetValue(1).ToString(); 
+        //    //MessageBox.Show(address.Single().MapToIPv4().ToString());
+        //    try
+        //    {
+        //        IPAddress[] a = Dns.GetHostByName(Dns.GetHostName()).AddressList;
+        //        string ip = a[0].ToString();
+        //        //MessageBox.Show(ip);
+
+        //        NetworkInterface[] nics = NetworkInterface.GetAllNetworkInterfaces();
+        //        String sMacAddress = string.Empty;
+        //        foreach (NetworkInterface adapter in nics)
+        //        {
+        //            if (sMacAddress == String.Empty)// only return MAC Address from first card  
+        //            {
+        //                IPInterfaceProperties properties = adapter.GetIPProperties();
+        //                sMacAddress = adapter.GetPhysicalAddress().ToString();
+        //                sMacAddress = string.Join(":", (from z in adapter.GetPhysicalAddress().GetAddressBytes() select z.ToString("X2")).ToArray());                        
+        //            }                    
+        //        }           
+
+        //        MessageBox.Show(sMacAddress);
+        //    }
+        //    catch (Exception f)
+        //    {
+        //        MessageBox.Show(f.Message);
+        //    }
+
+ 
+
+        //} 
     }
+    
 }
 
-//using System;
-//using System.Collections.Generic;
-//using System.Linq;
-//using System.Text;
-//using System.Threading.Tasks;
-//using System.Windows;
-//using System.Windows.Controls;
-//using System.Windows.Data;
-//using System.Windows.Documents;
-//using System.Windows.Input;
-//using System.Windows.Media;
-//using System.Windows.Media.Imaging;
-//using System.Windows.Shapes;
 
-//using System.ComponentModel;
-//using pe.edu.pucp.ferretin.controller;
-//using pe.edu.pucp.ferretin.model;
-//using System.Threading;
-//using System.Windows.Threading;
-//using pe.edu.pucp.ferretin.controller.MSeguridad;
-
-//namespace pe.edu.pucp.ferretin.view.MSeguridad
-//{
-
-//    /**************************************************************************************************************/
-//    public class MS_UsuariosViewModel : INotifyPropertyChanged
-//    {
-//        #region Valores para el cuadro de Búsqueda
-//        public String searchCodigo { get; set; }
-//        public String searchNombreUsuario { get; set; }
-//        public int searchPerfil { get; set; }
-//        public String searchNombres { get; set; }
-//        public String searchApellidos { get; set; }
-//        private int _searchEstado;
-//        public int searchEstado { get { return _searchEstado; } set { _searchEstado = value; NotifyPropertyChanged("searchEstado"); } }
-//        #endregion
-
-//        public enum tabs
-//        {
-//            //Pestañas virtuales:
-//            //0       1        2          3
-//            BUSQUEDA, AGREGAR, MODIFICAR, DETALLES
-//        }
-//        private int _statusTab = (int)tabs.BUSQUEDA; //pestaña default 
-//        public int statusTab
-//        {
-//            get
-//            {
-//                return _statusTab;
-//            }
-//            set
-//            {
-//                _statusTab = value == 0 ? 0 : 1;
-//                //Si cambió el estado de las pestañas también cambio los Header
-//                //Si la pestaña es para agregar nuevo, limpio los input
-//                switch (value)
-//                {
-//                    case (int)tabs.BUSQUEDA: detallesTabHeader = "Agregar"; usuario = new Usuario(); break;//Si es agregar, creo un nuevo objeto Cliente
-//                    case (int)tabs.AGREGAR: detallesTabHeader = "Agregar"; usuario = new Usuario(); break;//Si es agregar, creo un nuevo objeto Cliente
-//                    case (int)tabs.MODIFICAR: detallesTabHeader = "Modificar"; break;
-//                    case (int)tabs.DETALLES: detallesTabHeader = "Detalles"; break;
-//                    default: detallesTabHeader = "Agregar"; usuario = new Usuario(); break;//Si es agregar, creo un nuevo objeto Cliente
-//                }
-//                //Cuando se cambia el status, tambien se tiene que cambiar el currentIndex del tab
-//                //currentIndexTab = _statusTab == 0 ? 0 : 1;
-//                NotifyPropertyChanged("statusTab");
-//            }
-//        }
-
-//        //Usado para mover los tabs de acuerdo a las acciones realizadas
-//        public int currentIndexTab
-//        {
-//            get { return _statusTab == 0 ? 0 : 1; }
-//            set { statusTab = (int)tabs.AGREGAR; NotifyPropertyChanged("currentIndexTab"); }
-//        }
-
-//        private String _detallesTabHeader = "Agregar"; //Default
-//        public String detallesTabHeader
-//        {
-//            get
-//            {
-//                return _detallesTabHeader;
-//            }
-//            set
-//            {
-//                _detallesTabHeader = value;
-//                NotifyPropertyChanged("detallesTabHeader");
-//            }
-//        }
-
-//        private Usuario _usuario = new Usuario();
-//        public Usuario usuario
-//        {
-//            get
-//            {
-//                return _usuario;
-//            }
-//            set
-//            {
-//                _usuario = value;
-//                NotifyPropertyChanged("usuario");
-//            }
-//        }
-
-//        public  IEnumerable<Perfil> perfiles
-//        {
-//            get
-//            {
-//                return MS_UsuarioService.obtenerPerfiles();
-//            }
-//        }
-
-//        #region INotifyPropertyChanged Members
-//        public event PropertyChangedEventHandler PropertyChanged;
-//        public void NotifyPropertyChanged(string propName)
-//        {
-//            if (this.PropertyChanged != null)
-//                this.PropertyChanged(this, new PropertyChangedEventArgs(propName));
-//        }
-//        #endregion
-//    }
-
-
-//    /************************************************************************************************************/
-//    /// <summary>
-//    /// Lógica de interacción para MS_AdministrarUsuarios.xaml
-//    /// </summary>
-//    public partial class MS_AdministrarUsuarios : Window
-//    {
-
-//        //private String contrasena;
-//        MS_UsuariosViewModel MS_UsuariosViewModel = new MS_UsuariosViewModel();
-//        /******************************************************/
-//        public MS_AdministrarUsuarios()
-//        {
-//            InitializeComponent();
-//            Thread thread = new Thread(
-//              new ThreadStart(
-//                delegate()
-//                {
-//                    usuariosGrid.Dispatcher.Invoke(
-//                      DispatcherPriority.Normal,
-//                      new Action(
-//                        delegate()
-//                        {
-//                            usuariosGrid.ItemsSource = MS_UsuarioService.obtenerListaUsuarios();
-//                        }
-//                    ));
-//                }
-//            ));
-//            thread.Start();
-//            DataContext = MS_UsuariosViewModel;
-//            //usuariosDg.ItemsSource = listUsuarios();
-//        }
-//        /******************************************************/
-//        private IEnumerable<Usuario> ListaUsuarios()
-//        {
-//            return MS_UsuarioService.obtenerListaUsuarios();
-//        }
-//        /******************************************************/
-//        public void codigo_Click(object sender, RoutedEventArgs e)
-//        {
-//            if (usuariosGrid.SelectedItem != null)
-//            {
-//                MS_UsuariosViewModel.usuario = (Usuario)usuariosGrid.SelectedItem;
-//                MS_UsuariosViewModel.statusTab = (int)MS_UsuariosViewModel.tabs.MODIFICAR;//Modificar
-//            }
-//        }
-//        /******************************************************
-//        public MS_AdministrarUsuarios(MV_AdministrarVentasWindow MV_AdministrarVentasWindow)
-//        {
-//            InitializeComponent();
-//            Show();
-//        }
-//        /******************************************************/
-//        private void nuevoUsuarioBtn_Click(object sender, RoutedEventArgs e)
-//        {
-//            MS_UsuariosViewModel.statusTab = (int)MS_UsuariosViewModel.tabs.AGREGAR;
-//        }
-//        /******************************************************/
-//        private void cancelarListaUsuarioBtn_Click(object sender, RoutedEventArgs e)
-//        {
-//            MS_UsuariosViewModel.statusTab = (int)MS_UsuariosViewModel.tabs.BUSQUEDA;
-//        }
-//        /******************************************************/
-//        private void buscarUsuariosBtn_Click(object sender, RoutedEventArgs e)
-//        {
-//            Usuario usuario = new Usuario();
-//            usuario.Empleado.dni = (MS_UsuariosViewModel.searchCodigo == null) ? "" : MS_UsuariosViewModel.searchCodigo;
-//            usuario.nombre = (MS_UsuariosViewModel.searchNombreUsuario == null) ? "" : MS_UsuariosViewModel.searchNombreUsuario;
-            
-//            if(MS_UsuariosViewModel.searchPerfil > 0){
-//                Perfil perfil =  MS_UsuariosViewModel.perfiles.ElementAt(MS_UsuariosViewModel.searchPerfil);
-//                usuario.id_perfil = perfil.id;
-//            }
-
-//            if (MS_UsuariosViewModel.searchEstado > 0){
-//                usuario.estado = MS_UsuariosViewModel.searchEstado;
-//            }
-//            /*else if (MS_UsuariosViewModel.searchEstado == 2)
-//            {
-//                usuario.estado = false;
-//            }
-//            else
-//            {
-//                usuario.estado = null;
-//            }*/
-
-//            Empleado empleado = new Empleado();
-//            empleado.nombre = (MS_UsuariosViewModel.searchNombres == null) ? "" : MS_UsuariosViewModel.searchNombres;
-//            empleado.apPaterno = (MS_UsuariosViewModel.searchApellidos == null) ? "" : MS_UsuariosViewModel.searchApellidos;
-//            empleado.apMaterno = (MS_UsuariosViewModel.searchApellidos == null) ? "" : MS_UsuariosViewModel.searchApellidos;
-            
-//            usuariosGrid.ItemsSource = MS_UsuarioService.obtenerListaUsuariosBy(usuario, empleado);
-//        }
-//        /******************************************************/
-//        private void guardarDetalleUsuarioBtn_Click(object sender, RoutedEventArgs e)
-//        {
-//            //Puede ser nuevo o modificar
-//            if (MS_UsuariosViewModel.usuario.Empleado.dni != null)
-//            {
-//                //MS_UsuariosViewModel.usuario.contrasena = this.contrasena;
-//                MS_UsuarioService.actualizarUsuario(MS_UsuariosViewModel.usuario);
-//            }
-//            else
-//            {
-//                //MS_UsuariosViewModel.usuario.contrasena = this.contrasena;
-//                MS_UsuarioService.insertarUsuario(MS_UsuariosViewModel.usuario);
-//            }
-//            MS_UsuariosViewModel.statusTab = (int)MS_UsuariosViewModel.tabs.BUSQUEDA;
-//        }
-
-
-//       /*private void pwboxContrasena_PasswordChanged(object sender, RoutedEventArgs e)
-//        {
-//            this.contrasena = pwboxContrasena.Password.ToString();
-//        }*/
-
-
-//        /******************************************************/
-
-//    }
-//}

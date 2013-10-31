@@ -23,8 +23,8 @@ namespace pe.edu.pucp.ferretin.viewmodel.MSeguridad
         private String _searchNombreUsuario = "";
         public String searchNombreUsuario { get { return _searchNombreUsuario; } set { _searchNombreUsuario = value; } }
 
-        private int _searchPerfil = 0;
-        public int searchPerfil { get { return _searchPerfil; } set { _searchPerfil = value; NotifyPropertyChanged("searchPerfil"); } }
+        private Perfil _searchPerfil = null;
+        public Perfil searchPerfil { get { return _searchPerfil; } set { _searchPerfil = value; NotifyPropertyChanged("searchPerfil"); } }
 
         private String _searchNombres = "";
         public String searchNombres { get { return _searchNombres; } set { _searchNombres = value; } }
@@ -36,6 +36,20 @@ namespace pe.edu.pucp.ferretin.viewmodel.MSeguridad
         public int searchEstado { get { return _searchEstado; } set { _searchEstado = value; NotifyPropertyChanged("searchEstado"); } }
         #endregion
 
+        public String _dniEmpleado = "";
+        public String dniEmpleado
+        {
+            get { return _dniEmpleado; }
+            set { _dniEmpleado = value; NotifyPropertyChanged("dniEmpleado"); }
+        }
+
+        public bool editEmpleadoEnabled
+        {
+            get
+            {
+                return statusTab == tabs.AGREGAR ? true : false;
+            }
+        }
 
         #region Manejo de los Tabs
         /************************************************/
@@ -61,7 +75,7 @@ namespace pe.edu.pucp.ferretin.viewmodel.MSeguridad
                 switch (value)
                 {
                     case tabs.BUSQUEDA: detallesTabHeader = "Agregar"; usuario = new Usuario(); break;//Si es agregar, creo un nuevo objeto Usuario
-                    case tabs.AGREGAR: detallesTabHeader = "Agregar"; usuario = new Usuario(); break;//Si es agregar, creo un nuevo objeto Usuario
+                    case tabs.AGREGAR: detallesTabHeader = "Agregar"; usuario = new Usuario();  break;//Si es agregar, creo un nuevo objeto Usuario
                     case tabs.MODIFICAR: detallesTabHeader = "Modificar"; break;
                     case tabs.DETALLES: detallesTabHeader = "Detalles"; break;
                     default: detallesTabHeader = "Agregar"; usuario = new Usuario(); break;//Si es agregar, creo un nuevo objeto Cliente
@@ -71,6 +85,7 @@ namespace pe.edu.pucp.ferretin.viewmodel.MSeguridad
                 NotifyPropertyChanged("statusTab");
                 //Cuando se cambia el status, tambien se tiene que actualizar el currentIndex del tab
                 NotifyPropertyChanged("currentIndexTab"); //Hace que cambie el tab automaticamente
+                NotifyPropertyChanged("editEmpleadoEnabled");
             }
         }
         /************************************************/
@@ -110,6 +125,14 @@ namespace pe.edu.pucp.ferretin.viewmodel.MSeguridad
             set
             {
                 _usuario = value;
+                if (value != null && value.Empleado != null)
+                {
+                    dniEmpleado = value.Empleado.dni;
+                }
+                else
+                {
+                    dniEmpleado = "";
+                }
                 NotifyPropertyChanged("usuario");
             }
         }
@@ -118,7 +141,13 @@ namespace pe.edu.pucp.ferretin.viewmodel.MSeguridad
         {
             get
             {
-                return MS_UsuarioService.obtenerPerfiles();
+                //Creo una nueva secuencia
+                var sequence = Enumerable.Empty<Perfil>();
+                //Primero agrego un item de Todos para que salga al inicio
+                //Pongo el ID en 0 para que al buscar, no filtre nada cuando se selecciona todos
+                IEnumerable<Perfil> items = new Perfil[] { new Perfil{id=0,nombre="Todos"} };
+                //Luego concateno el itemcon los elementos del combobox
+                return items.Concat(MS_UsuarioService.obtenerPerfiles());
             }
         }
         /**************************************************/
@@ -206,6 +235,33 @@ namespace pe.edu.pucp.ferretin.viewmodel.MSeguridad
             }
         }
         /**************************************************/
+        RelayCommand _buscarClienteCommand;
+        public ICommand buscarClienteCommand
+        {
+            get
+            {
+                if (_buscarClienteCommand == null)
+                {
+                    _buscarClienteCommand = new RelayCommand(buscarCliente);
+                }
+                return _buscarClienteCommand;
+            }
+        }
+        /*************************************************/
+        RelayCommand _restbContrasenaCommand;
+        public ICommand restbContrasenaCommand
+        {
+            get
+            {
+                if (_restbContrasenaCommand == null)
+                {
+                    _restbContrasenaCommand = new RelayCommand(restbContrasena);
+                }
+                return _restbContrasenaCommand;
+            }
+        }
+
+
         #endregion
 
         #region Comandos
@@ -232,7 +288,7 @@ namespace pe.edu.pucp.ferretin.viewmodel.MSeguridad
         {
             /*Para actualizar un usuario existente*/
             if (usuario.id > 0)//Si existe
-            {
+            {                
                 if (!MS_UsuarioService.enviarCambios())
                 {
                     MessageBox.Show("No se pudo actualizar el usuario");
@@ -245,6 +301,13 @@ namespace pe.edu.pucp.ferretin.viewmodel.MSeguridad
             /*Para agregar un usuario nuevo*/
             else
             {
+                /*valores por defecto */
+                usuario.contrasena = MS_UsuarioService.encrypt("ferretinSoft");                
+                List<Parametro>  listaParametros;
+                listaParametros = MS_ParametroService.obtenerListaParametros().ToList();
+                usuario.intentosCon = Convert.ToInt16(listaParametros[0].valor);
+                /**********************/
+
                 if (!MS_UsuarioService.insertarUsuario(usuario))
                 {
                     MessageBox.Show("No se pudo agregar el nuevo usuario");
@@ -263,7 +326,45 @@ namespace pe.edu.pucp.ferretin.viewmodel.MSeguridad
             listaUsuarios = MS_UsuarioService.listaUsuarios;
         }
         /**************************************************/
+
+        public void restbContrasena(Object obj)
+        {
+            if (usuario.id > 0)//Si existe
+            {
+                usuario.contrasena = MS_UsuarioService.encrypt("ferretinSoft");
+
+                if (!MS_UsuarioService.enviarCambios())
+                {
+                    MessageBox.Show("No se puedo cambiar la contraseña");
+                }
+                else
+                {
+                    MessageBox.Show("La contraseña se restablecio con éxito");
+                }
+            }           
+        }
+
         #endregion
+
+        void buscarCliente(object var)
+        {
+            if (dniEmpleado.Trim().Length > 0)
+            {
+                Empleado empleado = MR_SharedService.obtenerEmpleadoPorDNI(dniEmpleado);
+                if (empleado != null)
+                {
+                    usuario.Empleado = empleado; 
+                }
+                else
+                {
+                    MessageBox.Show("No se encontro un cliente con el DNI ingresado");
+                }
+            }
+            else
+            {
+                MessageBox.Show("Debe ingresar el DNI de algún empleado");
+            }
+        }
 
     }
 }

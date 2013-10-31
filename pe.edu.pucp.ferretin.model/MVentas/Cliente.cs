@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
@@ -7,8 +8,13 @@ using System.Threading.Tasks;
 
 namespace pe.edu.pucp.ferretin.model
 {
-    public partial class Cliente
+    /// <summary>
+    /// Clase extendida de la entidad Cliente, con la cual también se podrán hacer validaciones
+    /// </summary>
+    public partial class Cliente : IDataErrorInfo
     {
+
+        #region Zona de atributos
 
         public int tipo
         {
@@ -48,31 +54,106 @@ namespace pe.edu.pucp.ferretin.model
                 return String.Join(" ", nombre, apPaterno, apMaterno);
             }
         }
-
-        partial void Ontelefono1Changing(String value)
+        #endregion
+        
+        #region Zona de Validaciones
+        
+        #region Código por default de la interfaz heredada
+        public string Error
         {
-            Regex telefonoNumero = new Regex(@"^[2-9]\d{2}-\d{4}$");
-            if (telefonoNumero.IsMatch(value) == false)
+            get { throw new NotImplementedException(); }
+        }
+
+        protected Dictionary<string, string> _errors = new Dictionary<string, string>();
+        public IDictionary<string, string> Errors
+        {
+            get { return _errors; }
+        }
+        #endregion
+        
+        public string this[string columnName]
+        {
+            get
             {
-                throw new Exception("Numero de teléfono no válido");
+                string errorMessage = string.Empty;
+                this.Errors.Remove(columnName);
+
+                switch (columnName)
+                {
+                    case "telefono1":
+                        if (String.IsNullOrEmpty(this.telefono1))
+                        {
+                            errorMessage = "El Teléfono 1 no debe estar vacio.";
+                        }
+
+                        break;
+                    case "nroDoc":
+                        if (String.IsNullOrEmpty(this.nroDoc))
+                        {
+                            errorMessage = "Debe ingresar un número de documento.";
+                        }
+                        else
+                        {
+                            Int64 nro=0;
+                            Int64.TryParse(nroDoc, out nro);
+                            if (tipoDocumento == "DNI" || tipoDocumento == "RUC")
+                            {
+                                if (tipoDocumento=="DNI" && ( nro < 10000000 || nro > 99999999) )
+                                {
+                                    errorMessage = "El DNI debe tener 8 números";
+                                }
+                                if (tipoDocumento == "RUC" && ( nro < 10000000000 || nro > 99999999999) )
+                                {
+                                    errorMessage = "El RUC debe tener 11 números";
+                                }
+                            }
+                            else
+                            {
+                                errorMessage = "Debe seleccionar un tipo de documento";
+                            }
+                        }
+                        break;
+                    case "nombre":
+                        if (String.IsNullOrEmpty(nombre))
+                        {
+                            if(tipoDocumento=="DNI")
+                                errorMessage = "Debe ingresar un Nombre para el Cliente";
+                            else if (tipoDocumento == "RUC")
+                                errorMessage = "Debe Ingresar la Razón Social de la Empresa";
+                            else
+                                errorMessage = "Debe seleccionar un tipo de documento";
+                        }
+                        break;
+                    case "apPaterno":
+                        if (tipoDocumento == "DNI" && String.IsNullOrEmpty(apPaterno))
+                        {
+                            errorMessage = "Debe ingresar un Apellido Paterno para el Cliente";
+                        }
+                        break;
+                    case "apMaterno":
+                        if (tipoDocumento=="DNI" && String.IsNullOrEmpty(apMaterno))
+                        {
+                            errorMessage = "Debe ingresar un Apellido Materno para el Cliente";
+                        }
+                        break;
+                    case "UbigeoDistrito":
+                        if (UbigeoDistrito == null || String.IsNullOrEmpty(UbigeoDistrito.id))
+                        {
+                            errorMessage = "Debe seleccionar un Pais, Provincia, Ciudad y Distrito";
+                        }
+                        break;
+                }
+
+                if (!string.IsNullOrEmpty(errorMessage))
+                {
+                    this.Errors.Add(columnName, errorMessage);
+                }
+
+                return errorMessage;
             }
         }
 
-        partial void OnnroDocChanging(String value)
-        {
-            Int64 nroDoc = Int64.Parse(value);
-            if (nroDoc <= 0)
-            {
-                throw new Exception("El número de documento debe contener un valor numérico");
-            }
-            if (tipoDocumento.Equals("DNI") && (nroDoc>99999999 || nroDoc<10000000))
-            {
-                throw new Exception("El DNI debe tener exactamente 8 números");
-            }
-            if (tipoDocumento.Equals("RUC") && (nroDoc>99999999999 || nroDoc<10000000000))
-            {
-                throw new Exception("El RUC debe tener exactamente 11 números");
-            }
-        }
+        #endregion
+
     }
 }

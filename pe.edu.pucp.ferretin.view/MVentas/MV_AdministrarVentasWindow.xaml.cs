@@ -11,6 +11,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using pe.edu.pucp.ferretin.controller.MVentas;
 
 namespace pe.edu.pucp.ferretin.view.MVentas
 {
@@ -85,6 +86,7 @@ namespace pe.edu.pucp.ferretin.view.MVentas
         {
             VentasTab.SelectedIndex = 3;
         }
+
 
     }
 }

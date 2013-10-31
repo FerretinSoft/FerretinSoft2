@@ -27,9 +27,7 @@ namespace pe.edu.pucp.ferretin.controller.MCompras
                 {
                     _listaProveedores = db.Proveedor;
                 }
-                //Usando concurrencia pesimista:
-                ///La lista de clientes se actualizara para ver los cambios
-                ///Si quisiera usar concurrencia optimista quito la siguiente linea
+            
                 db.Refresh(RefreshMode.OverwriteCurrentValues, _listaProveedores);
                 return _listaProveedores;
             }
@@ -39,70 +37,38 @@ namespace pe.edu.pucp.ferretin.controller.MCompras
             }
         }
 
-        ///<summary>
-        ///Busca un Cliente por el Número de Documento
-        ///</summary>
-        ///<return>
-        ///Devuelve un Cliente que coincida el Número de Documento 
-        ///</return>
-        ///<param name="nroDoc">
-        ///El Número de Documento que se usará para la busqueda
-        ///</param>
-        //public static Cliente obtenerClienteByNroDoc(String nroDoc)
-        //{
-        //    Cliente cliente = (from c in listaClientes
-        //                       where c.nroDoc != null && c.nroDoc.Equals(nroDoc)
-        //                       select c).First();
-        //    return cliente;
-        //}
+      
 
-        /////<summary>
-        /////Busca un Cliente por el Número de Documento
-        /////</summary>
-        /////<return>
-        /////Devuelve un Cliente que coincida el ID registrado en la Base de Datos 
-        /////</return>
-        /////<param name="id">
-        /////El Identificador que se usará para la busqueda
-        /////</param>
-        //public static Cliente obtenerClienteById(int id)
-        //{
-        //    Cliente cliente = (from c in listaClientes
-        //                       where c.id.Equals(id)
-        //                       select c).Single();
+        
+        /// <summary>
+        /// Guarda un nuevo Proveedor en la Base de Datos
+        /// </summary>
+        /// <param name="cliente">el Proveedor a guardar</param>
+        public static bool insertarProveedor(Proveedor proveedor)
+        {
+            if (!db.Proveedor.Contains(proveedor))
+            {
+                db.Proveedor.InsertOnSubmit(proveedor);
+                return enviarCambios();
+            }
+            else
+            {
+                return false;
+            }
+        }
 
-        //    return cliente;
-        //}
-        ///// <summary>
-        ///// Guarda un nuevo Cliente en la Base de Datos
-        ///// </summary>
-        ///// <param name="cliente">el Cliente a guardar</param>
-        //public static bool insertarCliente(Cliente cliente)
-        //{
-        //    if (!db.Cliente.Contains(cliente))
-        //    {
-        //        db.Cliente.InsertOnSubmit(cliente);
-        //        return enviarCambios();
-        //    }
-        //    else
-        //    {
-        //        return false;
-        //    }
-        //}
-
-        //public static IEnumerable<Cliente> buscarClientes(string nroDoc, string nombre, string apPaterno, string apMaterno, string tipoDocumento)
-        //{
-        //    return from c in listaClientes
-        //           where
-        //           (c.nroDoc != null && c.nroDoc.Contains(nroDoc)
-        //               && c.nombre != null && c.nombre.Contains(nombre)
-        //               && c.apPaterno != null && c.apPaterno.Contains(apPaterno)
-        //               && c.apMaterno != null && c.apMaterno.Contains(apMaterno)
-        //               && c.tipoDocumento != null && c.tipoDocumento.Contains(tipoDocumento)
-        //            )
-        //           orderby c.nroDoc
-        //           select c;
-        //}
+        public static IEnumerable<Proveedor> buscarProveedores(string ruc, string razonSoc, string rubro)
+        {
+            return from p in listaProveedores
+                   where
+                   (p.razonSoc != null && p.razonSoc.Contains(razonSoc)
+                       && p.ruc != null && p.ruc.Contains(ruc)
+                       && p.Rubro != null && p.Rubro.nombre.Contains(rubro)
+                  
+                    )
+                   orderby p.razonSoc
+                   select p;
+        }
 
         #endregion
     }

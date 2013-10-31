@@ -1,4 +1,5 @@
 ﻿using pe.edu.pucp.ferretin.controller;
+using pe.edu.pucp.ferretin.controller.MAlmacen;
 using pe.edu.pucp.ferretin.model;
 using System;
 using System.Collections.Generic;
@@ -37,6 +38,47 @@ namespace pe.edu.pucp.ferretin.viewmodel
 
         #endregion INotifyPropertyChanged Members
 
+        #region " Declaraciones "
+
+        private Dictionary<string, UIValidationError> _uIValidationErrorDictionary = new Dictionary<string, UIValidationError>();
+
+        #endregion 
+
+        #region " Propiedades "
+
+        public int UIValidationErrorCount
+        {
+            get { return _uIValidationErrorDictionary.Count; }
+        }
+
+        public string UIValidationErrorMessages
+        {
+            get
+            {
+
+                if (UIValidationErrorCount > 0)
+                {
+
+                    System.Text.StringBuilder sb = new System.Text.StringBuilder(1024);
+
+                    foreach (KeyValuePair<string, UIValidationError> kvp in _uIValidationErrorDictionary)
+                    {
+                        sb.AppendLine(kvp.Value.ToFriendlyErrorMessage());
+                    }
+
+                    return sb.ToString();
+                }
+
+                else
+                {
+                    return string.Empty;
+                }
+            }
+
+        }
+
+        #endregion 
+    
         private IEnumerable<Tienda> _almacenes;
         public IEnumerable<Tienda> almacenes
         {
@@ -51,6 +93,23 @@ namespace pe.edu.pucp.ferretin.viewmodel
             set
             {
                 _almacenes = value;
+            }
+        }
+
+        private IEnumerable<Tienda> _tiendas;
+        public IEnumerable<Tienda> tiendas
+        {
+            get
+            {
+                if (_tiendas == null)
+                {
+                    _tiendas = ComunService.tiendas;
+                }
+                return _tiendas;
+            }
+            set
+            {
+                _tiendas = value;
             }
         }
 
@@ -128,6 +187,29 @@ namespace pe.edu.pucp.ferretin.viewmodel
             {
                 _distritos = value;
                 NotifyPropertyChanged("distritos");
+            }
+        }
+
+        /// <summary>
+        /// Estado de las solicitudes de abastecimiento
+        /// </summary>
+        private IEnumerable<SolicitudAbastecimientoEstado> _estadoSolicitud;
+        public IEnumerable<SolicitudAbastecimientoEstado> estadoSolicitud
+        {
+            get
+            {
+                if (_estadoSolicitud == null)
+                {
+                    var sequence = Enumerable.Empty<SolicitudAbastecimientoEstado>();
+                    IEnumerable<SolicitudAbastecimientoEstado> items = new SolicitudAbastecimientoEstado[] { new SolicitudAbastecimientoEstado { id = 0, nombre = "Todos" } };
+                    return items.Concat(MA_SharedService.estadosSolicitud);
+                }
+                return _estadoSolicitud;
+            }
+            set
+            {
+                _estadoSolicitud = value;
+                NotifyPropertyChanged("estadoSolicitud");
             }
         }
     }
