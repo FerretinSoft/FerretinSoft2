@@ -36,6 +36,11 @@ namespace pe.edu.pucp.ferretin.view.MSeguridad
             InitializeComponent();
         }
 
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
         //private void Button_Click(object sender, RoutedEventArgs e)
         //{
         //    //IPHostEntry hostEntry = Dns.GetHostEntry(Dns.GetHostName()); 
