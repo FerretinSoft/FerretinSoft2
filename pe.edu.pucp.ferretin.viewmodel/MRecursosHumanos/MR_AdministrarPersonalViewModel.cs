@@ -217,7 +217,7 @@ namespace pe.edu.pucp.ferretin.viewmodel.MRecursosHumanos
             {
                 if (_saveEmpleadoCommand == null)
                 {
-                    _saveEmpleadoCommand = new RelayCommand(saveEmpleado);
+                    _saveEmpleadoCommand = new RelayCommand(saveEmpleado,canSaveExecute);
                 }
                 return _saveEmpleadoCommand;
             }
@@ -287,6 +287,12 @@ namespace pe.edu.pucp.ferretin.viewmodel.MRecursosHumanos
         {
             this.statusTab = Tab.BUSQUEDA;
             listaEmpleados = MR_EmpleadoService.listaEmpleados;
+        }
+
+
+        private bool canSaveExecute(object obj)
+        {
+            return base.UIValidationErrorCount == 0 && this.empleado.Errors.Count == 0;
         }
         #endregion
 
