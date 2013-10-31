@@ -23,10 +23,21 @@ namespace pe.edu.pucp.ferretin.view.MSeguridad
     public partial class MS_CambiarContraseñaUsuario : Window
     {
         Usuario usuarioLog;
+        int primeraVez;
 
         public MS_CambiarContraseñaUsuario(Usuario usuario)
         {
             usuarioLog = usuario;
+
+            if (usuarioLog.contrasena == MS_UsuarioService.encrypt("ferretinSoft"))
+            {
+                primeraVez = 1;
+            }
+            else
+            {
+                primeraVez = 0;
+            }
+
             InitializeComponent();
         }
 
@@ -37,8 +48,17 @@ namespace pe.edu.pucp.ferretin.view.MSeguridad
                 usuarioLog.contrasena = MS_UsuarioService.encrypt(nuevaCon.Password);
                 MS_UsuarioService.actualizarUsuario(usuarioLog);
                 MessageBox.Show("Contraseña Cambiada Correctamente");
+
+                if (primeraVez == 1)
+                {
+                    MS_LoginWindow lw = new MS_LoginWindow();
+                    lw.Show();
+                }
+
                 this.Close();
             }
+
+            
 
         }
 
