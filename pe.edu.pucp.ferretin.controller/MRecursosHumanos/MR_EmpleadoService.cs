@@ -53,7 +53,7 @@ namespace pe.edu.pucp.ferretin.controller.MRecursosHumanos
 
         public static bool insertarEmpleado(Empleado empleado) 
         {
-            empleado.codEmpleado = 100000 + listaEmpleados.Count();
+            empleado.codEmpleado = 100050 + listaEmpleados.Count();
             if (!db.Empleado.Contains(empleado))
             {
                 db.Empleado.InsertOnSubmit(empleado); 
