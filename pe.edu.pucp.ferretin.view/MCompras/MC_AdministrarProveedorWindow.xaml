@@ -13,14 +13,14 @@
                     <GroupBox Header="Parámetros" Margin="10,8,10,0" BorderBrush="Black" Height="72" VerticalAlignment="Top"/>
                     <Label Content="RUC:" Height="26" Width="45" Margin="21,35,0,0" VerticalAlignment="Top" HorizontalAlignment="Left"/>
                     <Label Content="Razón Social:" Height="26"  Width="90" Margin="210,35,0,0" VerticalAlignment="Top" HorizontalAlignment="Left"/>
-                    <TextBox HorizontalAlignment="Left" Height="20" Margin="65,41,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
-                    <TextBox HorizontalAlignment="Left" Height="20" Margin="300,41,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="250"/>
+                    <TextBox Text="{Binding searchRuc, Mode=TwoWay}" HorizontalAlignment="Left" Height="20" Margin="65,41,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
+                    <TextBox Text="{Binding searchRazonSoc, Mode=TwoWay}" HorizontalAlignment="Left" Height="20" Margin="300,41,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="250"/>
                     <Label Content="Rubro:" HorizontalAlignment="Left" Margin="567,35,0,0" VerticalAlignment="Top"/>
-                    <ComboBox HorizontalAlignment="Left" Margin="620,39,0,0" VerticalAlignment="Top" Height="20" Width="120" RenderTransformOrigin="1.625,5.182">
+                    <ComboBox SelectedIndex="{Binding searchRubro, Mode=TwoWay}" HorizontalAlignment="Left" Margin="620,39,0,0" VerticalAlignment="Top" Height="20" Width="120" RenderTransformOrigin="1.625,5.182">
                         <ListBoxItem Content="Cemento"/>
                         <ListBoxItem Content="Electrificación"/>
                     </ComboBox>
-                    <Button x:Name="buscarClienteBtn" HorizontalAlignment="Left" Margin="819,33,0,0" VerticalAlignment="Top" Width="32" Height="32" RenderTransformOrigin="0.3,-0.35">
+                    <Button Command="{Binding actualizarListaProveedoresCommand}"  HorizontalAlignment="Left" Margin="819,33,0,0" VerticalAlignment="Top" Width="32" Height="32" RenderTransformOrigin="0.3,-0.35">
                         <Button.Background>
                             <ImageBrush ImageSource="../Resources/refresh2_48.png"/>
                         </Button.Background>
@@ -32,7 +32,7 @@
                                     <DataTemplate>
                                         <TextBlock>
                                         <Hyperlink 
-                                            Command="{Binding Path=DataContext.viewEditClienteCommand, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type DataGrid}}}" 
+                                            Command="{Binding Path=DataContext.viewEditProveedorCommand, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type DataGrid}}}" 
                                             CommandParameter="{Binding id}">
                                             <TextBlock Text="{Binding id}" />
                                         </Hyperlink>
@@ -43,7 +43,7 @@
                             <DataGridTextColumn Width="4.8*" Header="Razón Social" Binding="{Binding Path=razonSoc}"/>
                             <DataGridTextColumn Width="2.5*" Header="RUC" Binding="{Binding Path=ruc}">
                             </DataGridTextColumn>
-                            <DataGridTextColumn Width="3*" Header="Rubro" Binding="{Binding Path=rubro}"/>
+                            <DataGridTextColumn Width="3*" Header="Rubro" Binding="{Binding Path= Rubro.nombre}"/>
                             <DataGridTextColumn Width="2.7*" Header="Teléfono" Binding="{Binding Path=telefono}"/>
                             <DataGridCheckBoxColumn Width="1.28*" Binding="{x:Null}" ClipboardContentBinding="{x:Null}" Header="Seleccionar"/>
                         </DataGrid.Columns>
