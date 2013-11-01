@@ -12,6 +12,8 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using pe.edu.pucp.ferretin.controller.MVentas;
+using pe.edu.pucp.ferretin.model;
+using pe.edu.pucp.ferretin.viewmodel.MVentas;
 
 namespace pe.edu.pucp.ferretin.view.MVentas
 {
@@ -34,57 +36,14 @@ namespace pe.edu.pucp.ferretin.view.MVentas
 
         
 
-        public MV_AdministrarVentasWindow(MV_DevolucionesWindow devolucionesWindow)
-        {
-            InitializeComponent();
-            Owner = devolucionesWindow;
-            rowSelectVentaLista.Height = GridLength.Auto;
-            rowSelectVentaDetalle.Height = GridLength.Auto;
 
-            seleccionarListaVentaBtn.Click += devolucionesWindow.seleccionarVenta;
-            Show();
-        }
-        private void detalleVentaBtn_Click(object sender, RoutedEventArgs e)
+        private void TextBox_LostFocus(object sender, RoutedEventArgs e)
         {
-            VentasTab.SelectedIndex = 1;
-        }
-
-        //MV_ClientesWindow clientesWindow;
-        private void buscarClienteBtn_Click(object sender, RoutedEventArgs e)
-        {
-            //clientesWindow = new MV_ClientesWindow(this);
-        }
-
-        public void seleccionarCliente(object sender, RoutedEventArgs e)
-        {
-            //clientesWindow.Close();
-        }
-
-        private void buscarVendedorBtn_Click(object sender, RoutedEventArgs e)
-        {
-            //PersonalAdminWindow pw = new PersonalAdminWindow();
-            //pw.Show();
-        }
-
-
-        private void cerrarVentana()
-        {
-            this.Close();
-        }
-
-        private void cancelarListaVentaBtn_Click(object sender, RoutedEventArgs e)
-        {
-            cerrarVentana();
-        }
-
-        private void editarVentaBtn_Click(object sender, RoutedEventArgs e)
-        {
-            VentasTab.SelectedIndex = 1;
-        }
-
-        private void editarPromocionBtn_Click(object sender, RoutedEventArgs e)
-        {
-            VentasTab.SelectedIndex = 3;
+            Cliente cliente = MV_ClienteService.obtenerClienteByNroDoc(searchNroDoc.Text);
+            if (cliente != null)
+                nombreCliente.Text = cliente.nombreCompleto;
+            else
+                nombreCliente.Text = "";
         }
 
 

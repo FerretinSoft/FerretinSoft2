@@ -11,6 +11,8 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using pe.edu.pucp.ferretin.controller.MVentas;
+using pe.edu.pucp.ferretin.model;
 
 namespace pe.edu.pucp.ferretin.view.MVentas
 {
@@ -49,32 +51,34 @@ namespace pe.edu.pucp.ferretin.view.MVentas
 
         }
 
-        private MV_AdministrarVentasWindow ventasWindow;
-        private void buscarVentaBtn_Click(object sender, RoutedEventArgs e)
-        {
-            ventasWindow = new MV_AdministrarVentasWindow(this);
-        }
-        public void seleccionarVenta(object sender, RoutedEventArgs e)
-        {
-            codVentaList.Text = ventasWindow.selectedCodVenta.ToString();
-            ventasWindow.Close();
-        }
 
 
-        private void codVentaList_KeyDown(object sender, KeyEventArgs e)
+        private void TextBox_LostFocus(object sender, RoutedEventArgs e)
         {
-            if (e.Key == Key.Enter)
+            Cliente cliente = MV_ClienteService.obtenerClienteByNroDoc(searchNroDoc.Text);
+            if (cliente != null)
+                nombreCliente.Text = cliente.nombreCompleto;
+            else
+                nombreCliente.Text = "";
+        }
+
+        private void TextBox_SelectionChanged_1(object sender, RoutedEventArgs e)
+        {
+            Venta venta = MV_VentaService.obtenerVentaByCodVenta(codVenta.Text);
+            if (venta != null)
             {
-                cargarVenta();
-            }
-        }
+                RegNombreCliente.Text = venta.Cliente.nombreCompleto;
+                RegCodCliente.Text = venta.Cliente.nroDoc;
+                productosCompGrid.ItemsSource = MV_VentaService.obtenerProductosbyIdVenta(venta.id);
+                totalComprado.Text = Convert.ToString(venta.total);
 
-        private void cargarVenta()
-        {
-            if (codVentaList.Text.Length > 0)
-            {
-                //cargar venta
             }
+            else
+            {
+                RegNombreCliente.Text = "";
+                RegCodCliente.Text = "";
+            }
+
         }
     }
 }

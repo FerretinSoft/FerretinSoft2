@@ -65,6 +65,8 @@
     <Compile Include="MAlmacen\MA_ProductoService.cs" />
     <Compile Include="MAlmacen\MA_MovimientosService.cs" />
     <Compile Include="MVentas\MV_ComunService.cs" />
+    <Compile Include="MVentas\MV_DevolucionService.cs" />
+    <Compile Include="MVentas\MV_NotaCreditoService.cs" />
     <Compile Include="MVentas\MV_SharedService.cs" />
     <Compile Include="MVentas\MV_VentaService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

@@ -223,7 +223,7 @@ namespace pe.edu.pucp.ferretin.view.MRecursosHumanos
             InitializeComponent();
           
 
-            empleadosGrid.ItemsSource = MR_EmpleadoService.obtenerListaEmpleados();
+            //empleadosGrid.ItemsSource = MR_EmpleadoService.obtenerListaEmpleados();
             personalTabControl.DataContext = MR_AdministrarPersonalViewModel;          
         }
 

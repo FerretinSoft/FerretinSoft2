@@ -1,4 +1,6 @@
-﻿using System;
+﻿using pe.edu.pucp.ferretin.controller.MVentas;
+using pe.edu.pucp.ferretin.model;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -50,6 +52,15 @@ namespace pe.edu.pucp.ferretin.view.MVentas
         public void seleccionarCliente()
         {
 
+        }
+
+        private void TextBox_LostFocus_1(object sender, RoutedEventArgs e)
+        {
+            Cliente cliente = MV_ClienteService.obtenerClienteByNroDoc(searchCodCliente.Text);
+            if (cliente != null)
+                searchNombreCliente.Text = cliente.nombreCompleto;
+            else
+                searchNombreCliente.Text = "";
         }
     }
 }

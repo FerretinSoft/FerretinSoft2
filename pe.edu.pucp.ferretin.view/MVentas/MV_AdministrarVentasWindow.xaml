@@ -11,8 +11,8 @@
             <ImageBrush ImageSource="../Resources/texture_3_100.png" TileMode="FlipX" 
             Viewport="0,0,100,100" ViewportUnits="Absolute"/>
         </Grid.Background>
-        <TabControl x:Name="VentasTab">
-            <TabItem Header="Ventas">
+        <TabControl SelectedIndex="{Binding selectedTab}">
+            <TabItem Header="Ventas" Height="23" VerticalAlignment="Top">
                 <Grid Background="#FFE5E5E5">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition/>
@@ -49,8 +49,8 @@
                                     <ColumnDefinition></ColumnDefinition>
                                     <ColumnDefinition Width="Auto"></ColumnDefinition>
                                 </Grid.ColumnDefinitions>
-                                <TextBox VerticalAlignment="Center" HorizontalAlignment="Stretch"/>
-                                <Button Margin="0,0,5,0" x:Name="buscarClienteBtn" VerticalAlignment="Center" Width="20" Height="20" Click="buscarClienteBtn_Click" BorderThickness="0" Grid.Column="1">
+                                <TextBox LostFocus="TextBox_LostFocus" Text="{Binding searchNroDocCliente, Mode=TwoWay}" x:Name="searchNroDoc" VerticalAlignment="Center" HorizontalAlignment="Stretch"/>
+                                <Button Margin="0,0,5,0" x:Name="buscarClienteBtn" VerticalAlignment="Center" Width="20" Height="20" BorderThickness="0" Grid.Column="1">
                                     <Button.Background>
                                         <ImageBrush ImageSource="../Resources/search1_20.png"/>
                                     </Button.Background>
@@ -62,16 +62,16 @@
                                     <ColumnDefinition></ColumnDefinition>
                                     <ColumnDefinition Width="Auto"></ColumnDefinition>
                                 </Grid.ColumnDefinitions>
-                                <TextBox Text="" VerticalAlignment="Center" IsEnabled="False"/>
-                                <Button x:Name="buscarVendedorBtn" VerticalAlignment="Center" Width="20" Height="20" Grid.Column="1" BorderThickness="0" Click="buscarVendedorBtn_Click">
+                                <TextBox Text="" VerticalAlignment="Center" IsEnabled="True"/>
+                                <Button x:Name="buscarVendedorBtn" VerticalAlignment="Center" Width="20" Height="20" Grid.Column="1" BorderThickness="0">
                                     <Button.Background>
                                         <ImageBrush ImageSource="../Resources/search1_20.png"/>
                                     </Button.Background>
                                 </Button>
                             </Grid>
-                            <TextBox Text="" VerticalAlignment="Center" VerticalContentAlignment="Center" Grid.Column="3" Grid.ColumnSpan="2" Grid.Row="1" IsEnabled="False" Margin="0,2"/>
-                            <DatePicker VerticalAlignment="Center" Grid.Column="1" Grid.Row="2"  BorderThickness="0"/>
-                            <DatePicker VerticalAlignment="Center" Grid.Column="3" Grid.Row="2" BorderThickness="0"/>
+                            <TextBox x:Name="nombreCliente" VerticalAlignment="Center" VerticalContentAlignment="Center" Grid.Column="3" Grid.ColumnSpan="2" Grid.Row="1" IsEnabled="False" Margin="0,2"/>
+                            <DatePicker SelectedDate="{Binding searchFechaInicio, Mode=TwoWay}" VerticalAlignment="Center" Grid.Column="1" Grid.Row="2"  BorderThickness="0"/>
+                            <DatePicker SelectedDate="{Binding searchFechaFin, Mode=TwoWay}" VerticalAlignment="Center" Grid.Column="3" Grid.Row="2" BorderThickness="0"/>
 
                             <Button  Command="{Binding actualizarListaVentasCommand}" Grid.Row="3" BorderThickness="0" Grid.Column="5" Width="25" Height="25" VerticalAlignment="Center">
                                 <Button.Background>
@@ -80,20 +80,6 @@
                             </Button>
                         </Grid>
                     </GroupBox>
-                    <ToolBar HorizontalAlignment="Left" Margin="9,119,0,0" VerticalAlignment="Top" Height="24">
-
-                        <Button x:Name="detalleVentaBtn" Content="" VerticalAlignment="Bottom" Width="20" Margin="0,0,2,-1" Click="editarVentaBtn_Click" Height="20">
-                            <Button.Background>
-                                <ImageBrush ImageSource="../Resources/edit_20.png"/>
-                            </Button.Background>
-                        </Button>
-                        <Button Content="" VerticalAlignment="Bottom" Width="20" Margin="0,0,2,-1" Height="20">
-                            <Button.Background>
-                                <ImageBrush ImageSource="../Resources/trash_20.png"/>
-                            </Button.Background>
-                        </Button>
-
-                    </ToolBar>
                     <DataGrid ItemsSource="{Binding Path=listaVentas}" Margin="5" Grid.Row="1" IsManipulationEnabled="False" IsReadOnly="True" CanUserSortColumns="True" AutoGenerateColumns="False" CanUserAddRows="False" CanUserDeleteRows="False" >
                         <DataGrid.Columns>
                             <DataGridTemplateColumn Width="2.5*" Header="Cod. Venta">
@@ -118,7 +104,7 @@
                     </DataGrid>
                     <StackPanel Orientation="Horizontal" Margin="334,5" Grid.Row="2" HorizontalAlignment="Center">
                         <Button Height="30" x:Name="seleccionarListaVentaBtn" Content="Seleccionar" Padding="5,0" Margin="5,0"/>
-                        <Button Height="30" x:Name="cancelarListaVentaBtn" Content="Cancelar" Padding="5,0" Margin="5,0" Click="cancelarListaVentaBtn_Click" />
+                        <Button Height="30" x:Name="cancelarListaVentaBtn" Content="Cancelar" Padding="5,0" Margin="5,0" />
                     </StackPanel>
                 </Grid>
             </TabItem>
@@ -166,11 +152,11 @@
                         <TextBox IsEnabled="false" Text="{Binding Path=venta.tipoDocumento, Mode=OneWay, ValidatesOnExceptions=true, NotifyOnValidationError=true}" VerticalAlignment="Center" Grid.Column="1" Grid.Row="1" Height="22" Margin="0,2"/>
                         <TextBox IsEnabled="false" Text="{Binding Path=venta.fecha, Mode=OneWay, ValidatesOnExceptions=true, NotifyOnValidationError=true}" VerticalAlignment="Center" Grid.Column="1" Grid.Row="2" Height="22" Margin="0,2"/>
                         <TextBox IsEnabled="false" Text="{Binding Path=venta.Cliente.nroDoc,Mode=OneWay, ValidatesOnExceptions=true, NotifyOnValidationError=true}" VerticalAlignment="Center" Grid.Column="1" Grid.Row="3" Height="22" Margin="0,2"/>
-                        <TextBox IsEnabled="false" Text="{Binding Path=venta.id_usuario, Mode=OneWay, ValidatesOnExceptions=true, NotifyOnValidationError=true}" Margin="0,3" VerticalAlignment="Center" Grid.Column="1" Grid.Row="4" Height="22"/>
-                        <TextBox  Text="{Binding Path=venta.id_cliente, Mode=OneWay, ValidatesOnExceptions=true, NotifyOnValidationError=true}" Margin="0,3" VerticalAlignment="Center" Grid.Column="1" Grid.Row="5" Height="22" IsEnabled="False"/>
+                        <TextBox IsEnabled="false" Text="{Binding Path=venta.nombreCompletoCliente, Mode=OneWay, ValidatesOnExceptions=true, NotifyOnValidationError=true}" Margin="0,3" VerticalAlignment="Center" Grid.Column="1" Grid.Row="4" Height="22"/>
+                        <TextBox Text="{Binding Path=venta.nombreCompletoVendedor, Mode=OneWay, ValidatesOnExceptions=true, NotifyOnValidationError=true}" Margin="0,3" VerticalAlignment="Center" Grid.Column="1" Grid.Row="5" Height="22" IsEnabled="False"/>
                         <TextBox IsEnabled="false"  VerticalAlignment="Center" Grid.Column="1" Grid.Row="6" Height="22" Margin="0,2"/>
                         <TextBox IsEnabled="false"  VerticalAlignment="Center" Grid.Column="1" Grid.Row="7" Height="22" Margin="0,2"/>
-                        <TextBox IsEnabled="false"  VerticalAlignment="Top" Grid.Column="1" Grid.Row="8" Height="22"/>
+                        <TextBox Text="{Binding Path=venta.puntosCanjeados, Mode=OneWay, ValidatesOnExceptions=true, NotifyOnValidationError=true}" IsEnabled="false"  VerticalAlignment="Top" Grid.Column="1" Grid.Row="8" Height="22"/>
 
                     </Grid>
                     <GroupBox Header="Importe" BorderBrush="Gray" Grid.Row="1" HorizontalAlignment="Stretch" Margin="5">
@@ -195,26 +181,26 @@
                             <TextBox   Text="{Binding Path=venta.total,Mode=OneWay, ValidatesOnExceptions=true, NotifyOnValidationError=true}" VerticalAlignment="Center" IsEnabled="False" TextAlignment="Right" Grid.Column="1" Grid.Row="2"/>
                         </Grid>
                     </GroupBox>
-                    <DataGrid Margin="5" Grid.Column="1">
+                    <DataGrid ItemsSource="{Binding Path=listaProductos}" AutoGenerateColumns="False" Margin="5" Grid.Column="1">
                         <DataGrid.Columns>
-                            <DataGridHyperlinkColumn Width="1*" Binding="{x:Null}" ContentBinding="{x:Null}" ClipboardContentBinding="{x:Null}" Header="Cód Prod"/>
-                            <DataGridTextColumn Width="1.4*" Binding="{x:Null}" ClipboardContentBinding="{x:Null}" Header="Descripción"/>
-                            <DataGridTextColumn Width="0.7*" Binding="{x:Null}" ClipboardContentBinding="{x:Null}" Header="Cant."/>
-                            <DataGridTextColumn Width="1*" Binding="{x:Null}" ClipboardContentBinding="{x:Null}" Header="Moneda"/>
-                            <DataGridTextColumn Width="0.9*" Binding="{x:Null}" ClipboardContentBinding="{x:Null}" Header="Precio"/>
-                            <DataGridTextColumn Width="1*" Binding="{x:Null}" ClipboardContentBinding="{x:Null}" Header="Dscto(%)"/>
-                            <DataGridTextColumn Width="1*" Binding="{x:Null}" ClipboardContentBinding="{x:Null}" Header="Importe"/>
-                            <DataGridTextColumn Width="1.2*" Binding="{x:Null}" ClipboardContentBinding="{x:Null}" Header="Precio Ptos"/>
-                            <DataGridTextColumn Width="0.9*" Binding="{x:Null}" ClipboardContentBinding="{x:Null}" Header="Canjear"/>
+                            <DataGridTextColumn Width="1*" Binding="{Binding Path=Producto.codigo}" ClipboardContentBinding="{x:Null}" Header="Cód Prod"/>
+                            <DataGridTextColumn Width="1.4*" Binding="{Binding Path=Producto.nombre}" ClipboardContentBinding="{x:Null}" Header="Descripción"/>
+                            <DataGridTextColumn Width="0.7*"  Binding="{Binding Path=cantidad}" ClipboardContentBinding="{x:Null}" Header="Cant."/>
+                            <DataGridTextColumn Width="1*"  ClipboardContentBinding="{x:Null}" Header="Moneda"/>
+                            <DataGridTextColumn Width="0.9*" Binding="{Binding Path=Producto.precioLista}" ClipboardContentBinding="{x:Null}" Header="Precio"/>
+                            <DataGridTextColumn Width="1*" ClipboardContentBinding="{x:Null}" Header="Dscto(%)"/>
+                            <DataGridTextColumn Width="1*"  Binding="{Binding Path=montoParcial}" ClipboardContentBinding="{x:Null}" Header="Importe"/>
+                            <DataGridTextColumn Width="1.2*" Binding="{Binding Path=precioPuntos}" ClipboardContentBinding="{x:Null}" Header="Precio Ptos"/>
+                            <DataGridTextColumn Width="0.9*" ClipboardContentBinding="{x:Null}" Header="Canjeado"/>
                         </DataGrid.Columns>
                     </DataGrid>
-                    <DataGrid Grid.Row="1" Grid.Column="1" Margin="5" >
+                    <DataGrid ItemsSource="{Binding Path=listaMedioPago}" Grid.Row="1" Grid.Column="1" Margin="5" AutoGenerateColumns="False">
                         <DataGrid.Columns>
-                            <DataGridComboBoxColumn Width="1*" ClipboardContentBinding="{x:Null}" Header="Modo Pago" SelectedValueBinding="{x:Null}" SelectedItemBinding="{x:Null}" TextBinding="{x:Null}"/>
-                            <DataGridTextColumn Width="2*" Binding="{x:Null}" ClipboardContentBinding="{x:Null}" Header="Descripción"/>
-                            <DataGridTextColumn Width="1*" Binding="{x:Null}" ClipboardContentBinding="{x:Null}" Header="Cod. Vale"/>
-                            <DataGridComboBoxColumn Width="1*" ClipboardContentBinding="{x:Null}" Header="Moneda" SelectedValueBinding="{x:Null}" SelectedItemBinding="{x:Null}" TextBinding="{x:Null}"/>
-                            <DataGridTextColumn Width="1*" Binding="{x:Null}" ClipboardContentBinding="{x:Null}" Header="Importe"/>
+                            <DataGridTextColumn Width="1*" Binding="{Binding Path=MedioPago.nombre}" ClipboardContentBinding="{x:Null}" Header="Modo Pago"/>
+                            <DataGridTextColumn Width="2*" Binding="{Binding Path=MedioPago.descripcion}" ClipboardContentBinding="{x:Null}" Header="Descripción"/>
+                            <DataGridTextColumn Width="1*" ClipboardContentBinding="{x:Null}" Header="Cod. Vale"/>
+                            <DataGridTextColumn Width="1*" Header="Moneda"/>
+                            <DataGridTextColumn Width="1*" Binding="{Binding Path=monto}" ClipboardContentBinding="{x:Null}" Header="Importe"/>
                         </DataGrid.Columns>
                     </DataGrid>
                     <GridSplitter Grid.RowSpan="2" Width="2" BorderBrush="Gray"/>
