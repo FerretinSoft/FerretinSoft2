@@ -47,9 +47,12 @@
     <Compile Include="Base\ComunService.cs" />
     <Compile Include="MAlmacen\MA_ComunService.cs" />
     <Compile Include="MAlmacen\MA_EstadoMovimientoService.cs" />
+    <Compile Include="MAlmacen\MA_InventarioService.cs" />
     <Compile Include="MAlmacen\MA_SharedService.cs" />
+    <Compile Include="MAlmacen\MA_SolicitudAbastecimientoService.cs" />
     <Compile Include="MAlmacen\MA_TipoMovimientoService.cs" />
     <Compile Include="MCompras\MC_ComunService.cs" />
+    <Compile Include="MCompras\MC_DocumentoCompraService.cs" />
     <Compile Include="MCompras\MC_ProveedorService.cs" />
     <Compile Include="MCompras\MC_SharedService.cs" />
     <Compile Include="MRecursosHumanos\MR_SharedService.cs" />
@@ -59,6 +62,7 @@
     <Compile Include="MSeguridad\MS_ComunService.cs" />
     <Compile Include="MSeguridad\MS_ParametroService.cs" />
     <Compile Include="MSeguridad\MS_PerfilService.cs" />
+    <Compile Include="MSeguridad\MS_TransaccionService.cs" />
     <Compile Include="MSeguridad\MS_UsuarioService.cs" />
     <Compile Include="MSeguridad\MS_SharedService.cs" />
     <Compile Include="MVentas\MV_ClienteService.cs" />

@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -71,7 +72,15 @@ namespace pe.edu.pucp.ferretin.view.MSeguridad
             p1 = 1;
             try
             {
-                intentosC.valor = Convert.ToInt16(intContrasena.Text);
+                if (Regex.IsMatch(intContrasena.Text, "[0-9]"))
+                {
+                    intentosC.valor = Convert.ToInt16(intContrasena.Text);
+                }
+                else if (!Regex.IsMatch(intContrasena.Text, "[0-9]") && !String.IsNullOrEmpty(intContrasena.Text))
+                {
+                    MessageBox.Show("Ingrese un número de intentos valido");
+                    intContrasena.Text = "";
+                }
             }
             catch { }
             
@@ -82,7 +91,16 @@ namespace pe.edu.pucp.ferretin.view.MSeguridad
             p2 = 1;
             try
             {
-                tiempoSesion.valor = Convert.ToInt16(tMaxSesion.Text);
+
+                if (Regex.IsMatch(tMaxSesion.Text, "[0-9]"))
+                {
+                    tiempoSesion.valor = Convert.ToInt16(tMaxSesion.Text);
+                }
+                else if (!Regex.IsMatch(tMaxSesion.Text, "[0-9]") && !String.IsNullOrEmpty(tMaxSesion.Text))
+                {
+                    MessageBox.Show("Ingrese un tiempo de sesión valido");
+                    tMaxSesion.Text = "";
+                }
             }
             catch { }
         }
@@ -92,7 +110,18 @@ namespace pe.edu.pucp.ferretin.view.MSeguridad
             p3 = 1;
             try
             {
-                duracionClave.valor = Convert.ToInt16(durClave.Text);
+
+                if (Regex.IsMatch(durClave.Text, "[0-9]"))
+                {
+                    duracionClave.valor = Convert.ToInt16(durClave.Text);
+                }
+                else if (!Regex.IsMatch(durClave.Text, "[0-9]") && !String.IsNullOrEmpty(durClave.Text))
+                {
+                    MessageBox.Show("Ingrese un tiempo de duración valido");
+                    durClave.Text = "";
+                }
+
+                
             }
             catch { }
         }
@@ -103,7 +132,16 @@ namespace pe.edu.pucp.ferretin.view.MSeguridad
 
             try
             {
-                tipoDeCambio.valor = Convert.ToInt16(tipCambio.Text);
+
+                if (Regex.IsMatch(durClave.Text, "[0-9]"))
+                {
+                    tipoDeCambio.valor = Convert.ToInt16(tipCambio.Text);
+                }
+                else if (!Regex.IsMatch(tipCambio.Text, "[0-9]") && !String.IsNullOrEmpty(tipCambio.Text))
+                {
+                    MessageBox.Show("Ingrese un número de intentos valido");
+                    tipCambio.Text = "";
+                }                
             }
             catch { }
         }
@@ -113,7 +151,16 @@ namespace pe.edu.pucp.ferretin.view.MSeguridad
             p5 = 1;
             try
             {
-                IGV.valor = Convert.ToInt16(igv.Text);
+                if (Regex.IsMatch(durClave.Text, "[0-9]"))
+                {
+                    IGV.valor = Convert.ToInt16(igv.Text);
+                }
+                else if (!Regex.IsMatch(igv.Text, "[0-9]") && !String.IsNullOrEmpty(igv.Text))
+                {
+                    MessageBox.Show("Ingrese un número de intentos valido");
+                    igv.Text = "";
+                }   
+                               
             }
             catch { }
         }
@@ -123,7 +170,16 @@ namespace pe.edu.pucp.ferretin.view.MSeguridad
             p6 = 1;
             try
             {
-                vigenciaPro.valor = Convert.ToInt16(vigProforma.Text);
+                if (Regex.IsMatch(vigProforma.Text, "[0-9]"))
+                {
+                    vigenciaPro.valor = Convert.ToInt16(vigProforma.Text);
+                }
+                else if (!Regex.IsMatch(vigProforma.Text, "[0-9]") && !String.IsNullOrEmpty(vigProforma.Text))
+                {
+                    MessageBox.Show("Ingrese un número de intentos valido");
+                    vigProforma.Text = "";
+                }  
+
             }
             catch { }
         }
@@ -133,7 +189,16 @@ namespace pe.edu.pucp.ferretin.view.MSeguridad
             p7 = 1;
             try
             {
-                vigenciaNota.valor = Convert.ToInt16(vigNotaCredito.Text);
+
+                if (Regex.IsMatch(vigProforma.Text, "[0-9]"))
+                {
+                    vigenciaNota.valor = Convert.ToInt16(vigNotaCredito.Text);
+                }
+                else if (!Regex.IsMatch(vigNotaCredito.Text, "[0-9]") && !String.IsNullOrEmpty(vigNotaCredito.Text))
+                {
+                    MessageBox.Show("Ingrese un número de intentos valido");
+                    vigNotaCredito.Text = "";
+                }  
             }
             catch { }
         }
@@ -143,60 +208,83 @@ namespace pe.edu.pucp.ferretin.view.MSeguridad
             p8 = 1;
             try
             {
-                solesPorPunto.valor = Convert.ToInt16(solesPunto.Text);
+                if (Regex.IsMatch(vigProforma.Text, "[0-9]"))
+                {
+                    solesPorPunto.valor = Convert.ToInt16(solesPunto.Text);
+                }
+                else if (!Regex.IsMatch(solesPunto.Text, "[0-9]") && !String.IsNullOrEmpty(solesPunto.Text))
+                {
+                    MessageBox.Show("Ingrese un número de intentos valido");
+                    solesPunto.Text = "";
+                }
             }
             catch { }
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            if (p1 == 1) 
+            if (p1 == 1 && !String.IsNullOrEmpty(intContrasena.Text)) 
             {
                 MS_ParametroService.actualizarParametro(intentosC);
             }
 
-            if (p2 == 1)
+            if (p2 == 1 && !String.IsNullOrEmpty(tMaxSesion.Text))
             {
                 MS_ParametroService.actualizarParametro(tiempoSesion);
             }
 
-            if (p3 == 1)
+            if (p3 == 1 && !String.IsNullOrEmpty(durClave.Text))
             {
                 MS_ParametroService.actualizarParametro(duracionClave);
             }
 
-            if (p4 == 1)
+            if (p4 == 1 && !String.IsNullOrEmpty(tipCambio.Text))
             {
                 MS_ParametroService.actualizarParametro(tipoDeCambio);
             }
 
-            if (p5 == 1)
+            if (p5 == 1 && !String.IsNullOrEmpty(igv.Text))
             {
                 MS_ParametroService.actualizarParametro(IGV);
             }
 
-            if (p6 == 1)
+            if (p6 == 1 && !String.IsNullOrEmpty(vigProforma.Text))
             {
                 MS_ParametroService.actualizarParametro(vigenciaPro);
             }
 
-            if (p7 == 1)
+            if (p7 == 1 && !String.IsNullOrEmpty(vigNotaCredito.Text))
             {
                 MS_ParametroService.actualizarParametro(vigenciaNota);
             }
 
-            if (p8 == 1)
+            if (p8 == 1 && !String.IsNullOrEmpty(solesPunto.Text))
             {
                 MS_ParametroService.actualizarParametro(solesPorPunto);
             }
 
-            MessageBox.Show("Parametros Actualizados Correctamente");
+            if (String.IsNullOrEmpty(intContrasena.Text) && String.IsNullOrEmpty(tMaxSesion.Text) && String.IsNullOrEmpty(durClave.Text)
+                && String.IsNullOrEmpty(tipCambio.Text) && String.IsNullOrEmpty(igv.Text) && String.IsNullOrEmpty(vigProforma.Text)
+                && String.IsNullOrEmpty(vigNotaCredito.Text) && String.IsNullOrEmpty(solesPunto.Text))
+            {
+                MessageBox.Show("No hay parametros validos.");
 
+            }
+            else
+            {
+                MessageBox.Show("Los Parametros Validos han sido Actualizados Correctamente");
+            }
         }
 
         private void Button_Click_1(object sender, RoutedEventArgs e)
         {
             this.Close();
+        }
+
+        public static bool esNumero(string cad)
+        {
+            Regex isnumber = new Regex("[^0-9]");
+            return !isnumber.IsMatch(cad);
         }
 
         

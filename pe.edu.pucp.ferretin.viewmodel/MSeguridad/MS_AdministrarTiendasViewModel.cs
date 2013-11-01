@@ -16,6 +16,9 @@ namespace pe.edu.pucp.ferretin.viewmodel.MSeguridad
     public class MS_AdministrarTiendasViewModel : ViewModelBase
     {
         #region Valores para el cuadro de Búsqueda
+
+        public String _dniJefe = "";
+        public String dniJefe { get { return _dniJefe; } set { _dniJefe = value; NotifyPropertyChanged("dniJefe"); } }
         private String _searchCodTienda = "";
         public String searchCodTienda { get { return _searchCodTienda; } set { _searchCodTienda = value; } }
         public String _searchNombre = "";
@@ -140,7 +143,7 @@ namespace pe.edu.pucp.ferretin.viewmodel.MSeguridad
                 }
                 NotifyPropertyChanged("almacen");
             }
-        }
+        }        
 
         private IEnumerable<Tienda> _listaAlmacenes;
         public IEnumerable<Tienda> listaAlmacenes
@@ -248,6 +251,19 @@ namespace pe.edu.pucp.ferretin.viewmodel.MSeguridad
                 return _cancelAlmacenCommand;
             }
         }
+        /**************************************************/
+        RelayCommand _buscarJefeCommand;
+        public ICommand buscarJefeCommand
+        {
+            get
+            {
+                if (_buscarJefeCommand == null)
+                {
+                    _buscarJefeCommand = new RelayCommand(buscarJefe);
+                }
+                return _buscarJefeCommand;
+            }
+        }        
         #endregion
 
         #region Comandos
@@ -262,7 +278,7 @@ namespace pe.edu.pucp.ferretin.viewmodel.MSeguridad
                     selectedProvincia = this.almacen.UbigeoDistrito.UbigeoProvincia;
                     selectedDepartamento = selectedProvincia.UbigeoDepartamento;
                 }
-                this.statusTab = Tab.MODIFICAR;
+                this.statusTab = Tab.MODIFICAR;                
             }
             catch (Exception e)
             {
@@ -270,8 +286,7 @@ namespace pe.edu.pucp.ferretin.viewmodel.MSeguridad
             }
         }
         public void saveAlmacen(Object obj)
-        {
-
+        {            
             if (almacen.id > 0)//Si existe
             {
                 if (!MS_TiendaService.enviarCambios())
@@ -286,7 +301,7 @@ namespace pe.edu.pucp.ferretin.viewmodel.MSeguridad
             else
             {
                 if (!MS_TiendaService.insertarAlmacen(almacen))
-                {
+                {                   
                     MessageBox.Show("No se pudo agregar el nuevo almacen");
                 }
                 else
@@ -296,11 +311,55 @@ namespace pe.edu.pucp.ferretin.viewmodel.MSeguridad
             }
             NotifyPropertyChanged("listaAlmacenes");
         }
+
         public void cancelAlmacen(Object obj)
         {
             this.statusTab = Tab.BUSQUEDA;
             listaAlmacenes = MS_TiendaService.listaAlmacenes;
         }
         #endregion
+
+        void buscarJefe(object var)
+        {
+            if (dniJefe.Trim().Length > 0)
+            {                
+                Empleado empleado = MR_SharedService.obtenerEmpleadoPorDNI(dniJefe);
+                if (empleado != null)
+                {
+                    
+                    MessageBox.Show("El DNI ingresado no le pertenece a un Jefe");
+                
+                    almacen.Empleado = empleado;
+                }
+                else
+                {
+                    MessageBox.Show("No se encontro un Jefe con el DNI ingresado");
+                }
+            }
+            else
+            {
+                MessageBox.Show("Debe ingresar el DNI de algún Jefe");                
+            }
+        }
+
+        private Tienda _selectedTienda;
+        public Tienda selectedTienda
+        {
+            get
+            {                   
+                _selectedTienda = almacenes.Single(t => t.id==this.almacen.id_abastecedor);
+                return _selectedTienda;
+            }
+            set
+            {
+                _selectedTienda = value;
+                NotifyPropertyChanged("selectedTienda");
+                NotifyPropertyChanged("almacenes");
+                this.almacen.id_abastecedor = _selectedTienda.id;
+            }
+        }
+
+        
+
     }
 }

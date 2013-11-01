@@ -8,6 +8,8 @@ using System.Data.Linq;
 
 using pe.edu.pucp.ferretin.controller.MRecursosHumanos;
 using pe.edu.pucp.ferretin.model;
+using System.Security.Cryptography;
+using System.IO;
 
 namespace pe.edu.pucp.ferretin.controller.MSeguridad
 {
@@ -116,15 +118,15 @@ namespace pe.edu.pucp.ferretin.controller.MSeguridad
             
             IEnumerable<Usuario> usuarios = listaUsuarios;
             //Filtro por código
-            usuarios = usuarios.Where(u => u.codUsuario.Contains(codigo));
+            usuarios = usuarios.Where(u => u.codUsuario.ToLower().Contains(codigo.ToLower().Trim()));
             //Filtro por nombre
-            usuarios = usuarios.Where(u => u.nombre.Contains(nomUsuario));
+            usuarios = usuarios.Where(u => u.nombre.ToLower().Contains(nomUsuario.ToLower().Trim()));
             //Filtro por perfil
             usuarios = usuarios.Where(u => (perfil==null) || (perfil.id<=0) || (u.Perfil.id == perfil.id) );
             //Filtro por nombre y apellido
-            usuarios = usuarios.Where(u => u.Empleado.nombre.Contains(nombres) && (u.Empleado.apMaterno.Contains(apellidos) || u.Empleado.apPaterno.Contains(apellidos))) ;
+            usuarios = usuarios.Where(u => u.Empleado.nombre.ToLower().Contains(nombres.ToLower().Trim()) && (u.Empleado.apMaterno.ToLower().Contains(apellidos.ToLower().Trim()) || u.Empleado.apPaterno.ToLower().Contains(apellidos.ToLower().Trim())));
             //Filtro por estado
-            usuarios = usuarios.Where(u => (estado == 0) || (u.estado == estado));
+            usuarios = usuarios.Where(u => (estado == 0) || (u.estado != null && u.estado == estado - 1));
 
             return usuarios;
 
@@ -168,5 +170,63 @@ namespace pe.edu.pucp.ferretin.controller.MSeguridad
         {
             return listaPerfiles;
         }
+
+        /********************Para contraseña***********************/
+
+        public static string encrypt(string plainText)
+        {
+
+            string passPhrase = "rudy";        // can be any string
+            string saltValue = "akatsuki";        // can be any string
+            string hashAlgorithm = "MD5";             // can be "MD5"
+            int passwordIterations = 2;                  // can be any number
+            string initVector = "@1B2c3D4e5F6g7H8"; // must be 16 bytes
+            int keySize = 128;                // can be 192 or 128
+
+            if (String.IsNullOrEmpty(plainText)) return "";
+
+            byte[] initVectorBytes = Encoding.ASCII.GetBytes(initVector);
+            byte[] saltValueBytes = Encoding.ASCII.GetBytes(saltValue);
+
+            byte[] plainTextBytes = Encoding.UTF8.GetBytes(plainText);
+
+            PasswordDeriveBytes password = new PasswordDeriveBytes(
+                                                            passPhrase,
+                                                            saltValueBytes,
+                                                            hashAlgorithm,
+                                                            passwordIterations);
+
+            byte[] keyBytes = password.GetBytes(keySize / 8);
+
+            RijndaelManaged symmetricKey = new RijndaelManaged();
+
+            symmetricKey.Mode = CipherMode.CBC;
+
+            ICryptoTransform encryptor = symmetricKey.CreateEncryptor(
+                                                             keyBytes,
+                                                             initVectorBytes);
+
+            MemoryStream memoryStream = new MemoryStream();
+
+            CryptoStream cryptoStream = new CryptoStream(memoryStream,
+                                                         encryptor,
+                                                         CryptoStreamMode.Write);
+
+            cryptoStream.Write(plainTextBytes, 0, plainTextBytes.Length);
+
+
+            cryptoStream.FlushFinalBlock();
+
+            byte[] cipherTextBytes = memoryStream.ToArray();
+
+            memoryStream.Close();
+            cryptoStream.Close();
+
+            string cipherText = Convert.ToBase64String(cipherTextBytes);
+
+            return cipherText;
+        }
+
+
     }
 }

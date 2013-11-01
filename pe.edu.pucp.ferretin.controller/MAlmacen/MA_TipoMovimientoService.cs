@@ -9,7 +9,7 @@ namespace pe.edu.pucp.ferretin.controller.MAlmacen
 {
     public class MA_TipoMovimientoService : MA_ComunService
     {
-        static FerretinDataContext dc = new FerretinDataContext();
+        /*static FerretinDataContext dc = new FerretinDataContext();
 
         private static IEnumerable<MovimientoTipo> _listaTipoMovimientos = null;
 
@@ -35,7 +35,7 @@ namespace pe.edu.pucp.ferretin.controller.MAlmacen
                                    orderby tipo.nombre
                                    select tipo;
             return listaTipoMovimientos;
-        }
+        }*/
         
     }
 }

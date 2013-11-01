@@ -75,7 +75,7 @@ namespace pe.edu.pucp.ferretin.viewmodel.MSeguridad
                 switch (value)
                 {
                     case tabs.BUSQUEDA: detallesTabHeader = "Agregar"; usuario = new Usuario(); break;//Si es agregar, creo un nuevo objeto Usuario
-                    case tabs.AGREGAR: detallesTabHeader = "Agregar"; usuario = new Usuario(); break;//Si es agregar, creo un nuevo objeto Usuario
+                    case tabs.AGREGAR: detallesTabHeader = "Agregar"; usuario = new Usuario();  break;//Si es agregar, creo un nuevo objeto Usuario
                     case tabs.MODIFICAR: detallesTabHeader = "Modificar"; break;
                     case tabs.DETALLES: detallesTabHeader = "Detalles"; break;
                     default: detallesTabHeader = "Agregar"; usuario = new Usuario(); break;//Si es agregar, creo un nuevo objeto Cliente
@@ -247,6 +247,21 @@ namespace pe.edu.pucp.ferretin.viewmodel.MSeguridad
                 return _buscarClienteCommand;
             }
         }
+        /*************************************************/
+        RelayCommand _restbContrasenaCommand;
+        public ICommand restbContrasenaCommand
+        {
+            get
+            {
+                if (_restbContrasenaCommand == null)
+                {
+                    _restbContrasenaCommand = new RelayCommand(restbContrasena);
+                }
+                return _restbContrasenaCommand;
+            }
+        }
+
+
         #endregion
 
         #region Comandos
@@ -274,6 +289,10 @@ namespace pe.edu.pucp.ferretin.viewmodel.MSeguridad
             /*Para actualizar un usuario existente*/
             if (usuario.id > 0)//Si existe
             {
+                List<Parametro> listaParametros;
+                listaParametros = MS_ParametroService.obtenerListaParametros().ToList();
+                usuario.intentosCon = Convert.ToInt16(listaParametros[0].valor);
+
                 if (!MS_UsuarioService.enviarCambios())
                 {
                     MessageBox.Show("No se pudo actualizar el usuario");
@@ -286,6 +305,13 @@ namespace pe.edu.pucp.ferretin.viewmodel.MSeguridad
             /*Para agregar un usuario nuevo*/
             else
             {
+                /*valores por defecto */
+                usuario.contrasena = MS_UsuarioService.encrypt("ferretinSoft");                
+                List<Parametro>  listaParametros;
+                listaParametros = MS_ParametroService.obtenerListaParametros().ToList();
+                usuario.intentosCon = Convert.ToInt16(listaParametros[0].valor);
+                /**********************/
+
                 if (!MS_UsuarioService.insertarUsuario(usuario))
                 {
                     MessageBox.Show("No se pudo agregar el nuevo usuario");
@@ -304,6 +330,28 @@ namespace pe.edu.pucp.ferretin.viewmodel.MSeguridad
             listaUsuarios = MS_UsuarioService.listaUsuarios;
         }
         /**************************************************/
+
+        public void restbContrasena(Object obj)
+        {
+            List<Parametro> listaParametros;
+            listaParametros = MS_ParametroService.obtenerListaParametros().ToList();
+
+            if (usuario.id > 0)//Si existe
+            {
+                usuario.contrasena = MS_UsuarioService.encrypt("ferretinSoft");
+                usuario.intentosCon = Convert.ToInt16(listaParametros[0].valor);
+
+                if (!MS_UsuarioService.enviarCambios())
+                {
+                    MessageBox.Show("No se puedo cambiar la contraseña");
+                }
+                else
+                {
+                    MessageBox.Show("La contraseña se restablecio con éxito");
+                }
+            }           
+        }
+
         #endregion
 
         void buscarCliente(object var)

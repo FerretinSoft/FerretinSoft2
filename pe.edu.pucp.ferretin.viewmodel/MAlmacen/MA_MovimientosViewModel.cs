@@ -3,6 +3,7 @@ using pe.edu.pucp.ferretin.model;
 using pe.edu.pucp.ferretin.viewmodel.Helper;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -13,8 +14,59 @@ namespace pe.edu.pucp.ferretin.viewmodel.MAlmacen
 {
     public class MA_MovimientosViewModel : ViewModelBase
     {
+        public IEnumerable<MovimientoEstado> estadosMovimiento
+        {
+            get
+            {
+                var sequence = Enumerable.Empty<MovimientoEstado>();
+                IEnumerable<MovimientoEstado> items = new MovimientoEstado[] { new MovimientoEstado { id = 0, nombre = "Todos" } };
+                return items.Concat(MA_MovimientosService.estadosMovimiento);
+            }
+        }
+
+        public ObservableCollection<char> categoriasMovimiento
+        {
+            get
+            {
+                ObservableCollection<char> milista = new ObservableCollection<char>();
+                milista.Add('E');
+                milista.Add('S');
+                return milista;
+            }
+        }
+
+        public bool isCreating
+        {
+            get
+            {
+                if (statusTab == Tab.NUEVO)
+                {
+                    return true; //Se Activaran
+                }
+                else
+                {
+                    return false; //Se bloquearan par que no sean editables
+                }
+            }
+        }
+        
+        public IEnumerable<Tienda> almacenesSearch
+        {
+            get
+            {
+                //Creo una nueva secuencia
+                var sequence = Enumerable.Empty<Tienda>();
+                //Primero agrego un item de Todos para que salga al inicio
+                //Pongo el ID en 0 para que al buscar, no filtre nada cuando se selecciona todos
+                IEnumerable<Tienda> items = new Tienda[] { new Tienda { id = 0, nombre = "Todos" } };
+                //Luego concateno el itemcon los elementos del combobox
+                return items.Concat(tiendas);
+            }
+        }
+
         #region Lista Movimientos y Edicion de Movimientos
         private Movimiento _movimiento;
+        
         public Movimiento movimiento
         {
             get
@@ -24,13 +76,6 @@ namespace pe.edu.pucp.ferretin.viewmodel.MAlmacen
             set
             {
                 _movimiento = value;
-                /*if (value.id_ubigeo != null)
-                {
-                    String id_distrito = value.id_ubigeo;
-                    String id_provincia = value.UbigeoDistrito.id_ubig_provincia;
-                    String id_departamento = value.UbigeoDistrito.UbigeoProvincia.id_ubig_departamento;
-                    distritos = MV_ClienteService.distritos.Where(distrito => distrito.id_ubig_provincia.Equals(id_provincia));
-                }*/
                 NotifyPropertyChanged("movimiento");
             }
         }
@@ -40,11 +85,7 @@ namespace pe.edu.pucp.ferretin.viewmodel.MAlmacen
         {
             get
             {
-                //String searchTipoDocumento = this.searchTipoDocumento == 1 ? "DNI" : (this.searchTipoDocumento == 2 ? "RUC" : "");
-                Dictionary<String, Object> parametros = new Dictionary<String, Object>();
-                //armar diccionario de parametros
-                _listaMovimientos = MA_MovimientosService.ObtenerListaMovimientos(parametros);
-
+                _listaMovimientos = MA_MovimientosService.buscarMovimientos(searchAlmacen,searchEstado,searchFechaDesde,searchFechaHasta);
                 return _listaMovimientos;
             }
             set
@@ -53,12 +94,43 @@ namespace pe.edu.pucp.ferretin.viewmodel.MAlmacen
                 NotifyPropertyChanged("listaMovimientos");
             }
         }
+
+        private IEnumerable<MovimientoTipo> _tiposMovimiento;
+        public IEnumerable<MovimientoTipo> tiposMovimiento
+        {
+            get
+            {
+                
+                _tiposMovimiento = MA_SharedService.tiposMovimientos;
+                
+                return _tiposMovimiento;
+            }
+            set
+            {
+                _tiposMovimiento = value;
+                NotifyPropertyChanged("tiposMovimiento");
+            }
+        }
+
+        private Movimiento _selectedMovimiento;
+        public Movimiento selectedMovimiento
+        {
+            get 
+            {
+                return _selectedMovimiento;
+            }
+            set
+            {
+                _selectedMovimiento = value;
+            }
+        }
         #endregion
 
         #region Constructor
         public MA_MovimientosViewModel()
         {
             _movimiento = new Movimiento();
+            _movimiento.fecha = DateTime.Today;
         }
         #endregion
 
@@ -69,10 +141,10 @@ namespace pe.edu.pucp.ferretin.viewmodel.MAlmacen
         public MovimientoEstado _searchEstado;
         public MovimientoEstado searchEstado { get { return _searchEstado; } set { _searchEstado = value; NotifyPropertyChanged("searchEstado"); } }
         
-        public DateTime _searchFechaDesde = DateTime.MinValue;
+        public DateTime _searchFechaDesde = DateTime.Today.AddDays(-30);
         public DateTime searchFechaDesde { get { return _searchFechaDesde; } set { _searchFechaDesde= value; NotifyPropertyChanged("searchFechaDesde"); } }
 
-        public DateTime _searchFechaHasta = DateTime.MaxValue;
+        public DateTime _searchFechaHasta = DateTime.Today;
         public DateTime searchFechaHasta { get { return _searchFechaHasta; } set { _searchFechaHasta= value; NotifyPropertyChanged("searchFechaHasta"); } }
 
         #endregion
@@ -81,8 +153,8 @@ namespace pe.edu.pucp.ferretin.viewmodel.MAlmacen
         public enum Tab
         {
             //Pestañas virtuales:
-            //0       1        2          3
-            BUSQUEDA, AGREGAR, MODIFICAR, DETALLES
+            //0       1        2          3     
+            BUSQUEDA, NUEVO, DETALLES, TIPOMOV
         }
         private Tab _statusTab = Tab.BUSQUEDA; //pestaña default 
         public Tab statusTab
@@ -98,24 +170,24 @@ namespace pe.edu.pucp.ferretin.viewmodel.MAlmacen
                 //Si la pestaña es para agregar nuevo, limpio los input
                 switch (_statusTab)
                 {
-                    case Tab.BUSQUEDA: detallesTabHeader = "Agregar"; movimiento = new Movimiento(); break;//Si es agregar, creo un nuevo objeto Cliente
-                    case Tab.AGREGAR: detallesTabHeader = "Agregar"; movimiento = new Movimiento(); break;//Si es agregar, creo un nuevo objeto Cliente
-                    case Tab.MODIFICAR: detallesTabHeader = "Modificar"; break;
+                    case Tab.BUSQUEDA: detallesTabHeader = "Nuevo"; movimiento = new Movimiento(); movimiento.fecha = DateTime.Today; break;//Si es agregar, creo un nuevo objeto Cliente
+                    case Tab.NUEVO: detallesTabHeader = "Nuevo"; movimiento = new Movimiento(); movimiento.fecha = DateTime.Today; break;//Si es agregar, creo un nuevo objeto Cliente
                     case Tab.DETALLES: detallesTabHeader = "Detalles"; break;
-                    default: detallesTabHeader = "Agregar"; movimiento = new Movimiento(); break;//Si es agregar, creo un nuevo objeto Cliente
+                    default: detallesTabHeader = "Nuevo"; movimiento = new Movimiento(); movimiento.fecha = DateTime.Today; break;//Si es agregar, creo un nuevo objeto Cliente
                 }
                 NotifyPropertyChanged("statusTab");
                 //Cuando se cambia el status, tambien se tiene que actualizar el currentIndex del tab
                 NotifyPropertyChanged("currentIndexTab"); //Hace que cambie el tab automaticamente
+                NotifyPropertyChanged("isCreating"); //Para que se activen o desactiven los inputs
             }
         }
         //Usado para mover los tabs de acuerdo a las acciones realizadas
         public int currentIndexTab
         {
-            get { return _statusTab == Tab.BUSQUEDA ? 0 : 1; }
-            set { statusTab = value == 0 ? Tab.BUSQUEDA : Tab.AGREGAR; }
+            get { return _statusTab == Tab.BUSQUEDA ? 0 : (_statusTab == Tab.TIPOMOV ? 2 : 1); }
+            set { statusTab = value == 0 ? Tab.BUSQUEDA : (value == 2 ? Tab.TIPOMOV : Tab.NUEVO); }
         }
-        private String _detallesTabHeader = "Agregar"; //Default
+        private String _detallesTabHeader = "Nuevo"; //Default
         public String detallesTabHeader
         {
             get
@@ -192,16 +264,130 @@ namespace pe.edu.pucp.ferretin.viewmodel.MAlmacen
                 return _newMovimientoCommand;
             }
         }
+        RelayCommand _agregarNuevoProductoCommand;
+        public ICommand agregarNuevoProductoCommand
+        {
+            get
+            {
+                if (_agregarNuevoProductoCommand == null)
+                {
+                    _agregarNuevoProductoCommand = new RelayCommand(agregarNuevoProducto);
+                }
+                return _agregarNuevoProductoCommand;
+            }
+        }
+        RelayCommand _saveTipoMovimientoCommand;
+        public ICommand saveTipoMovimientoCommand
+        {
+            get
+            {
+                if (_saveTipoMovimientoCommand == null)
+                {
+                    _saveTipoMovimientoCommand = new RelayCommand(saveTipoMovimiento);//, canSaveTipoMovimientoExecute);
+                }
+                return _saveTipoMovimientoCommand;
+            }
+        }
+
+        RelayCommand _cancelTipoMovimientoCommand;
+        public ICommand cancelTipoMovimientoCommand
+        {
+            get
+            {
+                if (_cancelTipoMovimientoCommand == null)
+                {
+                    _cancelTipoMovimientoCommand = new RelayCommand(cancelTipoMovimiento);
+                }
+                return _cancelTipoMovimientoCommand;
+            }
+        }
         #endregion
 
+        private string _codigoNuevoProducto = "";
+        public string codigoNuevoProducto
+        {
+            get
+            {
+                return _codigoNuevoProducto;
+            }
+            set
+            {
+                _codigoNuevoProducto = value;
+            }
+        }
+
+        public IEnumerable<MovimientoProducto> movimientosNuevoProducto {
+            get
+            {
+                if (movimiento.MovimientoProducto != null)
+                {
+                    return movimiento.MovimientoProducto;
+                }
+                else
+                {
+                    return new MovimientoProducto[] { };
+                }
+            }
+        }
+        
+
         #region Comandos
+
+        public void saveTipoMovimiento(object param)
+        {
+            /*for (int i = 0; i < tiposMovimiento.Count(); i++)
+            {
+                if (tiposMovimiento.ElementAt(i).categoria != 'S' && tiposMovimiento.ElementAt(i).categoria != 'E')
+                {
+                    MessageBox.Show("Valor inválido de categoría en la fila " + (i + 1) + 
+                        ".\nLos valores permitidos son 'E' para los movimientos de entrada y 'S' para los de salida." );
+                    return;
+                }
+
+            }*/
+            if (!MA_MovimientosService.enviarCambios())
+            {
+                MessageBox.Show("Ocurrio un error al guardar, reintente.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+            else
+            {
+                MessageBox.Show("Se guardo correctamente","Guardado",MessageBoxButton.OK,MessageBoxImage.Information);
+            }
+            NotifyPropertyChanged("tiposMovimiento");
+        }
+
+        public void cancelTipoMovimiento(object param)
+        {
+            NotifyPropertyChanged("tiposMovimiento");
+        }
+
+        public void agregarNuevoProducto(Object atr)
+        {
+            Producto producto = null;
+            try
+            { producto = MA_ProductoService.obtenerTodosProductos().First(p => !String.IsNullOrEmpty(p.codigo) && p.codigo.Equals(codigoNuevoProducto)); }
+            catch { }
+
+            if (producto != null && movimiento.MovimientoProducto.Count(mp => mp.Producto == producto) <= 0)
+            {
+                MovimientoProducto mproducto = new MovimientoProducto { cantidad = 1, Movimiento = movimiento, Producto = producto };
+                movimiento.MovimientoProducto.Add(mproducto);
+                NotifyPropertyChanged("movimiento");
+                NotifyPropertyChanged("movimiento.MovimientoProducto");
+            }
+            else
+            {
+                MessageBox.Show("No se encontro un producto con el código \"" + codigoNuevoProducto + "\".","No se encontro el Producto",MessageBoxButton.OK,MessageBoxImage.Error);
+            }
+        }
 
         public void viewEditMovimiento(Object id)
         {
             try
             {
-                this.movimiento = listaMovimientos.Single(mov => mov.id == (int)id);
-                //aqui preparar las condiciones para cambiar el tab this.statusTab = Tab.MODIFICAR;
+                int selId = Int32.Parse(id.ToString());
+                this.movimiento = listaMovimientos.Single(movimiento => movimiento.id == selId);
+                this.statusTab = Tab.DETALLES;
             }
             catch (Exception e)
             {
@@ -213,7 +399,7 @@ namespace pe.edu.pucp.ferretin.viewmodel.MAlmacen
         {
             try
             {
-                //aqui preparar las condiciones para cambiar el tab this.statusTab = Tab.MODIFICAR;
+                this.statusTab = Tab.NUEVO;
             }
             catch (Exception e)
             {
@@ -232,26 +418,46 @@ namespace pe.edu.pucp.ferretin.viewmodel.MAlmacen
                 }
                 else
                 {
-                    MessageBox.Show("El movimiento fue guardado con éxito");
+                    MessageBox.Show("El movimiento fue guardado con éxito");                    
                 }
             }
             else
             {
-                if (!MA_MovimientosService.InsertarMovimiento(movimiento))
-                {
-                    MessageBox.Show("No se pudo agregar el nuevo movimiento");
-                }
+                //validación
+                if (movimiento.codigo == null || movimiento.codigo == "") MessageBox.Show("Debe llenar el campo código.");
+                else if (movimiento.MovimientoTipo == null) MessageBox.Show("Debe seleccionar un tipo de movimiento");
+                else if (movimiento.Tienda == null && movimiento.MovimientoTipo.categoria == 'S') MessageBox.Show("Debe seleccionar un almacén de salida de mercancía");
+                else if (movimiento.Tienda1 == null && movimiento.MovimientoTipo.categoria == 'E') MessageBox.Show("Debe seleccionar un almacén destino para la entrada de mercancía");
+                else if (movimiento.MovimientoEstado == null) MessageBox.Show("Debe seleccionar un estado para el movimiento");
+                else if (movimiento.MovimientoProducto.Count <= 0) MessageBox.Show("Debe registrar al menos un Producto en su movimiento");
                 else
                 {
-                    MessageBox.Show("El movimiento fue agregado con éxito");
+                    if (!MA_MovimientosService.InsertarMovimiento(movimiento))
+                    {
+                        MessageBox.Show("No se pudo agregar el nuevo movimiento");
+                    }
+                    else
+                    {
+                        MessageBox.Show("El movimiento fue agregado con éxito");                        
+                    }
                 }
             }
+            NotifyPropertyChanged("listaMovimientos");
         }
 
         public void cancelMovimiento(Object obj)
         {
-            //ir a la ventana de busqueda this.statusTab = Tab.BUSQUEDA;
-            listaMovimientos = MA_MovimientosService.ListaMovimientos;
+            this.statusTab = Tab.BUSQUEDA;
+        }
+
+        private bool canSaveTipoMovimientoExecute(object obj)
+        {
+            for (int i = 0; i < tiposMovimiento.Count(); i++)
+            {
+                if (base.UIValidationErrorCount != 0 || this.tiposMovimiento.ElementAt(i).Errors.Count != 0)
+                    return false;
+            }
+            return true;
         }
         #endregion
     }

@@ -12,7 +12,7 @@ namespace pe.edu.pucp.ferretin.controller.MAlmacen
     {
        private static IEnumerable<Movimiento> _listaMovimientos;
 
-        public static IEnumerable<Movimiento> ListaMovimientos
+        public static IEnumerable<Movimiento> listaMovimientos
         {
             get
             {
@@ -35,22 +35,20 @@ namespace pe.edu.pucp.ferretin.controller.MAlmacen
 
         public static Movimiento ObtenerMovimientoPorId(int id)
         {
-            Movimiento movimiento = (from m in ListaMovimientos
+            Movimiento movimiento = (from m in listaMovimientos
                                where m.id.Equals(id)
                                select m).Single();
 
             return movimiento;
         }
 
-        public static IEnumerable<Movimiento> ObtenerListaMovimientos(Dictionary<string, object> parametros)
+        public static IEnumerable<Movimiento> buscarMovimientos(Tienda searchAlmacen, MovimientoEstado searchEstado, DateTime searchFechaDesde, DateTime searchFechaHasta)
         {
-            return from m in ListaMovimientos
-                   where
-                   ((!parametros.ContainsKey("tienda") || m.Tienda == null || m.id_almacen_desde == (int)parametros["tienda"]) &&
-                    (!parametros.ContainsKey("fechaDesde") || m.fecha >= (DateTime)parametros["fechaDesde"])  && 
-                    (!parametros.ContainsKey("fechaDesde") || m.fecha <= (DateTime)parametros["fechaHasta"]))
-                   orderby m.fecha
-                   select m;
+            return listaMovimientos
+                .Where(m => (searchAlmacen == null) || (searchAlmacen.id <= 0) || (m.Tienda == searchAlmacen || m.Tienda1 == searchAlmacen))
+                .Where(m => (searchEstado == null) || (searchEstado.id <= 0) || (m.MovimientoEstado == searchEstado))
+                .Where(m => (m.fecha >= searchFechaDesde) && (m.fecha <= searchFechaHasta))
+                .OrderBy(m => m.fecha);
         }
 
         public static void ActualizarMovimiento(Movimiento mov)
@@ -71,5 +69,7 @@ namespace pe.edu.pucp.ferretin.controller.MAlmacen
                 return false;
             }
         }
+
+
     }
 }

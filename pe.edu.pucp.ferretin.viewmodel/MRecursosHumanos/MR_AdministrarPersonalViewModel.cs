@@ -16,26 +16,64 @@ namespace pe.edu.pucp.ferretin.viewmodel.MRecursosHumanos
         #region Constructor
         public MR_AdministrarPersonalViewModel()
         {
-            _empleado = new Empleado();        
+            _empleado = new Empleado();
         }
         #endregion
 
         #region Valores para el cuadro de Búsqueda
-        public String _searchDni = "";
-        public String searchDni { get { return _searchDni; } set { _searchDni = value; NotifyPropertyChanged("searchDni"); } }
-        
+        public String _searchDNI = "";
+        public String searchDNI { get { return _searchDNI; } set { _searchDNI = value; NotifyPropertyChanged("searchDNI"); } }
+
         public String _searchNombre = "";
         public String searchNombre { get { return _searchNombre; } set { _searchNombre = value; NotifyPropertyChanged("searchNombre"); } }
 
-        public Cargo _searchCargo = null;
+        public String _searchCodigo = "";
+        public String searchCodigo { get { return _searchCodigo; } set { _searchCodigo = value; NotifyPropertyChanged("searchCodigo"); } }
+
+        public Cargo _searchCargo;
         public Cargo searchCargo { get { return _searchCargo; } set { _searchCargo = value; NotifyPropertyChanged("searchCargo"); } }
 
-        public Tienda _searchTienda = null;
+        public Tienda _searchTienda;
         public Tienda searchTienda { get { return _searchTienda; } set { _searchTienda = value; NotifyPropertyChanged("searchTienda"); } }
-
-        public int _searchCodigo =0 ;
-        public int searchCodigo { get { return _searchCodigo; } set { _searchCodigo = value; NotifyPropertyChanged("searchCodigo"); } }
         #endregion
+
+        public IEnumerable<Cargo> listaCargos
+        {
+            get
+            {
+                //Creo una nueva secuencia
+                var sequence = Enumerable.Empty<Cargo>();
+                //Primero agrego un item de Todos para que salga al inicio
+                //Pongo el ID en 0 para que al buscar, no filtre nada cuando se selecciona todos
+                IEnumerable<Cargo> items = new Cargo[] { new Cargo { id = 0, nombre = "Todos" } };
+                //Luego concateno el itemcon los elementos del combobox
+                return items.Concat(MR_CargTieService.cargos);
+            }
+        }
+
+
+        public IEnumerable<Tienda> listaTiendas
+        {
+            get
+            {
+                //Creo una nueva secuencia
+                var sequence = Enumerable.Empty<Tienda>();
+                //Primero agrego un item de Todos para que salga al inicio
+                //Pongo el ID en 0 para que al buscar, no filtre nada cuando se selecciona todos
+                IEnumerable<Tienda> items = new Tienda[] { new Tienda { id = 0, nombre = "Todos" } };
+                //Luego concateno el itemcon los elementos del combobox
+                return items.Concat(almacenes);
+            }
+        }
+
+        public IEnumerable<GradoInstruccion> gradosInstruccion
+        {
+            get
+            {
+                return MR_ComunService.gradosInstruccion;
+                
+            }
+        }
 
         #region Manejo de los Tabs
         public enum Tab
@@ -44,7 +82,6 @@ namespace pe.edu.pucp.ferretin.viewmodel.MRecursosHumanos
             //0       1        2          3
             BUSQUEDA, AGREGAR, MODIFICAR, DETALLES
         }
-
         private Tab _statusTab = Tab.BUSQUEDA; //pestaña default 
         public Tab statusTab
         {
@@ -59,18 +96,17 @@ namespace pe.edu.pucp.ferretin.viewmodel.MRecursosHumanos
                 //Si la pestaña es para agregar nuevo, limpio los input
                 switch (_statusTab)
                 {
-                    case Tab.BUSQUEDA: detallesTabHeader = "Agregar"; empleado = new Empleado(); break;//Si es agregar, creo un nuevo objeto Cliente
-                    case Tab.AGREGAR: detallesTabHeader = "Agregar"; empleado = new Empleado(); break;//Si es agregar, creo un nuevo objeto Cliente
+                    case Tab.BUSQUEDA: detallesTabHeader = "Agregar"; empleado = new Empleado(); break;//Si es agregar, creo un nuevo objeto Empleado
+                    case Tab.AGREGAR: detallesTabHeader = "Agregar"; empleado = new Empleado(); break;//Si es agregar, creo un nuevo objeto Empleado
                     case Tab.MODIFICAR: detallesTabHeader = "Modificar"; break;
                     case Tab.DETALLES: detallesTabHeader = "Detalles"; break;
-                    default: detallesTabHeader = "Agregar"; empleado = new Empleado(); break;//Si es agregar, creo un nuevo objeto Cliente
+                    default: detallesTabHeader = "Agregar"; empleado = new Empleado(); break;//Si es agregar, creo un nuevo objeto Empleado
                 }
                 NotifyPropertyChanged("statusTab");
                 //Cuando se cambia el status, tambien se tiene que actualizar el currentIndex del tab
                 NotifyPropertyChanged("currentIndexTab"); //Hace que cambie el tab automaticamente
             }
         }
-
         //Usado para mover los tabs de acuerdo a las acciones realizadas
         public int currentIndexTab
         {
@@ -92,8 +128,7 @@ namespace pe.edu.pucp.ferretin.viewmodel.MRecursosHumanos
         }
         #endregion
 
-
-        #region Lista de Empleado y Edicion de Empleado
+        #region Lista Empleados y Edicion de Empleado
         private Empleado _empleado;
         public Empleado empleado
         {
@@ -112,7 +147,6 @@ namespace pe.edu.pucp.ferretin.viewmodel.MRecursosHumanos
                     distritos = MR_EmpleadoService.distritos.Where(distrito => distrito.id_ubig_provincia.Equals(id_provincia));
                 }
                 NotifyPropertyChanged("empleado");
-  
             }
         }
 
@@ -121,14 +155,19 @@ namespace pe.edu.pucp.ferretin.viewmodel.MRecursosHumanos
         {
             get
             {
-              
-                _listaEmpleados = MR_EmpleadoService.buscarEmpleados(searchDni, searchNombre, searchCargo, searchTienda, searchCodigo);
+                int cod = 0;
+                if (searchCodigo.Length > 0)
+                {
+                    cod = int.Parse(searchCodigo);
+                }
+                _listaEmpleados = MR_EmpleadoService.buscarEmpleados(searchDNI, searchNombre, cod, searchCargo, searchTienda);
+
                 return _listaEmpleados;
             }
             set
             {
                 _listaEmpleados = value;
-                NotifyPropertyChanged("lisaEmpleados");
+                NotifyPropertyChanged("listaEmpleados");
             }
         }
         #endregion
@@ -141,9 +180,22 @@ namespace pe.edu.pucp.ferretin.viewmodel.MRecursosHumanos
             {
                 if (_actualizarListaEmpleadosCommand == null)
                 {
-                    _actualizarListaEmpleadosCommand = new RelayCommand(param => NotifyPropertyChanged("listasEmpleados"));
+                    _actualizarListaEmpleadosCommand = new RelayCommand(param => NotifyPropertyChanged("listaEmpleados"));
                 }
                 return _actualizarListaEmpleadosCommand;
+            }
+        }
+
+        RelayCommand _agregarEmpleadoCommand;
+        public ICommand agregarEmpleadoCommand
+        {
+            get
+            {
+                if (_agregarEmpleadoCommand == null)
+                {
+                    _agregarEmpleadoCommand = new RelayCommand(p => statusTab = Tab.AGREGAR);
+                }
+                return _agregarEmpleadoCommand;
             }
         }
         RelayCommand _viewEditEmpleadoCommand;
@@ -165,37 +217,39 @@ namespace pe.edu.pucp.ferretin.viewmodel.MRecursosHumanos
             {
                 if (_saveEmpleadoCommand == null)
                 {
-                    _saveEmpleadoCommand = new RelayCommand(saveEmpleado);
+                    _saveEmpleadoCommand = new RelayCommand(saveEmpleado,canSaveExecute);
                 }
                 return _saveEmpleadoCommand;
             }
         }
-        RelayCommand _cancelClienteCommand;
-        public ICommand cancelClienteCommand
+        RelayCommand _cancelEmpleadoCommand;
+        public ICommand cancelEmpleadoCommand
         {
             get
             {
-                if (_cancelClienteCommand == null)
+                if (_cancelEmpleadoCommand == null)
                 {
-                    _cancelClienteCommand = new RelayCommand(cancelEmpleado);
+                    _cancelEmpleadoCommand = new RelayCommand(cancelEmpleado);
                 }
-                return _cancelClienteCommand;
+                return _cancelEmpleadoCommand;
             }
         }
         #endregion
 
+
+
         #region Comandos
-        public void viewEditEmpleado(Object id)
+
+        public void viewEditEmpleado(Object codEmpleado)
         {
             try
             {
-                this.empleado = listaEmpleados.Single(empleado => empleado.id == (int)id);
+                this.empleado = listaEmpleados.Single(empleado => empleado.codEmpleado == (int)codEmpleado);
                 if (this.empleado.id_ubigeo_distrito != null)
                 {
                     selectedProvincia = this.empleado.UbigeoDistrito.UbigeoProvincia;
                     selectedDepartamento = selectedProvincia.UbigeoDepartamento;
                 }
-
                 this.statusTab = Tab.MODIFICAR;
             }
             catch (Exception e)
@@ -233,6 +287,12 @@ namespace pe.edu.pucp.ferretin.viewmodel.MRecursosHumanos
         {
             this.statusTab = Tab.BUSQUEDA;
             listaEmpleados = MR_EmpleadoService.listaEmpleados;
+        }
+
+
+        private bool canSaveExecute(object obj)
+        {
+            return base.UIValidationErrorCount == 0 && this.empleado.Errors.Count == 0;
         }
         #endregion
 

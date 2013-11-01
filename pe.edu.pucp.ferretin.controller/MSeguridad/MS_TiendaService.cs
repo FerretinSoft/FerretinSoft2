@@ -6,6 +6,8 @@ using System.Text;
 using System.Threading.Tasks;
 using pe.edu.pucp.ferretin.model;
 using System.Data.Linq;
+using System.Windows;
+using System.Windows.Input;
 
 namespace pe.edu.pucp.ferretin.controller.MSeguridad
 {
@@ -44,16 +46,10 @@ namespace pe.edu.pucp.ferretin.controller.MSeguridad
             else
                 return null;
         }
-
-
-        public static void insertarTienda(Tienda tienda)
-        {
-            db.Tienda.InsertOnSubmit(tienda);
-            db.SubmitChanges();
-        }
+        
 
         public static void actualizarTienda(Tienda tienda)
-        {
+        {            
             db.SubmitChanges();
         }
 
@@ -64,8 +60,8 @@ namespace pe.edu.pucp.ferretin.controller.MSeguridad
                        //Cada fila es un filtro
                           (t.codigo != null && t.codigo.ToLower().Contains(codTienda.ToLower().Trim()))
                        && ((t.nombre != null && t.nombre.ToLower().Contains(nombre.ToLower().Trim())))
-                       && (tipo == 0 || (t.tipo != null && t.tipo.Equals(tipo == 1 ? true : false)))
-                       && (estado == 0 || (t.estado != null && t.estado.Equals(estado == 1 ? true : false)))
+                       && (tipo == 0 || (t.tipo != null && t.tipo==tipo-1))
+                       && (estado == 0 || (t.estado != null && t.estado == estado-1))
                        && (distrito == null || (t.UbigeoDistrito.id != null && t.UbigeoDistrito.id == distrito.id ))
                     )
                    orderby t.codigo
@@ -85,12 +81,12 @@ namespace pe.edu.pucp.ferretin.controller.MSeguridad
         public static bool insertarAlmacen(Tienda almacen)
         {
             if (!db.Tienda.Contains(almacen))
-            {
+            {                               
                 db.Tienda.InsertOnSubmit(almacen);
                 return enviarCambios();
             }
             else
-            {
+            {                
                 return false;
             }
         }

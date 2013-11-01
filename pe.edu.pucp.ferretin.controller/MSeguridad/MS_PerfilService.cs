@@ -80,18 +80,7 @@ namespace pe.edu.pucp.ferretin.controller.MSeguridad
             db.SubmitChanges();
         }
         /*******************************************************/
-        public static IEnumerable<Perfil> buscar(int perfil,int modulo)
-        {
-            return from p in listaPerfiles
-                   where (
-                       //Cada fila es un filtro
-                   (perfil == 0 || (p.nombre != null && p.nombre.Equals(perfil))
-                       //&& (modulo == 0 || (p.estado != null && u.estado.Equals(estado == 1 ? true : false)))
-                    )
-                    )
-                   orderby p.nombre
-                   select p;
-        }
+        
         /*******************************************************/
         private static IEnumerable<Perfil> _listaPerfilesCombo;
         private static IEnumerable<Perfil> listaPerfilesCombo
@@ -115,5 +104,41 @@ namespace pe.edu.pucp.ferretin.controller.MSeguridad
         {
             return listaPerfilesCombo;
         }
+        /*******************************************************/
+        public static string obtenerModulo(int valor)
+        {
+            string modulo = null;
+
+            if (valor == 1) modulo = "Modulo Almacen";
+            if (valor == 2) modulo = "Modulo Compras";
+            if (valor == 3) modulo =  "Modulo Recursos Humanos";
+            if (valor == 4) modulo =  "Modulo Ventas";
+            if (valor == 5) modulo =  "Modulo Administrador";            
+
+            return modulo;
+        }
+
+        /*******************************************************/
+        public static IEnumerable<Perfil> buscar(int modulo, string descripcion)
+        {
+            IEnumerable<Perfil> perfiles = listaPerfiles;
+            //Filtro por modulo         
+            perfiles = perfiles.Where(p => (modulo == 0) || (p.modulo.ToLower().Contains(obtenerModulo(modulo).ToLower().Trim())) );
+            //Filtro por descripcion
+            perfiles = perfiles.Where(p => p.descripcion.ToLower().Contains(descripcion.ToLower().Trim()));
+            return perfiles;
+        }
+        /*
+        return listaPerfiles.Where(p => p.descripcion.Contains(searchDescripcion)) ;
+        /*******************************************************/
+        public static Menu menuPadre
+        {
+            get
+            {
+                return db.Menu.Single(m => m.id_menu_padre == null || m.id_menu_padre <= 0);
+            }
+        }
+        
+
     }
 }

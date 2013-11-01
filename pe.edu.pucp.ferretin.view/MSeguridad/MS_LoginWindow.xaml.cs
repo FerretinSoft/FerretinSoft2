@@ -29,7 +29,7 @@ namespace pe.edu.pucp.ferretin.view.MSeguridad
         private String contrasena;
 
         public List<Parametro> listaParametros;
-        public short intentos;
+        public int intentos;
 
 
         public MS_LoginWindow()
@@ -93,16 +93,59 @@ namespace pe.edu.pucp.ferretin.view.MSeguridad
 
             foreach(Usuario value in listaUsuarios){
 
-                if (value.nombre == this.nombreUsuario && value.contrasena == this.contrasena)
+                if (value.nombre == this.nombreUsuario && value.contrasena == MS_UsuarioService.encrypt(this.contrasena))
                 {
-                    usuarioLog = value;
-                    MainWindow mainW = new MainWindow(usuarioLog);
-                    this.Close();
-                    mainW.Show();
+                    
+                    if (MS_UsuarioService.encrypt(this.contrasena) == MS_UsuarioService.encrypt("ferretinSoft"))
+                    {
+
+                        usuarioLog = value;
+                        MS_CambiarContraseñaUsuario cc = new MS_CambiarContraseñaUsuario(usuarioLog);
+                        cc.Show();
+                        this.Close();
+                        break;
+
+
+                    }
+
+                    if (value.estado == 0)
+                    {
+                        MessageBox.Show("Su usuario está bloqueado, contactese con administración para solucionar este problema.");
+                        this.Close();
+                    }
+                    else
+                    {
+
+                        value.intentosCon = Convert.ToInt16(listaParametros[0].valor);
+                        MS_UsuarioService.actualizarUsuario(value);
+                        usuarioLog = value;
+                        MainWindow mainW = new MainWindow(usuarioLog);
+                        this.Close();
+                        mainW.Show();
+                    }
 
                 }
                 else
                 {
+
+
+                    if (value.nombre == this.nombreUsuario)
+                    {
+
+                        if (value.estado == 0)
+                        {
+                            MessageBox.Show("Su usuario está bloqueado, contactese con administración para solucionar este problema.");
+                            this.Close();
+                        }
+
+                        intentos = (int)value.intentosCon;
+                        if (value.intentosCon == 0) break;
+
+                        value.intentosCon--;
+                        intentos = (int)value.intentosCon;
+                        MS_UsuarioService.actualizarUsuario(value);
+                    }
+
                     if (String.IsNullOrEmpty(this.nombreUsuario) && String.IsNullOrEmpty(this.contrasena))
                     {
 
@@ -128,22 +171,28 @@ namespace pe.edu.pucp.ferretin.view.MSeguridad
                         
                     }
 
+                    if (!String.IsNullOrEmpty(this.nombreUsuario))
+                    {
+
+                        numIntentos.Content = "Número de intentos restantes: " + intentos;
+
+                        if (intentos == 0)
+                        {
+                            MessageBox.Show("Este usuario sera bloqueado, por favor comuniquese con el area de administración");
+                            value.estado = 0;
+                            MS_UsuarioService.actualizarUsuario(value);
+                            this.Close();
+                            break;
+                        }
+
+                    }
+
+
                 }
 
             }
 
-            if (!String.IsNullOrEmpty(this.nombreUsuario) && !String.IsNullOrEmpty(this.contrasena))
-            {
-                intentos--;
-                numIntentos.Content = "Número de intentos restantes: " + intentos;
-
-                if (intentos == 0) 
-                {
-                    MessageBox.Show("FerretinSoft se cerrara por medidas de seguridad");
-                    this.Close();
-                }
-
-            }
+            
 
 
         }

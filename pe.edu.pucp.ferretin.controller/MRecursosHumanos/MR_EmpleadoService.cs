@@ -19,6 +19,7 @@ namespace pe.edu.pucp.ferretin.controller.MRecursosHumanos
                 if (_listaEmpleados == null)
                 {
                     _listaEmpleados = db.Empleado;
+                   
                 }
 
                 db.Refresh(RefreshMode.OverwriteCurrentValues, _listaEmpleados);
@@ -52,10 +53,12 @@ namespace pe.edu.pucp.ferretin.controller.MRecursosHumanos
 
         public static bool insertarEmpleado(Empleado empleado) 
         {
+            empleado.codEmpleado = 100050 + listaEmpleados.Count();
             if (!db.Empleado.Contains(empleado))
             {
                 db.Empleado.InsertOnSubmit(empleado); 
                 return enviarCambios();
+               
                   
             }
             else
@@ -64,16 +67,23 @@ namespace pe.edu.pucp.ferretin.controller.MRecursosHumanos
 
         public static void actualizarEmpleado(Empleado empleado)
         {
+           
             db.SubmitChanges();
         }
 
-        public static IEnumerable<Empleado> buscarEmpleados(string searchDni, string searchNombre, Cargo searchCargo, Tienda searchTienda, int searchCodigo)
-        {
-            return listaEmpleados.Where(e => e.dni != null && e.dni.Contains(searchDni))
-               .Where(e => e.nombre != null && e.nombre.Contains(searchNombre));
 
-            //COMPLETAR
-            
+        public static IEnumerable<Empleado> buscarEmpleados(string searchDNI, string searchNombre, int searchCodigo, Cargo searchCargo, Tienda searchTienda)
+        {
+            return listaEmpleados.Where(e => e.dni != null && e.dni.Contains(searchDNI))
+              .Where(e => e.nombreCompleto.Contains(searchNombre))
+              .Where(e => (searchCodigo <=0) || (e.codEmpleado == searchCodigo))
+              //estado 1=inactivo, 2=activo
+              .Where(e => searchTienda == null || searchTienda.id <= 0 || (e.EmpleadoTienda.Single(et => et.estado == 2).Tienda.id == searchTienda.id))
+              .Where(e => searchCargo == null || searchCargo.id <= 0 || (e.EmpleadoTienda.Single(et=> et.estado == 2).Cargo.id == searchCargo.id ))
+              ;
+
         }
+
+       
     }
 }
