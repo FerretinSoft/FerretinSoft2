@@ -118,8 +118,8 @@ namespace pe.edu.pucp.ferretin.viewmodel.MVentas
             }
         }
 
-        private IEnumerable<VentaProducto> _listaProductosDev;
-        public IEnumerable<VentaProducto> listaProductosDev
+        private IEnumerable<DevolucionProducto> _listaProductosDev;
+        public IEnumerable<DevolucionProducto> listaProductosDev
         {
             get
             {
@@ -196,8 +196,9 @@ namespace pe.edu.pucp.ferretin.viewmodel.MVentas
                  DevolucionProducto prodDev = new DevolucionProducto();
                  VentaProducto prodSelec = MV_VentaService.obtenerVentaProductobyId((long)id);
                  prodDev.Producto = prodSelec.Producto;
-                 
-                 //devolucion.DevolucionProducto.Add(prodDev);
+                 prodDev.Producto.codigo = prodSelec.Producto.codigo;
+                 devolucion.DevolucionProducto.Add(prodDev);
+                 this.listaProductosDev = devolucion.DevolucionProducto;
             }
             catch (Exception e)
             {

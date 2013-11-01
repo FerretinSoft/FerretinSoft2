@@ -322,8 +322,8 @@
                     <TextBlock Grid.Row="4" Margin="5,5" VerticalAlignment="Center">Productos a Devolver:</TextBlock>
                     <DataGrid ItemsSource="{Binding Path=devolucion.DevolucionProducto}" AutoGenerateColumns="False" x:Name="productosDevolverGrid" Grid.Row="5" Margin="5,0">
                         <DataGrid.Columns>
-                            <DataGridTextColumn Width="1*" Binding="{Binding Path= id_producto}" ClipboardContentBinding="{x:Null}" Header="Cód Prod."/>
-                            <DataGridTextColumn Width="2*" Binding="{x:Null}" ClipboardContentBinding="{x:Null}" Header="Descripción"/>
+                            <DataGridTextColumn Width="1*" Binding="{Binding Path= Producto.codigo}" ClipboardContentBinding="{x:Null}" Header="Cód Prod."/>
+                            <DataGridTextColumn Width="2*" Binding="{Binding Path= id_producto}" ClipboardContentBinding="{x:Null}" Header="Descripción"/>
                             <DataGridTextColumn Width="0.98*" Binding="{x:Null}" ClipboardContentBinding="{x:Null}" Header="Cant. Dev."/>
                             <DataGridTextColumn Width="1*" Binding="{x:Null}" ClipboardContentBinding="{x:Null}" Header="Motivo"/>
                             <DataGridTextColumn Width="0.7*" Binding="{x:Null}" ClipboardContentBinding="{x:Null}" Header="Moneda"/>
