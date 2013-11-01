@@ -24,7 +24,35 @@ namespace pe.edu.pucp.ferretin.viewmodel.MVentas
         public String _searchNroDocumento = "";
         public String searchNroDocumento { get { return _searchNroDocumento; } set { _searchNroDocumento = value; NotifyPropertyChanged("searchNroDocumento"); } }
 
-       #endregion
+        public String _searchNroDocCliente = "";
+        public String searchNroDocCliente { get { return _searchNroDocCliente; } set { _searchNroDocCliente = value; NotifyPropertyChanged("searchNroDocCliente"); } }
+
+        public DateTime _searchFechaInicio = DateTime.Parse("10/09/2013");
+        public DateTime searchFechaInicio { get { return _searchFechaInicio; } set { _searchFechaInicio = value; NotifyPropertyChanged("searchFechaInicio"); } }
+
+        public DateTime _searchFechaFin = DateTime.Today;
+        public DateTime searchFechaFin { get { return _searchFechaFin; } set { _searchFechaFin = value; NotifyPropertyChanged("searchFechaFin"); } }
+
+        public String _nombreCliente = "";
+        public String nombreCliente { get { return _nombreCliente; } set { _nombreCliente = value; NotifyPropertyChanged("nombreCliente"); } }
+        
+        public long _id = 0;
+        public long id { get { return _id; } set { _id = value; NotifyPropertyChanged("id"); } }
+
+        private int _selectedTab = 0;
+        public int selectedTab
+        {
+            get
+            {
+                return _selectedTab;
+            }
+            set
+            {
+                _selectedTab = value;
+                NotifyPropertyChanged("selectedTab");
+            }
+        }
+        #endregion
 
         #region Lista Ventas y Edicion de Venta
         private Venta _venta;
@@ -47,7 +75,7 @@ namespace pe.edu.pucp.ferretin.viewmodel.MVentas
             get
             {
 
-                _listaVentas = MV_VentaService.buscarVentas(searchNroDocumento);
+                _listaVentas = MV_VentaService.buscarVentas(searchNroDocumento, searchNroDocCliente, searchFechaInicio, searchFechaFin);
 
                 return _listaVentas;
             }
@@ -56,6 +84,35 @@ namespace pe.edu.pucp.ferretin.viewmodel.MVentas
                 _listaVentas = value;
                 NotifyPropertyChanged("listaVentas");
             }
+        }
+
+        private IEnumerable<VentaProducto> _listaProductos;
+        public IEnumerable<VentaProducto> listaProductos
+        {
+            get
+            {
+                return _listaProductos;
+            }
+            set
+            {
+                _listaProductos = value;
+                NotifyPropertyChanged("listaProductos");
+            }
+        }
+
+        private IEnumerable<VentaMedioPago> _listaMedioPago;
+        public IEnumerable<VentaMedioPago> listaMedioPago
+        {
+            get
+            {
+                return _listaMedioPago;
+            }
+            set
+            {
+                _listaMedioPago = value;
+                NotifyPropertyChanged("listaMedioPago");
+            }
+
         }
         #endregion
 
@@ -90,14 +147,17 @@ namespace pe.edu.pucp.ferretin.viewmodel.MVentas
         #region commands
         public void viewDetailVenta(Object id)
         {
-            //try
-            //{
+            try
+            {
                 this.venta = listaVentas.Single(venta => venta.id == (long)id);
-            //}
-            /*catch (Exception e)
+                this.listaProductos = MV_VentaService.obtenerProductosbyIdVenta((long)id);
+                this.listaMedioPago = MV_VentaService.obtenerMedioDePagobyIdVenta((long)id);
+                selectedTab = 1;
+            }
+            catch (Exception e)
             {
                 MessageBox.Show(e.Message);
-            }*/
+            }
         }
         #endregion
 

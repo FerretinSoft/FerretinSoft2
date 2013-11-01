@@ -54,10 +54,15 @@ namespace pe.edu.pucp.ferretin.controller.MVentas
         ///</param>
         public static Cliente obtenerClienteByNroDoc(String nroDoc)
         {
-            Cliente cliente = (from c in listaClientes
-                                where c.nroDoc != null && c.nroDoc.Equals(nroDoc)
-                                select c).First();
-            return cliente;
+            if (nroDoc != "")
+            {
+                Cliente cliente = (from c in listaClientes
+                                   where c.nroDoc != null && c.nroDoc.Equals(nroDoc)
+                                   select c).First();
+                return cliente;
+            }
+            else
+                return null;
         }
 
         ///<summary>

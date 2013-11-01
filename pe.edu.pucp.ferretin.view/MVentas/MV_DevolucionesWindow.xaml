@@ -1,14 +1,18 @@
 ﻿<Window x:Class="pe.edu.pucp.ferretin.view.MVentas.MV_DevolucionesWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:viewmodel="clr-namespace:pe.edu.pucp.ferretin.viewmodel.MVentas;assembly=pe.edu.pucp.ferretin.viewmodel"
         Title="Devoluciones" Height="550" Width="850" Icon="../Resources/ferretin_ico.ico">
-    <Grid>
+    <Window.Resources>
+        <viewmodel:MV_DevolucionesViewModel x:Key="MV_DevolucionesViewModel"/>
+    </Window.Resources>
+    <Grid DataContext="{Binding Source={StaticResource MV_DevolucionesViewModel}}" >
         <Grid.Background>
             <ImageBrush ImageSource="../Resources/texture_3_100.png" TileMode="FlipX" 
             Viewport="0,0,100,100" ViewportUnits="Absolute"/>
         </Grid.Background>
-        <TabControl x:Name="DevolucionesTab">
-            <TabItem Header="Buscar Devoluciones">
+        <TabControl SelectedIndex="{Binding selectedTab}" x:Name="DevolucionesTab">
+            <TabItem  Header="Buscar Devoluciones">
                 <Grid Background="#FFE5E5E5">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto"></RowDefinition>
@@ -36,17 +40,17 @@
                             <Label Content="Vendedor:" Grid.Row="0" Grid.Column="2"/>
                             <Label Content="Cliente:" Grid.Row="2" Grid.Column="0"/>
                             <Label Content="Fecha Hasta:" Grid.Row="3" Grid.Column="2"/>
-                            <TextBox Text ="RUC/DNI" Grid.Row="2" Grid.Column="1" VerticalAlignment="Center" Margin="0,2,25,2" />
-                            <TextBox Grid.Row="0" Grid.Column="1" VerticalAlignment="Center" Margin="0,0,25,0"/>
+                            <TextBox Text="{Binding searchNroDocCliente, Mode=TwoWay}" LostFocus="TextBox_LostFocus" x:Name="searchNroDoc"  Grid.Row="2" Grid.Column="1" VerticalAlignment="Center" Margin="0,2,25,2" />
+                            <TextBox Text="{Binding searchNroDevolucion, Mode=TwoWay}" Grid.Row="0" Grid.Column="1" VerticalAlignment="Bottom" Margin="0,0,25,2"/>
 
-                            <Grid Grid.Column="1" Grid.Row="1">
+                            <Grid Grid.Column="1" Grid.Row="1" Height="27" VerticalAlignment="Top">
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition></ColumnDefinition>
 
                                     <ColumnDefinition Width="Auto"></ColumnDefinition>
                                 </Grid.ColumnDefinitions>
-                                <TextBox Grid.Row="0" VerticalAlignment="Center" x:Name="codVentaList" IsEnabled="True" Margin="0,0,5,0" KeyDown="codVentaList_KeyDown" />
-                                <Button x:Name="buscarVentaBtn" VerticalAlignment="Center" Width="20" Height="20" Grid.Column="1" BorderThickness="0" Click="buscarVentaBtn_Click" RenderTransformOrigin="2.3,0.572">
+                                <TextBox Text="{Binding searchNroDocumento, Mode=TwoWay}" Grid.Row="0" VerticalAlignment="Center" IsEnabled="True" Margin="0,0,5,0"/>
+                                <Button x:Name="buscarVentaBtn" VerticalAlignment="Center" Width="20" Height="20" Grid.Column="1" BorderThickness="0" RenderTransformOrigin="2.3,0.572">
                                     <Button.Background>
                                         <ImageBrush ImageSource="../Resources/search1_20.png"/>
                                     </Button.Background>
@@ -65,7 +69,7 @@
                                     </Button.Background>
                                 </Button>
                             </Grid>
-                            <DatePicker Grid.Row="3" Grid.Column="1" VerticalAlignment="Center" BorderThickness="0"/>
+                            <DatePicker SelectedDate="{Binding searchFechaInicio, Mode=OneWay}" Grid.Row="3" Grid.Column="1" VerticalAlignment="Center" BorderThickness="0"/>
 
                             <Grid Grid.Column="3" Grid.Row="0" Grid.ColumnSpan="2">
                                 <Grid.ColumnDefinitions>
@@ -73,7 +77,7 @@
                                     <ColumnDefinition Width="Auto"></ColumnDefinition>
                                 </Grid.ColumnDefinitions>
                                 <TextBox Grid.Row="0" VerticalAlignment="Center" IsEnabled="False" Margin="0,0,5,0" />
-                                <TextBox Grid.Row="0" Text ="Razón Social/Nombre Apellido" VerticalAlignment="Center" IsEnabled="False" Margin="0,56,5,-52" />
+                                <TextBox x:Name="nombreCliente" Grid.Row="0"  VerticalAlignment="Center" IsEnabled="False" Margin="0,56,5,-52" />
                                 <Button x:Name="buscarVendedorBtn" VerticalAlignment="Center" Width="20" Height="20" Grid.Column="1" BorderThickness="0">
                                     <Button.Background>
                                         <ImageBrush ImageSource="../Resources/search1_20.png"/>
@@ -90,9 +94,9 @@
 
                             </Grid>
 
-                            <DatePicker Grid.Row="3" Grid.Column="3" VerticalAlignment="Center" BorderThickness="0"/>
+                            <DatePicker SelectedDate="{Binding searchFechaFin, Mode=OneWay}" Grid.Row="3" Grid.Column="3" VerticalAlignment="Center" BorderThickness="0"/>
 
-                            <Button x:Name="buscarDevolucionBtn" Width="28" Height="28" BorderThickness="0" Grid.Column="5" Grid.Row="3">
+                            <Button Command="{Binding actualizarListaDevolucionesCommand}" Width="28" Height="28" BorderThickness="0" Grid.Column="5" Grid.Row="3">
                                 <Button.Background>
                                     <ImageBrush ImageSource="../Resources/refresh2_48.png"/>
                                 </Button.Background>
@@ -106,26 +110,37 @@
                                 <ImageBrush ImageSource="../Resources/add_20.png"/>
                             </Button.Background>
                         </Button>
-                        <Button x:Name="detalleDevolucionBtn" Content="" VerticalAlignment="Bottom" Width="20" Margin="0,0,2,-1" Click="editarDevolucionBtn_Click" Height="20">
-                            <Button.Background>
-                                <ImageBrush ImageSource="../Resources/edit_20.png"/>
-                            </Button.Background>
-                        </Button>
 
                     </ToolBar>
-                    <DataGrid x:Name="devolucionesGrid" Margin="5,5" Grid.Row="1" IsManipulationEnabled="True" CanUserSortColumns="True" AutoGenerateColumns="False" CanUserAddRows="False" CanUserDeleteRows="False" ItemsSource="{Binding Path=ListaDevoluciones}">
+                    <DataGrid Margin="5,5" Grid.Row="1" IsManipulationEnabled="True" CanUserSortColumns="True" AutoGenerateColumns="False" CanUserAddRows="False" CanUserDeleteRows="False" ItemsSource="{Binding Path=listaDevoluciones}">
                         <DataGrid.Columns>
-                            <DataGridHyperlinkColumn Width="1.5*" Binding="{Binding Path=Codigo}" ContentBinding="{x:Null}" ClipboardContentBinding="{x:Null}" Header="Núm Devolución"/>
-                            <DataGridTextColumn Width="2*" Binding="{Binding Path=Venta.Codigo}" ClipboardContentBinding="{x:Null}" Header="Doc. Venta"/>
-                            <DataGridTextColumn Width="1.5*" Binding="{Binding Path=Cliente.Codigo}" ClipboardContentBinding="{x:Null}" Header="ID Cliente"/>
-                            <DataGridTextColumn Width="4*" Binding="{Binding Path=Cliente.Nombre}" ClipboardContentBinding="{x:Null}" Header="Nombre Cliente"/>
-                            <DataGridTextColumn Width="2*" Binding="{Binding Path=FechaDevolucion}" ClipboardContentBinding="{x:Null}" Header="Fecha Devolución"/>
-                            <DataGridTextColumn Width="1*" Binding="{Binding Path=Importe}" ClipboardContentBinding="{x:Null}" Header="Importe"/>
+                            <DataGridTemplateColumn Width="2.5*" Header="Núm Devolución">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <TextBlock>
+                                        <Hyperlink 
+                                            Command="{Binding Path=DataContext.viewDetailDevolucionCommand, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type DataGrid}}}" 
+                                            CommandParameter="{Binding id}">
+                                            <TextBlock Text="{Binding codigo}" />
+                                        </Hyperlink>
+                                        </TextBlock>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+                            
+                            <DataGridTextColumn Width="2*" Binding="{Binding Path=Venta.nroDocumento}" ClipboardContentBinding="{x:Null}" Header="Doc. Venta"/>
+                            <DataGridTextColumn Width="1.5*" Binding="{Binding Path=Venta.Cliente.nroDoc}" ClipboardContentBinding="{x:Null}" Header="ID Cliente"/>
+                            <DataGridTextColumn Width="4*" Binding="{Binding Path=Venta.Cliente.nombreCompleto}" ClipboardContentBinding="{x:Null}" Header="Nombre Cliente"/>
+                            <DataGridTextColumn Width="2*" Binding="{Binding Path=fecEmision}" ClipboardContentBinding="{x:Null}" Header="Fecha Devolución"/>
+                            <DataGridTextColumn Width="1*" Binding="{Binding Path=total}" ClipboardContentBinding="{x:Null}" Header="Importe"/>
                         </DataGrid.Columns>
                     </DataGrid>
                 </Grid>
             </TabItem>
-            <TabItem Header="Detalle">
+            <TabItem>
+                <TabItem.Header>
+                    <TextBlock Text="Detalle Devolución"/>
+                </TabItem.Header>
                 <Grid Background="#FFE5E5E5">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="33*"></ColumnDefinition>
@@ -165,21 +180,18 @@
                         <Label Content="Fecha Vencimiento:" VerticalAlignment="Center" Grid.Row="8"/>
                         <Label Content="Estado:" VerticalAlignment="Center" Grid.Row="9"/>
                         <Label Content="Comentarios:" VerticalAlignment="Center" Grid.Row="11"/>
-
-                        <TextBox IsEnabled="false" VerticalAlignment="Center" Grid.Column="1" Grid.Row="0"/>
-                        <TextBox IsEnabled="false" VerticalAlignment="Center" Grid.Column="1" Grid.Row="1"/>
-                        <TextBox IsEnabled="false" Text="&lt;dd/mm/aa&gt;" VerticalAlignment="Center" Grid.Column="1" Grid.Row="2"/>
-                        <TextBox IsEnabled="false"  Text="&lt;RUC Cliente&gt;" VerticalAlignment="Center" Grid.Column="1" Grid.Row="3"/>
-
-                        <TextBox IsEnabled="false" Text="&lt;Razón Social Cliente&gt;" VerticalAlignment="Center" Grid.Column="1" Grid.Row="4"/>
-                        <TextBox IsEnabled="false" Text="&lt;Nombre Vendedor&gt;" VerticalAlignment="Center" Grid.Column="1" Grid.Row="5"/>
-                        <TextBox IsEnabled="false"  Text="&lt;Número Nota Crédito&gt;" VerticalAlignment="Center" Grid.Column="1" Grid.Row="6"/>
-
-                        <TextBox IsEnabled="false"  Text="&lt;dd/mm/aa&gt;" VerticalAlignment="Center" Grid.Column="1" Grid.Row="7"/>
-                        <TextBox IsEnabled="false"  Text="&lt;dd/mm/aa&gt;" VerticalAlignment="Center" Grid.Column="1" Grid.Row="8"/>
-                        <TextBox IsEnabled="false"  Text="&lt;Estado Nota Crédito&gt;" VerticalAlignment="Center" Grid.Column="1" Grid.Row="9"/>
+                        <TextBox Text="{Binding Path=devolucion.codigo, Mode=OneWay, ValidatesOnExceptions=true, NotifyOnValidationError=true}" IsEnabled="false" VerticalAlignment="Center" Grid.Column="1" Grid.Row="0"/>
+                        <TextBox Text="{Binding Path=devolucion.Venta.nroDocumento, Mode=OneWay}" IsEnabled="false" VerticalAlignment="Center" Grid.Column="1" Grid.Row="1"/>
+                        <TextBox IsEnabled="false" Text="{Binding Path=devolucion.fecEmision, Mode=OneWay}" VerticalAlignment="Center" Grid.Column="1" Grid.Row="2"/>
+                        <TextBox IsEnabled="false" Text="{Binding Path=devolucion.Venta.Cliente.nroDoc, Mode=OneWay}" VerticalAlignment="Center" Grid.Column="1" Grid.Row="3"/>
+                        <TextBox IsEnabled="false" Text="{Binding Path=devolucion.Venta.nombreCompletoCliente, Mode=OneWay}" VerticalAlignment="Center" Grid.Column="1" Grid.Row="4"/>
+                        <TextBox IsEnabled="false" Text="{Binding Path=devolucion.Venta.nombreCompletoVendedor, Mode=OneWay}" VerticalAlignment="Center" Grid.Column="1" Grid.Row="5"/>
+                        <TextBox IsEnabled="false" Text="{Binding Path=notaCredito.codigo, Mode=OneWay}" VerticalAlignment="Center" Grid.Column="1" Grid.Row="6"/>
+                        <TextBox IsEnabled="false" Text="{Binding Path=notaCredito.fechaEmision, Mode=OneWay}" VerticalAlignment="Center" Grid.Column="1" Grid.Row="7"/>
+                        <TextBox IsEnabled="false" Text="{Binding Path=notaCredito.fechaVencimiento, Mode=OneWay}" VerticalAlignment="Center" Grid.Column="1" Grid.Row="8"/>
+                        <TextBox IsEnabled="false" VerticalAlignment="Center" Grid.Column="1" Grid.Row="9"/>
                         <StackPanel Grid.Row="12" Grid.ColumnSpan="2" Margin="0,0,0,5">
-                            <TextBox TextWrapping="Wrap" Text="&lt;Comentarios aquí&gt;" VerticalAlignment="Top" Height="100" Margin="0,0,0,5"/>
+                            <TextBox Text="{Binding Path=devolucion.comentario, Mode=OneWay}" TextWrapping="Wrap" VerticalAlignment="Top" Height="100" Margin="0,0,0,5"/>
                         </StackPanel>
                     </Grid>
                     <Grid Grid.Column="1" Margin="5,5">
@@ -187,16 +199,16 @@
                             <RowDefinition></RowDefinition>
                             <RowDefinition Height="Auto"></RowDefinition>
                         </Grid.RowDefinitions>
-                        <DataGrid Grid.Row="0" Margin="10,5,5,5">
+                        <DataGrid ItemsSource="{Binding Path=listaProductos}" AutoGenerateColumns="False" Grid.Row="0" Margin="10,5,5,5">
                             <DataGrid.Columns>
-                                <DataGridHyperlinkColumn Width="1*" Binding="{x:Null}" ContentBinding="{x:Null}" ClipboardContentBinding="{x:Null}" Header="Cód Prod."/>
-                                <DataGridTextColumn Width="1.5*" Binding="{x:Null}" ClipboardContentBinding="{x:Null}" Header="Descripción"/>
-                                <DataGridTextColumn Width="0.7*" Binding="{x:Null}" ClipboardContentBinding="{x:Null}" Header="Cant."/>
-                                <DataGridTextColumn Width="1.2*" Binding="{x:Null}" ClipboardContentBinding="{x:Null}" Header="Motivo"/>
-                                <DataGridTextColumn Width="0.9*" Binding="{x:Null}" ClipboardContentBinding="{x:Null}" Header="Moneda"/>
-                                <DataGridTextColumn Width="0.9*" Binding="{x:Null}" ClipboardContentBinding="{x:Null}" Header="Precio"/>
-                                <DataGridTextColumn Width="1*" Binding="{x:Null}" ClipboardContentBinding="{x:Null}" Header="Dscto. (%)"/>
-                                <DataGridTextColumn Width="1*" Binding="{x:Null}" ClipboardContentBinding="{x:Null}" Header="Importe"/>
+                                <DataGridTextColumn Width="1*" Binding="{Binding Path=Producto.codigo}" ClipboardContentBinding="{x:Null}" Header="Cód Prod."/>
+                                <DataGridTextColumn Width="1.5*" Binding="{Binding Path=Producto.nombre}" ClipboardContentBinding="{x:Null}" Header="Descripción"/>
+                                <DataGridTextColumn Width="0.7*" Binding="{Binding Path=cantidad}" ClipboardContentBinding="{x:Null}" Header="Cant."/>
+                                <DataGridTextColumn Width="1.2*" ClipboardContentBinding="{x:Null}" Header="Motivo"/>
+                                <DataGridTextColumn Width="0.9*" ClipboardContentBinding="{x:Null}" Header="Moneda"/>
+                                <DataGridTextColumn Width="0.9*" Binding="{Binding Path=Producto.precioLista}" ClipboardContentBinding="{x:Null}" Header="Precio"/>
+                                <DataGridTextColumn Width="1*"  ClipboardContentBinding="{x:Null}" Header="Dscto. (%)"/>
+                                <DataGridTextColumn Width="1*" Binding="{Binding Path=monto}" ClipboardContentBinding="{x:Null}" Header="Importe"/>
                             </DataGrid.Columns>
                         </DataGrid>
                         <GroupBox Header="Importe" BorderBrush="Gray" Grid.Row="1" Height="Auto" VerticalAlignment="Bottom" HorizontalAlignment="Right">
@@ -213,14 +225,11 @@
                                 <Label Content="Sub Total:" VerticalAlignment="Center"/>
                                 <Label Content="%IGV:" VerticalAlignment="Center" Grid.Row="1"/>
                                 <Label Content="Total a Pagar:" VerticalAlignment="Center" Grid.Row="2"/>
-
                                 <TextBox  Text="0.00" VerticalAlignment="Center" IsEnabled="False" TextAlignment="Right" Grid.Column="1"/>
                                 <TextBox  Text="0.00" VerticalAlignment="Center" IsEnabled="False" TextAlignment="Right" Grid.Column="1" Grid.Row="1"/>
-                                <TextBox  Text="0.00" VerticalAlignment="Center" IsEnabled="False" TextAlignment="Right" Grid.Column="1" Grid.Row="2"/>
-
+                                <TextBox  Text="{Binding Path=devolucion.total, Mode=OneWay}" VerticalAlignment="Center" IsEnabled="False" TextAlignment="Right" Grid.Column="1" Grid.Row="2"/>
                             </Grid>
                         </GroupBox>
-
                     </Grid>
                 </Grid>
             </TabItem>
@@ -252,19 +261,14 @@
                                 <RowDefinition></RowDefinition>
                             </Grid.RowDefinitions>
                             <Label Content="Cód. Devolución:" VerticalAlignment="Center"/>
-                            <TextBox Text="123456789123" VerticalAlignment="Center" IsEnabled="false" Grid.Column="1" Margin="0,0,26,0"/>
+                            <TextBox VerticalAlignment="Center" IsEnabled="false" Grid.Column="1" Margin="0,0,26,0"/>
                             <Label Content="Cliente:" VerticalAlignment="Center" Grid.Row="1" Grid.Column="2"/>
                             <Grid Grid.Column="3" Grid.Row="1">
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition></ColumnDefinition>
                                     <ColumnDefinition Width="Auto"></ColumnDefinition>
                                 </Grid.ColumnDefinitions>
-                                <TextBox  Text="&lt;RUC/DNI&gt;" VerticalAlignment="Center" IsEnabled="True" />
-                                <Button x:Name="ins_buscarClienteBtn" VerticalAlignment="Center" Width="18" Height="18" Grid.Column="1" BorderThickness="0">
-                                    <Button.Background>
-                                        <ImageBrush ImageSource="../Resources/search1_20.png"/>
-                                    </Button.Background>
-                                </Button>
+                                <TextBox x:Name="RegCodCliente" IsEnabled="False" VerticalAlignment="Center"/>
                             </Grid>
                             <Label Content="Fecha Devolución:" VerticalAlignment="Center" Grid.Row="1" />
                             <DatePicker VerticalAlignment="Center" Margin="0" IsEnabled="False" Grid.Row="1" Grid.Column="1" BorderThickness="0"/>
@@ -274,7 +278,7 @@
                                     <ColumnDefinition></ColumnDefinition>
                                     <ColumnDefinition Width="Auto"></ColumnDefinition>
                                 </Grid.ColumnDefinitions>
-                                <TextBox Text="123456789123" VerticalAlignment="Center" Margin="0,0,2,0"/>
+                                <TextBox x:Name="codVenta" LostFocus="TextBox_SelectionChanged_1" VerticalAlignment="Center" Margin="0,0,2,0"/>
                                 <Button x:Name="ins_buscarVentaBtn" VerticalAlignment="Center" Width="18" Height="18" Grid.Column="1" BorderThickness="0">
                                     <Button.Background>
                                         <ImageBrush ImageSource="../Resources/search1_20.png"/>
@@ -282,31 +286,43 @@
                                 </Button>
                             </Grid>
                             <Label Content="Vendedor:" VerticalAlignment="Center" Grid.Column="4"/>
-                            <TextBox Text="&lt;Nombre Vendedor&gt;" VerticalAlignment="Center" Grid.Column="5" IsEnabled="False"/>
-                            <TextBox Text="&lt;Nombre/Razón Social&gt;" VerticalAlignment="Center" Grid.Column="5" Grid.Row="1" IsEnabled="False" Margin="0,2"/>
+                            <TextBox VerticalAlignment="Center" Grid.Column="5" IsEnabled="False"/>
+                            <TextBox x:Name="RegNombreCliente" Grid.Column="5" Grid.Row="1" IsEnabled="False" Margin="0,2"/>
                         </Grid>
                     </GroupBox>
 
                     <TextBlock HorizontalAlignment="Left" VerticalAlignment="Center" Grid.Row="1" Margin="5,5">Productos Comprados:</TextBlock>
-                    <DataGrid VerticalAlignment="Stretch" Grid.Row="2" Margin="5,5">
+                    <DataGrid x:Name="productosCompGrid" Grid.Row="2" Margin="5,5" AutoGenerateColumns="False">
                         <DataGrid.Columns>
-                            <DataGridTextColumn Width="1*" Binding="{x:Null}" ClipboardContentBinding="{x:Null}" Header="Cód Prod."/>
-                            <DataGridTextColumn Width="2*" Binding="{x:Null}" ClipboardContentBinding="{x:Null}" Header="Descripción"/>
-                            <DataGridTextColumn Width="0.98*" Binding="{x:Null}" ClipboardContentBinding="{x:Null}" Header="Cant. Comp."/>
+                            <DataGridTemplateColumn Width="1*" Header="Cód. Producto">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <TextBlock>
+                                        <Hyperlink 
+                                            Command="{Binding Path=DataContext.addProductDevCommand, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type DataGrid}}}" 
+                                            CommandParameter="{Binding id}">
+                                            <TextBlock Text="{Binding Producto.codigo}" />
+                                        </Hyperlink>
+                                        </TextBlock>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+                            <DataGridTextColumn Width="2*" Binding="{Binding Path=Producto.nombre}" Header="Descripción"/>
+                            <DataGridTextColumn Width="0.98*" Binding="{Binding Path=cantidad}" ClipboardContentBinding="{x:Null}" Header="Cant. Comp."/>
                             <DataGridTextColumn Width="0.7*" Binding="{x:Null}" ClipboardContentBinding="{x:Null}" Header="Moneda"/>
-                            <DataGridTextColumn Width="0.7*" Binding="{x:Null}" ClipboardContentBinding="{x:Null}" Header="Precio"/>
+                            <DataGridTextColumn Width="0.7*" Binding="{Binding Path=Producto.precio}" ClipboardContentBinding="{x:Null}" Header="Precio"/>
                             <DataGridTextColumn Width="0.7*" Binding="{x:Null}" ClipboardContentBinding="{x:Null}" Header="Dscto. (%)"/>
-                            <DataGridTextColumn Width="1*" Binding="{x:Null}" ClipboardContentBinding="{x:Null}" Header="Importe"/>
+                            <DataGridTextColumn Width="1*" Binding="{Binding Path=montoParcial}" ClipboardContentBinding="{x:Null}" Header="Importe"/>
                         </DataGrid.Columns>
                     </DataGrid>
                     <StackPanel HorizontalAlignment="Right" Orientation="Horizontal" VerticalAlignment="Center" Grid.Row="3" Margin="5,0">
                         <Label Content="Total Comprado:"  VerticalAlignment="Center"/>
-                        <TextBox  Text="0.00" VerticalAlignment="Center" Width="100" IsEnabled="False" TextAlignment="Right" />
+                        <TextBox x:Name="totalComprado" VerticalAlignment="Center" Width="100" IsEnabled="False" TextAlignment="Right" />
                     </StackPanel>
                     <TextBlock Grid.Row="4" Margin="5,5" VerticalAlignment="Center">Productos a Devolver:</TextBlock>
-                    <DataGrid Grid.Row="5" Margin="5,0">
+                    <DataGrid ItemsSource="{Binding Path=devolucion.DevolucionProducto}" AutoGenerateColumns="False" x:Name="productosDevolverGrid" Grid.Row="5" Margin="5,0">
                         <DataGrid.Columns>
-                            <DataGridTextColumn Width="1*" Binding="{x:Null}" ClipboardContentBinding="{x:Null}" Header="Cód Prod."/>
+                            <DataGridTextColumn Width="1*" Binding="{Binding Path= id_producto}" ClipboardContentBinding="{x:Null}" Header="Cód Prod."/>
                             <DataGridTextColumn Width="2*" Binding="{x:Null}" ClipboardContentBinding="{x:Null}" Header="Descripción"/>
                             <DataGridTextColumn Width="0.98*" Binding="{x:Null}" ClipboardContentBinding="{x:Null}" Header="Cant. Dev."/>
                             <DataGridTextColumn Width="1*" Binding="{x:Null}" ClipboardContentBinding="{x:Null}" Header="Motivo"/>
@@ -328,7 +344,7 @@
                         </Grid.ColumnDefinitions>
                         <StackPanel>
                             <Label Content="Comentarios:" />
-                            <TextBox Height="70" Text="&lt;Comentarios aquí&gt;"/>
+                            <TextBox Height="70"/>
                         </StackPanel>
                         <StackPanel Orientation="Horizontal" Grid.Column="2" VerticalAlignment="Bottom" HorizontalAlignment="Right">
                             <Button Content="IMPRIMIR NOTA DE CRÉDITO" Height="30" Margin="0,0,10,0" Padding="5,0"/>

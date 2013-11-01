@@ -33,25 +33,103 @@ namespace pe.edu.pucp.ferretin.controller.MVentas
             }
         }
 
-        public static Venta obtenerVentaByCodVenta(String nroDocumento)
+        private static IEnumerable<VentaProducto> _listaProductos;
+        public static IEnumerable<VentaProducto> listaProductos
         {
-            Venta venta = (from c in listaVentas
-                           where c.nroDocumento != null && c.nroDocumento.Equals(nroDocumento)
-                               select c).First();
-            return venta;
+            get
+            {
+                if (_listaProductos == null)
+                {
+                    _listaProductos = db.VentaProducto;
+                }
+                db.Refresh(RefreshMode.OverwriteCurrentValues, _listaProductos);
+                return _listaProductos;
+            }
+            set
+            {
+                _listaProductos = value;
+            }
         }
 
-        public static IEnumerable<Venta> buscarVentas(string nroDocumento)
+        private static IEnumerable<VentaMedioPago> _listaMedioPago;
+        public static IEnumerable<VentaMedioPago> listaMedioPago
+        {
+            get
+            {
+                if (_listaMedioPago == null)
+                    _listaMedioPago = db.VentaMedioPago;
+                db.Refresh(RefreshMode.OverwriteCurrentValues, _listaMedioPago);
+                return _listaMedioPago;
+            }
+            set
+            {
+                _listaMedioPago = value;
+            }
+        }
+
+        public static Venta obtenerVentaByCodVenta(String nroDocumento)
+        {
+            if (nroDocumento != "")
+            {
+                Venta venta = (from c in listaVentas
+                               where c.nroDocumento != null && c.nroDocumento.Equals(nroDocumento)
+                               select c).First();
+                return venta;
+            }
+            else
+                return null;
+        }
+
+        public static IEnumerable<Venta> buscarVentas(string nroDocumento, string nroDocCliente, DateTime fechaInicio, DateTime fechaFin)
         {
             return from c in listaVentas
                    where
                    (c.nroDocumento != null && c.nroDocumento.Contains(nroDocumento)
+                   && c.Cliente.nroDoc != null && c.Cliente.nroDoc.Contains(nroDocCliente)
+                   && c.fecha != null && c.fecha >= fechaInicio
+                   && c.fecha != null && c.fecha <= fechaFin
+
                     )
                    orderby c.nroDocumento
                    select c;
         }
+
+        public static IEnumerable<VentaProducto> obtenerProductosbyIdVenta(long id_venta)
+        {
+            return from c in listaProductos
+                   where
+                   (c.id_venta != null && c.id_venta.Equals(id_venta)
+                    )
+                   orderby c.id_venta
+                   select c;
+        }
+
+        public static IEnumerable<VentaMedioPago> obtenerMedioDePagobyIdVenta(long id_venta)
+        {
+            return from c in listaMedioPago
+                   where
+                   (c.id_venta != null && c.id_venta.Equals(id_venta)
+                   )
+                   orderby c.id_venta
+                   select c;
+        }
+        public static VentaProducto obtenerVentaProductobyId(long id)
+        {
+            if (id >= 1)
+            {
+                VentaProducto prodSelec = (from c in listaProductos
+                                   where  c.id.Equals(id)
+                                   select c).First();
+                return prodSelec;
+            }
+            else
+                return null;
+        }
         
+
         #endregion
+
+
 
     }
 
