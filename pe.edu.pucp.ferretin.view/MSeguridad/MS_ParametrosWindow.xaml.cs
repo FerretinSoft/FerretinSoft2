@@ -24,6 +24,7 @@ namespace pe.edu.pucp.ferretin.view.MSeguridad
     {
         #region Variables
         //Lista de Parametros
+        /*
         List<Parametro> listaParametros;
 
         //Variables auxiliares para jalar los Parametros
@@ -35,13 +36,16 @@ namespace pe.edu.pucp.ferretin.view.MSeguridad
         Parametro vigenciaPro;
         Parametro vigenciaNota;
         Parametro solesPorPunto;
+         * */
         #endregion
-
+        
+        
         #region Constructor
         //Constructor ParametrosWindow
         public MS_ParametrosWindow()
         {
             InitializeComponent();
+            /*
             //Obtiene todos los parametros.
             listaParametros = MS_ParametroService.obtenerListaParametros().ToList();
 
@@ -69,6 +73,7 @@ namespace pe.edu.pucp.ferretin.view.MSeguridad
 
             solesPunto.Text = listaParametros[7].valor.ToString();
             solesPorPunto = listaParametros[7];
+            */
         }
         #endregion
 
@@ -76,7 +81,7 @@ namespace pe.edu.pucp.ferretin.view.MSeguridad
         //Evento de cambio de texto en Textbox
         private void intContrasena_TextChanged(object sender, TextChangedEventArgs e)
         {
-            
+            /*
             try
             {
                 if (Regex.IsMatch(intContrasena.Text, "[0-9]"))
@@ -90,12 +95,13 @@ namespace pe.edu.pucp.ferretin.view.MSeguridad
                 }
             }
             catch { }
+            */
             
         }
 
         private void tMaxSesion_TextChanged(object sender, TextChangedEventArgs e)
         {
-            
+            /*
             try
             {
 
@@ -110,11 +116,12 @@ namespace pe.edu.pucp.ferretin.view.MSeguridad
                 }
             }
             catch { }
+             * */
         }
 
         private void durClave_TextChanged(object sender, TextChangedEventArgs e)
         {
-            
+            /*
             try
             {
 
@@ -131,12 +138,13 @@ namespace pe.edu.pucp.ferretin.view.MSeguridad
                 
             }
             catch { }
+             * */
         }
 
         private void tipCambio_TextChanged(object sender, TextChangedEventArgs e)
         {
            
-
+            /*
             try
             {
 
@@ -151,11 +159,12 @@ namespace pe.edu.pucp.ferretin.view.MSeguridad
                 }                
             }
             catch { }
+             * */
         }
 
         private void igv_TextChanged(object sender, TextChangedEventArgs e)
         {
-           
+           /*
             try
             {
                 if (Regex.IsMatch(durClave.Text, "[0-9]"))
@@ -170,11 +179,12 @@ namespace pe.edu.pucp.ferretin.view.MSeguridad
                                
             }
             catch { }
+            * */
         }
 
         private void vigProforma_TextChanged(object sender, TextChangedEventArgs e)
         {
-          
+          /*
             try
             {
                 if (Regex.IsMatch(vigProforma.Text, "[0-9]"))
@@ -189,11 +199,12 @@ namespace pe.edu.pucp.ferretin.view.MSeguridad
 
             }
             catch { }
+           * */
         }
 
         private void vigNotaCredito_TextChanged(object sender, TextChangedEventArgs e)
         {
-            
+            /*
             try
             {
 
@@ -208,11 +219,12 @@ namespace pe.edu.pucp.ferretin.view.MSeguridad
                 }  
             }
             catch { }
+             * */
         }
 
         private void solesPunto_TextChanged(object sender, TextChangedEventArgs e)
         {
-            
+            /*
             try
             {
                 if (Regex.IsMatch(vigProforma.Text, "[0-9]"))
@@ -226,12 +238,13 @@ namespace pe.edu.pucp.ferretin.view.MSeguridad
                 }
             }
             catch { }
+             * */
         }
         //Fin de Eventos de Textbox
         #endregion
 
         private void Button_Click(object sender, RoutedEventArgs e)
-        {
+        {/*
             if (!String.IsNullOrEmpty(intContrasena.Text)) 
             {
                 MS_ParametroService.actualizarParametro(intentosC);
@@ -282,7 +295,7 @@ namespace pe.edu.pucp.ferretin.view.MSeguridad
             else
             {
                 MessageBox.Show("Los Parametros Validos han sido Actualizados Correctamente");
-            }
+            }*/
         }
 
         private void Button_Click_1(object sender, RoutedEventArgs e)
