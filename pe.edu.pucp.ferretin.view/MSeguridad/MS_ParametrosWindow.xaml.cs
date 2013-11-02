@@ -22,8 +22,11 @@ namespace pe.edu.pucp.ferretin.view.MSeguridad
     /// </summary>
     public partial class MS_ParametrosWindow : Window
     {
+
+        //Lista de Parametros
         List<Parametro> listaParametros;
 
+        //Variables auxiliares para jalar los Parametros
         Parametro intentosC;
         Parametro tiempoSesion;
         Parametro duracionClave;
@@ -33,15 +36,14 @@ namespace pe.edu.pucp.ferretin.view.MSeguridad
         Parametro vigenciaNota;
         Parametro solesPorPunto;
 
-        int p1, p2, p3, p4, p5, p6, p7, p8;
-        
-
+        //Constructor ParametrosWindow
         public MS_ParametrosWindow()
         {
             InitializeComponent();
-            p1 = p2 = p3 = p4 = p5 = p6 = p6 = p7 = p8 = 0;
+            //Obtiene todos los parametros.
             listaParametros = MS_ParametroService.obtenerListaParametros().ToList();
 
+            //Se asigna a cada textbox su valor respectivo de la base de datos.
             intContrasena.Text = listaParametros[0].valor.ToString();
             intentosC = listaParametros[0];
 
@@ -67,9 +69,10 @@ namespace pe.edu.pucp.ferretin.view.MSeguridad
             solesPorPunto = listaParametros[7];
         }
 
+        //Evento 
         private void intContrasena_TextChanged(object sender, TextChangedEventArgs e)
         {
-            p1 = 1;
+            
             try
             {
                 if (Regex.IsMatch(intContrasena.Text, "[0-9]"))
@@ -88,7 +91,7 @@ namespace pe.edu.pucp.ferretin.view.MSeguridad
 
         private void tMaxSesion_TextChanged(object sender, TextChangedEventArgs e)
         {
-            p2 = 1;
+            
             try
             {
 
@@ -107,7 +110,7 @@ namespace pe.edu.pucp.ferretin.view.MSeguridad
 
         private void durClave_TextChanged(object sender, TextChangedEventArgs e)
         {
-            p3 = 1;
+            
             try
             {
 
@@ -128,7 +131,7 @@ namespace pe.edu.pucp.ferretin.view.MSeguridad
 
         private void tipCambio_TextChanged(object sender, TextChangedEventArgs e)
         {
-            p4 = 1;
+           
 
             try
             {
@@ -148,7 +151,7 @@ namespace pe.edu.pucp.ferretin.view.MSeguridad
 
         private void igv_TextChanged(object sender, TextChangedEventArgs e)
         {
-            p5 = 1;
+           
             try
             {
                 if (Regex.IsMatch(durClave.Text, "[0-9]"))
@@ -167,7 +170,7 @@ namespace pe.edu.pucp.ferretin.view.MSeguridad
 
         private void vigProforma_TextChanged(object sender, TextChangedEventArgs e)
         {
-            p6 = 1;
+          
             try
             {
                 if (Regex.IsMatch(vigProforma.Text, "[0-9]"))
@@ -186,7 +189,7 @@ namespace pe.edu.pucp.ferretin.view.MSeguridad
 
         private void vigNotaCredito_TextChanged(object sender, TextChangedEventArgs e)
         {
-            p7 = 1;
+            
             try
             {
 
@@ -205,7 +208,7 @@ namespace pe.edu.pucp.ferretin.view.MSeguridad
 
         private void solesPunto_TextChanged(object sender, TextChangedEventArgs e)
         {
-            p8 = 1;
+            
             try
             {
                 if (Regex.IsMatch(vigProforma.Text, "[0-9]"))
@@ -223,42 +226,42 @@ namespace pe.edu.pucp.ferretin.view.MSeguridad
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            if (p1 == 1 && !String.IsNullOrEmpty(intContrasena.Text)) 
+            if (!String.IsNullOrEmpty(intContrasena.Text)) 
             {
                 MS_ParametroService.actualizarParametro(intentosC);
             }
 
-            if (p2 == 1 && !String.IsNullOrEmpty(tMaxSesion.Text))
+            if (!String.IsNullOrEmpty(tMaxSesion.Text))
             {
                 MS_ParametroService.actualizarParametro(tiempoSesion);
             }
 
-            if (p3 == 1 && !String.IsNullOrEmpty(durClave.Text))
+            if (!String.IsNullOrEmpty(durClave.Text))
             {
                 MS_ParametroService.actualizarParametro(duracionClave);
             }
 
-            if (p4 == 1 && !String.IsNullOrEmpty(tipCambio.Text))
+            if (!String.IsNullOrEmpty(tipCambio.Text))
             {
                 MS_ParametroService.actualizarParametro(tipoDeCambio);
             }
 
-            if (p5 == 1 && !String.IsNullOrEmpty(igv.Text))
+            if (!String.IsNullOrEmpty(igv.Text))
             {
                 MS_ParametroService.actualizarParametro(IGV);
             }
 
-            if (p6 == 1 && !String.IsNullOrEmpty(vigProforma.Text))
+            if (!String.IsNullOrEmpty(vigProforma.Text))
             {
                 MS_ParametroService.actualizarParametro(vigenciaPro);
             }
 
-            if (p7 == 1 && !String.IsNullOrEmpty(vigNotaCredito.Text))
+            if (!String.IsNullOrEmpty(vigNotaCredito.Text))
             {
                 MS_ParametroService.actualizarParametro(vigenciaNota);
             }
 
-            if (p8 == 1 && !String.IsNullOrEmpty(solesPunto.Text))
+            if (!String.IsNullOrEmpty(solesPunto.Text))
             {
                 MS_ParametroService.actualizarParametro(solesPorPunto);
             }
