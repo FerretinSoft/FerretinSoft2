@@ -34,11 +34,6 @@ namespace pe.edu.pucp.ferretin.view.MSeguridad
             InitializeComponent();
         }
 
-        private void estadoCombo_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-
-        }
-
         #region Validaciones Campos de Texto
 
         private void txtDNI_KeyDown(object sender, KeyEventArgs e)

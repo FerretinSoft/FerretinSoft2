@@ -150,7 +150,7 @@
                     <Button  Command="{Binding cancelPerfilCommand}" Content="CANCELAR" Padding="5,0" Margin="10,298,224,55" Grid.Column="1"/>
                     <Button Command="{Binding savePerfilCommand}" Content="GUARDAR" Padding="5,0" Margin="236,298,0,55"/>
                     <Label Content="Estado:" HorizontalAlignment="Left" Margin="22,62,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.464,1.231" Height="26" Width="48"/>
-                    <ComboBox SelectedIndex="{Binding Path=perfil.estado , FallbackValue=1, Mode=TwoWay}"  x:Name="estadoCombo" HorizontalAlignment="Left" Margin="80,62,0,0" VerticalAlignment="Top" Width="105" Height="26" SelectionChanged="estadoCombo_SelectionChanged">
+                    <ComboBox SelectedIndex="{Binding Path=perfil.estado , FallbackValue=1, Mode=TwoWay}"  x:Name="estadoCombo" HorizontalAlignment="Left" Margin="80,62,0,0" VerticalAlignment="Top" Width="105" Height="26" >
                         <ComboBoxItem Content="Inactivo"/>
                         <ComboBoxItem Content="Activo"/>
                     </ComboBox>
