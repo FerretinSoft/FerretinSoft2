@@ -38,7 +38,7 @@ namespace pe.edu.pucp.ferretin.view.MSeguridad
             InitializeComponent();
             if (Console.CapsLock)
             {
-                statusLabel.Content = "Mayusculas Activadas";
+                mayusStatus.Content = "Mayusculas Activadas";
             }
 
             fechaHora.Content = System.DateTime.Now.Date;
@@ -74,12 +74,12 @@ namespace pe.edu.pucp.ferretin.view.MSeguridad
         {
             if (Console.CapsLock)
             {
-                statusLabel.Content = "Mayusculas Activadas";
+                mayusStatus.Content = "Mayusculas Activadas";
             }
 
             if (!Console.CapsLock)
             {
-                statusLabel.Content = "";
+                mayusStatus.Content = "";
             }
 
             if (Keyboard.IsKeyDown(Key.Enter)) login();
