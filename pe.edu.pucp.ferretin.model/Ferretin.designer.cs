@@ -585,7 +585,7 @@ namespace pe.edu.pucp.ferretin.model
 			}
 		}
 		
-		public System.Data.Linq.Table<Parametro> Parametros
+		public System.Data.Linq.Table<Parametro> Parametro
 		{
 			get
 			{
@@ -593,7 +593,7 @@ namespace pe.edu.pucp.ferretin.model
 			}
 		}
 		
-		public System.Data.Linq.Table<Perfil> Perfils
+		public System.Data.Linq.Table<Perfil> Perfil
 		{
 			get
 			{
@@ -7149,12 +7149,12 @@ namespace pe.edu.pucp.ferretin.model
 					if ((previousValue != null))
 					{
 						this._Perfil.Entity = null;
-						previousValue.PerfilMenus.Remove(this);
+						previousValue.PerfilMenu.Remove(this);
 					}
 					this._Perfil.Entity = value;
 					if ((value != null))
 					{
-						value.PerfilMenus.Add(this);
+						value.PerfilMenu.Add(this);
 						this._id_perfil = value.id;
 					}
 					else
@@ -14441,7 +14441,7 @@ namespace pe.edu.pucp.ferretin.model
 		
 		private System.Nullable<int> _estado;
 		
-		private EntitySet<PerfilMenu> _PerfilMenus;
+		private EntitySet<PerfilMenu> _PerfilMenu;
 		
 		private EntitySet<Usuario> _Usuarios;
 		
@@ -14461,7 +14461,7 @@ namespace pe.edu.pucp.ferretin.model
 		
 		public Perfil()
 		{
-			this._PerfilMenus = new EntitySet<PerfilMenu>(new Action<PerfilMenu>(this.attach_PerfilMenus), new Action<PerfilMenu>(this.detach_PerfilMenus));
+			this._PerfilMenu = new EntitySet<PerfilMenu>(new Action<PerfilMenu>(this.attach_PerfilMenu), new Action<PerfilMenu>(this.detach_PerfilMenu));
 			this._Usuarios = new EntitySet<Usuario>(new Action<Usuario>(this.attach_Usuarios), new Action<Usuario>(this.detach_Usuarios));
 			OnCreated();
 		}
@@ -14546,16 +14546,16 @@ namespace pe.edu.pucp.ferretin.model
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Perfil_PerfilMenu", Storage="_PerfilMenus", ThisKey="id", OtherKey="id_perfil")]
-		public EntitySet<PerfilMenu> PerfilMenus
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Perfil_PerfilMenu", Storage="_PerfilMenu", ThisKey="id", OtherKey="id_perfil")]
+		public EntitySet<PerfilMenu> PerfilMenu
 		{
 			get
 			{
-				return this._PerfilMenus;
+				return this._PerfilMenu;
 			}
 			set
 			{
-				this._PerfilMenus.Assign(value);
+				this._PerfilMenu.Assign(value);
 			}
 		}
 		
@@ -14592,13 +14592,13 @@ namespace pe.edu.pucp.ferretin.model
 			}
 		}
 		
-		private void attach_PerfilMenus(PerfilMenu entity)
+		private void attach_PerfilMenu(PerfilMenu entity)
 		{
 			this.SendPropertyChanging();
 			entity.Perfil = this;
 		}
 		
-		private void detach_PerfilMenus(PerfilMenu entity)
+		private void detach_PerfilMenu(PerfilMenu entity)
 		{
 			this.SendPropertyChanging();
 			entity.Perfil = null;
