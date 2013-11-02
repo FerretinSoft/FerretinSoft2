@@ -131,13 +131,10 @@ namespace pe.edu.pucp.ferretin.controller.MSeguridad
         /*
         return listaPerfiles.Where(p => p.descripcion.Contains(searchDescripcion)) ;
         /*******************************************************/
-        public static Menu menuPadre
-        {
-            get
-            {
-                return db.Menu.Single(m => m.id_menu_padre == null || m.id_menu_padre <= 0);
-            }
-        }
+        public static Menu menuPadre()
+        {            
+            return db.Menu.Single(m => m.id_menu_padre == null || m.id_menu_padre <= 0);
+        }        
         
 
     }

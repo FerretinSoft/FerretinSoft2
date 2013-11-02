@@ -32,13 +32,14 @@ namespace pe.edu.pucp.ferretin.viewmodel.MSeguridad
             get
             {
                 //Devolver la categoría padre
-                _menuPadre = MS_PerfilService.menuPadre;
+                _menuPadre = MS_PerfilService.menuPadre();
                 return _menuPadre;
             }
             set
             {
-                _menuPadre = value;
-            }
+                _menuPadre = value;                
+            }            
+            
         }
 
         #region Manejo de los Tabs
@@ -117,7 +118,7 @@ namespace pe.edu.pucp.ferretin.viewmodel.MSeguridad
             }
             set
             {
-                _menus = value;
+                _menus = value;                
             }
         }
 
@@ -199,7 +200,7 @@ namespace pe.edu.pucp.ferretin.viewmodel.MSeguridad
                 _listaPerfiles = value;
                 NotifyPropertyChanged("listaPerfiles");
             }
-        }
+        }    
         /**************************************************/
         #endregion
 
@@ -215,7 +216,7 @@ namespace pe.edu.pucp.ferretin.viewmodel.MSeguridad
                     _actualizarListaPerfilesCommand = new RelayCommand(param => NotifyPropertyChanged("listaPerfiles"));
                 }
                 return _actualizarListaPerfilesCommand;
-            }
+            }            
         }
         /**************************************************/
         RelayCommand _agregarPerfilCommand;

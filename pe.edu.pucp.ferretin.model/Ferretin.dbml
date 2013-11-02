@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?><Database Name="inf245g2" Class="FerretinDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
-  <Connection Mode="AppSettings" ConnectionString="Data Source=inti.lab.inf.pucp.edu.pe;Initial Catalog=inf245g2;Persist Security Info=True;User ID=inf245g2dba" SettingsObjectName="pe.edu.pucp.ferretin.model.Properties.Settings" SettingsPropertyName="inf245g2ConnectionString" Provider="System.Data.SqlClient" />
+  <Connection Mode="AppSettings" ConnectionString="Data Source=inti.lab.inf.pucp.edu.pe;Initial Catalog=inf245g2;Persist Security Info=True;User ID=inf245g2usr" SettingsObjectName="pe.edu.pucp.ferretin.model.Properties.Settings" SettingsPropertyName="inf245g2ConnectionString1" Provider="System.Data.SqlClient" />
   <Table Name="dbo.Cargo" Member="Cargo">
     <Type Name="Cargo">
       <Column Name="id" Type="System.Int16" DbType="SmallInt NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
@@ -239,7 +239,6 @@
       <Column Name="id_menu_padre" Type="System.Int16" DbType="SmallInt" CanBeNull="true" />
       <Column Name="nombre" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
       <Association Name="Menu_Menu" Member="Menu2" ThisKey="id" OtherKey="id_menu_padre" Type="Menu" />
-      <Association Name="Menu_Parametro" Member="Parametro" ThisKey="id" OtherKey="id_menu" Type="Parametro" />
       <Association Name="Menu_PerfilMenu" Member="PerfilMenu" ThisKey="id" OtherKey="id_menu" Type="PerfilMenu" />
       <Association Name="Menu_TransaccionTipo" Member="TransaccionTipo" ThisKey="id" OtherKey="id_menu" Type="TransaccionTipo" />
       <Association Name="Menu_Menu" Member="Menu1" ThisKey="id_menu_padre" OtherKey="id" Type="Menu" IsForeignKey="true" />
@@ -290,26 +289,6 @@
       <Column Name="importe" Type="System.Decimal" DbType="Decimal(10,2)" CanBeNull="true" />
       <Column Name="id_devolucion" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
       <Association Name="Devolucion_NotaCredito" Member="Devolucion" ThisKey="id_devolucion" OtherKey="id" Type="Devolucion" IsForeignKey="true" />
-    </Type>
-  </Table>
-  <Table Name="dbo.Parametro" Member="Parametro">
-    <Type Name="Parametro">
-      <Column Name="id" Type="System.Int16" DbType="SmallInt NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
-      <Column Name="nombre" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
-      <Column Name="descripcion" Type="System.String" DbType="VarChar(200)" CanBeNull="true" />
-      <Column Name="valor" Type="System.Int16" DbType="SmallInt" CanBeNull="true" />
-      <Column Name="id_menu" Type="System.Int16" DbType="SmallInt" CanBeNull="true" />
-      <Association Name="Menu_Parametro" Member="Menu" ThisKey="id_menu" OtherKey="id" Type="Menu" IsForeignKey="true" />
-    </Type>
-  </Table>
-  <Table Name="dbo.Perfil" Member="Perfil">
-    <Type Name="Perfil">
-      <Column Name="id" Type="System.Int16" DbType="SmallInt NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
-      <Column Name="nombre" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
-      <Column Name="descripcion" Type="System.String" DbType="VarChar(200)" CanBeNull="true" />
-      <Column Name="estado" Type="System.String" DbType="VarChar(20)" CanBeNull="true" />
-      <Association Name="Perfil_PerfilMenu" Member="PerfilMenu" ThisKey="id" OtherKey="id_perfil" Type="PerfilMenu" />
-      <Association Name="Perfil_Usuario" Member="Usuario" ThisKey="id" OtherKey="id_perfil" Type="Usuario" />
     </Type>
   </Table>
   <Table Name="dbo.PerfilMenu" Member="PerfilMenu">
@@ -643,6 +622,24 @@
       <Association Name="Usuario_Venta" Member="Venta" ThisKey="id" OtherKey="id_usuario" Type="Venta" />
       <Association Name="Empleado_Usuario" Member="Empleado" ThisKey="id_empleado" OtherKey="id" Type="Empleado" IsForeignKey="true" />
       <Association Name="Perfil_Usuario" Member="Perfil" ThisKey="id_perfil" OtherKey="id" Type="Perfil" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Parametro" Member="Parametros">
+    <Type Name="Parametro">
+      <Column Name="id" Type="System.Int16" DbType="SmallInt NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="nombre" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="descripcion" Type="System.String" DbType="VarChar(200)" CanBeNull="true" />
+      <Column Name="valor" Type="System.String" DbType="VarChar(10)" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Perfil" Member="Perfils">
+    <Type Name="Perfil">
+      <Column Name="id" Type="System.Int16" DbType="SmallInt NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="nombre" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="descripcion" Type="System.String" DbType="VarChar(200)" CanBeNull="true" />
+      <Column Name="estado" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Association Name="Perfil_PerfilMenu" Member="PerfilMenus" ThisKey="id" OtherKey="id_perfil" Type="PerfilMenu" />
+      <Association Name="Perfil_Usuario" Member="Usuarios" ThisKey="id" OtherKey="id_perfil" Type="Usuario" />
     </Type>
   </Table>
 </Database>
