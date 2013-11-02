@@ -20,18 +20,19 @@ using pe.edu.pucp.ferretin.controller.MSeguridad;
 namespace pe.edu.pucp.ferretin.view.MSeguridad
 {
 
-    /// <summary>
-    /// Interaction logic for MS_LoginWindow.xaml
-    /// </summary>
+    
     public partial class MS_LoginWindow : Window
     {
-        private String nombreUsuario;
+        #region Variables
+        //Variables
+        private String nombreUsuario; 
         private String contrasena;
 
-        //public List<Parametro> listaParametros;
-        //public int intentos;
+        public List<Parametro> listaParametros;
+        public int intentos;
+        #endregion
 
-
+        #region Constructor
         public MS_LoginWindow()
         {
 
@@ -42,7 +43,7 @@ namespace pe.edu.pucp.ferretin.view.MSeguridad
             }
 
             fechaHora.Content = System.DateTime.Now.Date;
-            /*
+            
             listaParametros = MS_ParametroService.obtenerListaParametros().ToList();
             try
             {
@@ -52,14 +53,18 @@ namespace pe.edu.pucp.ferretin.view.MSeguridad
             {
                 intentos = 0;
             }
-            */
+            
         }
+        #endregion
 
+        #region Boton Iniciar Sesion
         private void iniSesionBtn_Click(object sender, RoutedEventArgs e)
         {
             login();
         }
+        #endregion
 
+        #region Eventos de Textbox
         private void tboxNombreUsuario_TextChanged(object sender, TextChangedEventArgs e)
         {
             this.nombreUsuario = tboxNombreUsuario.Text.ToString();
@@ -70,7 +75,9 @@ namespace pe.edu.pucp.ferretin.view.MSeguridad
         {
             this.contrasena = pwboxContrasena.Password.ToString();
         }
+        #endregion
 
+        #region Evento para verificar Mayusculas
         private void Window_KeyDown(object sender, KeyEventArgs e)
         {
             if (Console.CapsLock)
@@ -85,18 +92,25 @@ namespace pe.edu.pucp.ferretin.view.MSeguridad
 
             if (Keyboard.IsKeyDown(Key.Enter)) login();
         }
+        #endregion
 
+        #region Metodo Login
         private void login()
         {
+            //Usuario que se va a loguear
             Usuario usuarioLog;
-
+            //Lista de Usuarios
             IEnumerable<Usuario> listaUsuarios = MS_UsuarioService.obtenerListaUsuarios();
 
+            //Va a verificar cada usuario para encontrar el usuario que esta intentando loguear
             foreach(Usuario value in listaUsuarios){
 
+                //Si el nombre de usuario y la contraseña coinciden.
                 if (value.nombre == this.nombreUsuario && value.contrasena == MS_UsuarioService.encrypt(this.contrasena))
                 {
-                    
+                    listaParametros = MS_ParametroService.obtenerListaParametros().ToList();
+
+                    //Verifica si la contraseña coincide con "ferretinSoft". Si coincide entonces es la primera vez que esta logueando.
                     if (MS_UsuarioService.encrypt(this.contrasena) == MS_UsuarioService.encrypt("ferretinSoft"))
                     {
 
@@ -109,6 +123,7 @@ namespace pe.edu.pucp.ferretin.view.MSeguridad
 
                     }
 
+                    //Verifica el estado del usuario. De ser inactivo no se le deja iniciar sesion.
                     if (value.estado == 0)
                     {
                         MessageBox.Show("Su usuario está bloqueado, contactese con administración para solucionar este problema.");
@@ -116,10 +131,11 @@ namespace pe.edu.pucp.ferretin.view.MSeguridad
                     }
                     else
                     {
-                        /*
-                        value.intentosCon = Convert.ToInt16(listaParametros[0].valor);
-                        MS_UsuarioService.actualizarUsuario(value);
-                        */
+                        listaParametros = MS_ParametroService.obtenerListaParametros().ToList();
+                        //Inicia sesion correctamente.
+                        value.intentosCon = Convert.ToInt16(listaParametros[0].valor);  //Se restablece el numero de intentos del usuario.
+                        MS_UsuarioService.actualizarUsuario(value);                     
+                        
                         usuarioLog = value;
                          
                         MainWindow mainW = new MainWindow(usuarioLog);
@@ -130,51 +146,54 @@ namespace pe.edu.pucp.ferretin.view.MSeguridad
                 }
                 else
                 {
+                    listaParametros = MS_ParametroService.obtenerListaParametros().ToList();
 
-
+                    //Aqui va el codigo para cuando el nombre de usuario y contraseña son incorrectos
+                    //Si el nombre de usuario existe
                     if (value.nombre == this.nombreUsuario)
                     {
-
+                        //Si su estado es inactivo
                         if (value.estado == 0)
                         {
                             MessageBox.Show("Su usuario está bloqueado, contactese con administración para solucionar este problema.");
                             this.Close();
                         }
 
-                        /*
+                        //Se reduce y actualiza el numero de intentos del usuario
                         intentos = (int)value.intentosCon;
                         if (value.intentosCon == 0) break;
                         value.intentosCon--;
                         intentos = (int)value.intentosCon;
                         MS_UsuarioService.actualizarUsuario(value);
-                        */
+                        
                     }
 
+                    //No ingreso ningun dato
                     if (String.IsNullOrEmpty(this.nombreUsuario) && String.IsNullOrEmpty(this.contrasena))
                     {
 
                         lbLoginError.Content = "Ingrese un nombre de usuario y contraseña.";
 
                     }
-                    else if (String.IsNullOrEmpty(this.nombreUsuario))
+                    else if (String.IsNullOrEmpty(this.nombreUsuario))          //No ingreso nombre de usuario
                     {
 
                         lbLoginError.Content = "Ingrese un nombre de usuario.";
 
                     }
-                    else if (String.IsNullOrEmpty(this.contrasena))
+                    else if (String.IsNullOrEmpty(this.contrasena))             //No ingreso Contraseña
                     {
 
                         lbLoginError.Content = "Ingrese una contraseña.";
 
                     }
-                    else if (!String.IsNullOrEmpty(this.nombreUsuario) && !String.IsNullOrEmpty(this.contrasena))
+                    else if (!String.IsNullOrEmpty(this.nombreUsuario) && !String.IsNullOrEmpty(this.contrasena))   //Si no ingreso Ambos
                     {
 
                         lbLoginError.Content = "Nombre de Usuario y Contraseña invalidos.";
                         
                     }
-                    /*
+                    
                     if (!String.IsNullOrEmpty(this.nombreUsuario))
                     {
 
@@ -190,18 +209,18 @@ namespace pe.edu.pucp.ferretin.view.MSeguridad
                         }
 
                     }
-                    */
+                    
 
 
                 }
 
             }
 
-            
+
 
 
         }
-
+        #endregion
 
 
     }
