@@ -28,8 +28,8 @@ namespace pe.edu.pucp.ferretin.view.MSeguridad
         private String nombreUsuario;
         private String contrasena;
 
-        public List<Parametro> listaParametros;
-        public int intentos;
+        //public List<Parametro> listaParametros;
+        //public int intentos;
 
 
         public MS_LoginWindow()
@@ -42,7 +42,7 @@ namespace pe.edu.pucp.ferretin.view.MSeguridad
             }
 
             fechaHora.Content = System.DateTime.Now.Date;
-
+            /*
             listaParametros = MS_ParametroService.obtenerListaParametros().ToList();
             try
             {
@@ -52,6 +52,7 @@ namespace pe.edu.pucp.ferretin.view.MSeguridad
             {
                 intentos = 0;
             }
+            */
         }
 
         private void iniSesionBtn_Click(object sender, RoutedEventArgs e)
@@ -115,10 +116,12 @@ namespace pe.edu.pucp.ferretin.view.MSeguridad
                     }
                     else
                     {
-
+                        /*
                         value.intentosCon = Convert.ToInt16(listaParametros[0].valor);
                         MS_UsuarioService.actualizarUsuario(value);
+                        */
                         usuarioLog = value;
+                         
                         MainWindow mainW = new MainWindow(usuarioLog);
                         this.Close();
                         mainW.Show();
@@ -138,12 +141,13 @@ namespace pe.edu.pucp.ferretin.view.MSeguridad
                             this.Close();
                         }
 
+                        /*
                         intentos = (int)value.intentosCon;
                         if (value.intentosCon == 0) break;
-
                         value.intentosCon--;
                         intentos = (int)value.intentosCon;
                         MS_UsuarioService.actualizarUsuario(value);
+                        */
                     }
 
                     if (String.IsNullOrEmpty(this.nombreUsuario) && String.IsNullOrEmpty(this.contrasena))
@@ -170,7 +174,7 @@ namespace pe.edu.pucp.ferretin.view.MSeguridad
                         lbLoginError.Content = "Nombre de Usuario y Contraseña invalidos.";
                         
                     }
-
+                    /*
                     if (!String.IsNullOrEmpty(this.nombreUsuario))
                     {
 
@@ -186,6 +190,7 @@ namespace pe.edu.pucp.ferretin.view.MSeguridad
                         }
 
                     }
+                    */
 
 
                 }
