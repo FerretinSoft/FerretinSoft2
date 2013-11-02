@@ -657,7 +657,7 @@
                     <Label Content="Fecha de &#xA;Cierre:" HorizontalAlignment="Left" Margin="2,321,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.464,1.231" Grid.ColumnSpan="2" Height="40" Grid.Column="2" Width="75"/>
                     <DatePicker SelectedDate="{Binding Path=almacen.fecCierre, Mode=TwoWay, ValidatesOnExceptions=true, NotifyOnValidationError=true}" x:Name="fechCierreTiendaTxtBox" HorizontalAlignment="Left" Margin="10,334,0,0" VerticalAlignment="Top" Grid.Column="4" Height="27" Width="123"/>
                     <Label Content="Estado:" HorizontalAlignment="Left" Margin="121,26,0,0" VerticalAlignment="Top" Grid.Column="4" Height="26" Width="50"/>
-                    <ComboBox SelectedIndex="{Binding Path=almacen.estado, Mode=TwoWay,  ValidatesOnExceptions=true, NotifyOnValidationError=true}" x:Name="estadoCombo" HorizontalAlignment="Left" Margin="186,26,0,0" VerticalAlignment="Top" Width="105" Grid.Column="4" Height="26" SelectionChanged="estadoCombo_SelectionChanged">
+                    <ComboBox SelectedIndex="{Binding Path=almacen.estado, Mode=TwoWay, FallbackValue=1 }"  x:Name="estadoCombo" HorizontalAlignment="Left" Margin="186,26,0,0" VerticalAlignment="Top" Width="105" Grid.Column="4" Height="26">
                         <ComboBoxItem Content="Inactivo"></ComboBoxItem>
                         <ComboBoxItem Content="Activo"></ComboBoxItem>
                     </ComboBox>

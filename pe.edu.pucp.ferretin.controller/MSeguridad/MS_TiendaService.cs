@@ -81,7 +81,7 @@ namespace pe.edu.pucp.ferretin.controller.MSeguridad
         public static bool insertarAlmacen(Tienda almacen)
         {
             if (!db.Tienda.Contains(almacen))
-            {                               
+            {                
                 db.Tienda.InsertOnSubmit(almacen);
                 return enviarCambios();
             }

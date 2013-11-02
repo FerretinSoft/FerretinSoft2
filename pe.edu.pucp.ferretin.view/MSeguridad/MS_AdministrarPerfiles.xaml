@@ -122,7 +122,7 @@
 
                     <Label Content="Perfil:" HorizontalAlignment="Left" Margin="22,23,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.464,1.231" Height="26" Width="39"/>
                     <Label Content="Permisos por Módulo:" HorizontalAlignment="Left" Margin="0,23,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.464,1.231" Height="26" Width="139" Grid.Column="1"/>
-                    <TextBox Text="{Binding Path=perfil.nombre, Mode=TwoWay, ValidatesOnExceptions=true, NotifyOnValidationError=true}" x:Name="nombreTxtBox" HorizontalAlignment="Left" Height="26" Margin="22,54,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="265"/>
+                    <TextBox Text="{Binding Path=perfil.nombre, Mode=TwoWay, ValidatesOnExceptions=true, NotifyOnValidationError=true}" x:Name="nombreTxtBox" HorizontalAlignment="Left" Height="26" Margin="80,23,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="207"/>
                     <TextBox Text="{Binding Path=perfil.descripcion, Mode=TwoWay, ValidatesOnExceptions=true, NotifyOnValidationError=true}" x:Name="descripcionTxtBox" HorizontalAlignment="Left" Height="163" Margin="22,130,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="265"/>
 
                     <Label Content="Descripción:" HorizontalAlignment="Left" Margin="22,99,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.464,1.231" Height="26" Width="74"/>
@@ -149,6 +149,11 @@
                     </helper:MyTreeView>
                     <Button  Command="{Binding cancelPerfilCommand}" Content="CANCELAR" Padding="5,0" Margin="10,298,224,55" Grid.Column="1"/>
                     <Button Command="{Binding savePerfilCommand}" Content="GUARDAR" Padding="5,0" Margin="236,298,0,55"/>
+                    <Label Content="Estado:" HorizontalAlignment="Left" Margin="22,62,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.464,1.231" Height="26" Width="48"/>
+                    <ComboBox SelectedIndex="{Binding Path=perfil.estado , FallbackValue=1, Mode=TwoWay}"  x:Name="estadoCombo" HorizontalAlignment="Left" Margin="80,62,0,0" VerticalAlignment="Top" Width="105" Height="26" >
+                        <ComboBoxItem Content="Inactivo"/>
+                        <ComboBoxItem Content="Activo"/>
+                    </ComboBox>
 
                 </Grid>
             </TabItem>
