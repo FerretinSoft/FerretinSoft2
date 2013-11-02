@@ -22,7 +22,7 @@ namespace pe.edu.pucp.ferretin.view.MSeguridad
     /// </summary>
     public partial class MS_ParametrosWindow : Window
     {
-
+        #region Variables
         //Lista de Parametros
         List<Parametro> listaParametros;
 
@@ -35,7 +35,9 @@ namespace pe.edu.pucp.ferretin.view.MSeguridad
         Parametro vigenciaPro;
         Parametro vigenciaNota;
         Parametro solesPorPunto;
+        #endregion
 
+        #region Constructor
         //Constructor ParametrosWindow
         public MS_ParametrosWindow()
         {
@@ -68,8 +70,10 @@ namespace pe.edu.pucp.ferretin.view.MSeguridad
             solesPunto.Text = listaParametros[7].valor.ToString();
             solesPorPunto = listaParametros[7];
         }
+        #endregion
 
-        //Evento 
+        #region Eventos Textboxs
+        //Evento de cambio de texto en Textbox
         private void intContrasena_TextChanged(object sender, TextChangedEventArgs e)
         {
             
@@ -223,6 +227,8 @@ namespace pe.edu.pucp.ferretin.view.MSeguridad
             }
             catch { }
         }
+        //Fin de Eventos de Textbox
+        #endregion
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
