@@ -1,8 +1,10 @@
-﻿using pe.edu.pucp.ferretin.controller.MVentas;
+﻿using pe.edu.pucp.ferretin.controller.MAlmacen;
+using pe.edu.pucp.ferretin.controller.MVentas;
 using pe.edu.pucp.ferretin.model;
 using pe.edu.pucp.ferretin.viewmodel.Helper;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -13,6 +15,15 @@ namespace pe.edu.pucp.ferretin.viewmodel.MVentas
 {
     public class MV_RegistrarVentaViewModel : ViewModelBase
     {
+        public MV_RegistrarVentaViewModel()
+        {
+            venta = new Venta()
+            {
+                fecha = DateTime.Now
+            };
+            
+        }
+
         private string _nroDocSeleccionado = "";
         public string nroDocSeleccionado
         {
@@ -30,26 +41,15 @@ namespace pe.edu.pucp.ferretin.viewmodel.MVentas
                 NotifyPropertyChanged("nroDocSeleccionado");
             }
         }
+        public string codProdAgregar { get; set; }
 
-        Cliente _cliente;
-        public Cliente cliente
-        {
-            get
-            { return _cliente; }
-            set
-            {
-                _cliente = value;
-                NotifyPropertyChanged("cliente");
-                NotifyPropertyChanged("widthClienteBar");
-            }
-        }
-
+        public Venta venta { get; set; }
 
         public GridLength widthClienteBar
         {
             get
             {
-                return cliente == null ? new GridLength(0) : GridLength.Auto;
+                return venta.Cliente == null ? new GridLength(0) : GridLength.Auto;
             }
         }
 
@@ -66,16 +66,17 @@ namespace pe.edu.pucp.ferretin.viewmodel.MVentas
                 return _cargarClienteCommand;
             }
         }
-        RelayCommand _buscarClienteCommand;
-        public ICommand buscarClienteCommand
+
+        RelayCommand _agregarProductoCommand;
+        public ICommand agregarProductoCommand
         {
             get
             {
-                if (_buscarClienteCommand == null)
+                if (_agregarProductoCommand == null)
                 {
-                    _buscarClienteCommand = new RelayCommand(buscarCliente);
+                    _agregarProductoCommand = new RelayCommand(agregarProducto);
                 }
-                return _buscarClienteCommand;
+                return _agregarProductoCommand;
             }
         }
         #endregion
@@ -93,14 +94,32 @@ namespace pe.edu.pucp.ferretin.viewmodel.MVentas
             if(buscado==null){
                 MessageBox.Show("No se encontro ningún Cliente con el número de documento proporcionado","No se encontro",MessageBoxButton.OK,MessageBoxImage.Question);   
             }
-            cliente = buscado;
-            
+            venta.Cliente = buscado;
+            NotifyPropertyChanged("widthClienteBar");
         }
 
-        public void buscarCliente(Object id)
+        public void agregarProducto(Object id)
         {
-            
+            if (codProdAgregar != null && codProdAgregar.Length > 0)
+            {
+                Producto producto = null;
+                try{
+                    producto = MA_SharedService.obtenerProductoxCodigo(codProdAgregar);
+                }catch{}
+
+                if(producto !=null){
+                    VentaProducto ventaProducto = new VentaProducto(){
+                        Producto = producto,
+                        Venta = this.venta,
+                        cantidad = 1,
+                        montoParcial = producto.precioLista                        
+                    };
+                    venta.VentaProducto.Add(ventaProducto);
+                    NotifyPropertyChanged("venta");
+                }
+            }
         }
+
         #endregion
     }
 }

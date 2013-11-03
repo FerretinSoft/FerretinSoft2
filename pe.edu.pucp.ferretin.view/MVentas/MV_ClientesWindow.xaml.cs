@@ -32,24 +32,17 @@ namespace pe.edu.pucp.ferretin.view.MVentas
             InitializeComponent();
         }
 
-        public MV_ClientesWindow(MV_AdministrarVentasWindow MV_AdministrarVentasWindow)
-        {
-            InitializeComponent();
-            Show();
-        }
-
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            if (this.Owner != null)
+            if (this.Owner != null)//O sea que proviene de un padre
             {
                 try
                 {
                     MV_RegistrarVentaWindow padre = this.Owner as MV_RegistrarVentaWindow;
-                    MV_ClientesViewModel my_dc = this.main.DataContext as MV_ClientesViewModel;
-                    MV_RegistrarVentaViewModel padre_dc = padre.main.DataContext as MV_RegistrarVentaViewModel;
+                    MV_ClientesViewModel my_DataContext = this.main.DataContext as MV_ClientesViewModel;
+                    MV_RegistrarVentaViewModel padre_DataContext = padre.main.DataContext as MV_RegistrarVentaViewModel;
 
-                    padre_dc.nroDocSeleccionado = my_dc.cliente.nroDoc;
-
+                    padre_DataContext.nroDocSeleccionado = my_DataContext.cliente.nroDoc;
                     this.Close();
                 }
                 catch { }
