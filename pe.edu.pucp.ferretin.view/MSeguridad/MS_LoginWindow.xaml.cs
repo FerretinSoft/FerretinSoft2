@@ -15,6 +15,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using pe.edu.pucp.ferretin.controller.MSeguridad;
+using System.Text.RegularExpressions;
 
 
 namespace pe.edu.pucp.ferretin.view.MSeguridad
@@ -222,6 +223,48 @@ namespace pe.edu.pucp.ferretin.view.MSeguridad
         }
         #endregion
 
+        #region Validaciones
+        private void tboxNombreUsuario_PreviewTextInput(object sender, TextCompositionEventArgs e)
+        {
+            if (Regex.IsMatch(e.Text, "[a-zA-Z0-9]"))
+            {
+                e.Handled = false;
+            }
+            else
+            {
+                e.Handled = true;
+            }
+        }
 
+        private void pwboxContrasena_PreviewTextInput(object sender, TextCompositionEventArgs e)
+        {
+            if (Regex.IsMatch(e.Text, "[a-zA-Z0-9]"))
+            {
+                e.Handled = false;
+            }
+            else
+            {
+                e.Handled = true;
+            }
+        }
+        #endregion
+
+        #region Restringir tecla Espacio para cada Textbox
+        private void tboxNombreUsuario_PreviewKeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key != Key.Space)
+                e.Handled = false;
+            else
+                e.Handled = true;
+        }
+
+        private void pwboxContrasena_PreviewKeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key != Key.Space)
+                e.Handled = false;
+            else
+                e.Handled = true;
+        }
+        #endregion
     }
 }

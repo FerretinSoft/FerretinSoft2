@@ -80,7 +80,6 @@ namespace pe.edu.pucp.ferretin.view.MSeguridad
         //Evento de cambio de texto en Textbox
         private void intContrasena_TextChanged(object sender, TextChangedEventArgs e)
         {
-            
             try
             {
                   intentosC.valor = intContrasena.Text;
@@ -92,13 +91,13 @@ namespace pe.edu.pucp.ferretin.view.MSeguridad
 
         private void tMaxSesion_TextChanged(object sender, TextChangedEventArgs e)
         {
-            
+   
             try
             {
                 tiempoSesion.valor = tMaxSesion.Text;
             }
             catch { }
-            
+
         }
 
         private void durClave_TextChanged(object sender, TextChangedEventArgs e)
@@ -164,56 +163,61 @@ namespace pe.edu.pucp.ferretin.view.MSeguridad
         #region Boton Guardar
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            if (!String.IsNullOrEmpty(intContrasena.Text)) 
+            if (MessageBox.Show("¿Está seguro que desea guardar estos cambios?", "Confirmación",
+                                MessageBoxButton.YesNo) == MessageBoxResult.Yes)
             {
-                MS_ParametroService.actualizarParametro(intentosC);
-            }
+                if (!String.IsNullOrEmpty(intContrasena.Text))
+                {
+                    MS_ParametroService.actualizarParametro(intentosC);
+                }
 
-            if (!String.IsNullOrEmpty(tMaxSesion.Text))
-            {
-                MS_ParametroService.actualizarParametro(tiempoSesion);
-            }
+                if (!String.IsNullOrEmpty(tMaxSesion.Text))
+                {
+                    MS_ParametroService.actualizarParametro(tiempoSesion);
+                }
 
-            if (!String.IsNullOrEmpty(durClave.Text))
-            {
-                MS_ParametroService.actualizarParametro(duracionClave);
-            }
+                if (!String.IsNullOrEmpty(durClave.Text))
+                {
+                    MS_ParametroService.actualizarParametro(duracionClave);
+                }
 
-            if (!String.IsNullOrEmpty(tipCambio.Text))
-            {
-                MS_ParametroService.actualizarParametro(tipoDeCambio);
-            }
+                if (!String.IsNullOrEmpty(tipCambio.Text))
+                {
+                    MS_ParametroService.actualizarParametro(tipoDeCambio);
+                }
 
-            if (!String.IsNullOrEmpty(igv.Text))
-            {
-                MS_ParametroService.actualizarParametro(IGV);
-            }
+                if (!String.IsNullOrEmpty(igv.Text))
+                {
+                    MS_ParametroService.actualizarParametro(IGV);
+                }
 
-            if (!String.IsNullOrEmpty(vigProforma.Text))
-            {
-                MS_ParametroService.actualizarParametro(vigenciaPro);
-            }
+                if (!String.IsNullOrEmpty(vigProforma.Text))
+                {
+                    MS_ParametroService.actualizarParametro(vigenciaPro);
+                }
 
-            if (!String.IsNullOrEmpty(vigNotaCredito.Text))
-            {
-                MS_ParametroService.actualizarParametro(vigenciaNota);
-            }
+                if (!String.IsNullOrEmpty(vigNotaCredito.Text))
+                {
+                    MS_ParametroService.actualizarParametro(vigenciaNota);
+                }
 
-            if (!String.IsNullOrEmpty(solesPunto.Text))
-            {
-                MS_ParametroService.actualizarParametro(solesPorPunto);
-            }
+                if (!String.IsNullOrEmpty(solesPunto.Text))
+                {
+                    MS_ParametroService.actualizarParametro(solesPorPunto);
+                }
 
-            if (String.IsNullOrEmpty(intContrasena.Text) && String.IsNullOrEmpty(tMaxSesion.Text) && String.IsNullOrEmpty(durClave.Text)
-                && String.IsNullOrEmpty(tipCambio.Text) && String.IsNullOrEmpty(igv.Text) && String.IsNullOrEmpty(vigProforma.Text)
-                && String.IsNullOrEmpty(vigNotaCredito.Text) && String.IsNullOrEmpty(solesPunto.Text))
-            {
-                MessageBox.Show("No hay parametros validos.");
+                if (String.IsNullOrEmpty(intContrasena.Text) && String.IsNullOrEmpty(tMaxSesion.Text) && String.IsNullOrEmpty(durClave.Text)
+                    && String.IsNullOrEmpty(tipCambio.Text) && String.IsNullOrEmpty(igv.Text) && String.IsNullOrEmpty(vigProforma.Text)
+                    && String.IsNullOrEmpty(vigNotaCredito.Text) && String.IsNullOrEmpty(solesPunto.Text))
+                {
+                    MessageBox.Show("No hay parametros validos.");
 
-            }
-            else
-            {
-                MessageBox.Show("Los Parametros Validos han sido Actualizados Correctamente");
+                }
+                else
+                {
+                    MessageBox.Show("Los Parametros Validos han sido Actualizados Correctamente");
+                }
+
             }
         }
         #endregion
@@ -221,11 +225,13 @@ namespace pe.edu.pucp.ferretin.view.MSeguridad
         #region Boton Cancelar
         private void Button_Click_1(object sender, RoutedEventArgs e)
         {
-            this.Close();
+            if (MessageBox.Show("¿Está seguro que desea cerrar esta ventana?", "Confirmación",
+                                MessageBoxButton.YesNo) == MessageBoxResult.Yes) this.Close();
+            
         }
         #endregion
 
-        #region Validaciones Dinamicas
+        #region Validaciones
         private void intContrasena_PreviewTextInput(object sender, TextCompositionEventArgs e)
         {
             if (Regex.IsMatch(e.Text, "[0-9]"))
@@ -318,6 +324,73 @@ namespace pe.edu.pucp.ferretin.view.MSeguridad
             {
                 e.Handled = true;
             }
+        }
+
+        #endregion
+
+        #region Restringir la Tecla Espacio para cada Textbox
+        private void intContrasena_PreviewKeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key != Key.Space)
+                e.Handled = false;
+            else
+                e.Handled = true;
+        }
+
+        private void tMaxSesion_PreviewKeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key != Key.Space)
+                e.Handled = false;
+            else
+                e.Handled = true;
+        }
+
+        private void durClave_PreviewKeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key != Key.Space)
+                e.Handled = false;
+            else
+                e.Handled = true;
+        }
+
+        private void tipCambio_PreviewKeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key != Key.Space)
+                e.Handled = false;
+            else
+                e.Handled = true;
+        }
+
+        private void igv_PreviewKeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key != Key.Space)
+                e.Handled = false;
+            else
+                e.Handled = true;
+        }
+
+        private void vigProforma_PreviewKeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key != Key.Space)
+                e.Handled = false;
+            else
+                e.Handled = true;
+        }
+
+        private void vigNotaCredito_PreviewKeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key != Key.Space)
+                e.Handled = false;
+            else
+                e.Handled = true;
+        }
+
+        private void solesPunto_PreviewKeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key != Key.Space)
+                e.Handled = false;
+            else
+                e.Handled = true;
         }
 
         #endregion
