@@ -26,11 +26,18 @@ namespace pe.edu.pucp.ferretin.view
 
         public MainWindow(Usuario usuario)
         {
-            
             InitializeComponent();
             usuarioLog = usuario;
             usuarioMenu.Header = "Tienda ABC, " + usuarioLog.nombre;
             ComunService.usuarioLogeado(usuario);
+            ComunService.obtenerPermisos(usuario);
+
+            foreach(PerfilMenu value in ComunService.usuarioLpermisos){
+
+                System.Diagnostics.Debug.WriteLine(value.id_menu);
+
+            }
+
         }
                 
 
@@ -42,8 +49,16 @@ namespace pe.edu.pucp.ferretin.view
 
         private void confBtn_Click(object sender, RoutedEventArgs e)
         {
-            MSeguridad.MS_MainWindow MSWindow = new MSeguridad.MS_MainWindow();
-            MSWindow.Show();
+
+            if ((bool)ComunService.usuarioLpermisos.ElementAt(27).estado)
+            {
+                MSeguridad.MS_MainWindow MSWindow = new MSeguridad.MS_MainWindow();
+                MSWindow.Show();
+            }
+            else
+            {
+                MessageBox.Show("Usted no cuenta con los permisos necesarios");
+            }
         }
 
         private void ventasBtn_Click(object sender, RoutedEventArgs e)
@@ -77,5 +92,9 @@ namespace pe.edu.pucp.ferretin.view
             lw.Show();
             this.Close();
         }
+
+        
+
+
     }
 }

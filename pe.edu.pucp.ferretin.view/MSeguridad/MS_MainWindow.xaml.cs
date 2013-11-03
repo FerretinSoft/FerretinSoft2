@@ -1,4 +1,5 @@
-﻿using System;
+﻿using pe.edu.pucp.ferretin.controller;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -58,8 +59,16 @@ namespace pe.edu.pucp.ferretin.view.MSeguridad
 
         private void auditTransaccionesBtn_Click(object sender, RoutedEventArgs e)
         {
-            MSeguridad.MS_AuditoriaWindow tw = new MSeguridad.MS_AuditoriaWindow();
-            tw.ShowDialog();
+
+            if ((bool)ComunService.usuarioLpermisos.ElementAt(32).estado)
+            {
+                MSeguridad.MS_AuditoriaWindow tw = new MSeguridad.MS_AuditoriaWindow();
+                tw.ShowDialog();
+            }
+            else
+            {
+                MessageBox.Show("Usted no cuenta con los permisos necesarios.");
+            }
         }
     }
 }
