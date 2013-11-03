@@ -114,17 +114,16 @@ namespace pe.edu.pucp.ferretin.controller.MSeguridad
         }
         /*******************************************************/
         public static IEnumerable<Usuario> buscar(string codigo, string nomUsuario, Perfil perfil, string nombres, string apellidos, int estado)
-        {
-            
+        {            
             IEnumerable<Usuario> usuarios = listaUsuarios;
             //Filtro por código
-            usuarios = usuarios.Where(u => u.codUsuario.ToLower().Contains(codigo.ToLower().Trim()));
+            //if (codigo!=null) usuarios = usuarios.Where(u => u.codUsuario.ToLower().Contains(codigo.ToLower().Trim()));
             //Filtro por nombre
             usuarios = usuarios.Where(u => u.nombre.ToLower().Contains(nomUsuario.ToLower().Trim()));
             //Filtro por perfil
             usuarios = usuarios.Where(u => (perfil==null) || (perfil.id<=0) || (u.Perfil.id == perfil.id) );
             //Filtro por nombre y apellido
-            usuarios = usuarios.Where(u => u.Empleado.nombre.ToLower().Contains(nombres.ToLower().Trim()) && (u.Empleado.apMaterno.ToLower().Contains(apellidos.ToLower().Trim()) || u.Empleado.apPaterno.ToLower().Contains(apellidos.ToLower().Trim())));
+            usuarios = usuarios.Where(u => u.Empleado.nombre.ToLower().Contains(nombres.ToLower().Trim()) && (u.Empleado.apPaterno.ToLower().Contains(apellidos.ToLower().Trim()) || u.Empleado.apMaterno.ToLower().Contains(codigo.ToLower().Trim())));
             //Filtro por estado
             usuarios = usuarios.Where(u => (estado == 0) || (u.estado != null && u.estado == estado - 1));
 
@@ -135,16 +134,25 @@ namespace pe.edu.pucp.ferretin.controller.MSeguridad
         public static bool insertarUsuario(Usuario usuario)
         {
             Usuario user;
-            user = db.Usuario.Single(u => u.Empleado.dni == usuario.Empleado.dni);            
-            if (user==null)
+            try
             {
-                db.Usuario.InsertOnSubmit(usuario);
-                return enviarCambios();
+                try
+                {
+                    user = db.Usuario.Single(u => u.Empleado.dni == usuario.Empleado.dni);
+                    return false;
+                }
+                catch (Exception e)
+                {
+                    db.Usuario.InsertOnSubmit(usuario);
+                    Console.WriteLine("llego");
+                    return enviarCambios();
+                }
             }
-            else
+            catch (Exception e)
             {
                 return false;
             }
+                   
         }
         /******************** VALIDACION PARA USUARIO YA EXISTENTE ***********************/
         public static bool validarUserName(Usuario usuario)

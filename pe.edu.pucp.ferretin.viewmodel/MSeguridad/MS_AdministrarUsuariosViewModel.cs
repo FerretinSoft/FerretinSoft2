@@ -315,6 +315,8 @@ namespace pe.edu.pucp.ferretin.viewmodel.MSeguridad
                 else
                 {
                     MessageBox.Show("El usuario fue actualizado con éxito");
+                    this.statusTab = tabs.BUSQUEDA;
+                    listaUsuarios = MS_UsuarioService.listaUsuarios;
                 }
             }
             /*Para agregar un usuario nuevo*/
@@ -334,9 +336,12 @@ namespace pe.edu.pucp.ferretin.viewmodel.MSeguridad
                 else
                 {
                     MessageBox.Show("El usuario fue agregado con éxito");
+                    this.statusTab = tabs.BUSQUEDA;
+                    listaUsuarios = MS_UsuarioService.listaUsuarios;
                 }
             }
-            NotifyPropertyChanged("listaUsuarios");
+                      
+            //NotifyPropertyChanged("listaUsuarios");
         }
         /**************************************************/
         public void cancelUsuario(Object obj)

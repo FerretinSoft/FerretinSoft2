@@ -28,6 +28,7 @@ namespace pe.edu.pucp.ferretin.view.MSeguridad
         //Variables
         private String nombreUsuario; 
         private String contrasena;
+        private bool existeUsuario;
 
         public List<Parametro> listaParametros;
         public int intentos;
@@ -102,6 +103,7 @@ namespace pe.edu.pucp.ferretin.view.MSeguridad
             Usuario usuarioLog;
             //Lista de Usuarios
             IEnumerable<Usuario> listaUsuarios = MS_UsuarioService.obtenerListaUsuarios();
+            existeUsuario = false;
 
             //Va a verificar cada usuario para encontrar el usuario que esta intentando loguear
             foreach(Usuario value in listaUsuarios){
@@ -109,7 +111,6 @@ namespace pe.edu.pucp.ferretin.view.MSeguridad
                 //Si el nombre de usuario y la contraseña coinciden.
                 if (value.nombre == this.nombreUsuario && value.contrasena == MS_UsuarioService.encrypt(this.contrasena))
                 {
-                    listaParametros = MS_ParametroService.obtenerListaParametros().ToList();
 
                     //Verifica si la contraseña coincide con "ferretinSoft". Si coincide entonces es la primera vez que esta logueando.
                     if (MS_UsuarioService.encrypt(this.contrasena) == MS_UsuarioService.encrypt("ferretinSoft"))
@@ -117,10 +118,10 @@ namespace pe.edu.pucp.ferretin.view.MSeguridad
 
                         usuarioLog = value;
                         MS_CambiarContraseñaUsuario cc = new MS_CambiarContraseñaUsuario(usuarioLog);
+                        MessageBox.Show("Inicio de sesión exitoso. A continuación cambie su contraseña.");
                         cc.Show();
                         this.Close();
                         break;
-
 
                     }
 
@@ -147,12 +148,13 @@ namespace pe.edu.pucp.ferretin.view.MSeguridad
                 }
                 else
                 {
-                    listaParametros = MS_ParametroService.obtenerListaParametros().ToList();
+                    
 
                     //Aqui va el codigo para cuando el nombre de usuario y contraseña son incorrectos
                     //Si el nombre de usuario existe
                     if (value.nombre == this.nombreUsuario)
                     {
+                        existeUsuario = true;
                         //Si su estado es inactivo
                         if (value.estado == 0)
                         {
@@ -198,8 +200,14 @@ namespace pe.edu.pucp.ferretin.view.MSeguridad
                     if (!String.IsNullOrEmpty(this.nombreUsuario))
                     {
 
-                        numIntentos.Content = "Número de intentos restantes: " + intentos;
-
+                        if (existeUsuario)
+                        {
+                            numIntentos.Content = "Número de intentos restantes: " + intentos;
+                        }
+                        else
+                        {
+                            numIntentos.Content = "   El Nombre de Usuario no existe.";
+                        }
                         if (intentos == 0)
                         {
                             MessageBox.Show("Este usuario sera bloqueado, por favor comuniquese con el area de administración");
@@ -216,7 +224,7 @@ namespace pe.edu.pucp.ferretin.view.MSeguridad
                 }
 
             }
-
+            //Fin Foreach
 
 
 

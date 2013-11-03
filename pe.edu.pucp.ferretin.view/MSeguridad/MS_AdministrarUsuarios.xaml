@@ -29,31 +29,31 @@
                         <RowDefinition Height="265*"/>
                     </Grid.RowDefinitions>
                     <GroupBox Header="Parámetros" Margin="10,10,10,14" BorderBrush="Black" Grid.RowSpan="2"/>
-                    <Label Content="Código:" HorizontalAlignment="Left" Height="26" VerticalAlignment="Top" Width="52" Margin="16,26,0,0"/>
-                    <Label Content="Nombre de Usuario:" HorizontalAlignment="Left" Height="26" VerticalAlignment="Top" Width="116" Margin="16,52,0,0" />
-                    <Label Content="Nombres:" HorizontalAlignment="Left" Height="26" VerticalAlignment="Top" Width="68" Margin="331,26,0,0"/>
-                    <Label Content="Apellidos:" HorizontalAlignment="Left" Height="26" VerticalAlignment="Top" Width="68" Margin="331,52,0,0"/>
+                    <Label Content="Apellido Materno:" HorizontalAlignment="Left" Height="26" VerticalAlignment="Top" Width="107" Margin="331,56,0,0"/>
+                    <Label Content="Nombre de Usuario:" HorizontalAlignment="Left" Height="26" VerticalAlignment="Top" Width="133" Margin="16,32,0,0" />
+                    <Label Content="Nombres:" HorizontalAlignment="Left" Height="26" VerticalAlignment="Top" Width="68" Margin="16,56,0,0"/>
+                    <Label Content="Apellido Paterno:" HorizontalAlignment="Left" Height="26" VerticalAlignment="Top" Width="107" Margin="331,32,0,0"/>
                     <Label Content="Perfil:" HorizontalAlignment="Left" Height="26" VerticalAlignment="Top" Width="116" Margin="16,82,0,0" Grid.RowSpan="2" />
                     <Label Content="Estado:" HorizontalAlignment="Left" Height="26" VerticalAlignment="Top" Width="68" Margin="331,83,0,0" Grid.RowSpan="2" />
 
                     <!--Aca estan los textBox de la ventana-->
                     <!--Fila 1-->
-                    <TextBox HorizontalAlignment="Left" x:Name="codigoSearchTxtBox" Text="{Binding searchCodigo, Mode=TwoWay}" Height="20" Margin="137,32,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="116"/>
-                    <TextBox HorizontalAlignment="Left" x:Name="nombreUsuarioSearchTxtBox" Text="{Binding searchNombreUsuario, Mode=TwoWay}" Height="20" TextWrapping="Wrap" VerticalAlignment="Top" Width="116" Margin="137,57,0,0"/>
-                    <ComboBox ItemsSource="{Binding perfiles,Mode=OneWay}" SelectedIndex="0" SelectedItem="{Binding searchPerfil, Mode=TwoWay}" DisplayMemberPath="nombre" x:Name="perfilCombo" HorizontalAlignment="Left" Margin="137,83,0,0" VerticalAlignment="Top" Width="116" Height="22" Grid.RowSpan="2">
+                    <TextBox HorizontalAlignment="Left" x:Name="codigoSearchTxtBox" Text="{Binding searchCodigo, Mode=TwoWay}" Height="20" Margin="447,58,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
+                    <TextBox HorizontalAlignment="Left" x:Name="nombreUsuarioSearchTxtBox" Text="{Binding searchNombreUsuario, Mode=TwoWay}" Height="20" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Margin="154,32,0,0"/>
+                    <ComboBox ItemsSource="{Binding perfiles,Mode=OneWay}" SelectedIndex="0" SelectedItem="{Binding searchPerfil, Mode=TwoWay}" DisplayMemberPath="nombre" x:Name="perfilCombo" HorizontalAlignment="Left" Margin="154,85,0,0" VerticalAlignment="Top" Width="116" Height="22" Grid.RowSpan="2">
 
                     </ComboBox>
                     <!--Fila 2-->
-                    <TextBox HorizontalAlignment="Left" x:Name="nombresTxtBox" Text="{Binding searchNombres, Mode=TwoWay}" Height="20" Margin="404,32,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="154"/>
-                    <TextBox HorizontalAlignment="Left" x:Name="apellidosTxtBox" Text="{Binding searchApellidos, Mode=TwoWay}" Height="20" TextWrapping="Wrap" VerticalAlignment="Top" Width="154" Margin="404,57,0,0" />
-                    <ComboBox SelectedIndex="{Binding searchEstado, Mode=TwoWay}" x:Name="estadoCombo" HorizontalAlignment="Left" Margin="404,82,0,0" VerticalAlignment="Top" Width="154" Height="22" Grid.RowSpan="2">
+                    <TextBox HorizontalAlignment="Left" x:Name="nombresTxtBox" Text="{Binding searchNombres, Mode=TwoWay}" Height="20" Margin="154,58,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
+                    <TextBox HorizontalAlignment="Left" x:Name="apellidosTxtBox" Text="{Binding searchApellidos, Mode=TwoWay}" Height="20" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Margin="447,32,0,0" />
+                    <ComboBox SelectedIndex="{Binding searchEstado, Mode=TwoWay}" x:Name="estadoCombo" HorizontalAlignment="Left" Margin="447,86,0,0" VerticalAlignment="Top" Width="120" Height="22" Grid.RowSpan="2">
                         <ComboBoxItem Content="Todos"/>
                         <ComboBoxItem Content="Inactivo"/>
                         <ComboBoxItem Content="Activo"/>
                     </ComboBox>
                     <!--Fin textBox-->
 
-                    <Button Command="{Binding actualizarListaUsuariosCommand}" x:Name="buscarUsuariosBtn" HorizontalAlignment="Left" Margin="629,77,0,0" VerticalAlignment="Top" Width="32" Height="32" RenderTransformOrigin="0.3,-0.35" Grid.RowSpan="3">
+                    <Button Command="{Binding actualizarListaUsuariosCommand}" x:Name="buscarUsuariosBtn" HorizontalAlignment="Left" Margin="617,52,0,0" VerticalAlignment="Top" Width="32" Height="32" RenderTransformOrigin="0.3,-0.35">
                         <Button.Background>
                             <ImageBrush ImageSource="/Resources/refresh2_48.png"/>
                         </Button.Background>
@@ -73,14 +73,14 @@
                                 </DataGridHyperlinkColumn.ElementStyle>
                             </DataGridHyperlinkColumn>
                             -->
-                            <DataGridTemplateColumn Width="1.7*" Header="Codigo">
+                            <DataGridTemplateColumn Width="2.7*" Header="Nombre de Usuario">
                                 <DataGridTemplateColumn.CellTemplate>
                                     <DataTemplate>
                                         <TextBlock>
                                         <Hyperlink 
                                             Command="{Binding Path=DataContext.viewEditUsuarioCommand, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type DataGrid}}}" 
                                             CommandParameter="{Binding Path=id}">
-                                            <TextBlock Text="{Binding Path=codUsuario}" />
+                                            <TextBlock Text="{Binding Path=nombre}" />
                                         </Hyperlink>
                                         </TextBlock>
                                     </DataTemplate>
@@ -88,7 +88,7 @@
                             </DataGridTemplateColumn>
 
                             <!-- Otras columnas -->
-                            <DataGridTextColumn Width="2*" Binding="{Binding Path=nombre}" ClipboardContentBinding="{x:Null}" Header="UserName"/>
+                            <!--<DataGridTextColumn Width="2*" Binding="{Binding Path=nombre}" ClipboardContentBinding="{x:Null}" Header="UserName"/> -->
                             <DataGridTextColumn Width="2.5*" Binding="{Binding Path=Empleado.nombre}" ClipboardContentBinding="{x:Null}" Header="Nombres"/>
                             <DataGridTextColumn Width="3.2*" Binding="{Binding Path=Empleado.apPaterno}" ClipboardContentBinding="{x:Null}" Header="Apellidos"/>
                             <DataGridTextColumn Width="5*" Binding="{Binding Path=Perfil.nombre}" ClipboardContentBinding="{x:Null}" Header="Perfil"/>
@@ -147,8 +147,8 @@
 
                     <!-- STACK PANEL DE GUARDAR Y CANCELAR-->
                     <StackPanel x:Name="guardarDetallePanel" Orientation="Horizontal" Margin="247,317,167,0" HorizontalAlignment="Center" Width="250" Grid.ColumnSpan="2" Grid.Column="1">
-                        <Button Command="{Binding saveUsuarioCommand}"  Height="30"  Content="GUARDAR" Padding="5,0" Margin="5,19"/>
-                        <Button Command="{Binding cancelUsuarioCommand}" Height="30" Content="CANCELAR" Padding="5,0" Margin="5,34"/>
+                        <Button Command="{Binding saveUsuarioCommand}"  Content="GUARDAR" Padding="5,0" Margin="5,10,5,52"/>
+                        <Button Command="{Binding cancelUsuarioCommand}" Content="CANCELAR" Padding="5,0" Margin="5,10,5,52"/>
                     </StackPanel>
                     <Label Content="DNI Empleado" HorizontalAlignment="Left" Margin="214,58,0,0" VerticalAlignment="Top" Grid.Column="1"/>
                     <TextBox x:Name="dniEmp" IsEnabled="{Binding editEmpleadoEnabled,Mode=OneWay}" Text="{Binding dniEmpleado, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" HorizontalAlignment="Left" Height="22" Margin="10,56,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="71" Grid.Column="2" PreviewTextInput="dniEmp_PreviewTextInput_1" MaxLength="8"/>
@@ -158,7 +158,7 @@
                             <ImageBrush ImageSource="../Resources/search1_20.png"/>
                         </Button.Background>
                     </Button>
-                    <Button Name="buttonContrasena"  Command="{Binding restbContrasenaCommand}" Content="RESTABLECER CONTRASEÑA" Padding="5,0" Margin="214,288,224,87" Grid.Column="1" Grid.ColumnSpan="2"/>
+                    <Button Name="buttonContrasena"  Command="{Binding restbContrasenaCommand}" Content="RESTABLECER CONTRASEÑA" Padding="5,0" Margin="214,286,224,98" Grid.Column="1" Grid.ColumnSpan="2"/>
                     <Button Command="{Binding buscarNombreUsuarioCommand}" Margin="192,88,120,303" VerticalAlignment="Center" Height="24"  BorderThickness="0" Grid.Column="2">
                         <Button.Background>
                             <ImageBrush ImageSource="/pe.edu.pucp.ferretin.view;component/Resources/search1_20.png"/>
