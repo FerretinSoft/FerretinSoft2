@@ -183,7 +183,6 @@ namespace pe.edu.pucp.ferretin.view.MSeguridad
             else
                 e.Handled = true;
         }
-        #endregion
-        
+        #endregion        
     }
 }
