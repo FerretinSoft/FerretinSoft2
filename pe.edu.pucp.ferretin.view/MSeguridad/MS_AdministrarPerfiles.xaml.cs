@@ -15,6 +15,7 @@ using System.Windows.Shapes;
 using System.Windows.Threading;
 using System.ComponentModel;
 
+
 using pe.edu.pucp.ferretin.controller;
 using pe.edu.pucp.ferretin.model;
 using pe.edu.pucp.ferretin.controller.MSeguridad;
@@ -33,5 +34,19 @@ namespace pe.edu.pucp.ferretin.view.MSeguridad
         {
             InitializeComponent();
         }
+           
+        private void perfil_Click(object sender, RoutedEventArgs e)
+        {
+            MSeguridad.MS_AdministrarArbolPerfiles perW = new MSeguridad.MS_AdministrarArbolPerfiles();
+            perW.Show();
+        }
+
+        private void nuevoPerfilBtn_Click(object sender, RoutedEventArgs e)
+        {
+            MSeguridad.MS_AdministrarArbolPerfiles perW = new MSeguridad.MS_AdministrarArbolPerfiles();
+            perW.Show();
+        }
+
+
     }
 }

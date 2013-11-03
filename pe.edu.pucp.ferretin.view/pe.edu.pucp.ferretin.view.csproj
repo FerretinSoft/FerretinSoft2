@@ -161,6 +161,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="MSeguridad\MS_AdministrarArbolPerfiles.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="MSeguridad\MS_AdministrarPerfiles.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -302,6 +306,9 @@
     </Compile>
     <Compile Include="MRecursosHumanos\MR_MainWindow.xaml.cs">
       <DependentUpon>MR_MainWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="MSeguridad\MS_AdministrarArbolPerfiles.xaml.cs">
+      <DependentUpon>MS_AdministrarArbolPerfiles.xaml</DependentUpon>
     </Compile>
     <Compile Include="MSeguridad\MS_AdministrarPerfiles.xaml.cs">
       <DependentUpon>MS_AdministrarPerfiles.xaml</DependentUpon>
