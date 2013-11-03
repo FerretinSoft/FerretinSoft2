@@ -14,31 +14,31 @@ namespace pe.edu.pucp.ferretin.controller.MSeguridad
     public class MS_TiendaService : MS_ComunService
     {
 
-        public static IEnumerable<Tienda> _listaAlmacenes;
-        public static IEnumerable<Tienda> listaAlmacenes
+        public static IEnumerable<Tienda> _listaTiendas;
+        public static IEnumerable<Tienda> listaTiendas
         {
             get
             {
-                if (_listaAlmacenes == null)
+                if (_listaTiendas == null)
                 {
-                    _listaAlmacenes = db.Tienda;
+                    _listaTiendas = db.Tienda;
                 }
                 //Usando concurrencia pesimista:
                 ///La lista de clientes se actualizara para ver los cambios
                 ///Si quisiera usar concurrencia optimista quito la siguiente linea
-                db.Refresh(RefreshMode.OverwriteCurrentValues, _listaAlmacenes);
-                return _listaAlmacenes;
+                db.Refresh(RefreshMode.OverwriteCurrentValues, _listaTiendas);
+                return _listaTiendas;
             }
             set
             {
-                _listaAlmacenes = value;
+                _listaTiendas = value;
             }
         }
 
 
         public static Tienda obtenerTiendaByCodigo(String codigoTienda)
         {
-            IEnumerable<Tienda> tiendas = (from t in listaAlmacenes
+            IEnumerable<Tienda> tiendas = (from t in listaTiendas
                                              where t.codigo != null && t.codigo.Contains(codigoTienda)
                                              select t);
             if (tiendas.Count() > 0)
@@ -55,7 +55,7 @@ namespace pe.edu.pucp.ferretin.controller.MSeguridad
 
         public static IEnumerable<Tienda> buscar(string codTienda, string nombre, UbigeoDistrito distrito, int tipo, int estado)
         {
-            return from t in listaAlmacenes
+            return from t in listaTiendas
                    where (
                        //Cada fila es un filtro
                           (t.codigo != null && t.codigo.ToLower().Contains(codTienda.ToLower().Trim()))
@@ -78,11 +78,11 @@ namespace pe.edu.pucp.ferretin.controller.MSeguridad
                    
         }
 
-        public static bool insertarAlmacen(Tienda almacen)
+        public static bool insertarAlmacen(Tienda tienda)
         {
-            if (!db.Tienda.Contains(almacen))
+            if (db.Tienda.Single(t=> t.codigo == tienda.codigo)== null)
             {                
-                db.Tienda.InsertOnSubmit(almacen);
+                db.Tienda.InsertOnSubmit(tienda);
                 return enviarCambios();
             }
             else
