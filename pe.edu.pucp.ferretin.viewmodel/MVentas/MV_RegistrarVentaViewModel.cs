@@ -1,4 +1,5 @@
 ﻿using pe.edu.pucp.ferretin.controller.MAlmacen;
+using pe.edu.pucp.ferretin.controller.MSeguridad;
 using pe.edu.pucp.ferretin.controller.MVentas;
 using pe.edu.pucp.ferretin.model;
 using pe.edu.pucp.ferretin.viewmodel.Helper;
@@ -19,7 +20,8 @@ namespace pe.edu.pucp.ferretin.viewmodel.MVentas
         {
             venta = new Venta()
             {
-                fecha = DateTime.Now
+                fecha = DateTime.Now,
+                igvActual = MS_SharedService.obtenerIGV()
             };
             
         }
@@ -43,7 +45,18 @@ namespace pe.edu.pucp.ferretin.viewmodel.MVentas
         }
         public string codProdAgregar { get; set; }
 
-        public Venta venta { get; set; }
+        private Venta _venta;
+        public Venta venta
+        {
+            get
+            {
+                return _venta;
+            }
+            set
+            {
+                _venta = value;
+            }
+        }
 
         public GridLength widthClienteBar
         {
