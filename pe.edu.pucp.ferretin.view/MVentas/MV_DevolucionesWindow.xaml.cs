@@ -80,5 +80,16 @@ namespace pe.edu.pucp.ferretin.view.MVentas
             }
 
         }
+
+        private void DatePicker_LostFocus(object sender, RoutedEventArgs e)
+        {
+            prodDevolverGrid.Items.Refresh();
+        }
+
+        private void prodDevolverGrid_CellEditEnding(object sender, DataGridCellEditEndingEventArgs e)
+        {
+                VentaProducto row = (VentaProducto)prodDevolverGrid.CurrentCell.Item;
+                row.montoParcial = row.Producto.precioLista * row.cantidad;
+        }
     }
 }
