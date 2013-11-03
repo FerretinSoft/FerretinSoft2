@@ -43,11 +43,14 @@ namespace pe.edu.pucp.ferretin.view.MSeguridad
         }
 
         #region Validaciones Campos de Texto
-
         private void txtNomUsuario_KeyDown(object sender, KeyEventArgs e)
         {
             
+
         }
+
+
+
 
         #endregion
 
@@ -55,6 +58,19 @@ namespace pe.edu.pucp.ferretin.view.MSeguridad
         {
 
         }
+
+        private void dniEmp_PreviewTextInput_1(object sender, TextCompositionEventArgs e)
+        {
+            if (Regex.IsMatch(e.Text, "[0-9]"))
+            {
+                e.Handled = false;
+            }
+            else
+            {
+                e.Handled = true;
+            }
+        }
+
 
     }
     
