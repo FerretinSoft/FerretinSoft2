@@ -131,10 +131,12 @@ namespace pe.edu.pucp.ferretin.controller.MSeguridad
             return usuarios;
 
         }
-        /*******************************************************/
+        /******************** VALIDACION PARA USUARIO-EMPLEADO POR DNI YA EXISTENTE ***********************/
         public static bool insertarUsuario(Usuario usuario)
         {
-            if (!db.Usuario.Contains(usuario))
+            Usuario user;
+            user = db.Usuario.Single(u => u.Empleado.dni == usuario.Empleado.dni);            
+            if (user==null)
             {
                 db.Usuario.InsertOnSubmit(usuario);
                 return enviarCambios();
@@ -142,6 +144,23 @@ namespace pe.edu.pucp.ferretin.controller.MSeguridad
             else
             {
                 return false;
+            }
+        }
+        /******************** VALIDACION PARA USUARIO YA EXISTENTE ***********************/
+        public static bool validarUserName(Usuario usuario)
+        {
+            Usuario user;
+            try
+            {
+                user = db.Usuario.Single(u => u.nombre.Equals(usuario.nombre));
+                if (usuario.nombre.Equals(user.nombre))
+                    if (user.nombre.Equals(usuario.nombre))  
+                        return false;
+                return true;
+            }
+            catch (Exception e)
+            {
+                return true;            
             }
         }
 
@@ -169,8 +188,12 @@ namespace pe.edu.pucp.ferretin.controller.MSeguridad
         public static IEnumerable<Perfil> obtenerPerfiles()
         {
             return listaPerfiles;
-        }
+        }  
 
+
+
+
+        /*******************************************************************************/
         /********************Para contraseña***********************/
 
         public static string encrypt(string plainText)
