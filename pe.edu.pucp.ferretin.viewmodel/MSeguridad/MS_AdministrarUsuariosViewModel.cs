@@ -248,6 +248,19 @@ namespace pe.edu.pucp.ferretin.viewmodel.MSeguridad
             }
         }
         /*************************************************/
+        RelayCommand _buscarNombreUsuarioCommand;
+        public ICommand buscarNombreUsuarioCommand
+        {
+            get
+            {
+                if (_buscarNombreUsuarioCommand == null)
+                {
+                    _buscarNombreUsuarioCommand = new RelayCommand(buscarNombreUsuario);
+                }
+                return _buscarNombreUsuarioCommand;
+            }
+        }
+        /*************************************************/
         RelayCommand _restbContrasenaCommand;
         public ICommand restbContrasenaCommand
         {
@@ -289,13 +302,15 @@ namespace pe.edu.pucp.ferretin.viewmodel.MSeguridad
             /*Para actualizar un usuario existente*/
             if (usuario.id > 0)//Si existe
             {
+                /***************************************/
                 List<Parametro> listaParametros;
                 listaParametros = MS_ParametroService.obtenerListaParametros().ToList();
                 usuario.intentosCon = Convert.ToInt16(listaParametros[0].valor);
+                /***************************************/
 
                 if (!MS_UsuarioService.enviarCambios())
                 {
-                    MessageBox.Show("No se pudo actualizar el usuario");
+                    MessageBox.Show("No se pudo actualizar el usuario, revise los campos");
                 }
                 else
                 {
@@ -314,7 +329,7 @@ namespace pe.edu.pucp.ferretin.viewmodel.MSeguridad
 
                 if (!MS_UsuarioService.insertarUsuario(usuario))
                 {
-                    MessageBox.Show("No se pudo agregar el nuevo usuario");
+                    MessageBox.Show("No se pudo agregar, el usuario ya existe");
                 }
                 else
                 {
@@ -328,6 +343,20 @@ namespace pe.edu.pucp.ferretin.viewmodel.MSeguridad
         {
             this.statusTab = tabs.BUSQUEDA;
             listaUsuarios = MS_UsuarioService.listaUsuarios;
+        }
+        /**************************************************/
+        public void buscarNombreUsuario(Object obj)
+        {            
+            if (!MS_UsuarioService.validarUserName(usuario))
+            {
+                MessageBox.Show("Usuario Existente");
+            }
+            else
+            {
+                MessageBox.Show("Usuario Disponible");
+            }
+            
+            //NotifyPropertyChanged("listaUsuarios");       
         }
         /**************************************************/
 

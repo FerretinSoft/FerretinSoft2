@@ -32,9 +32,9 @@
             <Label Content="Contraseña:" HorizontalAlignment="Left" Margin="0,55,0,0" VerticalAlignment="Top" Width="156" FontSize="16" FontFamily="Arial" Background="#00000000" Foreground="Black" RenderTransformOrigin="0.488,-0.929" Height="29"/>
 
             <!--Textbox Nombre de Usuario-->
-            <TextBox x:Name="tboxNombreUsuario" HorizontalAlignment="Right" Height="23" Margin="0,14,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="219" TextChanged="tboxNombreUsuario_TextChanged" />
+            <TextBox x:Name="tboxNombreUsuario" HorizontalAlignment="Right" Height="23" Margin="0,14,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="219" TextChanged="tboxNombreUsuario_TextChanged" PreviewTextInput="tboxNombreUsuario_PreviewTextInput" PreviewKeyDown="tboxNombreUsuario_PreviewKeyDown" MaxLength="20" />
             <!--PasswordBox contraseña-->
-            <PasswordBox x:Name="pwboxContrasena" HorizontalAlignment="Right" Height="23" Margin="0,61,0,0" VerticalAlignment="Top" Width="219" PasswordChanged="pwboxContrasena_PasswordChanged"/>
+            <PasswordBox x:Name="pwboxContrasena" HorizontalAlignment="Right" Height="23" Margin="0,61,0,0" VerticalAlignment="Top" Width="219" PasswordChanged="pwboxContrasena_PasswordChanged" PreviewTextInput="pwboxContrasena_PreviewTextInput" PreviewKeyDown="pwboxContrasena_PreviewKeyDown" MaxLength="20"/>
 
             <!--Mensajes de alerta-->
             <!--Mayusculas-->

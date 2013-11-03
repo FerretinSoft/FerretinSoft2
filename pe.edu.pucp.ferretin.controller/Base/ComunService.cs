@@ -101,9 +101,6 @@ namespace pe.edu.pucp.ferretin.controller
         {
              userlog = user.nombre;
         }
-                    
-
-
 
         private static IEnumerable<Tienda> _tiendas;
         public static IEnumerable<Tienda> tiendas
@@ -118,5 +115,24 @@ namespace pe.edu.pucp.ferretin.controller
                 _tiendas = value;
             }
         }
+
+        //Usuario Logueado al sistema.
+        public static Usuario usuarioL;
+        public static void usuarioLo(Usuario user)
+        {
+            usuarioL = user;
+        }
+
+        //Permisos del usuario logueado al sistema.
+        public static List<PerfilMenu> usuarioLpermisos;
+        public static void obtenerPermisos(Usuario usuario)
+        {
+            IEnumerable<PerfilMenu> permisos = null;
+
+            permisos = db.PerfilMenu.Where(t => t.id_perfil == usuario.id_perfil);
+            usuarioLpermisos = permisos.OrderBy(p => p.id_menu).ToList(); ;
+
+        }
+
     }
 }
