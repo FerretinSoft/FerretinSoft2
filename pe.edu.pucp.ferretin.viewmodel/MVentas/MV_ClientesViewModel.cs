@@ -20,6 +20,37 @@ namespace pe.edu.pucp.ferretin.viewmodel.MVentas
         }
         #endregion
 
+        private bool _soloSeleccionarCliente = false;
+        public bool soloSeleccionarCliente
+        {
+            get
+            {
+                return _soloSeleccionarCliente;
+            }
+            set
+            {
+                _soloSeleccionarCliente = value;
+                NotifyPropertyChanged("soloSeleccionarCliente");
+                NotifyPropertyChanged("nombreBotonGuardar");
+                NotifyPropertyChanged("noSoloSeleccionarCliente");
+                detallesTabHeader = value ? "Detalles" : "Agregar";
+            }
+        }
+        public bool noSoloSeleccionarCliente
+        {
+            get
+            {
+                return !soloSeleccionarCliente;
+            }
+        }
+        public String nombreBotonGuardar
+        {
+            get
+            {
+                return soloSeleccionarCliente ? "SELECCIONAR" : "GUARDAR";
+            }
+        }
+
         #region Valores para el cuadro de Búsqueda
         public String _searchNroDoc = "";
         public String searchNroDoc { get { return _searchNroDoc; } set { _searchNroDoc = value; NotifyPropertyChanged("searchNroDoc"); } }
@@ -53,16 +84,19 @@ namespace pe.edu.pucp.ferretin.viewmodel.MVentas
             }
             set
             {
+                if (value == Tab.DETALLES && cliente == null)
+                {
+
+                }
                 _statusTab = value;
                 //Si cambió el estado de las pestañas también cambio los Header
                 //Si la pestaña es para agregar nuevo, limpio los input
                 switch (_statusTab)
                 {
-                    case Tab.BUSQUEDA: detallesTabHeader = "Agregar"; cliente = new Cliente(); break;//Si es agregar, creo un nuevo objeto Cliente
+                    case Tab.BUSQUEDA: detallesTabHeader = soloSeleccionarCliente?"Detalles":"Agregar"; break;//Si es agregar, creo un nuevo objeto Cliente
                     case Tab.AGREGAR: detallesTabHeader = "Agregar"; cliente = new Cliente(); break;//Si es agregar, creo un nuevo objeto Cliente
                     case Tab.MODIFICAR: detallesTabHeader = "Modificar"; break;
                     case Tab.DETALLES: detallesTabHeader = "Detalles"; break;
-                    default: detallesTabHeader = "Agregar"; cliente = new Cliente(); break;//Si es agregar, creo un nuevo objeto Cliente
                 }
                 NotifyPropertyChanged("statusTab");
                 //Cuando se cambia el status, tambien se tiene que actualizar el currentIndex del tab
@@ -72,10 +106,23 @@ namespace pe.edu.pucp.ferretin.viewmodel.MVentas
         //Usado para mover los tabs de acuerdo a las acciones realizadas
         public int currentIndexTab
         {
-            get { return _statusTab == Tab.BUSQUEDA ? 0 : 1; }
-            set { statusTab =  value==0?Tab.BUSQUEDA:Tab.AGREGAR; }
+            get
+            {
+                return _statusTab == Tab.BUSQUEDA ? 0 : 1;
+            }
+            set
+            {
+                if (soloSeleccionarCliente)
+                {
+                    statusTab = value == 0 ? Tab.BUSQUEDA : Tab.DETALLES;
+                }
+                else
+                {
+                    statusTab = value == 0 ? Tab.BUSQUEDA : Tab.AGREGAR;
+                }
+            }
         }
-        private String _detallesTabHeader = "Agregar"; //Default
+        private String _detallesTabHeader = ""; //Default
         public String detallesTabHeader
         {
             get
@@ -193,7 +240,10 @@ namespace pe.edu.pucp.ferretin.viewmodel.MVentas
                     selectedProvincia = this.cliente.UbigeoDistrito.UbigeoProvincia;
                     selectedDepartamento = selectedProvincia.UbigeoDepartamento;
                 }
-                this.statusTab = Tab.MODIFICAR;
+                if( soloSeleccionarCliente )
+                    this.statusTab = Tab.DETALLES;
+                else
+                    this.statusTab = Tab.MODIFICAR;
             }
             catch (Exception e)
             {
@@ -202,27 +252,35 @@ namespace pe.edu.pucp.ferretin.viewmodel.MVentas
         }
         public void saveCliente(Object obj)
         {
-            
-            if (cliente.id > 0)//Si existe
+
+            if (soloSeleccionarCliente)
             {
-                if (!MV_ClienteService.enviarCambios())
-                {
-                    MessageBox.Show("No se pudo actualizar el cliente");
-                }
-                else
-                {
-                    MessageBox.Show("El cliente fue guardado con éxito");
-                }
+
             }
             else
             {
-                if (!MV_ClienteService.insertarCliente(cliente))
+
+                if (cliente.id > 0)//Si existe
                 {
-                    MessageBox.Show("No se pudo agregar el nuevo cliente");
+                    if (!MV_ClienteService.enviarCambios())
+                    {
+                        MessageBox.Show("No se pudo actualizar el cliente");
+                    }
+                    else
+                    {
+                        MessageBox.Show("El cliente fue guardado con éxito");
+                    }
                 }
                 else
                 {
-                    MessageBox.Show("El cliente fue agregado con éxito");
+                    if (!MV_ClienteService.insertarCliente(cliente))
+                    {
+                        MessageBox.Show("No se pudo agregar el nuevo cliente");
+                    }
+                    else
+                    {
+                        MessageBox.Show("El cliente fue agregado con éxito");
+                    }
                 }
             }
         }
@@ -234,8 +292,14 @@ namespace pe.edu.pucp.ferretin.viewmodel.MVentas
 
         private bool canSaveExecute(object obj)
         {
+            if (soloSeleccionarCliente)
+            {
+                return cliente!=null;
+            }
             return base.UIValidationErrorCount == 0 && this.cliente.Errors.Count == 0;
         }
         #endregion
+
+        
     }
 }

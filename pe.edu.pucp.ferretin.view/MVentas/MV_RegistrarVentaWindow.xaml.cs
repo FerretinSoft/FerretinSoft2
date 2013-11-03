@@ -1,4 +1,5 @@
-﻿using System;
+﻿using pe.edu.pucp.ferretin.viewmodel.MVentas;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -53,6 +54,15 @@ namespace pe.edu.pucp.ferretin.view.MVentas
         private void nuevoProductoBtn_Click(object sender, RoutedEventArgs e)
         {
 
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            MV_ClientesWindow v = new MV_ClientesWindow();
+            v.Owner = this;
+            var viewModel = v.main.DataContext as MV_ClientesViewModel;
+            viewModel.soloSeleccionarCliente = true;
+            v.Show();
         }
     }
 }

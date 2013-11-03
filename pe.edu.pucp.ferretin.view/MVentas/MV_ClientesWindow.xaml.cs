@@ -38,6 +38,24 @@ namespace pe.edu.pucp.ferretin.view.MVentas
             Show();
         }
 
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            if (this.Owner != null)
+            {
+                try
+                {
+                    MV_RegistrarVentaWindow padre = this.Owner as MV_RegistrarVentaWindow;
+                    MV_ClientesViewModel my_dc = this.main.DataContext as MV_ClientesViewModel;
+                    MV_RegistrarVentaViewModel padre_dc = padre.main.DataContext as MV_RegistrarVentaViewModel;
+
+                    padre_dc.nroDocSeleccionado = my_dc.cliente.nroDoc;
+
+                    this.Close();
+                }
+                catch { }
+            }
+        }
+
 
 
     }
