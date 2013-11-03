@@ -284,23 +284,56 @@ namespace pe.edu.pucp.ferretin.viewmodel.MRecursosHumanos
                 }
                 else
                 {
-                    MessageBox.Show("El empleado fue guardado con éxito");
+                    MessageBox.Show("Se actualizó el empleado con éxito");
                 }
             }
             /*Para agregar un empleado nuevo*/
             else
             {
+                //Validacion de Campos Obligatorios//
 
-                if (!MR_EmpleadoService.insertarEmpleado(empleado))
-                {
-                    MessageBox.Show("No se pudo agregar el nuevo empleado");
-                }
+                
+                if (empleado.dni == null || empleado.dni == "" ) MessageBox.Show("Debe ingresar el campo DNI");
+                else if (empleado.nombre == null || empleado.nombre == "") MessageBox.Show("Debe ingresar el campo Nombre");
+                else if (empleado.apPaterno == null || empleado.nombre == "") MessageBox.Show("Debe ingresar el campo Apellido Paterno");
+                else if (empleado.apMaterno == null || empleado.nombre == "") MessageBox.Show("Debe ingresar el campo Apellido Materno");
+                else if (empleado.direccion == null || empleado.direccion == "") MessageBox.Show("Debe ingresar el campo Dirección");
+
+                else if (selectedDepartamento == null) MessageBox.Show("Debe ingresar el campo Departamento");
+                else if (selectedProvincia == null) MessageBox.Show("Debe ingresar el campo Provincia");
+                else if (empleado.UbigeoDistrito == null) MessageBox.Show("Debe ingresar el campo Distrito");
+                else if (empleado.telefono1 == null || empleado.telefono1 == "") MessageBox.Show("Debe ingresar el campo Teléfono");
+
+                else if (empleado.fecNacimiento == null) MessageBox.Show("Debe ingresar el campo Fecha de Nacimiento");
+                else if (empleado.sexo == null) MessageBox.Show("Debe ingresar el campo Sexo");
+                
+
+                else if (empleado.cargoActual == null) MessageBox.Show("Debe ingresar el campo Cargo");
+                else if (empleado.tiendaActual == null) MessageBox.Show("Debe ingresar el campo Tienda");
+                else if (empleado.GradoInstruccion == null) MessageBox.Show("Debe ingresar el campo Grado de instrucción");
+                else if (empleado.ultimoSueldo <=0) MessageBox.Show("Debe ingresar el campo Sueldo");
+
+                else if (empleado.estado == null) MessageBox.Show("Debe ingresar el campo Estado");
                 else
                 {
-                    empleado.codEmpleado = 100050 + listaEmpleados.Count();
-                    MessageBox.Show("El empleado fue agregado con éxito");
+                    if(empleado.dni!=null && empleado.nombre!=null && empleado.apPaterno!=null && empleado.apMaterno!=null)
+
+                    {
+
+                        if (!MR_EmpleadoService.insertarEmpleado(empleado))
+                        {
+                            MessageBox.Show("No se pudo agregar el nuevo empleado");
+                        }
+                        else
+                        {
+                        
+                            MessageBox.Show("El empleado fue agregado con éxito");
+                        }
+                    }
                 }
             }
+
+            NotifyPropertyChanged("listaEmpleados");
         }
         public void cancelEmpleado(Object obj)
         {
@@ -314,6 +347,10 @@ namespace pe.edu.pucp.ferretin.viewmodel.MRecursosHumanos
             return base.UIValidationErrorCount == 0 && this.empleado.Errors.Count == 0;
         }
         #endregion
+
+
+
+    
 
     }
 }
