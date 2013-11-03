@@ -43,7 +43,18 @@ namespace pe.edu.pucp.ferretin.viewmodel.MVentas
         }
         public string codProdAgregar { get; set; }
 
-        public Venta venta { get; set; }
+        private Venta _venta;
+        public Venta venta
+        {
+            get
+            {
+                return _venta;
+            }
+            set
+            {
+                _venta = value;
+            }
+        }
 
         public GridLength widthClienteBar
         {

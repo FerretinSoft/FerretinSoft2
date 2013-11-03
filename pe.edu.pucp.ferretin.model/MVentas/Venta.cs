@@ -30,6 +30,12 @@ namespace pe.edu.pucp.ferretin.model
             }
         }
 
+        public int igvActual = 18;
 
+        partial void OntotalChanged()
+        {
+            this.igv = this.total * igvActual/100;
+            this.subTotal = this.total - this.igv;
+        }
     }
 }
