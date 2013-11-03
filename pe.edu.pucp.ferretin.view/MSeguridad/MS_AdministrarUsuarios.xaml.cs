@@ -43,22 +43,6 @@ namespace pe.edu.pucp.ferretin.view.MSeguridad
         }
 
         #region Validaciones Campos de Texto
-        private void txtNomUsuario_KeyDown(object sender, KeyEventArgs e)
-        {
-            
-
-        }
-
-
-
-
-        #endregion
-
-        private void tipoCombo_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-
-        }
-
         private void dniEmp_PreviewTextInput_1(object sender, TextCompositionEventArgs e)
         {
             if (Regex.IsMatch(e.Text, "[0-9]"))
@@ -70,6 +54,32 @@ namespace pe.edu.pucp.ferretin.view.MSeguridad
                 e.Handled = true;
             }
         }
+        
+        private void nombreUsuarioTxtBox_PreviewTextInput(object sender, TextCompositionEventArgs e)
+        {
+            if (Regex.IsMatch(e.Text, "[a-zA-Z0-9]"))
+            {
+                e.Handled = false;
+            }
+            else
+            {
+                e.Handled = true;
+            }
+        }
+
+        private void nombreUsuarioTxtBox_PreviewKeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key != Key.Space)
+                e.Handled = false;
+            else
+                e.Handled = true;
+        }        
+        #endregion
+
+     
+
+
+
 
 
     }
