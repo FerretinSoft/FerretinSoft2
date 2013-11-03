@@ -13,6 +13,15 @@ namespace pe.edu.pucp.ferretin.viewmodel
 {
     public class ViewModelBase : INotifyPropertyChanged
     {
+
+        public String fechaHoyString
+        {
+            get
+            {
+                return DateTime.Today.ToString("d MMM yyyy").ToUpper();
+            }
+        }
+
         #region INotifyPropertyChanged Members
 
         //Instance

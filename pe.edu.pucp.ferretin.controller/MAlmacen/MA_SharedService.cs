@@ -13,6 +13,16 @@ namespace pe.edu.pucp.ferretin.controller.MAlmacen
     /// </summary>
     public class MA_SharedService : ComunService
     {
+
+
+        public static Producto obtenerProductoxCodigo(String codigo)
+        {
+            Producto prod = (from p in db.Producto
+                             where p.codigo == codigo
+                             select p).SingleOrDefault();
+            return prod;
+        }
+
         private static List<MovimientoEstado> _estadosMovimiento;
         public static List<MovimientoEstado> estadosMovimiento
         {

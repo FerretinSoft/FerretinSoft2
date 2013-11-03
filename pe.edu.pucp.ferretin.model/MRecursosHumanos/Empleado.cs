@@ -82,7 +82,7 @@ namespace pe.edu.pucp.ferretin.model
         {
             get
             {
-                if (_ultimoSueldo <= 0 && ultimoEmpleadoTienda != null)
+                if (_ultimoSueldo <= 0 && ultimoEmpleadoTienda != null && ultimoEmpleadoTienda.sueldo !=null)
                     _ultimoSueldo = ultimoEmpleadoTienda.sueldo.Value;
                 return _ultimoSueldo;
             }

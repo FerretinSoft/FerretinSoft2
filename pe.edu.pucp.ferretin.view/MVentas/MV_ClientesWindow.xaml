@@ -2,7 +2,7 @@
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:viewmodel="clr-namespace:pe.edu.pucp.ferretin.viewmodel.MVentas;assembly=pe.edu.pucp.ferretin.viewmodel"
-       Title="Administrar Clientes" Icon="../Resources/ferretin_ico.ico" MaxHeight="500" MinWidth="600" Width="700" MinHeight="500" Height="500">
+       Title="Administrar Clientes" Icon="../Resources/ferretin_ico.ico" MaxHeight="600" MinWidth="600" MaxWidth="800" Width="700" MinHeight="500" Height="500">
     <Window.Resources>
         <viewmodel:MV_ClientesViewModel x:Key="MV_ClientesViewModel"/>
         <ControlTemplate x:Key="validationTemplate">
@@ -18,7 +18,7 @@
             <Setter Property="Validation.ErrorTemplate" Value="{DynamicResource validationTemplate}" />
         </Style>
     </Window.Resources>
-    <Grid DataContext="{Binding Source={StaticResource MV_ClientesViewModel}}" >
+    <Grid x:Name="main" DataContext="{Binding Source={StaticResource MV_ClientesViewModel}}" >
         <Grid.Background>
             <ImageBrush ImageSource="../Resources/texture_3_100.png" TileMode="FlipX" 
             Viewport="0,0,100,100" ViewportUnits="Absolute"/>
@@ -103,10 +103,6 @@
                             <DataGridTextColumn Width="1.7*" Binding="{Binding Path=puntosActual}" Header="Puntos"/>
                         </DataGrid.Columns>
                     </DataGrid>
-                    <StackPanel Orientation="Horizontal" Grid.Row="2" HorizontalAlignment="Center" Visibility="Collapsed" Margin="343,291.22,168.02,0.298">
-                        <Button Height="30" Content="Seleccionar" Padding="5,0" Margin="5,0"/>
-                        <Button Height="30" Content="Cancelar" Padding="5,0" Margin="5,0" />
-                    </StackPanel>
                 </Grid>
             </TabItem>
 
@@ -120,7 +116,7 @@
                         <RowDefinition Height="Auto"/>
                         <RowDefinition Height="Auto"/>
                     </Grid.RowDefinitions>
-                    <Grid Margin="5" >
+                    <Grid Margin="5" IsEnabled="{Binding noSoloSeleccionarCliente,Mode=OneWay}" >
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="Auto"></ColumnDefinition>
                             <ColumnDefinition Width="1*"/>
@@ -215,12 +211,8 @@
                         <StackPanel Grid.Column="4" Grid.Row="12" Orientation="Horizontal" HorizontalAlignment="Right"/>
                     </Grid>
                     <StackPanel Orientation="Horizontal" Margin="5" Grid.Row="1" HorizontalAlignment="Center">
-                        <Button Command="{Binding saveClienteCommand}" Height="30" Content="GUARDAR" Padding="5,0" Margin="5,0" />
+                        <Button Command="{Binding saveClienteCommand}" Height="30" Content="{Binding nombreBotonGuardar,Mode=OneWay}" Padding="5,0" Margin="5,0" Click="Button_Click" />
                         <Button Command="{Binding cancelClienteCommand}" Height="30" Content="CANCELAR" Padding="5,0" Margin="5,0" />
-                    </StackPanel>
-                    <StackPanel  Orientation="Horizontal" Grid.Row="2" HorizontalAlignment="Center" Visibility="Collapsed">
-                        <Button Height="30" Content="SELECCIONAR" Padding="5,0" Margin="5,0"/>
-                        <Button Height="30" Content="CANCELAR" Padding="5,0" Margin="5,0" />
                     </StackPanel>
                 </Grid>
             </TabItem>

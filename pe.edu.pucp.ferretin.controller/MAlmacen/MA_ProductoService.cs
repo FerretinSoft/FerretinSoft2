@@ -73,13 +73,6 @@ namespace pe.edu.pucp.ferretin.controller.MAlmacen
         }
 
 
-        public static Producto obtenerProductoxCodigo(String codigo)
-        {
-            Producto prod = (from p in db.Producto
-                             where p.codigo==codigo
-                             select p).SingleOrDefault();
-            return prod;
-        }
 
         public static bool agregarNuevoProducto(Producto prod)
         {

@@ -196,9 +196,12 @@ namespace pe.edu.pucp.ferretin.viewmodel.MVentas
                  DevolucionProducto prodDev = new DevolucionProducto();
                  VentaProducto prodSelec = MV_VentaService.obtenerVentaProductobyId((long)id);
                  prodDev.Producto = prodSelec.Producto;
-                 prodDev.Producto.codigo = prodSelec.Producto.codigo;
+                 prodDev.cantidad = 0;                
+                 prodDev.id_producto = prodSelec.id_producto;
+                 prodDev.monto = prodDev.cantidad * prodDev.Producto.precioLista;
+                 devolucion.total = 0;
                  devolucion.DevolucionProducto.Add(prodDev);
-                 this.listaProductosDev = devolucion.DevolucionProducto;
+                 NotifyPropertyChanged("devolucion");
             }
             catch (Exception e)
             {
