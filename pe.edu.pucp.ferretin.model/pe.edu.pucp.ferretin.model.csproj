@@ -57,6 +57,7 @@
     </Compile>
     <Compile Include="MAlmacen\Producto.cs" />
     <Compile Include="MVentas\Devolucion.cs" />
+    <Compile Include="MVentas\DevolucionProducto.cs" />
     <Compile Include="MVentas\Venta.cs" />
     <Compile Include="MVentas\VentaProducto.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

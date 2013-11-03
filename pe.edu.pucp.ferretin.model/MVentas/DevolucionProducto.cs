@@ -6,12 +6,13 @@ using System.Threading.Tasks;
 
 namespace pe.edu.pucp.ferretin.model
 {
-    public partial class VentaProducto
+    public partial class DevolucionProducto
     {
         partial void OncantidadChanged()
         {
-            montoParcial = cantidad * Producto.precioLista * (Producto.descuento/100);
-            
+            monto = cantidad * Producto.precioLista;
+            if (Devolucion != null)
+                Devolucion.total = Devolucion.total + monto;
         }
     }
 }
