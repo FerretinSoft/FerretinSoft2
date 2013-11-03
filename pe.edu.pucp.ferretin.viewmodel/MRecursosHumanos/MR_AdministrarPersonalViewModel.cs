@@ -75,6 +75,21 @@ namespace pe.edu.pucp.ferretin.viewmodel.MRecursosHumanos
             }
         }
 
+        public bool isCreating
+        {
+            get
+            {
+                if (statusTab == Tab.AGREGAR)
+                {
+                    return true; //Se Activaran
+                }
+                else
+                {
+                    return false; //Se bloquearan par que no sean editables
+                }
+            }
+        }
+
         #region Manejo de los Tabs
         public enum Tab
         {
@@ -105,6 +120,7 @@ namespace pe.edu.pucp.ferretin.viewmodel.MRecursosHumanos
                 NotifyPropertyChanged("statusTab");
                 //Cuando se cambia el status, tambien se tiene que actualizar el currentIndex del tab
                 NotifyPropertyChanged("currentIndexTab"); //Hace que cambie el tab automaticamente
+                NotifyPropertyChanged("isCreating"); //Para que se activen o desactiven los inputs
             }
         }
         //Usado para mover los tabs de acuerdo a las acciones realizadas
@@ -259,8 +275,8 @@ namespace pe.edu.pucp.ferretin.viewmodel.MRecursosHumanos
         }
         public void saveEmpleado(Object obj)
         {
-
-            if (empleado.id > 0)//Si existe
+            /*Para actualizar un empleado existente*/
+            if (empleado.id>0)//Si existe
             {
                 if (!MR_EmpleadoService.enviarCambios())
                 {
@@ -271,14 +287,17 @@ namespace pe.edu.pucp.ferretin.viewmodel.MRecursosHumanos
                     MessageBox.Show("El empleado fue guardado con éxito");
                 }
             }
+            /*Para agregar un empleado nuevo*/
             else
             {
+
                 if (!MR_EmpleadoService.insertarEmpleado(empleado))
                 {
                     MessageBox.Show("No se pudo agregar el nuevo empleado");
                 }
                 else
                 {
+                    empleado.codEmpleado = 100050 + listaEmpleados.Count();
                     MessageBox.Show("El empleado fue agregado con éxito");
                 }
             }
