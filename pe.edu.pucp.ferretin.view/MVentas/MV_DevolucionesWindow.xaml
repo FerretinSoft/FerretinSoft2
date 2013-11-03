@@ -271,7 +271,7 @@
                                 <TextBox x:Name="RegCodCliente" IsEnabled="False" VerticalAlignment="Center"/>
                             </Grid>
                             <Label Content="Fecha Devolución:" VerticalAlignment="Center" Grid.Row="1" />
-                            <DatePicker LostFocus="DatePicker_LostFocus" VerticalAlignment="Center" Margin="0" IsEnabled="True" Grid.Row="1" Grid.Column="1" BorderThickness="0"/>
+                            <DatePicker VerticalAlignment="Center" Margin="0" IsEnabled="True" Grid.Row="1" Grid.Column="1" BorderThickness="0"/>
                             <Label Content="Cód. Venta:" VerticalAlignment="Center" Grid.Column="2"/>
                             <Grid Grid.Column="3" Grid.Row="0">
                                 <Grid.ColumnDefinitions>
@@ -320,7 +320,7 @@
                         <TextBox x:Name="totalComprado" VerticalAlignment="Center" Width="100" IsEnabled="False" TextAlignment="Right" />
                     </StackPanel>
                     <TextBlock Grid.Row="4" Margin="5,5" VerticalAlignment="Center">Productos a Devolver:</TextBlock>
-                    <DataGrid CellEditEnding="prodDevolverGrid_CellEditEnding" x:Name="prodDevolverGrid" ItemsSource="{Binding Path=listaProductosDev, Mode=TwoWay}" AutoGenerateColumns="False"  Grid.Row="5" Margin="-200,0,5,0">
+                    <DataGrid ItemsSource="{Binding Path=devolucion.DevolucionProducto,UpdateSourceTrigger=PropertyChanged,NotifyOnSourceUpdated=True,NotifyOnTargetUpdated=True,Mode=TwoWay}" AutoGenerateColumns="False"  Grid.Row="5" Margin="0,0,5,0">
                         <DataGrid.Columns>
                             <DataGridTextColumn  IsReadOnly="True"  Width="1*" Binding="{Binding Path= Producto.codigo}" ClipboardContentBinding="{x:Null}" Header="Cód Prod."/>
                             <DataGridTextColumn IsReadOnly="True"  Width="2*" Binding="{Binding Path= Producto.nombre}" ClipboardContentBinding="{x:Null}" Header="Descripción"/>
@@ -334,7 +334,7 @@
                     </DataGrid>
                     <StackPanel HorizontalAlignment="Right" VerticalAlignment="Center" Orientation="Horizontal" Grid.Row="6" Margin="5,5">
                         <Label Content="Total Devuelto:"  VerticalAlignment="Center"/>
-                        <TextBox  Text="0.00" VerticalAlignment="Center" Width="100" IsEnabled="False" TextAlignment="Right" />
+                        <TextBox  Text="{Binding Path= devolucion.total}" VerticalAlignment="Center" Width="100" IsEnabled="False" TextAlignment="Right" />
                     </StackPanel>
                     <Grid Grid.Row="7" Margin="5,5">
                         <Grid.ColumnDefinitions>
