@@ -10,7 +10,7 @@ namespace pe.edu.pucp.ferretin.model
     {
         partial void OncantidadChanged()
         {
-            montoParcial = cantidad * Producto.precioLista * (Producto.descuento/100);
+            montoParcial = cantidad * Producto.precioLista * ((100-Producto.descuento)/100);
         }
     }
 }
