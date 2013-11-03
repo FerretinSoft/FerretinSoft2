@@ -56,6 +56,14 @@ namespace pe.edu.pucp.ferretin.view.MSeguridad
         }
         #endregion
 
+        #region Boton Cancelar
+        private void Button_Click_1(object sender, RoutedEventArgs e)
+        {
+            if (MessageBox.Show("¿Está seguro que desea cerrar esta ventana?", "Confirmación",
+                                MessageBoxButton.YesNo) == MessageBoxResult.Yes) this.Close();
+        }
+        #endregion
+
         #region Cambiar Contraseña
         public void cambiarContraseña()
         {
@@ -110,14 +118,5 @@ namespace pe.edu.pucp.ferretin.view.MSeguridad
             }
         }
         #endregion
-
-
-        private void Button_Click_1(object sender, RoutedEventArgs e)
-        {
-            if (MessageBox.Show("¿Está seguro que desea cerrar esta ventana?", "Confirmación",
-                                MessageBoxButton.YesNo) == MessageBoxResult.Yes) this.Close();
-        }
-
-        
     }
 }
