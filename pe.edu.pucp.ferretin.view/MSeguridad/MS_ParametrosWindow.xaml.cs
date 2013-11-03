@@ -24,7 +24,7 @@ namespace pe.edu.pucp.ferretin.view.MSeguridad
     {
         #region Variables
         //Lista de Parametros
-        /*
+        
         List<Parametro> listaParametros;
 
         //Variables auxiliares para jalar los Parametros
@@ -36,44 +36,43 @@ namespace pe.edu.pucp.ferretin.view.MSeguridad
         Parametro vigenciaPro;
         Parametro vigenciaNota;
         Parametro solesPorPunto;
-         * */
-        #endregion
         
+        #endregion
         
         #region Constructor
         //Constructor ParametrosWindow
         public MS_ParametrosWindow()
         {
             InitializeComponent();
-            /*
+            
             //Obtiene todos los parametros.
             listaParametros = MS_ParametroService.obtenerListaParametros().ToList();
 
             //Se asigna a cada textbox su valor respectivo de la base de datos.
-            intContrasena.Text = listaParametros[0].valor.ToString();
+            intContrasena.Text = listaParametros[0].valor;
             intentosC = listaParametros[0];
 
-            tMaxSesion.Text = listaParametros[1].valor.ToString();
+            tMaxSesion.Text = listaParametros[1].valor;
             tiempoSesion = listaParametros[1];
 
-            durClave.Text = listaParametros[2].valor.ToString();
+            durClave.Text = listaParametros[2].valor;
             duracionClave = listaParametros[2];
 
-            tipCambio.Text = listaParametros[3].valor.ToString();
+            tipCambio.Text = listaParametros[3].valor;
             tipoDeCambio = listaParametros[3];
 
-            igv.Text = listaParametros[4].valor.ToString();
+            igv.Text = listaParametros[4].valor;
             IGV = listaParametros[4];
 
-            vigProforma.Text = listaParametros[5].valor.ToString();
+            vigProforma.Text = listaParametros[5].valor;
             vigenciaPro = listaParametros[5];
 
-            vigNotaCredito.Text = listaParametros[6].valor.ToString();
+            vigNotaCredito.Text = listaParametros[6].valor;
             vigenciaNota = listaParametros[6];
 
-            solesPunto.Text = listaParametros[7].valor.ToString();
+            solesPunto.Text = listaParametros[7].valor;
             solesPorPunto = listaParametros[7];
-            */
+            
         }
         #endregion
 
@@ -81,170 +80,90 @@ namespace pe.edu.pucp.ferretin.view.MSeguridad
         //Evento de cambio de texto en Textbox
         private void intContrasena_TextChanged(object sender, TextChangedEventArgs e)
         {
-            /*
+            
             try
             {
-                if (Regex.IsMatch(intContrasena.Text, "[0-9]"))
-                {
-                    intentosC.valor = Convert.ToInt16(intContrasena.Text);
-                }
-                else if (!Regex.IsMatch(intContrasena.Text, "[0-9]") && !String.IsNullOrEmpty(intContrasena.Text))
-                {
-                    MessageBox.Show("Ingrese un número de intentos valido");
-                    intContrasena.Text = "";
-                }
+                  intentosC.valor = intContrasena.Text;
             }
             catch { }
-            */
+            
             
         }
 
         private void tMaxSesion_TextChanged(object sender, TextChangedEventArgs e)
         {
-            /*
+            
             try
             {
-
-                if (Regex.IsMatch(tMaxSesion.Text, "[0-9]"))
-                {
-                    tiempoSesion.valor = Convert.ToInt16(tMaxSesion.Text);
-                }
-                else if (!Regex.IsMatch(tMaxSesion.Text, "[0-9]") && !String.IsNullOrEmpty(tMaxSesion.Text))
-                {
-                    MessageBox.Show("Ingrese un tiempo de sesión valido");
-                    tMaxSesion.Text = "";
-                }
+                tiempoSesion.valor = tMaxSesion.Text;
             }
             catch { }
-             * */
+            
         }
 
         private void durClave_TextChanged(object sender, TextChangedEventArgs e)
         {
-            /*
+            
             try
             {
-
-                if (Regex.IsMatch(durClave.Text, "[0-9]"))
-                {
-                    duracionClave.valor = Convert.ToInt16(durClave.Text);
-                }
-                else if (!Regex.IsMatch(durClave.Text, "[0-9]") && !String.IsNullOrEmpty(durClave.Text))
-                {
-                    MessageBox.Show("Ingrese un tiempo de duración valido");
-                    durClave.Text = "";
-                }
-
-                
+                duracionClave.valor = durClave.Text;
             }
             catch { }
-             * */
+            
         }
 
         private void tipCambio_TextChanged(object sender, TextChangedEventArgs e)
         {
            
-            /*
             try
             {
-
-                if (Regex.IsMatch(durClave.Text, "[0-9]"))
-                {
-                    tipoDeCambio.valor = Convert.ToInt16(tipCambio.Text);
-                }
-                else if (!Regex.IsMatch(tipCambio.Text, "[0-9]") && !String.IsNullOrEmpty(tipCambio.Text))
-                {
-                    MessageBox.Show("Ingrese un número de intentos valido");
-                    tipCambio.Text = "";
-                }                
+                tipoDeCambio.valor = tipCambio.Text;
             }
             catch { }
-             * */
         }
 
         private void igv_TextChanged(object sender, TextChangedEventArgs e)
         {
-           /*
             try
             {
-                if (Regex.IsMatch(durClave.Text, "[0-9]"))
-                {
-                    IGV.valor = Convert.ToInt16(igv.Text);
-                }
-                else if (!Regex.IsMatch(igv.Text, "[0-9]") && !String.IsNullOrEmpty(igv.Text))
-                {
-                    MessageBox.Show("Ingrese un número de intentos valido");
-                    igv.Text = "";
-                }   
-                               
+                IGV.valor = igv.Text;
             }
             catch { }
-            * */
         }
 
         private void vigProforma_TextChanged(object sender, TextChangedEventArgs e)
         {
-          /*
             try
             {
-                if (Regex.IsMatch(vigProforma.Text, "[0-9]"))
-                {
-                    vigenciaPro.valor = Convert.ToInt16(vigProforma.Text);
-                }
-                else if (!Regex.IsMatch(vigProforma.Text, "[0-9]") && !String.IsNullOrEmpty(vigProforma.Text))
-                {
-                    MessageBox.Show("Ingrese un número de intentos valido");
-                    vigProforma.Text = "";
-                }  
-
+                vigenciaPro.valor = vigProforma.Text;
             }
             catch { }
-           * */
         }
 
         private void vigNotaCredito_TextChanged(object sender, TextChangedEventArgs e)
         {
-            /*
+            
             try
             {
-
-                if (Regex.IsMatch(vigProforma.Text, "[0-9]"))
-                {
-                    vigenciaNota.valor = Convert.ToInt16(vigNotaCredito.Text);
-                }
-                else if (!Regex.IsMatch(vigNotaCredito.Text, "[0-9]") && !String.IsNullOrEmpty(vigNotaCredito.Text))
-                {
-                    MessageBox.Show("Ingrese un número de intentos valido");
-                    vigNotaCredito.Text = "";
-                }  
+                vigenciaNota.valor = vigNotaCredito.Text;
             }
             catch { }
-             * */
         }
 
         private void solesPunto_TextChanged(object sender, TextChangedEventArgs e)
         {
-            /*
             try
             {
-                if (Regex.IsMatch(vigProforma.Text, "[0-9]"))
-                {
-                    solesPorPunto.valor = Convert.ToInt16(solesPunto.Text);
-                }
-                else if (!Regex.IsMatch(solesPunto.Text, "[0-9]") && !String.IsNullOrEmpty(solesPunto.Text))
-                {
-                    MessageBox.Show("Ingrese un número de intentos valido");
-                    solesPunto.Text = "";
-                }
+                solesPorPunto.valor = solesPunto.Text;
             }
             catch { }
-             * */
         }
         //Fin de Eventos de Textbox
         #endregion
 
+        #region Boton Guardar
         private void Button_Click(object sender, RoutedEventArgs e)
-        {/*
+        {
             if (!String.IsNullOrEmpty(intContrasena.Text)) 
             {
                 MS_ParametroService.actualizarParametro(intentosC);
@@ -295,20 +214,112 @@ namespace pe.edu.pucp.ferretin.view.MSeguridad
             else
             {
                 MessageBox.Show("Los Parametros Validos han sido Actualizados Correctamente");
-            }*/
+            }
         }
+        #endregion
 
+        #region Boton Cancelar
         private void Button_Click_1(object sender, RoutedEventArgs e)
         {
             this.Close();
         }
+        #endregion
 
-        public static bool esNumero(string cad)
+        #region Validaciones Dinamicas
+        private void intContrasena_PreviewTextInput(object sender, TextCompositionEventArgs e)
         {
-            Regex isnumber = new Regex("[^0-9]");
-            return !isnumber.IsMatch(cad);
+            if (Regex.IsMatch(e.Text, "[0-9]"))
+            {
+                e.Handled = false;
+            }else{
+                e.Handled = true;
+            }
         }
 
-        
+        private void tMaxSesion_PreviewTextInput(object sender, TextCompositionEventArgs e)
+        {
+            if (Regex.IsMatch(e.Text, "[0-9]"))
+            {
+                e.Handled = false;
+            }
+            else
+            {
+                e.Handled = true;
+            }
+        }
+
+        private void durClave_PreviewTextInput(object sender, TextCompositionEventArgs e)
+        {
+            if (Regex.IsMatch(e.Text, "[0-9]"))
+            {
+                e.Handled = false;
+            }
+            else
+            {
+                e.Handled = true;
+            }
+        }
+
+        private void tipCambio_PreviewTextInput(object sender, TextCompositionEventArgs e)
+        {
+            if ((Regex.IsMatch(tipCambio.Text, @"^[0-9]+(\.{0}[0-9]+)?$")) && (e.Text != ",") || (Regex.IsMatch(e.Text, "[0-9]")))
+            {
+                e.Handled = false;
+            }
+            else
+            {
+                e.Handled = true;
+            }
+        }
+
+        private void igv_PreviewTextInput(object sender, TextCompositionEventArgs e)
+        {
+            if ((Regex.IsMatch(igv.Text, @"^[0-9]+(\.{0}[0-9]+)?$")) && (e.Text != ",") || (Regex.IsMatch(e.Text, "[0-9]")))
+            {
+                e.Handled = false;
+            }
+            else
+            {
+                e.Handled = true;
+            }
+        }
+
+        private void vigProforma_PreviewTextInput(object sender, TextCompositionEventArgs e)
+        {
+            if (Regex.IsMatch(e.Text, "[0-9]"))
+            {
+                e.Handled = false;
+            }
+            else
+            {
+                e.Handled = true;
+            }
+        }
+
+        private void vigNotaCredito_PreviewTextInput(object sender, TextCompositionEventArgs e)
+        {
+            if (Regex.IsMatch(e.Text, "[0-9]"))
+            {
+                e.Handled = false;
+            }
+            else
+            {
+                e.Handled = true;
+            }
+        }
+
+        private void solesPunto_PreviewTextInput(object sender, TextCompositionEventArgs e)
+        {
+            if ((Regex.IsMatch(solesPunto.Text, @"^[0-9]+(\.{0}[0-9]+)?$")) && (e.Text != ",") || (Regex.IsMatch(e.Text, "[0-9]")))
+            {
+                e.Handled = false;
+            }
+            else
+            {
+                e.Handled = true;
+            }
+        }
+
+        #endregion
     }
 }
