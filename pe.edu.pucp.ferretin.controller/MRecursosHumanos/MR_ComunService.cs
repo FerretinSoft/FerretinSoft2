@@ -13,12 +13,23 @@ namespace pe.edu.pucp.ferretin.controller.MRecursosHumanos
     /// </summary>
     public class MR_ComunService : MR_SharedService
     {
-
+        private static IEnumerable<GradoInstruccion> _gradosInstruccion;
         public static IEnumerable<GradoInstruccion> gradosInstruccion
         {
+           // get
+            //{
+            //    return db.GradoInstruccion;
+           // }
+
             get
             {
-                return db.GradoInstruccion;
+                if (_gradosInstruccion == null)
+                    _gradosInstruccion = from p in db.GradoInstruccion select p;
+                return _gradosInstruccion;
+            }
+            set
+            {
+                _gradosInstruccion = value;
             }
         }
     }
