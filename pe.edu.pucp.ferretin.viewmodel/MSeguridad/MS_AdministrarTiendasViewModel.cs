@@ -289,24 +289,30 @@ namespace pe.edu.pucp.ferretin.viewmodel.MSeguridad
         {            
             if (almacen.id > 0)//Si existe
             {
-                if (!MS_TiendaService.enviarCambios())
+                if (VerificaHorario(almacen))
                 {
-                    MessageBox.Show("No se pudo actualizar el almacen");
-                }
-                else
-                {
-                    MessageBox.Show("El almacen fue guardado con éxito");
+                    if (!MS_TiendaService.enviarCambios())
+                    {
+                        MessageBox.Show("No se pudo actualizar la tienda");
+                    }
+                    else
+                    {
+                        MessageBox.Show("La tienda fue guardada con éxito");
+                    }
                 }
             }
             else
             {
-                if (!MS_TiendaService.insertarAlmacen(almacen))
-                {                   
-                    MessageBox.Show("No se pudo agregar el nuevo almacen");
-                }
-                else
+                if (VerificaHorario(almacen))
                 {
-                    MessageBox.Show("El almacen fue agregado con éxito");
+                    if (!MS_TiendaService.insertarAlmacen(almacen))
+                    {
+                        MessageBox.Show("No se pudo agregar la nueva tienda porque esta ya existe");
+                    }
+                    else
+                    {
+                        MessageBox.Show("La Tienda fue agregada con éxito");
+                    }
                 }
             }
             NotifyPropertyChanged("listaAlmacenes");
@@ -315,7 +321,7 @@ namespace pe.edu.pucp.ferretin.viewmodel.MSeguridad
         public void cancelAlmacen(Object obj)
         {
             this.statusTab = Tab.BUSQUEDA;
-            listaAlmacenes = MS_TiendaService.listaAlmacenes;
+            listaAlmacenes = MS_TiendaService.listaTiendas;
         }
         #endregion
 
@@ -359,7 +365,22 @@ namespace pe.edu.pucp.ferretin.viewmodel.MSeguridad
             }
         }
 
-        
+        public bool VerificaHorario(Tienda tienda)
+        {
+            if (tienda.lunesHoraInicio > tienda.lunesHoraFin ||
+                tienda.martesHoraInicio > tienda.martesHoraFin ||
+                tienda.miercolesHoraInicio > tienda.miercolesHoraFin ||
+                tienda.juevesHoraInicio > tienda.juevesHoraFin ||
+                tienda.viernesHoraInicio > tienda.viernesHoraFin ||
+                tienda.sabadoHoraInicio > tienda.sabadoHoraFin ||
+                tienda.domingoHoraInicio > tienda.domingoHoraFin)
+            {
+                MessageBox.Show("La hora Fin debe ser menor a la hora Inicio");
+                return false;
+            }
+            return true;
+        }
+
 
     }
 }

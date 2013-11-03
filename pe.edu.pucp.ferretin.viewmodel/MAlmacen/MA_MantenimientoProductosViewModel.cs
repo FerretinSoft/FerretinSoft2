@@ -137,7 +137,7 @@ namespace pe.edu.pucp.ferretin.viewmodel.MAlmacen
         {
             get
             {
-                _listaTiendas = MS_TiendaService.listaAlmacenes;
+                _listaTiendas = MS_TiendaService.listaTiendas;
                 return _listaTiendas;
             }
             set
