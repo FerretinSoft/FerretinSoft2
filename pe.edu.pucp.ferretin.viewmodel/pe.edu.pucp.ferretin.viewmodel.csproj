@@ -59,6 +59,7 @@
     <Compile Include="MCompras\MC_CotizacionesOCViewModel.cs" />
     <Compile Include="MCompras\MC_ProveedoresViewModel.cs" />
     <Compile Include="MRecursosHumanos\MR_AdministrarPersonalViewModel.cs" />
+    <Compile Include="MSeguridad\MS_AdministrarArbolPerfilesViewModel.cs" />
     <Compile Include="MSeguridad\MS_AdministrarPerfilesViewModel.cs" />
     <Compile Include="MSeguridad\MS_AdministrarTiendasViewModel.cs" />
     <Compile Include="MSeguridad\MS_AdministrarUsuariosViewModel.cs" />
@@ -67,6 +68,7 @@
     <Compile Include="Base\ViewModelBase.cs" />
     <Compile Include="MVentas\MV_DevolucionesViewModel.cs" />
     <Compile Include="MVentas\MV_NotaCreditoViewModel.cs" />
+    <Compile Include="MVentas\MV_PagoWindowViewModel.cs" />
     <Compile Include="MVentas\MV_RegistrarVentaViewModel.cs" />
     <Compile Include="MVentas\MV_VentasViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

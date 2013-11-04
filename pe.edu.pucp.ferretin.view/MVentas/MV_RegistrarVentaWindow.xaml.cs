@@ -29,9 +29,7 @@ namespace pe.edu.pucp.ferretin.view.MVentas
 
         private void pagarBtn_Click(object sender, RoutedEventArgs e)
         {
-            MV_PagoWindow pw = new MV_PagoWindow();
-            pw.Owner = this;
-            pw.Show();
+            MV_PagoWindow pw = new MV_PagoWindow(this);
         }
 
         private void Button_Click_1(object sender, RoutedEventArgs e)

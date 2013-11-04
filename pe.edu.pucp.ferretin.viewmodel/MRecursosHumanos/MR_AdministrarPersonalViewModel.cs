@@ -70,7 +70,14 @@ namespace pe.edu.pucp.ferretin.viewmodel.MRecursosHumanos
         {
             get
             {
-                return MR_ComunService.gradosInstruccion;
+                //return MR_ComunService.gradosInstruccion;
+                //Creo una nueva secuencia
+                var sequence = Enumerable.Empty<GradoInstruccion>();
+                //Primero agrego un item de Todos para que salga al inicio
+                //Pongo el ID en 0 para que al buscar, no filtre nada cuando se selecciona todos
+                IEnumerable<GradoInstruccion> items = new GradoInstruccion[] { new GradoInstruccion { id = 0, nombre = "Todos" } };
+                //Luego concateno el itemcon los elementos del combobox
+                return items.Concat(MR_ComunService.gradosInstruccion);
                 
             }
         }
@@ -319,6 +326,7 @@ namespace pe.edu.pucp.ferretin.viewmodel.MRecursosHumanos
                     if(empleado.dni!=null && empleado.nombre!=null && empleado.apPaterno!=null && empleado.apMaterno!=null)
 
                     {
+                        empleado.codEmpleado = 100060 + listaEmpleados.Count();
 
                         if (!MR_EmpleadoService.insertarEmpleado(empleado))
                         {

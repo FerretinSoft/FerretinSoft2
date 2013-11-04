@@ -1,4 +1,6 @@
-﻿using pe.edu.pucp.ferretin.controller.MAlmacen;
+﻿using pe.edu.pucp.ferretin.controller;
+using pe.edu.pucp.ferretin.controller.MAlmacen;
+using pe.edu.pucp.ferretin.controller.MSeguridad;
 using pe.edu.pucp.ferretin.controller.MVentas;
 using pe.edu.pucp.ferretin.model;
 using pe.edu.pucp.ferretin.viewmodel.Helper;
@@ -15,13 +17,14 @@ namespace pe.edu.pucp.ferretin.viewmodel.MVentas
 {
     public class MV_RegistrarVentaViewModel : ViewModelBase
     {
+
         public MV_RegistrarVentaViewModel()
         {
             venta = new Venta()
             {
-                fecha = DateTime.Now
-            };
-            
+                fecha = DateTime.Now,
+                igvActual = MS_SharedService.obtenerIGV()
+            };            
         }
 
         private string _nroDocSeleccionado = "";
@@ -119,13 +122,22 @@ namespace pe.edu.pucp.ferretin.viewmodel.MVentas
                 }catch{}
 
                 if(producto !=null){
-                    VentaProducto ventaProducto = new VentaProducto(){
-                        Producto = producto,
-                        Venta = this.venta,
-                        cantidad = 1,
-                        montoParcial = producto.precioLista                        
-                    };
-                    venta.VentaProducto.Add(ventaProducto);
+                    VentaProducto ventaProducto = null;
+                    if (venta.VentaProducto.Count(vp => vp.Producto.id == producto.id) == 1)
+                    {
+                        venta.VentaProducto.Single(vp => vp.Producto.id == producto.id).cantidad++;
+                    }
+                    else
+                    {
+                        ventaProducto = new VentaProducto()
+                        {
+                            Producto = producto,
+                            Venta = this.venta,
+                            cantidad = 1,
+                            montoParcial = producto.precioLista
+                        };
+                        venta.VentaProducto.Add(ventaProducto);
+                    }
                     NotifyPropertyChanged("venta");
                 }
             }

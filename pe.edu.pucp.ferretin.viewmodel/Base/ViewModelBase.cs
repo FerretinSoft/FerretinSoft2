@@ -241,5 +241,19 @@ namespace pe.edu.pucp.ferretin.viewmodel
                 NotifyPropertyChanged("estadoSolicitud");
             }
         }
+
+        /// <summary>
+        /// Usuario Logueado
+        /// </summary>
+
+        private Usuario _usuarioLogueado;
+        public Usuario usuarioLogueado
+        {
+            get
+            {
+                return ComunService.usuarioL; ;
+            }
+        }
+
     }
 }
