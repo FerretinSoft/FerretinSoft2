@@ -8,7 +8,7 @@
         <viewmodel:MS_AdministrarPerfilesViewModel x:Key="MS_AdministrarPerfilesViewModel"/>
     </Window.Resources>
 
-    <Grid DataContext="{Binding Source={StaticResource MS_AdministrarPerfilesViewModel}}">
+    <Grid x:Name="main" DataContext="{Binding Source={StaticResource MS_AdministrarPerfilesViewModel}}">
         <Grid.RowDefinitions>
             <RowDefinition Height="141*"/>
             <RowDefinition Height="289*"/>
@@ -68,7 +68,7 @@
                         <DataGrid.Columns>
                             <!-- Columnas del Grid -->
 
-                            <DataGridHyperlinkColumn Width="2*" Binding="{Binding Path=nombre}" Header="Perfil">
+                            <DataGridHyperlinkColumn Width="2.8*" Binding="{Binding Path=nombre}" Header="Perfil">
                                 <DataGridHyperlinkColumn.ElementStyle>
                                     <Style>
                                         <EventSetter Event="Hyperlink.Click" Handler="perfil_Click"/>
