@@ -226,6 +226,7 @@ namespace pe.edu.pucp.ferretin.viewmodel.MVentas
             }
             searchnombreCliente = buscado.nombreCompleto;
             NotifyPropertyChanged("searchnombreCliente");
+            NotifyPropertyChanged("searchNroDocCliente");
         }
 
         public void saveDevolucion(Object obj)

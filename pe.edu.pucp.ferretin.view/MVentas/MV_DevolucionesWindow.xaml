@@ -6,7 +6,7 @@
     <Window.Resources>
         <viewmodel:MV_DevolucionesViewModel x:Key="MV_DevolucionesViewModel"/>
     </Window.Resources>
-    <Grid DataContext="{Binding Source={StaticResource MV_DevolucionesViewModel}}" >
+    <Grid x:Name="main" DataContext="{Binding Source={StaticResource MV_DevolucionesViewModel}}" >
         <Grid.Background>
             <ImageBrush ImageSource="../Resources/texture_3_100.png" TileMode="FlipX" 
             Viewport="0,0,100,100" ViewportUnits="Absolute"/>
@@ -40,7 +40,7 @@
                             <Label Content="Vendedor:" Grid.Row="0" Grid.Column="2"/>
                             <Label Content="Cliente:" Grid.Row="2" Grid.Column="0"/>
                             <Label Content="Fecha Hasta:" Grid.Row="3" Grid.Column="2"/>
-                            <TextBox Text="{Binding searchNroDocCliente, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" x:Name="searchNroDoc"  Grid.Row="2" Grid.Column="1" VerticalAlignment="Center" Margin="0,2,25,2">
+                            <TextBox Text="{Binding searchNroDocCliente, UpdateSourceTrigger=PropertyChanged}" x:Name="searchNroDoc"  Grid.Row="2" Grid.Column="1" VerticalAlignment="Center" Margin="0,2,25,2">
                                 <TextBox.InputBindings>
                                     <KeyBinding Key="Enter" Command="{Binding cargarClienteCommand}" />
                                 </TextBox.InputBindings>
@@ -81,7 +81,7 @@
                                     <ColumnDefinition Width="Auto"></ColumnDefinition>
                                 </Grid.ColumnDefinitions>
                                 <TextBox Grid.Row="0" VerticalAlignment="Center" IsEnabled="False" Margin="0,0,5,0" />
-                                <TextBox Text="{Binding Path=searchnombreCliente}" x:Name="nombreCliente" Grid.Row="0"  VerticalAlignment="Center" IsEnabled="False" Margin="0,56,5,-52" />
+                                <TextBox Text="{Binding Path=searchnombreCliente,Mode=OneWay}" x:Name="nombreCliente" Grid.Row="0"  VerticalAlignment="Center" IsEnabled="False" Margin="0,56,5,-52" />
                                 <Button x:Name="buscarVendedorBtn" VerticalAlignment="Center" Width="20" Height="20" Grid.Column="1" BorderThickness="0">
                                     <Button.Background>
                                         <ImageBrush ImageSource="../Resources/search1_20.png"/>
