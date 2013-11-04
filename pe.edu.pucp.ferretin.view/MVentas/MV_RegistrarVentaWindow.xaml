@@ -45,7 +45,7 @@
                     <ColumnDefinition/>
                     <ColumnDefinition Width="Auto"/>
                 </Grid.ColumnDefinitions>
-                <TextBox x:Name="nroDocSeleccionado" Text="{Binding nroDocSeleccionado,UpdateSourceTrigger=PropertyChanged}" VerticalContentAlignment="Center" VerticalAlignment="Center">
+                <TextBox x:Name="nroDocSeleccionado" Text="{Binding nroDocSeleccionado,UpdateSourceTrigger=PropertyChanged}" VerticalContentAlignment="Center" VerticalAlignment="Bottom" Margin="0,0,0,3">
                     <TextBox.InputBindings>
                         <KeyBinding Key="Enter" Command="{Binding cargarClienteCommand}" />
                     </TextBox.InputBindings>

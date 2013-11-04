@@ -102,7 +102,7 @@
                     </DataGrid>
                 </Grid>
             </TabItem>
-            <TabItem Header="Detalle">
+            <TabItem IsEnabled="False" Header="Detalle">
                 <Grid Background="#FFE5E5E5">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="9*" MinWidth="230" MaxWidth="400"/>

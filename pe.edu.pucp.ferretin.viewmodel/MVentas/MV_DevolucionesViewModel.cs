@@ -17,9 +17,9 @@ namespace pe.edu.pucp.ferretin.viewmodel.MVentas
         public MV_DevolucionesViewModel()
         {
 
-            _devolucion = new Devolucion();
+            devolucion = new Devolucion();
             {
-                _devolucion.fecEmision = DateTime.Today;
+               
                 
             };
         }
@@ -29,6 +29,9 @@ namespace pe.edu.pucp.ferretin.viewmodel.MVentas
         #region Valores para el cuadro de Búsqueda
         public String _searchNroDocumento = "";
         public String searchNroDocumento { get { return _searchNroDocumento; } set { _searchNroDocumento = value; NotifyPropertyChanged("searchNroDocumento"); } }
+
+        public String _loadNroDocumento = "";
+        public String loadNroDocumento { get { return _loadNroDocumento; } set { _loadNroDocumento = value; NotifyPropertyChanged("loadNroDocumento"); } }
 
         public String _searchNroDocCliente = "";
         public String searchNroDocCliente { get { return _searchNroDocCliente; } set { _searchNroDocCliente = value; NotifyPropertyChanged("searchNroDocCliente"); } }
@@ -52,6 +55,7 @@ namespace pe.edu.pucp.ferretin.viewmodel.MVentas
         public long _id = 0;
         public long id { get { return _id; } set { _id = value; NotifyPropertyChanged("id"); } }
 
+
         private int _selectedTab = 0;
         public int selectedTab
         {
@@ -61,6 +65,8 @@ namespace pe.edu.pucp.ferretin.viewmodel.MVentas
             }
             set
             {
+                if (value == 2)
+                    devolucion = new Devolucion();
                 _selectedTab = value;
                 NotifyPropertyChanged("selectedTab");
             }
@@ -125,6 +131,20 @@ namespace pe.edu.pucp.ferretin.viewmodel.MVentas
             {
                 _listaProductos = value;
                 NotifyPropertyChanged("listaProductos");
+            }
+        }
+
+        private IEnumerable<VentaProducto> _listaProductosComprados;
+        public IEnumerable<VentaProducto> listaProductosComprados
+        {
+            get
+            {
+                return _listaProductosComprados;
+            }
+            set
+            {
+                _listaProductosComprados = value;
+                NotifyPropertyChanged("listaProductosComprados");
             }
         }
 
@@ -208,9 +228,99 @@ namespace pe.edu.pucp.ferretin.viewmodel.MVentas
             }
         }
 
+        RelayCommand _buscarVentaCommand;
+        public ICommand buscarVentaCommand
+        {
+            get
+            {
+                if (_buscarVentaCommand == null)
+                {
+                    _buscarVentaCommand = new RelayCommand(buscarVenta);
+                }
+                return _buscarVentaCommand;
+            }
+        }
+
+        RelayCommand _cargarVentaCommand;
+        public ICommand cargarVentaCommand
+        {
+            get
+            {
+                if (_cargarVentaCommand == null)
+                {
+                    _cargarVentaCommand = new RelayCommand(cargarVenta);
+                }
+                return _cargarVentaCommand;
+            }
+        }
+
+        RelayCommand _nuevaDevolucionCommand;
+        public ICommand nuevaDevolucionCommand
+        {
+            get
+            {
+                if (_nuevaDevolucionCommand == null)
+                {
+                    _nuevaDevolucionCommand = new RelayCommand(nuevaDevolucion);
+                }
+                return _nuevaDevolucionCommand;
+            }
+        }
+        
+
+
         #endregion
 
         #region commands
+
+
+        public void nuevaDevolucion(Object id)
+        {
+           this.listaProductosComprados = null;
+           this.devolucion = new Devolucion();
+           devolucion.fecEmision = DateTime.Now;
+           this.selectedTab = 2;
+           
+        }
+        public void cargarVenta(Object id)
+        {
+            Venta buscado = null;
+            try
+            {
+                buscado = MV_VentaService.obtenerVentaByCodVenta(loadNroDocumento);
+                this.listaProductosComprados = MV_VentaService.obtenerProductosbyIdVenta(buscado.id);
+                this.devolucion.Venta = buscado;
+                this.devolucion.fecEmision = DateTime.Now;
+            }
+            catch { }
+
+            if (buscado == null)
+            {
+                this.listaProductosComprados = null;
+                this.devolucion = new Devolucion();
+                MessageBox.Show("No se encontro ninguna Venta con el número de documento proporcionado", "No se encontro", MessageBoxButton.OK, MessageBoxImage.Question);
+            }
+           
+        }
+
+        public void buscarVenta(Object id)
+        {
+            Venta buscado = null;
+            try
+            {
+                buscado = MV_VentaService.obtenerVentaByCodVenta(searchNroDocumento);
+            }
+            catch { }
+
+            if (buscado == null)
+            {
+                MessageBox.Show("No se encontro ninguna Venta con el número de documento proporcionado", "No se encontro", MessageBoxButton.OK, MessageBoxImage.Question);
+            }
+            NotifyPropertyChanged("searchnombreCliente");
+            NotifyPropertyChanged("searchNroDocCliente");
+            NotifyPropertyChanged("searchNroDocumento");
+        }
+
         public void cargarCliente(Object id)
         {
             Cliente buscado = null;

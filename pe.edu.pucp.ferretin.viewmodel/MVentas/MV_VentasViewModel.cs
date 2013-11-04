@@ -52,6 +52,31 @@ namespace pe.edu.pucp.ferretin.viewmodel.MVentas
                 NotifyPropertyChanged("selectedTab");
             }
         }
+
+
+        private bool _soloSeleccionarVenta = false;
+        public bool soloSeleccionarVenta
+        {
+            get
+            {
+                return _soloSeleccionarVenta;
+            }
+            set
+            {
+                _soloSeleccionarVenta = value;
+                NotifyPropertyChanged("soloSeleccionarVenta");
+                NotifyPropertyChanged("noSoloSeleccionarVenta");
+
+            }
+        }
+        public bool noSoloSeleccionarVenta
+        {
+            get
+            {
+                return !soloSeleccionarVenta;
+            }
+        }
+
         #endregion
 
         #region Lista Ventas y Edicion de Venta

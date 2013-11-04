@@ -51,6 +51,18 @@ namespace pe.edu.pucp.ferretin.view.MVentas
             v.Show();     
         }
 
+        private void Button_Click_Venta(object sender, RoutedEventArgs e)
+        {
+            MV_AdministrarVentasWindow v = new MV_AdministrarVentasWindow();
+            v.Owner = this;
+            var viewModel = v.main.DataContext as MV_VentasViewModel;
+            viewModel.soloSeleccionarVenta = true;
+            v.Show();     
+        }
+
+        
+
+
         private void DatePicker_IsEnabledChanged(object sender, DependencyPropertyChangedEventArgs e)
         {
 
@@ -58,31 +70,10 @@ namespace pe.edu.pucp.ferretin.view.MVentas
 
 
 
-        private void TextBox_LostFocus(object sender, RoutedEventArgs e)
-        {
-            Cliente cliente = MV_ClienteService.obtenerClienteByNroDoc(searchNroDoc.Text);
-            if (cliente != null)
-                nombreCliente.Text = cliente.nombreCompleto;
-            else
-                nombreCliente.Text = "";
-        }
 
         private void TextBox_SelectionChanged_1(object sender, RoutedEventArgs e)
         {
-            Venta venta = MV_VentaService.obtenerVentaByCodVenta(codVenta.Text);
-            if (venta != null)
-            {
-                RegNombreCliente.Text = venta.Cliente.nombreCompleto;
-                RegCodCliente.Text = venta.Cliente.nroDoc;
-                productosCompGrid.ItemsSource = MV_VentaService.obtenerProductosbyIdVenta(venta.id);
-                totalComprado.Text = Convert.ToString(venta.total);
-
-            }
-            else
-            {
-                RegNombreCliente.Text = "";
-                RegCodCliente.Text = "";
-            }
+      
 
         }
     }

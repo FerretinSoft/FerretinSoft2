@@ -46,6 +46,34 @@ namespace pe.edu.pucp.ferretin.view.MVentas
                 nombreCliente.Text = "";
         }
 
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            if (this.Owner != null)//O sea que proviene de un padre
+            {
+                try
+                {
+                    MV_DevolucionesWindow padre = this.Owner as MV_DevolucionesWindow;
+                    MV_VentasViewModel my_DataContext = this.main.DataContext as MV_VentasViewModel;
+                    MV_DevolucionesViewModel padre_DataContext = padre.main.DataContext as MV_DevolucionesViewModel;
+                    if (my_DataContext.soloSeleccionarVenta == false)
+                    {
+                        padre_DataContext.searchnombreCliente = my_DataContext.venta.nombreCompletoCliente;
+                        padre_DataContext.searchNroDocumento = my_DataContext.venta.nroDocumento;
+                        padre_DataContext.searchNroDocCliente = my_DataContext.venta.Cliente.nroDoc;
+                    }
+                    else
+                    {
+                        padre_DataContext.devolucion.fecEmision = DateTime.Today;
+                        padre_DataContext.devolucion.Venta = my_DataContext.venta;
+                        padre_DataContext.listaProductosComprados = MV_VentaService.obtenerProductosbyIdVenta(my_DataContext.venta.id);
+                    }
 
+                    this.Close();
+                }
+                
+                catch { }
+                
+            }
+        }
     }
 }
