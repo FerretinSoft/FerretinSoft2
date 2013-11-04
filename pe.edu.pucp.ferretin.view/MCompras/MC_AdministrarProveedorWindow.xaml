@@ -7,25 +7,29 @@
         <viewmodel:MC_ProveedoresViewModel x:Key="MC_ProveedoresViewModel"/>
     </Window.Resources>
     <Grid DataContext="{Binding Source={StaticResource MC_ProveedoresViewModel}}">
-        <TabControl x:Name="proveedorTab" Margin="0" Grid.RowSpan="2">
+        <TabControl SelectedIndex="{Binding currentIndexTab}">
             <TabItem Header="Búsqueda">
                 <Grid Background="#FFE5E5E5">
-                    <GroupBox Header="Parámetros" Margin="10,8,10,0" BorderBrush="Black" Height="72" VerticalAlignment="Top"/>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="45*"/>
+                        <ColumnDefinition Width="397*"/>
+                    </Grid.ColumnDefinitions>
+                    <GroupBox Header="Parámetros" Margin="10,8,10.105,0" BorderBrush="Black" Height="72" VerticalAlignment="Top" Grid.ColumnSpan="2"/>
                     <Label Content="RUC:" Height="26" Width="45" Margin="21,35,0,0" VerticalAlignment="Top" HorizontalAlignment="Left"/>
-                    <Label Content="Razón Social:" Height="26"  Width="90" Margin="210,35,0,0" VerticalAlignment="Top" HorizontalAlignment="Left"/>
-                    <TextBox Text="{Binding searchRuc, Mode=TwoWay}" HorizontalAlignment="Left" Height="20" Margin="65,41,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
-                    <TextBox Text="{Binding searchRazonSoc, Mode=TwoWay}" HorizontalAlignment="Left" Height="20" Margin="300,41,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="250"/>
-                    <Label Content="Rubro:" HorizontalAlignment="Left" Margin="567,35,0,0" VerticalAlignment="Top"/>
-                    <ComboBox SelectedIndex="{Binding searchRubro, Mode=TwoWay}" HorizontalAlignment="Left" Margin="620,39,0,0" VerticalAlignment="Top" Height="20" Width="120" RenderTransformOrigin="1.625,5.182">
+                    <Label Content="Razón Social:" Height="26"  Width="90" Margin="120.105,35,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" Grid.Column="1"/>
+                    <TextBox Text="{Binding searchRuc, Mode=TwoWay}" HorizontalAlignment="Left" Height="20" Margin="65,41,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Grid.ColumnSpan="2"/>
+                    <TextBox Text="{Binding searchRazonSoc, Mode=TwoWay}" HorizontalAlignment="Left" Height="20" Margin="210.105,41,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="250" Grid.Column="1"/>
+                    <Label Content="Rubro:" HorizontalAlignment="Left" Margin="477.105,35,0,0" VerticalAlignment="Top" Grid.Column="1"/>
+                    <ComboBox SelectedIndex="{Binding searchRubro, Mode=TwoWay}" HorizontalAlignment="Left" Margin="530.105,39,0,0" VerticalAlignment="Top" Height="20" Width="120" RenderTransformOrigin="1.625,5.182" Grid.Column="1">
                         <ListBoxItem Content="Cemento"/>
                         <ListBoxItem Content="Electrificación"/>
                     </ComboBox>
-                    <Button Command="{Binding actualizarListaProveedoresCommand}"  HorizontalAlignment="Left" Margin="819,33,0,0" VerticalAlignment="Top" Width="32" Height="32" RenderTransformOrigin="0.3,-0.35">
+                    <Button Command="{Binding actualizarListaProveedoresCommand}"  HorizontalAlignment="Left" Margin="729.105,33,0,0" VerticalAlignment="Top" Width="32" Height="32" RenderTransformOrigin="0.3,-0.35" Grid.Column="1">
                         <Button.Background>
                             <ImageBrush ImageSource="../Resources/refresh2_48.png"/>
                         </Button.Background>
                     </Button>
-                    <DataGrid ItemsSource="{Binding Path=listaProveedores}" Margin="10,114,10,10" AutoGenerateColumns="False" CanUserAddRows="False" CanUserDeleteRows="False" IsReadOnly="True">
+                    <DataGrid ItemsSource="{Binding Path=listaProveedores}" Margin="10,114,10.105,10.209" AutoGenerateColumns="False" CanUserAddRows="False" CanUserDeleteRows="False" IsReadOnly="True" Grid.ColumnSpan="2">
                         <DataGrid.Columns>
                             <DataGridTemplateColumn Width="2.5*" Header="Código">
                                 <DataGridTemplateColumn.CellTemplate>
