@@ -100,6 +100,19 @@ namespace pe.edu.pucp.ferretin.controller.MVentas
             
             return notaCredito;
         }
+
+        public static bool insertarDevolucion(Devolucion devolucion)
+        {
+            if (!db.Devolucion.Contains(devolucion))
+            {
+                db.Devolucion.InsertOnSubmit(devolucion);
+                return enviarCambios();
+            }
+            else
+            {
+                return false;
+            }
+        }
         
         #endregion
 

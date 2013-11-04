@@ -13,10 +13,10 @@
     <Setting Name="inf245g2ConnectionString1" Type="(Connection string)" Scope="Application">
       <DesignTimeValue Profile="(Default)">&lt;?xml version="1.0" encoding="utf-16"?&gt;
 &lt;SerializableConnectionString xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema"&gt;
-  &lt;ConnectionString&gt;Data Source=inti.lab.inf.pucp.edu.pe;Initial Catalog=inf245g2;Persist Security Info=True;User ID=inf245g2usr;Password=server&lt;/ConnectionString&gt;
+  &lt;ConnectionString&gt;Data Source=inti.lab.inf.pucp.edu.pe;Initial Catalog=inf245g2;User ID=inf245g2usr;Password=server&lt;/ConnectionString&gt;
   &lt;ProviderName&gt;System.Data.SqlClient&lt;/ProviderName&gt;
 &lt;/SerializableConnectionString&gt;</DesignTimeValue>
-      <Value Profile="(Default)">Data Source=inti.lab.inf.pucp.edu.pe;Initial Catalog=inf245g2;Persist Security Info=True;User ID=inf245g2usr;Password=server</Value>
+      <Value Profile="(Default)">Data Source=inti.lab.inf.pucp.edu.pe;Initial Catalog=inf245g2;User ID=inf245g2usr;Password=server</Value>
     </Setting>
     <Setting Name="DataSourceConnectionString" Type="(Connection string)" Scope="Application">
       <DesignTimeValue Profile="(Default)">&lt;?xml version="1.0" encoding="utf-16"?&gt;
@@ -25,6 +25,14 @@
   &lt;ProviderName&gt;System.Data.SqlClient&lt;/ProviderName&gt;
 &lt;/SerializableConnectionString&gt;</DesignTimeValue>
       <Value Profile="(Default)">Data Source=inti.lab.inf.pucp.edu.pe;User ID=inf245g2dba;Password=interior</Value>
+    </Setting>
+    <Setting Name="inf245g2ConnectionString2" Type="(Connection string)" Scope="Application">
+      <DesignTimeValue Profile="(Default)">&lt;?xml version="1.0" encoding="utf-16"?&gt;
+&lt;SerializableConnectionString xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema"&gt;
+  &lt;ConnectionString&gt;Data Source=inti.lab.inf.pucp.edu.pe;Initial Catalog=inf245g2;Persist Security Info=True;User ID=inf245g2dba;Password=interior&lt;/ConnectionString&gt;
+  &lt;ProviderName&gt;System.Data.SqlClient&lt;/ProviderName&gt;
+&lt;/SerializableConnectionString&gt;</DesignTimeValue>
+      <Value Profile="(Default)">Data Source=inti.lab.inf.pucp.edu.pe;Initial Catalog=inf245g2;Persist Security Info=True;User ID=inf245g2dba;Password=interior</Value>
     </Setting>
   </Settings>
 </SettingsFile>

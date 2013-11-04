@@ -40,6 +40,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Ferretin.cs">
+      <DependentUpon>Ferretin.dbml</DependentUpon>
+    </Compile>
     <Compile Include="MAlmacen\Categoria.cs" />
     <Compile Include="MAlmacen\MovimientoTipo.cs" />
     <Compile Include="MCompras\DocumentoCompra.cs" />

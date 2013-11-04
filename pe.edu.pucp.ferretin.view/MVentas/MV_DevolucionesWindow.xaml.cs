@@ -13,6 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using pe.edu.pucp.ferretin.controller.MVentas;
 using pe.edu.pucp.ferretin.model;
+using pe.edu.pucp.ferretin.viewmodel.MVentas;
 
 namespace pe.edu.pucp.ferretin.view.MVentas
 {
@@ -41,9 +42,13 @@ namespace pe.edu.pucp.ferretin.view.MVentas
             DevolucionesTab.SelectedIndex = 1;
         }
 
-        private void Button_Click_1(object sender, RoutedEventArgs e)
+            private void Button_Click(object sender, RoutedEventArgs e)
         {
-            DevolucionesTab.SelectedIndex = 0;
+            MV_ClientesWindow v = new MV_ClientesWindow();
+            v.Owner = this;
+            var viewModel = v.main.DataContext as MV_ClientesViewModel;
+            viewModel.soloSeleccionarCliente = true;
+            v.Show();     
         }
 
         private void DatePicker_IsEnabledChanged(object sender, DependencyPropertyChangedEventArgs e)

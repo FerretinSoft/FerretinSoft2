@@ -286,7 +286,8 @@ namespace pe.edu.pucp.ferretin.viewmodel.MSeguridad
                 //    selectedProvincia = this.almacen.UbigeoDistrito.UbigeoProvincia;
                 //    selectedDepartamento = selectedProvincia.UbigeoDepartamento;
                 //}
-                this.statusTab = tabs.MODIFICAR;
+                this.statusTab = tabs.MODIFICAR;                
+ 
             }
             catch (Exception e)
             {
