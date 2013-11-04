@@ -168,12 +168,12 @@ namespace pe.edu.pucp.ferretin.model
     partial void InsertUsuario(Usuario instance);
     partial void UpdateUsuario(Usuario instance);
     partial void DeleteUsuario(Usuario instance);
-    partial void InsertVenta(Venta instance);
-    partial void UpdateVenta(Venta instance);
-    partial void DeleteVenta(Venta instance);
     partial void InsertVentaMedioPago(VentaMedioPago instance);
     partial void UpdateVentaMedioPago(VentaMedioPago instance);
     partial void DeleteVentaMedioPago(VentaMedioPago instance);
+    partial void InsertVenta(Venta instance);
+    partial void UpdateVenta(Venta instance);
+    partial void DeleteVenta(Venta instance);
     #endregion
 		
 		public FerretinDataContext() : 
@@ -574,19 +574,19 @@ namespace pe.edu.pucp.ferretin.model
 			}
 		}
 		
-		public System.Data.Linq.Table<Venta> Venta
-		{
-			get
-			{
-				return this.GetTable<Venta>();
-			}
-		}
-		
 		public System.Data.Linq.Table<VentaMedioPago> VentaMedioPago
 		{
 			get
 			{
 				return this.GetTable<VentaMedioPago>();
+			}
+		}
+		
+		public System.Data.Linq.Table<Venta> Venta
+		{
+			get
+			{
+				return this.GetTable<Venta>();
 			}
 		}
 	}
@@ -13791,6 +13791,246 @@ namespace pe.edu.pucp.ferretin.model
 		}
 	}
 	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.VentaMedioPago")]
+	public partial class VentaMedioPago : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private System.Nullable<decimal> _monto;
+		
+		private int _id;
+		
+		private System.Nullable<long> _id_venta;
+		
+		private System.Nullable<short> _id_medio_pago;
+		
+		private System.Nullable<int> _moneda;
+		
+		private EntityRef<MedioPago> _MedioPago;
+		
+		private EntityRef<Venta> _Venta;
+		
+    #region Definiciones de métodos de extensibilidad
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnmontoChanging(System.Nullable<decimal> value);
+    partial void OnmontoChanged();
+    partial void OnidChanging(int value);
+    partial void OnidChanged();
+    partial void Onid_ventaChanging(System.Nullable<long> value);
+    partial void Onid_ventaChanged();
+    partial void Onid_medio_pagoChanging(System.Nullable<short> value);
+    partial void Onid_medio_pagoChanged();
+    partial void OnmonedaChanging(System.Nullable<int> value);
+    partial void OnmonedaChanged();
+    #endregion
+		
+		public VentaMedioPago()
+		{
+			this._MedioPago = default(EntityRef<MedioPago>);
+			this._Venta = default(EntityRef<Venta>);
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_monto", DbType="Decimal(10,2)")]
+		public System.Nullable<decimal> monto
+		{
+			get
+			{
+				return this._monto;
+			}
+			set
+			{
+				if ((this._monto != value))
+				{
+					this.OnmontoChanging(value);
+					this.SendPropertyChanging();
+					this._monto = value;
+					this.SendPropertyChanged("monto");
+					this.OnmontoChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_id", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
+		public int id
+		{
+			get
+			{
+				return this._id;
+			}
+			set
+			{
+				if ((this._id != value))
+				{
+					this.OnidChanging(value);
+					this.SendPropertyChanging();
+					this._id = value;
+					this.SendPropertyChanged("id");
+					this.OnidChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_id_venta", DbType="BigInt")]
+		public System.Nullable<long> id_venta
+		{
+			get
+			{
+				return this._id_venta;
+			}
+			set
+			{
+				if ((this._id_venta != value))
+				{
+					if (this._Venta.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.Onid_ventaChanging(value);
+					this.SendPropertyChanging();
+					this._id_venta = value;
+					this.SendPropertyChanged("id_venta");
+					this.Onid_ventaChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_id_medio_pago", DbType="SmallInt")]
+		public System.Nullable<short> id_medio_pago
+		{
+			get
+			{
+				return this._id_medio_pago;
+			}
+			set
+			{
+				if ((this._id_medio_pago != value))
+				{
+					if (this._MedioPago.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.Onid_medio_pagoChanging(value);
+					this.SendPropertyChanging();
+					this._id_medio_pago = value;
+					this.SendPropertyChanged("id_medio_pago");
+					this.Onid_medio_pagoChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_moneda", DbType="Int")]
+		public System.Nullable<int> moneda
+		{
+			get
+			{
+				return this._moneda;
+			}
+			set
+			{
+				if ((this._moneda != value))
+				{
+					this.OnmonedaChanging(value);
+					this.SendPropertyChanging();
+					this._moneda = value;
+					this.SendPropertyChanged("moneda");
+					this.OnmonedaChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="MedioPago_VentaMedioPago", Storage="_MedioPago", ThisKey="id_medio_pago", OtherKey="id", IsForeignKey=true)]
+		public MedioPago MedioPago
+		{
+			get
+			{
+				return this._MedioPago.Entity;
+			}
+			set
+			{
+				MedioPago previousValue = this._MedioPago.Entity;
+				if (((previousValue != value) 
+							|| (this._MedioPago.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._MedioPago.Entity = null;
+						previousValue.VentaMedioPago.Remove(this);
+					}
+					this._MedioPago.Entity = value;
+					if ((value != null))
+					{
+						value.VentaMedioPago.Add(this);
+						this._id_medio_pago = value.id;
+					}
+					else
+					{
+						this._id_medio_pago = default(Nullable<short>);
+					}
+					this.SendPropertyChanged("MedioPago");
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Venta_VentaMedioPago", Storage="_Venta", ThisKey="id_venta", OtherKey="id", IsForeignKey=true)]
+		public Venta Venta
+		{
+			get
+			{
+				return this._Venta.Entity;
+			}
+			set
+			{
+				Venta previousValue = this._Venta.Entity;
+				if (((previousValue != value) 
+							|| (this._Venta.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._Venta.Entity = null;
+						previousValue.VentaMedioPago.Remove(this);
+					}
+					this._Venta.Entity = value;
+					if ((value != null))
+					{
+						value.VentaMedioPago.Add(this);
+						this._id_venta = value.id;
+					}
+					else
+					{
+						this._id_venta = default(Nullable<long>);
+					}
+					this.SendPropertyChanged("Venta");
+				}
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+	}
+	
 	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Venta")]
 	public partial class Venta : INotifyPropertyChanging, INotifyPropertyChanged
 	{
@@ -13820,6 +14060,10 @@ namespace pe.edu.pucp.ferretin.model
 		private System.Nullable<int> _estado;
 		
 		private System.Nullable<int> _puntosGanados;
+		
+		private System.Nullable<decimal> _cobrado;
+		
+		private System.Nullable<decimal> _diferencia;
 		
 		private EntitySet<VentaProducto> _VentaProducto;
 		
@@ -13859,6 +14103,10 @@ namespace pe.edu.pucp.ferretin.model
     partial void OnestadoChanged();
     partial void OnpuntosGanadosChanging(System.Nullable<int> value);
     partial void OnpuntosGanadosChanged();
+    partial void OncobradoChanging(System.Nullable<decimal> value);
+    partial void OncobradoChanged();
+    partial void OndiferenciaChanging(System.Nullable<decimal> value);
+    partial void OndiferenciaChanged();
     #endregion
 		
 		public Venta()
@@ -14119,6 +14367,46 @@ namespace pe.edu.pucp.ferretin.model
 			}
 		}
 		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_cobrado", DbType="Decimal(18,0)")]
+		public System.Nullable<decimal> cobrado
+		{
+			get
+			{
+				return this._cobrado;
+			}
+			set
+			{
+				if ((this._cobrado != value))
+				{
+					this.OncobradoChanging(value);
+					this.SendPropertyChanging();
+					this._cobrado = value;
+					this.SendPropertyChanged("cobrado");
+					this.OncobradoChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_diferencia", DbType="Decimal(18,0)")]
+		public System.Nullable<decimal> diferencia
+		{
+			get
+			{
+				return this._diferencia;
+			}
+			set
+			{
+				if ((this._diferencia != value))
+				{
+					this.OndiferenciaChanging(value);
+					this.SendPropertyChanging();
+					this._diferencia = value;
+					this.SendPropertyChanged("diferencia");
+					this.OndiferenciaChanged();
+				}
+			}
+		}
+		
 		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Venta_VentaProducto", Storage="_VentaProducto", ThisKey="id", OtherKey="id_venta")]
 		public EntitySet<VentaProducto> VentaProducto
 		{
@@ -14280,246 +14568,6 @@ namespace pe.edu.pucp.ferretin.model
 		{
 			this.SendPropertyChanging();
 			entity.Venta = null;
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.VentaMedioPago")]
-	public partial class VentaMedioPago : INotifyPropertyChanging, INotifyPropertyChanged
-	{
-		
-		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
-		
-		private System.Nullable<decimal> _monto;
-		
-		private int _id;
-		
-		private System.Nullable<long> _id_venta;
-		
-		private System.Nullable<short> _id_medio_pago;
-		
-		private System.Nullable<int> _moneda;
-		
-		private EntityRef<MedioPago> _MedioPago;
-		
-		private EntityRef<Venta> _Venta;
-		
-    #region Definiciones de métodos de extensibilidad
-    partial void OnLoaded();
-    partial void OnValidate(System.Data.Linq.ChangeAction action);
-    partial void OnCreated();
-    partial void OnmontoChanging(System.Nullable<decimal> value);
-    partial void OnmontoChanged();
-    partial void OnidChanging(int value);
-    partial void OnidChanged();
-    partial void Onid_ventaChanging(System.Nullable<long> value);
-    partial void Onid_ventaChanged();
-    partial void Onid_medio_pagoChanging(System.Nullable<short> value);
-    partial void Onid_medio_pagoChanged();
-    partial void OnmonedaChanging(System.Nullable<int> value);
-    partial void OnmonedaChanged();
-    #endregion
-		
-		public VentaMedioPago()
-		{
-			this._MedioPago = default(EntityRef<MedioPago>);
-			this._Venta = default(EntityRef<Venta>);
-			OnCreated();
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_monto", DbType="Decimal(10,2)")]
-		public System.Nullable<decimal> monto
-		{
-			get
-			{
-				return this._monto;
-			}
-			set
-			{
-				if ((this._monto != value))
-				{
-					this.OnmontoChanging(value);
-					this.SendPropertyChanging();
-					this._monto = value;
-					this.SendPropertyChanged("monto");
-					this.OnmontoChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_id", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
-		public int id
-		{
-			get
-			{
-				return this._id;
-			}
-			set
-			{
-				if ((this._id != value))
-				{
-					this.OnidChanging(value);
-					this.SendPropertyChanging();
-					this._id = value;
-					this.SendPropertyChanged("id");
-					this.OnidChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_id_venta", DbType="BigInt")]
-		public System.Nullable<long> id_venta
-		{
-			get
-			{
-				return this._id_venta;
-			}
-			set
-			{
-				if ((this._id_venta != value))
-				{
-					if (this._Venta.HasLoadedOrAssignedValue)
-					{
-						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
-					}
-					this.Onid_ventaChanging(value);
-					this.SendPropertyChanging();
-					this._id_venta = value;
-					this.SendPropertyChanged("id_venta");
-					this.Onid_ventaChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_id_medio_pago", DbType="SmallInt")]
-		public System.Nullable<short> id_medio_pago
-		{
-			get
-			{
-				return this._id_medio_pago;
-			}
-			set
-			{
-				if ((this._id_medio_pago != value))
-				{
-					if (this._MedioPago.HasLoadedOrAssignedValue)
-					{
-						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
-					}
-					this.Onid_medio_pagoChanging(value);
-					this.SendPropertyChanging();
-					this._id_medio_pago = value;
-					this.SendPropertyChanged("id_medio_pago");
-					this.Onid_medio_pagoChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_moneda", DbType="Int")]
-		public System.Nullable<int> moneda
-		{
-			get
-			{
-				return this._moneda;
-			}
-			set
-			{
-				if ((this._moneda != value))
-				{
-					this.OnmonedaChanging(value);
-					this.SendPropertyChanging();
-					this._moneda = value;
-					this.SendPropertyChanged("moneda");
-					this.OnmonedaChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="MedioPago_VentaMedioPago", Storage="_MedioPago", ThisKey="id_medio_pago", OtherKey="id", IsForeignKey=true)]
-		public MedioPago MedioPago
-		{
-			get
-			{
-				return this._MedioPago.Entity;
-			}
-			set
-			{
-				MedioPago previousValue = this._MedioPago.Entity;
-				if (((previousValue != value) 
-							|| (this._MedioPago.HasLoadedOrAssignedValue == false)))
-				{
-					this.SendPropertyChanging();
-					if ((previousValue != null))
-					{
-						this._MedioPago.Entity = null;
-						previousValue.VentaMedioPago.Remove(this);
-					}
-					this._MedioPago.Entity = value;
-					if ((value != null))
-					{
-						value.VentaMedioPago.Add(this);
-						this._id_medio_pago = value.id;
-					}
-					else
-					{
-						this._id_medio_pago = default(Nullable<short>);
-					}
-					this.SendPropertyChanged("MedioPago");
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Venta_VentaMedioPago", Storage="_Venta", ThisKey="id_venta", OtherKey="id", IsForeignKey=true)]
-		public Venta Venta
-		{
-			get
-			{
-				return this._Venta.Entity;
-			}
-			set
-			{
-				Venta previousValue = this._Venta.Entity;
-				if (((previousValue != value) 
-							|| (this._Venta.HasLoadedOrAssignedValue == false)))
-				{
-					this.SendPropertyChanging();
-					if ((previousValue != null))
-					{
-						this._Venta.Entity = null;
-						previousValue.VentaMedioPago.Remove(this);
-					}
-					this._Venta.Entity = value;
-					if ((value != null))
-					{
-						value.VentaMedioPago.Add(this);
-						this._id_venta = value.id;
-					}
-					else
-					{
-						this._id_venta = default(Nullable<long>);
-					}
-					this.SendPropertyChanged("Venta");
-				}
-			}
-		}
-		
-		public event PropertyChangingEventHandler PropertyChanging;
-		
-		public event PropertyChangedEventHandler PropertyChanged;
-		
-		protected virtual void SendPropertyChanging()
-		{
-			if ((this.PropertyChanging != null))
-			{
-				this.PropertyChanging(this, emptyChangingEventArgs);
-			}
-		}
-		
-		protected virtual void SendPropertyChanged(String propertyName)
-		{
-			if ((this.PropertyChanged != null))
-			{
-				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-			}
 		}
 	}
 }
