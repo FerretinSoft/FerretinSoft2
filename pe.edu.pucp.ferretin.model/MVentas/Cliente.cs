@@ -54,6 +54,40 @@ namespace pe.edu.pucp.ferretin.model
                 return String.Join(" ", nombre, apPaterno, apMaterno);
             }
         }
+
+        public bool isBoleta
+        {
+            get
+            {
+                return this.tipo == 1;
+            }
+        }
+
+        public bool isFactura
+        {
+            get
+            {
+                return this.tipo == 2;
+            }
+        }
+
+        public string nombreDoc
+        {
+            get
+            {
+                return tipo==1?"DNI":"RUC";
+            }
+        }
+
+        public string nombreNombre
+        {
+            get
+            {
+                return tipo == 1 ? "Nombre Completo" : "Razón Social";
+            }
+        }
+
+        
         #endregion
         
         #region Zona de Validaciones

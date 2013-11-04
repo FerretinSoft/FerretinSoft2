@@ -126,9 +126,9 @@
                     <Label Content="Total a Pagar:" Grid.Row="3"/>
                     <Label Content="%IGV:" Grid.Row="2"/>
                     <TextBox TextWrapping="Wrap" Text="0" Grid.Column="1" HorizontalContentAlignment="Right" Grid.Row="0" VerticalContentAlignment="Center" Margin="0,2,0,2" IsEnabled="False"/>
-                    <TextBox TextWrapping="Wrap" Text="{Binding venta.subTotal}" Grid.Column="1" HorizontalContentAlignment="Right" Grid.Row="1" VerticalContentAlignment="Center" Margin="0,2,0,2"/>
-                    <TextBox TextWrapping="Wrap" Text="{Binding venta.igv}" Grid.Column="1" HorizontalContentAlignment="Right" Grid.Row="2" VerticalContentAlignment="Center" Margin="0,2,0,2"/>
-                    <TextBox TextWrapping="Wrap" Text="{Binding venta.total}" Grid.Column="1" HorizontalContentAlignment="Right" Grid.Row="3" VerticalContentAlignment="Center" Margin="0,2,0,2"/>
+                    <TextBox TextWrapping="Wrap" Text="{Binding venta.subTotal}" Grid.Column="1" HorizontalContentAlignment="Right" Grid.Row="1" VerticalContentAlignment="Center" Margin="0,2,0,2" IsEnabled="False"/>
+                    <TextBox TextWrapping="Wrap" Text="{Binding venta.igv}" Grid.Column="1" HorizontalContentAlignment="Right" Grid.Row="2" VerticalContentAlignment="Center" Margin="0,2,0,2" IsEnabled="False"/>
+                    <TextBox TextWrapping="Wrap" Text="{Binding venta.total}" Grid.Column="1" HorizontalContentAlignment="Right" Grid.Row="3" VerticalContentAlignment="Center" Margin="0,2,0,2" IsEnabled="False"/>
                 </Grid>
             </Grid>
             <Grid Grid.Row="3" Margin="0,5,0,0">

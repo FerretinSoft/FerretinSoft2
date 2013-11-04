@@ -37,5 +37,11 @@ namespace pe.edu.pucp.ferretin.model
             this.igv = this.total * (decimal)igvActual/100;
             this.subTotal = this.total - this.igv;
         }
+
+        partial void OncobradoChanged()
+        {
+            this.diferencia = this.total - this.cobrado;
+        }
+        
     }
 }
