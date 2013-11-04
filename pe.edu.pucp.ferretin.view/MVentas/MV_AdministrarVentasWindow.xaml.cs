@@ -43,7 +43,7 @@ namespace pe.edu.pucp.ferretin.view.MVentas
                     MV_DevolucionesWindow padre = this.Owner as MV_DevolucionesWindow;
                     MV_VentasViewModel my_DataContext = this.main.DataContext as MV_VentasViewModel;
                     MV_DevolucionesViewModel padre_DataContext = padre.main.DataContext as MV_DevolucionesViewModel;
-                    if (my_DataContext.soloSeleccionarVenta == false)
+                    if (my_DataContext.soloSeleccionarVenta == true)
                     {
                         padre_DataContext.searchnombreCliente = my_DataContext.venta.nombreCompletoCliente;
                         padre_DataContext.searchNroDocumento = my_DataContext.venta.nroDocumento;

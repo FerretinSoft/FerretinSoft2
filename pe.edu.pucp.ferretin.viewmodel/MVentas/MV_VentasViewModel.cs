@@ -69,6 +69,22 @@ namespace pe.edu.pucp.ferretin.viewmodel.MVentas
 
             }
         }
+
+        private System.Windows.Visibility _soloEscogerVenta = System.Windows.Visibility.Hidden;
+        public System.Windows.Visibility soloEscogerVenta
+        {
+            get
+            {
+                return _soloEscogerVenta;
+            }
+            set
+            {
+                _soloEscogerVenta = value;
+                NotifyPropertyChanged("soloEscogerVenta");
+               
+
+            }
+        }
         public bool noSoloSeleccionarVenta
         {
             get

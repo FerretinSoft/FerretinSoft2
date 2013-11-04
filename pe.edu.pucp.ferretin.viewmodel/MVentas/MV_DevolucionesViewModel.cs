@@ -19,9 +19,14 @@ namespace pe.edu.pucp.ferretin.viewmodel.MVentas
 
             devolucion = new Devolucion();
             {
-               
-                
+
+
             };
+
+            notaCredito = new NotaCredito();
+            {
+
+            }
         }
         #endregion
 
@@ -215,6 +220,22 @@ namespace pe.edu.pucp.ferretin.viewmodel.MVentas
             }
         }
 
+
+
+        RelayCommand _cancelDevolucionCommand;
+
+        public ICommand cancelDevolucionCommand
+        {
+            get
+            {
+                if (_cancelDevolucionCommand == null)
+                {
+                    _cancelDevolucionCommand = new RelayCommand(cancelDevolucion);
+                }
+                return _cancelDevolucionCommand;
+            }
+        }
+
         RelayCommand _cargarClienteCommand;
         public ICommand cargarClienteCommand
         {
@@ -342,9 +363,21 @@ namespace pe.edu.pucp.ferretin.viewmodel.MVentas
             NotifyPropertyChanged("searchNroDocCliente");
         }
 
+
+
+        public void cancelDevolucion(Object obj)
+        {
+            selectedTab = 0;
+            this.listaDevoluciones = MV_DevolucionService.listaDevoluciones;
+        }
+
         public void saveDevolucion(Object obj)
         {
             devolucion.id_empleado = usuarioLogueado.Empleado.id;
+            notaCredito.fechaEmision = DateTime.Now;
+            notaCredito.importe = devolucion.total;
+            notaCredito.codigo = devolucion.codigo;
+
                     if (!MV_DevolucionService.insertarDevolucion(devolucion))
                     {
                         MessageBox.Show("No se pudo agregar la nuevo devolución");
@@ -352,6 +385,15 @@ namespace pe.edu.pucp.ferretin.viewmodel.MVentas
                     else
                     {
                         MessageBox.Show("La devolución fue agregado con éxito");
+                    }
+            notaCredito.id_devolucion = devolucion.id;
+                    if (!MV_NotaCreditoService.insertarNotaCredito(notaCredito))
+                    {
+                        MessageBox.Show("No se pudo agregar la nueva Nota de Crédito");
+                    }
+                    else
+                    {
+                        MessageBox.Show("La Nota de Crédito fue agregado con éxito");
                     }
         }
 

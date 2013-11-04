@@ -207,7 +207,7 @@
                     <GridSplitter Grid.RowSpan="2" Width="2" BorderBrush="Gray"/>
 
                     <StackPanel Orientation="Horizontal" Margin="183,0,247,0" Grid.Row="2" Grid.Column="1">
-                        <Button Height="30" Content="SELECCIONAR" Padding="5,0" Margin="5,0"  Click="Button_Click" Width="96"/>
+                        <Button Visibility="{Binding Path=soloEscogerVenta}" Height="30" Content="SELECCIONAR" Padding="5,0" Margin="5,0"  Click="Button_Click" Width="96"/>
                     </StackPanel>
                 </Grid>
 

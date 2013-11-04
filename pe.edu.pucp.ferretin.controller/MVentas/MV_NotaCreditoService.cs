@@ -59,6 +59,19 @@ namespace pe.edu.pucp.ferretin.controller.MVentas
             return notaCredito;
         }
 
+        public static bool insertarNotaCredito(NotaCredito notaCredito)
+        {
+            if (!db.NotaCredito.Contains(notaCredito))
+            {
+                db.NotaCredito.InsertOnSubmit(notaCredito);
+                return enviarCambios();
+            }
+            else
+            {
+                return false;
+            }
+        }
+
         #endregion
     }
 }

@@ -57,10 +57,23 @@ namespace pe.edu.pucp.ferretin.view.MVentas
             v.Owner = this;
             var viewModel = v.main.DataContext as MV_VentasViewModel;
             viewModel.soloSeleccionarVenta = true;
+            viewModel.soloEscogerVenta =  System.Windows.Visibility.Visible; 
+
             v.Show();     
         }
 
-        
+
+
+        private void Button_Click_VentaLoad(object sender, RoutedEventArgs e)
+        {
+            MV_AdministrarVentasWindow v = new MV_AdministrarVentasWindow();
+            v.Owner = this;
+            var viewModel = v.main.DataContext as MV_VentasViewModel;
+            viewModel.soloSeleccionarVenta = false;
+            viewModel.soloEscogerVenta =  System.Windows.Visibility.Visible; 
+
+            v.Show();     
+        }
 
 
         private void DatePicker_IsEnabledChanged(object sender, DependencyPropertyChangedEventArgs e)
