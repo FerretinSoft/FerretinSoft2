@@ -66,7 +66,7 @@ namespace pe.edu.pucp.ferretin.controller
                     transaccion.nroMAC = obtenerMac();
                     DateTime today = DateTime.Now;
                     transaccion.fecha = today;
-                    Usuario user =db.Usuario.Single(u=> u.nombre.Equals(ComunService.userlog));
+                    Usuario user = ComunService.usuarioL;
                     transaccion.id_usuario = user.id;
                     db.Transaccion.InsertOnSubmit(transaccion);
                     return true;
