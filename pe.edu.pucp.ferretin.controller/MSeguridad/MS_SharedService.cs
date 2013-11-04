@@ -71,5 +71,10 @@ namespace pe.edu.pucp.ferretin.controller.MSeguridad
             return null;
         }
 
+        public static Double obtenerIGV()
+        {
+            return Convert.ToDouble(obtenerParametro("IGV"));
+        }
+
     }
 }

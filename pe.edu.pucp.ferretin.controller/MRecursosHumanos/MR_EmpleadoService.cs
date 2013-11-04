@@ -56,10 +56,9 @@ namespace pe.edu.pucp.ferretin.controller.MRecursosHumanos
           
             if (!db.Empleado.Contains(empleado))
             {
-                empleado.codEmpleado = 100050 + listaEmpleados.Count();
+              
                 db.Empleado.InsertOnSubmit(empleado); 
                 return enviarCambios();
-               
                   
             }
             else
