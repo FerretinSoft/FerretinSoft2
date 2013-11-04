@@ -11,8 +11,9 @@ namespace pe.edu.pucp.ferretin.model
         partial void OncantidadChanged()
         {
             monto = cantidad * Producto.precioLista;
-            if (Devolucion != null)
-                Devolucion.total = Devolucion.total + monto;
+            if (Devolucion != null){
+                Devolucion.total = (from dp in Devolucion.DevolucionProducto select dp.monto).Sum();
+            }
         }
     }
 }

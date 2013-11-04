@@ -16,7 +16,12 @@ namespace pe.edu.pucp.ferretin.viewmodel.MVentas
         #region Constructor
         public MV_DevolucionesViewModel()
         {
+
             _devolucion = new Devolucion();
+            {
+                _devolucion.fecEmision = DateTime.Today;
+                
+            };
         }
         #endregion
 
@@ -27,6 +32,10 @@ namespace pe.edu.pucp.ferretin.viewmodel.MVentas
 
         public String _searchNroDocCliente = "";
         public String searchNroDocCliente { get { return _searchNroDocCliente; } set { _searchNroDocCliente = value; NotifyPropertyChanged("searchNroDocCliente"); } }
+
+        public String _searchnombreCliente = "";
+        public String searchnombreCliente { get { return _searchnombreCliente; } set { _searchnombreCliente = value; NotifyPropertyChanged("searchnombreCliente"); } }
+
 
         public DateTime _searchFechaInicio = DateTime.Parse("10/09/2013");
         public DateTime searchFechaInicio { get { return _searchFechaInicio; } set { _searchFechaInicio = value; NotifyPropertyChanged("searchFechaInicio"); } }
@@ -69,6 +78,7 @@ namespace pe.edu.pucp.ferretin.viewmodel.MVentas
             }
             set
             {
+                
                 _devolucion = value;
                 NotifyPropertyChanged("devolucion");
             }
@@ -172,9 +182,64 @@ namespace pe.edu.pucp.ferretin.viewmodel.MVentas
             }
         }
 
+        RelayCommand _saveDevolucionCommand;
+        public ICommand saveDevolucionCommand
+        {
+            get
+            {
+                if (_saveDevolucionCommand == null)
+                {
+                    _saveDevolucionCommand = new RelayCommand(saveDevolucion);
+                }
+                return _saveDevolucionCommand;
+            }
+        }
+
+        RelayCommand _cargarClienteCommand;
+        public ICommand cargarClienteCommand
+        {
+            get
+            {
+                if (_cargarClienteCommand == null)
+                {
+                    _cargarClienteCommand = new RelayCommand(cargarCliente);
+                }
+                return _cargarClienteCommand;
+            }
+        }
+
         #endregion
 
         #region commands
+        public void cargarCliente(Object id)
+        {
+            Cliente buscado = null;
+            try
+            {
+                buscado = MV_ClienteService.obtenerClienteByNroDoc(searchNroDocCliente);
+            }
+            catch { }
+
+            if (buscado == null)
+            {
+                MessageBox.Show("No se encontro ningún Cliente con el número de documento proporcionado", "No se encontro", MessageBoxButton.OK, MessageBoxImage.Question);
+            }
+            searchnombreCliente = buscado.nombreCompleto;
+            NotifyPropertyChanged("searchnombreCliente");
+        }
+
+        public void saveDevolucion(Object obj)
+        {
+                    if (!MV_DevolucionService.insertarDevolucion(devolucion))
+                    {
+                        MessageBox.Show("No se pudo agregar la nuevo devolución");
+                    }
+                    else
+                    {
+                        MessageBox.Show("La devolución fue agregado con éxito");
+                    }
+        }
+
         public void viewDetailDevolucion(Object id)
         {
             try
@@ -200,6 +265,8 @@ namespace pe.edu.pucp.ferretin.viewmodel.MVentas
                  prodDev.id_producto = prodSelec.id_producto;
                  prodDev.monto = prodDev.cantidad * prodDev.Producto.precioLista;
                  devolucion.total = 0;
+                 devolucion.id_venta = prodSelec.Venta.id;
+                 
                  devolucion.DevolucionProducto.Add(prodDev);
                  NotifyPropertyChanged("devolucion");
             }
@@ -210,6 +277,8 @@ namespace pe.edu.pucp.ferretin.viewmodel.MVentas
         }
 
 
+
+        
         
         #endregion
     }
