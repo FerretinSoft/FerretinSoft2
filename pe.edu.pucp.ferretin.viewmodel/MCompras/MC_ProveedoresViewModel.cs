@@ -83,6 +83,9 @@ namespace pe.edu.pucp.ferretin.viewmodel.MCompras
         }
 
         RelayCommand _viewEditProveedoresCommand;
+
+
+
         public ICommand viewEditProveedoresCommand
         {
             get
@@ -116,6 +119,19 @@ namespace pe.edu.pucp.ferretin.viewmodel.MCompras
                     _cancelProveedorCommand = new RelayCommand(cancelProveedor);
                 }
                 return _cancelProveedorCommand;
+            }
+        }
+
+        RelayCommand _agregarProveedorCommand;
+        public ICommand agregarProveedorCommand
+        {
+            get
+            {
+                if (_agregarProveedorCommand == null)
+                {
+                    _agregarProveedorCommand = new RelayCommand(p => statusTab = Tab.AGREGAR);
+                }
+                return _agregarProveedorCommand;
             }
         }
         #endregion

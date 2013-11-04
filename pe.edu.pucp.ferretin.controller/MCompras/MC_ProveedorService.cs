@@ -57,6 +57,8 @@ namespace pe.edu.pucp.ferretin.controller.MCompras
             }
         }
 
+      // public static bool 
+
         public static IEnumerable<Proveedor> buscarProveedores(string ruc, string razonSoc, string rubro)
         {
             return from p in listaProveedores

@@ -53,7 +53,7 @@
                         </DataGrid.Columns>
                     </DataGrid>
                     <ToolBar HorizontalAlignment="Left" Margin="10,85,0,0" VerticalAlignment="Top" Height="24">
-                        <Button x:Name="nuevoProveedorBtn" Content="" VerticalAlignment="Stretch" Width="20" Margin="0,0,2,-1" >
+                        <Button Command="{Binding agregarProveedorCommand}" Content="" VerticalAlignment="Stretch" Width="20" Margin="0,0,2,-1" >
                             <Button.Background>
                                 <ImageBrush ImageSource="../Resources/add_20.png" Stretch="None"/>
                             </Button.Background>
