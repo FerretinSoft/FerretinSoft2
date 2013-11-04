@@ -244,6 +244,7 @@ namespace pe.edu.pucp.ferretin.viewmodel.MVentas
         {
             try
             {
+                this.devolucion = new Devolucion();
                 this.devolucion = listaDevoluciones.Single(devolucion => devolucion.id == (long)id);
                 this.listaProductos = MV_DevolucionService.obtenerProductosbyIdDevolucion((long)id);
                 this.notaCredito = MV_DevolucionService.obtenerNotaCredbyIdDevolucion((long)id);
