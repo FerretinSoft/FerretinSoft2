@@ -45,15 +45,22 @@ namespace pe.edu.pucp.ferretin.model
         {
             get
             {
-                return this.sexo == 'M' ? 1 : 2; 
+                if (this.sexo == 'M')
+                    return 0;
+                else
+                    if (this.sexo == 'F')
+                        return 1;
+                    else
+                        return 2;
+                
             }
 
             set
             {
-                if (value == 1)
+                if (value == 0)
                     this.sexo = 'M';
                 else
-                if (value == 2)
+                if (value == 1)
                     this.sexo = 'F';
             
             }
@@ -149,25 +156,41 @@ namespace pe.edu.pucp.ferretin.model
                 nuevoEmpleoTienda = new EmpleadoTienda();
             }
 
+            //Lleno el cargo nuevoEmpleoTienda con lo leido de la vista
             if (nuevoEmpleoTienda.Cargo == null)
             {
                 nuevoEmpleoTienda.Cargo = cargoActual;
             }
 
+            //Lleno la tienda nuevoEmpleoTienda con lo leido de la vista
             if (nuevoEmpleoTienda.Tienda == null)
             {
                 nuevoEmpleoTienda.Tienda = tiendaActual;
             }
 
+            //Lleno el sueldo nuevoEmpleoTienda con lo leido de la vista
             if (nuevoEmpleoTienda.sueldo <= 0)
             {
                 nuevoEmpleoTienda.sueldo = ultimoSueldo;         
             }
+
+
+            //Lleno nuevoEmpleoTienda sino esta contenido
             if (!this.EmpleadoTienda.Contains(nuevoEmpleoTienda))
             {
                 this.EmpleadoTienda.Add(nuevoEmpleoTienda);
             }
+
+            ////if (EmpleadoTienda.Count(et => et.id_empleado == nuevoEmpleoTienda.id_empleado && et.id_cargo == nuevoEmpleoTienda.id_cargo && et.sueldo == nuevoEmpleoTienda.sueldo && et.id_tienda == nuevoEmpleoTienda.id_tienda) == 0)
+            ////{
+            ////    this.EmpleadoTienda.Add(nuevoEmpleoTienda);
+
+            ////}
+
+
         }
+
+      
 
        
 

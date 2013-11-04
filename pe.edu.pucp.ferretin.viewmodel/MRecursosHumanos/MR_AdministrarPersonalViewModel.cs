@@ -128,6 +128,8 @@ namespace pe.edu.pucp.ferretin.viewmodel.MRecursosHumanos
                 //Cuando se cambia el status, tambien se tiene que actualizar el currentIndex del tab
                 NotifyPropertyChanged("currentIndexTab"); //Hace que cambie el tab automaticamente
                 NotifyPropertyChanged("isCreating"); //Para que se activen o desactiven los inputs
+                
+
             }
         }
         //Usado para mover los tabs de acuerdo a las acciones realizadas
@@ -336,6 +338,7 @@ namespace pe.edu.pucp.ferretin.viewmodel.MRecursosHumanos
                         {
                         
                             MessageBox.Show("El empleado fue agregado con éxito");
+                            //NotifyPropertyChanged("EmpleadoTienda");//Para el historial de empleos
                         }
                     }
                 }
