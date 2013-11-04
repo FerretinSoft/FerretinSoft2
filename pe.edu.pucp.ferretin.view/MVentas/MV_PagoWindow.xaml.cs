@@ -1,4 +1,5 @@
-﻿using System;
+﻿using pe.edu.pucp.ferretin.viewmodel.MVentas;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -19,9 +20,24 @@ namespace pe.edu.pucp.ferretin.view.MVentas
     /// </summary>
     public partial class MV_PagoWindow : Window
     {
+        
         public MV_PagoWindow()
         {
             InitializeComponent();
+        }
+
+        public MV_PagoWindow(MV_RegistrarVentaWindow mV_RegistrarVentaWindow)
+        {
+            this.Owner = mV_RegistrarVentaWindow;
+            InitializeComponent();
+            Show();
+            try
+            {
+                MV_RegistrarVentaWindow regVen = this.Owner as MV_RegistrarVentaWindow;
+                MV_RegistrarVentaViewModel regVen_DC = regVen.main.DataContext as MV_RegistrarVentaViewModel;
+                
+            }
+            catch { }
         }
 
         private void Button_Click_1(object sender, RoutedEventArgs e)

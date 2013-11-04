@@ -67,6 +67,7 @@
     <Compile Include="Base\ViewModelBase.cs" />
     <Compile Include="MVentas\MV_DevolucionesViewModel.cs" />
     <Compile Include="MVentas\MV_NotaCreditoViewModel.cs" />
+    <Compile Include="MVentas\MV_PagoWindowViewModel.cs" />
     <Compile Include="MVentas\MV_RegistrarVentaViewModel.cs" />
     <Compile Include="MVentas\MV_VentasViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
