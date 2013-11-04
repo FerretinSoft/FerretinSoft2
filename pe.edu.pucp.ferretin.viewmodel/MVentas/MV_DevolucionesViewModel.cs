@@ -279,6 +279,7 @@ namespace pe.edu.pucp.ferretin.viewmodel.MVentas
            this.listaProductosComprados = null;
            this.devolucion = new Devolucion();
            devolucion.fecEmision = DateTime.Now;
+           devolucion.id_empleado = usuarioLogueado.Empleado.id;
            this.selectedTab = 2;
            
         }
@@ -291,6 +292,7 @@ namespace pe.edu.pucp.ferretin.viewmodel.MVentas
                 this.listaProductosComprados = MV_VentaService.obtenerProductosbyIdVenta(buscado.id);
                 this.devolucion.Venta = buscado;
                 this.devolucion.fecEmision = DateTime.Now;
+                devolucion.id_empleado = usuarioLogueado.Empleado.id;
             }
             catch { }
 
@@ -335,12 +337,14 @@ namespace pe.edu.pucp.ferretin.viewmodel.MVentas
                 MessageBox.Show("No se encontro ningún Cliente con el número de documento proporcionado", "No se encontro", MessageBoxButton.OK, MessageBoxImage.Question);
             }
             searchnombreCliente = buscado.nombreCompleto;
+            searchNroDocCliente = buscado.nroDoc;
             NotifyPropertyChanged("searchnombreCliente");
             NotifyPropertyChanged("searchNroDocCliente");
         }
 
         public void saveDevolucion(Object obj)
         {
+            devolucion.id_empleado = usuarioLogueado.Empleado.id;
                     if (!MV_DevolucionService.insertarDevolucion(devolucion))
                     {
                         MessageBox.Show("No se pudo agregar la nuevo devolución");

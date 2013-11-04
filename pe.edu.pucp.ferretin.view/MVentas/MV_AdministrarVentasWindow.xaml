@@ -49,8 +49,13 @@
                                     <ColumnDefinition></ColumnDefinition>
                                     <ColumnDefinition Width="Auto"></ColumnDefinition>
                                 </Grid.ColumnDefinitions>
-                                <TextBox LostFocus="TextBox_LostFocus" Text="{Binding searchNroDocCliente, Mode=TwoWay}" x:Name="searchNroDoc" VerticalAlignment="Center" HorizontalAlignment="Stretch"/>
-                                <Button Margin="0,0,5,0" x:Name="buscarClienteBtn" VerticalAlignment="Center" Width="20" Height="20" BorderThickness="0" Grid.Column="1">
+                                <TextBox  Text="{Binding searchNroDocCliente, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" x:Name="searchNroDoc" VerticalAlignment="Center" HorizontalAlignment="Stretch">
+                                    <TextBox.InputBindings>
+                                        <KeyBinding Key="Enter" Command="{Binding cargarClienteCommand}"></KeyBinding>
+                                    </TextBox.InputBindings>
+                                </TextBox>
+                                
+                                <Button Click="Button_Click_Cliente" Margin="0,0,5,0" x:Name="buscarClienteBtn" VerticalAlignment="Center" Width="20" Height="20" BorderThickness="0" Grid.Column="1">
                                     <Button.Background>
                                         <ImageBrush ImageSource="../Resources/search1_20.png"/>
                                     </Button.Background>
@@ -69,7 +74,7 @@
                                     </Button.Background>
                                 </Button>
                             </Grid>
-                            <TextBox x:Name="nombreCliente" VerticalAlignment="Center" VerticalContentAlignment="Center" Grid.Column="3" Grid.ColumnSpan="2" Grid.Row="1" IsEnabled="False" Margin="0,2"/>
+                            <TextBox Text="{Binding Path=nombreCliente}" x:Name="nombreCliente" VerticalAlignment="Center" VerticalContentAlignment="Center" Grid.Column="3" Grid.ColumnSpan="2" Grid.Row="1" IsEnabled="False" Margin="0,2"/>
                             <DatePicker SelectedDate="{Binding searchFechaInicio, Mode=TwoWay}" VerticalAlignment="Center" Grid.Column="1" Grid.Row="2"  BorderThickness="0"/>
                             <DatePicker SelectedDate="{Binding searchFechaFin, Mode=TwoWay}" VerticalAlignment="Center" Grid.Column="3" Grid.Row="2" BorderThickness="0"/>
 

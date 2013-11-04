@@ -45,7 +45,8 @@ namespace pe.edu.pucp.ferretin.view.MVentas
                     padre_DataContext.nroDocSeleccionado = my_DataContext.cliente.nroDoc;
                     this.Close();
                 }
-                catch {
+                catch
+                {
                     try
                     {
                         MV_DevolucionesWindow padre = this.Owner as MV_DevolucionesWindow;
@@ -56,13 +57,41 @@ namespace pe.edu.pucp.ferretin.view.MVentas
                         padre_DataContext.searchnombreCliente = my_DataContext.cliente.nombreCompleto;
                         this.Close();
                     }
-                    catch { }
+
+                    catch
+                    {
+                        try
+                        {
+                            MV_AdministrarNotaCreditoWindow padre = this.Owner as MV_AdministrarNotaCreditoWindow;
+                            MV_ClientesViewModel my_DataContext = this.main.DataContext as MV_ClientesViewModel;
+                            MV_NotaCreditoViewModel padre_DataContext = padre.main.DataContext as MV_NotaCreditoViewModel;
+
+                            padre_DataContext.searchNroDocCliente = my_DataContext.cliente.nroDoc;
+                            padre_DataContext.nombreCliente = my_DataContext.cliente.nombreCompleto;
+                            this.Close();
+                        }
+
+                        catch
+                        {
+                            try
+                            {
+                                MV_AdministrarVentasWindow padre = this.Owner as MV_AdministrarVentasWindow;
+                                MV_ClientesViewModel my_DataContext = this.main.DataContext as MV_ClientesViewModel;
+                                MV_VentasViewModel padre_DataContext = padre.main.DataContext as MV_VentasViewModel;
+                                padre_DataContext.searchNroDocCliente = my_DataContext.cliente.nroDoc;
+                                padre_DataContext.nombreCliente = my_DataContext.cliente.nombreCompleto;
+                                this.Close();
+                            }
+
+
+                            catch { }
+                        }
+                    }
+
                 }
             }
+
         }
-
-
-
     }
 
 }

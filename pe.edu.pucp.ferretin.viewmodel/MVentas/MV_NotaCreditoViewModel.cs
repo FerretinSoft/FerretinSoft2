@@ -131,6 +131,19 @@ namespace pe.edu.pucp.ferretin.viewmodel.MVentas
             }
         }
 
+        RelayCommand _cargarClienteCommand;
+        public ICommand cargarClienteCommand
+        {
+            get
+            {
+                if (_cargarClienteCommand == null)
+                {
+                    _cargarClienteCommand = new RelayCommand(cargarCliente);
+                }
+                return _cargarClienteCommand;
+            }
+        }
+
         #endregion
 
         #region commands
@@ -148,6 +161,30 @@ namespace pe.edu.pucp.ferretin.viewmodel.MVentas
             {
                 MessageBox.Show(e.Message);
             }
+        }
+
+        public void cargarCliente(Object id)
+        {
+            Cliente buscado = null;
+            try
+            {
+                buscado = MV_ClienteService.obtenerClienteByNroDoc(searchNroDocCliente);
+            }
+            catch { }
+
+            if (buscado == null)
+            {
+                MessageBox.Show("No se encontro ningún Cliente con el número de documento proporcionado", "No se encontro", MessageBoxButton.OK, MessageBoxImage.Question);
+                nombreCliente = "";
+                searchNroDocCliente = "";
+            }
+            else
+            {
+                nombreCliente = buscado.nombreCompleto;
+                searchNroDocCliente = buscado.nroDoc;
+            }
+            NotifyPropertyChanged("nombreCliente");
+            NotifyPropertyChanged("searchNroDocCliente");
         }
         #endregion
 

@@ -13,6 +13,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using pe.edu.pucp.ferretin.viewmodel.MVentas;
 
 namespace pe.edu.pucp.ferretin.view.MVentas
 {
@@ -54,13 +55,13 @@ namespace pe.edu.pucp.ferretin.view.MVentas
 
         }
 
-        private void TextBox_LostFocus_1(object sender, RoutedEventArgs e)
+        private void Button_Click(object sender, RoutedEventArgs e)
         {
-            Cliente cliente = MV_ClienteService.obtenerClienteByNroDoc(searchCodCliente.Text);
-            if (cliente != null)
-                searchNombreCliente.Text = cliente.nombreCompleto;
-            else
-                searchNombreCliente.Text = "";
+            MV_ClientesWindow v = new MV_ClientesWindow();
+            v.Owner = this;
+            var viewModel = v.main.DataContext as MV_ClientesViewModel;
+            viewModel.soloSeleccionarCliente = true;
+            v.Show();
         }
     }
 }

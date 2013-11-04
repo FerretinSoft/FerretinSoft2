@@ -34,18 +34,6 @@ namespace pe.edu.pucp.ferretin.view.MVentas
             
         }
 
-        
-
-
-        private void TextBox_LostFocus(object sender, RoutedEventArgs e)
-        {
-            Cliente cliente = MV_ClienteService.obtenerClienteByNroDoc(searchNroDoc.Text);
-            if (cliente != null)
-                nombreCliente.Text = cliente.nombreCompleto;
-            else
-                nombreCliente.Text = "";
-        }
-
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             if (this.Owner != null)//O sea que proviene de un padre
@@ -64,6 +52,7 @@ namespace pe.edu.pucp.ferretin.view.MVentas
                     else
                     {
                         padre_DataContext.devolucion.fecEmision = DateTime.Today;
+                        padre_DataContext.loadNroDocumento = my_DataContext.venta.nroDocumento;
                         padre_DataContext.devolucion.Venta = my_DataContext.venta;
                         padre_DataContext.listaProductosComprados = MV_VentaService.obtenerProductosbyIdVenta(my_DataContext.venta.id);
                     }
@@ -74,6 +63,15 @@ namespace pe.edu.pucp.ferretin.view.MVentas
                 catch { }
                 
             }
+        }
+
+        private void Button_Click_Cliente(object sender, RoutedEventArgs e)
+        {
+            MV_ClientesWindow v = new MV_ClientesWindow();
+            v.Owner = this;
+            var viewModel = v.main.DataContext as MV_ClientesViewModel;
+            viewModel.soloSeleccionarCliente = true;
+            v.Show();
         }
     }
 }
