@@ -7,11 +7,14 @@ using pe.edu.pucp.ferretin.viewmodel.Helper;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
+using System.Windows.Media;
+using System.Windows.Media.Imaging;
 
 namespace pe.edu.pucp.ferretin.viewmodel.MVentas
 {
@@ -66,6 +69,36 @@ namespace pe.edu.pucp.ferretin.viewmodel.MVentas
                 return venta.Cliente == null ? new GridLength(0) : GridLength.Auto;
             }
         }
+        private ImageSource _clienteImagen;
+        public ImageSource clienteImagen
+        {
+            get
+            {
+                if (venta.Cliente.imagen != null)
+                {
+                    MemoryStream strm = new MemoryStream();
+                    strm.Write(venta.Cliente.imagen.ToArray(), 0, venta.Cliente.imagen.Length);
+                    strm.Position = 0;
+                    System.Drawing.Image img = System.Drawing.Image.FromStream(strm);
+
+                    BitmapImage bitmapImage = new BitmapImage();
+                    bitmapImage.BeginInit();
+                    MemoryStream memoryStream = new MemoryStream();
+                    img.Save(memoryStream, System.Drawing.Imaging.ImageFormat.Bmp);
+                    memoryStream.Seek(0, SeekOrigin.Begin);
+                    bitmapImage.StreamSource = memoryStream;
+                    bitmapImage.EndInit();
+
+                    _clienteImagen = bitmapImage;
+                }
+                return _clienteImagen;
+            }
+            set
+            {
+                _clienteImagen = value;
+                NotifyPropertyChanged("clienteImagen");
+            }
+        }
 
         #region RalayCommand
         RelayCommand _cargarClienteCommand;
@@ -109,6 +142,7 @@ namespace pe.edu.pucp.ferretin.viewmodel.MVentas
                 MessageBox.Show("No se encontro ningún Cliente con el número de documento proporcionado","No se encontro",MessageBoxButton.OK,MessageBoxImage.Question);   
             }
             venta.Cliente = buscado;
+            NotifyPropertyChanged("clienteImagen");
             NotifyPropertyChanged("widthClienteBar");
         }
 

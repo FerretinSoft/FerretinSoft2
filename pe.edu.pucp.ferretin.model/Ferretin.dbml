@@ -34,38 +34,6 @@
       <Association Name="Categoria_Categoria" Member="Categoria1" ThisKey="id_padre" OtherKey="id" Type="Categoria" IsForeignKey="true" />
     </Type>
   </Table>
-  <Table Name="dbo.Cliente" Member="Cliente">
-    <Type Name="Cliente">
-      <Column Name="id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
-      <Column Name="nroDoc" Type="System.String" DbType="VarChar(11)" CanBeNull="true" />
-      <Column Name="nombre" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
-      <Column Name="direccion" Type="System.String" DbType="VarChar(200)" CanBeNull="true" />
-      <Column Name="telefono1" Type="System.String" DbType="VarChar(15)" CanBeNull="true" />
-      <Column Name="telefono2" Type="System.String" DbType="VarChar(15)" CanBeNull="true" />
-      <Column Name="email" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
-      <Column Name="fecNacimiento" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
-      <Column Name="sexo" Type="System.Char" DbType="Char(1)" CanBeNull="true" />
-      <Column Name="fecAfiliacion" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
-      <Column Name="contacto" Type="System.String" DbType="VarChar(200)" CanBeNull="true" />
-      <Column Name="puntosGanados" Type="System.Int16" DbType="SmallInt" CanBeNull="true" />
-      <Column Name="puntosUsados" Type="System.Int16" DbType="SmallInt" CanBeNull="true" />
-      <Column Name="puntosActual" Type="System.Int16" DbType="SmallInt" CanBeNull="true" />
-      <Column Name="ultimaCompra" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
-      <Column Name="totalCompras" Type="System.Int16" DbType="SmallInt" CanBeNull="true" />
-      <Column Name="comentarios" Type="System.String" DbType="VarChar(500)" CanBeNull="true" />
-      <Column Name="id_ubigeo" Type="System.String" DbType="Char(6)" CanBeNull="true" />
-      <Column Name="codigoPostal" Type="System.String" DbType="VarChar(15)" CanBeNull="true" />
-      <Column Name="tipoPersona" Type="System.String" DbType="VarChar(10)" CanBeNull="true" />
-      <Column Name="tipoDocumento" Type="System.String" DbType="Char(3)" CanBeNull="true" />
-      <Column Name="apPaterno" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
-      <Column Name="apMaterno" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
-      <Column Name="id_empleado_registro" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Association Name="Cliente_Proforma" Member="Proforma" ThisKey="id" OtherKey="id_cliente" Type="Proforma" />
-      <Association Name="Cliente_Venta" Member="Venta" ThisKey="id" OtherKey="id_cliente" Type="Venta" />
-      <Association Name="Empleado_Cliente" Member="Empleado" ThisKey="id_empleado_registro" OtherKey="id" Type="Empleado" IsForeignKey="true" />
-      <Association Name="UbigeoDistrito_Cliente" Member="UbigeoDistrito" ThisKey="id_ubigeo" OtherKey="id" Type="UbigeoDistrito" IsForeignKey="true" />
-    </Type>
-  </Table>
   <Table Name="dbo.Color" Member="Color">
     <Type Name="Color">
       <Column Name="id" Type="System.Int16" DbType="SmallInt NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
@@ -166,12 +134,12 @@
       <Column Name="id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
       <Column Name="id_ubigeo_distrito" Type="System.String" DbType="Char(6)" CanBeNull="true" />
       <Column Name="id_grado_instruccion" Type="System.Int16" DbType="SmallInt" CanBeNull="true" />
-      <Association Name="Empleado_Cliente" Member="Cliente" ThisKey="id" OtherKey="id_empleado_registro" Type="Cliente" />
       <Association Name="Empleado_Devolucion" Member="Devolucion" ThisKey="id" OtherKey="id_empleado" Type="Devolucion" />
       <Association Name="Empleado_EmpleadoTienda" Member="EmpleadoTienda" ThisKey="id" OtherKey="id_empleado" Type="EmpleadoTienda" />
       <Association Name="Empleado_EmpleadoTurno" Member="EmpleadoTurno" ThisKey="id" OtherKey="id_empleado" Type="EmpleadoTurno" />
       <Association Name="Empleado_Tienda" Member="Tienda" ThisKey="id" OtherKey="id_jefe" Type="Tienda" />
       <Association Name="Empleado_Usuario" Member="Usuario" ThisKey="id" OtherKey="id_empleado" Type="Usuario" />
+      <Association Name="Empleado_Cliente" Member="Cliente" ThisKey="id" OtherKey="id_empleado_registro" Type="Cliente" />
       <Association Name="GradoInstruccion_Empleado" Member="GradoInstruccion" ThisKey="id_grado_instruccion" OtherKey="id" Type="GradoInstruccion" IsForeignKey="true" />
       <Association Name="UbigeoDistrito_Empleado" Member="UbigeoDistrito" ThisKey="id_ubigeo_distrito" OtherKey="id" Type="UbigeoDistrito" IsForeignKey="true" />
     </Type>
@@ -409,8 +377,8 @@
       <Column Name="mensaje" Type="System.String" DbType="VarChar(500)" CanBeNull="true" />
       <Column Name="id_cliente" Type="System.Int32" DbType="Int" CanBeNull="true" />
       <Column Name="id_usuario" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Association Name="Cliente_Proforma" Member="Cliente" ThisKey="id_cliente" OtherKey="id" Type="Cliente" IsForeignKey="true" />
       <Association Name="Usuario_Proforma" Member="Usuario" ThisKey="id_usuario" OtherKey="id" Type="Usuario" IsForeignKey="true" />
+      <Association Name="Cliente_Proforma" Member="Cliente" ThisKey="id_cliente" OtherKey="id" Type="Cliente" IsForeignKey="true" />
     </Type>
   </Table>
   <Table Name="dbo.Proveedor" Member="Proveedor">
@@ -561,10 +529,10 @@
       <Column Name="id" Type="System.String" DbType="Char(6) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
       <Column Name="nombre" Type="System.String" DbType="VarChar(200)" CanBeNull="true" />
       <Column Name="id_ubig_provincia" Type="System.String" DbType="Char(4)" CanBeNull="true" />
-      <Association Name="UbigeoDistrito_Cliente" Member="Cliente" ThisKey="id" OtherKey="id_ubigeo" Type="Cliente" />
       <Association Name="UbigeoDistrito_Empleado" Member="Empleado" ThisKey="id" OtherKey="id_ubigeo_distrito" Type="Empleado" />
       <Association Name="UbigeoDistrito_Proveedor" Member="Proveedor" ThisKey="id" OtherKey="id_ubigeo" Type="Proveedor" />
       <Association Name="UbigeoDistrito_Tienda" Member="Tienda" ThisKey="id" OtherKey="id_ubigeo" Type="Tienda" />
+      <Association Name="UbigeoDistrito_Cliente" Member="Cliente" ThisKey="id" OtherKey="id_ubigeo" Type="Cliente" />
       <Association Name="UbigeoProvincia_UbigeoDistrito" Member="UbigeoProvincia" ThisKey="id_ubig_provincia" OtherKey="id" Type="UbigeoProvincia" IsForeignKey="true" />
     </Type>
   </Table>
@@ -616,8 +584,8 @@
       <Association Name="Venta_VentaProducto" Member="VentaProducto" ThisKey="id" OtherKey="id_venta" Type="VentaProducto" />
       <Association Name="Venta_Devolucion" Member="Devolucion" ThisKey="id" OtherKey="id_venta" Type="Devolucion" />
       <Association Name="Venta_VentaMedioPago" Member="VentaMedioPago" ThisKey="id" OtherKey="id_venta" Type="VentaMedioPago" />
-      <Association Name="Cliente_Venta" Member="Cliente" ThisKey="id_cliente" OtherKey="id" Type="Cliente" IsForeignKey="true" />
       <Association Name="Usuario_Venta" Member="Usuario" ThisKey="id_usuario" OtherKey="id" Type="Usuario" IsForeignKey="true" />
+      <Association Name="Cliente_Venta" Member="Cliente" ThisKey="id_cliente" OtherKey="id" Type="Cliente" IsForeignKey="true" />
     </Type>
   </Table>
   <Table Name="dbo.Usuario" Member="Usuario">
@@ -639,6 +607,38 @@
       <Association Name="Usuario_Venta" Member="Venta" ThisKey="id" OtherKey="id_usuario" Type="Venta" />
       <Association Name="Empleado_Usuario" Member="Empleado" ThisKey="id_empleado" OtherKey="id" Type="Empleado" IsForeignKey="true" />
       <Association Name="Perfil_Usuario" Member="Perfil" ThisKey="id_perfil" OtherKey="id" Type="Perfil" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Cliente" Member="Cliente">
+    <Type Name="Cliente">
+      <Column Name="id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="nroDoc" Type="System.String" DbType="VarChar(11)" CanBeNull="true" />
+      <Column Name="nombre" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="direccion" Type="System.String" DbType="VarChar(200)" CanBeNull="true" />
+      <Column Name="telefono1" Type="System.String" DbType="VarChar(15)" CanBeNull="true" />
+      <Column Name="telefono2" Type="System.String" DbType="VarChar(15)" CanBeNull="true" />
+      <Column Name="email" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="fecNacimiento" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="sexo" Type="System.Char" DbType="Char(1)" CanBeNull="true" />
+      <Column Name="fecAfiliacion" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="contacto" Type="System.String" DbType="VarChar(200)" CanBeNull="true" />
+      <Column Name="puntosGanados" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="puntosUsados" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="puntosActual" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="ultimaCompra" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="totalCompras" Type="System.Int16" DbType="SmallInt" CanBeNull="true" />
+      <Column Name="comentarios" Type="System.String" DbType="VarChar(500)" CanBeNull="true" />
+      <Column Name="id_ubigeo" Type="System.String" DbType="Char(6)" CanBeNull="true" />
+      <Column Name="imagen" Type="System.Data.Linq.Binary" DbType="Image" CanBeNull="true" UpdateCheck="Never" />
+      <Column Name="tipoPersona" Type="System.String" DbType="VarChar(10)" CanBeNull="true" />
+      <Column Name="tipoDocumento" Type="System.String" DbType="Char(3)" CanBeNull="true" />
+      <Column Name="apPaterno" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="apMaterno" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="id_empleado_registro" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Association Name="Cliente_Proforma" Member="Proforma" ThisKey="id" OtherKey="id_cliente" Type="Proforma" />
+      <Association Name="Cliente_Venta" Member="Venta" ThisKey="id" OtherKey="id_cliente" Type="Venta" />
+      <Association Name="Empleado_Cliente" Member="Empleado" ThisKey="id_empleado_registro" OtherKey="id" Type="Empleado" IsForeignKey="true" />
+      <Association Name="UbigeoDistrito_Cliente" Member="UbigeoDistrito" ThisKey="id_ubigeo" OtherKey="id" Type="UbigeoDistrito" IsForeignKey="true" />
     </Type>
   </Table>
 </Database>

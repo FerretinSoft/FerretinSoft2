@@ -108,7 +108,7 @@
 
             <TabItem>
                 <TabItem.Header>
-                    <TextBlock Text="{Binding detallesTabHeader,Mode=OneWay,FallbackValue=Agregar}"/>
+                    <TextBlock Text="{Binding detallesTabHeader,Mode=OneWay,UpdateSourceTrigger=PropertyChanged}"/>
                 </TabItem.Header>
                 <Grid Background="#FFE5E5E5" Margin="0,0,0,0">
                     <Grid.RowDefinitions>
@@ -142,7 +142,10 @@
                             <RowDefinition Height="Auto"></RowDefinition>
                         </Grid.RowDefinitions>
 
-                        <Image HorizontalAlignment="Left" Height="100" VerticalAlignment="Top" Width="100" Source="../Resources/cliente_1.png" Stretch="Fill" Margin="10,9,0,0" Grid.RowSpan="3" Grid.Row="1"/>
+                        <Button Command="{Binding uploadImageCommand}" Width="100" Margin="5" Grid.RowSpan="3" Grid.Row="1" HorizontalAlignment="Left" Height="100" VerticalAlignment="Top">
+                            <Image Source="{Binding clienteImagen,Mode=OneWay,UpdateSourceTrigger=PropertyChanged}" Stretch="Fill">
+                        </Image>
+                        </Button>
                         <Label Content="Núm. Doc:" VerticalContentAlignment="Center" Grid.Column="1" Grid.Row="2"/>
                         <Label Content="Tipo Doc:" Grid.Column="1" Grid.Row="1" VerticalContentAlignment="Center"/>
                         <ComboBox SelectedIndex="{Binding Path=cliente.tipo, Mode=TwoWay, UpdateSourceTrigger=LostFocus, NotifyOnValidationError=True, ValidatesOnDataErrors=True, ValidatesOnExceptions=True}" VerticalContentAlignment="Center" Height="22" Grid.Column="2" Grid.Row="1" Grid.ColumnSpan="2" Margin="0,10,0,9">

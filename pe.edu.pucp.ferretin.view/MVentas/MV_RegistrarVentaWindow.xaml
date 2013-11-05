@@ -140,7 +140,7 @@
 
         <StackPanel Grid.Column="1" Grid.Row="1" >
             <Label Content="Datos Cliente" HorizontalAlignment="Center" FontSize="14" FontWeight="Bold"/>
-            <Image HorizontalAlignment="Center" Height="100" Width="100" Source="../Resources/cliente_1.png" Stretch="Fill"/>
+            <Image Source="{Binding clienteImagen}" HorizontalAlignment="Center" Height="100" Width="100" Stretch="Fill"/>
             <Grid>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="Auto"></ColumnDefinition>
