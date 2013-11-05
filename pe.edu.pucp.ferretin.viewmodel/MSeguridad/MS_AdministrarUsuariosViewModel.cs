@@ -51,6 +51,14 @@ namespace pe.edu.pucp.ferretin.viewmodel.MSeguridad
             }
         }
 
+        public bool _busquedaExitosa = false;
+        public bool busquedaExitosa
+        {
+            get { return _busquedaExitosa; }
+            set { _busquedaExitosa = value; NotifyPropertyChanged("busquedaExitosa"); }
+        }
+        
+
         #region Manejo de los Tabs
         /************************************************/
         public enum tabs
@@ -322,7 +330,7 @@ namespace pe.edu.pucp.ferretin.viewmodel.MSeguridad
             /*Para agregar un usuario nuevo*/
             else
             {
-                if (this._dniEmpleado == "" || usuario.nombre == null || (usuario.Empleado.apPaterno == null && usuario.Empleado.apMaterno ==null ))
+                if (this._dniEmpleado == "" || usuario.nombre == null || (this._busquedaExitosa == false ))
                     MessageBox.Show("Ingrese datos en los campos necesarios, por favor");
                 else
                 {
@@ -411,6 +419,8 @@ namespace pe.edu.pucp.ferretin.viewmodel.MSeguridad
             else
             {
                 MessageBox.Show("Debe ingresar el DNI de algún empleado");
+                busquedaExitosa = true;
+                
             }
         }
 
