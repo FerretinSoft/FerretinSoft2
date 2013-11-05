@@ -113,17 +113,18 @@ namespace pe.edu.pucp.ferretin.controller.MSeguridad
                    select u;
         }
         /*******************************************************/
-        public static IEnumerable<Usuario> buscar(string codigo, string nomUsuario, Perfil perfil, string nombres, string apellidos, int estado)
+        public static IEnumerable<Usuario> buscar(string nomUsuario, Perfil perfil, string nombres, string apellidos, string apellidosMat, int estado)
         {            
             IEnumerable<Usuario> usuarios = listaUsuarios;
-            //Filtro por código
-            //if (codigo!=null) usuarios = usuarios.Where(u => u.codUsuario.ToLower().Contains(codigo.ToLower().Trim()));
+            
             //Filtro por nombre
             usuarios = usuarios.Where(u => u.nombre.ToLower().Contains(nomUsuario.ToLower().Trim()));
             //Filtro por perfil
             usuarios = usuarios.Where(u => (perfil==null) || (perfil.id<=0) || (u.Perfil.id == perfil.id) );
             //Filtro por nombre y apellido
-            usuarios = usuarios.Where(u => u.Empleado.nombre.ToLower().Contains(nombres.ToLower().Trim()) && (u.Empleado.apPaterno.ToLower().Contains(apellidos.ToLower().Trim()) || u.Empleado.apMaterno.ToLower().Contains(codigo.ToLower().Trim())));
+            usuarios = usuarios.Where(u => u.Empleado.nombre.ToLower().Contains(nombres.ToLower().Trim()) && (u.Empleado.apPaterno.ToLower().Contains(apellidos.ToLower().Trim())) && (u.Empleado.apMaterno.ToLower().Contains(apellidosMat.ToLower().Trim())) );
+            //Filtro por código
+            //if (codigo!=null) usuarios = usuarios.Where(u => u.codUsuario.ToLower().Contains(codigo.ToLower().Trim()));           
             //Filtro por estado
             usuarios = usuarios.Where(u => (estado == 0) || (u.estado != null && u.estado == estado - 1));
 

@@ -64,14 +64,14 @@
                     </Button>
 
                     <!-- Aca se encuentra el Grid de la ventana-->
-                    <DataGrid ItemsSource="{Binding Path=listaPerfiles,Mode=OneWay}" x:Name="perfilesGrid" Margin="5,30,5,5" Grid.Row="1" Grid.RowSpan="2" Grid.ColumnSpan="2"  AutoGenerateColumns="False" CanUserAddRows="False" CanUserDeleteRows="False" IsReadOnly="True">
+                    <DataGrid ItemsSource="{Binding Path=listaPerfiles,Mode=OneWay}" x:Name="perfilesGrid" Margin="10,30,0,5" Grid.RowSpan="2" Grid.ColumnSpan="2"  AutoGenerateColumns="False" CanUserAddRows="False" CanUserDeleteRows="False" IsReadOnly="True" Grid.Row="1">
                         <DataGrid.Columns>
                             <!-- Columnas del Grid -->
 
                             <DataGridHyperlinkColumn Width="2.8*" Binding="{Binding Path=nombre}" Header="Perfil">
                                 <DataGridHyperlinkColumn.ElementStyle>
                                     <Style>
-                                        <EventSetter Event="Hyperlink.Click" Handler="perfil_Click"/>
+                                        <EventSetter Event="Hyperlink.Click" Handler="perfil_Click"/>                                        
                                     </Style>
                                 </DataGridHyperlinkColumn.ElementStyle>
                             </DataGridHyperlinkColumn>

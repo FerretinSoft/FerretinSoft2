@@ -122,7 +122,7 @@ namespace pe.edu.pucp.ferretin.viewmodel.MSeguridad
             }
         }
 
-        private Perfil _perfil = new Perfil();
+        public Perfil _perfil = new Perfil();
         public Perfil perfil
         {
             get
@@ -149,7 +149,7 @@ namespace pe.edu.pucp.ferretin.viewmodel.MSeguridad
             }
             set
             {
-                _perfil = value;
+                _perfil = value;                
                 NotifyPropertyChanged("menuPadre");
                 NotifyPropertyChanged("perfil");
             }
