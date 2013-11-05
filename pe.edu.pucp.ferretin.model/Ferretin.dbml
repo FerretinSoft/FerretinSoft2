@@ -586,25 +586,6 @@
       <Association Name="UnidadMedida_Producto" Member="Producto" ThisKey="id" OtherKey="id_unidad_medida" Type="Producto" />
     </Type>
   </Table>
-  <Table Name="dbo.Usuario" Member="Usuario">
-    <Type Name="Usuario">
-      <Column Name="nombre" Type="System.String" DbType="VarChar(255)" CanBeNull="true" />
-      <Column Name="contrasena" Type="System.String" DbType="VarChar(255)" CanBeNull="true" />
-      <Column Name="estado" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="intentosCon" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
-      <Column Name="codUsuario" Type="System.String" DbType="VarChar(255)" CanBeNull="true" />
-      <Column Name="id_empleado" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="id_perfil" Type="System.Int16" DbType="SmallInt" CanBeNull="true" />
-      <Association Name="Usuario_DocumentoCompra" Member="DocumentoCompra" ThisKey="id" OtherKey="id_usuario_aprobacion" Type="DocumentoCompra" />
-      <Association Name="Usuario_DocumentoCompra1" Member="DocumentoCompra1" ThisKey="id" OtherKey="id_usuario_registro" Type="DocumentoCompra" />
-      <Association Name="Usuario_Proforma" Member="Proforma" ThisKey="id" OtherKey="id_usuario" Type="Proforma" />
-      <Association Name="Usuario_Transaccion" Member="Transaccion" ThisKey="id" OtherKey="id_usuario" Type="Transaccion" />
-      <Association Name="Usuario_Venta" Member="Venta" ThisKey="id" OtherKey="id_usuario" Type="Venta" />
-      <Association Name="Empleado_Usuario" Member="Empleado" ThisKey="id_empleado" OtherKey="id" Type="Empleado" IsForeignKey="true" />
-      <Association Name="Perfil_Usuario" Member="Perfil" ThisKey="id_perfil" OtherKey="id" Type="Perfil" IsForeignKey="true" />
-    </Type>
-  </Table>
   <Table Name="dbo.VentaMedioPago" Member="VentaMedioPago">
     <Type Name="VentaMedioPago">
       <Column Name="monto" Type="System.Decimal" DbType="Decimal(10,2)" CanBeNull="true" />
@@ -637,6 +618,27 @@
       <Association Name="Venta_VentaMedioPago" Member="VentaMedioPago" ThisKey="id" OtherKey="id_venta" Type="VentaMedioPago" />
       <Association Name="Cliente_Venta" Member="Cliente" ThisKey="id_cliente" OtherKey="id" Type="Cliente" IsForeignKey="true" />
       <Association Name="Usuario_Venta" Member="Usuario" ThisKey="id_usuario" OtherKey="id" Type="Usuario" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Usuario" Member="Usuario">
+    <Type Name="Usuario">
+      <Column Name="nombre" Type="System.String" DbType="VarChar(255)" CanBeNull="true" />
+      <Column Name="contrasena" Type="System.String" DbType="VarChar(255)" CanBeNull="true" />
+      <Column Name="estado" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="intentosCon" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="codUsuario" Type="System.String" DbType="VarChar(255)" CanBeNull="true" />
+      <Column Name="id_empleado" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="id_perfil" Type="System.Int16" DbType="SmallInt" CanBeNull="true" />
+      <Column Name="logueado" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="ultimoCambioContrasena" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Association Name="Usuario_DocumentoCompra" Member="DocumentoCompra" ThisKey="id" OtherKey="id_usuario_aprobacion" Type="DocumentoCompra" />
+      <Association Name="Usuario_DocumentoCompra1" Member="DocumentoCompra1" ThisKey="id" OtherKey="id_usuario_registro" Type="DocumentoCompra" />
+      <Association Name="Usuario_Proforma" Member="Proforma" ThisKey="id" OtherKey="id_usuario" Type="Proforma" />
+      <Association Name="Usuario_Transaccion" Member="Transaccion" ThisKey="id" OtherKey="id_usuario" Type="Transaccion" />
+      <Association Name="Usuario_Venta" Member="Venta" ThisKey="id" OtherKey="id_usuario" Type="Venta" />
+      <Association Name="Empleado_Usuario" Member="Empleado" ThisKey="id_empleado" OtherKey="id" Type="Empleado" IsForeignKey="true" />
+      <Association Name="Perfil_Usuario" Member="Perfil" ThisKey="id_perfil" OtherKey="id" Type="Perfil" IsForeignKey="true" />
     </Type>
   </Table>
 </Database>
