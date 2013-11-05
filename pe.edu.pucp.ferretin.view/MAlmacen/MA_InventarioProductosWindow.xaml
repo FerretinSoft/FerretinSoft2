@@ -126,7 +126,8 @@
                     <TextBox Text="{Binding Path=producto.stock, Mode=TwoWay,  ValidatesOnExceptions=true, NotifyOnValidationError=true}" HorizontalAlignment="Left" Height="23" Margin="128,175,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="207" Grid.Column="3" IsEnabled="False"/>
                     <TextBox Text="{Binding Path=producto.stockMinimo, Mode=TwoWay,  ValidatesOnExceptions=true, NotifyOnValidationError=true}" HorizontalAlignment="Left" Height="23" Margin="128,206,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="207" Grid.Column="3" IsEnabled="False"/>
                     <Label Content="Últimos movimientos:" HorizontalAlignment="Left" Margin="10,247,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.464,1.231" Grid.Column="3"/>
-                    <DataGrid Grid.Column="3" Margin="10,0,10,10" VerticalAlignment="Bottom" Height="136" IsEnabled="False">
+                    <DataGrid Grid.Column="
+                              3" Margin="10,0,10,10" VerticalAlignment="Bottom" Height="136" IsEnabled="False">
                         <DataGrid.Columns>
                             <DataGridTextColumn Width="2*" Binding="{x:Null}" ClipboardContentBinding="{x:Null}" Header="Fecha"/>
                             <DataGridTextColumn Width="2*" Binding="{x:Null}" ClipboardContentBinding="{x:Null}" Header="Cantidad"/>
