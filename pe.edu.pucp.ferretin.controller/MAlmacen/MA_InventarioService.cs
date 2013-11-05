@@ -106,6 +106,27 @@ namespace pe.edu.pucp.ferretin.controller.MAlmacen
             }
         }
 
+        private static IEnumerable<UnidadMedida> _listaUnidadMedida;
+        public static IEnumerable<UnidadMedida> listaUnidadMedida
+        {
+            get
+            {
+                if (_listaUnidadMedida == null)
+                {
+                    _listaUnidadMedida = db.UnidadMedida;
+                }
+                //Usando concurrencia pesimista:
+                ///La lista de productos se actualizara para ver los cambios
+                ///Si quisiera usar concurrencia optimista quito la siguiente linea
+                db.Refresh(RefreshMode.OverwriteCurrentValues, _listaUnidadMedida);
+                return _listaUnidadMedida;
+            }
+            set
+            {
+                _listaUnidadMedida = value;
+            }
+        }
+
 
         //todas las opearciones se basan en esta lista de productoAlmacen
         private static IEnumerable<ProductoAlmacen> _listaProductoAlmacen;
@@ -182,7 +203,12 @@ namespace pe.edu.pucp.ferretin.controller.MAlmacen
                         }
                 }
 
-                
+                foreach (UnidadMedida ume in listaUnidadMedida) 
+                {
+                    if (p.id_unidad_medida.Equals(ume.id)) {
+                        p.unidadMedida = ume.nombre;
+                    }
+                }
                     
                 foreach (Material ma in listaMaterial)
                 {
