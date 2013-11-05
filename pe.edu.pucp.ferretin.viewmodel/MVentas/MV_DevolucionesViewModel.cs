@@ -18,14 +18,12 @@ namespace pe.edu.pucp.ferretin.viewmodel.MVentas
         public MV_DevolucionesViewModel()
         {
 
-            devolucion = new Devolucion();
+            _devolucion = new Devolucion();
             {
-                devolucion.fecEmision = DateTime.Now;
-                devolucion.codigo = MV_DevolucionService.obtenerCodDevolucion();
 
             };
 
-            notaCredito = new NotaCredito();
+            _notaCredito = new NotaCredito();
             {
 
             }
@@ -317,12 +315,11 @@ namespace pe.edu.pucp.ferretin.viewmodel.MVentas
 
         public void nuevaDevolucion(Object id)
         {
-           this.listaProductosComprados = null;
-           this.devolucion = new Devolucion();
-           devolucion.fecEmision = DateTime.Now;
-           devolucion.codigo = MV_DevolucionService.obtenerCodDevolucion();
+           this.listaProductosComprados = null;           
            devolucion.id_empleado = usuarioLogueado.Empleado.id;
            this.selectedTab = 2;
+           devolucion.fecEmision = DateTime.Now;
+           devolucion.codigo = MV_DevolucionService.obtenerCodDevolucion();
            NotifyPropertyChanged("devolucion");
            
         }
