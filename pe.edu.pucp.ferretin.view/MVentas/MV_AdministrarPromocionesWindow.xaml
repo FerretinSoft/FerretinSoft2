@@ -1,8 +1,12 @@
 ﻿<Window x:Class="pe.edu.pucp.ferretin.view.MVentas.MV_AdministrarPromocionesWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-         Title="Administrar Promociones" Icon="../Resources/ferretin_ico.ico" Width="839.642">
-    <Grid>
+        xmlns:viewmodel="clr-namespace:pe.edu.pucp.ferretin.viewmodel.MVentas;assembly=pe.edu.pucp.ferretin.viewmodel"
+        Title="Administrar Promociones" Icon="../Resources/ferretin_ico.ico" Width="839.642">
+    <Window.Resources>
+        <viewmodel:MV_PromocionesViewModel x:Key="MV_PromocionesViewModel"/>
+    </Window.Resources>
+    <Grid DataContext="{Binding Source={StaticResource MV_PromocionesViewModel}}" >
         <Grid.Background>
             <ImageBrush ImageSource="../Resources/texture_3_100.png" TileMode="FlipX" 
             Viewport="0,0,100,100" ViewportUnits="Absolute"/>
@@ -36,12 +40,16 @@
                             <Label Content="Estado:" Grid.Row="0" Grid.Column="2" VerticalContentAlignment="Center"/>
                             <Label Content="Fecha Hasta:" Grid.Row="3" Grid.Column="2" VerticalContentAlignment="Center"/>
 
-                            <TextBox VerticalAlignment="Center" Grid.Row="0" Grid.Column="1" Margin="0,8,25,8"/>
-                            <DatePicker VerticalAlignment="Center" Grid.Column="1" Grid.Row="2"  BorderThickness="0"/>
-                            <ComboBox VerticalAlignment="Center" Grid.Row="0" Grid.Column="3" Margin="0,0,5,0" />
-                            <DatePicker VerticalAlignment="Center" Grid.Column="3" Grid.Row="2" BorderThickness="0"/>
+                            <TextBox Text="{Binding codPromSearch,Mode=TwoWay}" VerticalAlignment="Center" Grid.Row="0" Grid.Column="1" Margin="0,8,25,8"/>
+                            <DatePicker SelectedDate="{Binding fechaDesdeSearch,Mode=TwoWay}" VerticalAlignment="Center" Grid.Column="1" Grid.Row="2"  BorderThickness="0"/>
+                            <ComboBox SelectedIndex="{Binding estadoSearch,Mode=TwoWay}" VerticalAlignment="Center" Grid.Row="0" Grid.Column="3" Margin="0,0,5,0">
+                                <ComboBoxItem Content="Todos"/>
+                                <ComboBoxItem Content="Activo"/>
+                                <ComboBoxItem Content="Inactivo"/>
+                            </ComboBox>
+                            <DatePicker SelectedDate="{Binding fechaHastaSearch,Mode=TwoWay}" VerticalAlignment="Center" Grid.Column="3" Grid.Row="2" BorderThickness="0"/>
 
-                            <Button x:Name="buscarasProformasBtn" Grid.Row="3" BorderThickness="0" Grid.Column="5" Width="25" Height="25" VerticalAlignment="Center">
+                            <Button Command="{Binding actualizarListaCommand}" Grid.Row="3" BorderThickness="0" Grid.Column="5" Width="25" Height="25" VerticalAlignment="Center">
                                 <Button.Background>
                                     <ImageBrush ImageSource="../Resources/refresh2_48.png"/>
                                 </Button.Background>
@@ -54,25 +62,15 @@
                                 <ImageBrush ImageSource="../Resources/add_20.png"/>
                             </Button.Background>
                         </Button>
-                        <Button x:Name="detallePromocionBtn" Content="" VerticalAlignment="Top" Width="20" Margin="0,0,2,-1" Click="editarPromocionBtn_Click" Height="20">
-                            <Button.Background>
-                                <ImageBrush ImageSource="../Resources/edit_20.png"/>
-                            </Button.Background>
-                        </Button>
-                        <Button Content="" VerticalAlignment="Bottom" Width="20" Margin="0,0,2,-1" Height="20">
-                            <Button.Background>
-                                <ImageBrush ImageSource="../Resources/trash_20.png"/>
-                            </Button.Background>
-                        </Button>
-
                     </ToolBar>
-                    <DataGrid Margin="10" Grid.Row="1" Grid.RowSpan="1" x:Name="promocionesGrid" IsManipulationEnabled="False" CanUserSortColumns="True" AutoGenerateColumns="False" CanUserAddRows="False" CanUserDeleteRows="False" ItemsSource="{Binding Path=ListaPromociones}">
+                    <DataGrid ItemsSource="{Binding listaPromociones}" Margin="10" Grid.Row="1" Grid.RowSpan="1" IsManipulationEnabled="False" CanUserSortColumns="True" AutoGenerateColumns="False" CanUserAddRows="False" CanUserDeleteRows="False" >
                         <DataGrid.Columns>
-                            <DataGridHyperlinkColumn Width="1.2*" Binding="{Binding Path=Codigo}" ContentBinding="{x:Null}" ClipboardContentBinding="{x:Null}" Header="Cód. Promoción"/>
-                            <DataGridTextColumn Width="1.8*" Binding="{Binding Path=Nombre}" ClipboardContentBinding="{x:Null}" Header="Nombre"/>
-                            <DataGridTextColumn Width="1.1*" Binding="{Binding Path=FechaDesde}" ClipboardContentBinding="{x:Null}" Header="Fecha Desde"/>
-                            <DataGridTextColumn Width="1.1*" Binding="{Binding Path=FechaHasta}" ClipboardContentBinding="{x:Null}" Header="Fecha Hasta"/>
-                            <DataGridHyperlinkColumn Width="1*" Binding="{Binding Path=Estado}" ContentBinding="{x:Null}" ClipboardContentBinding="{x:Null}" Header="Estado"/>
+                            <DataGridHyperlinkColumn Width="0.8*" Binding="{Binding Path=codigo}" Header="Cód. Promoción" IsReadOnly="True"/>
+                            <DataGridTextColumn Width="1.8*" Binding="{Binding Path=nombre}" Header="Nombre" IsReadOnly="True"/>
+                            <DataGridTextColumn Width="1.1*" Binding="{Binding Path=fechaDesde}" Header="Fecha Desde" IsReadOnly="True"/>
+                            <DataGridTextColumn Width="1.1*" Binding="{Binding Path=fechaHasta}" Header="Fecha Hasta" IsReadOnly="True"/>
+                            <DataGridTextColumn Width="0.8*" Binding="{Binding Path=stockActual}" Header="Stock Actual" IsReadOnly="True"/>
+                            <DataGridCheckBoxColumn Width="0.5*" Binding="{Binding Path=estadoBool}" Header="Activo" IsReadOnly="True"/>
                         </DataGrid.Columns>
                     </DataGrid>
                 </Grid>
