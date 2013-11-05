@@ -6,7 +6,7 @@
     <Window.Resources>
         <viewmodel:MC_ProveedoresViewModel x:Key="MC_ProveedoresViewModel"/>
     </Window.Resources>
-    <Grid DataContext="{Binding Source={StaticResource MC_ProveedoresViewModel}}">
+    <Grid x:Name="main" DataContext="{Binding Source={StaticResource MC_ProveedoresViewModel}}">
         <TabControl SelectedIndex="{Binding currentIndexTab}">
             <TabItem Header="Búsqueda">
                 <Grid Background="#FFE5E5E5">
