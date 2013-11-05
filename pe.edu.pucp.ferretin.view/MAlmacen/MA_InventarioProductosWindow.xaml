@@ -62,9 +62,9 @@
 
 
                             <DataGridTextColumn Width="3*" Binding="{Binding Path=nombre}"  Header="Nombre"/>
-                            <DataGridTextColumn Width="2*"  Binding="{Binding Path=listaCategoria}"  Header="Categorías"/>
+                            <DataGridTextColumn Width="2*"  Binding="{Binding Path=cadenaCategoria}"  Header="Categorías"/>
                             <DataGridTextColumn Width="1.2*" Binding="{Binding Path=stock}" Header="Stock"/>
-                            <DataGridTextColumn Width="1.2*" Binding="{Binding Path=stockMin}" Header="Stock Min."/>
+                            <DataGridTextColumn Width="1.2*" Binding="{Binding Path=stockMinimo}" Header="Stock Min."/>
                             <DataGridTextColumn Width="2*" Binding="{Binding Path=almacen}" Header="Almacen"/>
 
                         </DataGrid.Columns>
@@ -97,17 +97,11 @@
                     <TextBox Text="{Binding Path=producto.descripcion, Mode=TwoWay}" HorizontalAlignment="Left" Height="53" Margin="62,185,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="246" Grid.Column="2" IsEnabled="False"/>
                     <Label Content="Material Secundario:" HorizontalAlignment="Left" Margin="10,278,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.464,1.231" Grid.ColumnSpan="3"/>
                     <Label Content="Material Base:" HorizontalAlignment="Left" Margin="10,243,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.464,1.231" Grid.ColumnSpan="3"/>
-                    <ComboBox SelectedIndex="{Binding Path=producto.materialBase, Mode=TwoWay,  ValidatesOnExceptions=true, NotifyOnValidationError=true}" HorizontalAlignment="Left" Margin="106,247,0,0" VerticalAlignment="Top" Width="202" Grid.Column="2" IsEnabled="False">
-                        <ComboBoxItem Content="Cerámico"/>
-                        <ComboBoxItem Content="Textil"/>
-                        <ComboBoxItem Content="Acero Inox."/>
-                        <ComboBoxItem Content="Madera"/>
+                    <ComboBox  ItemsSource="{Binding Path=producto.materialBase1}" HorizontalAlignment="Left" Margin="106,247,0,0" VerticalAlignment="Top" Width="202" Grid.Column="2" IsEnabled="False">
+                      
                     </ComboBox>
-                    <ComboBox SelectedIndex="{Binding Path=producto.materialBase, Mode=TwoWay,  ValidatesOnExceptions=true, NotifyOnValidationError=true}" HorizontalAlignment="Left" Margin="106,282,0,0" VerticalAlignment="Top" Width="202" Grid.Column="2" IsEnabled="False">
-                        <ComboBoxItem Content="Cerámico"/>
-                        <ComboBoxItem Content="Textil"/>
-                        <ComboBoxItem Content="Acero Inox."/>
-                        <ComboBoxItem Content="Madera"/>
+                    <ComboBox ItemsSource="{Binding Path=producto.materialBase2}" HorizontalAlignment="Left" Margin="106,282,0,0" VerticalAlignment="Top" Width="202" Grid.Column="2" IsEnabled="False">
+                   
                     </ComboBox>
                     <Label Content="Producto Activo:" HorizontalAlignment="Left" Margin="10,44,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.464,1.231" Grid.Column="3"/>
                     <RadioButton Content="Sí" Grid.Column="3" HorizontalAlignment="Left" Margin="128,50,0,0" VerticalAlignment="Top" IsChecked="True" IsEnabled="False"/>
@@ -130,9 +124,10 @@
                     <Label Content="Stock Mínimo:" HorizontalAlignment="Left" Margin="10,207,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.464,1.231" Grid.Column="3"/>
                     <Label Content="Stock Actual:" HorizontalAlignment="Left" Margin="10,173,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.464,1.231" Grid.Column="3"/>
                     <TextBox Text="{Binding Path=producto.stock, Mode=TwoWay,  ValidatesOnExceptions=true, NotifyOnValidationError=true}" HorizontalAlignment="Left" Height="23" Margin="128,175,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="207" Grid.Column="3" IsEnabled="False"/>
-                    <TextBox Text="{Binding Path=producto.stockMin, Mode=TwoWay,  ValidatesOnExceptions=true, NotifyOnValidationError=true}" HorizontalAlignment="Left" Height="23" Margin="128,206,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="207" Grid.Column="3" IsEnabled="False"/>
+                    <TextBox Text="{Binding Path=producto.stockMinimo, Mode=TwoWay,  ValidatesOnExceptions=true, NotifyOnValidationError=true}" HorizontalAlignment="Left" Height="23" Margin="128,206,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="207" Grid.Column="3" IsEnabled="False"/>
                     <Label Content="Últimos movimientos:" HorizontalAlignment="Left" Margin="10,247,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.464,1.231" Grid.Column="3"/>
-                    <DataGrid Grid.Column="3" Margin="10,0,10,10" VerticalAlignment="Bottom" Height="136" IsEnabled="False">
+                    <DataGrid Grid.Column="
+                              3" Margin="10,0,10,10" VerticalAlignment="Bottom" Height="136" IsEnabled="False">
                         <DataGrid.Columns>
                             <DataGridTextColumn Width="2*" Binding="{x:Null}" ClipboardContentBinding="{x:Null}" Header="Fecha"/>
                             <DataGridTextColumn Width="2*" Binding="{x:Null}" ClipboardContentBinding="{x:Null}" Header="Cantidad"/>
@@ -140,16 +135,14 @@
                         </DataGrid.Columns>
                     </DataGrid>
                     <Label Content="Unidad de medida:" HorizontalAlignment="Left" Margin="88,103,0,0" VerticalAlignment="Top" Grid.Column="2"/>
-                    <ComboBox SelectedIndex="{Binding Path=producto.unidadMedida, Mode=TwoWay,  ValidatesOnExceptions=true, NotifyOnValidationError=true}" HorizontalAlignment="Left" Margin="203,105,0,0" VerticalAlignment="Top" Width="105" Height="22" Grid.Column="2" IsEnabled="False">
-                        <ComboBoxItem Content="Kg"/>
-                        <ComboBoxItem Content="Metro"/>
-                        <ComboBoxItem Content="Unidad" IsSelected="True"/>
+                    <ComboBox  ItemsSource="{Binding Path=producto.unidadMedida}" HorizontalAlignment="Left" Margin="203,105,0,0" VerticalAlignment="Top" Width="105" Height="22" Grid.Column="2" IsEnabled="False">
+                       
                     </ComboBox>
                     <Label Content="Seleccione tienda:" HorizontalAlignment="Left" Margin="10,13,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.464,1.231" Grid.Column="3"/>
-                    <ComboBox SelectedIndex="{Binding Path=producto.tienda, Mode=TwoWay,  ValidatesOnExceptions=true, NotifyOnValidationError=true}" HorizontalAlignment="Left" Margin="128,17,0,0" VerticalAlignment="Top" Width="207" Height="22" Grid.Column="3">
+                    <ComboBox ItemsSource="{Binding Path=producto.almacen}" HorizontalAlignment="Left" Margin="128,17,0,0" VerticalAlignment="Top" Width="207" Height="22" Grid.Column="3">
                         
                     </ComboBox>
-                    <TextBox Text="{Binding Path=producto.listaCategoria, Mode=TwoWay,  ValidatesOnExceptions=true, NotifyOnValidationError=true}" HorizontalAlignment="Left" Height="23" Margin="157,76,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="151" Grid.Column="2" IsEnabled="False"/>
+                    <TextBox Text="{Binding Path=producto.cadenaCategoria, Mode=TwoWay}" HorizontalAlignment="Left" Height="23" Margin="157,76,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="151" Grid.Column="2" IsEnabled="False"/>
                 </Grid>
             </TabItem>
         </TabControl>
