@@ -1,14 +1,18 @@
 ﻿<Window x:Class="pe.edu.pucp.ferretin.view.MVentas.MV_AdministrarValesWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:viewmodel="clr-namespace:pe.edu.pucp.ferretin.viewmodel.MVentas;assembly=pe.edu.pucp.ferretin.viewmodel"
         Title="Administrar Vales" Icon="../Resources/ferretin_ico.ico" MinWidth="600" Width="663" MinHeight="465">
-    <Grid>
+    <Window.Resources>
+        <viewmodel:MV_ValesViewModel x:Key="MV_ValesViewModel"/>
+    </Window.Resources>
+    <Grid x:Name="main" DataContext="{Binding Source={StaticResource MV_ValesViewModel}}" >
         <Grid.Background>
             <ImageBrush ImageSource="../Resources/texture_3_100.png" TileMode="FlipX" 
             Viewport="0,0,100,100" ViewportUnits="Absolute"/>
         </Grid.Background>
-        <TabControl Margin="0">
-            <TabItem Header="Búsqueda" x:Name="busquedaValeTab">
+        <TabControl SelectedIndex="{Binding selectedTab}" x:Name="ValesTab">
+            <TabItem Header="Búsqueda">
                 <Grid Background="#FFE5E5E5">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto" />
@@ -21,7 +25,9 @@
                                 <ColumnDefinition Width="Auto"></ColumnDefinition>
                                 <ColumnDefinition Width="100"></ColumnDefinition>
                                 <ColumnDefinition Width="Auto"></ColumnDefinition>
-                                <ColumnDefinition></ColumnDefinition>
+                                <ColumnDefinition Width="110"></ColumnDefinition>
+                                <ColumnDefinition Width="30"></ColumnDefinition>
+                                <ColumnDefinition Width="200*"></ColumnDefinition>
                                 <ColumnDefinition Width="Auto"></ColumnDefinition>
                             </Grid.ColumnDefinitions>
                             <Grid.RowDefinitions>
@@ -31,12 +37,25 @@
                             <Label Content="Cód. Lote:" Grid.Column="0" VerticalContentAlignment="Center"/>
                             <Label Content="Empresa :" Grid.Column="2" VerticalContentAlignment="Center"/>
                             <Label Content="Fecha desde:" Grid.Column="0" Grid.Row="1" VerticalContentAlignment="Center"/>
-                            <DatePicker VerticalAlignment="Center" Grid.Column="1" Grid.Row="1"  BorderThickness="0" />
-                            <TextBox VerticalAlignment="Center" Grid.Column="1" Margin="0,0,7,0"/>
+                            <DatePicker SelectedDate="{Binding Path=searchFechaInicio}" VerticalAlignment="Center" Grid.Column="1" Grid.Row="1"  BorderThickness="0" />
+                            <TextBox Text="{Binding Path=searchCodLote}" VerticalAlignment="Center" Grid.Column="1" Margin="0,0,7,0"/>
                             <Label Content="Fecha hasta:" Grid.Column="2" Grid.Row="1" VerticalContentAlignment="Center"/>
-                            <DatePicker VerticalAlignment="Center" Grid.Column="3" Grid.Row="1"  BorderThickness="0" Width="110" HorizontalAlignment="Left"/>
-                            <TextBox VerticalAlignment="Center" HorizontalAlignment="Stretch" Grid.Column="3" Margin="0,0,10,0"/>
-                            <Button Grid.Row="1" x:Name="buscarClienteBtn" Width="32" Height="32" Grid.Column="4" BorderThickness="0">
+                            <DatePicker SelectedDate="{Binding Path=searchFechaFin}" VerticalAlignment="Center" Grid.Column="3" Grid.Row="1"  BorderThickness="0" Width="100" HorizontalAlignment="Left" Margin="0,5"/>
+                            <TextBox Text="{Binding Path=searchNroDocCliente, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Center" HorizontalAlignment="Stretch" Grid.Column="3" Margin="0,0,10,0">
+                                <TextBox.InputBindings>
+                                    <KeyBinding Key="Enter" Command="{Binding cargarClienteCommand}" />
+                                </TextBox.InputBindings>
+                            </TextBox>
+                            <Button Click="Button_Click" x:Name="buscarVendedorBtn" Width="20" Height="20" Grid.Column="4" BorderThickness="0" RenderTransformOrigin="-1.25,0.35">
+                                <Button.Background>
+                                    <ImageBrush ImageSource="../Resources/search1_20.png"/>
+                                </Button.Background>
+                                
+                            </Button>
+                            <TextBox Text="{Binding Path=nombreCliente,Mode=OneWay}" IsEnabled="False" Grid.Row="0" Grid.Column="5" Grid.ColumnSpan="2" VerticalAlignment="Center" Margin="0,0,5,0">
+
+                            </TextBox>
+                            <Button Grid.Row="1" x:Name="buscarClienteBtn" Width="32" Height="32" Grid.Column="6" BorderThickness="0">
                                 <Button.Background>
                                     <ImageBrush ImageSource="../Resources/refresh2_48.png"/>
                                 </Button.Background>
@@ -52,14 +71,14 @@
                         </Button>
 
                     </ToolBar>
-                    <DataGrid Grid.Row="2" Margin="5,5">
+                    <DataGrid Grid.Row="2" Margin="5,5" ItemsSource="{Binding Path=listaLoteVale}"  AutoGenerateColumns="False">
                         <DataGrid.Columns>
-                            <DataGridHyperlinkColumn Width="1.5*" Binding="{x:Null}" ContentBinding="{x:Null}" ClipboardContentBinding="{x:Null}" Header="Cód. Lote"/>
-                            <DataGridHyperlinkColumn Width="2.5*" Binding="{x:Null}" ContentBinding="{x:Null}" ClipboardContentBinding="{x:Null}" Header="Empresa"/>
-                            <DataGridTextColumn Width="2*" Binding="{x:Null}" ClipboardContentBinding="{x:Null}" Header="Fecha Emisión"/>
-                            <DataGridTextColumn Width="2*" Binding="{x:Null}" ClipboardContentBinding="{x:Null}" Header="Cantidad"/>
-                            <DataGridTextColumn Width="2*" Binding="{x:Null}" ClipboardContentBinding="{x:Null}" Header="Moneda"/>
-                            <DataGridTextColumn Width="1.5*" Binding="{x:Null}" ClipboardContentBinding="{x:Null}" Header="Monto"/>
+                            <DataGridHyperlinkColumn Width="1.5*" Binding="{Binding Path=codigo}" ContentBinding="{x:Null}" ClipboardContentBinding="{x:Null}" Header="Cód. Lote"/>
+                            <DataGridTextColumn Width="2.5*" Binding="{Binding Path=Cliente.nombreCompleto}" ClipboardContentBinding="{x:Null}" Header="Empresa"/>
+                            <DataGridTextColumn Width="2*" Binding="{Binding Path=fechaEmision}" ClipboardContentBinding="{x:Null}" Header="Fecha Emisión"/>
+                            <DataGridTextColumn Width="2*" Binding="{Binding Path=cantidad}" ClipboardContentBinding="{x:Null}" Header="Cantidad"/>
+                            <DataGridTextColumn Width="2*" Binding="{Binding Path=moneda}" ClipboardContentBinding="{x:Null}" Header="Moneda"/>
+                            <DataGridTextColumn Width="1.5*" Binding="{Binding Path=monto}" ClipboardContentBinding="{x:Null}" Header="Monto"/>
                         </DataGrid.Columns>
                     </DataGrid>
                     <StackPanel x:Name="seleccionarListaPanel" Orientation="Horizontal" Margin="291,5" Grid.Row="1" HorizontalAlignment="Center" Width="0"/>

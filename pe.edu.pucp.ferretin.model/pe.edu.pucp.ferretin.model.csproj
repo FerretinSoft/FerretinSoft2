@@ -63,6 +63,8 @@
     <Compile Include="MAlmacen\Producto.cs" />
     <Compile Include="MVentas\Devolucion.cs" />
     <Compile Include="MVentas\DevolucionProducto.cs" />
+    <Compile Include="MVentas\LoteVale.cs" />
+    <Compile Include="MVentas\Vale.cs" />
     <Compile Include="MVentas\Venta.cs" />
     <Compile Include="MVentas\VentaMedioPago.cs" />
     <Compile Include="MVentas\VentaProducto.cs" />
