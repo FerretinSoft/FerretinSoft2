@@ -20,7 +20,20 @@ namespace pe.edu.pucp.ferretin.viewmodel.MCompras
         }
         #endregion
 
-     
+        public IEnumerable<Rubro> listaRubros
+        {
+            get
+            {
+                //Creo una nueva secuencia
+                var sequence = Enumerable.Empty<Rubro>();
+                //Primero agrego un item de Todos para que salga al inicio
+                //Pongo el ID en 0 para que al buscar, no filtre nada cuando se selecciona todos
+                IEnumerable<Rubro> items = new Rubro[] { new Rubro { id= 0, nombre="Todos"} };
+                //Luego concateno el itemcon los elementos del combobox
+                return items.Concat(MC_RubroService.rubro);
+            }
+
+        }
 
         #region lista de Proveedores
         private Proveedor _proveedor;
@@ -62,8 +75,8 @@ namespace pe.edu.pucp.ferretin.viewmodel.MCompras
         public String _searchRazonSoc = "";
         public String searchRazonSoc { get { return _searchRazonSoc; } set { _searchRazonSoc = value; NotifyPropertyChanged("searchRazonSoc"); } }
 
-        public String _searchRubro = "";
-        public String searchRubro { get { return _searchRubro; } set { _searchRubro = value; NotifyPropertyChanged("searchRubro"); } }
+        public Rubro _searchRubro = null;
+        public Rubro searchRubro { get { return _searchRubro; } set { _searchRubro = value; NotifyPropertyChanged("searchRubro"); } }
 
        
         #endregion

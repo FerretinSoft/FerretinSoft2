@@ -55,6 +55,7 @@
     <Compile Include="MCompras\MC_DocumentoCompraService.cs" />
     <Compile Include="MCompras\MC_ProveedorService.cs" />
     <Compile Include="MCompras\MC_SharedService.cs" />
+    <Compile Include="MCompras\MC_RubroService.cs" />
     <Compile Include="MRecursosHumanos\MR_SharedService.cs" />
     <Compile Include="MRecursosHumanos\MR_CargTieService.cs" />
     <Compile Include="MRecursosHumanos\MR_ComunService.cs" />

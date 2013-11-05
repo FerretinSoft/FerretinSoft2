@@ -1,7 +1,7 @@
 ﻿<Window x:Class="pe.edu.pucp.ferretin.view.MCompras.MC_AdministrarProveedorWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-          xmlns:viewmodel="clr-namespace:pe.edu.pucp.ferretin.viewmodel.MCompras;assembly=pe.edu.pucp.ferretin.viewmodel"
+        xmlns:viewmodel="clr-namespace:pe.edu.pucp.ferretin.viewmodel.MCompras;assembly=pe.edu.pucp.ferretin.viewmodel"
        Title="Proveedores" Height="580" Width="900" Icon="/Resources/ferretin_ico.ico" ResizeMode="CanMinimize" WindowStartupLocation="CenterScreen">
     <Window.Resources>
         <viewmodel:MC_ProveedoresViewModel x:Key="MC_ProveedoresViewModel"/>
@@ -20,10 +20,9 @@
                     <TextBox Text="{Binding searchRuc, Mode=TwoWay}" HorizontalAlignment="Left" Height="20" Margin="65,41,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Grid.ColumnSpan="2"/>
                     <TextBox Text="{Binding searchRazonSoc, Mode=TwoWay}" HorizontalAlignment="Left" Height="20" Margin="210.105,41,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="250" Grid.Column="1"/>
                     <Label Content="Rubro:" HorizontalAlignment="Left" Margin="477.105,35,0,0" VerticalAlignment="Top" Grid.Column="1"/>
-                    <ComboBox SelectedIndex="{Binding searchRubro, Mode=TwoWay}" HorizontalAlignment="Left" Margin="530.105,39,0,0" VerticalAlignment="Top" Height="20" Width="120" RenderTransformOrigin="1.625,5.182" Grid.Column="1">
-                        <ListBoxItem Content="Cemento"/>
-                        <ListBoxItem Content="Electrificación"/>
+                    <ComboBox ItemsSource="{Binding listaRubros}" DisplayMemberPath="nombre"  SelectedItem="{Binding searchRubro,Mode=TwoWay}" HorizontalAlignment="Left" Margin="530.105,39,0,0" VerticalAlignment="Top" Height="20" Width="120" RenderTransformOrigin="1.625,5.182" Grid.Column="1">
                     </ComboBox>
+
                     <Button Command="{Binding actualizarListaProveedoresCommand}"  HorizontalAlignment="Left" Margin="729.105,33,0,0" VerticalAlignment="Top" Width="32" Height="32" RenderTransformOrigin="0.3,-0.35" Grid.Column="1">
                         <Button.Background>
                             <ImageBrush ImageSource="../Resources/refresh2_48.png"/>
