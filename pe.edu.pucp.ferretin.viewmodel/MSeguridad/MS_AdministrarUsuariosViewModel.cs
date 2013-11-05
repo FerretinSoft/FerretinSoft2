@@ -17,8 +17,8 @@ namespace pe.edu.pucp.ferretin.viewmodel.MSeguridad
     public class MS_AdministrarUsuariosViewModel : ViewModelBase
     {
         #region Valores para el cuadro de Búsqueda
-        private String _searchCodigo = "";
-        public String searchCodigo { get { return _searchCodigo; } set { _searchCodigo = value; } }
+        private String _searchApellidosMat = "";
+        public String searchApellidosMat { get { return _searchApellidosMat; } set { _searchApellidosMat = value; } }
 
         private String _searchNombreUsuario = "";
         public String searchNombreUsuario { get { return _searchNombreUsuario; } set { _searchNombreUsuario = value; } }
@@ -50,6 +50,14 @@ namespace pe.edu.pucp.ferretin.viewmodel.MSeguridad
                 return statusTab == tabs.AGREGAR ? true : false;
             }
         }
+
+        public bool _busquedaExitosa = false;
+        public bool busquedaExitosa
+        {
+            get { return _busquedaExitosa; }
+            set { _busquedaExitosa = value; NotifyPropertyChanged("busquedaExitosa"); }
+        }
+        
 
         #region Manejo de los Tabs
         /************************************************/
@@ -156,7 +164,7 @@ namespace pe.edu.pucp.ferretin.viewmodel.MSeguridad
         {
             get
             {
-                _listaUsuarios = MS_UsuarioService.buscar(searchCodigo, searchNombreUsuario, searchPerfil, searchNombres, searchApellidos, searchEstado);
+                _listaUsuarios = MS_UsuarioService.buscar(searchNombreUsuario, searchPerfil, searchNombres, searchApellidos, searchApellidosMat, searchEstado);
                 return _listaUsuarios;
             }
             set
@@ -322,22 +330,28 @@ namespace pe.edu.pucp.ferretin.viewmodel.MSeguridad
             /*Para agregar un usuario nuevo*/
             else
             {
-                /*valores por defecto */
-                usuario.contrasena = MS_UsuarioService.encrypt("ferretinSoft");                
-                List<Parametro>  listaParametros;
-                listaParametros = MS_ParametroService.obtenerListaParametros().ToList();
-                usuario.intentosCon = Convert.ToInt16(listaParametros[0].valor);
-                /**********************/
-
-                if (!MS_UsuarioService.insertarUsuario(usuario))
-                {
-                    MessageBox.Show("No se pudo agregar, el usuario ya existe");
-                }
+                if (this._dniEmpleado == "" || usuario.nombre == null || (this._busquedaExitosa == false ))
+                    MessageBox.Show("Ingrese datos en los campos necesarios, por favor");
                 else
                 {
-                    MessageBox.Show("El usuario fue agregado con éxito");
-                    this.statusTab = tabs.BUSQUEDA;
-                    listaUsuarios = MS_UsuarioService.listaUsuarios;
+
+                    /*valores por defecto */
+                    usuario.contrasena = MS_UsuarioService.encrypt("ferretinSoft");
+                    List<Parametro> listaParametros;
+                    listaParametros = MS_ParametroService.obtenerListaParametros().ToList();
+                    usuario.intentosCon = Convert.ToInt16(listaParametros[0].valor);
+                    /**********************/
+
+                    if (!MS_UsuarioService.insertarUsuario(usuario))
+                    {
+                        MessageBox.Show("No se pudo agregar, el usuario ya existe");
+                    }
+                    else
+                    {
+                        MessageBox.Show("El usuario fue agregado con éxito");
+                        this.statusTab = tabs.BUSQUEDA;
+                        listaUsuarios = MS_UsuarioService.listaUsuarios;
+                    }
                 }
             }
                       
@@ -405,6 +419,8 @@ namespace pe.edu.pucp.ferretin.viewmodel.MSeguridad
             else
             {
                 MessageBox.Show("Debe ingresar el DNI de algún empleado");
+                busquedaExitosa = true;
+                
             }
         }
 

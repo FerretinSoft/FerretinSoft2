@@ -74,6 +74,7 @@
     <Compile Include="MVentas\MV_NotaCreditoService.cs" />
     <Compile Include="MVentas\MV_PromocionService.cs" />
     <Compile Include="MVentas\MV_SharedService.cs" />
+    <Compile Include="MVentas\MV_ValeService.cs" />
     <Compile Include="MVentas\MV_VentaService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="MSeguridad\MS_TiendaService.cs" />

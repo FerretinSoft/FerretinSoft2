@@ -419,6 +419,7 @@ namespace pe.edu.pucp.ferretin.viewmodel.MVentas
             notaCredito.fechaEmision = DateTime.Now;
             notaCredito.importe = devolucion.total;
             notaCredito.codigo = devolucion.codigo;
+            devolucion.subTotal = devolucion.total;
            
 
                     if (!MV_DevolucionService.insertarDevolucion(devolucion))

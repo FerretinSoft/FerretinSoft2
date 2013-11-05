@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Input;
 
 namespace pe.edu.pucp.ferretin.viewmodel.MVentas
@@ -144,7 +145,7 @@ namespace pe.edu.pucp.ferretin.viewmodel.MVentas
                 }
             }
         }
-        private String _detallesTabHeader = ""; //Default
+        private String _detallesTabHeader = "Agregar"; //Default
         public String detallesTabHeader
         {
             get
@@ -204,7 +205,116 @@ namespace pe.edu.pucp.ferretin.viewmodel.MVentas
                 return _actualizarListaCommand;
             }
         }
+
+        RelayCommand _viewEditPromocionCommand;
+        public ICommand viewEditPromocionCommand
+        {
+            get
+            {
+                if (_viewEditPromocionCommand == null)
+                {
+                    _viewEditPromocionCommand = new RelayCommand(viewEditPromocion);
+                }
+                return _viewEditPromocionCommand;
+            }
+        }
+
+        RelayCommand _savePromocionCommand;
+        public ICommand savePromocionCommand
+        {
+            get
+            {
+                if (_savePromocionCommand == null)
+                {
+                    _savePromocionCommand = new RelayCommand(savePromocion, canSaveExecute);
+                }
+                return _savePromocionCommand;
+            }
+        }
+
+        RelayCommand _cancelPromocionCommand;
+        public ICommand cancelPromocionCommand
+        {
+            get
+            {
+                if (_cancelPromocionCommand == null)
+                {
+                    _cancelPromocionCommand = new RelayCommand(cancelPromocion);
+                }
+                return _cancelPromocionCommand;
+            }
+        }
+
+        
         #endregion
 
+        #region Comandos
+
+        public void viewEditPromocion(Object id)
+        {
+            try
+            {
+                this.promocion = listaPromociones.Single(promocion => promocion.id == (int)id);
+                
+                if (soloSeleccionarPromocion)
+                    this.statusTab = Tab.DETALLES;
+                else
+                    this.statusTab = Tab.MODIFICAR;
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show(e.Message);
+            }
+        }
+        public void savePromocion(Object obj)
+        {
+
+            if (soloSeleccionarPromocion)
+            {
+
+            }
+            else
+            {
+
+                if (promocion.id > 0)//Si existe
+                {
+                    if (!MV_PromocionService.enviarCambios())
+                    {
+                        MessageBox.Show("No se pudo actualizar el promocion");
+                    }
+                    else
+                    {
+                        MessageBox.Show("El promocion fue guardado con éxito");
+                    }
+                }
+                else
+                {
+                    if (!MV_PromocionService.insertarPromocion(promocion))
+                    {
+                        MessageBox.Show("No se pudo agregar el nuevo promocion");
+                    }
+                    else
+                    {
+                        MessageBox.Show("El promocion fue agregado con éxito");
+                    }
+                }
+            }
+        }
+        public void cancelPromocion(Object obj)
+        {
+            MV_PromocionService.db.Refresh(System.Data.Linq.RefreshMode.OverwriteCurrentValues, this.promocion);
+            this.statusTab = Tab.BUSQUEDA;
+        }
+
+        private bool canSaveExecute(object obj)
+        {
+            if (soloSeleccionarPromocion)
+            {
+                return promocion != null;
+            }
+            return base.UIValidationErrorCount == 0 && this.promocion.Errors.Count == 0;
+        }
+
+        #endregion
     }
 }
