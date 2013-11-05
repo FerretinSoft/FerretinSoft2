@@ -85,6 +85,28 @@ namespace pe.edu.pucp.ferretin.controller.MAlmacen
         }
 
 
+        private static IEnumerable<Material> _listaMaterial;
+        public static IEnumerable<Material> listaMaterial
+        {
+            get
+            {
+                if (_listaMaterial == null)
+                {
+                    _listaMaterial = db.Material;
+                }
+                //Usando concurrencia pesimista:
+                ///La lista de productos se actualizara para ver los cambios
+                ///Si quisiera usar concurrencia optimista quito la siguiente linea
+                db.Refresh(RefreshMode.OverwriteCurrentValues, _listaMaterial);
+                return _listaMaterial;
+            }
+            set
+            {
+                _listaMaterial = value;
+            }
+        }
+
+
         //todas las opearciones se basan en esta lista de productoAlmacen
         private static IEnumerable<ProductoAlmacen> _listaProductoAlmacen;
         public static IEnumerable<ProductoAlmacen> listaProductoAlmacen
@@ -139,20 +161,39 @@ namespace pe.edu.pucp.ferretin.controller.MAlmacen
                 foreach (ProductoAlmacen pa in p.ProductoAlmacen)
                 {
 
-                    if (pa.Tienda.nombre!=null && pa.Tienda.nombre.Equals(searchTienda))
-                    {
-                        p.almacen = pa.Tienda.nombre;
+                  
+                        //p.almacen = pa.Tienda.nombre;
                         p.stock = (int)pa.stock;
                         p.stockMinimo = (int)pa.stockMin;
                         p.unidadMedida = p.UnidadMedida.nombre;
-                        p.materialBase1 = p.Material.nombre;
-                        p.materialBase2 = p.Material.nombre;
+                        //p.materialBase1 = p.Material.nombre;
+                        ///p.materialBase2 = p.Material.nombre;
                         p.precioLista = (int)p.precioLista;
                         p.descuento = (int)pa.descuento;
                         p.puntos = (int)pa.puntos;
-                    }
 
+                        foreach (Tienda ti in listaAlmacen)
+                        {
+                            if (pa.id_almacen.Equals(ti.id))
+                            {
+                                p.almacen=ti.nombre;
+                            }
+
+                        }
                 }
+
+                
+                    
+                foreach (Material ma in listaMaterial)
+                {
+                    if (p.id_material_base.Equals(ma.id)) {
+                        p.materialBase1 = ma.nombre;
+                        p.materialBase2 = ma.nombre;
+                    }
+                }
+
+
+                
             }
 
             return listaProducto;
