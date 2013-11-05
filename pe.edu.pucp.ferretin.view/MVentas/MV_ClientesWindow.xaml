@@ -106,10 +106,7 @@
                 </Grid>
             </TabItem>
 
-            <TabItem>
-                <TabItem.Header>
-                    <TextBlock Text="{Binding detallesTabHeader,Mode=OneWay,UpdateSourceTrigger=PropertyChanged}"/>
-                </TabItem.Header>
+            <TabItem Header="{Binding detallesTabHeader,Mode=OneWay,UpdateSourceTrigger=PropertyChanged}">
                 <Grid Background="#FFE5E5E5" Margin="0,0,0,0">
                     <Grid.RowDefinitions>
                         <RowDefinition/>
