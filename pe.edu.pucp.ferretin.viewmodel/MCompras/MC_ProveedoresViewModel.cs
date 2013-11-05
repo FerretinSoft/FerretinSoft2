@@ -28,7 +28,7 @@ namespace pe.edu.pucp.ferretin.viewmodel.MCompras
                 var sequence = Enumerable.Empty<Rubro>();
                 //Primero agrego un item de Todos para que salga al inicio
                 //Pongo el ID en 0 para que al buscar, no filtre nada cuando se selecciona todos
-                IEnumerable<Rubro> items = new Rubro[] { new Rubro { id= 0, nombre="Todos"} };
+                IEnumerable<Rubro> items = new Rubro[] { new Rubro { id=0, nombre="Todos"} };
                 //Luego concateno el itemcon los elementos del combobox
                 return items.Concat(MC_RubroService.rubro);
             }
