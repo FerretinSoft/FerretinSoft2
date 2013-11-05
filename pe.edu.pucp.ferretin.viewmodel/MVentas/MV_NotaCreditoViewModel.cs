@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
+using pe.edu.pucp.ferretin.controller.MRecursosHumanos;
 
 namespace pe.edu.pucp.ferretin.viewmodel.MVentas
 {
@@ -21,6 +22,14 @@ namespace pe.edu.pucp.ferretin.viewmodel.MVentas
         #endregion
 
         #region Valores para el cuadro de Búsqueda
+
+        public String _searchVendedor = "";
+        public String searchVendedor { get { return _searchVendedor; } set { _searchVendedor = value; NotifyPropertyChanged("searchVendedor"); } }
+
+        public String _nombreVendedor = "";
+        public String nombreVendedor { get { return _nombreVendedor; } set { _nombreVendedor = value; NotifyPropertyChanged("nombreVendedor"); } }
+
+
         public String _searchNroNotaCredito = "";
         public String searchNroNotaCredito { get { return _searchNroNotaCredito; } set { _searchNroNotaCredito = value; NotifyPropertyChanged("searchNroNotaCredito"); } }
 
@@ -75,7 +84,7 @@ namespace pe.edu.pucp.ferretin.viewmodel.MVentas
             get
             {
 
-                _listaNotasDeCredito = MV_NotaCreditoService.buscarNotaCredito(searchNroNotaCredito, searchNroDocCliente, searchFechaInicio, searchFechaFin);
+                _listaNotasDeCredito = MV_NotaCreditoService.buscarNotaCredito(searchNroNotaCredito, searchNroDocCliente, searchFechaInicio, searchFechaFin, searchVendedor);
 
                 return _listaNotasDeCredito;
             }
@@ -144,9 +153,41 @@ namespace pe.edu.pucp.ferretin.viewmodel.MVentas
             }
         }
 
+        RelayCommand _cargarVendedorCommand;
+        public ICommand cargarVendedorCommand
+        {
+            get
+            {
+                if (_cargarVendedorCommand == null)
+                {
+                    _cargarVendedorCommand = new RelayCommand(cargarVendedor);
+                }
+                return _cargarVendedorCommand;
+            }
+        }
+
         #endregion
 
         #region commands
+
+        public void cargarVendedor(Object id)
+        {
+            Empleado buscado = null;
+            try
+            {
+                buscado = MR_EmpleadoService.obtenerEmpleadoByNroDoc(searchVendedor);
+                nombreVendedor = buscado.nombreCompleto;
+            }
+            catch { }
+
+            if (buscado == null)
+            {
+                nombreVendedor = "";
+                MessageBox.Show("No se encontro ningún vendedor con el número de documento proporcionado", "No se encontro", MessageBoxButton.OK, MessageBoxImage.Question);
+            }
+
+        }
+
         public void viewDetailNotaCredito(Object id)
         {
             try

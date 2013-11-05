@@ -54,7 +54,7 @@
                                         <KeyBinding Key="Enter" Command="{Binding cargarClienteCommand}"></KeyBinding>
                                     </TextBox.InputBindings>
                                 </TextBox>
-                                
+
                                 <Button Click="Button_Click_Cliente" Margin="0,0,5,0" x:Name="buscarClienteBtn" VerticalAlignment="Center" Width="20" Height="20" BorderThickness="0" Grid.Column="1">
                                     <Button.Background>
                                         <ImageBrush ImageSource="../Resources/search1_20.png"/>
@@ -64,11 +64,19 @@
 
                             <Grid Grid.Row="0" Grid.Column="3" Grid.ColumnSpan="2">
                                 <Grid.ColumnDefinitions>
-                                    <ColumnDefinition></ColumnDefinition>
+                                    <ColumnDefinition Width="115*"></ColumnDefinition>
+                                    <ColumnDefinition Width="30"></ColumnDefinition>
+                                    <ColumnDefinition Width="114*"></ColumnDefinition>
+                                    <ColumnDefinition Width="115*"></ColumnDefinition>
                                     <ColumnDefinition Width="Auto"></ColumnDefinition>
                                 </Grid.ColumnDefinitions>
-                                <TextBox Text="" VerticalAlignment="Center" IsEnabled="True"/>
-                                <Button x:Name="buscarVendedorBtn" VerticalAlignment="Center" Width="20" Height="20" Grid.Column="1" BorderThickness="0">
+                                <TextBox Text="{Binding Path=searchVendedor, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Grid.Row="0" Grid.Column="0" VerticalAlignment="Bottom" Margin="0,0,0,2">
+                                    <TextBox.InputBindings>
+                                        <KeyBinding Key="Enter" Command="{Binding cargarVendedorCommand}" />
+                                    </TextBox.InputBindings>
+                                </TextBox>
+                                <TextBox IsEnabled="False" Text="{Binding Path=nombreVendedor}"  Grid.Column="2" Grid.ColumnSpan="2" VerticalAlignment="Center"/>
+                                <Button Click="Button_Click_Vendedor" x:Name="buscarVendedorBtn" VerticalAlignment="Center" Width="20" Height="20" Grid.Column="1" BorderThickness="0">
                                     <Button.Background>
                                         <ImageBrush ImageSource="../Resources/search1_20.png"/>
                                     </Button.Background>

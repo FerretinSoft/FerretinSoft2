@@ -11,7 +11,7 @@
             <ImageBrush ImageSource="../Resources/texture_3_100.png" TileMode="FlipX" 
             Viewport="0,0,100,100" ViewportUnits="Absolute"/>
         </Grid.Background>
-            <TabControl SelectedIndex="{Binding selectedTab}" x:Name="NotaCreditoTab">
+        <TabControl SelectedIndex="{Binding selectedTab}" x:Name="NotaCreditoTab">
             <TabItem Header="Notas de Crédito">
                 <Grid Background="#FFE5E5E5">
 
@@ -60,11 +60,19 @@
 
                             <Grid Grid.Row="0" Grid.Column="3" Grid.ColumnSpan="2">
                                 <Grid.ColumnDefinitions>
-                                    <ColumnDefinition></ColumnDefinition>
+                                    <ColumnDefinition Width="103*"></ColumnDefinition>
+                                    <ColumnDefinition Width="30"></ColumnDefinition>
+                                    <ColumnDefinition Width="104*"></ColumnDefinition>
+                                    <ColumnDefinition Width="103*"></ColumnDefinition>
                                     <ColumnDefinition Width="Auto"></ColumnDefinition>
                                 </Grid.ColumnDefinitions>
-                                <TextBox VerticalAlignment="Center" IsEnabled="False"/>
-                                <Button x:Name="buscarVendedorBtn" VerticalAlignment="Center" Width="20" Height="20" Grid.Column="1" BorderThickness="0" Click="buscarVendedorBtn_Click">
+                                <TextBox Text="{Binding Path=searchVendedor, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Grid.Row="0" Grid.Column="0" VerticalAlignment="Bottom" Margin="0,0,0,2">
+                                    <TextBox.InputBindings>
+                                        <KeyBinding Key="Enter" Command="{Binding cargarVendedorCommand}" />
+                                    </TextBox.InputBindings>
+                                </TextBox>
+                                <TextBox IsEnabled="False" Text="{Binding Path=nombreVendedor}" Grid.Column="2" Grid.ColumnSpan="2" VerticalAlignment="Center"/>
+                                <Button x:Name="buscarVendedorBtn" VerticalAlignment="Center" Width="20" Height="20" Grid.Column="1" BorderThickness="0" Click="Button_Click_Vendedor">
                                     <Button.Background>
                                         <ImageBrush ImageSource="../Resources/search1_20.png"/>
                                     </Button.Background>

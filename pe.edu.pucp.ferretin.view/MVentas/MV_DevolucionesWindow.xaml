@@ -81,12 +81,22 @@
 
                             <Grid Grid.Column="3" Grid.Row="0" Grid.ColumnSpan="2">
                                 <Grid.ColumnDefinitions>
+                                    <ColumnDefinition/>
+                                    <ColumnDefinition Width="30"></ColumnDefinition>
+                                    <ColumnDefinition></ColumnDefinition>
                                     <ColumnDefinition></ColumnDefinition>
                                     <ColumnDefinition Width="Auto"></ColumnDefinition>
                                 </Grid.ColumnDefinitions>
-                                <TextBox Grid.Row="0" VerticalAlignment="Center" IsEnabled="False" Margin="0,0,5,0" />
-                                <TextBox Text="{Binding Path=searchnombreCliente,Mode=OneWay}" x:Name="nombreCliente" Grid.Row="0"  VerticalAlignment="Center" IsEnabled="False" Margin="0,56,5,-52" />
-                                <Button x:Name="buscarVendedorBtn" VerticalAlignment="Center" Width="20" Height="20" Grid.Column="1" BorderThickness="0">
+                                <TextBox Text="{Binding Path=searchVendedor, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Grid.Row="0" Grid.Column="0" VerticalAlignment="Bottom" Margin="0,0,0,2">
+                                    <TextBox.InputBindings>
+                                        <KeyBinding Key="Enter" Command="{Binding cargarVendedorCommand}" />
+                                    </TextBox.InputBindings>
+                                </TextBox>
+                                <TextBox IsEnabled="False" Text="{Binding Path=nombreVendedor}" Grid.Row="2" Grid.Column="2" Grid.ColumnSpan="2" VerticalAlignment="Center" Margin="0,0,5,0">
+                                    
+                                </TextBox>
+                                <TextBox Text="{Binding Path=searchnombreCliente,Mode=OneWay}" x:Name="nombreCliente" Grid.Row="0" Grid.ColumnSpan="4" VerticalAlignment="Center" IsEnabled="False" Margin="0,56,5,-52" />
+                                <Button Click="Button_Click_Vendedor" x:Name="buscarVendedorBtn" Width="20" Height="20" Grid.Column="1" BorderThickness="0" RenderTransformOrigin="-1.25,0.35">
                                     <Button.Background>
                                         <ImageBrush ImageSource="../Resources/search1_20.png"/>
                                     </Button.Background>
@@ -139,6 +149,7 @@
                             <DataGridTextColumn Width="2*" Binding="{Binding Path=Venta.nroDocumento}" ClipboardContentBinding="{x:Null}" Header="Doc. Venta"/>
                             <DataGridTextColumn Width="1.5*" Binding="{Binding Path=Venta.Cliente.nroDoc}" ClipboardContentBinding="{x:Null}" Header="ID Cliente"/>
                             <DataGridTextColumn Width="4*" Binding="{Binding Path=Venta.Cliente.nombreCompleto}" ClipboardContentBinding="{x:Null}" Header="Nombre Cliente"/>
+                            <DataGridTextColumn Width="4*" Binding="{Binding Path=Venta.nombreCompletoVendedor}" ClipboardContentBinding="{x:Null}" Header="Nombre Vendedor"/>
                             <DataGridTextColumn Width="2*" Binding="{Binding Path=fecEmision}" ClipboardContentBinding="{x:Null}" Header="Fecha Devolución"/>
                             <DataGridTextColumn Width="1*" Binding="{Binding Path=total}" ClipboardContentBinding="{x:Null}" Header="Importe"/>
                         </DataGrid.Columns>
@@ -269,7 +280,7 @@
                                 <RowDefinition></RowDefinition>
                             </Grid.RowDefinitions>
                             <Label Content="Cód. Devolución:" VerticalAlignment="Center"/>
-                            <TextBox VerticalAlignment="Center" IsEnabled="false" Grid.Column="1" Margin="0,0,26,0"/>
+                            
                             <Label Content="Cliente:" VerticalAlignment="Center" Grid.Row="1" Grid.Column="2"/>
                             <Grid Grid.Column="3" Grid.Row="1">
                                 <Grid.ColumnDefinitions>
@@ -279,6 +290,7 @@
                                 <TextBox Text="{Binding Path=devolucion.Venta.Cliente.nroDoc}" Name="RegCodCliente" IsEnabled="False" VerticalAlignment="Center"/>
                             </Grid>
                             <Label Content="Fecha Devolución:" VerticalAlignment="Center" Grid.Row="1" />
+                            <TextBox Text="{Binding Path=devolucion.codigo, Mode=TwoWay}" VerticalAlignment="Center" IsEnabled="false" Grid.Column="1" Margin="0,0,26,0"/>
                             <DatePicker SelectedDate= "{Binding Path=devolucion.fecEmision, Mode=OneWay}" VerticalAlignment="Center" Margin="0" IsEnabled="False" Grid.Row="1" Grid.Column="1" BorderThickness="0"/>
                             <Label Content="Cód. Venta:" VerticalAlignment="Center" Grid.Column="2"/>
                             <Grid Grid.Column="3" Grid.Row="0">
@@ -286,6 +298,7 @@
                                     <ColumnDefinition></ColumnDefinition>
                                     <ColumnDefinition Width="Auto"></ColumnDefinition>
                                 </Grid.ColumnDefinitions>
+                                
                                 <TextBox Text="{Binding Path=loadNroDocumento, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" x:Name="codVenta" VerticalAlignment="Center" Margin="0,0,2,0">
                                 <TextBox.InputBindings>
                                         <KeyBinding Key="Enter" Command="{Binding cargarVentaCommand}" />
