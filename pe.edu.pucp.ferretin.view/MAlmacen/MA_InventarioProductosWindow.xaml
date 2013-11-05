@@ -62,9 +62,9 @@
 
 
                             <DataGridTextColumn Width="3*" Binding="{Binding Path=nombre}"  Header="Nombre"/>
-                            <DataGridTextColumn Width="2*"  Binding="{Binding Path=listaCategoria}"  Header="Categorías"/>
+                            <DataGridTextColumn Width="2*"  Binding="{Binding Path=cadenaCategoria}"  Header="Categorías"/>
                             <DataGridTextColumn Width="1.2*" Binding="{Binding Path=stock}" Header="Stock"/>
-                            <DataGridTextColumn Width="1.2*" Binding="{Binding Path=stockMin}" Header="Stock Min."/>
+                            <DataGridTextColumn Width="1.2*" Binding="{Binding Path=stockMinimo}" Header="Stock Min."/>
                             <DataGridTextColumn Width="2*" Binding="{Binding Path=almacen}" Header="Almacen"/>
 
                         </DataGrid.Columns>
