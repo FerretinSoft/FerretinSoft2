@@ -15,6 +15,9 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using pe.edu.pucp.ferretin.view.MVentas;
+using pe.edu.pucp.ferretin.viewmodel.MVentas;
+using pe.edu.pucp.ferretin.viewmodel.MRecursosHumanos;
 
 namespace pe.edu.pucp.ferretin.view.MRecursosHumanos
 {
@@ -101,7 +104,52 @@ namespace pe.edu.pucp.ferretin.view.MRecursosHumanos
             }
         }
 
+         private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            if (this.Owner != null)//O sea que proviene de un padre
+            {
+                try
+                {
+                    MV_DevolucionesWindow padre = this.Owner as MV_DevolucionesWindow;
+                    MR_AdministrarPersonalViewModel my_DataContext = this.main.DataContext as MR_AdministrarPersonalViewModel;
+                    MV_DevolucionesViewModel padre_DataContext = padre.main.DataContext as MV_DevolucionesViewModel;
 
+                    padre_DataContext.nombreVendedor = my_DataContext.empleado.nombreCompleto;
+                    padre_DataContext.searchVendedor = my_DataContext.empleado.dni;
 
+                    this.Close();
+                }
+                catch
+                {
+                    try
+                    {
+                        MV_AdministrarVentasWindow padre = this.Owner as MV_AdministrarVentasWindow;
+                        MR_AdministrarPersonalViewModel my_DataContext = this.main.DataContext as MR_AdministrarPersonalViewModel;
+                        MV_VentasViewModel padre_DataContext = padre.main.DataContext as MV_VentasViewModel;
+
+                        padre_DataContext.nombreVendedor = my_DataContext.empleado.nombreCompleto;
+                        padre_DataContext.searchVendedor = my_DataContext.empleado.dni;
+
+                        this.Close();
+                    }
+                    catch
+                    {
+                        try
+                        {
+                            MV_AdministrarNotaCreditoWindow padre = this.Owner as MV_AdministrarNotaCreditoWindow;
+                            MR_AdministrarPersonalViewModel my_DataContext = this.main.DataContext as MR_AdministrarPersonalViewModel;
+                            MV_NotaCreditoViewModel padre_DataContext = padre.main.DataContext as MV_NotaCreditoViewModel;
+
+                            padre_DataContext.nombreVendedor = my_DataContext.empleado.nombreCompleto;
+                            padre_DataContext.searchVendedor = my_DataContext.empleado.dni;
+
+                            this.Close();
+                        }
+                        catch
+                        { }
+                    }
+                }
+            }
     }
 }
+    }

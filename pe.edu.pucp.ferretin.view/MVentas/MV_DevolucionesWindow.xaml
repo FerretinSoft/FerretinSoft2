@@ -6,7 +6,7 @@
     <Window.Resources>
         <viewmodel:MV_DevolucionesViewModel x:Key="MV_DevolucionesViewModel"/>
     </Window.Resources>
-    <Grid DataContext="{Binding Source={StaticResource MV_DevolucionesViewModel}}" >
+    <Grid x:Name="main" DataContext="{Binding Source={StaticResource MV_DevolucionesViewModel}}" >
         <Grid.Background>
             <ImageBrush ImageSource="../Resources/texture_3_100.png" TileMode="FlipX" 
             Viewport="0,0,100,100" ViewportUnits="Absolute"/>
@@ -40,7 +40,7 @@
                             <Label Content="Vendedor:" Grid.Row="0" Grid.Column="2"/>
                             <Label Content="Cliente:" Grid.Row="2" Grid.Column="0"/>
                             <Label Content="Fecha Hasta:" Grid.Row="3" Grid.Column="2"/>
-                            <TextBox Text="{Binding searchNroDocCliente, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" x:Name="searchNroDoc"  Grid.Row="2" Grid.Column="1" VerticalAlignment="Center" Margin="0,2,25,2">
+                            <TextBox Text="{Binding searchNroDocCliente, UpdateSourceTrigger=PropertyChanged}" x:Name="searchNroDoc"  Grid.Row="2" Grid.Column="1" VerticalAlignment="Center" Margin="0,2,25,2">
                                 <TextBox.InputBindings>
                                     <KeyBinding Key="Enter" Command="{Binding cargarClienteCommand}" />
                                 </TextBox.InputBindings>
@@ -53,8 +53,12 @@
 
                                     <ColumnDefinition Width="Auto"></ColumnDefinition>
                                 </Grid.ColumnDefinitions>
-                                <TextBox Text="{Binding searchNroDocumento, Mode=TwoWay}" Grid.Row="0" VerticalAlignment="Center" IsEnabled="True" Margin="0,0,5,0"/>
-                                <Button x:Name="buscarVentaBtn" VerticalAlignment="Center" Width="20" Height="20" Grid.Column="1" BorderThickness="0" RenderTransformOrigin="2.3,0.572">
+                                <TextBox Text="{Binding searchNroDocumento, UpdateSourceTrigger=PropertyChanged}" Grid.Row="0" VerticalAlignment="Center" IsEnabled="True" Margin="0,0,5,0">
+                                    <TextBox.InputBindings>
+                                        <KeyBinding Key="Enter" Command="{Binding buscarVentaCommand}" />
+                                    </TextBox.InputBindings>
+                                </TextBox>
+                                <Button x:Name="buscarVentaBtn" VerticalAlignment="Center" Width="20" Height="20" Grid.Column="1" BorderThickness="0" RenderTransformOrigin="2.3,0.572" Click="Button_Click_Venta">
                                     <Button.Background>
                                         <ImageBrush ImageSource="../Resources/search1_20.png"/>
                                     </Button.Background>
@@ -77,12 +81,22 @@
 
                             <Grid Grid.Column="3" Grid.Row="0" Grid.ColumnSpan="2">
                                 <Grid.ColumnDefinitions>
+                                    <ColumnDefinition/>
+                                    <ColumnDefinition Width="30"></ColumnDefinition>
+                                    <ColumnDefinition></ColumnDefinition>
                                     <ColumnDefinition></ColumnDefinition>
                                     <ColumnDefinition Width="Auto"></ColumnDefinition>
                                 </Grid.ColumnDefinitions>
-                                <TextBox Grid.Row="0" VerticalAlignment="Center" IsEnabled="False" Margin="0,0,5,0" />
-                                <TextBox Text="{Binding Path=searchnombreCliente}" x:Name="nombreCliente" Grid.Row="0"  VerticalAlignment="Center" IsEnabled="False" Margin="0,56,5,-52" />
-                                <Button x:Name="buscarVendedorBtn" VerticalAlignment="Center" Width="20" Height="20" Grid.Column="1" BorderThickness="0">
+                                <TextBox Text="{Binding Path=searchVendedor, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Grid.Row="0" Grid.Column="0" VerticalAlignment="Bottom" Margin="0,0,0,2">
+                                    <TextBox.InputBindings>
+                                        <KeyBinding Key="Enter" Command="{Binding cargarVendedorCommand}" />
+                                    </TextBox.InputBindings>
+                                </TextBox>
+                                <TextBox IsEnabled="False" Text="{Binding Path=nombreVendedor}" Grid.Row="2" Grid.Column="2" Grid.ColumnSpan="2" VerticalAlignment="Center" Margin="0,0,5,0">
+                                    
+                                </TextBox>
+                                <TextBox Text="{Binding Path=searchnombreCliente,Mode=OneWay}" x:Name="nombreCliente" Grid.Row="0" Grid.ColumnSpan="4" VerticalAlignment="Center" IsEnabled="False" Margin="0,56,5,-52" />
+                                <Button Click="Button_Click_Vendedor" x:Name="buscarVendedorBtn" Width="20" Height="20" Grid.Column="1" BorderThickness="0" RenderTransformOrigin="-1.25,0.35">
                                     <Button.Background>
                                         <ImageBrush ImageSource="../Resources/search1_20.png"/>
                                     </Button.Background>
@@ -109,7 +123,7 @@
                     </GroupBox>
                     <ToolBar HorizontalAlignment="Left" Margin="10,134,0,0" VerticalAlignment="Top" Height="24">
 
-                        <Button x:Name="nuevaDevolucionBtn" Content="" VerticalAlignment="Top" Width="20" Margin="0,0,2,-1" Click="nuevaDevolucionBtn_Click" Height="20">
+                        <Button Command="{Binding Path=nuevaDevolucionCommand}" x:Name="nuevaDevolucionBtn" Content="" VerticalAlignment="Top" Width="20" Margin="0,0,2,-1" Height="20">
                             <Button.Background>
                                 <ImageBrush ImageSource="../Resources/add_20.png"/>
                             </Button.Background>
@@ -135,13 +149,14 @@
                             <DataGridTextColumn Width="2*" Binding="{Binding Path=Venta.nroDocumento}" ClipboardContentBinding="{x:Null}" Header="Doc. Venta"/>
                             <DataGridTextColumn Width="1.5*" Binding="{Binding Path=Venta.Cliente.nroDoc}" ClipboardContentBinding="{x:Null}" Header="ID Cliente"/>
                             <DataGridTextColumn Width="4*" Binding="{Binding Path=Venta.Cliente.nombreCompleto}" ClipboardContentBinding="{x:Null}" Header="Nombre Cliente"/>
+                            <DataGridTextColumn Width="4*" Binding="{Binding Path=Venta.nombreCompletoVendedor}" ClipboardContentBinding="{x:Null}" Header="Nombre Vendedor"/>
                             <DataGridTextColumn Width="2*" Binding="{Binding Path=fecEmision}" ClipboardContentBinding="{x:Null}" Header="Fecha Devolución"/>
                             <DataGridTextColumn Width="1*" Binding="{Binding Path=total}" ClipboardContentBinding="{x:Null}" Header="Importe"/>
                         </DataGrid.Columns>
                     </DataGrid>
                 </Grid>
             </TabItem>
-            <TabItem>
+            <TabItem IsEnabled="False">
                 <TabItem.Header>
                     <TextBlock Text="Detalle Devolución"/>
                 </TabItem.Header>
@@ -237,7 +252,7 @@
                     </Grid>
                 </Grid>
             </TabItem>
-            <TabItem Header="Registrar Devolución">
+            <TabItem Header="Registrar Devolución" IsEnabled="False">
                 <Grid Background="#FFE5E5E5" Margin="0">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto"></RowDefinition>
@@ -265,38 +280,44 @@
                                 <RowDefinition></RowDefinition>
                             </Grid.RowDefinitions>
                             <Label Content="Cód. Devolución:" VerticalAlignment="Center"/>
-                            <TextBox VerticalAlignment="Center" IsEnabled="false" Grid.Column="1" Margin="0,0,26,0"/>
+                            
                             <Label Content="Cliente:" VerticalAlignment="Center" Grid.Row="1" Grid.Column="2"/>
                             <Grid Grid.Column="3" Grid.Row="1">
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition></ColumnDefinition>
                                     <ColumnDefinition Width="Auto"></ColumnDefinition>
                                 </Grid.ColumnDefinitions>
-                                <TextBox x:Name="RegCodCliente" IsEnabled="False" VerticalAlignment="Center"/>
+                                <TextBox Text="{Binding Path=devolucion.Venta.Cliente.nroDoc}" Name="RegCodCliente" IsEnabled="False" VerticalAlignment="Center"/>
                             </Grid>
                             <Label Content="Fecha Devolución:" VerticalAlignment="Center" Grid.Row="1" />
-                            <DatePicker SelectedDate= "{Binding Path=devolucion.fecEmision}" VerticalAlignment="Center" Margin="0" IsEnabled="False" Grid.Row="1" Grid.Column="1" BorderThickness="0"/>
+                            <TextBox Text="{Binding Path=devolucion.codigo, Mode=TwoWay}" VerticalAlignment="Center" IsEnabled="false" Grid.Column="1" Margin="0,0,26,0"/>
+                            <DatePicker SelectedDate= "{Binding Path=devolucion.fecEmision, Mode=OneWay}" VerticalAlignment="Center" Margin="0" IsEnabled="False" Grid.Row="1" Grid.Column="1" BorderThickness="0"/>
                             <Label Content="Cód. Venta:" VerticalAlignment="Center" Grid.Column="2"/>
                             <Grid Grid.Column="3" Grid.Row="0">
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition></ColumnDefinition>
                                     <ColumnDefinition Width="Auto"></ColumnDefinition>
                                 </Grid.ColumnDefinitions>
-                                <TextBox x:Name="codVenta" LostFocus="TextBox_SelectionChanged_1" VerticalAlignment="Center" Margin="0,0,2,0"/>
-                                <Button x:Name="ins_buscarVentaBtn" VerticalAlignment="Center" Width="18" Height="18" Grid.Column="1" BorderThickness="0">
+                                
+                                <TextBox Text="{Binding Path=loadNroDocumento, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" x:Name="codVenta" VerticalAlignment="Center" Margin="0,0,2,0">
+                                <TextBox.InputBindings>
+                                        <KeyBinding Key="Enter" Command="{Binding cargarVentaCommand}" />
+                                </TextBox.InputBindings>
+                                </TextBox>
+                                <Button x:Name="ins_CargarVentaBtn" VerticalAlignment="Center" Width="18" Height="18" Grid.Column="1" BorderThickness="0" Click="Button_Click_VentaLoad">
                                     <Button.Background>
                                         <ImageBrush ImageSource="../Resources/search1_20.png"/>
                                     </Button.Background>
                                 </Button>
                             </Grid>
                             <Label Content="Vendedor:" VerticalAlignment="Center" Grid.Column="4"/>
-                            <TextBox VerticalAlignment="Center" Grid.Column="5" IsEnabled="False"/>
-                            <TextBox x:Name="RegNombreCliente" Grid.Column="5" Grid.Row="1" IsEnabled="False" Margin="0,2"/>
+                            <TextBox Text="{Binding Path=usuarioLogueado.Empleado.nombreCompleto,Mode=OneWay}" VerticalAlignment="Center" Grid.Column="5" IsEnabled="False"/>
+                            <TextBox Text="{Binding Path=devolucion.Venta.Cliente.nombreCompleto, Mode=OneWay}" x:Name="RegNombreCliente" Grid.Column="5" Grid.Row="1" IsEnabled="False" Margin="0,2"/>
                         </Grid>
                     </GroupBox>
 
                     <TextBlock HorizontalAlignment="Left" VerticalAlignment="Center" Grid.Row="1" Margin="5,5">Productos Comprados:</TextBlock>
-                    <DataGrid x:Name="productosCompGrid" Grid.Row="2" Margin="5,5" AutoGenerateColumns="False">
+                    <DataGrid ItemsSource="{Binding Path=listaProductosComprados}"  Grid.Row="2" Margin="5,5" AutoGenerateColumns="False">
                         <DataGrid.Columns>
                             <DataGridTemplateColumn Width="1*" Header="Cód. Producto">
                                 <DataGridTemplateColumn.CellTemplate>
@@ -321,7 +342,7 @@
                     </DataGrid>
                     <StackPanel HorizontalAlignment="Right" Orientation="Horizontal" VerticalAlignment="Center" Grid.Row="3" Margin="5,0">
                         <Label Content="Total Comprado (inc IGV):"  VerticalAlignment="Center"/>
-                        <TextBox x:Name="totalComprado" VerticalAlignment="Center" Width="100" IsEnabled="False" TextAlignment="Right" />
+                        <TextBox Text="{Binding Path=devolucion.Venta.total}" x:Name="totalComprado" VerticalAlignment="Center" Width="100" IsEnabled="False" TextAlignment="Right" />
                     </StackPanel>
                     <TextBlock Grid.Row="4" Margin="5,5" VerticalAlignment="Center">Productos a Devolver:</TextBlock>
                     <DataGrid ItemsSource="{Binding Path=devolucion.DevolucionProducto,UpdateSourceTrigger=PropertyChanged,NotifyOnSourceUpdated=True,NotifyOnTargetUpdated=True,Mode=TwoWay}" AutoGenerateColumns="False"  Grid.Row="5" Margin="0,0,5,0">
@@ -353,7 +374,7 @@
                         <StackPanel Orientation="Horizontal" Grid.Column="2" VerticalAlignment="Bottom" HorizontalAlignment="Right">
                             <Button Content="IMPRIMIR NOTA DE CRÉDITO" Height="30" Margin="0,0,10,0" Padding="5,0"/>
                             <Button Command="{Binding saveDevolucionCommand}" Content="GUARDAR" Width="75" Height="30" Margin="0,0,10,0"/>
-                            <Button Content="CANCELAR" Width="75" Height="30" Margin="0,0"/>
+                            <Button Command="{Binding cancelDevolucionCommand}" Content="CANCELAR" Width="75" Height="30" Margin="0,0"/>
                         </StackPanel>
 
                     </Grid>

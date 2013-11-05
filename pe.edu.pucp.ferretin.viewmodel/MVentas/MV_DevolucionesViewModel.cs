@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
+using pe.edu.pucp.ferretin.controller.MRecursosHumanos;
 using pe.edu.pucp.ferretin.controller.MVentas;
 using pe.edu.pucp.ferretin.model;
 using pe.edu.pucp.ferretin.viewmodel.Helper;
@@ -19,9 +20,13 @@ namespace pe.edu.pucp.ferretin.viewmodel.MVentas
 
             _devolucion = new Devolucion();
             {
-                _devolucion.fecEmision = DateTime.Today;
-                
+
             };
+
+            _notaCredito = new NotaCredito();
+            {
+
+            }
         }
         #endregion
 
@@ -30,12 +35,17 @@ namespace pe.edu.pucp.ferretin.viewmodel.MVentas
         public String _searchNroDocumento = "";
         public String searchNroDocumento { get { return _searchNroDocumento; } set { _searchNroDocumento = value; NotifyPropertyChanged("searchNroDocumento"); } }
 
+        public String _loadNroDocumento = "";
+        public String loadNroDocumento { get { return _loadNroDocumento; } set { _loadNroDocumento = value; NotifyPropertyChanged("loadNroDocumento"); } }
+
         public String _searchNroDocCliente = "";
         public String searchNroDocCliente { get { return _searchNroDocCliente; } set { _searchNroDocCliente = value; NotifyPropertyChanged("searchNroDocCliente"); } }
 
         public String _searchnombreCliente = "";
         public String searchnombreCliente { get { return _searchnombreCliente; } set { _searchnombreCliente = value; NotifyPropertyChanged("searchnombreCliente"); } }
 
+        public String _searchVendedor = "";
+        public String searchVendedor { get { return _searchVendedor; } set { _searchVendedor = value; NotifyPropertyChanged("searchVendedor"); } }
 
         public DateTime _searchFechaInicio = DateTime.Parse("10/09/2013");
         public DateTime searchFechaInicio { get { return _searchFechaInicio; } set { _searchFechaInicio = value; NotifyPropertyChanged("searchFechaInicio"); } }
@@ -46,11 +56,17 @@ namespace pe.edu.pucp.ferretin.viewmodel.MVentas
         public String _nombreCliente = "";
         public String nombreCliente { get { return _nombreCliente; } set { _nombreCliente = value; NotifyPropertyChanged("nombreCliente"); } }
 
+        public String _nombreVendedor = "";
+        public String nombreVendedor { get { return _nombreVendedor; } set { _nombreVendedor = value; NotifyPropertyChanged("nombreVendedor"); } }
+
+        
+
         public String _searchNroDevolucion = "";
         public String searchNroDevolucion { get { return _searchNroDevolucion; } set { _searchNroDevolucion = value; NotifyPropertyChanged("searchNroDevolucion"); } }
 
         public long _id = 0;
         public long id { get { return _id; } set { _id = value; NotifyPropertyChanged("id"); } }
+
 
         private int _selectedTab = 0;
         public int selectedTab
@@ -61,6 +77,8 @@ namespace pe.edu.pucp.ferretin.viewmodel.MVentas
             }
             set
             {
+                if (value == 2)
+                    devolucion = new Devolucion();
                 _selectedTab = value;
                 NotifyPropertyChanged("selectedTab");
             }
@@ -103,7 +121,7 @@ namespace pe.edu.pucp.ferretin.viewmodel.MVentas
             get
             {
 
-                _listaDevoluciones = MV_DevolucionService.buscarDevoluciones(searchNroDevolucion, searchNroDocumento, searchNroDocCliente, searchFechaInicio, searchFechaFin);
+                _listaDevoluciones = MV_DevolucionService.buscarDevoluciones(searchNroDevolucion, searchNroDocumento, searchNroDocCliente, searchFechaInicio, searchFechaFin, searchVendedor);
 
                 return _listaDevoluciones;
             }
@@ -125,6 +143,20 @@ namespace pe.edu.pucp.ferretin.viewmodel.MVentas
             {
                 _listaProductos = value;
                 NotifyPropertyChanged("listaProductos");
+            }
+        }
+
+        private IEnumerable<VentaProducto> _listaProductosComprados;
+        public IEnumerable<VentaProducto> listaProductosComprados
+        {
+            get
+            {
+                return _listaProductosComprados;
+            }
+            set
+            {
+                _listaProductosComprados = value;
+                NotifyPropertyChanged("listaProductosComprados");
             }
         }
 
@@ -195,6 +227,22 @@ namespace pe.edu.pucp.ferretin.viewmodel.MVentas
             }
         }
 
+
+
+        RelayCommand _cancelDevolucionCommand;
+
+        public ICommand cancelDevolucionCommand
+        {
+            get
+            {
+                if (_cancelDevolucionCommand == null)
+                {
+                    _cancelDevolucionCommand = new RelayCommand(cancelDevolucion);
+                }
+                return _cancelDevolucionCommand;
+            }
+        }
+
         RelayCommand _cargarClienteCommand;
         public ICommand cargarClienteCommand
         {
@@ -208,9 +256,135 @@ namespace pe.edu.pucp.ferretin.viewmodel.MVentas
             }
         }
 
+        RelayCommand _buscarVentaCommand;
+        public ICommand buscarVentaCommand
+        {
+            get
+            {
+                if (_buscarVentaCommand == null)
+                {
+                    _buscarVentaCommand = new RelayCommand(buscarVenta);
+                }
+                return _buscarVentaCommand;
+            }
+        }
+
+        RelayCommand _cargarVentaCommand;
+        public ICommand cargarVentaCommand
+        {
+            get
+            {
+                if (_cargarVentaCommand == null)
+                {
+                    _cargarVentaCommand = new RelayCommand(cargarVenta);
+                }
+                return _cargarVentaCommand;
+            }
+        }
+
+        RelayCommand _nuevaDevolucionCommand;
+        public ICommand nuevaDevolucionCommand
+        {
+            get
+            {
+                if (_nuevaDevolucionCommand == null)
+                {
+                    _nuevaDevolucionCommand = new RelayCommand(nuevaDevolucion);
+                }
+                return _nuevaDevolucionCommand;
+            }
+        }
+        RelayCommand _cargarVendedorCommand;
+               public ICommand cargarVendedorCommand
+        {
+            get
+            {
+                if (_cargarVendedorCommand == null)
+                {
+                    _cargarVendedorCommand = new RelayCommand(cargarVendedor);
+                }
+                return _cargarVendedorCommand;
+            }
+        }
+        
+
         #endregion
 
         #region commands
+
+
+        public void nuevaDevolucion(Object id)
+        {
+           this.listaProductosComprados = null;           
+           devolucion.id_empleado = usuarioLogueado.Empleado.id;
+           this.selectedTab = 2;
+           devolucion.fecEmision = DateTime.Now;
+           devolucion.codigo = MV_DevolucionService.obtenerCodDevolucion();
+           NotifyPropertyChanged("devolucion");
+           
+        }
+
+
+        public void cargarVendedor(Object id)
+        {
+            Empleado buscado = null;
+            try
+            {
+                buscado = MR_EmpleadoService.obtenerEmpleadoByNroDoc(searchVendedor);
+                nombreVendedor = buscado.nombreCompleto;            
+            }
+            catch { }
+
+            if (buscado == null)
+            {
+                nombreVendedor = "";
+                MessageBox.Show("No se encontro ningún vendedor con el número de documento proporcionado", "No se encontro", MessageBoxButton.OK, MessageBoxImage.Question);
+            }
+           
+        }
+
+        public void cargarVenta(Object id)
+        {
+            Venta buscado = null;
+            try
+            {
+                buscado = MV_VentaService.obtenerVentaByCodVenta(loadNroDocumento);
+                this.listaProductosComprados = MV_VentaService.obtenerProductosbyIdVenta(buscado.id);
+                this.devolucion.Venta = buscado;
+                this.devolucion.fecEmision = DateTime.Now;
+                devolucion.codigo = MV_DevolucionService.obtenerCodDevolucion();
+                devolucion.id_empleado = usuarioLogueado.Empleado.id;
+                NotifyPropertyChanged("devolucion");
+            }
+            catch { }
+
+            if (buscado == null)
+            {
+                this.listaProductosComprados = null;
+                this.devolucion = new Devolucion();
+                MessageBox.Show("No se encontro ninguna Venta con el número de documento proporcionado", "No se encontro", MessageBoxButton.OK, MessageBoxImage.Question);
+            }
+           
+        }
+
+        public void buscarVenta(Object id)
+        {
+            Venta buscado = null;
+            try
+            {
+                buscado = MV_VentaService.obtenerVentaByCodVenta(searchNroDocumento);
+            }
+            catch { }
+
+            if (buscado == null)
+            {
+                MessageBox.Show("No se encontro ninguna Venta con el número de documento proporcionado", "No se encontro", MessageBoxButton.OK, MessageBoxImage.Question);
+            }
+            NotifyPropertyChanged("searchnombreCliente");
+            NotifyPropertyChanged("searchNroDocCliente");
+            NotifyPropertyChanged("searchNroDocumento");
+        }
+
         public void cargarCliente(Object id)
         {
             Cliente buscado = null;
@@ -225,11 +399,28 @@ namespace pe.edu.pucp.ferretin.viewmodel.MVentas
                 MessageBox.Show("No se encontro ningún Cliente con el número de documento proporcionado", "No se encontro", MessageBoxButton.OK, MessageBoxImage.Question);
             }
             searchnombreCliente = buscado.nombreCompleto;
+            searchNroDocCliente = buscado.nroDoc;
             NotifyPropertyChanged("searchnombreCliente");
+            NotifyPropertyChanged("searchNroDocCliente");
+        }
+
+
+
+        public void cancelDevolucion(Object obj)
+        {
+            selectedTab = 0;
+            this.listaDevoluciones = MV_DevolucionService.listaDevoluciones;
         }
 
         public void saveDevolucion(Object obj)
         {
+            devolucion.id_empleado = usuarioLogueado.Empleado.id;
+            devolucion.codigo = MV_DevolucionService.obtenerCodDevolucion();
+            notaCredito.fechaEmision = DateTime.Now;
+            notaCredito.importe = devolucion.total;
+            notaCredito.codigo = devolucion.codigo;
+           
+
                     if (!MV_DevolucionService.insertarDevolucion(devolucion))
                     {
                         MessageBox.Show("No se pudo agregar la nuevo devolución");
@@ -237,6 +428,15 @@ namespace pe.edu.pucp.ferretin.viewmodel.MVentas
                     else
                     {
                         MessageBox.Show("La devolución fue agregado con éxito");
+                    }
+            notaCredito.id_devolucion = devolucion.id;
+                    if (!MV_NotaCreditoService.insertarNotaCredito(notaCredito))
+                    {
+                        MessageBox.Show("No se pudo agregar la nueva Nota de Crédito");
+                    }
+                    else
+                    {
+                        MessageBox.Show("La Nota de Crédito fue agregado con éxito");
                     }
         }
 

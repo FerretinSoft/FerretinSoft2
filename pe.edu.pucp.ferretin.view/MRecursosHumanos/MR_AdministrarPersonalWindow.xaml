@@ -18,7 +18,7 @@
             <Setter Property="Validation.ErrorTemplate" Value="{DynamicResource validationTemplate}" />
         </Style>
     </Window.Resources>
-    <Grid DataContext="{Binding Source={StaticResource MR_AdministrarPersonalViewModel}}">
+    <Grid x:Name="main" DataContext="{Binding Source={StaticResource MR_AdministrarPersonalViewModel}}">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="0*"/>
             <ColumnDefinition/>
@@ -127,19 +127,22 @@
                     <ComboBox ItemsSource="{Binding Path=departamentos}" DisplayMemberPath="nombre" SelectedItem="{Binding Path=selectedDepartamento}" HorizontalAlignment="Left" Margin="137,260,0,0" VerticalAlignment="Top" Width="97" Grid.Column="4" />
                     <Label Content="Telf1:" HorizontalAlignment="Left" Margin="12,335,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.464,1.231" Grid.ColumnSpan="4"/>
                     <Label Content="  Celular:" HorizontalAlignment="Left" Margin="86,335,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.464,1.231" Grid.Column="4"/>
-                    <TextBox MaxLength="7" Text="{Binding Path=empleado.telefono1, Mode=TwoWay,  ValidatesOnExceptions=true, NotifyOnValidationError=true, ValidatesOnDataErrors=True}"  IsEnabled="{Binding isCreating}" HorizontalAlignment="Left" Height="23" Margin="47,335,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="97" Grid.Column="3" Grid.ColumnSpan="2" KeyDown="txtTelf2_KeyDown"/>
-                    <TextBox MaxLength="9" Text="{Binding Path=empleado.telefono2, Mode=TwoWay,  ValidatesOnExceptions=true, NotifyOnValidationError=true, ValidatesOnDataErrors=True}"  IsEnabled="{Binding isCreating}" HorizontalAlignment="Left" Height="23" Margin="137,338,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="97" Grid.Column="4" KeyDown="txtTelf1_KeyDown"/>
+                    <TextBox MaxLength="7" Text="{Binding Path=empleado.telefono1, Mode=TwoWay,  ValidatesOnExceptions=true, NotifyOnValidationError=true, ValidatesOnDataErrors=True}"  HorizontalAlignment="Left" Height="23" Margin="47,335,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="97" Grid.Column="3" Grid.ColumnSpan="2" KeyDown="txtTelf2_KeyDown"/>
+                    <TextBox MaxLength="9" Text="{Binding Path=empleado.telefono2, Mode=TwoWay,  ValidatesOnExceptions=true, NotifyOnValidationError=true, ValidatesOnDataErrors=True}"  HorizontalAlignment="Left" Height="23" Margin="137,338,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="97" Grid.Column="4" KeyDown="txtTelf1_KeyDown"/>
                     <Label Content="Email:" HorizontalAlignment="Left" Margin="12,374,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.464,1.231" Grid.ColumnSpan="4"/>
-                    <TextBox  Text="{Binding Path=empleado.email, Mode=TwoWay,  ValidatesOnExceptions=true, NotifyOnValidationError=true, ValidatesOnDataErrors=True}" IsEnabled="{Binding isCreating}"  HorizontalAlignment="Left" Height="23" Margin="47,374,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="246" Grid.Column="3" Grid.ColumnSpan="2" KeyDown="txtEmail_KeyDown"/>
+                    <TextBox  Text="{Binding Path=empleado.email, Mode=TwoWay,  ValidatesOnExceptions=true, NotifyOnValidationError=true, ValidatesOnDataErrors=True}"  HorizontalAlignment="Left" Height="23" Margin="47,374,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="246" Grid.Column="3" Grid.ColumnSpan="2" KeyDown="txtEmail_KeyDown"/>
                     <Label Content=" Sexo:" HorizontalAlignment="Left" Margin="92,408,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.464,1.231" Grid.Column="4"/>
-                    <ComboBox SelectedIndex="{Binding empleado.nombreSexo}"  HorizontalAlignment="Left" Margin="139,412,0,0" VerticalAlignment="Top" Width="97" Grid.Column="4">
-                        <ListBoxItem Content=""/>
+                    <ComboBox SelectedIndex="{Binding empleado.nombreSexo}"  HorizontalAlignment="Left" Margin="139,412,0,0" VerticalAlignment="Top" Width="97" Grid.Column="4">          
+                        
                         <ListBoxItem Content="Masculino"/>
                         <ListBoxItem Content="Femenino"/>
+                        <ListBoxItem Content=""/>
+                        
+                        
                     </ComboBox>
                     <Label Content="Fecha Nac." HorizontalAlignment="Left" Margin="12,408,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.464,1.231" Grid.ColumnSpan="4"/>
                     <DatePicker SelectedDate="{Binding Path=empleado.fecNacimiento,Mode=TwoWay}"  HorizontalAlignment="Left" Margin="49,410,0,0" VerticalAlignment="Top" Grid.Column="3" Width="97" Grid.ColumnSpan="2"/>
-                    <Button Command="{Binding saveEmpleadoCommand}" Content="GUARDAR" HorizontalAlignment="Left" Margin="102,0,0,12" VerticalAlignment="Bottom" Width="75" RenderTransformOrigin="1.347,-0.05" Grid.Column="5" Height="30"/>
+                    <Button Content="{Binding nombreBotonGuardar,Mode=OneWay}" Click="Button_Click" Command="{Binding saveEmpleadoCommand}" HorizontalAlignment="Left" Margin="102,0,0,12" VerticalAlignment="Bottom" Width="75" RenderTransformOrigin="1.347,-0.05" Grid.Column="5" Height="30"/>
                     <Label Content="Fecha ingreso:" HorizontalAlignment="Left" Margin="25,22,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.464,1.231" Grid.Column="5"/>
                     <DatePicker IsEnabled="False" SelectedDate="{Binding empleado.ultimafechaIngreso,Mode=OneWay}" HorizontalAlignment="Left" Margin="154,24,0,0" VerticalAlignment="Top" Grid.Column="5" Width="181"/>
                     <Button Command="{Binding cancelEmpleadoCommand}" Content="CANCELAR" HorizontalAlignment="Left" Margin="207,0,0,13" VerticalAlignment="Bottom" Width="75" RenderTransformOrigin="1.347,-0.05" Grid.Column="5" Height="30"/>
@@ -152,7 +155,7 @@
                     <ComboBox x:Name="tiendaComboBox"  ItemsSource="{Binding listaTiendas}"  SelectedItem="{Binding empleado.tiendaActual,Mode=TwoWay}"  DisplayMemberPath="nombre" SelectedValuePath="id" HorizontalAlignment="Left" Margin="232,58,0,0" VerticalAlignment="Top" Width="102" Grid.Column="5">
 
                     </ComboBox>
-                    <TextBox Text="{Binding empleado.ultimoSueldo, ValidatesOnExceptions=true, NotifyOnValidationError=true , ValidatesOnDataErrors=True}" IsEnabled="{Binding isCreating}" HorizontalAlignment="Left" Height="23" Margin="152,121,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="181" Grid.Column="5" KeyDown="txtSueldo_KeyDown"/>
+                    <TextBox Text="{Binding empleado.ultimoSueldo, ValidatesOnExceptions=true, NotifyOnValidationError=true , ValidatesOnDataErrors=True}"  HorizontalAlignment="Left" Height="23" Margin="152,121,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="181" Grid.Column="5" KeyDown="txtSueldo_KeyDown"/>
                     <Label Content="Historial:" HorizontalAlignment="Left" Margin="27,185,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.464,1.231" Grid.Column="5"/>
                     <DataGrid Grid.Column="5" HorizontalAlignment="Left" Margin="27,314,0,0" VerticalAlignment="Top" Height="85" Width="308">
                         <DataGrid.Columns>

@@ -68,7 +68,7 @@ namespace pe.edu.pucp.ferretin.controller.MVentas
             }
         }
 
-        public static IEnumerable<Devolucion> buscarDevoluciones(string nroDevolucion, string nroVenta, string nroDocCliente, DateTime fechaInicio, DateTime fechaFin)
+        public static IEnumerable<Devolucion> buscarDevoluciones(string nroDevolucion, string nroVenta, string nroDocCliente, DateTime fechaInicio, DateTime fechaFin, string searchVendedor)
         {
             return from c in listaDevoluciones
                    where
@@ -76,6 +76,7 @@ namespace pe.edu.pucp.ferretin.controller.MVentas
                    && c.Venta.nroDocumento != null && c.Venta.nroDocumento.Contains(nroVenta)
                    && c.fecEmision != null && c.fecEmision >= fechaInicio
                    && c.fecEmision != null && c.fecEmision <= fechaFin
+                   && c.Venta.Usuario.Empleado.dni != null && c.Venta.Usuario.Empleado.dni.Contains(searchVendedor)
                    && c.Venta.Cliente.nroDoc != null && c.Venta.Cliente.nroDoc.Contains(nroDocCliente)
                     )
                    orderby c.codigo
@@ -90,6 +91,15 @@ namespace pe.edu.pucp.ferretin.controller.MVentas
                     )
                    orderby c.id_devolucion
                    select c;
+        }
+
+        public static string obtenerCodDevolucion()
+        {
+            string codDev = (from c in listaDevoluciones
+                               select c.codigo).Max();
+            long numDev = Convert.ToInt64(codDev) + 1;
+            codDev = Convert.ToString(numDev);       
+            return codDev;
         }
 
         public static NotaCredito obtenerNotaCredbyIdDevolucion(long id_devolucion)

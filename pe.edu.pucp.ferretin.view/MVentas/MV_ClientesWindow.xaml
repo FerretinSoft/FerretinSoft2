@@ -108,7 +108,7 @@
 
             <TabItem>
                 <TabItem.Header>
-                    <TextBlock Text="{Binding detallesTabHeader,Mode=OneWay,FallbackValue=Agregar}"/>
+                    <TextBlock Text="{Binding detallesTabHeader,Mode=OneWay,UpdateSourceTrigger=PropertyChanged}"/>
                 </TabItem.Header>
                 <Grid Background="#FFE5E5E5" Margin="0,0,0,0">
                     <Grid.RowDefinitions>
@@ -142,7 +142,10 @@
                             <RowDefinition Height="Auto"></RowDefinition>
                         </Grid.RowDefinitions>
 
-                        <Image HorizontalAlignment="Left" Height="100" VerticalAlignment="Top" Width="100" Source="../Resources/cliente_1.png" Stretch="Fill" Margin="10,9,0,0" Grid.RowSpan="3" Grid.Row="1"/>
+                        <Button Command="{Binding uploadImageCommand}" Width="100" Margin="5" Grid.RowSpan="3" Grid.Row="1" HorizontalAlignment="Left" Height="100" VerticalAlignment="Top">
+                            <Image Source="{Binding clienteImagen,Mode=OneWay,UpdateSourceTrigger=PropertyChanged}" Stretch="Fill">
+                        </Image>
+                        </Button>
                         <Label Content="Núm. Doc:" VerticalContentAlignment="Center" Grid.Column="1" Grid.Row="2"/>
                         <Label Content="Tipo Doc:" Grid.Column="1" Grid.Row="1" VerticalContentAlignment="Center"/>
                         <ComboBox SelectedIndex="{Binding Path=cliente.tipo, Mode=TwoWay, UpdateSourceTrigger=LostFocus, NotifyOnValidationError=True, ValidatesOnDataErrors=True, ValidatesOnExceptions=True}" VerticalContentAlignment="Center" Height="22" Grid.Column="2" Grid.Row="1" Grid.ColumnSpan="2" Margin="0,10,0,9">
@@ -175,15 +178,15 @@
                         <Label Content="Total Compras:" VerticalContentAlignment="Center" Grid.Column="4" Grid.Row="8"/>
                         <Label Content="Comentarios:" VerticalContentAlignment="Center" Grid.Column="4" Grid.Row="9"/>
 
-                        <TextBox  Text="{Binding Path=cliente.nroDoc, Mode=TwoWay, UpdateSourceTrigger=LostFocus, NotifyOnValidationError=True, ValidatesOnDataErrors=True, ValidatesOnExceptions=True}" VerticalAlignment="Center" Grid.Column="2" Grid.Row="2" Grid.ColumnSpan="2" Height="22" />
+                        <TextBox  Text="{Binding Path=cliente.nroDoc, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, NotifyOnValidationError=True, ValidatesOnDataErrors=True, ValidatesOnExceptions=True}" VerticalAlignment="Center" Grid.Column="2" Grid.Row="2" Grid.ColumnSpan="2" Height="22" />
                         <ComboBox IsEnabled="False" SelectedIndex="{Binding Path=cliente.tipo, Mode=TwoWay, UpdateSourceTrigger=LostFocus}" Grid.ColumnSpan="2" VerticalAlignment="Center"  Grid.Column="2" Grid.Row="3" Height="22">
                             <ListBoxItem Content=""/>
                             <ListBoxItem Content="Persona Natural"/>
                             <ListBoxItem Content="Persona Jurídica"/>
                         </ComboBox>
-                        <TextBox Text="{Binding Path=cliente.nombre, Mode=TwoWay, UpdateSourceTrigger=LostFocus, NotifyOnValidationError=True, ValidatesOnDataErrors=True, ValidatesOnExceptions=True}" VerticalAlignment="Center" Grid.Column="1" Grid.Row="4" Grid.ColumnSpan="3" Height="22" Margin="0,4,0,5"/>
-                        <TextBox Text="{Binding Path=cliente.apPaterno, Mode=TwoWay, UpdateSourceTrigger=LostFocus, NotifyOnValidationError=True, ValidatesOnDataErrors=True, ValidatesOnExceptions=True}" VerticalAlignment="Center" Grid.Column="1" Grid.Row="5" Grid.ColumnSpan="3" Height="22" Margin="0,5,0,3"/>
-                        <TextBox Text="{Binding Path=cliente.apMaterno, Mode=TwoWay, UpdateSourceTrigger=LostFocus, NotifyOnValidationError=True, ValidatesOnDataErrors=True, ValidatesOnExceptions=True}" VerticalAlignment="Center" Grid.Column="1" Grid.Row="6" Grid.ColumnSpan="3" Height="22" Margin="0,5,0,3"/>
+                        <TextBox Text="{Binding Path=cliente.nombre, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, NotifyOnValidationError=True, ValidatesOnDataErrors=True, ValidatesOnExceptions=True}" VerticalAlignment="Center" Grid.Column="1" Grid.Row="4" Grid.ColumnSpan="3" Height="22" Margin="0,4,0,5"/>
+                        <TextBox Text="{Binding Path=cliente.apPaterno, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, NotifyOnValidationError=True, ValidatesOnDataErrors=True, ValidatesOnExceptions=True}" VerticalAlignment="Center" Grid.Column="1" Grid.Row="5" Grid.ColumnSpan="3" Height="22" Margin="0,5,0,3"/>
+                        <TextBox Text="{Binding Path=cliente.apMaterno, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, NotifyOnValidationError=True, ValidatesOnDataErrors=True, ValidatesOnExceptions=True}" VerticalAlignment="Center" Grid.Column="1" Grid.Row="6" Grid.ColumnSpan="3" Height="22" Margin="0,5,0,3"/>
 
                         <TextBox Text="{Binding Path=cliente.direccion, Mode=TwoWay,  ValidatesOnExceptions=true, NotifyOnValidationError=true}" VerticalAlignment="Center" Grid.Column="1" Grid.Row="7" Grid.ColumnSpan="3" Height="22" Margin="0,3,0,4"/>
                         <ComboBox VerticalAlignment="Center" Grid.Column="1" Grid.Row="8" Grid.ColumnSpan="1" Height="22" SelectedIndex="0" IsEditable="False">
@@ -192,7 +195,7 @@
                         <ComboBox ItemsSource="{Binding Path=departamentos}" DisplayMemberPath="nombre" SelectedItem="{Binding Path=selectedDepartamento}" VerticalAlignment="Center" Grid.Column="3" Grid.Row="8" Grid.ColumnSpan="1" Height="22"/>
                         <ComboBox ItemsSource="{Binding Path=provincias}" DisplayMemberPath="nombre" SelectedItem="{Binding Path=selectedProvincia}" VerticalAlignment="Center" Grid.Column="1" Grid.Row="9" Grid.ColumnSpan="1" Height="22"/>
                         <ComboBox ItemsSource="{Binding Path=distritos}" DisplayMemberPath="nombre" SelectedItem="{Binding Path=cliente.UbigeoDistrito, UpdateSourceTrigger=LostFocus, NotifyOnValidationError=True, ValidatesOnDataErrors=True, ValidatesOnExceptions=True}" VerticalAlignment="Center" Grid.Column="3" Grid.Row="9" Grid.ColumnSpan="1" Height="22"/>
-                        <TextBox Text="{Binding Path=cliente.telefono1, Mode=TwoWay, UpdateSourceTrigger=LostFocus, NotifyOnValidationError=True, ValidatesOnDataErrors=True, ValidatesOnExceptions=True}" VerticalAlignment="Center" Grid.Column="1" Grid.Row="10" Grid.ColumnSpan="1" Height="22" Margin="0,2,0,4"/>
+                        <TextBox Text="{Binding Path=cliente.telefono1, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, NotifyOnValidationError=True, ValidatesOnDataErrors=True, ValidatesOnExceptions=True}" VerticalAlignment="Center" Grid.Column="1" Grid.Row="10" Grid.ColumnSpan="1" Height="22" Margin="0,2,0,4"/>
                         <TextBox Text="{Binding Path=cliente.telefono2, Mode=TwoWay,  NotifyOnValidationError=True, ValidatesOnDataErrors=True, ValidatesOnExceptions=True}" VerticalAlignment="Center" Grid.Column="3" Grid.Row="10" Grid.ColumnSpan="1" Height="22" Margin="0,2,0,4"/>
                         <TextBox Text="{Binding Path=cliente.email, Mode=TwoWay,  ValidatesOnExceptions=true, NotifyOnValidationError=true}" VerticalAlignment="Center" Grid.Column="1" Grid.Row="11" Grid.ColumnSpan="3" Height="22" Margin="0,4,0,2"/>
                         <DatePicker SelectedDate="{Binding Path=cliente.fecNacimiento,Mode=TwoWay}" VerticalAlignment="Center" Grid.Column="1" Grid.Row="12" Grid.ColumnSpan="2" BorderThickness="0" Margin="0,4,0,3" Height="22"></DatePicker>

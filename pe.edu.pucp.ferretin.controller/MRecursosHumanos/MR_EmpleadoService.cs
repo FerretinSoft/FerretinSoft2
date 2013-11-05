@@ -31,6 +31,27 @@ namespace pe.edu.pucp.ferretin.controller.MRecursosHumanos
             }
         }
 
+
+        private static IEnumerable<EmpleadoTienda> _listaEmpleadoTienda= null;
+        public static IEnumerable<EmpleadoTienda> listaEmpleadoTienda
+        {
+            get
+            {
+                if (_listaEmpleadoTienda == null)
+                {
+                    _listaEmpleadoTienda = db.EmpleadoTienda;
+
+                }
+
+                db.Refresh(RefreshMode.OverwriteCurrentValues, _listaEmpleadoTienda);
+                return _listaEmpleadoTienda;
+            }
+            set
+            {
+                _listaEmpleadoTienda = value;
+            }
+        }
+
         public static IEnumerable<Empleado> obtenerListaEmpleados()
         {
             _listaEmpleados = from p in db.Empleado
@@ -48,6 +69,18 @@ namespace pe.edu.pucp.ferretin.controller.MRecursosHumanos
                 return empleados.First();
             else
                 return null;
+        }
+
+        public static bool obtenerRecurrenciaEmpleoTienda(EmpleadoTienda empleadoTienda)
+        {
+            IEnumerable<EmpleadoTienda> empleadoTiendas = (from e in listaEmpleadoTienda
+                                               where e.sueldo == empleadoTienda.sueldo && e.Cargo.Equals(empleadoTienda.Cargo)
+                                               && e.Tienda == empleadoTienda.Tienda
+                                               select e);
+            if (empleadoTiendas.Count() > 0)
+                return true;
+            else
+                return false;
         }
 
 

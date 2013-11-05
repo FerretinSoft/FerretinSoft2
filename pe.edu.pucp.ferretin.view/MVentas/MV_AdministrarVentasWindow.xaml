@@ -2,11 +2,11 @@
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:viewmodel="clr-namespace:pe.edu.pucp.ferretin.viewmodel.MVentas;assembly=pe.edu.pucp.ferretin.viewmodel"
-        Title="Consultar Ventas" Icon="../Resources/ferretin_ico.ico" Width="839.642">
+        Title="Consultar Ventas" Icon="../Resources/ferretin_ico.ico" Width="839.642" Height="567.836">
     <Window.Resources>
         <viewmodel:MV_VentasViewModel x:Key="MV_VentasViewModel"/>
     </Window.Resources>
-    <Grid DataContext="{Binding Source={StaticResource MV_VentasViewModel}}" >
+    <Grid x:Name="main" DataContext="{Binding Source={StaticResource MV_VentasViewModel}}" >
         <Grid.Background>
             <ImageBrush ImageSource="../Resources/texture_3_100.png" TileMode="FlipX" 
             Viewport="0,0,100,100" ViewportUnits="Absolute"/>
@@ -49,8 +49,13 @@
                                     <ColumnDefinition></ColumnDefinition>
                                     <ColumnDefinition Width="Auto"></ColumnDefinition>
                                 </Grid.ColumnDefinitions>
-                                <TextBox LostFocus="TextBox_LostFocus" Text="{Binding searchNroDocCliente, Mode=TwoWay}" x:Name="searchNroDoc" VerticalAlignment="Center" HorizontalAlignment="Stretch"/>
-                                <Button Margin="0,0,5,0" x:Name="buscarClienteBtn" VerticalAlignment="Center" Width="20" Height="20" BorderThickness="0" Grid.Column="1">
+                                <TextBox  Text="{Binding searchNroDocCliente, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" x:Name="searchNroDoc" VerticalAlignment="Center" HorizontalAlignment="Stretch">
+                                    <TextBox.InputBindings>
+                                        <KeyBinding Key="Enter" Command="{Binding cargarClienteCommand}"></KeyBinding>
+                                    </TextBox.InputBindings>
+                                </TextBox>
+
+                                <Button Click="Button_Click_Cliente" Margin="0,0,5,0" x:Name="buscarClienteBtn" VerticalAlignment="Center" Width="20" Height="20" BorderThickness="0" Grid.Column="1">
                                     <Button.Background>
                                         <ImageBrush ImageSource="../Resources/search1_20.png"/>
                                     </Button.Background>
@@ -59,17 +64,25 @@
 
                             <Grid Grid.Row="0" Grid.Column="3" Grid.ColumnSpan="2">
                                 <Grid.ColumnDefinitions>
-                                    <ColumnDefinition></ColumnDefinition>
+                                    <ColumnDefinition Width="115*"></ColumnDefinition>
+                                    <ColumnDefinition Width="30"></ColumnDefinition>
+                                    <ColumnDefinition Width="114*"></ColumnDefinition>
+                                    <ColumnDefinition Width="115*"></ColumnDefinition>
                                     <ColumnDefinition Width="Auto"></ColumnDefinition>
                                 </Grid.ColumnDefinitions>
-                                <TextBox Text="" VerticalAlignment="Center" IsEnabled="True"/>
-                                <Button x:Name="buscarVendedorBtn" VerticalAlignment="Center" Width="20" Height="20" Grid.Column="1" BorderThickness="0">
+                                <TextBox Text="{Binding Path=searchVendedor, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Grid.Row="0" Grid.Column="0" VerticalAlignment="Bottom" Margin="0,0,0,2">
+                                    <TextBox.InputBindings>
+                                        <KeyBinding Key="Enter" Command="{Binding cargarVendedorCommand}" />
+                                    </TextBox.InputBindings>
+                                </TextBox>
+                                <TextBox IsEnabled="False" Text="{Binding Path=nombreVendedor}"  Grid.Column="2" Grid.ColumnSpan="2" VerticalAlignment="Center"/>
+                                <Button Click="Button_Click_Vendedor" x:Name="buscarVendedorBtn" VerticalAlignment="Center" Width="20" Height="20" Grid.Column="1" BorderThickness="0">
                                     <Button.Background>
                                         <ImageBrush ImageSource="../Resources/search1_20.png"/>
                                     </Button.Background>
                                 </Button>
                             </Grid>
-                            <TextBox x:Name="nombreCliente" VerticalAlignment="Center" VerticalContentAlignment="Center" Grid.Column="3" Grid.ColumnSpan="2" Grid.Row="1" IsEnabled="False" Margin="0,2"/>
+                            <TextBox Text="{Binding Path=nombreCliente}" x:Name="nombreCliente" VerticalAlignment="Center" VerticalContentAlignment="Center" Grid.Column="3" Grid.ColumnSpan="2" Grid.Row="1" IsEnabled="False" Margin="0,2"/>
                             <DatePicker SelectedDate="{Binding searchFechaInicio, Mode=TwoWay}" VerticalAlignment="Center" Grid.Column="1" Grid.Row="2"  BorderThickness="0"/>
                             <DatePicker SelectedDate="{Binding searchFechaFin, Mode=TwoWay}" VerticalAlignment="Center" Grid.Column="3" Grid.Row="2" BorderThickness="0"/>
 
@@ -102,13 +115,9 @@
                             <DataGridTextColumn Width="2*" Binding="{Binding Path=total}" ClipboardContentBinding="{x:Null}" Header="Importe"/>
                         </DataGrid.Columns>
                     </DataGrid>
-                    <StackPanel Orientation="Horizontal" Margin="334,5" Grid.Row="2" HorizontalAlignment="Center">
-                        <Button Height="30" x:Name="seleccionarListaVentaBtn" Content="Seleccionar" Padding="5,0" Margin="5,0"/>
-                        <Button Height="30" x:Name="cancelarListaVentaBtn" Content="Cancelar" Padding="5,0" Margin="5,0" />
-                    </StackPanel>
                 </Grid>
             </TabItem>
-            <TabItem>
+            <TabItem IsEnabled="False">
                 <TabItem.Header>
                     <TextBlock Text="{Binding detallesTabHeader,Mode=OneWay,FallbackValue=Detalle}"/>
                 </TabItem.Header>
@@ -119,8 +128,8 @@
                     </Grid.ColumnDefinitions>
                     <Grid.RowDefinitions>
                         <RowDefinition></RowDefinition>
-                        <RowDefinition Height="Auto"></RowDefinition>
-                        <RowDefinition x:Name="rowSelectVentaDetalle" Height="Auto"/>
+                        <RowDefinition Height="Auto" MinHeight="111"></RowDefinition>
+                        <RowDefinition x:Name="rowSelectVentaDetalle" Height="Auto" MinHeight="30"/>
                     </Grid.RowDefinitions>
                     <Grid Margin="5">
                         <Grid.ColumnDefinitions>
@@ -204,8 +213,12 @@
                         </DataGrid.Columns>
                     </DataGrid>
                     <GridSplitter Grid.RowSpan="2" Width="2" BorderBrush="Gray"/>
-                    <StackPanel Orientation="Horizontal" Margin="56,5,291,5" Grid.Row="2" HorizontalAlignment="Center" Grid.Column="1" Width="154"/>
+
+                    <StackPanel Orientation="Horizontal" Margin="183,0,247,0" Grid.Row="2" Grid.Column="1">
+                        <Button Visibility="{Binding Path=soloEscogerVenta}" Height="30" Content="SELECCIONAR" Padding="5,0" Margin="5,0"  Click="Button_Click" Width="96"/>
+                    </StackPanel>
                 </Grid>
+
             </TabItem>
 
         </TabControl>

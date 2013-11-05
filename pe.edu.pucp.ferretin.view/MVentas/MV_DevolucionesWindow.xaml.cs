@@ -13,6 +13,8 @@ using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using pe.edu.pucp.ferretin.controller.MVentas;
 using pe.edu.pucp.ferretin.model;
+using pe.edu.pucp.ferretin.view.MRecursosHumanos;
+using pe.edu.pucp.ferretin.viewmodel.MRecursosHumanos;
 using pe.edu.pucp.ferretin.viewmodel.MVentas;
 
 namespace pe.edu.pucp.ferretin.view.MVentas
@@ -51,6 +53,41 @@ namespace pe.edu.pucp.ferretin.view.MVentas
             v.Show();     
         }
 
+        private void Button_Click_Venta(object sender, RoutedEventArgs e)
+        {
+            MV_AdministrarVentasWindow v = new MV_AdministrarVentasWindow();
+            v.Owner = this;
+            var viewModel = v.main.DataContext as MV_VentasViewModel;
+            viewModel.soloSeleccionarVenta = true;
+            viewModel.soloEscogerVenta =  System.Windows.Visibility.Visible; 
+
+            v.Show();     
+        }
+
+
+
+        private void Button_Click_Vendedor(object sender, RoutedEventArgs e)
+        {
+            MR_AdministrarPersonalWindow v = new MR_AdministrarPersonalWindow();
+            v.Owner = this;
+            var viewModel = v.main.DataContext as MR_AdministrarPersonalViewModel;
+            viewModel.soloSeleccionarVendedor = true;
+            v.Show();     
+        }
+
+
+        private void Button_Click_VentaLoad(object sender, RoutedEventArgs e)
+        {
+            MV_AdministrarVentasWindow v = new MV_AdministrarVentasWindow();
+            v.Owner = this;
+            var viewModel = v.main.DataContext as MV_VentasViewModel;
+            viewModel.soloSeleccionarVenta = false;
+            viewModel.soloEscogerVenta =  System.Windows.Visibility.Visible; 
+
+            v.Show();     
+        }
+
+
         private void DatePicker_IsEnabledChanged(object sender, DependencyPropertyChangedEventArgs e)
         {
 
@@ -58,31 +95,10 @@ namespace pe.edu.pucp.ferretin.view.MVentas
 
 
 
-        private void TextBox_LostFocus(object sender, RoutedEventArgs e)
-        {
-            Cliente cliente = MV_ClienteService.obtenerClienteByNroDoc(searchNroDoc.Text);
-            if (cliente != null)
-                nombreCliente.Text = cliente.nombreCompleto;
-            else
-                nombreCliente.Text = "";
-        }
 
         private void TextBox_SelectionChanged_1(object sender, RoutedEventArgs e)
         {
-            Venta venta = MV_VentaService.obtenerVentaByCodVenta(codVenta.Text);
-            if (venta != null)
-            {
-                RegNombreCliente.Text = venta.Cliente.nombreCompleto;
-                RegCodCliente.Text = venta.Cliente.nroDoc;
-                productosCompGrid.ItemsSource = MV_VentaService.obtenerProductosbyIdVenta(venta.id);
-                totalComprado.Text = Convert.ToString(venta.total);
-
-            }
-            else
-            {
-                RegNombreCliente.Text = "";
-                RegCodCliente.Text = "";
-            }
+      
 
         }
     }

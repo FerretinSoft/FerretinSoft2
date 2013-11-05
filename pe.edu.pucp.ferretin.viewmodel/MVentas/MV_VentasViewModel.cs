@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
+using pe.edu.pucp.ferretin.controller.MRecursosHumanos;
 using pe.edu.pucp.ferretin.controller.MVentas;
 using pe.edu.pucp.ferretin.model;
 using pe.edu.pucp.ferretin.viewmodel.Helper;
@@ -21,6 +22,14 @@ namespace pe.edu.pucp.ferretin.viewmodel.MVentas
         #endregion
 
         #region Valores para el cuadro de Búsqueda
+
+        public String _searchVendedor = "";
+        public String searchVendedor { get { return _searchVendedor; } set { _searchVendedor = value; NotifyPropertyChanged("searchVendedor"); } }
+
+        public String _nombreVendedor = "";
+        public String nombreVendedor { get { return _nombreVendedor; } set { _nombreVendedor = value; NotifyPropertyChanged("nombreVendedor"); } }
+
+
         public String _searchNroDocumento = "";
         public String searchNroDocumento { get { return _searchNroDocumento; } set { _searchNroDocumento = value; NotifyPropertyChanged("searchNroDocumento"); } }
 
@@ -52,6 +61,47 @@ namespace pe.edu.pucp.ferretin.viewmodel.MVentas
                 NotifyPropertyChanged("selectedTab");
             }
         }
+
+
+        private bool _soloSeleccionarVenta = false;
+        public bool soloSeleccionarVenta
+        {
+            get
+            {
+                return _soloSeleccionarVenta;
+            }
+            set
+            {
+                _soloSeleccionarVenta = value;
+                NotifyPropertyChanged("soloSeleccionarVenta");
+                NotifyPropertyChanged("noSoloSeleccionarVenta");
+
+            }
+        }
+
+        private System.Windows.Visibility _soloEscogerVenta = System.Windows.Visibility.Hidden;
+        public System.Windows.Visibility soloEscogerVenta
+        {
+            get
+            {
+                return _soloEscogerVenta;
+            }
+            set
+            {
+                _soloEscogerVenta = value;
+                NotifyPropertyChanged("soloEscogerVenta");
+               
+
+            }
+        }
+        public bool noSoloSeleccionarVenta
+        {
+            get
+            {
+                return !soloSeleccionarVenta;
+            }
+        }
+
         #endregion
 
         #region Lista Ventas y Edicion de Venta
@@ -75,7 +125,7 @@ namespace pe.edu.pucp.ferretin.viewmodel.MVentas
             get
             {
 
-                _listaVentas = MV_VentaService.buscarVentas(searchNroDocumento, searchNroDocCliente, searchFechaInicio, searchFechaFin);
+                _listaVentas = MV_VentaService.buscarVentas(searchNroDocumento, searchNroDocCliente, searchFechaInicio, searchFechaFin, searchVendedor);
 
                 return _listaVentas;
             }
@@ -117,6 +167,20 @@ namespace pe.edu.pucp.ferretin.viewmodel.MVentas
         #endregion
 
         #region RalayCommand
+
+        RelayCommand _cargarClienteCommand;
+        public ICommand cargarClienteCommand
+        {
+            get
+            {
+                if (_cargarClienteCommand == null)
+                {
+                    _cargarClienteCommand = new RelayCommand(cargarCliente);
+                }
+                return _cargarClienteCommand;
+            }
+        }
+
         RelayCommand _actualizarListaVentasCommand;
         public ICommand actualizarListaVentasCommand
         {
@@ -142,9 +206,41 @@ namespace pe.edu.pucp.ferretin.viewmodel.MVentas
                 return _viewDetailVentaCommand;
             }
         }
+
+        RelayCommand _cargarVendedorCommand;
+        public ICommand cargarVendedorCommand
+        {
+            get
+            {
+                if (_cargarVendedorCommand == null)
+                {
+                    _cargarVendedorCommand = new RelayCommand(cargarVendedor);
+                }
+                return _cargarVendedorCommand;
+            }
+        }
         #endregion
 
         #region commands
+
+        public void cargarVendedor(Object id)
+        {
+            Empleado buscado = null;
+            try
+            {
+                buscado = MR_EmpleadoService.obtenerEmpleadoByNroDoc(searchVendedor);
+                nombreVendedor = buscado.nombreCompleto;
+            }
+            catch { }
+
+            if (buscado == null)
+            {
+                nombreVendedor = "";
+                MessageBox.Show("No se encontro ningún vendedor con el número de documento proporcionado", "No se encontro", MessageBoxButton.OK, MessageBoxImage.Question);
+            }
+
+        }
+
         public void viewDetailVenta(Object id)
         {
             try
@@ -159,6 +255,31 @@ namespace pe.edu.pucp.ferretin.viewmodel.MVentas
                 MessageBox.Show(e.Message);
             }
         }
+
+        public void cargarCliente(Object id)
+        {
+            Cliente buscado = null;
+            try
+            {
+                buscado = MV_ClienteService.obtenerClienteByNroDoc(searchNroDocCliente);
+            }
+            catch { }
+
+            if (buscado == null)
+            {
+                MessageBox.Show("No se encontro ningún Cliente con el número de documento proporcionado", "No se encontro", MessageBoxButton.OK, MessageBoxImage.Question);
+                nombreCliente = "";
+                searchNroDocCliente = "";
+            }
+            else
+            {
+                nombreCliente = buscado.nombreCompleto;
+                searchNroDocCliente = buscado.nroDoc;
+            }
+            NotifyPropertyChanged("nombreCliente");
+            NotifyPropertyChanged("searchNroDocCliente");
+        }
+
         #endregion
 
     }

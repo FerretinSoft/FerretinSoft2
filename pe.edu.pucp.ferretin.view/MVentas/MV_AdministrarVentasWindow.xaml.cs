@@ -13,6 +13,8 @@ using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using pe.edu.pucp.ferretin.controller.MVentas;
 using pe.edu.pucp.ferretin.model;
+using pe.edu.pucp.ferretin.view.MRecursosHumanos;
+using pe.edu.pucp.ferretin.viewmodel.MRecursosHumanos;
 using pe.edu.pucp.ferretin.viewmodel.MVentas;
 
 namespace pe.edu.pucp.ferretin.view.MVentas
@@ -34,18 +36,55 @@ namespace pe.edu.pucp.ferretin.view.MVentas
             
         }
 
-        
-
-
-        private void TextBox_LostFocus(object sender, RoutedEventArgs e)
+        private void Button_Click(object sender, RoutedEventArgs e)
         {
-            Cliente cliente = MV_ClienteService.obtenerClienteByNroDoc(searchNroDoc.Text);
-            if (cliente != null)
-                nombreCliente.Text = cliente.nombreCompleto;
-            else
-                nombreCliente.Text = "";
+            if (this.Owner != null)//O sea que proviene de un padre
+            {
+                try
+                {
+                    MV_DevolucionesWindow padre = this.Owner as MV_DevolucionesWindow;
+                    MV_VentasViewModel my_DataContext = this.main.DataContext as MV_VentasViewModel;
+                    MV_DevolucionesViewModel padre_DataContext = padre.main.DataContext as MV_DevolucionesViewModel;
+                    if (my_DataContext.soloSeleccionarVenta == true)
+                    {
+                        padre_DataContext.searchnombreCliente = my_DataContext.venta.nombreCompletoCliente;
+                        padre_DataContext.searchNroDocumento = my_DataContext.venta.nroDocumento;
+                        padre_DataContext.searchNroDocCliente = my_DataContext.venta.Cliente.nroDoc;
+                        padre_DataContext.searchVendedor = my_DataContext.venta.Usuario.Empleado.dni;
+                        padre_DataContext.nombreVendedor = my_DataContext.venta.Usuario.Empleado.nombreCompleto;
+                    }
+                    else
+                    {
+                        padre_DataContext.devolucion.fecEmision = DateTime.Today;
+                        padre_DataContext.devolucion.codigo = MV_DevolucionService.obtenerCodDevolucion();
+                        padre_DataContext.loadNroDocumento = my_DataContext.venta.nroDocumento;
+                        padre_DataContext.devolucion.Venta = my_DataContext.venta;
+                        padre_DataContext.listaProductosComprados = MV_VentaService.obtenerProductosbyIdVenta(my_DataContext.venta.id);
+                    }
+
+                    this.Close();
+                }
+                
+                catch { }
+                
+            }
+        }
+        private void Button_Click_Vendedor(object sender, RoutedEventArgs e)
+        {
+            MR_AdministrarPersonalWindow v = new MR_AdministrarPersonalWindow();
+            v.Owner = this;
+            var viewModel = v.main.DataContext as MR_AdministrarPersonalViewModel;
+            viewModel.soloSeleccionarVendedor = true;
+            v.Show();
         }
 
-
+        private void Button_Click_Cliente(object sender, RoutedEventArgs e)
+        {
+            MV_ClientesWindow v = new MV_ClientesWindow();
+            v.Owner = this;
+            var viewModel = v.main.DataContext as MV_ClientesViewModel;
+            viewModel.soloSeleccionarCliente = true;
+            v.Show();
+        }
     }
 }
