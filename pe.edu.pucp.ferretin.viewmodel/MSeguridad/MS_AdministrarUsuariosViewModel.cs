@@ -158,6 +158,21 @@ namespace pe.edu.pucp.ferretin.viewmodel.MSeguridad
                 return items.Concat(MS_UsuarioService.obtenerPerfiles());
             }
         }
+
+        /**************************************************/
+        public IEnumerable<Perfil> perfilesSinTodos
+        {
+            get
+            {            
+                return MS_UsuarioService.obtenerPerfiles();
+            }
+        }
+
+
+        
+
+
+
         /**************************************************/
         private IEnumerable<Usuario> _listaUsuarios;
         public IEnumerable<Usuario> listaUsuarios

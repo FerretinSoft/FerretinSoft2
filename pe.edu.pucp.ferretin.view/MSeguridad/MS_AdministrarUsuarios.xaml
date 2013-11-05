@@ -141,7 +141,7 @@
                         <ComboBoxItem Content="Inactivo"></ComboBoxItem>
                         <ComboBoxItem Content="Activo"></ComboBoxItem>
                     </ComboBox>
-                    <ComboBox ItemsSource="{Binding perfiles}" DisplayMemberPath="nombre" SelectedItem="{Binding Path=usuario.Perfil, Mode=TwoWay,  ValidatesOnExceptions=true, NotifyOnValidationError=true}" x:Name="perfilCombo2"  HorizontalAlignment="Left" Margin="247,246,0,0" VerticalAlignment="Top" Width="285" Grid.ColumnSpan="2" Grid.Column="1">
+                    <ComboBox ItemsSource="{Binding perfilesSinTodos}" DisplayMemberPath="nombre" SelectedItem="{Binding Path=usuario.Perfil, Mode=TwoWay,  ValidatesOnExceptions=true, NotifyOnValidationError=true}" x:Name="perfilCombo2"  HorizontalAlignment="Left" Margin="247,246,0,0" VerticalAlignment="Top" Width="285" Grid.ColumnSpan="2" Grid.Column="1">
                     </ComboBox>
 
                     <!--<PasswordBox x:Name="pwboxContrasena" PasswordChanged="pwboxContrasena_PasswordChanged" HorizontalAlignment="Left" Height="23" Margin="285.747,287,0,0" VerticalAlignment="Top" Width="225" Grid.ColumnSpan="2"  RenderTransformOrigin="0.5,1.812" Grid.Column="1"/>
