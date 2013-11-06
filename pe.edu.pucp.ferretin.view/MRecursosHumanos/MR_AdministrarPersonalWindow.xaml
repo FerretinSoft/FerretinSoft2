@@ -157,11 +157,16 @@
                     </ComboBox>
                     <TextBox Text="{Binding empleado.ultimoSueldo, ValidatesOnExceptions=true, NotifyOnValidationError=true , ValidatesOnDataErrors=True}"  HorizontalAlignment="Left" Height="23" Margin="152,121,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="181" Grid.Column="5" KeyDown="txtSueldo_KeyDown"/>
                     <Label Content="Historial:" HorizontalAlignment="Left" Margin="27,185,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.464,1.231" Grid.Column="5"/>
-                    <DataGrid ItemsSource="{Binding empleado.EmpleadoTurno}" AutoGenerateColumns="False" IsReadOnly="True" IsManipulationEnabled="True" Grid.Column="5" HorizontalAlignment="Left" Margin="27,314,0,0" VerticalAlignment="Top" Height="85" Width="308">
+                    <DataGrid  ItemsSource="{Binding Path=listaEmpleadoTurno,Mode=TwoWay}"  CanUserAddRows="False" AutoGenerateColumns="False"  Grid.Column="5" HorizontalAlignment="Left" Margin="27,314,0,0" VerticalAlignment="Top" Height="85" Width="308">
                         <DataGrid.Columns>
                             <DataGridTextColumn Binding="{Binding Path=Dia.nombre}" Header="Día de la Semana" Width="3*"/>
-                            <DataGridComboBoxColumn Width="3*" ItemsSource="{Binding listaTurnos}"  SelectedItemBinding="{Binding empleado.cargoActual,Mode=TwoWay}"  DisplayMemberPath="nombre" SelectedValuePath="id" Header="Turno"  />
-                            <DataGridCheckBoxColumn Width="2*" Header="Seleccionar"  />
+                            <DataGridComboBoxColumn Width="3*" ItemsSource="{Binding listaTurnos}"  DisplayMemberPath="nombre" SelectedValuePath="id" Header="Turno" >
+                              
+                                
+                                
+                                </DataGridComboBoxColumn>
+                            <DataGridCheckBoxColumn Width="2*" Binding="{Binding Path=estado}" Header="Seleccionar"  />
+                      
                             
                         </DataGrid.Columns>
                     </DataGrid>

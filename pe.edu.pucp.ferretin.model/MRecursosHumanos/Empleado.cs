@@ -216,6 +216,44 @@ namespace pe.edu.pucp.ferretin.model
             }
         }
 
+        //Definir Nueva clase para Turnos//
+
+
+        public Turno _turnoSeleccionar;
+        public Turno turnoSeleccionar
+        {
+            get
+            {
+                if (_turnoSeleccionar == null && ultimoEmpleadoTienda != null)
+                    _cargoActual = ultimoEmpleadoTienda.Cargo;
+                return _turnoSeleccionar;
+            }
+            set
+            {
+
+                nuevoEmpleadoTurno.Turno = value;
+                _turnoSeleccionar = value;
+               
+                
+            }
+        }
+
+
+        private EmpleadoTurno ultimoEmpleadoTurno
+        {
+            get
+            {
+                if (this.EmpleadoTurno.Count(et => et.estado == 1) > 0)
+                {
+                    return this.EmpleadoTurno.Last(et => et.estado == 1);
+                }
+                else
+                {
+                    return null;
+                }
+            }
+        }
+
 
         private EmpleadoTurno _nuevoEmpleadoTurno;
         public EmpleadoTurno nuevoEmpleadoTurno
