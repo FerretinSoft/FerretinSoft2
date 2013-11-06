@@ -23,5 +23,12 @@ namespace pe.edu.pucp.ferretin.view.MCompras
         {
             InitializeComponent();
         }
+
+        private void Button_Click_Proveedor(object sender, RoutedEventArgs e)
+        {
+            MC_AdministrarProveedorWindow p = new MC_AdministrarProveedorWindow();
+            p.Owner = this;
+            var viewModel = p.main.DataContext as MC_AdministrarProveedorWindow;
+        }
     }
 }

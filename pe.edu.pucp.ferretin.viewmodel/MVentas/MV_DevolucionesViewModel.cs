@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
 using pe.edu.pucp.ferretin.controller.MRecursosHumanos;
+using pe.edu.pucp.ferretin.controller.MSeguridad;
 using pe.edu.pucp.ferretin.controller.MVentas;
 using pe.edu.pucp.ferretin.model;
 using pe.edu.pucp.ferretin.viewmodel.Helper;
@@ -417,10 +418,13 @@ namespace pe.edu.pucp.ferretin.viewmodel.MVentas
             devolucion.id_empleado = usuarioLogueado.Empleado.id;
             devolucion.codigo = MV_DevolucionService.obtenerCodDevolucion();
             notaCredito.fechaEmision = DateTime.Now;
+            devolucion.igv = devolucion.subTotal * (decimal)MS_ParametroService.obtenerIGV()/100;
+            devolucion.total = devolucion.igv + devolucion.subTotal;
             notaCredito.importe = devolucion.total;
+            notaCredito.estado = 0;
             notaCredito.codigo = devolucion.codigo;
-            devolucion.subTotal = devolucion.total;
-           
+            notaCredito.fechaVencimiento = DateTime.Now.AddDays(Convert.ToInt32(MS_ParametroService.obtenerParametro("vigencia de notas de credito")));
+            
 
                     if (!MV_DevolucionService.insertarDevolucion(devolucion))
                     {
@@ -438,7 +442,10 @@ namespace pe.edu.pucp.ferretin.viewmodel.MVentas
                     else
                     {
                         MessageBox.Show("La Nota de Crédito fue agregado con éxito");
+                        selectedTab = 0;
+                        NotifyPropertyChanged("selectedTab");
                     }
+            
         }
 
         public void viewDetailDevolucion(Object id)
