@@ -191,6 +191,7 @@ namespace pe.edu.pucp.ferretin.model
 
         }
 
+       
       
 
        
@@ -212,6 +213,23 @@ namespace pe.edu.pucp.ferretin.model
                     ultimoEmpleadoTienda.fecFin = DateTime.Today;
                     ultimoEmpleadoTienda.estado = 1; //inactivar
                 }
+            }
+        }
+
+
+        private EmpleadoTurno _nuevoEmpleadoTurno;
+        public EmpleadoTurno nuevoEmpleadoTurno
+        {
+            get
+            {
+                return _nuevoEmpleadoTurno;
+            }
+            set
+            {
+                _nuevoEmpleadoTurno = value;
+                _nuevoEmpleadoTurno.estado = 2;
+                
+
             }
         }
 

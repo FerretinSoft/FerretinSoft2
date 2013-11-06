@@ -109,6 +109,22 @@ namespace pe.edu.pucp.ferretin.viewmodel.MRecursosHumanos
             }
         }
 
+        public IEnumerable<Turno> listaTurnos
+        {
+            get
+            {
+                //return MR_ComunService.gradosInstruccion;
+                //Creo una nueva secuencia
+                var sequence = Enumerable.Empty<Turno>();
+                //Primero agrego un item de Todos para que salga al inicio
+                //Pongo el ID en 0 para que al buscar, no filtre nada cuando se selecciona todos
+                IEnumerable<Turno> items = new Turno[] { new Turno { id = 0, nombre = "Seleccionar" } };
+                //Luego concateno el itemcon los elementos del combobox
+                return items.Concat(MR_CargTieService.turnos);
+
+            }
+        }
+
         public bool isCreating
         {
             get
