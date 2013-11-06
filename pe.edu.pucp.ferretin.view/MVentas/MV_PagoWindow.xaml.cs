@@ -48,5 +48,27 @@ namespace pe.edu.pucp.ferretin.view.MVentas
         {
             this.Close();
         }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            MV_PagoWindowViewModel p = main.DataContext as MV_PagoWindowViewModel;
+            MV_AgregarValeWindow vale = new MV_AgregarValeWindow()
+            {
+                pagoviewmodel = p,
+                Owner = this
+            };
+            vale.ShowDialog();
+        }
+
+        private void Button_Click_2(object sender, RoutedEventArgs e)
+        {
+            MV_PagoWindowViewModel p = main.DataContext as MV_PagoWindowViewModel;
+            MV_AgregarNotaCreditoWindow notaCredito = new MV_AgregarNotaCreditoWindow()
+            {
+                pagoviewmodel = p,
+                Owner = this
+            };
+            notaCredito.ShowDialog();
+        }
     }
 }

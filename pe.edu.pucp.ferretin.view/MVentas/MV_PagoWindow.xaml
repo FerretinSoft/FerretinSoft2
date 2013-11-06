@@ -46,45 +46,65 @@
             </Grid>
         </GroupBox>
         <ToolBar HorizontalAlignment="Left" Grid.Row="2" Margin="0,5" Padding="0" VerticalAlignment="Center" Height="30" VerticalContentAlignment="Center">
-            <Button Command="{Binding agregarPagoCommand}">
+            <Button Command="{Binding agregarPagoCommand}" CommandParameter="1" Margin="0,0,5,0">
                 <StackPanel Orientation="Horizontal">
                     <Image Source="../Resources/add_20.png" Height="15" Width="15"/>
-                    <Label Padding="5,0">AGREGAR PAGO</Label>
+                    <Label Padding="5,0">EFECTIVO</Label>
+                </StackPanel>
+            </Button>
+            <Button Command="{Binding agregarPagoCommand}" CommandParameter="2" Margin="5,0">
+                <StackPanel Orientation="Horizontal">
+                    <Image Source="../Resources/add_20.png" Height="15" Width="15"/>
+                    <Label Padding="5,0">TARJETA</Label>
+                </StackPanel>
+            </Button>
+            <Button Command="{Binding agregarPagoCommand}" CommandParameter="3" Margin="5,0" Click="Button_Click">
+                <StackPanel Orientation="Horizontal">
+                    <Image Source="../Resources/add_20.png" Height="15" Width="15"/>
+                    <Label Padding="5,0">VALE</Label>
+                </StackPanel>
+            </Button>
+            <Button Command="{Binding agregarPagoCommand}" CommandParameter="4" Margin="5,0" Click="Button_Click_2" >
+                <StackPanel Orientation="Horizontal">
+                    <Image Source="../Resources/add_20.png" Height="15" Width="15"/>
+                    <Label Padding="5,0">NOTA DE CRÉDITO</Label>
                 </StackPanel>
             </Button>
         </ToolBar>
         <DataGrid ItemsSource="{Binding Path=venta.VentaMedioPago,UpdateSourceTrigger=PropertyChanged,NotifyOnSourceUpdated=True,NotifyOnTargetUpdated=True,Mode=TwoWay}" Grid.Row="3" Margin="5,0" VerticalAlignment="Stretch" CanUserAddRows="False" CanUserDeleteRows="True" CanUserReorderColumns="False" CanUserResizeColumns="True" CanUserResizeRows="False" CanUserSortColumns="True" IsManipulationEnabled="True" IsReadOnly="False" AutoGenerateColumns="False">
             <DataGrid.Columns>
-                <DataGridComboBoxColumn SelectedItemBinding="{Binding MedioPago}"  DisplayIndex="0" SelectedValuePath="nombre" DisplayMemberPath="nombre" Width="1*" Header="Modo de pago">
-                    <DataGridComboBoxColumn.ElementStyle>
-                        <Style TargetType="ComboBox">
-                            <Setter Property="ItemsSource" Value="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type DataGrid}}, Path=DataContext.mediosPago}"/>
-                        </Style>
-                    </DataGridComboBoxColumn.ElementStyle>
-                    <DataGridComboBoxColumn.EditingElementStyle>
-                        <Style TargetType="ComboBox">
-                            <Setter Property="ItemsSource" Value="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type DataGrid}}, Path=DataContext.mediosPago}"/>
-                        </Style>
-                    </DataGridComboBoxColumn.EditingElementStyle>
-                </DataGridComboBoxColumn>
-                <DataGridTextColumn Width="2*" Binding="{x:Null}" ClipboardContentBinding="{x:Null}" Header="Descripción"/>
-                <DataGridTextColumn Width="1*" Binding="{x:Null}" ClipboardContentBinding="{x:Null}" Header="Cod. Vale"/>
-                
-                <DataGridComboBoxColumn Width="1*" Header="Moneda">
+                <DataGridTextColumn Binding="{Binding MedioPago.nombre}"  Width="1*" Header="Modo de pago" IsReadOnly="True"/>
+                <DataGridTextColumn Binding="{Binding detalle}" Width="2*" Header="Detalles" IsReadOnly="True"/>
+                <DataGridComboBoxColumn Width="0.6*" Header="Moneda">
                     <DataGridComboBoxColumn.ElementStyle>
                         <Style TargetType="ComboBox">
                             <Setter Property="ItemsSource" Value="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type DataGrid}}, Path=DataContext.tiposMoneda}"/>
-                            <Setter Property="SelectedIndex" Value="{Binding moneda}"/>
+                            <Setter Property="SelectedIndex" Value="{Binding moneda,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"/>
+                            <Setter Property="IsEnabled" Value="{Binding monedaIsEnable,Mode=OneWay,UpdateSourceTrigger=PropertyChanged}"/>
                         </Style>
                     </DataGridComboBoxColumn.ElementStyle>
                     <DataGridComboBoxColumn.EditingElementStyle>
                         <Style TargetType="ComboBox">
                             <Setter Property="ItemsSource" Value="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type DataGrid}}, Path=DataContext.tiposMoneda}"/>
-                            <Setter Property="SelectedIndex" Value="{Binding moneda}"/>
+                            <Setter Property="SelectedIndex" Value="{Binding moneda,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"/>
+                            <Setter Property="IsEnabled" Value="{Binding monedaIsEnable,Mode=OneWay,UpdateSourceTrigger=PropertyChanged}"/>
                         </Style>
                     </DataGridComboBoxColumn.EditingElementStyle>
                 </DataGridComboBoxColumn>
-                <DataGridTextColumn Width="1*" Binding="{Binding monto}" Header="Importe"/>
+                <DataGridTextColumn Width="0.6*" Header="Importe">
+                    <DataGridTextColumn.ElementStyle>
+                        <Style TargetType="TextBlock">
+                            <Setter Property="Text" Value="{Binding monto,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"/>
+                            <Setter Property="IsEnabled" Value="{Binding montoReadOnly,Mode=OneWay,UpdateSourceTrigger=PropertyChanged}"/>
+                        </Style>
+                    </DataGridTextColumn.ElementStyle>
+                    <DataGridTextColumn.EditingElementStyle>
+                        <Style TargetType="TextBox">
+                            <Setter Property="Text" Value="{Binding monto,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"/>
+                            <Setter Property="IsReadOnly" Value="{Binding montoReadOnly,Mode=OneWay,UpdateSourceTrigger=PropertyChanged}"/>
+                        </Style>
+                    </DataGridTextColumn.EditingElementStyle>
+                </DataGridTextColumn>
             </DataGrid.Columns>
         </DataGrid>
         <Grid Grid.Row="4" Margin="10,5">
@@ -105,14 +125,14 @@
 
             <Label Grid.Row="0" Grid.Column="5" Content="Sub Total:" />
             <Label Grid.Row="1" Grid.Column="5" Content="% IGV:"/>
-            <Label Grid.Row="2" Grid.Column="5" Content="Total a Pagar:"/>
+            <Label Grid.Row="2" Grid.Column="5" Content="Total a Pagar (S/.):"/>
 
             <TextBox Grid.Row="0" Grid.Column="6" TextAlignment="Right" Text="{Binding venta.subTotal}" VerticalAlignment="Center" IsEnabled="False" Height="22" Margin="0,2"/>
             <TextBox Grid.Row="1" Grid.Column="6" TextAlignment="Right" Text="{Binding venta.igv}" VerticalAlignment="Center" IsEnabled="False" Height="22" Margin="0,2"/>
             <TextBox Grid.Row="2" Grid.Column="6" TextAlignment="Right" Text="{Binding venta.total}" VerticalAlignment="Center" IsEnabled="False" Height="22" Margin="0,2"/>
 
-            <Label Grid.Row="0" Grid.Column="0" Content="Cobrado:" />
-            <Label Grid.Row="1" Grid.Column="0" Content="Diferencia:" />
+            <Label Grid.Row="0" Grid.Column="0" Content="Cobrado (S/.)" />
+            <Label Grid.Row="1" Grid.Column="0" Content="Diferencia (S/.):" />
             <Label Grid.Row="0" Grid.Column="2" Content="Puntos Canjeados:" />
             <Label Grid.Row="1" Grid.Column="2" Content="Puntos Ganados:" />
 
@@ -124,7 +144,7 @@
         <Grid Grid.Row="5" Margin="10,5">
 
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
-                <Button Content="IMPRIMIR DOCUMENTO" VerticalAlignment="Center" Height="30" Padding="5,0" Margin="0,0,5,0"/>
+                <Button Command="{Binding imprimirDocumentoCommand}" Content="IMPRIMIR DOCUMENTO" VerticalAlignment="Center" Height="30" Padding="5,0" Margin="0,0,5,0"/>
                 <Button Content="CANCELAR" VerticalAlignment="Center"  Height="30" Click="Button_Click_1" Padding="5,0" Margin="0"/>
             </StackPanel>
         </Grid>

@@ -100,6 +100,7 @@
     </Compile>
     <Compile Include="MAlmacen\Tienda.cs" />
     <Compile Include="MSeguridad\Usuario.cs" />
+    <Compile Include="MVentas\VentaMedioPago.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
