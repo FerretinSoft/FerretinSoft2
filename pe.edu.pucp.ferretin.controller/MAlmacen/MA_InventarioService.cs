@@ -152,21 +152,46 @@ namespace pe.edu.pucp.ferretin.controller.MAlmacen
 
 
 
-        public static IEnumerable<Producto> obtenerProductosPorAlmacenCategoriaNombre(String nombre1, String searchTienda)
+        public static IEnumerable<Producto> obtenerProductosPorAlmacenCategoriaNombre(String nombre1, Tienda searchAlmacen, Categoria searchCategoria)
         {
+            //String todo = "Todos"; 
 
-            listaProducto =
-                from p in db.Producto
-                where
-              (p.nombre != null && p.nombre.Contains(nombre1))
+            
+            
+                listaProducto =
+                    from p in db.Producto
+                    where
+                  (p.nombre != null && p.nombre.Contains(nombre1))
 
-                orderby p.id
-                select p;
+                    orderby p.id
+                    select p;
 
 
+            
+                if (searchAlmacen!=null && searchAlmacen.nombre!="Todos")
+                {
+                    listaAlmacen =
+                        from t in db.Tienda
+                        where
+                        (t.nombre != null && t.id.Equals(searchAlmacen.id))
+                        orderby t.id
+                        select t;
+                }
 
 
+                if (searchCategoria!=null && searchCategoria.nombre!= "Todos")
+                {
+                    listaCategoria =
+                        from c in db.Categoria
+                        where
+                        (c.nombre != null && c.id.Equals(searchCategoria.id))
+                        orderby c.id
+                        select c;
+                }
+            
             List<Producto> pList = listaProducto.ToList();
+            List<Tienda> pListA = listaAlmacen.ToList();
+            List<Categoria> pListC = listaCategoria.ToList();
 
             foreach (Producto p in pList)
             {
@@ -193,8 +218,9 @@ namespace pe.edu.pucp.ferretin.controller.MAlmacen
                         p.descuento = (int)pa.descuento;
                         p.puntos = (int)pa.puntos;
 
-                        foreach (Tienda ti in listaAlmacen)
+                        foreach (Tienda ti in pListA)
                         {
+
                             if (pa.id_almacen.Equals(ti.id))
                             {
                                 p.almacen=ti.nombre;

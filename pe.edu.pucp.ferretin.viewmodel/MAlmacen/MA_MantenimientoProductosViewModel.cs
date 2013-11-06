@@ -9,13 +9,19 @@ using pe.edu.pucp.ferretin.controller;
 using pe.edu.pucp.ferretin.model;
 using System.Windows.Input;
 using pe.edu.pucp.ferretin.viewmodel.Helper;
+using System.Windows.Media;
+using System.Windows.Media.Imaging;
+using System.Windows.Controls;
+using System.IO;
 using System.Windows;
+using Microsoft.Win32;
+
 
 namespace pe.edu.pucp.ferretin.viewmodel.MAlmacen
 {
     public class MA_MantenimientoProductosViewModel : ViewModelBase
     {
-
+        
         public IEnumerable<Categoria> listaCategoriasAsignadas { get; set; }
 
         public String searchNombre { get; set; }
@@ -24,6 +30,20 @@ namespace pe.edu.pucp.ferretin.viewmodel.MAlmacen
         private IEnumerable<Categoria> _categoriasPadre;
         public IEnumerable<Categoria> categoriasPadre { get { return _categoriasPadre; } set { _categoriasPadre = value; OnPropertyChanged("categoriasPadre"); } }
 
+        public Image _imgProd { get; set; }
+        public Image imgProd
+        {
+            set
+            {
+                _imgProd = value;
+                OnPropertyChanged("imgProd");
+            }
+
+            get
+            {
+                return _imgProd;
+            }
+        }
 
         private IEnumerable<Categoria> _categoriaPrincipal;
         public IEnumerable<Categoria> categoriaPrincipal
@@ -323,6 +343,7 @@ namespace pe.edu.pucp.ferretin.viewmodel.MAlmacen
             }
         }
 
+
         RelayCommand _nuevoProductoCommand;
         public ICommand nuevoProductoCommand
         {
@@ -375,9 +396,10 @@ namespace pe.edu.pucp.ferretin.viewmodel.MAlmacen
             }
         }
 
+
         #endregion
 
-        private void obtenerCategoriasDeProducto()
+                private void obtenerCategoriasDeProducto()
         {
             IEnumerable<Categoria> catxProd = MA_CategoriaService.obtenerCategoriasxProducto(producto.id);
 
@@ -386,7 +408,9 @@ namespace pe.edu.pucp.ferretin.viewmodel.MAlmacen
             foreach (Categoria r in res)
             {
                 r.isChecked = true;
+                Console.WriteLine(r.nombre);
             }
+            
         }
 
 
@@ -422,6 +446,7 @@ namespace pe.edu.pucp.ferretin.viewmodel.MAlmacen
         private void guardarBtn(object obj)
         {
             String header=(String)obj;
+            Console.WriteLine(imgProd);
             if (header.Contains("Agregar"))
             {
 
@@ -454,6 +479,12 @@ namespace pe.edu.pucp.ferretin.viewmodel.MAlmacen
             }
             
             //prodAlm = new ProductoAlmacen();
+        }
+
+        public byte[] imageToByteArray(String path)
+        {
+            byte[] b = File.ReadAllBytes(path);
+            return b;
         }
 
         private void tabBúsqueda_Click(object sender, MouseButtonEventArgs e)

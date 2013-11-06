@@ -17,6 +17,7 @@ namespace pe.edu.pucp.ferretin.controller.MCompras
             {
                 if (_rubro == null)
                     _rubro = from r in db.Rubro select r;
+                //_rubro = db.Rubro;
                 return _rubro;
             }
             set

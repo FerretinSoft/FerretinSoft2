@@ -1,4 +1,5 @@
-﻿using pe.edu.pucp.ferretin.controller.MVentas;
+﻿using pe.edu.pucp.ferretin.controller.MAlmacen;
+using pe.edu.pucp.ferretin.controller.MVentas;
 using pe.edu.pucp.ferretin.model;
 using pe.edu.pucp.ferretin.viewmodel.Helper;
 using System;
@@ -160,6 +161,7 @@ namespace pe.edu.pucp.ferretin.viewmodel.MVentas
         }
         #endregion
 
+        public string codProdAgregar { get; set; }
 
         #region Lista de Promociones y Promocion a editar
         private Promocion _promocion;
@@ -190,9 +192,23 @@ namespace pe.edu.pucp.ferretin.viewmodel.MVentas
                 NotifyPropertyChanged("listaPromociones");
             }
         }
+        
         #endregion
 
         #region RelayCommand
+        RelayCommand _agregarProductoCommand;
+        public ICommand agregarProductoCommand
+        {
+            get
+            {
+                if (_agregarProductoCommand == null)
+                {
+                    _agregarProductoCommand = new RelayCommand(agregarProducto);
+                }
+                return _agregarProductoCommand;
+            }
+        }
+        
         RelayCommand _actualizarListaCommand;
         public ICommand actualizarListaCommand
         {
@@ -312,9 +328,49 @@ namespace pe.edu.pucp.ferretin.viewmodel.MVentas
             {
                 return promocion != null;
             }
-            return base.UIValidationErrorCount == 0 && this.promocion.Errors.Count == 0;
+            return this.promocion!=null && base.UIValidationErrorCount == 0 && this.promocion.Errors.Count == 0;
         }
 
+        public void agregarProducto(Object id)
+        {
+            if (codProdAgregar != null && codProdAgregar.Length > 0)
+            {
+                Producto producto = null;
+                try
+                {
+                    producto = MA_SharedService.obtenerProductoxCodigo(codProdAgregar);
+                }
+                catch { }
+
+                if (producto != null)
+                {
+                    PromocionProducto promocionProducto = null;
+                    if (promocion.PromocionProducto.Count(vp => vp.Producto.id == producto.id) == 1)
+                    {
+                        //promocion.PromocionProducto.Single(vp => vp.Producto.id == producto.id).stockTotal++;
+                    }
+                    else
+                    {
+                        promocionProducto = new PromocionProducto()
+                        {
+                            Producto = producto,
+                            cantMulUnidades = 1,
+                            descuento = 0,
+                            Promocion = this.promocion,
+                            stockActual = 0,
+                            stockTotal = 1,
+                            maxPromVenta = 1
+                        };
+                        promocion.PromocionProducto.Add(promocionProducto);
+                    }
+                    NotifyPropertyChanged("promocion");
+                }
+                else
+                {
+                    MessageBox.Show("No se encontro ningun producto con el código proporcionado");
+                }
+            }
+        }
         #endregion
     }
 }

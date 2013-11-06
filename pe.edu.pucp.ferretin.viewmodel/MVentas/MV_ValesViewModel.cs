@@ -35,6 +35,27 @@ namespace pe.edu.pucp.ferretin.viewmodel.MVentas
         public String _searchNroDocCliente = "";
         public String searchNroDocCliente { get { return _searchNroDocCliente; } set { _searchNroDocCliente = value; NotifyPropertyChanged("searchNroDocCliente"); } }
 
+        public string _detallesTabHeader = "";
+        public String detallesTabHeader { get { return _detallesTabHeader; } set { _detallesTabHeader = value; NotifyPropertyChanged("detallesTabHeader"); } }
+
+        public bool _noSoloDetallarLoteVale = true;
+        public bool noSoloDetallarLoteVale { get { return _noSoloDetallarLoteVale; } set { _noSoloDetallarLoteVale = value; NotifyPropertyChanged("noSoloDetallarLoteVale"); } }
+
+        private System.Windows.Visibility _detallarVale = System.Windows.Visibility.Visible;
+        public System.Windows.Visibility detallarVale
+        {
+            get
+            {
+                return _detallarVale;
+            }
+            set
+            {
+                _detallarVale = value;
+                NotifyPropertyChanged("detallarVale");
+               
+
+            }
+        }
         private int _selectedTab = 0;
         public int selectedTab
         {
@@ -85,6 +106,22 @@ namespace pe.edu.pucp.ferretin.viewmodel.MVentas
                 NotifyPropertyChanged("listaLoteVale");
             }
         }
+
+        private IEnumerable<Vale> _listaVales;
+        public IEnumerable<Vale> listaVales
+        {
+            get
+            {
+
+                return _listaVales;
+            }
+            set
+            {
+                _listaVales = value;
+                NotifyPropertyChanged("listaVales");
+            }
+        }
+
         #endregion
 
 
@@ -101,8 +138,59 @@ namespace pe.edu.pucp.ferretin.viewmodel.MVentas
                 return _actualizarListaLoteValeCommand;
             }
         }
+
+        RelayCommand _nuevoLoteValesCommand;
+        public ICommand nuevoLoteValesCommand
+        {
+            get
+            {
+                if (_nuevoLoteValesCommand == null)
+                {
+                    _nuevoLoteValesCommand = new RelayCommand(nuevoLotesVale);
+                }
+                return _nuevoLoteValesCommand;
+            }
+        }
+
+        RelayCommand _viewDetailLoteValeCommand;
+        public ICommand viewDetailLoteValeCommand
+        {
+            get
+            {
+                if (_viewDetailLoteValeCommand == null)
+                {
+                    _viewDetailLoteValeCommand = new RelayCommand(viewLoteVale);
+                }
+                return _viewDetailLoteValeCommand;
+            }
+        }
+
+        
         #endregion
 
+        #region commands
+
+        public void viewLoteVale(Object id)
+        {
+            this.loteVale = MV_ValeService.obtenerLoteValebyId((int)id);
+            this.selectedTab = 1;
+            detallarVale = System.Windows.Visibility.Hidden;
+            this.detallesTabHeader = "Detalle";
+            this.listaVales = MV_ValeService.obtenerValesValebyIdLote((int)id);
+            this.noSoloDetallarLoteVale = false;
+           
+        }
+
+        public void nuevoLotesVale(Object id)
+        {
+            this.loteVale = new LoteVale();
+            this.selectedTab = 1;
+            detallarVale = System.Windows.Visibility.Visible;
+            this.noSoloDetallarLoteVale = true;
+            this.detallesTabHeader = "Generar";
+
+        }
+        #endregion
 
 
 

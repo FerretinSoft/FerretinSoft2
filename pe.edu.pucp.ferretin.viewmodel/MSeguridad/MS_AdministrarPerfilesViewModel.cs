@@ -32,12 +32,14 @@ namespace pe.edu.pucp.ferretin.viewmodel.MSeguridad
             get
             {
                 //Devolver la categoría padre
-                _menuPadre = MS_PerfilService.menuPadre();
+                if (_menuPadre == null)
+                    _menuPadre = MS_PerfilService.menuPadre();
                 return _menuPadre;
             }
             set
             {
-                _menuPadre = value;                
+                _menuPadre = value;
+                NotifyPropertyChanged("menuPadre");
             }            
             
         }
@@ -118,7 +120,8 @@ namespace pe.edu.pucp.ferretin.viewmodel.MSeguridad
             }
             set
             {
-                _menus = value;                
+                _menus = value;
+                NotifyPropertyChanged("menus");
             }
         }
 
@@ -141,8 +144,7 @@ namespace pe.edu.pucp.ferretin.viewmodel.MSeguridad
                             {
                                 menus.ElementAt(i).isChecked = false;
                             }
-                        }
-                        
+                        }                        
                     }
                 }
                 return _perfil;
