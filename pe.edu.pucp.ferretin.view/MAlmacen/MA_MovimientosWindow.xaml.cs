@@ -33,5 +33,17 @@ namespace pe.edu.pucp.ferretin.view.MAlmacen
         {
             InitializeComponent();
         }
+
+        private void DataGrid_BeginningEdit(object sender, DataGridBeginningEditEventArgs e)
+        {
+            if ((string)e.Column.Header != "Estado")
+            {
+                // If this is the new row, entity is not yet attached to the context.
+                if (((MovimientoTipo)e.Row.Item).id >0)
+                {
+                    e.Cancel = true;
+                }
+            }
+        }
     }
 }

@@ -81,9 +81,8 @@ namespace pe.edu.pucp.ferretin.controller.MAlmacen
         public static String registrarVenta(Tienda tienda, List<VentaProducto> items)
         {
             Movimiento movimiento = new Movimiento();
-            DateTime today = DateTime.Today;
-            movimiento.codigo = String.Format("{0}{1}{2}{3}{4}{5}{6}", today.Year, today.Month, today.Day, today.Hour, today.Minute, today.Second, tienda.codigo);
-            movimiento.fecha = today;
+            movimiento.codigo = Movimiento.generateCode();
+            movimiento.fecha = DateTime.Today;
             movimiento.MovimientoEstado = MA_EstadoMovimientoService.getMovimientoEstadoByName("Finalizado");
             movimiento.MovimientoTipo = MA_TipoMovimientoService.getMovimientoTipoByName("Venta");
             movimiento.Tienda = tienda;
@@ -111,7 +110,7 @@ namespace pe.edu.pucp.ferretin.controller.MAlmacen
         {
             Movimiento movimiento = new Movimiento();
             DateTime today = DateTime.Today;
-            movimiento.codigo = String.Format("{0}{1}{2}{3}{4}{5}{6}", today.Year, today.Month, today.Day, today.Hour, today.Minute, today.Second, tienda.codigo);
+            movimiento.codigo = Movimiento.generateCode();
             movimiento.fecha = today;
             movimiento.MovimientoEstado = MA_EstadoMovimientoService.getMovimientoEstadoByName("Finalizado");
             movimiento.MovimientoTipo = MA_TipoMovimientoService.getMovimientoTipoByName("Devolución");
@@ -140,7 +139,7 @@ namespace pe.edu.pucp.ferretin.controller.MAlmacen
         {
             Movimiento movimiento = new Movimiento();
             DateTime today = DateTime.Today;
-            movimiento.codigo = String.Format("{0}{1}{2}{3}{4}{5}{6}", today.Year, today.Month, today.Day, today.Hour, today.Minute, today.Second, tienda.codigo);
+            movimiento.codigo = Movimiento.generateCode();
             movimiento.fecha = today;
             movimiento.MovimientoEstado = MA_EstadoMovimientoService.getMovimientoEstadoByName("Finalizado");
             movimiento.MovimientoTipo = MA_TipoMovimientoService.getMovimientoTipoByName("Compra");

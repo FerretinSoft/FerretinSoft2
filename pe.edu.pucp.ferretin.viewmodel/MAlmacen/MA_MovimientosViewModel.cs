@@ -14,13 +14,21 @@ namespace pe.edu.pucp.ferretin.viewmodel.MAlmacen
 {
     public class MA_MovimientosViewModel : ViewModelBase
     {
-        public IEnumerable<MovimientoEstado> estadosMovimiento
+        public IEnumerable<MovimientoEstado> estadosMovimientoS
         {
             get
             {
                 var sequence = Enumerable.Empty<MovimientoEstado>();
                 IEnumerable<MovimientoEstado> items = new MovimientoEstado[] { new MovimientoEstado { id = 0, nombre = "Todos" } };
                 return items.Concat(MA_MovimientosService.estadosMovimiento);
+            }
+        }
+
+        public IEnumerable<MovimientoEstado> estadosMovimiento
+        {
+            get
+            {
+                return MA_MovimientosService.estadosMovimiento;
             }
         }
 
@@ -46,6 +54,21 @@ namespace pe.edu.pucp.ferretin.viewmodel.MAlmacen
                 else
                 {
                     return false; //Se bloquearan par que no sean editables
+                }
+            }
+        }
+
+        public bool isNotFinished
+        {
+            get
+            {
+                if (movimiento != null && movimiento.MovimientoEstado != null && movimiento.MovimientoEstado.nombre == "Finalizado")
+                {
+                    return false; //Se Activaran
+                }
+                else
+                {
+                    return true; //Se bloquearan par que no sean editables
                 }
             }
         }
@@ -130,7 +153,8 @@ namespace pe.edu.pucp.ferretin.viewmodel.MAlmacen
         public MA_MovimientosViewModel()
         {
             _movimiento = new Movimiento();
-            _movimiento.fecha = DateTime.Today;
+            //_movimiento.fecha = DateTime.Today;
+            //_movimiento.codigo = Movimiento.generateCode();
         }
         #endregion
 
@@ -170,15 +194,33 @@ namespace pe.edu.pucp.ferretin.viewmodel.MAlmacen
                 //Si la pestaña es para agregar nuevo, limpio los input
                 switch (_statusTab)
                 {
-                    case Tab.BUSQUEDA: detallesTabHeader = "Nuevo"; movimiento = new Movimiento(); movimiento.fecha = DateTime.Today; break;//Si es agregar, creo un nuevo objeto Cliente
-                    case Tab.NUEVO: detallesTabHeader = "Nuevo"; movimiento = new Movimiento(); movimiento.fecha = DateTime.Today; break;//Si es agregar, creo un nuevo objeto Cliente
-                    case Tab.DETALLES: detallesTabHeader = "Detalles"; break;
-                    default: detallesTabHeader = "Nuevo"; movimiento = new Movimiento(); movimiento.fecha = DateTime.Today; break;//Si es agregar, creo un nuevo objeto Cliente
+                    case Tab.BUSQUEDA: 
+                        detallesTabHeader = "Nuevo"; 
+                        movimiento = new Movimiento(); 
+                        movimiento.fecha = DateTime.Today;
+                        movimiento.codigo = Movimiento.generateCode();
+                        break;//Si es agregar, creo un nuevo objeto Cliente
+                    case Tab.NUEVO: 
+                        detallesTabHeader = "Nuevo"; 
+                        movimiento = new Movimiento(); 
+                        movimiento.fecha = DateTime.Today;
+                        movimiento.codigo = Movimiento.generateCode();
+                        break;//Si es agregar, creo un nuevo objeto Cliente
+                    case Tab.DETALLES: 
+                        detallesTabHeader = "Detalles"; 
+                        break;
+                    default: 
+                        detallesTabHeader = "Nuevo"; 
+                        movimiento = new Movimiento(); 
+                        movimiento.fecha = DateTime.Today;
+                        movimiento.codigo = Movimiento.generateCode();
+                        break;//Si es agregar, creo un nuevo objeto Cliente
                 }
                 NotifyPropertyChanged("statusTab");
                 //Cuando se cambia el status, tambien se tiene que actualizar el currentIndex del tab
                 NotifyPropertyChanged("currentIndexTab"); //Hace que cambie el tab automaticamente
                 NotifyPropertyChanged("isCreating"); //Para que se activen o desactiven los inputs
+                NotifyPropertyChanged("isNotFinished");
             }
         }
         //Usado para mover los tabs de acuerdo a las acciones realizadas
