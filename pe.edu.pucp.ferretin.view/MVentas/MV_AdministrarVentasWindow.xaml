@@ -190,7 +190,7 @@
                             <TextBox   Text="{Binding Path=venta.total,Mode=OneWay, ValidatesOnExceptions=true, NotifyOnValidationError=true}" VerticalAlignment="Center" IsEnabled="False" TextAlignment="Right" Grid.Column="1" Grid.Row="2"/>
                         </Grid>
                     </GroupBox>
-                    <DataGrid ItemsSource="{Binding Path=listaProductos}" AutoGenerateColumns="False" Margin="5" Grid.Column="1">
+                    <DataGrid ItemsSource="{Binding Path=listaProductos}"  AutoGenerateColumns="False" Margin="5" Grid.Column="1">
                         <DataGrid.Columns>
                             <DataGridTextColumn Width="1*" Binding="{Binding Path=Producto.codigo}" ClipboardContentBinding="{x:Null}" Header="Cód Prod"/>
                             <DataGridTextColumn Width="1.4*" Binding="{Binding Path=Producto.nombre}" ClipboardContentBinding="{x:Null}" Header="Descripción"/>

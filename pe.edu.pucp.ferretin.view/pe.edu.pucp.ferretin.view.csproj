@@ -109,6 +109,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="MAlmacen\MA_ReportesStockPorTiendaWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="MAlmacen\MA_ReportesWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -225,6 +229,14 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="MVentas\MV_AgregarNotaCreditoWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="MVentas\MV_AgregarValeWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="MVentas\MV_ClientesWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -246,6 +258,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="MVentas\MV_ReportesVentasWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="MVentas\MV_ValeDialog.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -271,6 +287,9 @@
     </Compile>
     <Compile Include="MAlmacen\MA_MovimientosWindow.xaml.cs">
       <DependentUpon>MA_MovimientosWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="MAlmacen\MA_ReportesStockPorTiendaWindow.xaml.cs">
+      <DependentUpon>MA_ReportesStockPorTiendaWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="MAlmacen\MA_ReportesWindow.xaml.cs">
       <DependentUpon>MA_ReportesWindow.xaml</DependentUpon>
@@ -359,6 +378,12 @@
     <Compile Include="MVentas\MV_AdministrarVentasWindow.xaml.cs">
       <DependentUpon>MV_AdministrarVentasWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="MVentas\MV_AgregarNotaCreditoWindow.xaml.cs">
+      <DependentUpon>MV_AgregarNotaCreditoWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="MVentas\MV_AgregarValeWindow.xaml.cs">
+      <DependentUpon>MV_AgregarValeWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="MVentas\MV_ClientesWindow.xaml.cs">
       <DependentUpon>MV_ClientesWindow.xaml</DependentUpon>
     </Compile>
@@ -376,6 +401,9 @@
     </Compile>
     <Compile Include="MVentas\MV_ReportesVentasWindow.xaml.cs">
       <DependentUpon>MV_ReportesVentasWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="MVentas\MV_ValeDialog.xaml.cs">
+      <DependentUpon>MV_ValeDialog.xaml</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>

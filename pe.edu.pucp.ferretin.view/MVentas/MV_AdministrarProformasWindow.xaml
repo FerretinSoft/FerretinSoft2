@@ -1,11 +1,15 @@
-﻿<Window x:Class="pe.edu.pucp.ferretin.view.MVentas.MV_AdministrarProformasWindow"
+﻿<Window
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:MVentas="clr-namespace:pe.edu.pucp.ferretin.viewmodel.MVentas;assembly=pe.edu.pucp.ferretin.viewmodel" x:Class="pe.edu.pucp.ferretin.view.MVentas.MV_AdministrarProformasWindow"
         Title="Administrar Proformas"  Height="487" Width="909" Icon="../Resources/ferretin_ico.ico">
+    <Window.DataContext>
+        <MVentas:MV_AdministrarProformasViewModel/>
+    </Window.DataContext>
     <Grid>
         <Grid.Background>
             <ImageBrush ImageSource="../Resources/texture_3_100.png" TileMode="FlipX" 
-            Viewport="0,0,100,100" ViewportUnits="Absolute"/>
+				Viewport="0,0,100,100" ViewportUnits="Absolute"/>
         </Grid.Background>
         <Grid.RowDefinitions>
             <RowDefinition Height="454*"/>
@@ -15,23 +19,23 @@
             <TabItem Header="Resumen">
                 <Grid Background="#FFE5E5E5">
                     <Grid.RowDefinitions>
-                        <RowDefinition Height="Auto"></RowDefinition>
-                        <RowDefinition></RowDefinition>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition/>
                     </Grid.RowDefinitions>
                     <GroupBox Header="Parámetros" BorderBrush="Gray" Margin="5,5,5,29">
                         <Grid>
                             <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="Auto"></ColumnDefinition>
-                                <ColumnDefinition Width="160"></ColumnDefinition>
-                                <ColumnDefinition Width="Auto"></ColumnDefinition>
-                                <ColumnDefinition Width="150"></ColumnDefinition>
-                                <ColumnDefinition></ColumnDefinition>
-                                <ColumnDefinition Width="Auto"></ColumnDefinition>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="160"/>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="150"/>
+                                <ColumnDefinition/>
+                                <ColumnDefinition Width="Auto"/>
                             </Grid.ColumnDefinitions>
                             <Grid.RowDefinitions>
-                                <RowDefinition></RowDefinition>
-                                <RowDefinition></RowDefinition>
-                                <RowDefinition></RowDefinition>
+                                <RowDefinition/>
+                                <RowDefinition/>
+                                <RowDefinition/>
                             </Grid.RowDefinitions>
                             <Label Content="Cód. Proforma:" Grid.Row="0" Grid.Column="0" VerticalContentAlignment="Center"/>
                             <Label Content="Cliente:" Grid.Row="1" Grid.Column="0" VerticalContentAlignment="Center"/>
@@ -39,13 +43,13 @@
                             <Label Content="Vendedor:" Grid.Row="0" Grid.Column="2" VerticalContentAlignment="Center"/>
                             <Label Content="Fecha Hasta:" Grid.Row="3" Grid.Column="2" VerticalContentAlignment="Center"/>
 
-                            <TextBox VerticalAlignment="Center" Grid.Row="0" Grid.Column="1" Margin="0,3,10,3"/>
+                            <TextBox Text="{Binding codProformaSearch}" VerticalAlignment="Center" Grid.Row="0" Grid.Column="1" Margin="0,3,30,3"/>
                             <Grid Grid.Row="1" Grid.Column="1" Margin="0,3,10,3">
                                 <Grid.ColumnDefinitions>
-                                    <ColumnDefinition></ColumnDefinition>
-                                    <ColumnDefinition Width="Auto"></ColumnDefinition>
+                                    <ColumnDefinition/>
+                                    <ColumnDefinition Width="Auto"/>
                                 </Grid.ColumnDefinitions>
-                                <TextBox VerticalAlignment="Center" HorizontalAlignment="Stretch"/>
+                                <TextBox Text="{Binding clienteSearch.nroDoc}" VerticalAlignment="Center" HorizontalAlignment="Stretch"/>
                                 <Button x:Name="buscarClienteBtn" VerticalAlignment="Center" Width="20" Height="20" Click="buscarClienteBtn_Click" BorderThickness="0" Grid.Column="1">
                                     <Button.Background>
                                         <ImageBrush ImageSource="../Resources/search1_20.png"/>
@@ -55,19 +59,19 @@
 
                             <Grid Grid.Row="0" Grid.Column="3" Grid.ColumnSpan="2">
                                 <Grid.ColumnDefinitions>
-                                    <ColumnDefinition></ColumnDefinition>
-                                    <ColumnDefinition Width="Auto"></ColumnDefinition>
+                                    <ColumnDefinition/>
+                                    <ColumnDefinition Width="Auto"/>
                                 </Grid.ColumnDefinitions>
-                                <TextBox Text="Vendededor" VerticalAlignment="Center" IsEnabled="False"/>
+                                <TextBox Text="{Binding vendedorSearch.nombreCompleto}" VerticalAlignment="Center" IsEnabled="False"/>
                                 <Button x:Name="buscarVendedorBtn" VerticalAlignment="Center" Width="20" Height="20" Grid.Column="1" BorderThickness="0" Click="buscarVendedorBtn_Click">
                                     <Button.Background>
                                         <ImageBrush ImageSource="../Resources/search1_20.png"/>
                                     </Button.Background>
                                 </Button>
                             </Grid>
-                            <TextBox Text="Razón Social/Nombre" VerticalAlignment="Center" Grid.Column="3" Grid.ColumnSpan="2" Grid.Row="1" IsEnabled="False" Margin="0,3"/>
-                            <DatePicker VerticalAlignment="Center" Grid.Column="1" Grid.Row="2"  Margin="0,3,10,3" BorderThickness="0"/>
-                            <DatePicker VerticalAlignment="Center" Grid.Column="3" Grid.Row="2" BorderThickness="0"/>
+                            <TextBox Text="" VerticalAlignment="Center" Grid.Column="2" Grid.ColumnSpan="3" Grid.Row="1" IsEnabled="False" Margin="0,3"/>
+                            <DatePicker SelectedDate="{Binding fechaDesdeSearch}" VerticalAlignment="Center" Grid.Column="1" Grid.Row="2"  Margin="0,3,10,3" BorderThickness="0"/>
+                            <DatePicker SelectedDate="{Binding fechaHastaSearch}" VerticalAlignment="Center" Grid.Column="3" Grid.Row="2" BorderThickness="0"/>
 
                             <Button x:Name="buscarProformasBtn" BorderThickness="0" Grid.Row="3" Grid.Column="5" Width="25" Height="25" VerticalAlignment="Center">
                                 <Button.Background>
@@ -78,30 +82,23 @@
                     </GroupBox>
                     <ToolBar HorizontalAlignment="Left" Margin="10,134,0,0" VerticalAlignment="Top" Height="24">
 
-                        <Button x:Name="nuevaProformaBtn" Content="" VerticalAlignment="Top" Width="20" Margin="0,0,2,-1" Click="nuevaProformaBtn_Click" Height="20">
+                        <Button x:Name="nuevaProformaBtn" Content="" VerticalAlignment="Top" Width="20" Margin="0,0,2,-1" Height="20">
                             <Button.Background>
                                 <ImageBrush ImageSource="../Resources/add_20.png"/>
                             </Button.Background>
                         </Button>
-                        <Button x:Name="detalleProformaBtn" Content="" VerticalAlignment="Bottom" Width="20" Margin="0,0,2,-1" Click="detalleProformaBtn_Click" Height="20">
-                            <Button.Background>
-                                <ImageBrush ImageSource="../Resources/edit_20.png"/>
-                            </Button.Background>
-                        </Button>
 
                     </ToolBar>
-                    <DataGrid x:Name="proformasGrid" Grid.Row="1" Margin="5" CanUserSortColumns="True" AutoGenerateColumns="False" CanUserAddRows="False" CanUserDeleteRows="False" ItemsSource="{Binding Path=ListaProformas}">
+                    <DataGrid x:Name="proformasGrid" Grid.Row="1" Margin="5" CanUserSortColumns="True" AutoGenerateColumns="False" CanUserAddRows="False" CanUserDeleteRows="False" ItemsSource="{Binding ListaProformas}">
                         <DataGrid.Columns>
-                            <DataGridHyperlinkColumn Width="1.5*" Binding="{Binding Path=Codigo}" ContentBinding="{x:Null}" ClipboardContentBinding="{x:Null}" Header="Cód. Proforma">
-                                
-                            </DataGridHyperlinkColumn>
+                            <DataGridHyperlinkColumn Width="1.5*" Binding="{Binding Codigo}" ContentBinding="{x:Null}" ClipboardContentBinding="{x:Null}" Header="Cód. Proforma"/>
 
 
-                            <DataGridTextColumn Width="2*" Binding="{Binding Path=Cliente.Codigo}" ClipboardContentBinding="{x:Null}" Header="Doc. Cliente"/>
-                            <DataGridTextColumn Width="3*" Binding="{Binding Path=Cliente.Nombre}" ClipboardContentBinding="{x:Null}" Header="Nombre Cliente"/>
-                            <DataGridTextColumn Width="3*" Binding="{Binding Path=Vendedor.Nombre}" ClipboardContentBinding="{x:Null}" Header="Vendedor"/>
-                            <DataGridTextColumn Width="2*" Binding="{Binding Path=FechaProforma}" ClipboardContentBinding="{x:Null}" Header="Fecha Proforma"/>
-                            <DataGridTextColumn Width="2*" Binding="{Binding Path=Importe}" ClipboardContentBinding="{x:Null}" Header="Importe"/>
+                            <DataGridTextColumn Width="2*" Binding="{Binding Cliente.Codigo}" ClipboardContentBinding="{x:Null}" Header="Doc. Cliente"/>
+                            <DataGridTextColumn Width="3*" Binding="{Binding Cliente.Nombre}" ClipboardContentBinding="{x:Null}" Header="Nombre Cliente"/>
+                            <DataGridTextColumn Width="3*" Binding="{Binding Vendedor.Nombre}" ClipboardContentBinding="{x:Null}" Header="Vendedor"/>
+                            <DataGridTextColumn Width="2*" Binding="{Binding FechaProforma}" ClipboardContentBinding="{x:Null}" Header="Fecha Proforma"/>
+                            <DataGridTextColumn Width="2*" Binding="{Binding Importe}" ClipboardContentBinding="{x:Null}" Header="Importe"/>
                         </DataGrid.Columns>
                     </DataGrid>
                 </Grid>
@@ -111,26 +108,26 @@
             <TabItem Header="Nueva Proforma">
                 <Grid Background="#FFE5E5E5">
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="1*"></ColumnDefinition>
-                        <ColumnDefinition MaxWidth="250" Width="250"></ColumnDefinition>
+                        <ColumnDefinition Width="1*"/>
+                        <ColumnDefinition MaxWidth="250" Width="250"/>
                     </Grid.ColumnDefinitions>
                     <Grid.RowDefinitions>
-                        <RowDefinition Height="Auto"></RowDefinition>
-                        <RowDefinition></RowDefinition>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition/>
                     </Grid.RowDefinitions>
 
                     <Grid Margin="5,5"  Grid.Column="0" Grid.Row="0">
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="Auto"></ColumnDefinition>
-                            <ColumnDefinition Width="100"></ColumnDefinition>
-                            <ColumnDefinition Width="Auto"></ColumnDefinition>
-                            <ColumnDefinition Width="1*"></ColumnDefinition>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="150"/>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="1*"/>
                         </Grid.ColumnDefinitions>
                         <Grid.RowDefinitions>
-                            <RowDefinition></RowDefinition>
-                            <RowDefinition></RowDefinition>
-                            <RowDefinition></RowDefinition>
-                            <RowDefinition></RowDefinition>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                            <RowDefinition/>
                         </Grid.RowDefinitions>
 
                         <Label Grid.Column="0" Grid.Row="0" Content="Fecha:" Margin="0,0,0,0"/>
@@ -141,9 +138,25 @@
                         <Label Grid.Column="0" Grid.Row="3" Content="Fecha de Vencimiento:"  Margin="0,0,0,0"/>
 
                         <DatePicker Grid.Column="1" Grid.Row="3" BorderThickness="0" />
-                        <TextBox x:Name="fechaProformaTxtBox" Grid.Column="1" Grid.Row="0" IsEnabled="False" Text="24/09/2013" VerticalContentAlignment="Center" Margin="0,2,5,2" VerticalAlignment="Center"/>
-                        <TextBox x:Name="codProformaTxtBox"  Grid.Column="1" Grid.Row="1" IsEnabled="False" Text="000012" VerticalContentAlignment="Center" Margin="0,2,5,2" VerticalAlignment="Center"/>
-                        <TextBox x:Name="codClienteTxtBox" Grid.Column="1" Grid.Row="2" IsEnabled="True" Text="" VerticalContentAlignment="Center" Margin="0,2,5,2" VerticalAlignment="Center"/>
+                        <TextBox Text="{Binding fechaHoyString, Mode=OneWay}" Grid.Column="1" Grid.Row="0" IsEnabled="False" VerticalContentAlignment="Center" Margin="0,2,5,2" VerticalAlignment="Center"/>
+                        <TextBox x:Name="codProformaTxtBox"  Grid.Column="1" Grid.Row="1" IsEnabled="False" Text="Auto" VerticalContentAlignment="Center" Margin="0,2,5,2" VerticalAlignment="Center"/>
+
+                        <Grid Grid.Column="1" Grid.Row="2">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition/>
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
+                            <TextBox x:Name="nroDocSeleccionado" Text="{Binding nroDocSeleccionado, UpdateSourceTrigger=PropertyChanged}" VerticalContentAlignment="Center" VerticalAlignment="Center" Margin="0,0,0,0">
+                                <TextBox.InputBindings>
+                                    <KeyBinding Key="Enter" Command="{Binding cargarClienteCommand}" />
+                                </TextBox.InputBindings>
+                            </TextBox>
+                            <Button Command="{Binding buscarClienteCommand}"  Grid.Column="1" HorizontalAlignment="Right" VerticalAlignment="Center" Width="18" Height="18" Margin="4,0" Padding="0" BorderThickness="0" Click="Button_Click"  >
+                                <Button.Background>
+                                    <ImageBrush ImageSource="../Resources/search1_20.png"/>
+                                </Button.Background>
+                            </Button>
+                        </Grid>
 
                         <TextBox Grid.Column="3" Grid.Row="0" IsEnabled="False" Text="" VerticalContentAlignment="Center" Margin="0,2,20,2" VerticalAlignment="Center"/>
                         <Button Grid.Column="3" Grid.Row="0" x:Name="buscarProformaBtn" HorizontalAlignment="Right" VerticalAlignment="Center" Width="18" Height="18" Margin="0,5,0,5" Padding="0" Click="buscarProformaBtn_Click" BorderThickness="0">
@@ -151,40 +164,60 @@
                                 <ImageBrush ImageSource="../Resources/search1_20.png"/>
                             </Button.Background>
                         </Button>
-                        <TextBox x:Name="vendedorTxtBox" Grid.Column="3" Grid.Row="1" IsEnabled="False" Text="" VerticalContentAlignment="Center" Margin="0,2,0,2" VerticalAlignment="Center" />
-                        <TextBox x:Name="nombreClienteTxtBox" Grid.Column="3" Grid.Row="2" IsEnabled="False" VerticalContentAlignment="Center" Margin="0,2,0,2" VerticalAlignment="Center"/>
+                        <TextBox x:Name="vendedorTxtBox" Grid.Column="3" Grid.Row="1" IsEnabled="False" Text="{Binding Path=usuarioLogueado.Empleado.nombreCompleto,Mode=OneWay}" VerticalContentAlignment="Center" Margin="0,2,0,2" VerticalAlignment="Center" />
+                        <TextBox x:Name="nombreClienteTxtBox" Grid.Column="2" Grid.ColumnSpan="2" Grid.Row="2" IsEnabled="False" VerticalContentAlignment="Center" Margin="5,0,0,0" VerticalAlignment="Center"/>
 
                     </Grid>
                     <Grid Margin="5,5"  Grid.Column="0" Grid.Row="1">
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="Auto"></ColumnDefinition>
-                            <ColumnDefinition Width="*"></ColumnDefinition>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="*"/>
                         </Grid.ColumnDefinitions>
                         <Grid.RowDefinitions>
-                            <RowDefinition></RowDefinition>
-                            <RowDefinition Height="Auto"></RowDefinition>
-                            <RowDefinition Height="Auto"></RowDefinition>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition />
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
                         </Grid.RowDefinitions>
-                        <DataGrid Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2">
+                        <ToolBar HorizontalAlignment="Left" Margin="0,0,0,5" Grid.ColumnSpan="2" Padding="0" VerticalAlignment="Center" Height="30" VerticalContentAlignment="Center">
+                            <TextBlock Text="Código de Producto:" VerticalAlignment="Center" Margin="5,0"/>
+                            <TextBox Text="{Binding codProdAgregar,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" Width="100" BorderBrush="#DDD" Height="18" Margin="5,0" ToolTip="Escriba el código del producto que desea agregar y presione el boton +">
+                                <TextBox.InputBindings>
+                                    <KeyBinding Key="Enter" Command="{Binding agregarProductoCommand}" />
+                                </TextBox.InputBindings>
+                            </TextBox>
+                            <Button Command="{Binding agregarProductoCommand}" Content="" VerticalAlignment="Stretch" Width="18" Height="18" Margin="5,0" ToolTip="Agregar producto con el código indicado">
+                                <Button.Background>
+                                    <ImageBrush ImageSource="../Resources/add_20.png" Stretch="None"/>
+                                </Button.Background>
+                            </Button>
+                            <Button Content="" Height="18" VerticalAlignment="Center" Width="18" Margin="5,0" ToolTip="Buscar otros productos con otros criterios">
+                                <Button.Background>
+                                    <ImageBrush ImageSource="../Resources/search1_20.png"/>
+                                </Button.Background>
+                            </Button>
+                        </ToolBar>
+                        <DataGrid ItemsSource="{Binding Path=venta.VentaProducto,UpdateSourceTrigger=PropertyChanged,NotifyOnSourceUpdated=True,NotifyOnTargetUpdated=True,Mode=TwoWay}" AutoGenerateColumns="False" CanUserAddRows="False" Grid.Row="1" Grid.Column="0" VerticalAlignment="Stretch" Margin="0,5" Grid.ColumnSpan="2">
                             <DataGrid.Columns>
-                                <DataGridHyperlinkColumn Width="2*" Binding="{x:Null}" ContentBinding="{x:Null}" ClipboardContentBinding="{x:Null}" Header="Código"/>
-                                <DataGridTextColumn Width="4*" Binding="{x:Null}" ClipboardContentBinding="{x:Null}" Header="Descripción"/>
-                                <DataGridTextColumn Width="2*" Binding="{x:Null}" ClipboardContentBinding="{x:Null}" Header="Cantidad"/>
-                                <DataGridTextColumn Width="2*" Binding="{x:Null}" ClipboardContentBinding="{x:Null}" Header="Moneda"/>
-                                <DataGridTextColumn Width="2*" Binding="{x:Null}" ClipboardContentBinding="{x:Null}" Header="Precio"/>
-                                <DataGridTextColumn Width="2*" Binding="{x:Null}" ClipboardContentBinding="{x:Null}" Header="Dscto. (%)"/>
-                                <DataGridTextColumn Width="2*" Binding="{x:Null}" ClipboardContentBinding="{x:Null}" Header="Importe"/>
+                                <DataGridHyperlinkColumn Width="1.5*" Binding="{Binding Path=Producto.codigo}" IsReadOnly="True" Header="Código"/>
+                                <DataGridTextColumn Width="2*" Binding="{Binding Path=Producto.nombre}" Header="Nombre" IsReadOnly="True"/>
+                                <DataGridTextColumn Width="1.2*" Binding="{Binding Path=cantidad,UpdateSourceTrigger=PropertyChanged}" Header="Cantidad"/>
+                                <DataGridTextColumn Width="1.2*" Binding="{Binding Path=Producto.monedaString}" IsReadOnly="True" Header="Moneda"/>
+                                <DataGridTextColumn Width="1*" Binding="{Binding Path=Producto.precioLista}" IsReadOnly="True" Header="Precio"/>
+                                <DataGridTextColumn Width="1.5*" Binding="{Binding Path=descuentoPorcentaje,UpdateSourceTrigger=PropertyChanged}" IsReadOnly="True" Header="Dscto. (%)"/>
+                                <DataGridTextColumn Width="1.2*" Binding="{Binding Path=montoParcial}" IsReadOnly="True" Header="Importe"/>
+                                
                             </DataGrid.Columns>
                         </DataGrid>
-                        <Grid Grid.Row="1" HorizontalAlignment="Right">
+                        <Grid Grid.Row="2" HorizontalAlignment="Right">
                             <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="Auto"></ColumnDefinition>
-                                <ColumnDefinition Width="100"></ColumnDefinition>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="100"/>
                             </Grid.ColumnDefinitions>
                             <Grid.RowDefinitions>
-                                <RowDefinition></RowDefinition>
-                                <RowDefinition></RowDefinition>
-                                <RowDefinition></RowDefinition>
+                                <RowDefinition/>
+                                <RowDefinition/>
+                                <RowDefinition/>
                             </Grid.RowDefinitions>
                             <Label Content="Sub Total:"/>
                             <Label Content="Total a Pagar:" Grid.Row="2"/>
@@ -193,26 +226,26 @@
                             <TextBox x:Name="igvProformaTxtBox" Text="0.00" Grid.Column="2" HorizontalContentAlignment="Right" VerticalContentAlignment="Center" VerticalAlignment="Center" Grid.Row="1"  IsEnabled="False"/>
                             <TextBox x:Name="totalProformaTxtBox" Text="0.00" Grid.Column="2" HorizontalContentAlignment="Right" VerticalContentAlignment="Center" VerticalAlignment="Center" Grid.Row="2"  IsEnabled="False"/>
                         </Grid>
-                        <Grid Grid.Row="1" Grid.Column="1">
+                        <Grid Grid.Row="2" Grid.Column="1">
                             <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="Auto"></ColumnDefinition>
-                                <ColumnDefinition></ColumnDefinition>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition/>
                             </Grid.ColumnDefinitions>
                             <Grid.RowDefinitions>
-                                <RowDefinition></RowDefinition>
-                                <RowDefinition></RowDefinition>
-                                <RowDefinition></RowDefinition>
+                                <RowDefinition/>
+                                <RowDefinition/>
+                                <RowDefinition/>
                             </Grid.RowDefinitions>
-                            <Label>Destinatarios:</Label>
-                            <TextBox Grid.Column="1" VerticalAlignment="Center"></TextBox>
-                            <Label Grid.Row="1">Mensaje:</Label>
-                            <TextBox Grid.Column="1" Grid.Row="1" Grid.RowSpan="2" VerticalAlignment="Stretch"></TextBox>
+                            <Label Content="Destinatarios:"/>
+                            <TextBox Grid.Column="1" VerticalAlignment="Center"/>
+                            <Label Grid.Row="1" Content="Mensaje:"/>
+                            <TextBox Grid.Column="1" Grid.Row="1" Grid.RowSpan="2" VerticalAlignment="Stretch"/>
                         </Grid>
-                        <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,5,0,0">
+                        <StackPanel Grid.Row="3" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,5,0,0">
                             <Button Grid.Column="1" x:Name="registrarBtn" Content="REGISTRAR" HorizontalAlignment="Right" VerticalAlignment="Center" Height="30" Padding="5,0" Margin="0,0,10,0" />
                             <Button Grid.Column="1" x:Name="cancelarBtn" Content="CANCELAR" HorizontalAlignment="Right" VerticalAlignment="Center" Height="30" Padding="5,0" />
                         </StackPanel>
-                        <StackPanel Grid.Row="2" Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,5,0,0">
+                        <StackPanel Grid.Row="3" Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,5,0,0">
                             <Button Grid.Column="1" x:Name="imprimirBtn" Content="IMPRIMIR" HorizontalAlignment="Right"  VerticalAlignment="Center" Width="75" Height="30" Margin="0,0,10,0"/>
                             <Button Grid.Column="1" x:Name="enviarEmailBtn" Content="ENVIAR EMAIL" HorizontalAlignment="Right" VerticalAlignment="Center" Height="30" Padding="5,0" Margin="0" />
 
@@ -222,13 +255,14 @@
 
                     <StackPanel Grid.Column="1" Grid.Row="1" >
                         <Label Content="Datos Cliente" HorizontalAlignment="Center" FontSize="14" FontWeight="Bold"/>
-                        <Image HorizontalAlignment="Center" Height="100" Width="100" Source="../Resources/cliente_1.png" Stretch="Fill"/>
+                        <Image Source="{Binding clienteImagen}" HorizontalAlignment="Center" Height="100" Width="100" Stretch="Fill"/>
                         <Grid>
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="Auto"></ColumnDefinition>
                                 <ColumnDefinition></ColumnDefinition>
                             </Grid.ColumnDefinitions>
                             <Grid.RowDefinitions>
+                                <RowDefinition></RowDefinition>
                                 <RowDefinition></RowDefinition>
                                 <RowDefinition></RowDefinition>
                                 <RowDefinition></RowDefinition>
@@ -240,11 +274,13 @@
                             <Label Content="Teléfono:" Grid.Row="2" />
                             <Label Content="Correo:" Grid.Row="3"/>
                             <Label Content="Últ. Compra:" Grid.Row="4"/>
-                            <Label Content="&lt;Persona/Empresa&gt;" Grid.Row="0" Grid.Column="1" />
-                            <Label  Content="&lt;RUC/DNI&gt;" Grid.Row="1" Grid.Column="1" />
-                            <Label Content="&lt;teléfono&gt;" Grid.Row="2" Grid.Column="1" />
-                            <Label Content="&lt;Email&gt;" Grid.Row="3" Grid.Column="1"/>
-                            <Label Content="04/jul/2013" Grid.Row="4" Grid.Column="1"/>
+                            <Label Content="Puntos:" Grid.Row="5"/>
+                            <Label Content="{Binding venta.Cliente.tipoDocumento}" Grid.Row="0" Grid.Column="1" />
+                            <Label Content="{Binding venta.Cliente.nroDoc}" Grid.Row="1" Grid.Column="1" />
+                            <Label Content="{Binding venta.Cliente.telefono1}" Grid.Row="2" Grid.Column="1" />
+                            <Label Content="{Binding venta.Cliente.email}" Grid.Row="3" Grid.Column="1"/>
+                            <Label Content="{Binding venta.Cliente.ultimaCompra}" Grid.Row="4" Grid.Column="1"/>
+                            <Label Content="{Binding venta.Cliente.puntos}" Grid.Row="5" Grid.Column="1"/>
                         </Grid>
                     </StackPanel>
 
