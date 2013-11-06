@@ -62,6 +62,7 @@ namespace pe.edu.pucp.ferretin.model
                 else
                 if (value == 1)
                     this.sexo = 'F';
+               
             
             }
         

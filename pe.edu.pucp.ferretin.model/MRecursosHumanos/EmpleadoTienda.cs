@@ -13,6 +13,8 @@ namespace pe.edu.pucp.ferretin.model
             get
             {
                 return fecInicio.Value.ToString("d/MMM/yyyy");
+            
+
             }
         }
         public String fechaFinString

@@ -73,6 +73,7 @@
     <Compile Include="MCompras\Proveedor.cs" />
     <Compile Include="MRecursosHumanos\Empleado.cs" />
     <Compile Include="MRecursosHumanos\EmpleadoTienda.cs" />
+    <Compile Include="MRecursosHumanos\EmpleadoTurno.cs" />
     <Compile Include="MSeguridad\Menu.cs" />
     <Compile Include="MSeguridad\Perfil.cs" />
     <Compile Include="MSeguridad\Tienda.cs" />
