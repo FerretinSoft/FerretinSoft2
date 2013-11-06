@@ -152,6 +152,21 @@ namespace pe.edu.pucp.ferretin.viewmodel.MCompras
             }
         }
 
+        private IEnumerable<GuiaRemisionProducto> _listaProductosGuia;
+        public IEnumerable<GuiaRemisionProducto> listaProductosGuia
+        {
+            get
+            {
+                //_listaGuiasRemision = MC_DocumentoCompraService.buscarGuiasRemision();
+
+                return _listaProductosGuia;
+            }
+            set
+            {
+                _listaProductosGuia = value;
+                NotifyPropertyChanged("listaProductosGuia");
+            }
+        }
         #endregion
 
         #region Manejo de los Tabs
@@ -328,12 +343,21 @@ namespace pe.edu.pucp.ferretin.viewmodel.MCompras
         public void cargarOC(Object id)
         {
             DocumentoCompra buscado = null;
-            try
-            {
-                buscado = MC_DocumentoCompraService.obtenerDCByCodigo(searchOC);
-                documentoCompra = buscado;
-            }
-            catch { }
+            int i;
+            //try
+            //{
+            //    buscado = MC_DocumentoCompraService.obtenerDCByCodigo(searchOC);
+            //    documentoCompra = buscado;
+            //    this.guiaRemision.DocumentoCompra = documentoCompra;
+            //    this.guiaRemision.estado = 1;
+            //    this.guiaRemision.id_almacen = 
+            //    for (i = 0; i <= documentoCompra.DocumentoCompraProducto.Count(); i++)
+            //    {
+                    
+            //    }
+                             
+            //}
+            //catch { }
 
             if (buscado == null)
             {
