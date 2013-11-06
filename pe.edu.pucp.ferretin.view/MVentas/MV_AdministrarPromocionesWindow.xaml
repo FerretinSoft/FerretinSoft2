@@ -138,7 +138,7 @@
                     <StackPanel Grid.Row="1" Margin="5" Orientation="Horizontal" VerticalAlignment="Center">
                         <ToolBar HorizontalAlignment="Left" Margin="5,0,0,0" VerticalAlignment="Top" Height="24" Grid.Row="1">
                             <TextBlock Text="Código de Producto:" VerticalAlignment="Center" Margin="5,0"/>
-                            <TextBox Text="{Binding codProdAgregar,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" Width="100" BorderBrush="#DDD" Height="18" Margin="5,0" ToolTip="Escriba el código del producto que desea agregar y presione el boton +">
+                            <TextBox Text="{Binding codProdAgregar,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" VerticalContentAlignment="Center" Width="100" BorderBrush="#DDD" Height="18" Margin="5,0" ToolTip="Escriba el código del producto que desea agregar y presione el boton +">
                                 <TextBox.InputBindings>
                                     <KeyBinding Key="Enter" Command="{Binding agregarProductoCommand}" />
                                 </TextBox.InputBindings>
@@ -155,16 +155,14 @@
                             </Button>
                         </ToolBar>
                     </StackPanel>
-                    <DataGrid Grid.Row="2" Margin="5">
+                    <DataGrid ItemsSource="{Binding promocion.PromocionProducto}" Grid.Row="2" Margin="5">
                         <DataGrid.Columns>
-                            <DataGridHyperlinkColumn Width="90" Binding="{x:Null}" ContentBinding="{x:Null}" Header="Cód. Producto"/>
-                            <DataGridTextColumn Width="2*" Binding="{x:Null}" ClipboardContentBinding="{x:Null}" Header="Descripción"/>
-                            <DataGridTextColumn Width="1.5*" Binding="{x:Null}" ClipboardContentBinding="{x:Null}" Header="Categoría"/>
-                            <DataGridTextColumn Width="1*" Binding="{x:Null}" ClipboardContentBinding="{x:Null}" Header="Dscto (%)"/>
-                            <DataGridTextColumn Width="1*" Binding="{x:Null}" ClipboardContentBinding="{x:Null}" Header="Puntos"/>
-                            <DataGridTextColumn Width="1*" Binding="{x:Null}" ClipboardContentBinding="{x:Null}" Header="Cant. Unidades."/>
-                            <DataGridTextColumn Width="1*" Binding="{x:Null}" ClipboardContentBinding="{x:Null}" Header="Máx. por Venta"/>
-
+                            <DataGridHyperlinkColumn Width="90" Binding="{Binding Producto.codigo}" Header="Cód. Producto"/>
+                            <DataGridTextColumn Width="2*" Binding="{Binding Producto.nombre}" Header="Nombre" IsReadOnly="True"/>
+                            <DataGridTextColumn Width="1*" Binding="{Binding descuento}" Header="Dscto (%)" IsReadOnly="True"/>
+                            <DataGridTextColumn Width="1*" Binding="{Binding cantMulUnidades}" Header="Cant. Múlt Unidades." />
+                            <DataGridTextColumn Width="1.3*" Binding="{Binding maxPromVenta}" Header="Máx. por Venta"/>
+                            <DataGridTextColumn Width="1*" Binding="{Binding stockTotal}" Header="Máx. Stock"/>
                         </DataGrid.Columns>
                     </DataGrid>
                     <StackPanel Grid.Row="3" Orientation="Horizontal" HorizontalAlignment="Center" Margin="5">

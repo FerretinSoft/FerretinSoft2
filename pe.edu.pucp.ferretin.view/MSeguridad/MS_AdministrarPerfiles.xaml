@@ -67,7 +67,7 @@
                     <DataGrid ItemsSource="{Binding Path=listaPerfiles,Mode=OneWay}" x:Name="perfilesGrid" Margin="10,30,0,5" Grid.RowSpan="2" Grid.ColumnSpan="2"  AutoGenerateColumns="False" CanUserAddRows="False" CanUserDeleteRows="False" IsReadOnly="True" Grid.Row="1">
                         <DataGrid.Columns>
                             <!-- Columnas del Grid -->
-
+                            <!--
                             <DataGridHyperlinkColumn Width="2.8*" Binding="{Binding Path=nombre}" Header="Perfil">
                                 <DataGridHyperlinkColumn.ElementStyle>
                                     <Style>
@@ -75,7 +75,7 @@
                                     </Style>
                                 </DataGridHyperlinkColumn.ElementStyle>
                             </DataGridHyperlinkColumn>
-                            <!--
+                             -->
                             <DataGridTemplateColumn Width="3*" Header="Perfil">
                                 <DataGridTemplateColumn.CellTemplate>
                                     <DataTemplate>
@@ -89,7 +89,7 @@
                                     </DataTemplate>
                                 </DataGridTemplateColumn.CellTemplate>
                             </DataGridTemplateColumn>
--->
+
                             <!-- Otras columnas -->
                             <DataGridTextColumn Width="3*" Binding="{Binding Path=modulo, Mode=TwoWay}" ClipboardContentBinding="{x:Null}" Header="Módulo"/>
                             <DataGridTextColumn Width="4*" Binding="{Binding Path=descripcion}" ClipboardContentBinding="{x:Null}" Header="Descripción"/>
@@ -117,7 +117,7 @@
                 </Grid>
             </TabItem>
 
-            <!--TAB EDICION
+            <!--TAB EDICION -->
             
             <TabItem x:Name="detallesTab" Margin="1,-1,-5,-2">
                 <TabItem.Header>
@@ -167,7 +167,7 @@
                 </Grid>
             </TabItem>
 
--->
+
         </TabControl>
 
     </Grid>
