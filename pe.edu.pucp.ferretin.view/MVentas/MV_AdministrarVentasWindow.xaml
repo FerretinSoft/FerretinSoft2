@@ -190,15 +190,15 @@
                             <TextBox   Text="{Binding Path=venta.total,Mode=OneWay, ValidatesOnExceptions=true, NotifyOnValidationError=true}" VerticalAlignment="Center" IsEnabled="False" TextAlignment="Right" Grid.Column="1" Grid.Row="2"/>
                         </Grid>
                     </GroupBox>
-                    <DataGrid ItemsSource="{Binding Path=listaProductos}" AutoGenerateColumns="False" Margin="5" Grid.Column="1">
+                    <DataGrid ItemsSource="{Binding Path=listaProductos}"  AutoGenerateColumns="False" Margin="5" Grid.Column="1">
                         <DataGrid.Columns>
                             <DataGridTextColumn Width="1*" Binding="{Binding Path=Producto.codigo}" ClipboardContentBinding="{x:Null}" Header="Cód Prod"/>
                             <DataGridTextColumn Width="1.4*" Binding="{Binding Path=Producto.nombre}" ClipboardContentBinding="{x:Null}" Header="Descripción"/>
                             <DataGridTextColumn Width="0.7*"  Binding="{Binding Path=cantidad}" ClipboardContentBinding="{x:Null}" Header="Cant."/>
                             <DataGridTextColumn Width="1*"  Binding="{Binding Path=Producto.monedaString}" Header="Moneda"/>
                             <DataGridTextColumn Width="0.9*" Binding="{Binding Path=Producto.precioLista}" ClipboardContentBinding="{x:Null}" Header="Precio"/>
-                            <DataGridTextColumn Width="1*" ClipboardContentBinding="{x:Null}" Header="Dscto(%)"/>
-                            <DataGridTextColumn Width="1*"  Binding="{Binding Path=montoParcial}" ClipboardContentBinding="{x:Null}" Header="Importe"/>
+                            <DataGridTextColumn Width="1*" Binding="{Binding Path=descuento}" ClipboardContentBinding="{x:Null}" Header="Dscto(%)"/>
+                            <DataGridTextColumn Width="1*"  Binding="{Binding Path=montoReal}" ClipboardContentBinding="{x:Null}" Header="Importe"/>
                             <DataGridTextColumn Width="1.2*" Binding="{Binding Path=precioPuntos}" ClipboardContentBinding="{x:Null}" Header="Precio Ptos"/>
                             <DataGridTextColumn Width="0.9*" Binding="{Binding Path=canjeado}" Header="Canjeado"/>
                         </DataGrid.Columns>

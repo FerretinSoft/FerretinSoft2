@@ -37,6 +37,23 @@ namespace pe.edu.pucp.ferretin.controller.MCompras
             }
         }
 
+        private static IEnumerable<ProveedorProducto> _listaProductos;
+        public static IEnumerable<ProveedorProducto> listaProductos
+        {
+            get
+            {
+                if (_listaProductos == null)
+                {
+                    _listaProductos = db.ProveedorProducto;
+                }
+                db.Refresh(RefreshMode.OverwriteCurrentValues, _listaProductos);
+                return _listaProductos;
+            }
+            set
+            {
+                _listaProductos = value;
+            }
+        }
       
 
         
@@ -71,6 +88,16 @@ namespace pe.edu.pucp.ferretin.controller.MCompras
                     )
                    orderby p.razonSoc
                    select p;
+        }
+
+        public static IEnumerable<ProveedorProducto> obtenerProductosbyIdProveedor(int id_proveedor)
+        {
+            return from c in listaProductos
+                   where
+                   (c.id_proveedor != null && c.id_proveedor.Equals(id_proveedor)
+                    )
+                   orderby c.id_proveedor
+                   select c;
         }
 
         #endregion

@@ -74,5 +74,12 @@ namespace pe.edu.pucp.ferretin.view.MVentas
             viewModel.soloSeleccionarVendedor = true;
             v.Show();
         }
+
+        private void visualizar_DocClick(object sender, RoutedEventArgs e)
+        {
+            
+        }
+        
+        
     }
 }

@@ -2,6 +2,10 @@
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Express 2012 for Windows Desktop
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "pe.edu.pucp.ferretin.view", "pe.edu.pucp.ferretin.view\pe.edu.pucp.ferretin.view.csproj", "{71456603-0C07-4627-AA16-1C686D82FC2F}"
+	ProjectSection(ProjectDependencies) = postProject
+		{FBF7538A-F51A-4F45-84D1-B90FD464C71A} = {FBF7538A-F51A-4F45-84D1-B90FD464C71A}
+		{534FC2B6-43E2-40B5-8B9D-90BD421B307B} = {534FC2B6-43E2-40B5-8B9D-90BD421B307B}
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "pe.edu.pucp.ferretin.model", "pe.edu.pucp.ferretin.model\pe.edu.pucp.ferretin.model.csproj", "{B2B09083-747C-4467-A7EF-A09EF13E3039}"
 EndProject
