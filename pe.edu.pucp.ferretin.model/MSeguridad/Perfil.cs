@@ -17,7 +17,11 @@ namespace pe.edu.pucp.ferretin.model
             {
                 if(_PerfilMenuPadre==null || _PerfilMenuPadre.Count() <= 0){
                     if(PerfilMenu.Count>=0)
-                        _PerfilMenuPadre = PerfilMenu.First().PerfilMenu2;
+                        try
+                        {
+                            _PerfilMenuPadre = PerfilMenu.First().PerfilMenu2;
+                        }
+                        catch { }
                 }
                 return _PerfilMenuPadre;
             }

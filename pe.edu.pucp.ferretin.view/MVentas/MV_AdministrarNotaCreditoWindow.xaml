@@ -161,7 +161,7 @@
                         <TextBox IsEnabled="false" Text="{Binding Path=notaCredito.estadoString, Mode=OneWay}" VerticalAlignment="Center" Grid.Column="1" Grid.Row="7"/>
                         <TextBox IsEnabled="false" Text="Soles" VerticalAlignment="Center" Grid.Column="1" Grid.Row="8"/>
                         <TextBox IsEnabled="false" Text="{Binding Path=notaCredito.importe, Mode=OneWay, ValidatesOnExceptions=true, NotifyOnValidationError=true}" VerticalAlignment="Center" HorizontalContentAlignment="Right" Grid.Column="1" Grid.Row="9"/>
-                        <Button Grid.Row="11" Grid.Column="1" Padding="10,0" Height="30">IMPRIMIR</Button>
+                        <Button Click="visualizar_DocClick" Grid.Row="11" Grid.Column="1" Padding="10,0" Height="30">IMPRIMIR</Button>
                     </Grid>
                     <DataGrid Margin="0,5,5,5" Grid.Column="1" ItemsSource="{Binding Path=listaProductos}" AutoGenerateColumns="False">
                         <DataGrid.Columns>

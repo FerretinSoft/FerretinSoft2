@@ -23,6 +23,40 @@ namespace pe.edu.pucp.ferretin.viewmodel.MAlmacen
         public String _searchNombre = "";
         public String searchNombre { get { return _searchNombre; } set { _searchNombre = value; NotifyPropertyChanged("_searchNombre"); } }
 
+        public IEnumerable<Movimiento> _listaMovimientos;
+        public IEnumerable<Movimiento> listaMovimientos
+        {
+            set
+            {
+                _listaMovimientos = value;
+                NotifyPropertyChanged("listaMovimientos");
+            }
+
+            get
+            {
+                return _listaMovimientos;
+            }
+        }
+
+
+
+        public IEnumerable<Color> _listaColores;
+        public IEnumerable<Color> listaColores
+        {
+            set
+            {
+                _listaColores = value;
+                NotifyPropertyChanged("listaColores");
+            }
+
+            get
+            {
+                return _listaColores;
+            }
+        }
+
+
+
         #endregion
 
 
@@ -168,7 +202,8 @@ namespace pe.edu.pucp.ferretin.viewmodel.MAlmacen
         {
             get
             {
-
+                if (searchAlmacen!=null)
+                    Console.WriteLine(searchAlmacen.id);
                 _listaProducto = MA_InventarioService.obtenerProductosPorAlmacenCategoriaNombre(searchNombre, searchAlmacen, searchCategoria);
                 return _listaProducto;
             }
@@ -213,14 +248,15 @@ namespace pe.edu.pucp.ferretin.viewmodel.MAlmacen
         #endregion;
 
         #region comandos
-
+        
         //detalle de los productos de inventario
         private void viewDetalleInventario(object id)
         {
             try
-            {
+            {   
                 this.producto = listaProducto.Single(producto => producto.id == (int)id);
-
+                this.listaColores = MA_ProductoService.obtenerColoresPorProducto(this.producto.id);
+                this.listaMovimientos=MA_MovimientosService.obtenerMovimientoPorProducto(this.producto.id);
                 this.statusTab = Tab.DETALLES;
             }
             catch (Exception e)

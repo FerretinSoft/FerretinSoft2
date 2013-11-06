@@ -68,11 +68,14 @@
       <DependentUpon>Ferretin.dbml</DependentUpon>
     </Compile>
     <Compile Include="MAlmacen\Categoria.cs" />
+    <Compile Include="MAlmacen\Movimiento.cs" />
     <Compile Include="MAlmacen\MovimientoTipo.cs" />
     <Compile Include="MCompras\DocumentoCompra.cs" />
     <Compile Include="MCompras\Proveedor.cs" />
+    <Compile Include="MCompras\ProveedorProducto.cs" />
     <Compile Include="MRecursosHumanos\Empleado.cs" />
     <Compile Include="MRecursosHumanos\EmpleadoTienda.cs" />
+    <Compile Include="MRecursosHumanos\EmpleadoTurno.cs" />
     <Compile Include="MSeguridad\Menu.cs" />
     <Compile Include="MSeguridad\Perfil.cs" />
     <Compile Include="MSeguridad\Tienda.cs" />

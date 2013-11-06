@@ -97,6 +97,20 @@ namespace pe.edu.pucp.ferretin.viewmodel.MCompras
             }
 
         }
+
+        private IEnumerable<ProveedorProducto> _listaProductos;
+        public IEnumerable<ProveedorProducto> listaProductos
+        {
+            get
+            {
+                return _listaProductos;
+            }
+            set
+            {
+                _listaProductos = value;
+                NotifyPropertyChanged("listaProductos");
+            }
+        }
         #endregion
 
         #region Valores para el cuadro de Búsqueda
@@ -187,6 +201,7 @@ namespace pe.edu.pucp.ferretin.viewmodel.MCompras
             try
             {
                 this.proveedor= listaProveedores.Single(proveedor => proveedor.id == (int)id);
+                this.listaProductos = MC_ProveedorService.obtenerProductosbyIdProveedor((int)id);
                 if (this.proveedor.id_ubigeo != null)
                 {
                     selectedProvincia = this.proveedor.UbigeoDistrito.UbigeoProvincia;

@@ -109,6 +109,22 @@ namespace pe.edu.pucp.ferretin.viewmodel.MRecursosHumanos
             }
         }
 
+        public IEnumerable<Turno> listaTurnos
+        {
+            get
+            {
+                //return MR_ComunService.gradosInstruccion;
+                //Creo una nueva secuencia
+                var sequence = Enumerable.Empty<Turno>();
+                //Primero agrego un item de Todos para que salga al inicio
+                //Pongo el ID en 0 para que al buscar, no filtre nada cuando se selecciona todos
+                IEnumerable<Turno> items = new Turno[] { new Turno { id = 0, nombre = "Seleccionar" } };
+                //Luego concateno el itemcon los elementos del combobox
+                return items.Concat(MR_CargTieService.turnos);
+
+            }
+        }
+
         public bool isCreating
         {
             get
@@ -145,7 +161,7 @@ namespace pe.edu.pucp.ferretin.viewmodel.MRecursosHumanos
                 //Si la pestaña es para agregar nuevo, limpio los input
                 switch (_statusTab)
                 {
-                    case Tab.BUSQUEDA: detallesTabHeader = "Agregar"; empleado = new Empleado(); break;//Si es agregar, creo un nuevo objeto Empleado
+                    case Tab.BUSQUEDA: detallesTabHeader = "Agregar"; empleado = new Empleado();  break;//Si es agregar, creo un nuevo objeto Empleado
                     case Tab.AGREGAR: detallesTabHeader = "Agregar"; empleado = new Empleado(); break;//Si es agregar, creo un nuevo objeto Empleado
                     case Tab.MODIFICAR: detallesTabHeader = "Modificar"; break;
                     case Tab.DETALLES: detallesTabHeader = "Detalles"; break;
@@ -201,7 +217,7 @@ namespace pe.edu.pucp.ferretin.viewmodel.MRecursosHumanos
                 NotifyPropertyChanged("empleado");
             }
         }
-
+        
         private IEnumerable<Empleado> _listaEmpleados;
         public IEnumerable<Empleado> listaEmpleados
         {
@@ -223,6 +239,49 @@ namespace pe.edu.pucp.ferretin.viewmodel.MRecursosHumanos
             }
         }
         #endregion
+
+
+        private IEnumerable<EmpleadoTurno> _listaEmpleadoTurno = new List<EmpleadoTurno>();
+        public IEnumerable<EmpleadoTurno> listaEmpleadoTurno
+        {
+            get
+            {
+                EmpleadoTurno et1 = new EmpleadoTurno(); et1.id_dia = 1; et1.estado = 1;
+                EmpleadoTurno et2 = new EmpleadoTurno(); et2.id_dia = 2; et2.estado = 1;
+                EmpleadoTurno et3 = new EmpleadoTurno(); et3.id_dia = 3; et3.estado = 1;
+                EmpleadoTurno et4 = new EmpleadoTurno(); et4.id_dia = 4; et4.estado = 1;
+                EmpleadoTurno et5 = new EmpleadoTurno(); et5.id_dia = 5; et5.estado = 1;
+                EmpleadoTurno et6 = new EmpleadoTurno(); et6.id_dia = 6; et6.estado = 1;
+                EmpleadoTurno et7 = new EmpleadoTurno(); et7.id_dia = 7; et7.estado = 1;
+
+            
+                _listaEmpleadoTurno.ToList().Add(et1);
+                _listaEmpleadoTurno.ToList().Add(et2);
+                _listaEmpleadoTurno.ToList().Add(et3);
+                _listaEmpleadoTurno.ToList().Add(et4);
+                _listaEmpleadoTurno.ToList().Add(et5);
+                _listaEmpleadoTurno.ToList().Add(et6);
+                _listaEmpleadoTurno.ToList().Add(et7);
+
+                return _listaEmpleadoTurno;
+                        
+            }
+
+            set
+            {
+                _listaEmpleadoTurno = value;
+                
+            
+            
+            }
+        
+        
+        
+        }
+
+
+
+
 
         #region RelayCommand
         RelayCommand _actualizarListaEmpleadosCommand;

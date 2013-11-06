@@ -52,6 +52,27 @@ namespace pe.edu.pucp.ferretin.controller.MRecursosHumanos
             }
         }
 
+        private static IEnumerable<EmpleadoTurno> _listaEmpleadoTurno = null;
+        public static IEnumerable<EmpleadoTurno> listaEmpleadoTurno
+        {
+            get
+            {
+                if (_listaEmpleadoTurno == null)
+                {
+                    _listaEmpleadoTurno = db.EmpleadoTurno;
+
+                }
+
+                db.Refresh(RefreshMode.OverwriteCurrentValues, _listaEmpleadoTurno);
+                return _listaEmpleadoTurno;
+            }
+            set
+            {
+                _listaEmpleadoTurno = value;
+            }
+        }
+
+
         public static IEnumerable<Empleado> obtenerListaEmpleados()
         {
             _listaEmpleados = from p in db.Empleado
@@ -117,6 +138,10 @@ namespace pe.edu.pucp.ferretin.controller.MRecursosHumanos
 
         }
 
+      
+
+
+        
        
     }
 }
