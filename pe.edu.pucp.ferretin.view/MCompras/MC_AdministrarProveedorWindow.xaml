@@ -20,7 +20,7 @@
                     <TextBox Text="{Binding searchRuc, Mode=TwoWay}" HorizontalAlignment="Left" Height="20" Margin="65,41,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Grid.ColumnSpan="2"/>
                     <TextBox Text="{Binding searchRazonSoc, Mode=TwoWay}" HorizontalAlignment="Left" Height="20" Margin="210.105,41,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="250" Grid.Column="1"/>
                     <Label Content="Rubro:" HorizontalAlignment="Left" Margin="477.105,35,0,0" VerticalAlignment="Top" Grid.Column="1"/>
-                    <ComboBox ItemsSource="{Binding listaRubros}" DisplayMemberPath="nombre"  SelectedItem="{Binding searchRubro,Mode=TwoWay}" HorizontalAlignment="Left" Margin="530.105,39,0,0" VerticalAlignment="Top" Height="20" Width="120" RenderTransformOrigin="1.625,5.182" Grid.Column="1">
+                    <ComboBox ItemsSource="{Binding listaRubros}" DisplayMemberPath="nombre"   SelectedIndex="0" SelectedItem="{Binding searchRubro,Mode=TwoWay}" HorizontalAlignment="Left" Margin="530.105,39,0,0" VerticalAlignment="Top" Height="20" Width="120" RenderTransformOrigin="1.625,5.182" Grid.Column="1">
                     </ComboBox>
 
                     <Button Command="{Binding actualizarListaProveedoresCommand}"  HorizontalAlignment="Left" Margin="729.105,33,0,0" VerticalAlignment="Top" Width="32" Height="32" RenderTransformOrigin="0.3,-0.35" Grid.Column="1">
@@ -48,7 +48,7 @@
                             </DataGridTextColumn>
                             <DataGridTextColumn Width="3*" Header="Rubro" Binding="{Binding Path= Rubro.nombre}"/>
                             <DataGridTextColumn Width="2.7*" Header="Teléfono" Binding="{Binding Path=telefono}"/>
-                            <DataGridCheckBoxColumn Width="1.28*" Binding="{x:Null}" ClipboardContentBinding="{x:Null}" Header="Seleccionar"/>
+                            <DataGridCheckBoxColumn Width="1.28*" Binding="{x:Null}" ClipboardContentBinding="{x:Null}" Header="Seleccionar" />
                         </DataGrid.Columns>
                     </DataGrid>
                     <ToolBar HorizontalAlignment="Left" Margin="10,85,0,0" VerticalAlignment="Top" Height="24">
@@ -120,12 +120,12 @@
                     <Label Content="Teléfono contacto:" HorizontalAlignment="Left" Margin="10,428,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.464,1.231" Grid.ColumnSpan="4" Height="26" Width="108"/>
                     <TextBox Text="{Binding Path=proveedor.contactoTlf, Mode=TwoWay, UpdateSourceTrigger=LostFocus, NotifyOnValidationError=True, ValidatesOnDataErrors=True, ValidatesOnExceptions=True}" HorizontalAlignment="Left" Height="23" Margin="101,430,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="144" Grid.Column="3"/>
                     <TextBox Text="{Binding Path=proveedor.telefono, Mode=TwoWay, UpdateSourceTrigger=LostFocus, NotifyOnValidationError=True, ValidatesOnDataErrors=True, ValidatesOnExceptions=True}" HorizontalAlignment="Left" Height="23" Margin="101,337,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="144" Grid.Column="3" RenderTransformOrigin="0.514,1.435"/>
-                    <DataGrid x:Name="dgwCatalogo" Grid.Column="3" Margin="355,70,10,0" VerticalAlignment="Top" Height="392" AutoGenerateColumns="False" CanUserAddRows="False" CanUserDeleteRows="False" Grid.ColumnSpan="2" IsReadOnly="True">
+                    <DataGrid ItemsSource="{Binding Path=listaProductos,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged,NotifyOnSourceUpdated=True,NotifyOnTargetUpdated=True}" x:Name="dgwCatalogo"  CanUserAddRows="True" Grid.Column="3" Margin="355,70,10,0" VerticalAlignment="Top" Height="392" AutoGenerateColumns="False"  CanUserDeleteRows="True" Grid.ColumnSpan="2" IsManipulationEnabled="True" IsEnabled="True"  >
                         <DataGrid.Columns>
-                            <DataGridTextColumn Width="2.6*" Header="Producto" Binding="{Binding Path=producto}"/>
-                            <DataGridTextColumn Width="1.1*" Header="Unidad" Binding="{Binding Path=unidad}"/>
-                            <DataGridTextColumn Width="1.1*" Header="Precio" Binding="{Binding Path=precio}"/>
-                            <DataGridTextColumn Width="2.0*" Header="Tiempo de entrega" Binding="{Binding Path=tiempoEentrega}"/>
+                            <DataGridTextColumn Width="2.6*" Header="Producto" Binding="{Binding Path=Producto.nombre}" IsReadOnly="True"/>
+                            <DataGridTextColumn Width="1.1*" Header="Unidad" Binding="{Binding Path=Producto.UnidadMedida.abreviatura}" IsReadOnly="True"/>
+                            <DataGridTextColumn Width="1.1*" Header="Precio"  Binding="{Binding Path=Producto.precio,Mode=TwoWay}" IsReadOnly="False" />
+                            <DataGridTextColumn Width="2.0*" Header="Tiempo de entrega" Binding="{Binding Path=tiempoEntrega}"/>
                             <DataGridCheckBoxColumn Width="1.25*" Binding="{x:Null}" ClipboardContentBinding="{x:Null}" Header="Seleccionar"/>
                         </DataGrid.Columns>
                     </DataGrid>
