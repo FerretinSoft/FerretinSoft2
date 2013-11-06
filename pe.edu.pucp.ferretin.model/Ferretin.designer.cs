@@ -872,6 +872,10 @@ namespace pe.edu.pucp.ferretin.model
 		
 		private System.Nullable<bool> _canjeado;
 		
+		private System.Nullable<decimal> _montoReal;
+		
+		private System.Nullable<decimal> _descuento;
+		
 		private EntityRef<Producto> _Producto;
 		
 		private EntityRef<Venta> _Venta;
@@ -892,6 +896,10 @@ namespace pe.edu.pucp.ferretin.model
     partial void Onid_productoChanged();
     partial void OncanjeadoChanging(System.Nullable<bool> value);
     partial void OncanjeadoChanged();
+    partial void OnmontoRealChanging(System.Nullable<decimal> value);
+    partial void OnmontoRealChanged();
+    partial void OndescuentoChanging(System.Nullable<decimal> value);
+    partial void OndescuentoChanged();
     #endregion
 		
 		public VentaProducto()
@@ -1025,6 +1033,46 @@ namespace pe.edu.pucp.ferretin.model
 					this._canjeado = value;
 					this.SendPropertyChanged("canjeado");
 					this.OncanjeadoChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_montoReal", DbType="Decimal(18,0)")]
+		public System.Nullable<decimal> montoReal
+		{
+			get
+			{
+				return this._montoReal;
+			}
+			set
+			{
+				if ((this._montoReal != value))
+				{
+					this.OnmontoRealChanging(value);
+					this.SendPropertyChanging();
+					this._montoReal = value;
+					this.SendPropertyChanged("montoReal");
+					this.OnmontoRealChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_descuento", DbType="Decimal(18,0)")]
+		public System.Nullable<decimal> descuento
+		{
+			get
+			{
+				return this._descuento;
+			}
+			set
+			{
+				if ((this._descuento != value))
+				{
+					this.OndescuentoChanging(value);
+					this.SendPropertyChanging();
+					this._descuento = value;
+					this.SendPropertyChanged("descuento");
+					this.OndescuentoChanged();
 				}
 			}
 		}
