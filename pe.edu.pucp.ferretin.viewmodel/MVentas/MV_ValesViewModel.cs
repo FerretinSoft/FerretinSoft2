@@ -192,13 +192,29 @@ namespace pe.edu.pucp.ferretin.viewmodel.MVentas
                 return _saveLoteValeCommand;
             }
         }
-        
 
+        RelayCommand _cancelarLoteValeCommand;
+        public ICommand cancelarLoteValeCommand
+        {
+            get
+            {
+                if (_cancelarLoteValeCommand == null)
+                {
+                    _cancelarLoteValeCommand = new RelayCommand(cancelarLoteVale);
+                }
+                return _cancelarLoteValeCommand;
+            }
+        }
         #endregion
 
         #region commands
 
-
+        public void cancelarLoteVale(object id)
+        {
+            loteVale.Vale = new System.Data.Linq.EntitySet<Vale>();
+            this.loteVale = new LoteVale();
+            this.selectedTab = 0;
+        }
 
         public void saveLoteVale(object id)
         {
@@ -211,7 +227,7 @@ namespace pe.edu.pucp.ferretin.viewmodel.MVentas
             {
                 MessageBox.Show("El lote de vales fue agregado con éxito");
             }
-           
+            this.selectedTab = 0;
         }
 
         public void generarVales(object id)
