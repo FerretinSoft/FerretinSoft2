@@ -241,26 +241,27 @@ namespace pe.edu.pucp.ferretin.viewmodel.MRecursosHumanos
         #endregion
 
 
-        private IEnumerable<EmpleadoTurno> _listaEmpleadoTurno;
+        private IEnumerable<EmpleadoTurno> _listaEmpleadoTurno = new List<EmpleadoTurno>();
         public IEnumerable<EmpleadoTurno> listaEmpleadoTurno
         {
             get
             {
-                EmpleadoTurno et1 = new EmpleadoTurno(); et1.id_dia = 1; et1.estado = 0;
-                EmpleadoTurno et2 = new EmpleadoTurno(); et2.id_dia = 2; et2.estado = 0;
-                EmpleadoTurno et3 = new EmpleadoTurno(); et3.id_dia = 3; et3.estado = 0;
-                EmpleadoTurno et4 = new EmpleadoTurno(); et4.id_dia = 4; et4.estado = 0;
-                EmpleadoTurno et5 = new EmpleadoTurno(); et5.id_dia = 5; et5.estado = 0;
-                EmpleadoTurno et6 = new EmpleadoTurno(); et6.id_dia = 6; et6.estado = 0;
-                EmpleadoTurno et7 = new EmpleadoTurno(); et7.id_dia = 7; et7.estado = 0;
+                EmpleadoTurno et1 = new EmpleadoTurno(); et1.id_dia = 1; et1.estado = 1;
+                EmpleadoTurno et2 = new EmpleadoTurno(); et2.id_dia = 2; et2.estado = 1;
+                EmpleadoTurno et3 = new EmpleadoTurno(); et3.id_dia = 3; et3.estado = 1;
+                EmpleadoTurno et4 = new EmpleadoTurno(); et4.id_dia = 4; et4.estado = 1;
+                EmpleadoTurno et5 = new EmpleadoTurno(); et5.id_dia = 5; et5.estado = 1;
+                EmpleadoTurno et6 = new EmpleadoTurno(); et6.id_dia = 6; et6.estado = 1;
+                EmpleadoTurno et7 = new EmpleadoTurno(); et7.id_dia = 7; et7.estado = 1;
 
-                listaEmpleadoTurno.ToList().Add(et1);
-                listaEmpleadoTurno.ToList().Add(et2);
-                listaEmpleadoTurno.ToList().Add(et3);
-                listaEmpleadoTurno.ToList().Add(et4);
-                listaEmpleadoTurno.ToList().Add(et5);
-                listaEmpleadoTurno.ToList().Add(et6);
-                listaEmpleadoTurno.ToList().Add(et7);
+            
+                _listaEmpleadoTurno.ToList().Add(et1);
+                _listaEmpleadoTurno.ToList().Add(et2);
+                _listaEmpleadoTurno.ToList().Add(et3);
+                _listaEmpleadoTurno.ToList().Add(et4);
+                _listaEmpleadoTurno.ToList().Add(et5);
+                _listaEmpleadoTurno.ToList().Add(et6);
+                _listaEmpleadoTurno.ToList().Add(et7);
 
                 return _listaEmpleadoTurno;
                         
@@ -268,6 +269,7 @@ namespace pe.edu.pucp.ferretin.viewmodel.MRecursosHumanos
 
             set
             {
+                _listaEmpleadoTurno = value;
                 
             
             
