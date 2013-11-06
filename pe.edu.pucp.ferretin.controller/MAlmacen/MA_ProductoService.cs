@@ -40,6 +40,17 @@ namespace pe.edu.pucp.ferretin.controller.MAlmacen
 
         }
 
+        public static IEnumerable<Color> obtenerColoresPorProducto(int idProd)
+        {
+            IEnumerable<Color> listaColores = from c in db.Color
+                                              from cp in db.ProductoColor
+                                              where (cp.id_color == c.id) &&
+                                              (cp.id_producto==idProd)
+                                              select c;
+
+            return listaColores;
+        }
+
         public static IEnumerable<Color> obtenerTodosColores()
         {
             IEnumerable<Color> listaColores = from p in db.Color
