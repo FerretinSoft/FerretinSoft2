@@ -25,6 +25,7 @@ namespace pe.edu.pucp.ferretin.viewmodel.MSeguridad
         public String searchNombre { get { return _searchNombre; } set { _searchNombre = value; } }
         private int _searchEstado = 0;
         public int searchEstado { get { return _searchEstado; } set { _searchEstado = value; NotifyPropertyChanged("searchEstado"); } }
+        
         public UbigeoDepartamento searchDepartamento
         {
             get 
@@ -88,7 +89,16 @@ namespace pe.edu.pucp.ferretin.viewmodel.MSeguridad
                 switch (_statusTab)
                 {
                     case Tab.BUSQUEDA: detallesTabHeader = "Agregar"; almacen = new Tienda(); break;//Si es agregar, creo un nuevo objeto Almacen
-                    case Tab.AGREGAR: detallesTabHeader = "Agregar"; almacen = new Tienda(); break;//Si es agregar, creo un nuevo objeto Almacen
+                    case Tab.AGREGAR: detallesTabHeader = "Agregar"; almacen = new Tienda();                                                
+                        //Obtiene el ultimo codigo de la tienda y le suma 1 para que se el codigo de la tienda a agregar
+                        String tempCadenaNumero = (Int32.Parse(listaAlmacenes.Last().codigo.Substring(listaAlmacenes.Last().codigo.Length - 3))+1).ToString();                        
+                        if(tempCadenaNumero.Length==1)
+                            this.almacen.codigo = "TND00" + tempCadenaNumero;
+                        else if (tempCadenaNumero.Length == 2)
+                            this.almacen.codigo = "TND0" + tempCadenaNumero;
+                        else
+                            this.almacen.codigo = "TND" + tempCadenaNumero;                        
+                        break;//Si es agregar, creo un nuevo objeto Almacen
                     case Tab.MODIFICAR: detallesTabHeader = "Modificar"; break;
                     case Tab.DETALLES: detallesTabHeader = "Detalles"; break;
                     default: detallesTabHeader = "Agregar"; almacen = new Tienda(); break;//Si es agregar, creo un nuevo objeto Almacen
@@ -124,12 +134,12 @@ namespace pe.edu.pucp.ferretin.viewmodel.MSeguridad
         public Tienda almacen
         {
             get
-            {
+            {                
                 return _almacen;
             }
             set
             {
-                _almacen = value;
+                _almacen = value;                
                 if (value.id_ubigeo != null)
                 {
                     String id_distrito = value.id_ubigeo;
@@ -143,7 +153,7 @@ namespace pe.edu.pucp.ferretin.viewmodel.MSeguridad
                 }
                 NotifyPropertyChanged("almacen");
             }
-        }        
+        }
 
         private IEnumerable<Tienda> _listaAlmacenes;
         public IEnumerable<Tienda> listaAlmacenes
@@ -272,7 +282,7 @@ namespace pe.edu.pucp.ferretin.viewmodel.MSeguridad
         {
             try
             {
-                this.almacen = listaAlmacenes.Single(almacen => almacen.id == (int)id);
+                this.almacen = listaAlmacenes.Single(almacen => almacen.id == (int)id);                
                 if (this.almacen.id_ubigeo != null)
                 {
                     selectedProvincia = this.almacen.UbigeoDistrito.UbigeoProvincia;
@@ -298,6 +308,7 @@ namespace pe.edu.pucp.ferretin.viewmodel.MSeguridad
                     else
                     {
                         MessageBox.Show("La tienda fue guardada con éxito");
+                        this.statusTab = Tab.BUSQUEDA;
                     }
                 }
             }
@@ -312,6 +323,7 @@ namespace pe.edu.pucp.ferretin.viewmodel.MSeguridad
                     else
                     {
                         MessageBox.Show("La Tienda fue agregada con éxito");
+                        this.statusTab = Tab.BUSQUEDA;
                     }
                 }
             }
@@ -363,7 +375,7 @@ namespace pe.edu.pucp.ferretin.viewmodel.MSeguridad
                 NotifyPropertyChanged("almacenes");
                 this.almacen.id_abastecedor = _selectedTienda.id;
             }
-        }
+        }        
 
         public bool VerificaHorario(Tienda tienda)
         {
@@ -375,7 +387,7 @@ namespace pe.edu.pucp.ferretin.viewmodel.MSeguridad
                 tienda.sabadoHoraInicio > tienda.sabadoHoraFin ||
                 tienda.domingoHoraInicio > tienda.domingoHoraFin)
             {
-                MessageBox.Show("La hora Fin debe ser menor a la hora Inicio");
+                MessageBox.Show("La hora Fin debe ser mayor a la hora Inicio");
                 return false;
             }
             return true;

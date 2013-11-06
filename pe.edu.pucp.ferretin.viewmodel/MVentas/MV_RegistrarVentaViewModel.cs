@@ -126,9 +126,32 @@ namespace pe.edu.pucp.ferretin.viewmodel.MVentas
                 return _agregarProductoCommand;
             }
         }
+
+        RelayCommand _pagarCommand;
+        public ICommand pagarCommand
+        {
+            get
+            {
+                if (_pagarCommand == null)
+                {
+                    _pagarCommand = new RelayCommand(pagar,canPagar);
+                }
+                return _pagarCommand;
+            }
+        }
         #endregion
 
         #region Comandos
+
+        public void pagar(object param)
+        {
+            
+        }
+
+        public bool canPagar(object param)
+        {
+            return this.venta != null && venta.total > 0;
+        }
 
         public void cargarCliente(Object id)
         {

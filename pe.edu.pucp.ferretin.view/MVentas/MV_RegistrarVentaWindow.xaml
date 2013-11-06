@@ -132,7 +132,7 @@
                 </Grid>
             </Grid>
             <Grid Grid.Row="3" Margin="0,5,0,0">
-                <Button Grid.Column="1" x:Name="pagarBtn" Content="PAGAR" HorizontalAlignment="Right"  VerticalAlignment="Center" Width="75" Height="30" Click="pagarBtn_Click" Margin="0,0,80,0"/>
+                <Button Command="{Binding pagarCommand}" Grid.Column="1"  Content="PAGAR" HorizontalAlignment="Right"  VerticalAlignment="Center" Width="75" Height="30" Click="pagarBtn_Click" Margin="0,0,80,0"/>
                 <Button Grid.Column="1" Content="CANCELAR" HorizontalAlignment="Right"  VerticalAlignment="Center" Width="75" Height="30" Click="Button_Click_1"/>
             </Grid>
         </Grid>
