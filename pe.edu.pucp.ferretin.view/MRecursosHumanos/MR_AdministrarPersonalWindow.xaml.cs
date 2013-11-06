@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -18,6 +19,7 @@ using System.Windows.Shapes;
 using pe.edu.pucp.ferretin.view.MVentas;
 using pe.edu.pucp.ferretin.viewmodel.MVentas;
 using pe.edu.pucp.ferretin.viewmodel.MRecursosHumanos;
+
 
 namespace pe.edu.pucp.ferretin.view.MRecursosHumanos
 {
@@ -35,73 +37,203 @@ namespace pe.edu.pucp.ferretin.view.MRecursosHumanos
         }
 
 
+        private void dni_PreviewTextInput(object sender, TextCompositionEventArgs e)
+        {
+            if (Regex.IsMatch(e.Text, "[0-9]"))
+            {
+                e.Handled = false;
+            }
+            else
+            {
+                e.Handled = true;
+            }
+        }
+
         private void txtDNI_KeyDown(object sender, KeyEventArgs e)
         {
-     
-            //Validaciones para que acepte solo numeros
-            if (((e.Key >= Key.D0 && e.Key <= Key.D9) || (e.Key >= Key.NumPad0 && e.Key <= Key.NumPad9) || e.Key == Key.Back || e.Key == Key.Tab))
+            if (e.Key != Key.Space)
                 e.Handled = false;
             else
                 e.Handled = true;
+     
+         
+        }
+
+        
+        
+
+
+        private void nombre_PreviewTextInput(object sender, TextCompositionEventArgs e)
+        {
+            if (Regex.IsMatch(e.Text, "[A-Z][a-zA-Z]*"))
+            {
+                e.Handled = false;
+            }
+            else
+            {
+                e.Handled = true;
+            }
+
+            
         }
 
         private void txtNombre_KeyDown(object sender, KeyEventArgs e)
         {
             //Validaciones para textbox de solo letras
-            if (!(e.Key >= Key.A && e.Key <= Key.Z)) e.Handled = true;
-    
+
+           // if (!(e.Key >= Key.A && e.Key <= Key.Z)) e.Handled = true;
+
 
         }
-        private void txtApPaterno_KeyDown(object sender, KeyEventArgs e)
+         private void apPaterno_PreviewTextInput(object sender, TextCompositionEventArgs e)
         {
-            //Validaciones para textbox de solo letras
-            if (!(e.Key >= Key.A && e.Key <= Key.Z)) e.Handled = true;
+            if (Regex.IsMatch(e.Text, "[a-zA-z]+([ '-][a-zA-Z]+)*"))
+            {
+                e.Handled = false;
+            }
+            else
+            {
+                e.Handled = true;
+            }
         }
-        private void txtApMaterno_KeyDown(object sender, KeyEventArgs e)
+
+         private void txtApPaterno_KeyDown(object sender, KeyEventArgs e)
+         {
+             //Validaciones para textbox de solo letras
+            // if (!(e.Key >= Key.A && e.Key <= Key.Z)) e.Handled = true;
+         }
+
+
+         private void apMaterno_PreviewTextInput(object sender, TextCompositionEventArgs e)
         {
-            //Validaciones para textbox de solo letras
-            if (!(e.Key >= Key.A && e.Key <= Key.Z)) e.Handled = true;
+            if (Regex.IsMatch(e.Text, "[a-zA-z]+([ '-][a-zA-Z]+)*"))
+            {
+                e.Handled = false;
+            }
+            else
+            {
+                e.Handled = true;
+            }
         }
-        private void txtDireccion_KeyDown(object sender, KeyEventArgs e)
+
+         private void txtApMaterno_KeyDown(object sender, KeyEventArgs e)
+         {
+             //Validaciones para textbox de solo letras
+           //  if (!(e.Key >= Key.A && e.Key <= Key.Z)) e.Handled = true;
+         }
+
+
+        private void direccion_PreviewTextInput(object sender, TextCompositionEventArgs e)
         {
-           
+            if (Regex.IsMatch(e.Text, "\\d+\\s+([a-zA-Z]+|[a-zA-Z]+\\s[a-zA-Z]+)"))
+            {
+                e.Handled = false;
+            }
+            else
+            {
+                e.Handled = true;
+            }
         }
-        private void txtTelf1_KeyDown(object sender, KeyEventArgs e)
+
+         private void txtDireccion_KeyDown(object sender, KeyEventArgs e)
+         {
+
+         }
+
+
+        private void telf1_PreviewTextInput(object sender, TextCompositionEventArgs e)
         {
-            //Validaciones para que acepte solo numeros
-            if (e.Key >= Key.D0 && e.Key <= Key.D9 || e.Key >= Key.NumPad0 && e.Key <= Key.NumPad9)
+            if (Regex.IsMatch(e.Text, "[0-9]"))
+            {
+                e.Handled = false;
+            }
+            else
+            {
+                e.Handled = true;
+            }
+        }
+
+        private void txtTelf1_KeyDown (object sender, KeyEventArgs e)
+        {
+            if (e.Key != Key.Space)
                 e.Handled = false;
             else
                 e.Handled = true;
+        }
+
+        private void telf2_PreviewTextInput(object sender, TextCompositionEventArgs e)
+        {
+            //Validaciones para que acepte solo numeros
+            if (Regex.IsMatch(e.Text, "[0-9]"))
+            {
+                e.Handled = false;
+            }
+            else
+            {
+                e.Handled = true;
+            }
         }
         private void txtTelf2_KeyDown(object sender, KeyEventArgs e)
         {
-            //Validaciones para que acepte solo numeros
-            if (e.Key >= Key.D0 && e.Key <= Key.D9 || e.Key >= Key.NumPad0 && e.Key <= Key.NumPad9)
+            if (e.Key != Key.Space)
                 e.Handled = false;
             else
                 e.Handled = true;
         }
-        private void txtEmail_KeyDown(object sender, KeyEventArgs e)
+        private void email_PreviewTextInput(object sender, TextCompositionEventArgs e)
         {
             //Validaciones para textbox de solo letras
-            if (!(e.Key >= Key.A && e.Key <= Key.Z)) e.Handled = true;
+
+            string pattern = null;
+            pattern = @"^([0-9a-zA-Z]([-\\.\\w]*[0-9a-zA-Z])*@([0-9a-zA-Z][-\\w]*[0-9a-zA-Z]\\.)+[a-zA-Z]{2,15})$"; 
+                
+                ///^([a-z0-9_\.-]+)@([\da-z\.-]+)\.([a-z\.]{2,6})$/ 
+                //"^([0-9a-zA-Z]([-\\.\\w]*[0-9a-zA-Z])*@([0-9a-zA-Z][-\\w]*[0-9a-zA-Z]\\.)+[a-zA-Z]{2,9})$";
+
+
+
+			if (Regex.IsMatch(correo.Text, pattern))
+			{
+                e.Handled = true ;
+			}
+			else
+			{
+                e.Handled = false;
+			}
+
+           // e.Handled = Regex.IsMatch(correo.Text, "/[-0-9a-zA-Z.+_]+@[-0-9a-zA-Z.+_]+\.[a-zA-Z]{2,4}/");
+
         }
 
-        private void txtSueldo_KeyDown(object sender, KeyEventArgs e)
+        private void txtEmail_KeyDown(object sender, KeyEventArgs e)
         {
-            //Validaciones para textbox tipo precio
-            if (e.Key == Key.OemComma || e.Key == Key.OemPeriod)
+            if (e.Key != Key.Space)
+                e.Handled = false;
+            else
+                e.Handled = true;
+        }
+
+        private void sueldo_PreviewTextInput(object sender, TextCompositionEventArgs e)
+        {
+            if ((Regex.IsMatch(sueldo.Text, @"^[0-9]+(\.{0}[0-9]+)?$")) && (e.Text != ",") || (Regex.IsMatch(e.Text, "[0-9]")))
             {
-                
+                e.Handled = false;
             }
             else
             {
-                if (e.Key >= Key.D0 && e.Key <= Key.D9 || e.Key >= Key.NumPad0 && e.Key <= Key.NumPad9)
-                    e.Handled = false;
-                else
-                    e.Handled = true;
+                e.Handled = true;
             }
+          
+
+        }
+        private void txtSueldo_KeyDown(object sender, KeyEventArgs e)
+        {
+
+            if (e.Key != Key.Space)
+                e.Handled = false;
+            else
+                e.Handled = true;
+
         }
 
          private void Button_Click(object sender, RoutedEventArgs e)
