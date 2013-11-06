@@ -124,7 +124,7 @@
                         <DataGrid.Columns>
                             <DataGridTextColumn Width="2.6*" Header="Producto" Binding="{Binding Path=Producto.nombre}" IsReadOnly="True"/>
                             <DataGridTextColumn Width="1.1*" Header="Unidad" Binding="{Binding Path=Producto.UnidadMedida.abreviatura}" IsReadOnly="True"/>
-                            <DataGridTextColumn Width="1.1*" Header="Precio"  Binding="{Binding Path=Producto.precio,Mode=TwoWay}" IsReadOnly="False" />
+                            <DataGridTextColumn Width="1.1*" Header="Precio"  Binding="{Binding Path=precio,Mode=TwoWay}" />
                             <DataGridTextColumn Width="2.0*" Header="Tiempo de entrega" Binding="{Binding Path=tiempoEntrega}"/>
                             <DataGridCheckBoxColumn Width="1.25*" Binding="{x:Null}" ClipboardContentBinding="{x:Null}" Header="Seleccionar"/>
                         </DataGrid.Columns>
