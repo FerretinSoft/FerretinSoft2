@@ -17,15 +17,7 @@
                         <RowDefinition Height="37*"></RowDefinition>
                         <RowDefinition Height="255*"/>
                     </Grid.RowDefinitions>
-                    <GroupBox Header="Parámetros" Margin="0,13,20.105,48.969" BorderBrush="Black" Grid.ColumnSpan="4" Grid.RowSpan="2">
-                        <ComboBox HorizontalAlignment="Left" Height="20" SelectedIndex="0" VerticalAlignment="Top" Width="130" Margin="501,70,0,0">
-                            <ListBoxItem Content="Almacén Central"/>
-                            <ListBoxItem Content="Tienda 1"/>
-                            <ListBoxItem Content="Tienda 2"/>
-                        </ComboBox>
-
-
-                    </GroupBox>
+                    <GroupBox Header="Parámetros" Margin="0,13,20.105,48.969" BorderBrush="Black" Grid.ColumnSpan="4" Grid.RowSpan="2"/>
 
                     <Label Content="Codigo:" HorizontalAlignment="Left" Height="26" VerticalAlignment="Top" Width="63" Margin="24,33,0,0" Grid.ColumnSpan="2"/>
 
@@ -33,9 +25,9 @@
 
                     <Label Content="Fecha hasta:" HorizontalAlignment="Left" Width="75" Margin="294.953,64,0,0" Height="27" VerticalAlignment="Top" Grid.Column="3"/>
                     <Label Content="Fecha desde:" Height="26" VerticalAlignment="Top" Margin="24,64,588.105,0" Grid.ColumnSpan="4"/>
-                    <DatePicker HorizontalAlignment="Left" Margin="35.953,64,0,0" VerticalAlignment="Top" Width="130" Height="24" Grid.Column="3"/>
-                    <DatePicker HorizontalAlignment="Left" Margin="401.953,64,0,0" VerticalAlignment="Top" Width="130" Height="24" Grid.Column="3"/>
-                    <TextBox HorizontalAlignment="Left" Height="20" Margin="35.953,36,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="130" RenderTransformOrigin="0.667,0.4" Grid.Column="3"/>
+                    <DatePicker  HorizontalAlignment="Left" Margin="35.953,64,0,0" VerticalAlignment="Top" Width="130" Height="24" Grid.Column="3"/>
+                    <DatePicker  HorizontalAlignment="Left" Margin="401.953,64,0,0" VerticalAlignment="Top" Width="130" Height="24" Grid.Column="3"/>
+                    <TextBox  HorizontalAlignment="Left" Height="20" Margin="35.953,36,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="130" RenderTransformOrigin="0.667,0.4" Grid.Column="3"/>
 
 
                     <ComboBox HorizontalAlignment="Left" Height="20" SelectedIndex="0" Margin="401.953,33,0,0" VerticalAlignment="Top" Width="130" Grid.Column="3">
@@ -63,8 +55,7 @@
                             <DataGridTextColumn Width="1.8*" Binding="{x:Null}" ClipboardContentBinding="{x:Null}" Header="Estado"/>
                         </DataGrid.Columns>
                     </DataGrid>
-                    <Label Content="Origen:" HorizontalAlignment="Left" Height="26" VerticalAlignment="Top" Width="63" Margin="29,95,0,0" Grid.ColumnSpan="3"/>
-                    <Label Content="Destino:" HorizontalAlignment="Left" Height="26" VerticalAlignment="Top" Width="63" Margin="294.953,96,0,0" Grid.Column="3"/>
+                    <Label Content="Destino:" HorizontalAlignment="Left" Height="26" VerticalAlignment="Top" Width="63" Margin="29,95,0,0" Grid.ColumnSpan="3"/>
                     <ComboBox HorizontalAlignment="Left" Height="20" SelectedIndex="0" Margin="35.953,98,0,0" VerticalAlignment="Top" Width="130" Grid.Column="3" >
                         <ListBoxItem Content="Almacén Central" />
                         <ListBoxItem Content="Tienda 1"/>
@@ -79,14 +70,19 @@
                         <ColumnDefinition Width="584*"/>
                         <ColumnDefinition Width="204*"/>
                     </Grid.ColumnDefinitions>
-                    <GroupBox Header="Parámetros" BorderBrush="Black" Height="95" VerticalAlignment="Top" HorizontalAlignment="Left" Width="691" Grid.ColumnSpan="3" Margin="14,6,0,0"/>
+                    <GroupBox Header="Parámetros" BorderBrush="Black" Height="112" VerticalAlignment="Top" HorizontalAlignment="Left" Width="691" Grid.ColumnSpan="3" Margin="14,6,0,0">
+                    </GroupBox>
+                    <Label Content="Fecha de Emision" HorizontalAlignment="Left" Height="29" Margin="0,78,0,0" VerticalAlignment="Top" Width="119" Grid.Column="1"/>
                     <Label x:Name="tipoDocLbl" Content="Código:" HorizontalAlignment="Left" Margin="0.393,32,0,0" VerticalAlignment="Top" Height="26" Width="105" Grid.Column="1"/>
-                    <TextBox HorizontalAlignment="Left" Height="20" Margin="110.393,35,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="130" IsEnabled="False" Grid.Column="1"/>
+                    <TextBox Text="{Binding Path=guiaRemision.codigo, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, NotifyOnValidationError=True, ValidatesOnDataErrors=True, ValidatesOnExceptions=True}" HorizontalAlignment="Left" Height="20" Margin="115,35,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="130" IsEnabled="False" Grid.Column="1"/>
                     <Label x:Name="docOrdLbl" Content="Orden de Compra:" HorizontalAlignment="Left" Margin="284.393,32,0,0" VerticalAlignment="Top" Height="26" Width="121" Grid.Column="1"/>
-                    <Label x:Name="MovLbl" Content="Motivo Traslado:" HorizontalAlignment="Left" Margin="0.393,63,0,0" VerticalAlignment="Top" Height="26" Width="121" Grid.Column="1"/>
-                    <TextBox HorizontalAlignment="Left" Height="20" Margin="410.393,35,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="157" Grid.Column="1" IsEnabled="False"/>
+                    <TextBox Text="{Binding Path=searchOC, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Left" Height="20" Margin="410,35,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="130" Grid.Column="1" IsEnabled="False">
+                        <TextBox.InputBindings>
+                            <KeyBinding Key="Enter" Command="{Binding cargarOCCommand}" />
+                        </TextBox.InputBindings>
+                    </TextBox>
 
-                    <DataGrid Margin="10,135,178.105,0" RenderTransformOrigin="0.5, 0.5" Height="277" VerticalAlignment="Top" Grid.ColumnSpan="3" >
+                    <DataGrid Margin="10,133,178,0" RenderTransformOrigin="0.5, 0.5" Height="279" VerticalAlignment="Top" Grid.ColumnSpan="3" >
                         <DataGrid.Columns>
                             <DataGridHyperlinkColumn Width="3.8*" Binding="{x:Null}" ContentBinding="{x:Null}" ClipboardContentBinding="{x:Null}" Header="Producto"/>
                             <DataGridTextColumn Width="3.0*" Binding="{x:Null}" ClipboardContentBinding="{x:Null}" Header="Descripción"/>
@@ -103,17 +99,11 @@
 
                     </GroupBox>
                     <TextBox Grid.Column="1" HorizontalAlignment="Left" Height="34" Margin="150.393,457,0,0" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" Width="58"  IsEnabled="False" FontSize="16" TextAlignment="Right"/>
-
-                    <TextBox HorizontalAlignment="Left" Height="23" Margin="110.393,63,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="505" IsEnabled="False" TextAlignment="Right" Grid.Column="1"/>
-
-                    <Label Content="Datos" HorizontalAlignment="Left" Margin="58.56,133,0,0" VerticalAlignment="Top" FontSize="14" FontWeight="Bold" Width="128" Grid.Column="2" Height="29"/>
                     <Grid HorizontalAlignment="Left" Height="105" Margin="0,140,0,0" VerticalAlignment="Top" Width="136" Grid.Column="2">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="135"></ColumnDefinition>
                             <ColumnDefinition></ColumnDefinition>
                         </Grid.ColumnDefinitions>
-                        <Label Content="&lt;Fecha de Emisión&gt;" Margin="57,27,-42.791,0" VerticalAlignment="Top" Height="26" HorizontalAlignment="Left" Grid.ColumnSpan="2" Width="122"/>
-                        <Label Content="&lt;Fecha de Recepcín&gt;" Margin="57,57,-44.791,0" VerticalAlignment="Top" Height="26" HorizontalAlignment="Left" Grid.ColumnSpan="2" Width="124"/>
 
                     </Grid>
                     <Grid HorizontalAlignment="Left" Height="38" Margin="50,259,-3,0" VerticalAlignment="Top" Width="176" Grid.Column="2">
@@ -139,6 +129,9 @@
                     <Button x:Name="cancelarBtn" Content="CANCELAR" Grid.Column="2" HorizontalAlignment="Left" Margin="96,469,0,0" VerticalAlignment="Top" Width="80" Height="30" />
                     <Label Content="Cant. Prod. Recibidos" Grid.Column="1" HorizontalAlignment="Left" Margin="316.393,457,0,0" VerticalAlignment="Top" FontSize="14"/>
                     <Label Content="Cant. Prod. Enviados" Grid.Column="1" HorizontalAlignment="Left" Margin="0.393,459,0,0" VerticalAlignment="Top" FontSize="14"/>
+                    <DatePicker SelectedDate="{Binding guiaRemision.fechaEmision}" Grid.Column="1" HorizontalAlignment="Left" Margin="115,79,0,0" VerticalAlignment="Top" Width="130"/>
+                    <Label Content="Fecha de Recepcion" HorizontalAlignment="Left" Height="29" Margin="284,78,0,0" VerticalAlignment="Top" Width="119" Grid.Column="1"/>
+                    <DatePicker SelectedDate="{Binding guiaRemision.fechaRecepcion}" Grid.Column="1" HorizontalAlignment="Left" Margin="410,79,0,0" VerticalAlignment="Top" Width="130"/>
 
                 </Grid>
             </TabItem>
