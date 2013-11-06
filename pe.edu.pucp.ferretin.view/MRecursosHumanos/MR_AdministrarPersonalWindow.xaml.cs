@@ -65,14 +65,14 @@ namespace pe.edu.pucp.ferretin.view.MRecursosHumanos
 
         private void nombre_PreviewTextInput(object sender, TextCompositionEventArgs e)
         {
-            if (Regex.IsMatch(e.Text, "[A-Z][a-zA-Z]*"))
-            {
-                e.Handled = false;
-            }
-            else
-            {
-                e.Handled = true;
-            }
+            ////if (Regex.IsMatch(e.Text, "[A-Z][a-zA-Z]*"))
+            ////{
+            ////    e.Handled = false;
+            ////}
+            ////else
+            ////{
+            ////    e.Handled = true;
+            ////}
 
             
         }
@@ -81,20 +81,20 @@ namespace pe.edu.pucp.ferretin.view.MRecursosHumanos
         {
             //Validaciones para textbox de solo letras
 
-           // if (!(e.Key >= Key.A && e.Key <= Key.Z)) e.Handled = true;
+           if (!(e.Key >= Key.A && e.Key <= Key.Z) ) e.Handled = true;
 
 
         }
          private void apPaterno_PreviewTextInput(object sender, TextCompositionEventArgs e)
         {
-            if (Regex.IsMatch(e.Text, "[a-zA-z]+([ '-][a-zA-Z]+)*"))
-            {
-                e.Handled = false;
-            }
-            else
-            {
-                e.Handled = true;
-            }
+            ////if (Regex.IsMatch(e.Text, "[a-zA-z]+([ '-][a-zA-Z]+)*"))
+            ////{
+            ////    e.Handled = false;
+            ////}
+            ////else
+            ////{
+            ////    e.Handled = true;
+            ////}
         }
 
          private void txtApPaterno_KeyDown(object sender, KeyEventArgs e)
@@ -106,14 +106,14 @@ namespace pe.edu.pucp.ferretin.view.MRecursosHumanos
 
          private void apMaterno_PreviewTextInput(object sender, TextCompositionEventArgs e)
         {
-            if (Regex.IsMatch(e.Text, "[a-zA-z]+([ '-][a-zA-Z]+)*"))
-            {
-                e.Handled = false;
-            }
-            else
-            {
-                e.Handled = true;
-            }
+            ////if (Regex.IsMatch(e.Text, "[a-zA-z]+([ '-][a-zA-Z]+)*"))
+            ////{
+            ////    e.Handled = false;
+            ////}
+            ////else
+            ////{
+            ////    e.Handled = true;
+            ////}
         }
 
          private void txtApMaterno_KeyDown(object sender, KeyEventArgs e)
@@ -125,14 +125,14 @@ namespace pe.edu.pucp.ferretin.view.MRecursosHumanos
 
         private void direccion_PreviewTextInput(object sender, TextCompositionEventArgs e)
         {
-            if (Regex.IsMatch(e.Text, "\\d+\\s+([a-zA-Z]+|[a-zA-Z]+\\s[a-zA-Z]+)"))
-            {
-                e.Handled = false;
-            }
-            else
-            {
-                e.Handled = true;
-            }
+            ////if (Regex.IsMatch(e.Text, "\\d+\\s+([a-zA-Z]+|[a-zA-Z]+\\s[a-zA-Z]+)"))
+            ////{
+            ////    e.Handled = false;
+            ////}
+            ////else
+            ////{
+            ////    e.Handled = true;
+            ////}
         }
 
          private void txtDireccion_KeyDown(object sender, KeyEventArgs e)
