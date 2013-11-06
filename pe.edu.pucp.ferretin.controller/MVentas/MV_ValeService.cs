@@ -32,6 +32,25 @@ namespace pe.edu.pucp.ferretin.controller.MVentas
             }
         }
 
+
+        private static IEnumerable<Vale> _listaVales;
+        public static IEnumerable<Vale> listaVales
+        {
+            get
+            {
+                if (_listaVales == null)
+                {
+                    _listaVales = db.Vale;
+                }
+                db.Refresh(RefreshMode.OverwriteCurrentValues, _listaVales);
+                return _listaVales;
+            }
+            set
+            {
+                _listaVales = value;
+            }
+        }
+
         public static IEnumerable<LoteVale> buscarLotesVale(string nroCodLote, string nroDocCliente, DateTime fechaInicio, DateTime fechaFin)
         {
             return from c in listaLoteVale
@@ -41,6 +60,25 @@ namespace pe.edu.pucp.ferretin.controller.MVentas
                    && c.fechaEmision != null && c.fechaEmision >= fechaInicio           
                     )
                    orderby c.codigo
+                   select c;
+        }
+
+        public static LoteVale obtenerLoteValebyId(int id)
+        {
+            LoteVale loteVale = (from c in listaLoteVale
+                                       where c.id.Equals(id)
+                                       select c).Single();
+
+            return loteVale;
+        }
+
+        public static IEnumerable<Vale> obtenerValesValebyIdLote(int id)
+        {
+            return from c in listaVales
+                   where
+                   (c.LoteVale.id != null && c.LoteVale.id.Equals(id)
+                    )
+                   orderby c.LoteVale.id
                    select c;
         }
         
