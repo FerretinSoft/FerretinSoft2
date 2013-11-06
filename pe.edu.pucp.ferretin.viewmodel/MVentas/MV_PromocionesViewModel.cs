@@ -1,4 +1,5 @@
-﻿using pe.edu.pucp.ferretin.controller.MVentas;
+﻿using pe.edu.pucp.ferretin.controller.MAlmacen;
+using pe.edu.pucp.ferretin.controller.MVentas;
 using pe.edu.pucp.ferretin.model;
 using pe.edu.pucp.ferretin.viewmodel.Helper;
 using System;
@@ -6,6 +7,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Input;
 
 namespace pe.edu.pucp.ferretin.viewmodel.MVentas
@@ -144,7 +146,7 @@ namespace pe.edu.pucp.ferretin.viewmodel.MVentas
                 }
             }
         }
-        private String _detallesTabHeader = ""; //Default
+        private String _detallesTabHeader = "Agregar"; //Default
         public String detallesTabHeader
         {
             get
@@ -159,6 +161,7 @@ namespace pe.edu.pucp.ferretin.viewmodel.MVentas
         }
         #endregion
 
+        public string codProdAgregar { get; set; }
 
         #region Lista de Promociones y Promocion a editar
         private Promocion _promocion;
@@ -189,9 +192,23 @@ namespace pe.edu.pucp.ferretin.viewmodel.MVentas
                 NotifyPropertyChanged("listaPromociones");
             }
         }
+        
         #endregion
 
         #region RelayCommand
+        RelayCommand _agregarProductoCommand;
+        public ICommand agregarProductoCommand
+        {
+            get
+            {
+                if (_agregarProductoCommand == null)
+                {
+                    _agregarProductoCommand = new RelayCommand(agregarProducto);
+                }
+                return _agregarProductoCommand;
+            }
+        }
+        
         RelayCommand _actualizarListaCommand;
         public ICommand actualizarListaCommand
         {
@@ -204,7 +221,156 @@ namespace pe.edu.pucp.ferretin.viewmodel.MVentas
                 return _actualizarListaCommand;
             }
         }
+
+        RelayCommand _viewEditPromocionCommand;
+        public ICommand viewEditPromocionCommand
+        {
+            get
+            {
+                if (_viewEditPromocionCommand == null)
+                {
+                    _viewEditPromocionCommand = new RelayCommand(viewEditPromocion);
+                }
+                return _viewEditPromocionCommand;
+            }
+        }
+
+        RelayCommand _savePromocionCommand;
+        public ICommand savePromocionCommand
+        {
+            get
+            {
+                if (_savePromocionCommand == null)
+                {
+                    _savePromocionCommand = new RelayCommand(savePromocion, canSaveExecute);
+                }
+                return _savePromocionCommand;
+            }
+        }
+
+        RelayCommand _cancelPromocionCommand;
+        public ICommand cancelPromocionCommand
+        {
+            get
+            {
+                if (_cancelPromocionCommand == null)
+                {
+                    _cancelPromocionCommand = new RelayCommand(cancelPromocion);
+                }
+                return _cancelPromocionCommand;
+            }
+        }
+
+        
         #endregion
 
+        #region Comandos
+
+        public void viewEditPromocion(Object id)
+        {
+            try
+            {
+                this.promocion = listaPromociones.Single(promocion => promocion.id == (int)id);
+                
+                if (soloSeleccionarPromocion)
+                    this.statusTab = Tab.DETALLES;
+                else
+                    this.statusTab = Tab.MODIFICAR;
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show(e.Message);
+            }
+        }
+        public void savePromocion(Object obj)
+        {
+
+            if (soloSeleccionarPromocion)
+            {
+
+            }
+            else
+            {
+
+                if (promocion.id > 0)//Si existe
+                {
+                    if (!MV_PromocionService.enviarCambios())
+                    {
+                        MessageBox.Show("No se pudo actualizar el promocion");
+                    }
+                    else
+                    {
+                        MessageBox.Show("El promocion fue guardado con éxito");
+                    }
+                }
+                else
+                {
+                    if (!MV_PromocionService.insertarPromocion(promocion))
+                    {
+                        MessageBox.Show("No se pudo agregar el nuevo promocion");
+                    }
+                    else
+                    {
+                        MessageBox.Show("El promocion fue agregado con éxito");
+                    }
+                }
+            }
+        }
+        public void cancelPromocion(Object obj)
+        {
+            MV_PromocionService.db.Refresh(System.Data.Linq.RefreshMode.OverwriteCurrentValues, this.promocion);
+            this.statusTab = Tab.BUSQUEDA;
+        }
+
+        private bool canSaveExecute(object obj)
+        {
+            if (soloSeleccionarPromocion)
+            {
+                return promocion != null;
+            }
+            return this.promocion!=null && base.UIValidationErrorCount == 0 && this.promocion.Errors.Count == 0;
+        }
+
+        public void agregarProducto(Object id)
+        {
+            if (codProdAgregar != null && codProdAgregar.Length > 0)
+            {
+                Producto producto = null;
+                try
+                {
+                    producto = MA_SharedService.obtenerProductoxCodigo(codProdAgregar);
+                }
+                catch { }
+
+                if (producto != null)
+                {
+                    PromocionProducto promocionProducto = null;
+                    if (promocion.PromocionProducto.Count(vp => vp.Producto.id == producto.id) == 1)
+                    {
+                        //promocion.PromocionProducto.Single(vp => vp.Producto.id == producto.id).stockTotal++;
+                    }
+                    else
+                    {
+                        promocionProducto = new PromocionProducto()
+                        {
+                            Producto = producto,
+                            cantMulUnidades = 1,
+                            descuento = 0,
+                            Promocion = this.promocion,
+                            stockActual = 0,
+                            stockTotal = 1,
+                            maxPromVenta = 1
+                        };
+                        promocion.PromocionProducto.Add(promocionProducto);
+                    }
+                    NotifyPropertyChanged("promocion");
+                }
+                else
+                {
+                    MessageBox.Show("No se encontro ningun producto con el código proporcionado");
+                }
+            }
+        }
+        #endregion
     }
 }

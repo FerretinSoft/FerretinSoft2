@@ -11,6 +11,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using pe.edu.pucp.ferretin.viewmodel.MVentas;
 
 namespace pe.edu.pucp.ferretin.view.MVentas
 {
@@ -26,6 +27,15 @@ namespace pe.edu.pucp.ferretin.view.MVentas
         private void buscarEmpresaBtn_Click(object sender, RoutedEventArgs e)
         {
 
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            MV_ClientesWindow v = new MV_ClientesWindow();
+            v.Owner = this;
+            var viewModel = v.main.DataContext as MV_ClientesViewModel;
+            viewModel.soloSeleccionarCliente = true;
+            v.Show();
         }
     }
 }

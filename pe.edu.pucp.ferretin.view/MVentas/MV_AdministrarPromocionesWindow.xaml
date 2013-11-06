@@ -11,7 +11,7 @@
             <ImageBrush ImageSource="../Resources/texture_3_100.png" TileMode="FlipX" 
             Viewport="0,0,100,100" ViewportUnits="Absolute"/>
         </Grid.Background>
-        <TabControl x:Name="VentasTab">
+        <TabControl x:Name="VentasTab" SelectedIndex="{Binding currentIndexTab}">
             <TabItem Header="Promociones" x:Name="promocionesTab">
                 <Grid Background="#FFE5E5E5">
                     <Grid.ColumnDefinitions>
@@ -65,7 +65,19 @@
                     </ToolBar>
                     <DataGrid ItemsSource="{Binding listaPromociones}" Margin="10" Grid.Row="1" Grid.RowSpan="1" IsManipulationEnabled="False" CanUserSortColumns="True" AutoGenerateColumns="False" CanUserAddRows="False" CanUserDeleteRows="False" >
                         <DataGrid.Columns>
-                            <DataGridHyperlinkColumn Width="0.8*" Binding="{Binding Path=codigo}" Header="Cód. Promoción" IsReadOnly="True"/>
+                            <DataGridTemplateColumn Width="0.8*" Header="Cód. Promoción">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <TextBlock>
+                                        <Hyperlink 
+                                            Command="{Binding Path=DataContext.viewEditPromocionCommand, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type DataGrid}}}" 
+                                            CommandParameter="{Binding id}">
+                                            <TextBlock Text="{Binding codigo}" />
+                                        </Hyperlink>
+                                        </TextBlock>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
                             <DataGridTextColumn Width="1.8*" Binding="{Binding Path=nombre}" Header="Nombre" IsReadOnly="True"/>
                             <DataGridTextColumn Width="1.1*" Binding="{Binding Path=fechaDesde}" Header="Fecha Desde" IsReadOnly="True"/>
                             <DataGridTextColumn Width="1.1*" Binding="{Binding Path=fechaHasta}" Header="Fecha Hasta" IsReadOnly="True"/>
@@ -75,7 +87,7 @@
                     </DataGrid>
                 </Grid>
             </TabItem>
-            <TabItem Header="Detalle Promoción" x:Name="nuevaPromocionTab">
+            <TabItem Header="{Binding detallesTabHeader,Mode=OneWay,UpdateSourceTrigger=PropertyChanged}">
                 <Grid Background="#FFE5E5E5">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto"></RowDefinition>
@@ -105,58 +117,57 @@
                             <Label Content="Días Aplicables" Grid.Column="2" VerticalContentAlignment="Center"/>
                             <Label Content="" Grid.Column="2" Grid.Row="2" VerticalContentAlignment="Center"/>
 
-                            <TextBox Grid.Column="1" VerticalAlignment="Center" IsEnabled="False"/>
-                            <TextBox Grid.Column="1" Grid.Row="1" Grid.RowSpan="1" VerticalAlignment="Stretch" Margin="0,3"/>
-                            <DatePicker Grid.Column="1" Grid.Row="2" VerticalAlignment="Center" BorderThickness="0"/>
+                            <TextBox Text="{Binding promocion.codigo}" Grid.Column="1" VerticalAlignment="Center" IsEnabled="False"/>
+                            <TextBox Text="{Binding promocion.nombre}" Grid.Column="1" Grid.Row="1" Grid.RowSpan="1" VerticalAlignment="Stretch" Margin="0,3"/>
+                            <DatePicker SelectedDate="{Binding promocion.fechaDesde}" Grid.Column="1" Grid.Row="2" VerticalAlignment="Center" BorderThickness="0"/>
                             <WrapPanel Grid.Column="3" Grid.ColumnSpan="2" VerticalAlignment="Center" HorizontalAlignment="Stretch">
-                                <ComboBox x:Name="promocionCombo" HorizontalAlignment="Left" VerticalAlignment="Top" Width="144" Height="22">
-                                    <CheckBox Content="Lunes"/>
-                                    <CheckBox Content="Martes" IsChecked="True"/>
-                                    <CheckBox Content="Miercoles"/>
-                                    <CheckBox Content="Jueves"/>
-                                    <CheckBox Content="Viernes"/>
-                                    <CheckBox Content="Sábado"/>
-                                    <CheckBox Content="Domingo"/>
+                                <ComboBox HorizontalAlignment="Left" VerticalAlignment="Top" Width="144" Height="20">
+                                    <CheckBox Content="Lunes" IsChecked="{Binding promocion.lunes}"/>
+                                    <CheckBox Content="Martes" IsChecked="{Binding promocion.martes}"/>
+                                    <CheckBox Content="Miercoles" IsChecked="{Binding promocion.miercoles}"/>
+                                    <CheckBox Content="Jueves" IsChecked="{Binding promocion.jueves}"/>
+                                    <CheckBox Content="Viernes" IsChecked="{Binding promocion.viernes}"/>
+                                    <CheckBox Content="Sábado" IsChecked="{Binding promocion.sabado}"/>
+                                    <CheckBox Content="Domingo" IsChecked="{Binding promocion.domingo}"/>
                                 </ComboBox>
-
                             </WrapPanel>
                             <WrapPanel Grid.Row="1" Grid.Column="3" Grid.ColumnSpan="2" VerticalAlignment="Center"/>
-
-                            <DatePicker Grid.Column="3" Grid.Row="2" VerticalAlignment="Center" BorderThickness="0"/>
+                            <DatePicker SelectedDate="{Binding promocion.fechaHasta}" Grid.Column="3" Grid.Row="2" VerticalAlignment="Center" BorderThickness="0"/>
                         </Grid>
                     </GroupBox>
                     <StackPanel Grid.Row="1" Margin="5" Orientation="Horizontal" VerticalAlignment="Center">
                         <ToolBar HorizontalAlignment="Left" Margin="5,0,0,0" VerticalAlignment="Top" Height="24" Grid.Row="1">
-                            <Button x:Name="nuevoProductoBtn" Content="" VerticalAlignment="Stretch" Width="20" Margin="0,0,2,-1">
+                            <TextBlock Text="Código de Producto:" VerticalAlignment="Center" Margin="5,0"/>
+                            <TextBox Text="{Binding codProdAgregar,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" VerticalContentAlignment="Center" Width="100" BorderBrush="#DDD" Height="18" Margin="5,0" ToolTip="Escriba el código del producto que desea agregar y presione el boton +">
+                                <TextBox.InputBindings>
+                                    <KeyBinding Key="Enter" Command="{Binding agregarProductoCommand}" />
+                                </TextBox.InputBindings>
+                            </TextBox>
+                            <Button Command="{Binding agregarProductoCommand}" Content="" VerticalAlignment="Stretch" Width="18" Height="18" Margin="5,0" ToolTip="Agregar producto con el código indicado">
                                 <Button.Background>
                                     <ImageBrush ImageSource="../Resources/add_20.png" Stretch="None"/>
                                 </Button.Background>
                             </Button>
-
-                            <Button Content="" Height="20" VerticalAlignment="Top" Width="20" Margin="0,0,2,0">
+                            <Button Content="" Height="18" VerticalAlignment="Center" Width="18" Margin="5,0" ToolTip="Buscar otros productos con otros criterios">
                                 <Button.Background>
-                                    <ImageBrush ImageSource="../Resources/trash_20.png"/>
+                                    <ImageBrush ImageSource="../Resources/search1_20.png"/>
                                 </Button.Background>
                             </Button>
-
                         </ToolBar>
                     </StackPanel>
-                    <DataGrid Grid.Row="2" Margin="5">
+                    <DataGrid ItemsSource="{Binding promocion.PromocionProducto}" Grid.Row="2" Margin="5">
                         <DataGrid.Columns>
-                            <DataGridHyperlinkColumn Width="0.4*" Binding="{x:Null}" ContentBinding="{x:Null}" Header=""/>
-                            <DataGridHyperlinkColumn Width="90" Binding="{x:Null}" ContentBinding="{x:Null}" Header="Cód. Producto"/>
-                            <DataGridTextColumn Width="2*" Binding="{x:Null}" ClipboardContentBinding="{x:Null}" Header="Descripción"/>
-                            <DataGridTextColumn Width="1.5*" Binding="{x:Null}" ClipboardContentBinding="{x:Null}" Header="Categoría"/>
-                            <DataGridTextColumn Width="1*" Binding="{x:Null}" ClipboardContentBinding="{x:Null}" Header="Dscto (%)"/>
-                            <DataGridTextColumn Width="1*" Binding="{x:Null}" ClipboardContentBinding="{x:Null}" Header="Puntos"/>
-                            <DataGridTextColumn Width="1*" Binding="{x:Null}" ClipboardContentBinding="{x:Null}" Header="Cant. Unidades."/>
-                            <DataGridTextColumn Width="1*" Binding="{x:Null}" ClipboardContentBinding="{x:Null}" Header="Máx. por Venta"/>
-
+                            <DataGridHyperlinkColumn Width="90" Binding="{Binding Producto.codigo}" Header="Cód. Producto"/>
+                            <DataGridTextColumn Width="2*" Binding="{Binding Producto.nombre}" Header="Nombre" IsReadOnly="True"/>
+                            <DataGridTextColumn Width="1*" Binding="{Binding descuento}" Header="Dscto (%)" IsReadOnly="True"/>
+                            <DataGridTextColumn Width="1*" Binding="{Binding cantMulUnidades}" Header="Cant. Múlt Unidades." />
+                            <DataGridTextColumn Width="1.3*" Binding="{Binding maxPromVenta}" Header="Máx. por Venta"/>
+                            <DataGridTextColumn Width="1*" Binding="{Binding stockTotal}" Header="Máx. Stock"/>
                         </DataGrid.Columns>
                     </DataGrid>
-                    <StackPanel Grid.Row="3" Orientation="Horizontal" HorizontalAlignment="Right" Margin="5">
-                        <Button Margin="0,0,10,0" Height="30" Padding="10,0">GUARDAR</Button>
-                        <Button Padding="10,0" Height="30">CANCELAR</Button>
+                    <StackPanel Grid.Row="3" Orientation="Horizontal" HorizontalAlignment="Center" Margin="5">
+                        <Button Command="{Binding savePromocionCommand}" Margin="0,0,10,0" Height="30" Padding="10,0">GUARDAR</Button>
+                        <Button Command="{Binding cancelarCommand}" Padding="10,0" Height="30">CANCELAR</Button>
                     </StackPanel>
                 </Grid>
             </TabItem>

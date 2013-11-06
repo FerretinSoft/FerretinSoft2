@@ -83,14 +83,24 @@ namespace pe.edu.pucp.ferretin.view.MVentas
                                 this.Close();
                             }
 
-
-                            catch { }
+                            catch
+                            {
+                                try
+                                {
+                                    MV_AdministrarValesWindow padre = this.Owner as MV_AdministrarValesWindow;
+                                    MV_ClientesViewModel my_DataContext = this.main.DataContext as MV_ClientesViewModel;
+                                    MV_ValesViewModel padre_DataContext = padre.main.DataContext as MV_ValesViewModel;
+                                    padre_DataContext.searchNroDocCliente = my_DataContext.cliente.nroDoc;
+                                    padre_DataContext.nombreCliente = my_DataContext.cliente.nombreCompleto;
+                                    this.Close();
+                                }
+                                catch { }
+                            }
                         }
-                    }
 
+                    }
                 }
             }
-
         }
     }
 

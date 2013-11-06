@@ -16,5 +16,22 @@ namespace pe.edu.pucp.ferretin.controller.MVentas
                 Where(p => DateTime.Compare(p.fechaDesde.Value,fechaDesdeSearch)>=0 || DateTime.Compare(p.fechaHasta.Value,fechaHastaSearch)<=0 ).
                 Where(p => estadoSearch <= 0 || p.estado == estadoSearch);
         }
+
+        /// <summary>
+        /// Guarda un nuevo Promocion en la Base de Datos
+        /// </summary>
+        /// <param name="promocion">La Promocion a guardar</param>
+        public static bool insertarPromocion(Promocion promocion)
+        {
+            if (!db.Promocion.Contains(promocion))
+            {
+                db.Promocion.InsertOnSubmit(promocion);
+                return enviarCambios();
+            }
+            else
+            {
+                return false;
+            }
+        }
     }
 }

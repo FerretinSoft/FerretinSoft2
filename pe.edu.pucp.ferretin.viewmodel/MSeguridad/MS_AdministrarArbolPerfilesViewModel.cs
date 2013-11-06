@@ -1,13 +1,55 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Linq;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using pe.edu.pucp.ferretin.model;
 
 namespace pe.edu.pucp.ferretin.viewmodel.MSeguridad
 {
     public class MS_AdministrarArbolPerfilesViewModel : ViewModelBase
     {
+
+        /*Para capturar el valor que viene de otra ventam*/
+        private string _nombrePerfil="";
+        public string nombrePerfil
+        {
+            get
+            {
+                return _nombrePerfil;
+            }
+            set
+            {
+                _nombrePerfil = value;
+                //if (value.Length == 8 || value.Length == 11)
+                //{
+                //    cargarCliente(null);
+                //}
+                /****************************************/
+                 NotifyPropertyChanged("nombrePerfil");
+                /****************************************/
+            }
+        }
+
+        private string _descripcion = "";
+        public string descripcion
+        {
+            get
+            {
+                return _descripcion;
+            }
+            set
+            {
+                _descripcion = value;
+                //if (value.Length == 8 || value.Length == 11)
+                //{
+                //    cargarCliente(null);
+                //}
+                NotifyPropertyChanged("descripcion");
+            }
+        }
+
 
         #region Manejo de los Tabs
         /************************************************/
@@ -67,6 +109,42 @@ namespace pe.edu.pucp.ferretin.viewmodel.MSeguridad
             }
         }
         /************************************************/
+
+        private Perfil _perfilArbol;
+        public Perfil perfilArbol
+        {
+            get
+            {
+                
+                return _perfilArbol;
+            }
+            set
+            {
+                _perfilArbol = value;
+                //NotifyPropertyChanged("menuPadre");
+                //NotifyPropertyChanged("perfil");
+            }
+        }
+        #endregion
+
+
+        #region Comandos
+        //public void cargarPerfil(Object id)
+        //{
+        //    Perfil vinculado = null;
+        //    try
+        //    {
+        //        vinculado = MV_ClienteService.obtenerClienteByNroDoc(nroDocSeleccionado);
+        //    }
+        //    catch { }
+
+        //    //if (vinculado == null)
+        //    //{
+        //    //    MessageBox.Show("No se encontro ningún Cliente con el número de documento proporcionado", "No se encontro", MessageBoxButton.OK, MessageBoxImage.Question);
+        //    //}
+        //    perfilArbol = vinculado;
+        //    //NotifyPropertyChanged("widthClienteBar");
+        //}
         #endregion
 
     }

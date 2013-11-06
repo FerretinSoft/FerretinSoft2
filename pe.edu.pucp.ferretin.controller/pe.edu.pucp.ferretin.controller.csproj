@@ -53,6 +53,7 @@
     <Compile Include="MAlmacen\MA_TipoMovimientoService.cs" />
     <Compile Include="MCompras\MC_ComunService.cs" />
     <Compile Include="MCompras\MC_DocumentoCompraService.cs" />
+    <Compile Include="MCompras\MC_ProveedorCatalogoService.cs" />
     <Compile Include="MCompras\MC_ProveedorService.cs" />
     <Compile Include="MCompras\MC_SharedService.cs" />
     <Compile Include="MCompras\MC_RubroService.cs" />
@@ -74,6 +75,7 @@
     <Compile Include="MVentas\MV_NotaCreditoService.cs" />
     <Compile Include="MVentas\MV_PromocionService.cs" />
     <Compile Include="MVentas\MV_SharedService.cs" />
+    <Compile Include="MVentas\MV_ValeService.cs" />
     <Compile Include="MVentas\MV_VentaService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="MSeguridad\MS_TiendaService.cs" />

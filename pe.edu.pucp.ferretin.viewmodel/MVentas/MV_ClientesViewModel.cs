@@ -127,7 +127,7 @@ namespace pe.edu.pucp.ferretin.viewmodel.MVentas
                 }
             }
         }
-        private String _detallesTabHeader = ""; //Default
+        private String _detallesTabHeader = "Agregar"; //Default
         public String detallesTabHeader
         {
             get
