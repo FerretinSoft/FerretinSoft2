@@ -55,6 +55,7 @@ namespace pe.edu.pucp.ferretin.view.MVentas
 
                         padre_DataContext.searchNroDocCliente = my_DataContext.cliente.nroDoc;
                         padre_DataContext.searchnombreCliente = my_DataContext.cliente.nombreCompleto;
+                        
                         this.Close();
                     }
 
@@ -90,8 +91,16 @@ namespace pe.edu.pucp.ferretin.view.MVentas
                                     MV_AdministrarValesWindow padre = this.Owner as MV_AdministrarValesWindow;
                                     MV_ClientesViewModel my_DataContext = this.main.DataContext as MV_ClientesViewModel;
                                     MV_ValesViewModel padre_DataContext = padre.main.DataContext as MV_ValesViewModel;
-                                    padre_DataContext.searchNroDocCliente = my_DataContext.cliente.nroDoc;
-                                    padre_DataContext.nombreCliente = my_DataContext.cliente.nombreCompleto;
+                                    if (padre_DataContext.selectedTab == 0)
+                                    {
+                                        padre_DataContext.searchNroDocCliente = my_DataContext.cliente.nroDoc;
+                                        padre_DataContext.nombreCliente = my_DataContext.cliente.nombreCompleto;
+                                    }
+                                    if (padre_DataContext.selectedTab == 1) 
+                                        padre_DataContext.loteVale.Cliente = my_DataContext.cliente;
+                                    
+                                    
+
                                     this.Close();
                                 }
                                 catch { }

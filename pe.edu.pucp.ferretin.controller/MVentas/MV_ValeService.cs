@@ -81,7 +81,55 @@ namespace pe.edu.pucp.ferretin.controller.MVentas
                    orderby c.LoteVale.id
                    select c;
         }
-        
+
+        public static Vale generarVale(int cantidad, int offset)
+        {
+            string codVale = (from c in listaVales
+                               select c.codigo).Max();;
+            
+                Vale vale = new Vale();
+                vale.codigo = Convert.ToString(Convert.ToInt32(codVale) + offset);
+                while (true)
+                {
+                    if (vale.codigo.Length == 8)
+                        break;
+                    else
+                        vale.codigo = "0" + vale.codigo;
+                }
+                vale.estado = 0;
+            return vale;
+        }
+
+        public static LoteVale obtenerNuevoLote()
+        {
+            string codLote = (from c in listaLoteVale
+                              select c.codigo).Max(); ;
+            codLote = Convert.ToString(Convert.ToInt32(codLote) + 1);
+            LoteVale loteVale = new LoteVale();
+            loteVale.fechaEmision = DateTime.Today;
+            while (true)
+            {
+                if (codLote.Length == 8)
+                    break;
+                else
+                    codLote = "0" + codLote;
+            }
+            loteVale.codigo = codLote;
+            return loteVale;
+
+        }
+
+        public static bool insertarLoteVale(LoteVale loteVale){
+            if (!db.LoteVale.Contains(loteVale))
+            {
+                db.LoteVale.InsertOnSubmit(loteVale);
+                return enviarCambios();
+            }
+            else
+            {
+                return false;
+            }
+        }
         #endregion
 
 

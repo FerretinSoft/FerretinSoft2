@@ -53,6 +53,18 @@ namespace pe.edu.pucp.ferretin.view.MVentas
             v.Show();     
         }
 
+        private void Button_LoadEmpresa(object sender, RoutedEventArgs e)
+        {
+            MV_ClientesWindow v = new MV_ClientesWindow();
+            v.Owner = this;
+            var viewModel = v.main.DataContext as MV_ClientesViewModel;
+            viewModel.soloSeleccionarCliente = true;
+           
+            v.Show();     
+        }
+        
+
+
         private void Button_Click_Venta(object sender, RoutedEventArgs e)
         {
             MV_AdministrarVentasWindow v = new MV_AdministrarVentasWindow();
