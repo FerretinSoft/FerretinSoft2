@@ -14,5 +14,8 @@ namespace pe.edu.pucp.ferretin.model
             montoParcial = cantidad * Producto.precioLista * ((100-Producto.descuento)/100);
             Venta.total = (from vp in Venta.VentaProducto select vp.montoParcial).Sum();
         }
+
+
+        
     }
 }
