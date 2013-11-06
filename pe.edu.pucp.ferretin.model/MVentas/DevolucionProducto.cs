@@ -12,7 +12,7 @@ namespace pe.edu.pucp.ferretin.model
         {
             monto = cantidad * Producto.precioLista;
             if (Devolucion != null){
-                Devolucion.total = (from dp in Devolucion.DevolucionProducto select dp.monto).Sum();
+                Devolucion.subTotal = (from dp in Devolucion.DevolucionProducto select dp.monto).Sum();
             }
         }
     }

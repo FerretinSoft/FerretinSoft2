@@ -150,7 +150,7 @@
                         <Label Content="Vendedor:" Grid.Row="5"/>
                         <Label Content="Estado:" Grid.Row="7"/>
                         <Label Content="Moneda:" Grid.Row="8"/>
-                        <Label Content="Importe:" Grid.Row="9"/>
+                        <Label Content="Importe (inc IGV):" Grid.Row="9"/>
 
                         <TextBox IsEnabled="false" Text="{Binding Path=notaCredito.codigo, Mode=OneWay, ValidatesOnExceptions=true, NotifyOnValidationError=true}" VerticalAlignment="Center" Grid.Column="1"/>
                         <TextBox IsEnabled="false" Text="{Binding Path=notaCredito.fechaEmision, Mode=OneWay, ValidatesOnExceptions=true, NotifyOnValidationError=true}" VerticalAlignment="Center" Grid.Column="1" Grid.Row="1"/>
@@ -158,18 +158,18 @@
                         <TextBox IsEnabled="false" Text="{Binding Path=notaCredito.Devolucion.Venta.nombreCompletoCliente, Mode=OneWay, ValidatesOnExceptions=true, NotifyOnValidationError=true}" VerticalAlignment="Center" Grid.Column="1" Grid.Row="3"/>
                         <TextBox IsEnabled="false" Text="{Binding Path=notaCredito.fechaVencimiento, Mode=OneWay, ValidatesOnExceptions=true, NotifyOnValidationError=true}" VerticalAlignment="Center" Grid.Column="1" Grid.Row="4"/>
                         <TextBox IsEnabled="false" Text="{Binding Path=notaCredito.Devolucion.Venta.nombreCompletoVendedor, Mode=OneWay, ValidatesOnExceptions=true, NotifyOnValidationError=true}" VerticalAlignment="Center" Grid.Column="1" Grid.Row="5"/>
-                        <TextBox IsEnabled="false" VerticalAlignment="Center" Grid.Column="1" Grid.Row="7"/>
-                        <TextBox IsEnabled="false" VerticalAlignment="Center" Grid.Column="1" Grid.Row="8"/>
+                        <TextBox IsEnabled="false" Text="{Binding Path=notaCredito.estadoString, Mode=OneWay}" VerticalAlignment="Center" Grid.Column="1" Grid.Row="7"/>
+                        <TextBox IsEnabled="false" Text="Soles" VerticalAlignment="Center" Grid.Column="1" Grid.Row="8"/>
                         <TextBox IsEnabled="false" Text="{Binding Path=notaCredito.importe, Mode=OneWay, ValidatesOnExceptions=true, NotifyOnValidationError=true}" VerticalAlignment="Center" HorizontalContentAlignment="Right" Grid.Column="1" Grid.Row="9"/>
-                        <Button Grid.Row="11" Grid.Column="1" HorizontalAlignment="Right" Padding="10,0" Height="30">IMPRIMIR</Button>
+                        <Button Grid.Row="11" Grid.Column="1" Padding="10,0" Height="30">IMPRIMIR</Button>
                     </Grid>
                     <DataGrid Margin="0,5,5,5" Grid.Column="1" ItemsSource="{Binding Path=listaProductos}" AutoGenerateColumns="False">
                         <DataGrid.Columns>
                             <DataGridTextColumn Width="1*" Binding="{Binding Path=Producto.codigo}" ClipboardContentBinding="{x:Null}" Header="Cód Prod."/>
                             <DataGridTextColumn Width="1.5*"  Binding="{Binding Path=Producto.nombre}" ClipboardContentBinding="{x:Null}" Header="Descripción"/>
                             <DataGridTextColumn Width="1*" Binding="{Binding Path=cantidad}" ClipboardContentBinding="{x:Null}" Header="Cant. Dev."/>
-                            <DataGridTextColumn Width="1*" Binding="{x:Null}" ClipboardContentBinding="{x:Null}" Header="Motivo"/>
-                            <DataGridTextColumn Width="0.9*" Binding="{x:Null}" ClipboardContentBinding="{x:Null}" Header="Moneda"/>
+                            <DataGridTextColumn Width="1*" Binding="{Binding Path=motivo}" ClipboardContentBinding="{x:Null}" Header="Motivo"/>
+                            <DataGridTextColumn Width="0.9*" Binding="{Binding Path=Producto.monedaString}" ClipboardContentBinding="{x:Null}" Header="Moneda"/>
                             <DataGridTextColumn Width="0.7*" Binding="{Binding Path=Producto.precioLista}" ClipboardContentBinding="{x:Null}" Header="Precio"/>
                             <DataGridTextColumn Width="1*" Binding="{x:Null}" ClipboardContentBinding="{x:Null}" Header="Dscto. (%)"/>
                             <DataGridTextColumn Width="1*" Binding="{Binding Path=monto}" ClipboardContentBinding="{x:Null}" Header="Importe"/>
