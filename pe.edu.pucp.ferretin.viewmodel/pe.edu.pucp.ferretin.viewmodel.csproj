@@ -55,6 +55,7 @@
     <Compile Include="MAlmacen\MA_InventarioProductosViewModel.cs" />
     <Compile Include="MAlmacen\MA_MantenimientoCategoriasViewModel.cs" />
     <Compile Include="MAlmacen\MA_MantenimientoProductosViewModel.cs" />
+    <Compile Include="MAlmacen\MA_MantenimientoProductos_SeleccionColorViewModel.cs" />
     <Compile Include="MAlmacen\MA_MovimientosViewModel.cs" />
     <Compile Include="MAlmacen\MA_RegistroSolAbastecimientoViewModel.cs" />
     <Compile Include="MAlmacen\MA_AtencionSolAbastecimientoViewModel.cs" />

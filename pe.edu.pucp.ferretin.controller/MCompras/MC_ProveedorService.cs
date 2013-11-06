@@ -66,7 +66,7 @@ namespace pe.edu.pucp.ferretin.controller.MCompras
                    (p.razonSoc != null && p.razonSoc.Contains(razonSoc)
                        && p.ruc != null && p.ruc.Contains(ruc)&&
                       
-                        (rubro==null ||( p.id_rubro!=null && p.id_rubro == rubro.id))
+                        (rubro==null|| rubro.id==0 ||( p.id_rubro!=null && p.id_rubro == rubro.id))
                   
                     )
                    orderby p.razonSoc

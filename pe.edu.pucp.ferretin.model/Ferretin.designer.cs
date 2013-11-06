@@ -51,6 +51,9 @@ namespace pe.edu.pucp.ferretin.model
     partial void InsertDevolucionProducto(DevolucionProducto instance);
     partial void UpdateDevolucionProducto(DevolucionProducto instance);
     partial void DeleteDevolucionProducto(DevolucionProducto instance);
+    partial void InsertDia(Dia instance);
+    partial void UpdateDia(Dia instance);
+    partial void DeleteDia(Dia instance);
     partial void InsertDocumentoCompra(DocumentoCompra instance);
     partial void UpdateDocumentoCompra(DocumentoCompra instance);
     partial void DeleteDocumentoCompra(DocumentoCompra instance);
@@ -138,6 +141,9 @@ namespace pe.edu.pucp.ferretin.model
     partial void InsertProveedorCatalogo(ProveedorCatalogo instance);
     partial void UpdateProveedorCatalogo(ProveedorCatalogo instance);
     partial void DeleteProveedorCatalogo(ProveedorCatalogo instance);
+    partial void InsertProveedorProducto(ProveedorProducto instance);
+    partial void UpdateProveedorProducto(ProveedorProducto instance);
+    partial void DeleteProveedorProducto(ProveedorProducto instance);
     partial void InsertRubro(Rubro instance);
     partial void UpdateRubro(Rubro instance);
     partial void DeleteRubro(Rubro instance);
@@ -162,6 +168,9 @@ namespace pe.edu.pucp.ferretin.model
     partial void InsertTransaccionTipo(TransaccionTipo instance);
     partial void UpdateTransaccionTipo(TransaccionTipo instance);
     partial void DeleteTransaccionTipo(TransaccionTipo instance);
+    partial void InsertTurno(Turno instance);
+    partial void UpdateTurno(Turno instance);
+    partial void DeleteTurno(Turno instance);
     partial void InsertUbigeoDepartamento(UbigeoDepartamento instance);
     partial void UpdateUbigeoDepartamento(UbigeoDepartamento instance);
     partial void DeleteUbigeoDepartamento(UbigeoDepartamento instance);
@@ -271,6 +280,14 @@ namespace pe.edu.pucp.ferretin.model
 			get
 			{
 				return this.GetTable<DevolucionProducto>();
+			}
+		}
+		
+		public System.Data.Linq.Table<Dia> Dia
+		{
+			get
+			{
+				return this.GetTable<Dia>();
 			}
 		}
 		
@@ -506,6 +523,14 @@ namespace pe.edu.pucp.ferretin.model
 			}
 		}
 		
+		public System.Data.Linq.Table<ProveedorProducto> ProveedorProducto
+		{
+			get
+			{
+				return this.GetTable<ProveedorProducto>();
+			}
+		}
+		
 		public System.Data.Linq.Table<Rubro> Rubro
 		{
 			get
@@ -567,6 +592,14 @@ namespace pe.edu.pucp.ferretin.model
 			get
 			{
 				return this.GetTable<TransaccionTipo>();
+			}
+		}
+		
+		public System.Data.Linq.Table<Turno> Turno
+		{
+			get
+			{
+				return this.GetTable<Turno>();
 			}
 		}
 		
@@ -2890,6 +2923,120 @@ namespace pe.edu.pucp.ferretin.model
 		}
 	}
 	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Dia")]
+	public partial class Dia : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private int _id;
+		
+		private string _nombre;
+		
+		private EntitySet<EmpleadoTurno> _EmpleadoTurno;
+		
+    #region Definiciones de métodos de extensibilidad
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnidChanging(int value);
+    partial void OnidChanged();
+    partial void OnnombreChanging(string value);
+    partial void OnnombreChanged();
+    #endregion
+		
+		public Dia()
+		{
+			this._EmpleadoTurno = new EntitySet<EmpleadoTurno>(new Action<EmpleadoTurno>(this.attach_EmpleadoTurno), new Action<EmpleadoTurno>(this.detach_EmpleadoTurno));
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_id", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
+		public int id
+		{
+			get
+			{
+				return this._id;
+			}
+			set
+			{
+				if ((this._id != value))
+				{
+					this.OnidChanging(value);
+					this.SendPropertyChanging();
+					this._id = value;
+					this.SendPropertyChanged("id");
+					this.OnidChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_nombre", DbType="VarChar(30)")]
+		public string nombre
+		{
+			get
+			{
+				return this._nombre;
+			}
+			set
+			{
+				if ((this._nombre != value))
+				{
+					this.OnnombreChanging(value);
+					this.SendPropertyChanging();
+					this._nombre = value;
+					this.SendPropertyChanged("nombre");
+					this.OnnombreChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Dia_EmpleadoTurno", Storage="_EmpleadoTurno", ThisKey="id", OtherKey="id_dia")]
+		public EntitySet<EmpleadoTurno> EmpleadoTurno
+		{
+			get
+			{
+				return this._EmpleadoTurno;
+			}
+			set
+			{
+				this._EmpleadoTurno.Assign(value);
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+		
+		private void attach_EmpleadoTurno(EmpleadoTurno entity)
+		{
+			this.SendPropertyChanging();
+			entity.Dia = this;
+		}
+		
+		private void detach_EmpleadoTurno(EmpleadoTurno entity)
+		{
+			this.SendPropertyChanging();
+			entity.Dia = null;
+		}
+	}
+	
 	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.DocumentoCompra")]
 	public partial class DocumentoCompra : INotifyPropertyChanging, INotifyPropertyChanged
 	{
@@ -5049,19 +5196,19 @@ namespace pe.edu.pucp.ferretin.model
 		
 		private int _id;
 		
-		private string _horaInicio;
+		private System.Nullable<int> _id_empleado;
 		
-		private string _horaFin;
+		private System.Nullable<int> _id_turno;
 		
-		private string _duracion;
+		private System.Nullable<int> _id_dia;
 		
 		private System.Nullable<int> _estado;
 		
-		private string _dia;
-		
-		private System.Nullable<int> _id_empleado;
+		private EntityRef<Dia> _Dia;
 		
 		private EntityRef<Empleado> _Empleado;
+		
+		private EntityRef<Turno> _Turno;
 		
     #region Definiciones de métodos de extensibilidad
     partial void OnLoaded();
@@ -5069,27 +5216,25 @@ namespace pe.edu.pucp.ferretin.model
     partial void OnCreated();
     partial void OnidChanging(int value);
     partial void OnidChanged();
-    partial void OnhoraInicioChanging(string value);
-    partial void OnhoraInicioChanged();
-    partial void OnhoraFinChanging(string value);
-    partial void OnhoraFinChanged();
-    partial void OnduracionChanging(string value);
-    partial void OnduracionChanged();
-    partial void OnestadoChanging(System.Nullable<int> value);
-    partial void OnestadoChanged();
-    partial void OndiaChanging(string value);
-    partial void OndiaChanged();
     partial void Onid_empleadoChanging(System.Nullable<int> value);
     partial void Onid_empleadoChanged();
+    partial void Onid_turnoChanging(System.Nullable<int> value);
+    partial void Onid_turnoChanged();
+    partial void Onid_diaChanging(System.Nullable<int> value);
+    partial void Onid_diaChanged();
+    partial void OnestadoChanging(System.Nullable<int> value);
+    partial void OnestadoChanged();
     #endregion
 		
 		public EmpleadoTurno()
 		{
+			this._Dia = default(EntityRef<Dia>);
 			this._Empleado = default(EntityRef<Empleado>);
+			this._Turno = default(EntityRef<Turno>);
 			OnCreated();
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_id", DbType="Int NOT NULL", IsPrimaryKey=true)]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_id", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
 		public int id
 		{
 			get
@@ -5105,106 +5250,6 @@ namespace pe.edu.pucp.ferretin.model
 					this._id = value;
 					this.SendPropertyChanged("id");
 					this.OnidChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_horaInicio", DbType="VarChar(10)")]
-		public string horaInicio
-		{
-			get
-			{
-				return this._horaInicio;
-			}
-			set
-			{
-				if ((this._horaInicio != value))
-				{
-					this.OnhoraInicioChanging(value);
-					this.SendPropertyChanging();
-					this._horaInicio = value;
-					this.SendPropertyChanged("horaInicio");
-					this.OnhoraInicioChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_horaFin", DbType="VarChar(10)")]
-		public string horaFin
-		{
-			get
-			{
-				return this._horaFin;
-			}
-			set
-			{
-				if ((this._horaFin != value))
-				{
-					this.OnhoraFinChanging(value);
-					this.SendPropertyChanging();
-					this._horaFin = value;
-					this.SendPropertyChanged("horaFin");
-					this.OnhoraFinChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_duracion", DbType="VarChar(10)")]
-		public string duracion
-		{
-			get
-			{
-				return this._duracion;
-			}
-			set
-			{
-				if ((this._duracion != value))
-				{
-					this.OnduracionChanging(value);
-					this.SendPropertyChanging();
-					this._duracion = value;
-					this.SendPropertyChanged("duracion");
-					this.OnduracionChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_estado", DbType="Int")]
-		public System.Nullable<int> estado
-		{
-			get
-			{
-				return this._estado;
-			}
-			set
-			{
-				if ((this._estado != value))
-				{
-					this.OnestadoChanging(value);
-					this.SendPropertyChanging();
-					this._estado = value;
-					this.SendPropertyChanged("estado");
-					this.OnestadoChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_dia", DbType="VarChar(15)")]
-		public string dia
-		{
-			get
-			{
-				return this._dia;
-			}
-			set
-			{
-				if ((this._dia != value))
-				{
-					this.OndiaChanging(value);
-					this.SendPropertyChanging();
-					this._dia = value;
-					this.SendPropertyChanged("dia");
-					this.OndiaChanged();
 				}
 			}
 		}
@@ -5229,6 +5274,108 @@ namespace pe.edu.pucp.ferretin.model
 					this._id_empleado = value;
 					this.SendPropertyChanged("id_empleado");
 					this.Onid_empleadoChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_id_turno", DbType="Int")]
+		public System.Nullable<int> id_turno
+		{
+			get
+			{
+				return this._id_turno;
+			}
+			set
+			{
+				if ((this._id_turno != value))
+				{
+					if (this._Turno.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.Onid_turnoChanging(value);
+					this.SendPropertyChanging();
+					this._id_turno = value;
+					this.SendPropertyChanged("id_turno");
+					this.Onid_turnoChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_id_dia", DbType="Int")]
+		public System.Nullable<int> id_dia
+		{
+			get
+			{
+				return this._id_dia;
+			}
+			set
+			{
+				if ((this._id_dia != value))
+				{
+					if (this._Dia.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.Onid_diaChanging(value);
+					this.SendPropertyChanging();
+					this._id_dia = value;
+					this.SendPropertyChanged("id_dia");
+					this.Onid_diaChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_estado", DbType="Int")]
+		public System.Nullable<int> estado
+		{
+			get
+			{
+				return this._estado;
+			}
+			set
+			{
+				if ((this._estado != value))
+				{
+					this.OnestadoChanging(value);
+					this.SendPropertyChanging();
+					this._estado = value;
+					this.SendPropertyChanged("estado");
+					this.OnestadoChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Dia_EmpleadoTurno", Storage="_Dia", ThisKey="id_dia", OtherKey="id", IsForeignKey=true)]
+		public Dia Dia
+		{
+			get
+			{
+				return this._Dia.Entity;
+			}
+			set
+			{
+				Dia previousValue = this._Dia.Entity;
+				if (((previousValue != value) 
+							|| (this._Dia.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._Dia.Entity = null;
+						previousValue.EmpleadoTurno.Remove(this);
+					}
+					this._Dia.Entity = value;
+					if ((value != null))
+					{
+						value.EmpleadoTurno.Add(this);
+						this._id_dia = value.id;
+					}
+					else
+					{
+						this._id_dia = default(Nullable<int>);
+					}
+					this.SendPropertyChanged("Dia");
 				}
 			}
 		}
@@ -5263,6 +5410,40 @@ namespace pe.edu.pucp.ferretin.model
 						this._id_empleado = default(Nullable<int>);
 					}
 					this.SendPropertyChanged("Empleado");
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Turno_EmpleadoTurno", Storage="_Turno", ThisKey="id_turno", OtherKey="id", IsForeignKey=true)]
+		public Turno Turno
+		{
+			get
+			{
+				return this._Turno.Entity;
+			}
+			set
+			{
+				Turno previousValue = this._Turno.Entity;
+				if (((previousValue != value) 
+							|| (this._Turno.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._Turno.Entity = null;
+						previousValue.EmpleadoTurno.Remove(this);
+					}
+					this._Turno.Entity = value;
+					if ((value != null))
+					{
+						value.EmpleadoTurno.Add(this);
+						this._id_turno = value.id;
+					}
+					else
+					{
+						this._id_turno = default(Nullable<int>);
+					}
+					this.SendPropertyChanged("Turno");
 				}
 			}
 		}
@@ -8075,6 +8256,12 @@ namespace pe.edu.pucp.ferretin.model
 		
 		private System.Nullable<short> _id_menu;
 		
+		private System.Nullable<int> _id_PerfilMenuPadre;
+		
+		private EntitySet<PerfilMenu> _PerfilMenu2;
+		
+		private EntityRef<PerfilMenu> _PerfilMenu1;
+		
 		private EntityRef<Menu> _Menu;
 		
 		private EntityRef<Perfil> _Perfil;
@@ -8091,10 +8278,14 @@ namespace pe.edu.pucp.ferretin.model
     partial void Onid_perfilChanged();
     partial void Onid_menuChanging(System.Nullable<short> value);
     partial void Onid_menuChanged();
+    partial void Onid_PerfilMenuPadreChanging(System.Nullable<int> value);
+    partial void Onid_PerfilMenuPadreChanged();
     #endregion
 		
 		public PerfilMenu()
 		{
+			this._PerfilMenu2 = new EntitySet<PerfilMenu>(new Action<PerfilMenu>(this.attach_PerfilMenu2), new Action<PerfilMenu>(this.detach_PerfilMenu2));
+			this._PerfilMenu1 = default(EntityRef<PerfilMenu>);
 			this._Menu = default(EntityRef<Menu>);
 			this._Perfil = default(EntityRef<Perfil>);
 			OnCreated();
@@ -8188,6 +8379,77 @@ namespace pe.edu.pucp.ferretin.model
 			}
 		}
 		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_id_PerfilMenuPadre", DbType="Int")]
+		public System.Nullable<int> id_PerfilMenuPadre
+		{
+			get
+			{
+				return this._id_PerfilMenuPadre;
+			}
+			set
+			{
+				if ((this._id_PerfilMenuPadre != value))
+				{
+					if (this._PerfilMenu1.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.Onid_PerfilMenuPadreChanging(value);
+					this.SendPropertyChanging();
+					this._id_PerfilMenuPadre = value;
+					this.SendPropertyChanged("id_PerfilMenuPadre");
+					this.Onid_PerfilMenuPadreChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="PerfilMenu_PerfilMenu", Storage="_PerfilMenu2", ThisKey="id", OtherKey="id_PerfilMenuPadre")]
+		public EntitySet<PerfilMenu> PerfilMenu2
+		{
+			get
+			{
+				return this._PerfilMenu2;
+			}
+			set
+			{
+				this._PerfilMenu2.Assign(value);
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="PerfilMenu_PerfilMenu", Storage="_PerfilMenu1", ThisKey="id_PerfilMenuPadre", OtherKey="id", IsForeignKey=true)]
+		public PerfilMenu PerfilMenu1
+		{
+			get
+			{
+				return this._PerfilMenu1.Entity;
+			}
+			set
+			{
+				PerfilMenu previousValue = this._PerfilMenu1.Entity;
+				if (((previousValue != value) 
+							|| (this._PerfilMenu1.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._PerfilMenu1.Entity = null;
+						previousValue.PerfilMenu2.Remove(this);
+					}
+					this._PerfilMenu1.Entity = value;
+					if ((value != null))
+					{
+						value.PerfilMenu2.Add(this);
+						this._id_PerfilMenuPadre = value.id;
+					}
+					else
+					{
+						this._id_PerfilMenuPadre = default(Nullable<int>);
+					}
+					this.SendPropertyChanged("PerfilMenu1");
+				}
+			}
+		}
+		
 		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Menu_PerfilMenu", Storage="_Menu", ThisKey="id_menu", OtherKey="id", IsForeignKey=true)]
 		public Menu Menu
 		{
@@ -8275,6 +8537,18 @@ namespace pe.edu.pucp.ferretin.model
 				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
 			}
 		}
+		
+		private void attach_PerfilMenu2(PerfilMenu entity)
+		{
+			this.SendPropertyChanging();
+			entity.PerfilMenu1 = this;
+		}
+		
+		private void detach_PerfilMenu2(PerfilMenu entity)
+		{
+			this.SendPropertyChanging();
+			entity.PerfilMenu1 = null;
+		}
 	}
 	
 	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Producto")]
@@ -8325,6 +8599,8 @@ namespace pe.edu.pucp.ferretin.model
 		
 		private EntitySet<PromocionProducto> _PromocionProducto;
 		
+		private EntitySet<ProveedorProducto> _ProveedorProducto;
+		
 		private EntitySet<SolicitudAbastecimientoProducto> _SolicitudAbastecimientoProducto;
 		
 		private EntityRef<Material> _Material;
@@ -8374,6 +8650,7 @@ namespace pe.edu.pucp.ferretin.model
 			this._ProductoCategoria = new EntitySet<ProductoCategoria>(new Action<ProductoCategoria>(this.attach_ProductoCategoria), new Action<ProductoCategoria>(this.detach_ProductoCategoria));
 			this._ProductoColor = new EntitySet<ProductoColor>(new Action<ProductoColor>(this.attach_ProductoColor), new Action<ProductoColor>(this.detach_ProductoColor));
 			this._PromocionProducto = new EntitySet<PromocionProducto>(new Action<PromocionProducto>(this.attach_PromocionProducto), new Action<PromocionProducto>(this.detach_PromocionProducto));
+			this._ProveedorProducto = new EntitySet<ProveedorProducto>(new Action<ProveedorProducto>(this.attach_ProveedorProducto), new Action<ProveedorProducto>(this.detach_ProveedorProducto));
 			this._SolicitudAbastecimientoProducto = new EntitySet<SolicitudAbastecimientoProducto>(new Action<SolicitudAbastecimientoProducto>(this.attach_SolicitudAbastecimientoProducto), new Action<SolicitudAbastecimientoProducto>(this.detach_SolicitudAbastecimientoProducto));
 			this._Material = default(EntityRef<Material>);
 			this._Material1 = default(EntityRef<Material>);
@@ -8750,6 +9027,19 @@ namespace pe.edu.pucp.ferretin.model
 			}
 		}
 		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Producto_ProveedorProducto", Storage="_ProveedorProducto", ThisKey="id", OtherKey="id_producto")]
+		public EntitySet<ProveedorProducto> ProveedorProducto
+		{
+			get
+			{
+				return this._ProveedorProducto;
+			}
+			set
+			{
+				this._ProveedorProducto.Assign(value);
+			}
+		}
+		
 		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Producto_SolicitudAbastecimientoProducto", Storage="_SolicitudAbastecimientoProducto", ThisKey="id", OtherKey="id_producto")]
 		public EntitySet<SolicitudAbastecimientoProducto> SolicitudAbastecimientoProducto
 		{
@@ -8988,6 +9278,18 @@ namespace pe.edu.pucp.ferretin.model
 		}
 		
 		private void detach_PromocionProducto(PromocionProducto entity)
+		{
+			this.SendPropertyChanging();
+			entity.Producto = null;
+		}
+		
+		private void attach_ProveedorProducto(ProveedorProducto entity)
+		{
+			this.SendPropertyChanging();
+			entity.Producto = this;
+		}
+		
+		private void detach_ProveedorProducto(ProveedorProducto entity)
 		{
 			this.SendPropertyChanging();
 			entity.Producto = null;
@@ -9540,11 +9842,9 @@ namespace pe.edu.pucp.ferretin.model
 		
 		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
 		
-		private int _id;
+		private int _id_producto;
 		
-		private System.Nullable<int> _id_producto;
-		
-		private System.Nullable<short> _id_color;
+		private short _id_color;
 		
 		private EntityRef<Color> _Color;
 		
@@ -9554,11 +9854,9 @@ namespace pe.edu.pucp.ferretin.model
     partial void OnLoaded();
     partial void OnValidate(System.Data.Linq.ChangeAction action);
     partial void OnCreated();
-    partial void OnidChanging(int value);
-    partial void OnidChanged();
-    partial void Onid_productoChanging(System.Nullable<int> value);
+    partial void Onid_productoChanging(int value);
     partial void Onid_productoChanged();
-    partial void Onid_colorChanging(System.Nullable<short> value);
+    partial void Onid_colorChanging(short value);
     partial void Onid_colorChanged();
     #endregion
 		
@@ -9569,28 +9867,8 @@ namespace pe.edu.pucp.ferretin.model
 			OnCreated();
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_id", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
-		public int id
-		{
-			get
-			{
-				return this._id;
-			}
-			set
-			{
-				if ((this._id != value))
-				{
-					this.OnidChanging(value);
-					this.SendPropertyChanging();
-					this._id = value;
-					this.SendPropertyChanged("id");
-					this.OnidChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_id_producto", DbType="Int")]
-		public System.Nullable<int> id_producto
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_id_producto", DbType="Int NOT NULL", IsPrimaryKey=true)]
+		public int id_producto
 		{
 			get
 			{
@@ -9613,8 +9891,8 @@ namespace pe.edu.pucp.ferretin.model
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_id_color", DbType="SmallInt")]
-		public System.Nullable<short> id_color
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_id_color", DbType="SmallInt NOT NULL", IsPrimaryKey=true)]
+		public short id_color
 		{
 			get
 			{
@@ -9664,7 +9942,7 @@ namespace pe.edu.pucp.ferretin.model
 					}
 					else
 					{
-						this._id_color = default(Nullable<short>);
+						this._id_color = default(short);
 					}
 					this.SendPropertyChanged("Color");
 				}
@@ -9698,7 +9976,7 @@ namespace pe.edu.pucp.ferretin.model
 					}
 					else
 					{
-						this._id_producto = default(Nullable<int>);
+						this._id_producto = default(int);
 					}
 					this.SendPropertyChanged("Producto");
 				}
@@ -10692,6 +10970,8 @@ namespace pe.edu.pucp.ferretin.model
 		
 		private EntitySet<ProveedorCatalogo> _ProveedorCatalogo;
 		
+		private EntitySet<ProveedorProducto> _ProveedorProducto;
+		
 		private EntityRef<Rubro> _Rubro;
 		
 		private EntityRef<UbigeoDistrito> _UbigeoDistrito;
@@ -10732,6 +11012,7 @@ namespace pe.edu.pucp.ferretin.model
 		{
 			this._DocumentoCompra = new EntitySet<DocumentoCompra>(new Action<DocumentoCompra>(this.attach_DocumentoCompra), new Action<DocumentoCompra>(this.detach_DocumentoCompra));
 			this._ProveedorCatalogo = new EntitySet<ProveedorCatalogo>(new Action<ProveedorCatalogo>(this.attach_ProveedorCatalogo), new Action<ProveedorCatalogo>(this.detach_ProveedorCatalogo));
+			this._ProveedorProducto = new EntitySet<ProveedorProducto>(new Action<ProveedorProducto>(this.attach_ProveedorProducto), new Action<ProveedorProducto>(this.detach_ProveedorProducto));
 			this._Rubro = default(EntityRef<Rubro>);
 			this._UbigeoDistrito = default(EntityRef<UbigeoDistrito>);
 			OnCreated();
@@ -11031,6 +11312,19 @@ namespace pe.edu.pucp.ferretin.model
 			}
 		}
 		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Proveedor_ProveedorProducto", Storage="_ProveedorProducto", ThisKey="id", OtherKey="id_proveedor")]
+		public EntitySet<ProveedorProducto> ProveedorProducto
+		{
+			get
+			{
+				return this._ProveedorProducto;
+			}
+			set
+			{
+				this._ProveedorProducto.Assign(value);
+			}
+		}
+		
 		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Rubro_Proveedor", Storage="_Rubro", ThisKey="id_rubro", OtherKey="id", IsForeignKey=true)]
 		public Rubro Rubro
 		{
@@ -11138,6 +11432,18 @@ namespace pe.edu.pucp.ferretin.model
 		}
 		
 		private void detach_ProveedorCatalogo(ProveedorCatalogo entity)
+		{
+			this.SendPropertyChanging();
+			entity.Proveedor = null;
+		}
+		
+		private void attach_ProveedorProducto(ProveedorProducto entity)
+		{
+			this.SendPropertyChanging();
+			entity.Proveedor = this;
+		}
+		
+		private void detach_ProveedorProducto(ProveedorProducto entity)
 		{
 			this.SendPropertyChanging();
 			entity.Proveedor = null;
@@ -11366,6 +11672,335 @@ namespace pe.edu.pucp.ferretin.model
 						this._id_proveedor = default(Nullable<int>);
 					}
 					this.SendPropertyChanged("Proveedor");
+				}
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.ProveedorProducto")]
+	public partial class ProveedorProducto : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private int _id;
+		
+		private System.Nullable<int> _id_proveedor;
+		
+		private System.Nullable<int> _id_producto;
+		
+		private System.Nullable<short> _id_unidad;
+		
+		private System.Nullable<decimal> _precio;
+		
+		private string _tiempoEntrega;
+		
+		private System.Nullable<int> _estado;
+		
+		private EntityRef<Producto> _Producto;
+		
+		private EntityRef<Proveedor> _Proveedor;
+		
+		private EntityRef<UnidadMedida> _UnidadMedida;
+		
+    #region Definiciones de métodos de extensibilidad
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnidChanging(int value);
+    partial void OnidChanged();
+    partial void Onid_proveedorChanging(System.Nullable<int> value);
+    partial void Onid_proveedorChanged();
+    partial void Onid_productoChanging(System.Nullable<int> value);
+    partial void Onid_productoChanged();
+    partial void Onid_unidadChanging(System.Nullable<short> value);
+    partial void Onid_unidadChanged();
+    partial void OnprecioChanging(System.Nullable<decimal> value);
+    partial void OnprecioChanged();
+    partial void OntiempoEntregaChanging(string value);
+    partial void OntiempoEntregaChanged();
+    partial void OnestadoChanging(System.Nullable<int> value);
+    partial void OnestadoChanged();
+    #endregion
+		
+		public ProveedorProducto()
+		{
+			this._Producto = default(EntityRef<Producto>);
+			this._Proveedor = default(EntityRef<Proveedor>);
+			this._UnidadMedida = default(EntityRef<UnidadMedida>);
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_id", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
+		public int id
+		{
+			get
+			{
+				return this._id;
+			}
+			set
+			{
+				if ((this._id != value))
+				{
+					this.OnidChanging(value);
+					this.SendPropertyChanging();
+					this._id = value;
+					this.SendPropertyChanged("id");
+					this.OnidChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_id_proveedor", DbType="Int")]
+		public System.Nullable<int> id_proveedor
+		{
+			get
+			{
+				return this._id_proveedor;
+			}
+			set
+			{
+				if ((this._id_proveedor != value))
+				{
+					if (this._Proveedor.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.Onid_proveedorChanging(value);
+					this.SendPropertyChanging();
+					this._id_proveedor = value;
+					this.SendPropertyChanged("id_proveedor");
+					this.Onid_proveedorChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_id_producto", DbType="Int")]
+		public System.Nullable<int> id_producto
+		{
+			get
+			{
+				return this._id_producto;
+			}
+			set
+			{
+				if ((this._id_producto != value))
+				{
+					if (this._Producto.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.Onid_productoChanging(value);
+					this.SendPropertyChanging();
+					this._id_producto = value;
+					this.SendPropertyChanged("id_producto");
+					this.Onid_productoChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_id_unidad", DbType="SmallInt")]
+		public System.Nullable<short> id_unidad
+		{
+			get
+			{
+				return this._id_unidad;
+			}
+			set
+			{
+				if ((this._id_unidad != value))
+				{
+					if (this._UnidadMedida.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.Onid_unidadChanging(value);
+					this.SendPropertyChanging();
+					this._id_unidad = value;
+					this.SendPropertyChanged("id_unidad");
+					this.Onid_unidadChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_precio", DbType="Decimal(10,2)")]
+		public System.Nullable<decimal> precio
+		{
+			get
+			{
+				return this._precio;
+			}
+			set
+			{
+				if ((this._precio != value))
+				{
+					this.OnprecioChanging(value);
+					this.SendPropertyChanging();
+					this._precio = value;
+					this.SendPropertyChanged("precio");
+					this.OnprecioChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_tiempoEntrega", DbType="VarChar(30)")]
+		public string tiempoEntrega
+		{
+			get
+			{
+				return this._tiempoEntrega;
+			}
+			set
+			{
+				if ((this._tiempoEntrega != value))
+				{
+					this.OntiempoEntregaChanging(value);
+					this.SendPropertyChanging();
+					this._tiempoEntrega = value;
+					this.SendPropertyChanged("tiempoEntrega");
+					this.OntiempoEntregaChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_estado", DbType="Int")]
+		public System.Nullable<int> estado
+		{
+			get
+			{
+				return this._estado;
+			}
+			set
+			{
+				if ((this._estado != value))
+				{
+					this.OnestadoChanging(value);
+					this.SendPropertyChanging();
+					this._estado = value;
+					this.SendPropertyChanged("estado");
+					this.OnestadoChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Producto_ProveedorProducto", Storage="_Producto", ThisKey="id_producto", OtherKey="id", IsForeignKey=true)]
+		public Producto Producto
+		{
+			get
+			{
+				return this._Producto.Entity;
+			}
+			set
+			{
+				Producto previousValue = this._Producto.Entity;
+				if (((previousValue != value) 
+							|| (this._Producto.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._Producto.Entity = null;
+						previousValue.ProveedorProducto.Remove(this);
+					}
+					this._Producto.Entity = value;
+					if ((value != null))
+					{
+						value.ProveedorProducto.Add(this);
+						this._id_producto = value.id;
+					}
+					else
+					{
+						this._id_producto = default(Nullable<int>);
+					}
+					this.SendPropertyChanged("Producto");
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Proveedor_ProveedorProducto", Storage="_Proveedor", ThisKey="id_proveedor", OtherKey="id", IsForeignKey=true)]
+		public Proveedor Proveedor
+		{
+			get
+			{
+				return this._Proveedor.Entity;
+			}
+			set
+			{
+				Proveedor previousValue = this._Proveedor.Entity;
+				if (((previousValue != value) 
+							|| (this._Proveedor.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._Proveedor.Entity = null;
+						previousValue.ProveedorProducto.Remove(this);
+					}
+					this._Proveedor.Entity = value;
+					if ((value != null))
+					{
+						value.ProveedorProducto.Add(this);
+						this._id_proveedor = value.id;
+					}
+					else
+					{
+						this._id_proveedor = default(Nullable<int>);
+					}
+					this.SendPropertyChanged("Proveedor");
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="UnidadMedida_ProveedorProducto", Storage="_UnidadMedida", ThisKey="id_unidad", OtherKey="id", IsForeignKey=true)]
+		public UnidadMedida UnidadMedida
+		{
+			get
+			{
+				return this._UnidadMedida.Entity;
+			}
+			set
+			{
+				UnidadMedida previousValue = this._UnidadMedida.Entity;
+				if (((previousValue != value) 
+							|| (this._UnidadMedida.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._UnidadMedida.Entity = null;
+						previousValue.ProveedorProducto.Remove(this);
+					}
+					this._UnidadMedida.Entity = value;
+					if ((value != null))
+					{
+						value.ProveedorProducto.Add(this);
+						this._id_unidad = value.id;
+					}
+					else
+					{
+						this._id_unidad = default(Nullable<short>);
+					}
+					this.SendPropertyChanged("UnidadMedida");
 				}
 			}
 		}
@@ -13634,6 +14269,120 @@ namespace pe.edu.pucp.ferretin.model
 		}
 	}
 	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Turno")]
+	public partial class Turno : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private int _id;
+		
+		private string _nombre;
+		
+		private EntitySet<EmpleadoTurno> _EmpleadoTurno;
+		
+    #region Definiciones de métodos de extensibilidad
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnidChanging(int value);
+    partial void OnidChanged();
+    partial void OnnombreChanging(string value);
+    partial void OnnombreChanged();
+    #endregion
+		
+		public Turno()
+		{
+			this._EmpleadoTurno = new EntitySet<EmpleadoTurno>(new Action<EmpleadoTurno>(this.attach_EmpleadoTurno), new Action<EmpleadoTurno>(this.detach_EmpleadoTurno));
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_id", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
+		public int id
+		{
+			get
+			{
+				return this._id;
+			}
+			set
+			{
+				if ((this._id != value))
+				{
+					this.OnidChanging(value);
+					this.SendPropertyChanging();
+					this._id = value;
+					this.SendPropertyChanged("id");
+					this.OnidChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_nombre", DbType="VarChar(30)")]
+		public string nombre
+		{
+			get
+			{
+				return this._nombre;
+			}
+			set
+			{
+				if ((this._nombre != value))
+				{
+					this.OnnombreChanging(value);
+					this.SendPropertyChanging();
+					this._nombre = value;
+					this.SendPropertyChanged("nombre");
+					this.OnnombreChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Turno_EmpleadoTurno", Storage="_EmpleadoTurno", ThisKey="id", OtherKey="id_turno")]
+		public EntitySet<EmpleadoTurno> EmpleadoTurno
+		{
+			get
+			{
+				return this._EmpleadoTurno;
+			}
+			set
+			{
+				this._EmpleadoTurno.Assign(value);
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+		
+		private void attach_EmpleadoTurno(EmpleadoTurno entity)
+		{
+			this.SendPropertyChanging();
+			entity.Turno = this;
+		}
+		
+		private void detach_EmpleadoTurno(EmpleadoTurno entity)
+		{
+			this.SendPropertyChanging();
+			entity.Turno = null;
+		}
+	}
+	
 	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.UbigeoDepartamento")]
 	public partial class UbigeoDepartamento : INotifyPropertyChanging, INotifyPropertyChanged
 	{
@@ -14206,6 +14955,8 @@ namespace pe.edu.pucp.ferretin.model
 		
 		private EntitySet<Producto> _Producto;
 		
+		private EntitySet<ProveedorProducto> _ProveedorProducto;
+		
     #region Definiciones de métodos de extensibilidad
     partial void OnLoaded();
     partial void OnValidate(System.Data.Linq.ChangeAction action);
@@ -14222,6 +14973,7 @@ namespace pe.edu.pucp.ferretin.model
 		{
 			this._DocumentoCompraProducto = new EntitySet<DocumentoCompraProducto>(new Action<DocumentoCompraProducto>(this.attach_DocumentoCompraProducto), new Action<DocumentoCompraProducto>(this.detach_DocumentoCompraProducto));
 			this._Producto = new EntitySet<Producto>(new Action<Producto>(this.attach_Producto), new Action<Producto>(this.detach_Producto));
+			this._ProveedorProducto = new EntitySet<ProveedorProducto>(new Action<ProveedorProducto>(this.attach_ProveedorProducto), new Action<ProveedorProducto>(this.detach_ProveedorProducto));
 			OnCreated();
 		}
 		
@@ -14311,6 +15063,19 @@ namespace pe.edu.pucp.ferretin.model
 			}
 		}
 		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="UnidadMedida_ProveedorProducto", Storage="_ProveedorProducto", ThisKey="id", OtherKey="id_unidad")]
+		public EntitySet<ProveedorProducto> ProveedorProducto
+		{
+			get
+			{
+				return this._ProveedorProducto;
+			}
+			set
+			{
+				this._ProveedorProducto.Assign(value);
+			}
+		}
+		
 		public event PropertyChangingEventHandler PropertyChanging;
 		
 		public event PropertyChangedEventHandler PropertyChanged;
@@ -14350,6 +15115,18 @@ namespace pe.edu.pucp.ferretin.model
 		}
 		
 		private void detach_Producto(Producto entity)
+		{
+			this.SendPropertyChanging();
+			entity.UnidadMedida = null;
+		}
+		
+		private void attach_ProveedorProducto(ProveedorProducto entity)
+		{
+			this.SendPropertyChanging();
+			entity.UnidadMedida = this;
+		}
+		
+		private void detach_ProveedorProducto(ProveedorProducto entity)
 		{
 			this.SendPropertyChanging();
 			entity.UnidadMedida = null;
