@@ -18,6 +18,8 @@
       <Column Name="id_venta" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
       <Column Name="id_producto" Type="System.Int32" DbType="Int" CanBeNull="true" />
       <Column Name="canjeado" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="montoReal" Type="System.Decimal" DbType="Decimal(18,0)" CanBeNull="true" />
+      <Column Name="descuento" Type="System.Decimal" DbType="Decimal(18,0)" CanBeNull="true" />
       <Association Name="Producto_VentaProducto" Member="Producto" ThisKey="id_producto" OtherKey="id" Type="Producto" IsForeignKey="true" />
       <Association Name="Venta_VentaProducto" Member="Venta" ThisKey="id_venta" OtherKey="id" Type="Venta" IsForeignKey="true" />
     </Type>

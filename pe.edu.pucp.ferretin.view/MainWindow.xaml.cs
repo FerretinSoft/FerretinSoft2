@@ -32,7 +32,6 @@ namespace pe.edu.pucp.ferretin.view
             InitializeComponent();
             usuarioLog = usuario;
             ComunService.usuarioLo(usuario);
-            ComunService.obtenerPermisos(usuario);
             usuarioMenu.Header = "Tienda ABC, " + ComunService.usuarioL.nombre;
 
         }

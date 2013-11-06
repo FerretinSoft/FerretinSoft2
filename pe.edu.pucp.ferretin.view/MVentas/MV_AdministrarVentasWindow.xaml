@@ -197,8 +197,8 @@
                             <DataGridTextColumn Width="0.7*"  Binding="{Binding Path=cantidad}" ClipboardContentBinding="{x:Null}" Header="Cant."/>
                             <DataGridTextColumn Width="1*"  Binding="{Binding Path=Producto.monedaString}" Header="Moneda"/>
                             <DataGridTextColumn Width="0.9*" Binding="{Binding Path=Producto.precioLista}" ClipboardContentBinding="{x:Null}" Header="Precio"/>
-                            <DataGridTextColumn Width="1*" ClipboardContentBinding="{x:Null}" Header="Dscto(%)"/>
-                            <DataGridTextColumn Width="1*"  Binding="{Binding Path=montoParcial}" ClipboardContentBinding="{x:Null}" Header="Importe"/>
+                            <DataGridTextColumn Width="1*" Binding="{Binding Path=descuento}" ClipboardContentBinding="{x:Null}" Header="Dscto(%)"/>
+                            <DataGridTextColumn Width="1*"  Binding="{Binding Path=montoReal}" ClipboardContentBinding="{x:Null}" Header="Importe"/>
                             <DataGridTextColumn Width="1.2*" Binding="{Binding Path=precioPuntos}" ClipboardContentBinding="{x:Null}" Header="Precio Ptos"/>
                             <DataGridTextColumn Width="0.9*" Binding="{Binding Path=canjeado}" Header="Canjeado"/>
                         </DataGrid.Columns>

@@ -163,7 +163,7 @@
                     <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Center">
                         <Button Command="{Binding generarValesCommand}" Visibility="{Binding Path=detallarVale}"  Content="Generar" Height="30" Padding="5" Margin="5,0" FontSize="14"/>
                         <Button Command="{Binding saveLoteValeCommand}" Visibility="{Binding Path=detallarVale}"  Content="Guardar" Height="30" Padding="5" Margin="5,0" FontSize="14"/>
-                        <Button Visibility="{Binding Path=detallarVale}"  Content="Cancelar" Height="30" Padding="5" Margin="5,0" FontSize="14"/>
+                        <Button Command="{Binding cancelarLoteValeCommand}" Visibility="{Binding Path=detallarVale}"  Content="Cancelar" Height="30" Padding="5" Margin="5,0" FontSize="14"/>
 
                     </StackPanel>
                     <DataGrid ItemsSource="{Binding Path=loteVale.Vale,UpdateSourceTrigger=PropertyChanged,NotifyOnSourceUpdated=True,NotifyOnTargetUpdated=True,Mode=TwoWay}" Margin="5,5" Grid.Row="2" AutoGenerateColumns="False">

@@ -68,7 +68,17 @@ namespace pe.edu.pucp.ferretin.viewmodel.MSeguridad
                 switch (value)
                 {
                     case tabs.BUSQUEDA: detallesTabHeader = "Agregar"; perfil = new Perfil(); break;//Si es agregar, creo un nuevo objeto Cliente
-                    case tabs.AGREGAR: detallesTabHeader = "Agregar"; perfil = new Perfil(); break;//Si es agregar, creo un nuevo objeto Cliente
+                    case tabs.AGREGAR:
+                        {
+                            detallesTabHeader = "Agregar";
+                            var miperfil = new Perfil();
+                            miperfil.nombre = "jaja";
+                            PerfilMenu perfilMenu = new PerfilMenu();
+                            copiarPerfil(perfilMenu, menuPadre, miperfil);
+                            miperfil.PerfilMenu.Add(perfilMenu);
+                            perfil = miperfil;
+                            break;
+                        };//Si es agregar, creo un nuevo objeto Cliente
                     case tabs.MODIFICAR: detallesTabHeader = "Modificar"; break;
                     case tabs.DETALLES: detallesTabHeader = "Detalles"; break;
                     default: detallesTabHeader = "Agregar"; perfil = new Perfil(); break;//Si es agregar, creo un nuevo objeto Cliente
@@ -80,6 +90,21 @@ namespace pe.edu.pucp.ferretin.viewmodel.MSeguridad
                 NotifyPropertyChanged("currentIndexTab"); //Hace que cambie el tab automaticamente
             }
         }
+
+        private void copiarPerfil(PerfilMenu perfilMenu, Menu menu, Perfil perfil)
+        {
+            //perfilMenu.Perfil = perfil;
+            perfilMenu.Menu = menu;
+            perfilMenu.estado = false;
+
+            for (int i = 0; i < menu.Menu2.Count;i++ )
+            {
+                PerfilMenu hijoperfilMenu = new PerfilMenu();
+                perfilMenu.PerfilMenu2.Add(hijoperfilMenu);
+                copiarPerfil(hijoperfilMenu, menu.Menu2.ElementAt(i), perfil);
+            }
+        }
+        
         /************************************************/
         //Usado para mover los tabs de acuerdo a las acciones realizadas
         public int currentIndexTab

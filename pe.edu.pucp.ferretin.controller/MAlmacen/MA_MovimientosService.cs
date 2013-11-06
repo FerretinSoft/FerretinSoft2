@@ -42,6 +42,25 @@ namespace pe.edu.pucp.ferretin.controller.MAlmacen
             return movimiento;
         }
 
+        public static IEnumerable<Movimiento> obtenerMovimientoPorProducto(int idProd)
+        {
+            IEnumerable<Movimiento> lMov = from m in db.Movimiento
+                                           from mp in db.MovimientoProducto
+                                           where (mp.id_producto == idProd) &&
+                                           (mp.id_movimiento == m.id)
+                                           select m;
+            foreach (Movimiento m in lMov)
+            {
+                MovimientoProducto mpr = (from mp in db.MovimientoProducto
+                                          where (mp.id_producto == idProd) &&
+                                          (mp.id_movimiento == m.id)
+                                          select mp).Single();
+                m.mp = mpr;
+            }
+
+            return lMov;
+        }
+
         public static IEnumerable<Movimiento> buscarMovimientos(Tienda searchAlmacen, MovimientoEstado searchEstado, DateTime searchFechaDesde, DateTime searchFechaHasta)
         {
             return listaMovimientos
