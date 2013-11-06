@@ -18,6 +18,8 @@
       <Column Name="id_venta" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
       <Column Name="id_producto" Type="System.Int32" DbType="Int" CanBeNull="true" />
       <Column Name="canjeado" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="montoReal" Type="System.Decimal" DbType="Decimal(18,0)" CanBeNull="true" />
+      <Column Name="descuento" Type="System.Decimal" DbType="Decimal(18,0)" CanBeNull="true" />
       <Association Name="Producto_VentaProducto" Member="Producto" ThisKey="id_producto" OtherKey="id" Type="Producto" IsForeignKey="true" />
       <Association Name="Venta_VentaProducto" Member="Venta" ThisKey="id_venta" OtherKey="id" Type="Venta" IsForeignKey="true" />
     </Type>
@@ -101,6 +103,13 @@
       <Column Name="motivo" Type="System.String" DbType="Text" CanBeNull="true" UpdateCheck="Never" />
       <Association Name="Devolucion_DevolucionProducto" Member="Devolucion" ThisKey="id_devolucion" OtherKey="id" Type="Devolucion" IsForeignKey="true" />
       <Association Name="Producto_DevolucionProducto" Member="Producto" ThisKey="id_producto" OtherKey="id" Type="Producto" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Dia" Member="Dia">
+    <Type Name="Dia">
+      <Column Name="id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="nombre" Type="System.String" DbType="VarChar(30)" CanBeNull="true" />
+      <Association Name="Dia_EmpleadoTurno" Member="EmpleadoTurno" ThisKey="id" OtherKey="id_dia" Type="EmpleadoTurno" />
     </Type>
   </Table>
   <Table Name="dbo.DocumentoCompra" Member="DocumentoCompra">
@@ -196,14 +205,14 @@
   </Table>
   <Table Name="dbo.EmpleadoTurno" Member="EmpleadoTurno">
     <Type Name="EmpleadoTurno">
-      <Column Name="id" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
-      <Column Name="horaInicio" Type="System.String" DbType="VarChar(10)" CanBeNull="true" />
-      <Column Name="horaFin" Type="System.String" DbType="VarChar(10)" CanBeNull="true" />
-      <Column Name="duracion" Type="System.String" DbType="VarChar(10)" CanBeNull="true" />
-      <Column Name="estado" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="dia" Type="System.String" DbType="VarChar(15)" CanBeNull="true" />
+      <Column Name="id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
       <Column Name="id_empleado" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="id_turno" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="id_dia" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="estado" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Association Name="Dia_EmpleadoTurno" Member="Dia" ThisKey="id_dia" OtherKey="id" Type="Dia" IsForeignKey="true" />
       <Association Name="Empleado_EmpleadoTurno" Member="Empleado" ThisKey="id_empleado" OtherKey="id" Type="Empleado" IsForeignKey="true" />
+      <Association Name="Turno_EmpleadoTurno" Member="Turno" ThisKey="id_turno" OtherKey="id" Type="Turno" IsForeignKey="true" />
     </Type>
   </Table>
   <Table Name="dbo.GradoInstruccion" Member="GradoInstruccion">
@@ -349,6 +358,9 @@
       <Column Name="id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
       <Column Name="id_perfil" Type="System.Int16" DbType="SmallInt" CanBeNull="true" />
       <Column Name="id_menu" Type="System.Int16" DbType="SmallInt" CanBeNull="true" />
+      <Column Name="id_PerfilMenuPadre" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Association Name="PerfilMenu_PerfilMenu" Member="PerfilMenu2" ThisKey="id" OtherKey="id_PerfilMenuPadre" Type="PerfilMenu" />
+      <Association Name="PerfilMenu_PerfilMenu" Member="PerfilMenu1" ThisKey="id_PerfilMenuPadre" OtherKey="id" Type="PerfilMenu" IsForeignKey="true" />
       <Association Name="Menu_PerfilMenu" Member="Menu" ThisKey="id_menu" OtherKey="id" Type="Menu" IsForeignKey="true" />
       <Association Name="Perfil_PerfilMenu" Member="Perfil" ThisKey="id_perfil" OtherKey="id" Type="Perfil" IsForeignKey="true" />
     </Type>
@@ -376,6 +388,7 @@
       <Association Name="Producto_ProductoCategoria" Member="ProductoCategoria" ThisKey="id" OtherKey="id_producto" Type="ProductoCategoria" />
       <Association Name="Producto_ProductoColor" Member="ProductoColor" ThisKey="id" OtherKey="id_producto" Type="ProductoColor" />
       <Association Name="Producto_PromocionProducto" Member="PromocionProducto" ThisKey="id" OtherKey="producto_id" Type="PromocionProducto" />
+      <Association Name="Producto_ProveedorProducto" Member="ProveedorProducto" ThisKey="id" OtherKey="id_producto" Type="ProveedorProducto" />
       <Association Name="Producto_SolicitudAbastecimientoProducto" Member="SolicitudAbastecimientoProducto" ThisKey="id" OtherKey="id_producto" Type="SolicitudAbastecimientoProducto" />
       <Association Name="Material_Producto" Member="Material" ThisKey="id_material_base" OtherKey="id" Type="Material" IsForeignKey="true" />
       <Association Name="Material_Producto1" Member="Material1" ThisKey="id_material_sec" OtherKey="id" Type="Material" IsForeignKey="true" />
@@ -408,9 +421,8 @@
   </Table>
   <Table Name="dbo.ProductoColor" Member="ProductoColor">
     <Type Name="ProductoColor">
-      <Column Name="id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
-      <Column Name="id_producto" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="id_color" Type="System.Int16" DbType="SmallInt" CanBeNull="true" />
+      <Column Name="id_producto" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="id_color" Type="System.Int16" DbType="SmallInt NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
       <Association Name="Color_ProductoColor" Member="Color" ThisKey="id_color" OtherKey="id" Type="Color" IsForeignKey="true" />
       <Association Name="Producto_ProductoColor" Member="Producto" ThisKey="id_producto" OtherKey="id" Type="Producto" IsForeignKey="true" />
     </Type>
@@ -475,6 +487,7 @@
       <Column Name="codigoPostal" Type="System.String" DbType="VarChar(15)" CanBeNull="true" />
       <Association Name="Proveedor_DocumentoCompra" Member="DocumentoCompra" ThisKey="id" OtherKey="id_proveedor" Type="DocumentoCompra" />
       <Association Name="Proveedor_ProveedorCatalogo" Member="ProveedorCatalogo" ThisKey="id" OtherKey="id_proveedor" Type="ProveedorCatalogo" />
+      <Association Name="Proveedor_ProveedorProducto" Member="ProveedorProducto" ThisKey="id" OtherKey="id_proveedor" Type="ProveedorProducto" />
       <Association Name="Rubro_Proveedor" Member="Rubro" ThisKey="id_rubro" OtherKey="id" Type="Rubro" IsForeignKey="true" />
       <Association Name="UbigeoDistrito_Proveedor" Member="UbigeoDistrito" ThisKey="id_ubigeo" OtherKey="id" Type="UbigeoDistrito" IsForeignKey="true" />
     </Type>
@@ -489,6 +502,20 @@
       <Column Name="id_proveedor" Type="System.Int32" DbType="Int" CanBeNull="true" />
       <Column Name="estado" Type="System.Byte" DbType="TinyInt" CanBeNull="true" />
       <Association Name="Proveedor_ProveedorCatalogo" Member="Proveedor" ThisKey="id_proveedor" OtherKey="id" Type="Proveedor" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.ProveedorProducto" Member="ProveedorProducto">
+    <Type Name="ProveedorProducto">
+      <Column Name="id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="id_proveedor" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="id_producto" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="id_unidad" Type="System.Int16" DbType="SmallInt" CanBeNull="true" />
+      <Column Name="precio" Type="System.Decimal" DbType="Decimal(10,2)" CanBeNull="true" />
+      <Column Name="tiempoEntrega" Type="System.String" DbType="VarChar(30)" CanBeNull="true" />
+      <Column Name="estado" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Association Name="Producto_ProveedorProducto" Member="Producto" ThisKey="id_producto" OtherKey="id" Type="Producto" IsForeignKey="true" />
+      <Association Name="Proveedor_ProveedorProducto" Member="Proveedor" ThisKey="id_proveedor" OtherKey="id" Type="Proveedor" IsForeignKey="true" />
+      <Association Name="UnidadMedida_ProveedorProducto" Member="UnidadMedida" ThisKey="id_unidad" OtherKey="id" Type="UnidadMedida" IsForeignKey="true" />
     </Type>
   </Table>
   <Table Name="dbo.Rubro" Member="Rubro">
@@ -594,6 +621,13 @@
       <Association Name="Menu_TransaccionTipo" Member="Menu" ThisKey="id_menu" OtherKey="id" Type="Menu" IsForeignKey="true" />
     </Type>
   </Table>
+  <Table Name="dbo.Turno" Member="Turno">
+    <Type Name="Turno">
+      <Column Name="id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="nombre" Type="System.String" DbType="VarChar(30)" CanBeNull="true" />
+      <Association Name="Turno_EmpleadoTurno" Member="EmpleadoTurno" ThisKey="id" OtherKey="id_turno" Type="EmpleadoTurno" />
+    </Type>
+  </Table>
   <Table Name="dbo.UbigeoDepartamento" Member="UbigeoDepartamento">
     <Type Name="UbigeoDepartamento">
       <Column Name="id" Type="System.String" DbType="Char(2) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
@@ -629,6 +663,7 @@
       <Column Name="abreviatura" Type="System.String" DbType="VarChar(30)" CanBeNull="true" />
       <Association Name="UnidadMedida_DocumentoCompraProducto" Member="DocumentoCompraProducto" ThisKey="id" OtherKey="id_unidad_medida" Type="DocumentoCompraProducto" />
       <Association Name="UnidadMedida_Producto" Member="Producto" ThisKey="id" OtherKey="id_unidad_medida" Type="Producto" />
+      <Association Name="UnidadMedida_ProveedorProducto" Member="ProveedorProducto" ThisKey="id" OtherKey="id_unidad" Type="ProveedorProducto" />
     </Type>
   </Table>
   <Table Name="dbo.Usuario" Member="Usuario">

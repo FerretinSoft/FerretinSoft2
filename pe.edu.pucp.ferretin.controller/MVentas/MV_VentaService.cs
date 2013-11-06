@@ -104,6 +104,18 @@ namespace pe.edu.pucp.ferretin.controller.MVentas
                    orderby c.id_venta
                    select c;
         }
+        public static IEnumerable<VentaProducto> obtenerProductosSinPuntosbyIdVenta(long id_venta)
+        {
+            return from c in listaProductos
+                   where
+                   (c.id_venta != null && c.id_venta.Equals(id_venta)
+                   && c.canjeado != true
+                    )
+                   orderby c.id_venta
+                   select c;
+        }
+
+        
 
         public static IEnumerable<VentaMedioPago> obtenerMedioDePagobyIdVenta(long id_venta)
         {

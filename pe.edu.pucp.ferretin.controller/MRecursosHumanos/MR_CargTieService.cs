@@ -40,6 +40,23 @@ namespace pe.edu.pucp.ferretin.controller.MRecursosHumanos
             }
         }
 
+        private static IEnumerable<Turno> _turnos;
+        public static IEnumerable<Turno> turnos
+        {
+            get
+            {
+                if (_turnos == null)
+                    _turnos = from p in db.Turno select p;
+                return _turnos;
+            }
+
+            set
+            {
+                _turnos = value;
+            
+            }
+        }
+
 
        
         internal static IEnumerable<Cargo> obtenerCargos(string selectedCargo)

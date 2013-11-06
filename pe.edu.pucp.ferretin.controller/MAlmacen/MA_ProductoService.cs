@@ -19,6 +19,46 @@ namespace pe.edu.pucp.ferretin.controller.MAlmacen
             return listaProd;
         }
 
+        public static bool agregarColorProducto(ProductoColor pc)
+        {
+            if (!db.ProductoColor.Contains(pc))
+            {
+                db.ProductoColor.InsertOnSubmit(pc);
+                db.SubmitChanges();
+                return true;
+            }
+            return false;
+        }
+
+        public static Int16 obtenerIDProducto(String codProd)
+        {
+            int idProd = (from p in db.Producto
+                           where p.codigo == codProd
+                           select p.id).SingleOrDefault();
+
+            return (Int16)idProd;
+
+        }
+
+        public static IEnumerable<Color> obtenerColoresPorProducto(int idProd)
+        {
+            IEnumerable<Color> listaColores = from c in db.Color
+                                              from cp in db.ProductoColor
+                                              where (cp.id_color == c.id) &&
+                                              (cp.id_producto==idProd)
+                                              select c;
+
+            return listaColores;
+        }
+
+        public static IEnumerable<Color> obtenerTodosColores()
+        {
+            IEnumerable<Color> listaColores = from p in db.Color
+                                              select p;
+            return listaColores;
+
+        }
+
 
         public static IEnumerable<Producto> obtenerProductosPorNombre(String search, bool chkActivo, bool chkInactivo, Int16 idcategoria)
         {

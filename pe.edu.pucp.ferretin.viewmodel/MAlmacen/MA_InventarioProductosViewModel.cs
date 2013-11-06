@@ -14,14 +14,48 @@ namespace pe.edu.pucp.ferretin.viewmodel.MAlmacen
     public class MA_InventarioProductosViewModel : ViewModelBase
     {
         #region Valores para el cuadro de Búsqueda de inventario de productos
-        public string _searchAlmacen = "";
-        public string searchAlmacen { get { return _searchAlmacen; } set { _searchAlmacen = value; NotifyPropertyChanged("searchAlmacen"); } }
+        public Tienda _searchAlmacen = null;
+        public Tienda searchAlmacen { get { return _searchAlmacen; } set { _searchAlmacen = value; NotifyPropertyChanged("searchAlmacen"); } }
 
-        public string _searchCategoria = "";
-        public string searchCategoria { get { return _searchCategoria; } set { _searchCategoria = value; NotifyPropertyChanged("searchCategoria"); } }
+        public Categoria _searchCategoria = null;
+        public Categoria searchCategoria { get { return _searchCategoria; } set { _searchCategoria = value; NotifyPropertyChanged("searchCategoria"); } }
 
         public String _searchNombre = "";
         public String searchNombre { get { return _searchNombre; } set { _searchNombre = value; NotifyPropertyChanged("_searchNombre"); } }
+
+        public IEnumerable<Movimiento> _listaMovimientos;
+        public IEnumerable<Movimiento> listaMovimientos
+        {
+            set
+            {
+                _listaMovimientos = value;
+                NotifyPropertyChanged("listaMovimientos");
+            }
+
+            get
+            {
+                return _listaMovimientos;
+            }
+        }
+
+
+
+        public IEnumerable<Color> _listaColores;
+        public IEnumerable<Color> listaColores
+        {
+            set
+            {
+                _listaColores = value;
+                NotifyPropertyChanged("listaColores");
+            }
+
+            get
+            {
+                return _listaColores;
+            }
+        }
+
+
 
         #endregion
 
@@ -168,8 +202,9 @@ namespace pe.edu.pucp.ferretin.viewmodel.MAlmacen
         {
             get
             {
-
-                _listaProducto = MA_InventarioService.obtenerProductosPorAlmacenCategoriaNombre(searchNombre, searchAlmacen);
+                if (searchAlmacen!=null)
+                    Console.WriteLine(searchAlmacen.id);
+                _listaProducto = MA_InventarioService.obtenerProductosPorAlmacenCategoriaNombre(searchNombre, searchAlmacen, searchCategoria);
                 return _listaProducto;
             }
             set
@@ -213,14 +248,15 @@ namespace pe.edu.pucp.ferretin.viewmodel.MAlmacen
         #endregion;
 
         #region comandos
-
+        
         //detalle de los productos de inventario
         private void viewDetalleInventario(object id)
         {
             try
-            {
+            {   
                 this.producto = listaProducto.Single(producto => producto.id == (int)id);
-
+                this.listaColores = MA_ProductoService.obtenerColoresPorProducto(this.producto.id);
+                this.listaMovimientos=MA_MovimientosService.obtenerMovimientoPorProducto(this.producto.id);
                 this.statusTab = Tab.DETALLES;
             }
             catch (Exception e)

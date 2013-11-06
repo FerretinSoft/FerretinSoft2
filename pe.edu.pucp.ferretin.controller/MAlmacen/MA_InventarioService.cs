@@ -152,22 +152,93 @@ namespace pe.edu.pucp.ferretin.controller.MAlmacen
 
 
 
-        public static IEnumerable<Producto> obtenerProductosPorAlmacenCategoriaNombre(String nombre1, String searchTienda)
+        public static IEnumerable<Producto> obtenerProductosPorAlmacenCategoriaNombre(String nombre1, Tienda searchAlmacen, Categoria searchCategoria)
         {
 
-            listaProducto =
-                from p in db.Producto
-                where
-              (p.nombre != null && p.nombre.Contains(nombre1))
+            //Caso: Iniciando pantalla o con Almacen=Todos,Categoria=Todos y nombre=vacío
+            if ((nombre1 == "") && ((searchAlmacen == null) || (searchAlmacen.nombre=="Todos")) && ((searchCategoria == null) || (searchCategoria.nombre=="Todos")))
+            {
 
-                orderby p.id
-                select p;
+                listaProducto = from p in db.Producto
+                                select p;
+
+            }
+            else
+            {
+                //Caso: Almacen y Categoria seleccionados
+                if ((searchAlmacen.nombre != "Todos") && (searchCategoria.nombre!="Todos"))
+                {
+                     listaProducto = from pa in db.ProductoAlmacen
+                                from p in db.Producto
+                                from pc in db.ProductoCategoria
+                                where (p.nombre.Contains(nombre1)) &&
+                                (pa.id_producto == p.id) &&
+                                (pa.id_almacen == searchAlmacen.id) &&
+                                (pc.id_categoria == searchCategoria.id) &&
+                                (pc.id_producto == p.id)
+                                select p;
+                }
+                else
+                {
+                    //Caso: Almacén seleccionado
+                    if (searchAlmacen.nombre!="Todos")
+                    {
+                        listaProducto = from pa in db.ProductoAlmacen
+                                        from p in db.Producto
+                                        where (p.nombre.Contains(nombre1)) &&
+                                        (pa.id_producto == p.id) &&
+                                        (pa.id_almacen == searchAlmacen.id)
+                                        select p;
+
+                    }
+                    else
+                    {
+                        //Caso: Categoría seleccionada
+                        if (searchCategoria.nombre != "Todos")
+                        {
+                            listaProducto = from p in db.Producto
+                                            from pc in db.ProductoCategoria
+                                            where (p.nombre.Contains(nombre1)) &&
+                                            (pc.id_categoria == searchCategoria.id) &&
+                                            (pc.id_producto == p.id)
+                                            select p;
+
+                        }
+                        else//Búsqueda solo por nombre
+                        {
+                            listaProducto = from p in db.Producto
+                                            where (p.nombre.Contains(nombre1))
+                                            select p;
+                        }
+                    }
+                }
+            }
+
+            if (searchAlmacen != null && searchAlmacen.nombre != "Todos")
+            {
+                listaAlmacen =
+                    from t in db.Tienda
+                    where
+                    (t.nombre != null && t.id.Equals(searchAlmacen.id))
+                    orderby t.id
+                    select t;
+            }
 
 
-
-
+            if (searchCategoria != null && searchCategoria.nombre != "Todos")
+            {
+                listaCategoria =
+                    from c in db.Categoria
+                    where
+                    (c.nombre != null && c.id.Equals(searchCategoria.id))
+                    orderby c.id
+                    select c;
+            }
+            
             List<Producto> pList = listaProducto.ToList();
-
+            List<Tienda> pListA = listaAlmacen.ToList();
+            List<Categoria> pListC = listaCategoria.ToList();
+            
             foreach (Producto p in pList)
             {
                 String cad = "";
@@ -181,8 +252,6 @@ namespace pe.edu.pucp.ferretin.controller.MAlmacen
 
                 foreach (ProductoAlmacen pa in p.ProductoAlmacen)
                 {
-
-                  
                         //p.almacen = pa.Tienda.nombre;
                         p.stock = (int)pa.stock;
                         p.stockMinimo = (int)pa.stockMin;
@@ -192,9 +261,10 @@ namespace pe.edu.pucp.ferretin.controller.MAlmacen
                         p.precioLista = (int)p.precioLista;
                         p.descuento = (int)pa.descuento;
                         p.puntos = (int)pa.puntos;
-
-                        foreach (Tienda ti in listaAlmacen)
+                    
+                        foreach (Tienda ti in pListA)
                         {
+
                             if (pa.id_almacen.Equals(ti.id))
                             {
                                 p.almacen=ti.nombre;

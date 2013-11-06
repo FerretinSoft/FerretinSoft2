@@ -67,7 +67,7 @@
                     <DataGrid ItemsSource="{Binding Path=listaPerfiles,Mode=OneWay}" x:Name="perfilesGrid" Margin="10,30,0,5" Grid.RowSpan="2" Grid.ColumnSpan="2"  AutoGenerateColumns="False" CanUserAddRows="False" CanUserDeleteRows="False" IsReadOnly="True" Grid.Row="1">
                         <DataGrid.Columns>
                             <!-- Columnas del Grid -->
-
+                            <!--
                             <DataGridHyperlinkColumn Width="2.8*" Binding="{Binding Path=nombre}" Header="Perfil">
                                 <DataGridHyperlinkColumn.ElementStyle>
                                     <Style>
@@ -75,7 +75,7 @@
                                     </Style>
                                 </DataGridHyperlinkColumn.ElementStyle>
                             </DataGridHyperlinkColumn>
-                            <!--
+                             -->
                             <DataGridTemplateColumn Width="3*" Header="Perfil">
                                 <DataGridTemplateColumn.CellTemplate>
                                     <DataTemplate>
@@ -89,7 +89,7 @@
                                     </DataTemplate>
                                 </DataGridTemplateColumn.CellTemplate>
                             </DataGridTemplateColumn>
--->
+
                             <!-- Otras columnas -->
                             <DataGridTextColumn Width="3*" Binding="{Binding Path=modulo, Mode=TwoWay}" ClipboardContentBinding="{x:Null}" Header="Módulo"/>
                             <DataGridTextColumn Width="4*" Binding="{Binding Path=descripcion}" ClipboardContentBinding="{x:Null}" Header="Descripción"/>
@@ -117,7 +117,7 @@
                 </Grid>
             </TabItem>
 
-            <!--TAB EDICION
+            <!--TAB EDICION -->
             
             <TabItem x:Name="detallesTab" Margin="1,-1,-5,-2">
                 <TabItem.Header>
@@ -135,7 +135,7 @@
                     <TextBox Text="{Binding Path=perfil.descripcion, Mode=TwoWay, ValidatesOnExceptions=true, NotifyOnValidationError=true}" x:Name="descripcionTxtBox" HorizontalAlignment="Left" Height="163" Margin="22,130,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="265"/>
 
                     <Label Content="Descripción:" HorizontalAlignment="Left" Margin="22,99,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.464,1.231" Height="26" Width="74"/>
-                    <helper:MyTreeView ItemsSource="{Binding Path=menuPadre.Menu2,Mode=TwoWay}" SelectedItem_="{Binding Path=CategoriaSeleccionada, Mode=TwoWay}" Background="#FFF5F5F5" HorizontalAlignment="Left" Height="239" Margin="0,54,0,0" VerticalAlignment="Top" Width="309" Grid.Column="1">
+                    <helper:MyTreeView ItemsSource="{Binding Path=perfil.PerfilMenuPadre,Mode=TwoWay}" SelectedItem_="{Binding Path=CategoriaSeleccionada, Mode=TwoWay}" Background="#FFF5F5F5" HorizontalAlignment="Left" Height="239" Margin="0,54,0,0" VerticalAlignment="Top" Width="309" Grid.Column="1">
                         <TreeView.ItemContainerStyle>
                             <Style TargetType="{x:Type TreeViewItem}">
                                 <Setter Property="IsExpanded" Value="{Binding IsExpanded, Mode=TwoWay,FallbackValue=True}" />
@@ -149,9 +149,9 @@
                             </Style>
                         </TreeView.ItemContainerStyle>
                         <TreeView.ItemTemplate>
-                            <HierarchicalDataTemplate  ItemsSource="{Binding Path=Menu2}">
-                                <CheckBox IsChecked="{Binding isChecked}">
-                                    <TextBlock Text="{Binding nombre}"></TextBlock>
+                            <HierarchicalDataTemplate  ItemsSource="{Binding Path=PerfilMenu2}">
+                                <CheckBox IsChecked="{Binding estado}">
+                                    <TextBlock Text="{Binding Menu.nombre}"></TextBlock>
                                 </CheckBox>
                             </HierarchicalDataTemplate>
                         </TreeView.ItemTemplate>
@@ -167,7 +167,7 @@
                 </Grid>
             </TabItem>
 
--->
+
         </TabControl>
 
     </Grid>

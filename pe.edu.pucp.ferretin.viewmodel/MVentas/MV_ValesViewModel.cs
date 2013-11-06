@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Input;
 using pe.edu.pucp.ferretin.controller.MVentas;
 using pe.edu.pucp.ferretin.model;
@@ -165,10 +166,82 @@ namespace pe.edu.pucp.ferretin.viewmodel.MVentas
             }
         }
 
-        
+
+        RelayCommand _generarValesCommand;
+        public ICommand generarValesCommand
+        {
+            get
+            {
+                if (_generarValesCommand == null)
+                {
+                    _generarValesCommand = new RelayCommand(generarVales);
+                }
+                return _generarValesCommand;
+            }
+        }
+
+        RelayCommand _saveLoteValeCommand;
+        public ICommand saveLoteValeCommand
+        {
+            get
+            {
+                if (_saveLoteValeCommand == null)
+                {
+                    _saveLoteValeCommand = new RelayCommand(saveLoteVale);
+                }
+                return _saveLoteValeCommand;
+            }
+        }
+
+        RelayCommand _cancelarLoteValeCommand;
+        public ICommand cancelarLoteValeCommand
+        {
+            get
+            {
+                if (_cancelarLoteValeCommand == null)
+                {
+                    _cancelarLoteValeCommand = new RelayCommand(cancelarLoteVale);
+                }
+                return _cancelarLoteValeCommand;
+            }
+        }
         #endregion
 
         #region commands
+
+        public void cancelarLoteVale(object id)
+        {
+            loteVale.Vale = new System.Data.Linq.EntitySet<Vale>();
+            this.loteVale = new LoteVale();
+            this.selectedTab = 0;
+        }
+
+        public void saveLoteVale(object id)
+        {
+
+            if (!MV_ValeService.insertarLoteVale(loteVale))
+            {
+                MessageBox.Show("No se pudo agregar el nuevo lote de vales");
+            }
+            else
+            {
+                MessageBox.Show("El lote de vales fue agregado con éxito");
+            }
+            this.selectedTab = 0;
+        }
+
+        public void generarVales(object id)
+        {
+            loteVale.Vale = new System.Data.Linq.EntitySet<Vale>();
+            for (int i = 1; i <= (int)loteVale.cantidad; i++)
+            {
+                Vale vale = MV_ValeService.generarVale((int)loteVale.cantidad, i);
+                
+                loteVale.Vale.Add(vale);
+                NotifyPropertyChanged("loteVale");
+                Console.WriteLine(loteVale.Vale[i-1].codigo);
+            }
+        }
 
         public void viewLoteVale(Object id)
         {
@@ -187,6 +260,8 @@ namespace pe.edu.pucp.ferretin.viewmodel.MVentas
             this.selectedTab = 1;
             detallarVale = System.Windows.Visibility.Visible;
             this.noSoloDetallarLoteVale = true;
+            this.listaVales = null;
+            this.loteVale = MV_ValeService.obtenerNuevoLote();
             this.detallesTabHeader = "Generar";
 
         }
