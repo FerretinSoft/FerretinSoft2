@@ -35,6 +35,7 @@ namespace pe.edu.pucp.ferretin.view.MSeguridad
         Parametro IGV;
         Parametro vigenciaPro;
         Parametro vigenciaNota;
+        Parametro vigenciaVale;
         Parametro solesPorPunto;
         
         #endregion
@@ -72,6 +73,9 @@ namespace pe.edu.pucp.ferretin.view.MSeguridad
 
             solesPunto.Text = listaParametros[7].valor;
             solesPorPunto = listaParametros[7];
+
+            vigVale.Text = listaParametros[8].valor;
+            vigenciaVale = listaParametros[8];
             
         }
         #endregion
@@ -149,6 +153,15 @@ namespace pe.edu.pucp.ferretin.view.MSeguridad
             catch { }
         }
 
+        private void vigVale_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            try
+            {
+                vigenciaVale.valor = vigVale.Text;
+            }
+            catch { }
+        }
+
         private void solesPunto_TextChanged(object sender, TextChangedEventArgs e)
         {
             try
@@ -201,6 +214,11 @@ namespace pe.edu.pucp.ferretin.view.MSeguridad
                     MS_ParametroService.actualizarParametro(vigenciaNota);
                 }
 
+                if (!String.IsNullOrEmpty(vigVale.Text))
+                {
+                    MS_ParametroService.actualizarParametro(vigenciaVale);
+                }
+
                 if (!String.IsNullOrEmpty(solesPunto.Text))
                 {
                     MS_ParametroService.actualizarParametro(solesPorPunto);
@@ -208,7 +226,7 @@ namespace pe.edu.pucp.ferretin.view.MSeguridad
 
                 if (String.IsNullOrEmpty(intContrasena.Text) && String.IsNullOrEmpty(tMaxSesion.Text) && String.IsNullOrEmpty(durClave.Text)
                     && String.IsNullOrEmpty(tipCambio.Text) && String.IsNullOrEmpty(igv.Text) && String.IsNullOrEmpty(vigProforma.Text)
-                    && String.IsNullOrEmpty(vigNotaCredito.Text) && String.IsNullOrEmpty(solesPunto.Text))
+                    && String.IsNullOrEmpty(vigNotaCredito.Text) && String.IsNullOrEmpty(solesPunto.Text) && String.IsNullOrEmpty(vigVale.Text))
                 {
                     MessageBox.Show("No hay parametros validos.");
 
@@ -314,6 +332,18 @@ namespace pe.edu.pucp.ferretin.view.MSeguridad
             }
         }
 
+        private void vigVale_PreviewTextInput(object sender, TextCompositionEventArgs e)
+        {
+            if (Regex.IsMatch(e.Text, "[0-9]"))
+            {
+                e.Handled = false;
+            }
+            else
+            {
+                e.Handled = true;
+            }
+        }
+
         private void solesPunto_PreviewTextInput(object sender, TextCompositionEventArgs e)
         {
             if ((Regex.IsMatch(solesPunto.Text, @"^[0-9]+(\.{0}[0-9]+)?$")) && (e.Text != ",") || (Regex.IsMatch(e.Text, "[0-9]")))
@@ -385,6 +415,14 @@ namespace pe.edu.pucp.ferretin.view.MSeguridad
                 e.Handled = true;
         }
 
+        private void vigVale_PreviewKeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key != Key.Space)
+                e.Handled = false;
+            else
+                e.Handled = true;
+        }
+
         private void solesPunto_PreviewKeyDown(object sender, KeyEventArgs e)
         {
             if (e.Key != Key.Space)
@@ -394,5 +432,6 @@ namespace pe.edu.pucp.ferretin.view.MSeguridad
         }
 
         #endregion
+        
     }
 }
