@@ -68,6 +68,11 @@ namespace pe.edu.pucp.ferretin.controller.MSeguridad
                 return listaParametro.ElementAt(7).valor;
             }
 
+            if (String.Compare(nombre, "vigencia de vale", true) == 0)
+            {
+                return listaParametro.ElementAt(8).valor;
+            }
+
             return null;
         }
 
@@ -79,6 +84,11 @@ namespace pe.edu.pucp.ferretin.controller.MSeguridad
         public static Double obtenerTipodeCambio()
         {
             return Convert.ToDouble(obtenerParametro("tipo de cambio"));
+        }
+
+        public static int obtenerVigenciaVale()
+        {
+            return Convert.ToInt32(obtenerParametro("vigencia de vale"));
         }
 
     }

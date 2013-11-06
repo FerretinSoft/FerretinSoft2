@@ -41,15 +41,11 @@ namespace pe.edu.pucp.ferretin.view
         #region Boton Compras
         private void comprasBtn_Click(object sender, RoutedEventArgs e)
         {
-            if ((bool)ComunService.usuarioLpermisos.ElementAt(14).estado)
-            {
+            
                 MCompras.MC_MainWindow Mainw = new MCompras.MC_MainWindow();
                 Mainw.Show();
-            }
-            else
-            {
-                MessageBox.Show("Usted no cuenta con los permisos necesarios");
-            }
+            
+                
         }
         #endregion
 
@@ -57,15 +53,11 @@ namespace pe.edu.pucp.ferretin.view
         private void confBtn_Click(object sender, RoutedEventArgs e)
         {
 
-            if ((bool)ComunService.usuarioLpermisos.ElementAt(27).estado)
-            {
+            
                 MSeguridad.MS_MainWindow MSWindow = new MSeguridad.MS_MainWindow();
                 MSWindow.Show();
-            }
-            else
-            {
-                MessageBox.Show("Usted no cuenta con los permisos necesarios");
-            }
+            
+                
         }
         #endregion
 
@@ -73,31 +65,24 @@ namespace pe.edu.pucp.ferretin.view
         private void ventasBtn_Click(object sender, RoutedEventArgs e)
         {
 
-            if ((bool)ComunService.usuarioLpermisos.ElementAt(3).estado)
-            {
+           
             MVentas.MV_MainWindow MVWindow = MVentas.MV_MainWindow.instance;
             MVWindow.Show();
             MVWindow.Focus();
-            }
-            else
-            {
-                MessageBox.Show("Usted no cuenta con los permisos necesarios");
-            }
+           
         }
         #endregion
 
         #region Boton RRHH
         private void rrhhBtn_Click(object sender, RoutedEventArgs e)
         {
-            if ((bool)ComunService.usuarioLpermisos.ElementAt(1).estado)
-            {
+            
                 MRecursosHumanos.MR_MainWindow MRWindow = new MRecursosHumanos.MR_MainWindow();
                 MRWindow.Show();
-            }
-            else
-            {
-                MessageBox.Show("Usted no cuenta con los permisos necesarios");
-            }
+            
+            
+              
+            
         }
         #endregion
 
@@ -105,15 +90,10 @@ namespace pe.edu.pucp.ferretin.view
         private void almacenBtn_Click(object sender, RoutedEventArgs e)
         {
 
-            if ((bool)ComunService.usuarioLpermisos.ElementAt(20).estado)
-            {
+            
                 MAlmacen.MA_MainWindow maMain = new MAlmacen.MA_MainWindow();
                 maMain.Show();
-            }
-            else
-            {
-                MessageBox.Show("Usted no cuenta con los permisos necesarios");
-            }
+            
         }
         #endregion
 
