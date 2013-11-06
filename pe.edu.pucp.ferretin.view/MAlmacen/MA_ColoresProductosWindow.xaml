@@ -1,0 +1,16 @@
+﻿<Window x:Class="pe.edu.pucp.ferretin.view.MAlmacen.MA_ColoresProductosWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:viewmodel="clr-namespace:pe.edu.pucp.ferretin.viewmodel.MAlmacen;assembly=pe.edu.pucp.ferretin.viewmodel"
+        xmlns:helper="clr-namespace:pe.edu.pucp.ferretin.viewmodel.Helper;assembly=pe.edu.pucp.ferretin.viewmodel"
+        Title="Selección de color" Height="153.125" Width="300">
+    <Window.Resources>
+        <viewmodel:MA_MantenimientoProductos_SeleccionColorViewModel x:Key="MA_MantenimientoProductos_SeleccionColorViewModel"/>
+    </Window.Resources>
+    <Grid DataContext="{Binding Source={StaticResource MA_MantenimientoProductos_SeleccionColorViewModel}}">
+        <Label Content="Color" HorizontalAlignment="Left" Margin="50,23,0,0" VerticalAlignment="Top"/>
+        <Button x:Name="btnAddColor" Content="Agregar color" HorizontalAlignment="Left" Margin="92,72,0,0" VerticalAlignment="Top" Width="99" Click="btnAddColor_Click"/>
+        <ComboBox x:Name="cmbColores" ItemsSource="{Binding Path=listaColores}" DisplayMemberPath="nombre" SelectedValuePath="id"  SelectedValue="{Binding Path=idColor}" HorizontalAlignment="Left" Margin="136,23,0,0" VerticalAlignment="Top" Width="120"/>
+
+    </Grid>
+</Window>
