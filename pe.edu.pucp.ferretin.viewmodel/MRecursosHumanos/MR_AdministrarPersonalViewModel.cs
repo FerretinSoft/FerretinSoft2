@@ -459,6 +459,8 @@ namespace pe.edu.pucp.ferretin.viewmodel.MRecursosHumanos
                     else
                     {
                         MessageBox.Show("Se actualizó el empleado con éxito");
+                        this.statusTab = Tab.BUSQUEDA;
+                        listaEmpleados = MR_EmpleadoService.listaEmpleados;
                     }
                 }
                 /*Para agregar un empleado nuevo*/
@@ -502,6 +504,8 @@ namespace pe.edu.pucp.ferretin.viewmodel.MRecursosHumanos
                             {
 
                                 MessageBox.Show("El empleado fue agregado con éxito");
+                                this.statusTab = Tab.BUSQUEDA;
+                                listaEmpleados = MR_EmpleadoService.listaEmpleados;
                                 //NotifyPropertyChanged("EmpleadoTienda");//Para el historial de empleos
                             }
                         }
