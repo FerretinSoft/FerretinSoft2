@@ -9,7 +9,8 @@ using System.Threading.Tasks;
 namespace pe.edu.pucp.ferretin.model
 {
     public partial class Tienda : IDataErrorInfo
-    {
+    {       
+
         #region Zona de Validaciones
 
         #region Código por default de la interfaz heredada

@@ -80,13 +80,22 @@ namespace pe.edu.pucp.ferretin.controller.MSeguridad
 
         public static bool insertarAlmacen(Tienda tienda)
         {
-            if (db.Tienda.Single(t=> t.codigo == tienda.codigo)== null)
-            {                
-                db.Tienda.InsertOnSubmit(tienda);
-                return enviarCambios();
+            Tienda tiend;
+            try
+            {
+                try
+                {
+                    tiend = db.Tienda.Single(t => t.codigo == tienda.codigo);
+                    return false;
+                }
+                catch (Exception e)
+                {
+                    db.Tienda.InsertOnSubmit(tienda);
+                    return enviarCambios();
+                }                
             }
-            else
-            {                
+            catch (Exception e)
+            {
                 return false;
             }
         }
