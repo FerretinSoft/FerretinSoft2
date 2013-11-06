@@ -48,6 +48,7 @@
     <Compile Include="MAlmacen\MA_ComunService.cs" />
     <Compile Include="MAlmacen\MA_EstadoMovimientoService.cs" />
     <Compile Include="MAlmacen\MA_InventarioService.cs" />
+    <Compile Include="MAlmacen\MA_ProductoAlmacenService.cs" />
     <Compile Include="MAlmacen\MA_SharedService.cs" />
     <Compile Include="MAlmacen\MA_SolicitudAbastecimientoService.cs" />
     <Compile Include="MAlmacen\MA_TipoMovimientoService.cs" />

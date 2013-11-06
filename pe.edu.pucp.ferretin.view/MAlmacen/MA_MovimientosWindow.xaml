@@ -44,7 +44,7 @@
                             <DataGridTextColumn Width="1*" Binding="{Binding Path=MovimientoTipo.nombre}" ClipboardContentBinding="{x:Null}" Header="Tipo Mov."/>
                             <DataGridTextColumn Width="2*" Binding="{Binding Path=Tienda.nombre}" ClipboardContentBinding="{x:Null}" Header="Desde"/>
                             <DataGridTextColumn Width="2*" Binding="{Binding Path=Tienda1.nombre}" ClipboardContentBinding="{x:Null}" Header="Hasta"/>
-                            <DataGridTextColumn Width="1*" Binding="{Binding Path=MovimientoProducto.Count}" ClipboardContentBinding="{x:Null}" Header="Total Prod."/>
+                            <DataGridTextColumn Width="1*" Binding="{Binding Path=MovimientoEstado.nombre}" ClipboardContentBinding="{x:Null}" Header="Estado"/>
                         </DataGrid.Columns>
                     </DataGrid>
                     <ComboBox ItemsSource="{Binding Path=almacenesSearch,Mode=OneWay}" SelectedIndex="0" DisplayMemberPath="nombre" SelectedItem="{Binding searchAlmacen, Mode=TwoWay}" HorizontalAlignment="Left" Margin="28,43,0,0" VerticalAlignment="Top" Width="161" Height="22" Grid.Column="1">

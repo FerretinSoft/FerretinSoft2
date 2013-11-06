@@ -412,7 +412,7 @@ namespace pe.edu.pucp.ferretin.viewmodel.MAlmacen
 
             if (movimiento.id > 0)//Si existe
             {
-                if (!MA_MovimientosService.enviarCambios())
+                if (!MA_MovimientosService.ActualizarMovimiento(movimiento))
                 {
                     MessageBox.Show("No se pudo actualizar el movimiento");
                 }
