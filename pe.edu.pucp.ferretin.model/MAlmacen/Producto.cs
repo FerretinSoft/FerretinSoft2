@@ -16,9 +16,15 @@ namespace pe.edu.pucp.ferretin.model
         public String unidadMedida { get; set; }
         public String materialBase1 { get; set; }
         public String materialBase2 { get; set; }
-
         public int descuento { get; set; }
         public int puntos { get; set; }
-        
+
+        public string monedaString
+        {
+            get
+            {
+                return moneda == 1 ? "Soles" : "Dolares";
+            }
+        }
     }
 }

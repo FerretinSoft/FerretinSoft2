@@ -20,7 +20,50 @@ namespace pe.edu.pucp.ferretin.viewmodel.MCompras
         }
         #endregion
 
-     
+        private IEnumerable<Rubro> _rubros;
+        public IEnumerable<Rubro> rubros
+        {
+            get
+            {
+                return _rubros;
+            }
+            set
+            {
+                _rubros = value;
+                NotifyPropertyChanged("rubros");
+            }
+        }
+        public IEnumerable<Rubro> listaRubros
+        {
+            get
+            {
+                //Creo una nueva secuencia
+                var sequence = Enumerable.Empty<Rubro>();
+                //Primero agrego un item de Todos para que salga al inicio
+                //Pongo el ID en 0 para que al buscar, no filtre nada cuando se selecciona todos
+                IEnumerable<Rubro> items = new Rubro[] { new Rubro { id=0, nombre="Todos"} };
+                //Luego concateno el itemcon los elementos del combobox
+                return items.Concat(MC_RubroService.rubro);
+            }
+
+        }
+
+        private Rubro _selectedRubro;
+        public Rubro selectedRubro
+        {
+            get
+            {
+                return _selectedRubro;
+            }
+            set
+            {
+                _selectedRubro = value;
+                NotifyPropertyChanged("selectedRubro");
+             
+
+            }
+        }
+
 
         #region lista de Proveedores
         private Proveedor _proveedor;
@@ -50,6 +93,7 @@ namespace pe.edu.pucp.ferretin.viewmodel.MCompras
             {
                 _listaProveedores = value;
                 NotifyPropertyChanged("listaProveedores");
+                
             }
 
         }
@@ -62,8 +106,8 @@ namespace pe.edu.pucp.ferretin.viewmodel.MCompras
         public String _searchRazonSoc = "";
         public String searchRazonSoc { get { return _searchRazonSoc; } set { _searchRazonSoc = value; NotifyPropertyChanged("searchRazonSoc"); } }
 
-        public String _searchRubro = "";
-        public String searchRubro { get { return _searchRubro; } set { _searchRubro = value; NotifyPropertyChanged("searchRubro"); } }
+        public Rubro _searchRubro = null;
+        public Rubro searchRubro { get { return _searchRubro; } set { _searchRubro = value; NotifyPropertyChanged("searchRubro"); } }
 
        
         #endregion
@@ -83,6 +127,9 @@ namespace pe.edu.pucp.ferretin.viewmodel.MCompras
         }
 
         RelayCommand _viewEditProveedoresCommand;
+
+
+
         public ICommand viewEditProveedoresCommand
         {
             get
@@ -118,6 +165,19 @@ namespace pe.edu.pucp.ferretin.viewmodel.MCompras
                 return _cancelProveedorCommand;
             }
         }
+
+        RelayCommand _agregarProveedorCommand;
+        public ICommand agregarProveedorCommand
+        {
+            get
+            {
+                if (_agregarProveedorCommand == null)
+                {
+                    _agregarProveedorCommand = new RelayCommand(p => statusTab = Tab.AGREGAR);
+                }
+                return _agregarProveedorCommand;
+            }
+        }
         #endregion
 
         #region Comandos
@@ -127,11 +187,16 @@ namespace pe.edu.pucp.ferretin.viewmodel.MCompras
             try
             {
                 this.proveedor= listaProveedores.Single(proveedor => proveedor.id == (int)id);
-                //if (this.cliente.id_ubigeo != null)
-                //{
-                //    selectedProvincia = this.cliente.UbigeoDistrito.UbigeoProvincia;
-                //    selectedDepartamento = selectedProvincia.UbigeoDepartamento;
-                //}
+                if (this.proveedor.id_ubigeo != null)
+                {
+                    selectedProvincia = this.proveedor.UbigeoDistrito.UbigeoProvincia;
+                    selectedDepartamento = selectedProvincia.UbigeoDepartamento;
+                }
+
+                if (this.proveedor.id_rubro != null)
+                {
+                    selectedRubro = this.proveedor.Rubro;
+                }
                 this.statusTab = Tab.MODIFICAR;
             }
             catch (Exception e)
@@ -155,6 +220,7 @@ namespace pe.edu.pucp.ferretin.viewmodel.MCompras
             }
             else
             {
+                
                 if (!MC_ProveedorService.insertarProveedor(proveedor))
                 {
                     MessageBox.Show("No se pudo agregar el nuevo proveedor");
@@ -162,6 +228,8 @@ namespace pe.edu.pucp.ferretin.viewmodel.MCompras
                 else
                 {
                     MessageBox.Show("El proveedor fue agregado con éxito");
+                    this.statusTab = Tab.BUSQUEDA;
+                    listaProveedores = MC_ProveedorService.listaProveedores;
                 }
             }
         }

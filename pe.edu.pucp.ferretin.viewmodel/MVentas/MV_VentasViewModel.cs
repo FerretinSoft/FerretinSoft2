@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
+using pe.edu.pucp.ferretin.controller.MRecursosHumanos;
 using pe.edu.pucp.ferretin.controller.MVentas;
 using pe.edu.pucp.ferretin.model;
 using pe.edu.pucp.ferretin.viewmodel.Helper;
@@ -21,6 +22,14 @@ namespace pe.edu.pucp.ferretin.viewmodel.MVentas
         #endregion
 
         #region Valores para el cuadro de Búsqueda
+
+        public String _searchVendedor = "";
+        public String searchVendedor { get { return _searchVendedor; } set { _searchVendedor = value; NotifyPropertyChanged("searchVendedor"); } }
+
+        public String _nombreVendedor = "";
+        public String nombreVendedor { get { return _nombreVendedor; } set { _nombreVendedor = value; NotifyPropertyChanged("nombreVendedor"); } }
+
+
         public String _searchNroDocumento = "";
         public String searchNroDocumento { get { return _searchNroDocumento; } set { _searchNroDocumento = value; NotifyPropertyChanged("searchNroDocumento"); } }
 
@@ -116,7 +125,7 @@ namespace pe.edu.pucp.ferretin.viewmodel.MVentas
             get
             {
 
-                _listaVentas = MV_VentaService.buscarVentas(searchNroDocumento, searchNroDocCliente, searchFechaInicio, searchFechaFin);
+                _listaVentas = MV_VentaService.buscarVentas(searchNroDocumento, searchNroDocCliente, searchFechaInicio, searchFechaFin, searchVendedor);
 
                 return _listaVentas;
             }
@@ -197,9 +206,41 @@ namespace pe.edu.pucp.ferretin.viewmodel.MVentas
                 return _viewDetailVentaCommand;
             }
         }
+
+        RelayCommand _cargarVendedorCommand;
+        public ICommand cargarVendedorCommand
+        {
+            get
+            {
+                if (_cargarVendedorCommand == null)
+                {
+                    _cargarVendedorCommand = new RelayCommand(cargarVendedor);
+                }
+                return _cargarVendedorCommand;
+            }
+        }
         #endregion
 
         #region commands
+
+        public void cargarVendedor(Object id)
+        {
+            Empleado buscado = null;
+            try
+            {
+                buscado = MR_EmpleadoService.obtenerEmpleadoByNroDoc(searchVendedor);
+                nombreVendedor = buscado.nombreCompleto;
+            }
+            catch { }
+
+            if (buscado == null)
+            {
+                nombreVendedor = "";
+                MessageBox.Show("No se encontro ningún vendedor con el número de documento proporcionado", "No se encontro", MessageBoxButton.OK, MessageBoxImage.Question);
+            }
+
+        }
+
         public void viewDetailVenta(Object id)
         {
             try

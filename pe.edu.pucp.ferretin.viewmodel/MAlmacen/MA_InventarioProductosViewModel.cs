@@ -14,11 +14,11 @@ namespace pe.edu.pucp.ferretin.viewmodel.MAlmacen
     public class MA_InventarioProductosViewModel : ViewModelBase
     {
         #region Valores para el cuadro de Búsqueda de inventario de productos
-        public string _searchAlmacen = "";
-        public string searchAlmacen { get { return _searchAlmacen; } set { _searchAlmacen = value; NotifyPropertyChanged("searchAlmacen"); } }
+        public Tienda _searchAlmacen = null;
+        public Tienda searchAlmacen { get { return _searchAlmacen; } set { _searchAlmacen = value; NotifyPropertyChanged("searchAlmacen"); } }
 
-        public string _searchCategoria = "";
-        public string searchCategoria { get { return _searchCategoria; } set { _searchCategoria = value; NotifyPropertyChanged("searchCategoria"); } }
+        public Categoria _searchCategoria = null;
+        public Categoria searchCategoria { get { return _searchCategoria; } set { _searchCategoria = value; NotifyPropertyChanged("searchCategoria"); } }
 
         public String _searchNombre = "";
         public String searchNombre { get { return _searchNombre; } set { _searchNombre = value; NotifyPropertyChanged("_searchNombre"); } }
@@ -169,7 +169,7 @@ namespace pe.edu.pucp.ferretin.viewmodel.MAlmacen
             get
             {
 
-                _listaProducto = MA_InventarioService.obtenerProductosPorAlmacenCategoriaNombre(searchNombre, searchAlmacen);
+                _listaProducto = MA_InventarioService.obtenerProductosPorAlmacenCategoriaNombre(searchNombre, searchAlmacen, searchCategoria);
                 return _listaProducto;
             }
             set

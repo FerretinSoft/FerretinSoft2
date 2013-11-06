@@ -5,6 +5,8 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
+using pe.edu.pucp.ferretin.controller.MRecursosHumanos;
+using pe.edu.pucp.ferretin.controller.MSeguridad;
 using pe.edu.pucp.ferretin.controller.MVentas;
 using pe.edu.pucp.ferretin.model;
 using pe.edu.pucp.ferretin.viewmodel.Helper;
@@ -17,13 +19,12 @@ namespace pe.edu.pucp.ferretin.viewmodel.MVentas
         public MV_DevolucionesViewModel()
         {
 
-            devolucion = new Devolucion();
+            _devolucion = new Devolucion();
             {
-
 
             };
 
-            notaCredito = new NotaCredito();
+            _notaCredito = new NotaCredito();
             {
 
             }
@@ -44,6 +45,8 @@ namespace pe.edu.pucp.ferretin.viewmodel.MVentas
         public String _searchnombreCliente = "";
         public String searchnombreCliente { get { return _searchnombreCliente; } set { _searchnombreCliente = value; NotifyPropertyChanged("searchnombreCliente"); } }
 
+        public String _searchVendedor = "";
+        public String searchVendedor { get { return _searchVendedor; } set { _searchVendedor = value; NotifyPropertyChanged("searchVendedor"); } }
 
         public DateTime _searchFechaInicio = DateTime.Parse("10/09/2013");
         public DateTime searchFechaInicio { get { return _searchFechaInicio; } set { _searchFechaInicio = value; NotifyPropertyChanged("searchFechaInicio"); } }
@@ -53,6 +56,11 @@ namespace pe.edu.pucp.ferretin.viewmodel.MVentas
 
         public String _nombreCliente = "";
         public String nombreCliente { get { return _nombreCliente; } set { _nombreCliente = value; NotifyPropertyChanged("nombreCliente"); } }
+
+        public String _nombreVendedor = "";
+        public String nombreVendedor { get { return _nombreVendedor; } set { _nombreVendedor = value; NotifyPropertyChanged("nombreVendedor"); } }
+
+        
 
         public String _searchNroDevolucion = "";
         public String searchNroDevolucion { get { return _searchNroDevolucion; } set { _searchNroDevolucion = value; NotifyPropertyChanged("searchNroDevolucion"); } }
@@ -114,7 +122,7 @@ namespace pe.edu.pucp.ferretin.viewmodel.MVentas
             get
             {
 
-                _listaDevoluciones = MV_DevolucionService.buscarDevoluciones(searchNroDevolucion, searchNroDocumento, searchNroDocCliente, searchFechaInicio, searchFechaFin);
+                _listaDevoluciones = MV_DevolucionService.buscarDevoluciones(searchNroDevolucion, searchNroDocumento, searchNroDocCliente, searchFechaInicio, searchFechaFin, searchVendedor);
 
                 return _listaDevoluciones;
             }
@@ -287,8 +295,19 @@ namespace pe.edu.pucp.ferretin.viewmodel.MVentas
                 return _nuevaDevolucionCommand;
             }
         }
+        RelayCommand _cargarVendedorCommand;
+               public ICommand cargarVendedorCommand
+        {
+            get
+            {
+                if (_cargarVendedorCommand == null)
+                {
+                    _cargarVendedorCommand = new RelayCommand(cargarVendedor);
+                }
+                return _cargarVendedorCommand;
+            }
+        }
         
-
 
         #endregion
 
@@ -297,13 +316,34 @@ namespace pe.edu.pucp.ferretin.viewmodel.MVentas
 
         public void nuevaDevolucion(Object id)
         {
-           this.listaProductosComprados = null;
-           this.devolucion = new Devolucion();
-           devolucion.fecEmision = DateTime.Now;
+           this.listaProductosComprados = null;           
            devolucion.id_empleado = usuarioLogueado.Empleado.id;
            this.selectedTab = 2;
+           devolucion.fecEmision = DateTime.Now;
+           devolucion.codigo = MV_DevolucionService.obtenerCodDevolucion();
+           NotifyPropertyChanged("devolucion");
            
         }
+
+
+        public void cargarVendedor(Object id)
+        {
+            Empleado buscado = null;
+            try
+            {
+                buscado = MR_EmpleadoService.obtenerEmpleadoByNroDoc(searchVendedor);
+                nombreVendedor = buscado.nombreCompleto;            
+            }
+            catch { }
+
+            if (buscado == null)
+            {
+                nombreVendedor = "";
+                MessageBox.Show("No se encontro ningún vendedor con el número de documento proporcionado", "No se encontro", MessageBoxButton.OK, MessageBoxImage.Question);
+            }
+           
+        }
+
         public void cargarVenta(Object id)
         {
             Venta buscado = null;
@@ -313,7 +353,9 @@ namespace pe.edu.pucp.ferretin.viewmodel.MVentas
                 this.listaProductosComprados = MV_VentaService.obtenerProductosbyIdVenta(buscado.id);
                 this.devolucion.Venta = buscado;
                 this.devolucion.fecEmision = DateTime.Now;
+                devolucion.codigo = MV_DevolucionService.obtenerCodDevolucion();
                 devolucion.id_empleado = usuarioLogueado.Empleado.id;
+                NotifyPropertyChanged("devolucion");
             }
             catch { }
 
@@ -374,9 +416,15 @@ namespace pe.edu.pucp.ferretin.viewmodel.MVentas
         public void saveDevolucion(Object obj)
         {
             devolucion.id_empleado = usuarioLogueado.Empleado.id;
+            devolucion.codigo = MV_DevolucionService.obtenerCodDevolucion();
             notaCredito.fechaEmision = DateTime.Now;
+            devolucion.igv = devolucion.subTotal * (decimal)MS_ParametroService.obtenerIGV()/100;
+            devolucion.total = devolucion.igv + devolucion.subTotal;
             notaCredito.importe = devolucion.total;
+            notaCredito.estado = 0;
             notaCredito.codigo = devolucion.codigo;
+            notaCredito.fechaVencimiento = DateTime.Now.AddDays(Convert.ToInt32(MS_ParametroService.obtenerParametro("vigencia de notas de credito")));
+            
 
                     if (!MV_DevolucionService.insertarDevolucion(devolucion))
                     {
@@ -394,7 +442,10 @@ namespace pe.edu.pucp.ferretin.viewmodel.MVentas
                     else
                     {
                         MessageBox.Show("La Nota de Crédito fue agregado con éxito");
+                        selectedTab = 0;
+                        NotifyPropertyChanged("selectedTab");
                     }
+            
         }
 
         public void viewDetailDevolucion(Object id)

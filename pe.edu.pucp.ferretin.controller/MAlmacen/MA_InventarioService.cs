@@ -85,6 +85,49 @@ namespace pe.edu.pucp.ferretin.controller.MAlmacen
         }
 
 
+        private static IEnumerable<Material> _listaMaterial;
+        public static IEnumerable<Material> listaMaterial
+        {
+            get
+            {
+                if (_listaMaterial == null)
+                {
+                    _listaMaterial = db.Material;
+                }
+                //Usando concurrencia pesimista:
+                ///La lista de productos se actualizara para ver los cambios
+                ///Si quisiera usar concurrencia optimista quito la siguiente linea
+                db.Refresh(RefreshMode.OverwriteCurrentValues, _listaMaterial);
+                return _listaMaterial;
+            }
+            set
+            {
+                _listaMaterial = value;
+            }
+        }
+
+        private static IEnumerable<UnidadMedida> _listaUnidadMedida;
+        public static IEnumerable<UnidadMedida> listaUnidadMedida
+        {
+            get
+            {
+                if (_listaUnidadMedida == null)
+                {
+                    _listaUnidadMedida = db.UnidadMedida;
+                }
+                //Usando concurrencia pesimista:
+                ///La lista de productos se actualizara para ver los cambios
+                ///Si quisiera usar concurrencia optimista quito la siguiente linea
+                db.Refresh(RefreshMode.OverwriteCurrentValues, _listaUnidadMedida);
+                return _listaUnidadMedida;
+            }
+            set
+            {
+                _listaUnidadMedida = value;
+            }
+        }
+
+
         //todas las opearciones se basan en esta lista de productoAlmacen
         private static IEnumerable<ProductoAlmacen> _listaProductoAlmacen;
         public static IEnumerable<ProductoAlmacen> listaProductoAlmacen
@@ -109,21 +152,46 @@ namespace pe.edu.pucp.ferretin.controller.MAlmacen
 
 
 
-        public static IEnumerable<Producto> obtenerProductosPorAlmacenCategoriaNombre(String nombre1, String searchTienda)
+        public static IEnumerable<Producto> obtenerProductosPorAlmacenCategoriaNombre(String nombre1, Tienda searchAlmacen, Categoria searchCategoria)
         {
+            //String todo = "Todos"; 
 
-            listaProducto =
-                from p in db.Producto
-                where
-              (p.nombre != null && p.nombre.Contains(nombre1))
+            
+            
+                listaProducto =
+                    from p in db.Producto
+                    where
+                  (p.nombre != null && p.nombre.Contains(nombre1))
 
-                orderby p.id
-                select p;
+                    orderby p.id
+                    select p;
 
 
+            
+                if (searchAlmacen!=null && searchAlmacen.nombre!="Todos")
+                {
+                    listaAlmacen =
+                        from t in db.Tienda
+                        where
+                        (t.nombre != null && t.id.Equals(searchAlmacen.id))
+                        orderby t.id
+                        select t;
+                }
 
 
+                if (searchCategoria!=null && searchCategoria.nombre!= "Todos")
+                {
+                    listaCategoria =
+                        from c in db.Categoria
+                        where
+                        (c.nombre != null && c.id.Equals(searchCategoria.id))
+                        orderby c.id
+                        select c;
+                }
+            
             List<Producto> pList = listaProducto.ToList();
+            List<Tienda> pListA = listaAlmacen.ToList();
+            List<Categoria> pListC = listaCategoria.ToList();
 
             foreach (Producto p in pList)
             {
@@ -139,20 +207,45 @@ namespace pe.edu.pucp.ferretin.controller.MAlmacen
                 foreach (ProductoAlmacen pa in p.ProductoAlmacen)
                 {
 
-                    if (pa.Tienda.nombre!=null && pa.Tienda.nombre.Equals(searchTienda))
-                    {
-                        p.almacen = pa.Tienda.nombre;
+                  
+                        //p.almacen = pa.Tienda.nombre;
                         p.stock = (int)pa.stock;
                         p.stockMinimo = (int)pa.stockMin;
                         p.unidadMedida = p.UnidadMedida.nombre;
-                        p.materialBase1 = p.Material.nombre;
-                        p.materialBase2 = p.Material.nombre;
+                        //p.materialBase1 = p.Material.nombre;
+                        ///p.materialBase2 = p.Material.nombre;
                         p.precioLista = (int)p.precioLista;
                         p.descuento = (int)pa.descuento;
                         p.puntos = (int)pa.puntos;
-                    }
 
+                        foreach (Tienda ti in pListA)
+                        {
+
+                            if (pa.id_almacen.Equals(ti.id))
+                            {
+                                p.almacen=ti.nombre;
+                            }
+
+                        }
                 }
+
+                foreach (UnidadMedida ume in listaUnidadMedida) 
+                {
+                    if (p.id_unidad_medida.Equals(ume.id)) {
+                        p.unidadMedida = ume.nombre;
+                    }
+                }
+                    
+                foreach (Material ma in listaMaterial)
+                {
+                    if (p.id_material_base.Equals(ma.id)) {
+                        p.materialBase1 = ma.nombre;
+                        p.materialBase2 = ma.nombre;
+                    }
+                }
+
+
+                
             }
 
             return listaProducto;

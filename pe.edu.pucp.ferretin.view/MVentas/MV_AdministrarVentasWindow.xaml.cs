@@ -13,6 +13,8 @@ using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using pe.edu.pucp.ferretin.controller.MVentas;
 using pe.edu.pucp.ferretin.model;
+using pe.edu.pucp.ferretin.view.MRecursosHumanos;
+using pe.edu.pucp.ferretin.viewmodel.MRecursosHumanos;
 using pe.edu.pucp.ferretin.viewmodel.MVentas;
 
 namespace pe.edu.pucp.ferretin.view.MVentas
@@ -48,10 +50,13 @@ namespace pe.edu.pucp.ferretin.view.MVentas
                         padre_DataContext.searchnombreCliente = my_DataContext.venta.nombreCompletoCliente;
                         padre_DataContext.searchNroDocumento = my_DataContext.venta.nroDocumento;
                         padre_DataContext.searchNroDocCliente = my_DataContext.venta.Cliente.nroDoc;
+                        padre_DataContext.searchVendedor = my_DataContext.venta.Usuario.Empleado.dni;
+                        padre_DataContext.nombreVendedor = my_DataContext.venta.Usuario.Empleado.nombreCompleto;
                     }
                     else
                     {
                         padre_DataContext.devolucion.fecEmision = DateTime.Today;
+                        padre_DataContext.devolucion.codigo = MV_DevolucionService.obtenerCodDevolucion();
                         padre_DataContext.loadNroDocumento = my_DataContext.venta.nroDocumento;
                         padre_DataContext.devolucion.Venta = my_DataContext.venta;
                         padre_DataContext.listaProductosComprados = MV_VentaService.obtenerProductosbyIdVenta(my_DataContext.venta.id);
@@ -63,6 +68,14 @@ namespace pe.edu.pucp.ferretin.view.MVentas
                 catch { }
                 
             }
+        }
+        private void Button_Click_Vendedor(object sender, RoutedEventArgs e)
+        {
+            MR_AdministrarPersonalWindow v = new MR_AdministrarPersonalWindow();
+            v.Owner = this;
+            var viewModel = v.main.DataContext as MR_AdministrarPersonalViewModel;
+            viewModel.soloSeleccionarVendedor = true;
+            v.Show();
         }
 
         private void Button_Click_Cliente(object sender, RoutedEventArgs e)

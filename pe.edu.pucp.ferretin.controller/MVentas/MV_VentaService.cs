@@ -80,7 +80,7 @@ namespace pe.edu.pucp.ferretin.controller.MVentas
                 return null;
         }
 
-        public static IEnumerable<Venta> buscarVentas(string nroDocumento, string nroDocCliente, DateTime fechaInicio, DateTime fechaFin)
+        public static IEnumerable<Venta> buscarVentas(string nroDocumento, string nroDocCliente, DateTime fechaInicio, DateTime fechaFin, string searchVendedor)
         {
             return from c in listaVentas
                    where
@@ -88,6 +88,7 @@ namespace pe.edu.pucp.ferretin.controller.MVentas
                    && c.Cliente.nroDoc != null && c.Cliente.nroDoc.Contains(nroDocCliente)
                    && c.fecha != null && c.fecha >= fechaInicio
                    && c.fecha != null && c.fecha <= fechaFin
+                   && c.Usuario.Empleado.dni != null && c.Usuario.Empleado.dni.Contains(searchVendedor)
 
                     )
                    orderby c.nroDocumento
