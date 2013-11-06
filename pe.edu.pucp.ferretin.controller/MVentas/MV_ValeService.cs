@@ -4,6 +4,7 @@ using System.Data.Linq;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using pe.edu.pucp.ferretin.controller.MSeguridad;
 using pe.edu.pucp.ferretin.model;
 
 namespace pe.edu.pucp.ferretin.controller.MVentas
@@ -107,6 +108,7 @@ namespace pe.edu.pucp.ferretin.controller.MVentas
             codLote = Convert.ToString(Convert.ToInt32(codLote) + 1);
             LoteVale loteVale = new LoteVale();
             loteVale.fechaEmision = DateTime.Today;
+            loteVale.fechaVencimiento = DateTime.Today.AddDays(MS_SharedService.obtenerVigenciaVale());
             while (true)
             {
                 if (codLote.Length == 8)

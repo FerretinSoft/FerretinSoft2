@@ -209,7 +209,7 @@ namespace pe.edu.pucp.ferretin.viewmodel.MVentas
             }
             else
             {
-                MessageBox.Show("El lote de valess fue agregado con éxito");
+                MessageBox.Show("El lote de vales fue agregado con éxito");
             }
            
         }
