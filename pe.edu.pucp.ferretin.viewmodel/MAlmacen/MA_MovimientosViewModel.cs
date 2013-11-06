@@ -24,7 +24,7 @@ namespace pe.edu.pucp.ferretin.viewmodel.MAlmacen
             }
         }
 
-        public ObservableCollection<char> categoriasMovimiento
+        /*public ObservableCollection<char> categoriasMovimiento
         {
             get
             {
@@ -33,7 +33,7 @@ namespace pe.edu.pucp.ferretin.viewmodel.MAlmacen
                 milista.Add('S');
                 return milista;
             }
-        }
+        }*/
 
         public bool isCreating
         {
@@ -426,8 +426,9 @@ namespace pe.edu.pucp.ferretin.viewmodel.MAlmacen
                 //validación
                 if (movimiento.codigo == null || movimiento.codigo == "") MessageBox.Show("Debe llenar el campo código.");
                 else if (movimiento.MovimientoTipo == null) MessageBox.Show("Debe seleccionar un tipo de movimiento");
-                else if (movimiento.Tienda == null && movimiento.MovimientoTipo.categoria == 'S') MessageBox.Show("Debe seleccionar un almacén de salida de mercancía");
-                else if (movimiento.Tienda1 == null && movimiento.MovimientoTipo.categoria == 'E') MessageBox.Show("Debe seleccionar un almacén destino para la entrada de mercancía");
+                else if (movimiento.Tienda == null && movimiento.MovimientoTipo.categoriaEnum == MovimientoTipo.CategoriaMovimiento.SALIDA) MessageBox.Show("Debe seleccionar un almacén de salida de mercancía");
+                else if (movimiento.Tienda1 == null && movimiento.MovimientoTipo.categoriaEnum == MovimientoTipo.CategoriaMovimiento.ENTRADA) MessageBox.Show("Debe seleccionar un almacén destino para la entrada de mercancía");
+                else if (movimiento.Tienda == null || movimiento.Tienda1 == null && movimiento.MovimientoTipo.categoriaEnum == MovimientoTipo.CategoriaMovimiento.TRANSFERENCIA) MessageBox.Show("Debe seleccionar un almacén de salida de mercancía y un almacén de entrada");
                 else if (movimiento.MovimientoEstado == null) MessageBox.Show("Debe seleccionar un estado para el movimiento");
                 else if (movimiento.MovimientoProducto.Count <= 0) MessageBox.Show("Debe registrar al menos un Producto en su movimiento");
                 else

@@ -91,15 +91,15 @@ namespace pe.edu.pucp.ferretin.controller.MAlmacen
             }
             //actualizar stock
             bool errors = true;
-            switch (movimiento.MovimientoTipo.categoria)
+            switch (movimiento.MovimientoTipo.categoriaEnum)
             {
-                case 'E':
+                case MovimientoTipo.CategoriaMovimiento.ENTRADA:
                     errors = errors && actualizarStockMovimiento(movimiento.Tienda1, 'E', productos);
                     break;
-                case 'S':
+                case MovimientoTipo.CategoriaMovimiento.SALIDA:
                     errors = errors && actualizarStockMovimiento(movimiento.Tienda, 'S', productos);
                     break;
-                case 'T':
+                case MovimientoTipo.CategoriaMovimiento.TRANSFERENCIA:
                     errors = errors && actualizarStockMovimiento(movimiento.Tienda, 'S', productos);
                     errors = errors && actualizarStockMovimiento(movimiento.Tienda1, 'E', productos);
                     break;
@@ -124,15 +124,15 @@ namespace pe.edu.pucp.ferretin.controller.MAlmacen
                     }
                     //actualizar stock
                     bool errors = true;
-                    switch (movimiento.MovimientoTipo.categoria)
+                    switch (movimiento.MovimientoTipo.categoriaEnum)
                     {
-                        case 'E':
+                        case MovimientoTipo.CategoriaMovimiento.ENTRADA:
                             errors = errors && actualizarStockMovimiento(movimiento.Tienda1, 'E', productos);
                             break;
-                        case 'S':
+                        case MovimientoTipo.CategoriaMovimiento.SALIDA:
                             errors = errors && actualizarStockMovimiento(movimiento.Tienda, 'S', productos);
                             break;
-                        case 'T':
+                        case MovimientoTipo.CategoriaMovimiento.TRANSFERENCIA:
                             errors = errors && actualizarStockMovimiento(movimiento.Tienda, 'S', productos);
                             errors = errors && actualizarStockMovimiento(movimiento.Tienda1, 'E', productos);
                             break;

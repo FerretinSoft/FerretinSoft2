@@ -9,6 +9,44 @@ namespace pe.edu.pucp.ferretin.model
 {
     public partial class MovimientoTipo : IDataErrorInfo
     {
+        public enum CategoriaMovimiento { ENTRADA, SALIDA, TRANSFERENCIA, NINGUNA};
+
+        public CategoriaMovimiento categoriaEnum
+        {
+            get 
+            {
+                switch (categoria)
+                {
+                    case 'E': 
+                        return CategoriaMovimiento.ENTRADA;
+                    case 'S':
+                        return CategoriaMovimiento.SALIDA;
+                    case 'T':
+                        return CategoriaMovimiento.TRANSFERENCIA;
+                    default:
+                        return CategoriaMovimiento.NINGUNA;
+                }
+            }
+            set 
+            {
+                switch (value)
+                {
+                    case CategoriaMovimiento.ENTRADA:
+                        categoria = 'E';
+                        break;
+                    case CategoriaMovimiento.SALIDA:
+                        categoria = 'S';
+                        break;
+                    case CategoriaMovimiento.TRANSFERENCIA:
+                        categoria = 'T';
+                        break;
+                    default:
+                        categoria = ' ';
+                        break;
+                }
+            }
+        }
+
         #region Código por default de la interfaz heredada
         public string Error
         {
