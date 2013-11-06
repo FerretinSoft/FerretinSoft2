@@ -40,7 +40,7 @@ namespace pe.edu.pucp.ferretin.viewmodel.MCompras
         {
             get
             {
-                _listaGuiasRemision = MC_DocumentoCompraService.buscarGuiasRemision();
+                //_listaGuiasRemision = MC_DocumentoCompraService.buscarGuiasRemision();
 
                 return _listaGuiasRemision;
             }
@@ -78,8 +78,8 @@ namespace pe.edu.pucp.ferretin.viewmodel.MCompras
                 //Si la pestaña es para agregar nuevo, limpio los input
                 switch (_statusTab)
                 {
-                    case Tab.BUSQUEDA: detallesTabHeader = "Agregar"; guiaRemision = new guiaRemision(); break;
-                    case Tab.AGREGAR: detallesTabHeader = "Agregar"; guiaRemision = new guiaRemision(); break;
+                    case Tab.BUSQUEDA: detallesTabHeader = "Agregar"; guiaRemision = new GuiaRemision(); break;
+                    case Tab.AGREGAR: detallesTabHeader = "Agregar"; guiaRemision = new GuiaRemision(); break;
                     case Tab.MODIFICAR: detallesTabHeader = "Modificar"; break;
                     case Tab.DETALLES: detallesTabHeader = "Detalles"; break;
                 }
