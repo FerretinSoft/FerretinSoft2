@@ -72,6 +72,7 @@
     <Compile Include="MAlmacen\MovimientoTipo.cs" />
     <Compile Include="MCompras\DocumentoCompra.cs" />
     <Compile Include="MCompras\Proveedor.cs" />
+    <Compile Include="MCompras\ProveedorProducto.cs" />
     <Compile Include="MRecursosHumanos\Empleado.cs" />
     <Compile Include="MRecursosHumanos\EmpleadoTienda.cs" />
     <Compile Include="MRecursosHumanos\EmpleadoTurno.cs" />
@@ -102,6 +103,7 @@
     </Compile>
     <Compile Include="MAlmacen\Tienda.cs" />
     <Compile Include="MSeguridad\Usuario.cs" />
+    <Compile Include="MVentas\VentaMedioPago.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
