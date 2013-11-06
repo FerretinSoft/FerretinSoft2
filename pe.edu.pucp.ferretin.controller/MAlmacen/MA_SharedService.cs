@@ -80,6 +80,24 @@ namespace pe.edu.pucp.ferretin.controller.MAlmacen
         /// <returns>Devuelve la cadena vacia si se registró el movimiento correctamente, en caso contrario devuelve el error ocurrido</returns>
         public static String registrarVenta(Tienda tienda, List<VentaProducto> items)
         {
+            Movimiento movimiento = new Movimiento();
+            DateTime today = DateTime.Today;
+            movimiento.codigo = String.Format("{0}{1}{2}{3}{4}{5}{6}", today.Year, today.Month, today.Day, today.Hour, today.Minute, today.Second, tienda.codigo);
+            movimiento.fecha = today;
+            movimiento.MovimientoEstado = MA_EstadoMovimientoService.getMovimientoEstadoByName("Finalizado");
+            movimiento.MovimientoTipo = MA_TipoMovimientoService.getMovimientoTipoByName("Venta");
+            movimiento.Tienda = tienda;
+            movimiento.MovimientoProducto = new EntitySet<MovimientoProducto>();
+            MovimientoProducto current;
+            for (int i = 0; i < items.Count; i++)
+            {
+                current = new MovimientoProducto();
+                current.cantidad = items[i].cantidad;
+                current.Movimiento = movimiento;
+                current.Producto = items[i].Producto;
+                movimiento.MovimientoProducto.Add(current);                
+            }
+            MA_MovimientosService.InsertarMovimiento(movimiento);
             return "";
         }
 
@@ -91,6 +109,24 @@ namespace pe.edu.pucp.ferretin.controller.MAlmacen
         /// <returns>Devuelve la cadena vacia si se registró el movimiento correctamente, en caso contrario devuelve el error ocurrido</returns>
         public static String registrarDevolucion(Tienda tienda, List<DevolucionProducto> items)
         {
+            Movimiento movimiento = new Movimiento();
+            DateTime today = DateTime.Today;
+            movimiento.codigo = String.Format("{0}{1}{2}{3}{4}{5}{6}", today.Year, today.Month, today.Day, today.Hour, today.Minute, today.Second, tienda.codigo);
+            movimiento.fecha = today;
+            movimiento.MovimientoEstado = MA_EstadoMovimientoService.getMovimientoEstadoByName("Finalizado");
+            movimiento.MovimientoTipo = MA_TipoMovimientoService.getMovimientoTipoByName("Devolución");
+            movimiento.Tienda = tienda;
+            movimiento.MovimientoProducto = new EntitySet<MovimientoProducto>();
+            MovimientoProducto current;
+            for (int i = 0; i < items.Count; i++)
+            {
+                current = new MovimientoProducto();
+                current.cantidad = items[i].cantidad;
+                current.Movimiento = movimiento;
+                current.Producto = items[i].Producto;
+                movimiento.MovimientoProducto.Add(current);
+            }
+            MA_MovimientosService.InsertarMovimiento(movimiento);
             return "";
         }
 
@@ -102,6 +138,25 @@ namespace pe.edu.pucp.ferretin.controller.MAlmacen
         /// <returns>Devuelve la cadena vacia si se registró el movimiento correctamente, en caso contrario devuelve el error ocurrido</returns>
         public static String registrarCompra(Tienda tienda, List<DocumentoCompraProducto> items)
         {
+            Movimiento movimiento = new Movimiento();
+            DateTime today = DateTime.Today;
+            movimiento.codigo = String.Format("{0}{1}{2}{3}{4}{5}{6}", today.Year, today.Month, today.Day, today.Hour, today.Minute, today.Second, tienda.codigo);
+            movimiento.fecha = today;
+            movimiento.MovimientoEstado = MA_EstadoMovimientoService.getMovimientoEstadoByName("Finalizado");
+            movimiento.MovimientoTipo = MA_TipoMovimientoService.getMovimientoTipoByName("Compra");
+            movimiento.Tienda = tienda;
+            movimiento.MovimientoProducto = new EntitySet<MovimientoProducto>();
+            MovimientoProducto current;
+            for (int i = 0; i < items.Count; i++)
+            {
+                current = new MovimientoProducto();
+                current.cantidad = items[i].cantidad;
+                current.Movimiento = movimiento;
+                current.Producto = items[i].Producto;
+                movimiento.MovimientoProducto.Add(current);
+            }
+            MA_MovimientosService.InsertarMovimiento(movimiento);
+            return "";
             return "";
         }
 
