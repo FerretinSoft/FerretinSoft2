@@ -75,7 +75,7 @@ namespace pe.edu.pucp.ferretin.viewmodel.MVentas
         {
             get
             {
-                if (venta.Cliente.imagen != null)
+                if (venta!=null && venta.Cliente != null && venta.Cliente.imagen != null)
                 {
                     MemoryStream strm = new MemoryStream();
                     strm.Write(venta.Cliente.imagen.ToArray(), 0, venta.Cliente.imagen.Length);

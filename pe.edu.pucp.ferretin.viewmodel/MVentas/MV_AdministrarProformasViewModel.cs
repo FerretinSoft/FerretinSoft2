@@ -12,8 +12,36 @@ namespace pe.edu.pucp.ferretin.viewmodel.MVentas
         #region Atributos del Buscador
         public string codProforma { get; set; }
         public string clienteSearch { get; set; }
-        public DateTime _fechaDesde = DateTime.Today.AddDays(-30);
-        
+
+        private DateTime _fechaDesdeSearch = DateTime.Today.AddDays(-30);
+        public DateTime fechaDesdeSearch
+        {
+            get
+            {
+                return _fechaDesdeSearch;
+            }
+            set
+            {
+                _fechaDesdeSearch = value;
+                NotifyPropertyChanged("fechaDesdeSearch");
+            }
+        }
+
+        private DateTime _fechaHastaSearch = DateTime.Today;
+        public DateTime fechaHastaSearch
+        {
+            get
+            {
+                return _fechaHastaSearch;
+            }
+            set
+            {
+                _fechaHastaSearch = value;
+                NotifyPropertyChanged("fechaHastaSearch");
+            }
+        }
+
+        public Empleado vendedor { get; set; }
 
         #endregion
 
