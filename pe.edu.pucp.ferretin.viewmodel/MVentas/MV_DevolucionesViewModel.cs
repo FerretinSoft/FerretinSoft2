@@ -350,7 +350,7 @@ namespace pe.edu.pucp.ferretin.viewmodel.MVentas
             try
             {
                 buscado = MV_VentaService.obtenerVentaByCodVenta(loadNroDocumento);
-                this.listaProductosComprados = MV_VentaService.obtenerProductosbyIdVenta(buscado.id);
+                this.listaProductosComprados = MV_VentaService.obtenerProductosSinPuntosbyIdVenta(buscado.id);
                 this.devolucion.Venta = buscado;
                 this.devolucion.fecEmision = DateTime.Now;
                 devolucion.codigo = MV_DevolucionService.obtenerCodDevolucion();

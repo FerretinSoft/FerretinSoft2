@@ -98,7 +98,14 @@ namespace pe.edu.pucp.ferretin.controller.MVentas
             string codDev = (from c in listaDevoluciones
                                select c.codigo).Max();
             long numDev = Convert.ToInt64(codDev) + 1;
-            codDev = Convert.ToString(numDev);       
+            codDev = Convert.ToString(numDev);
+            while (true)
+            {
+                if (codDev.Length == 8)
+                    break;
+                else
+                    codDev = "0" + codDev;
+            }
             return codDev;
         }
 

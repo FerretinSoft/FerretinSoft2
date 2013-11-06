@@ -93,7 +93,7 @@
                             <DataGridTextColumn Width="2.5*" Binding="{Binding Path=Cliente.nombreCompleto}" ClipboardContentBinding="{x:Null}" Header="Empresa"/>
                             <DataGridTextColumn Width="2*" Binding="{Binding Path=fechaEmision}" ClipboardContentBinding="{x:Null}" Header="Fecha Emisión"/>
                             <DataGridTextColumn Width="2*" Binding="{Binding Path=cantidad}" ClipboardContentBinding="{x:Null}" Header="Cantidad"/>
-                            <DataGridTextColumn Width="2*" Binding="{Binding Path=moneda}" ClipboardContentBinding="{x:Null}" Header="Moneda"/>
+                            <DataGridTextColumn Width="2*" Binding="{Binding Path=monedaString}" ClipboardContentBinding="{x:Null}" Header="Moneda"/>
                             <DataGridTextColumn Width="1.5*" Binding="{Binding Path=monto}" ClipboardContentBinding="{x:Null}" Header="Monto"/>
                         </DataGrid.Columns>
                     </DataGrid>
@@ -121,13 +121,13 @@
                             <Grid.RowDefinitions>
                                 <RowDefinition/>
                                 <RowDefinition/>
-                                <RowDefinition/>
+                                <RowDefinition Height="30"/>
                             </Grid.RowDefinitions>
                             <Label Content="Cód. Lote:" Grid.Column="0" VerticalContentAlignment="Center"/>
                             <Label Content="Empresa RUC :" Grid.Column="2" VerticalContentAlignment="Center"/>
                             <Label Content="Fecha Emisión:" Grid.Column="0" Grid.Row="1" VerticalContentAlignment="Center"/>
-                            <DatePicker SelectedDate="{Binding Path=loteVale.fechaEmision, Mode=TwoWay}" VerticalAlignment="Center" Grid.Column="1" Grid.Row="1"  BorderThickness="0" IsEnabled="True"/>
-                            <TextBox Text="{Binding Path=loteVale.codigo, Mode=TwoWay}" VerticalAlignment="Center" Grid.Column="1" IsEnabled="TRue" Margin="0,0,26,0"/>
+                            <DatePicker SelectedDate="{Binding Path=loteVale.fechaEmision, Mode=TwoWay}" VerticalAlignment="Center" Grid.Column="1" Grid.Row="1"  BorderThickness="0" IsEnabled="False"/>
+                            <TextBox IsEnabled="False" Text="{Binding Path=loteVale.codigo, Mode=TwoWay}" VerticalAlignment="Center" Grid.Column="1" Margin="0,0,26,0"/>
                             <Label Content="Fecha Vencimiento:" Grid.Column="0" Grid.Row="2" VerticalContentAlignment="Center"/>
                             <DatePicker SelectedDate="{Binding Path=loteVale.fechaVencimiento, Mode=TwoWay}" VerticalAlignment="Center" Grid.Column="1" Grid.Row="2"  BorderThickness="0" />
                             <Grid Grid.Column="3">
@@ -137,7 +137,7 @@
                                     <ColumnDefinition></ColumnDefinition>
                                 </Grid.ColumnDefinitions>
                                 <TextBox Text="{Binding Path=loteVale.Cliente.nroDoc, Mode=TwoWay}" VerticalAlignment="Center" HorizontalAlignment="Stretch"/>
-                                <Button Visibility="{Binding Path=detallarVale}" Margin="0,0,5,0" x:Name="buscarEmpresaBtn" VerticalAlignment="Center" Width="18" Height="18" Click="buscarEmpresaBtn_Click" BorderThickness="0" Grid.Column="1">
+                                <Button Click="Button_LoadEmpresa" Visibility="{Binding Path=detallarVale}" Margin="0,0,5,0" x:Name="buscarEmpresaBtn" VerticalAlignment="Center" Width="18" Height="18" BorderThickness="0" Grid.Column="1">
                                     <Button.Background>
                                         <ImageBrush ImageSource="../Resources/search1_20.png"/>
                                     </Button.Background>
@@ -152,7 +152,8 @@
                             <Label Grid.Row="2" Grid.Column="2">Monto Unidad:</Label>
                             <StackPanel Orientation="Horizontal" Grid.Column="3" Grid.Row="2">
                                 <TextBox Text="{Binding Path=loteVale.monto, Mode=TwoWay}" VerticalAlignment="Center"  Width="50" HorizontalAlignment="Left"/>
-                                <ComboBox VerticalAlignment="Center" Height="18" Width="70" Margin="5,0,0,0">
+                                <ComboBox SelectedIndex="{Binding Path=loteVale.moneda, Mode=TwoWay, UpdateSourceTrigger=LostFocus, NotifyOnValidationError=True, ValidatesOnDataErrors=True, ValidatesOnExceptions=True}" VerticalAlignment="Center" Height="22" Width="70" Margin="5,4,0,4">
+                                    <ComboBoxItem></ComboBoxItem>
                                     <ComboBoxItem Content="Soles (S/.)"></ComboBoxItem>
                                     <ComboBoxItem Content="Dolares (US $)"></ComboBoxItem>
                                 </ComboBox>
@@ -160,13 +161,15 @@
                         </Grid>
                     </GroupBox>
                     <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Center">
-                        <Button Visibility="{Binding Path=detallarVale}"  Content="Generar" Height="30" Padding="5" Margin="5,0" FontSize="14"/>
+                        <Button Command="{Binding generarValesCommand}" Visibility="{Binding Path=detallarVale}"  Content="Generar" Height="30" Padding="5" Margin="5,0" FontSize="14"/>
+                        <Button Command="{Binding saveLoteValeCommand}" Visibility="{Binding Path=detallarVale}"  Content="Guardar" Height="30" Padding="5" Margin="5,0" FontSize="14"/>
                         <Button Visibility="{Binding Path=detallarVale}"  Content="Cancelar" Height="30" Padding="5" Margin="5,0" FontSize="14"/>
+
                     </StackPanel>
-                    <DataGrid ItemsSource="{Binding Path=listaVales, Mode=OneWay}" Margin="5,5" Grid.Row="2" AutoGenerateColumns="False">
+                    <DataGrid ItemsSource="{Binding Path=loteVale.Vale,UpdateSourceTrigger=PropertyChanged,NotifyOnSourceUpdated=True,NotifyOnTargetUpdated=True,Mode=TwoWay}" Margin="5,5" Grid.Row="2" AutoGenerateColumns="False">
                         <DataGrid.Columns>
-                            <DataGridHyperlinkColumn Width="2*" Binding="{Binding Path=codigo}" ContentBinding="{x:Null}" ClipboardContentBinding="{x:Null}" Header="Cód. Vale"/>
-                            <DataGridTextColumn Width="1*" Binding="{Binding Path=estado}" ClipboardContentBinding="{x:Null}" Header="Estado"/>
+                            <DataGridTextColumn Width="2*" Binding="{Binding Path=codigo}" ClipboardContentBinding="{x:Null}" Header="Cód. Vale"/>
+                            <DataGridTextColumn Width="1*" Binding="{Binding Path=estadoString}" ClipboardContentBinding="{x:Null}" Header="Estado"/>
                         </DataGrid.Columns>
                     </DataGrid>
                     <StackPanel Grid.Row="3"></StackPanel>
