@@ -134,8 +134,18 @@ namespace pe.edu.pucp.ferretin.controller.MCompras
                         where dce.tipo.Equals(1)
                         orderby dce.nombre
                         select dce);
-            }
-            
+            }           
+        }
+
+        public static DocumentoCompra obtenerDCByCodigo(string codigo)
+        {
+            IEnumerable<DocumentoCompra> documentos = (from e in listaDocumentosCompra
+                                                       where e.codigo != null && e.codigo.Equals(codigo)
+                                                        select e);
+            if (documentos.Count() > 0)
+                return documentos.First();
+            else
+                return null;
         }
 
         #endregion
