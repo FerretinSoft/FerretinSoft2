@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Microsoft.Win32;
+using pe.edu.pucp.ferretin.controller.MAlmacen;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -18,6 +20,8 @@ namespace pe.edu.pucp.ferretin.view.MAlmacen
     public partial class MA_MantenimientoProductosWindow : Window
     {
         //MA_MantinimientoProductosViewModel pvm=new MA_MantinimientoProductosViewModel();
+
+        Image imagen;
 
         public MA_MantenimientoProductosWindow()
         {
@@ -51,7 +55,15 @@ namespace pe.edu.pucp.ferretin.view.MAlmacen
         private void txtCodigo_KeyDown(object sender, KeyEventArgs e)
         {
             //Validaciones para textbox de solo letras
-            if (!(e.Key >= Key.A && e.Key <= Key.Z)) e.Handled = true;
+
+            if (e.Key >= Key.D0 && e.Key <= Key.D9 || e.Key >= Key.NumPad0 && e.Key <= Key.NumPad9)
+            {
+                e.Handled = false;
+                return;
+            }
+
+            if (!(e.Key >= Key.A && e.Key <= Key.Z)) 
+                e.Handled = true;
         }
 
         private void txtPrecio_KeyDown(object sender, KeyEventArgs e)
@@ -84,6 +96,28 @@ namespace pe.edu.pucp.ferretin.view.MAlmacen
         {
             
                 
+        }
+
+        private void btnAddColor_Click(object sender, RoutedEventArgs e)
+        {
+            MA_ColoresProductosWindow cpw = new MA_ColoresProductosWindow(MA_ProductoService.obtenerIDProducto(txtCodigo.Text));
+            cpw.Show();
+        }
+
+        private void btnCambiarImagen_Click(object sender, RoutedEventArgs e)
+        {
+            OpenFileDialog openFileDialog1 = new OpenFileDialog();
+            openFileDialog1.Filter = "Archivos de imágen (.jpg)|*.jpg";
+            openFileDialog1.FilterIndex = 1;
+            openFileDialog1.Multiselect = false;
+            bool? pressOK = openFileDialog1.ShowDialog();
+
+            if (pressOK == true)
+            {
+                imagenProducto.Source = new BitmapImage(new Uri(openFileDialog1.FileName));
+            } 
+
+
         }
     }
 }
