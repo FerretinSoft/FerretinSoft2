@@ -125,7 +125,7 @@ namespace pe.edu.pucp.ferretin.controller.MSeguridad
             //Filtro por modulo         
             perfiles = perfiles.Where(p => (modulo == 0) || (p.modulo.ToLower().Contains(obtenerModulo(modulo).ToLower().Trim())) );
             //Filtro por descripcion
-            perfiles = perfiles.Where(p => p.descripcion.ToLower().Contains(descripcion.ToLower().Trim()));
+            //perfiles = perfiles.Where(p => p.descripcion.ToLower().Contains(descripcion.ToLower().Trim()));
             return perfiles;
         }
         /*
