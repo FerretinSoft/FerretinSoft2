@@ -347,6 +347,7 @@ namespace pe.edu.pucp.ferretin.viewmodel.MVentas
                     PromocionProducto promocionProducto = null;
                     if (promocion.PromocionProducto.Count(vp => vp.Producto.id == producto.id) == 1)
                     {
+                        MessageBox.Show("Este producto ya se encuentra en la lista");
                         //promocion.PromocionProducto.Single(vp => vp.Producto.id == producto.id).stockTotal++;
                     }
                     else

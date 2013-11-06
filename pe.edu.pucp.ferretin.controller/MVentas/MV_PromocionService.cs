@@ -9,7 +9,6 @@ namespace pe.edu.pucp.ferretin.controller.MVentas
 {
     public class MV_PromocionService : MV_ComunService
     {
-
         public static IEnumerable<Promocion> buscarPromociones(string codPromSearch, DateTime fechaDesdeSearch, DateTime fechaHastaSearch, int estadoSearch)
         {
             return db.Promocion.Where(p => p.codigo.ToUpper().Contains(codPromSearch.ToUpper())).
@@ -33,5 +32,26 @@ namespace pe.edu.pucp.ferretin.controller.MVentas
                 return false;
             }
         }
+
+        public static PromocionProducto ultimaPromocionPorProducto(Producto producto)
+        {
+            try
+            {
+                //Todas las promociones con stock del producto
+                foreach (var ultimoProdProm in db.PromocionProducto.Where(pp => pp.Producto.id == producto.id && pp.stockActual > 0))
+                {
+                    if (ultimoProdProm != null && ultimoProdProm.Promocion.fechaDesde <= DateTime.Today && ultimoProdProm.Promocion.fechaHasta >= DateTime.Today && ultimoProdProm.Promocion.estado == 1)
+                    {
+                        return ultimoProdProm;
+                    }
+                }
+                return null;
+            }
+            catch
+            {
+                return null;
+            }
+        }
+
     }
 }

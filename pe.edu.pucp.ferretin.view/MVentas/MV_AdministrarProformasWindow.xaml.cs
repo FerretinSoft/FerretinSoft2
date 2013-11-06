@@ -60,5 +60,10 @@ namespace pe.edu.pucp.ferretin.view.MVentas
         {
 
         }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }
