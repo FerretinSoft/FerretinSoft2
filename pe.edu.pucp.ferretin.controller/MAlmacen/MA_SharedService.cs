@@ -78,7 +78,7 @@ namespace pe.edu.pucp.ferretin.controller.MAlmacen
         /// <param name="tienda">Tienda desde la que se realiza la venta</param>
         /// <param name="items">Listado de VentaProductos para la venta</param>
         /// <returns>Devuelve la cadena vacia si se registró el movimiento correctamente, en caso contrario devuelve el error ocurrido</returns>
-        public static String registrarVenta(Tienda tienda, List<VentaProducto> items)
+        public static String registrarVenta(Tienda tienda, EntitySet<VentaProducto> items)
         {
             Movimiento movimiento = new Movimiento();
             movimiento.codigo = Movimiento.generateCode();
@@ -135,7 +135,7 @@ namespace pe.edu.pucp.ferretin.controller.MAlmacen
         /// <param name="tienda">Almacen distribuidor que recepciona los productos</param>
         /// <param name="items">Listado de productos</param>
         /// <returns>Devuelve la cadena vacia si se registró el movimiento correctamente, en caso contrario devuelve el error ocurrido</returns>
-        public static String registrarCompra(Tienda tienda, List<DocumentoCompraProducto> items)
+        public static String registrarCompra(Tienda tienda, EntitySet<DocumentoCompraProducto> items)
         {
             Movimiento movimiento = new Movimiento();
             DateTime today = DateTime.Today;
