@@ -181,6 +181,8 @@ namespace pe.edu.pucp.ferretin.model
            {
          
                 this.EmpleadoTienda.Add(nuevoEmpleoTienda);
+
+               
            }
 
             ////if (EmpleadoTienda.Count(et => et.id_empleado == nuevoEmpleoTienda.id_empleado && et.id_cargo == nuevoEmpleoTienda.id_cargo && et.sueldo == nuevoEmpleoTienda.sueldo && et.id_tienda == nuevoEmpleoTienda.id_tienda) == 0)
