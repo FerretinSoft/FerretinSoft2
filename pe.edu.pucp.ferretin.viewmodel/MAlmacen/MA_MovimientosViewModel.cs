@@ -100,6 +100,7 @@ namespace pe.edu.pucp.ferretin.viewmodel.MAlmacen
             {
                 _movimiento = value;
                 NotifyPropertyChanged("movimiento");
+                NotifyPropertyChanged("productosPorMovimiento");                
             }
         }
 
@@ -115,6 +116,21 @@ namespace pe.edu.pucp.ferretin.viewmodel.MAlmacen
             {
                 _listaMovimientos = value;
                 NotifyPropertyChanged("listaMovimientos");
+            }
+        }
+
+        private IEnumerable<MA_MovimientosService.MovimientoProductoTienda> _productosPorMovimiento;
+        public IEnumerable<MA_MovimientosService.MovimientoProductoTienda> productosPorMovimiento
+        {
+            get
+            {
+                _productosPorMovimiento = MA_MovimientosService.buscarProductosPorMovimientoTienda(movimiento);
+                return _productosPorMovimiento;
+            }
+            set
+            {
+                _productosPorMovimiento = value;
+                NotifyPropertyChanged("productosPorMovimiento");
             }
         }
 
@@ -415,7 +431,7 @@ namespace pe.edu.pucp.ferretin.viewmodel.MAlmacen
                 MovimientoProducto mproducto = new MovimientoProducto { cantidad = 1, Movimiento = movimiento, Producto = producto };
                 movimiento.MovimientoProducto.Add(mproducto);
                 NotifyPropertyChanged("movimiento");
-                NotifyPropertyChanged("movimiento.MovimientoProducto");
+                NotifyPropertyChanged("productosPorMovimiento");
             }
             else
             {
