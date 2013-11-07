@@ -168,6 +168,7 @@
                             <DataGridTextColumn Width="1*" Binding="{Binding Path=Producto.codigo}" ClipboardContentBinding="{x:Null}" Header="Cód Prod."/>
                             <DataGridTextColumn Width="1.5*"  Binding="{Binding Path=Producto.nombre}" ClipboardContentBinding="{x:Null}" Header="Descripción"/>
                             <DataGridTextColumn Width="1*" Binding="{Binding Path=cantidad}" ClipboardContentBinding="{x:Null}" Header="Cant. Dev."/>
+                            <DataGridCheckBoxColumn Binding="{Binding Path=dardebaja}" IsReadOnly="False" Width="0.8*" ClipboardContentBinding="{x:Null}" Header="Dar de baja"/>
                             <DataGridTextColumn Width="1*" Binding="{Binding Path=motivo}" ClipboardContentBinding="{x:Null}" Header="Motivo"/>
                             <DataGridTextColumn Width="0.9*" Binding="{Binding Path=Producto.monedaString}" ClipboardContentBinding="{x:Null}" Header="Moneda"/>
                             <DataGridTextColumn Width="0.7*" Binding="{Binding Path=Producto.precioLista}" ClipboardContentBinding="{x:Null}" Header="Precio"/>
