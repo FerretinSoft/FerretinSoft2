@@ -339,7 +339,8 @@ namespace pe.edu.pucp.ferretin.viewmodel.MCompras
                 for (i = 0; i < documentoCompra.DocumentoCompraProducto.Count(); i++)
                 {
                     GuiaRemisionProducto guiaLinea = new GuiaRemisionProducto() { id_guia_detalle = documentoCompra.DocumentoCompraProducto[i].id, cantidadRecibida = 0, DocumentoCompraProducto = documentoCompra.DocumentoCompraProducto[i], GuiaRemision = guiaRemision};
-                    sequence.Add(guiaLinea);             
+                    sequence.Add(guiaLinea);
+                    guiaRemision.GuiaRemisionProducto.Add(guiaLinea);
                     //GuiaRemisionProducto guiaLinea = new GuiaRemisionProducto();
                     //guiaLinea.id_guia_detalle = documentoCompra.DocumentoCompraProducto[i].id;
                     //guiaLinea.cantidadRecibida = 0;

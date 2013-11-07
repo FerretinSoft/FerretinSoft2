@@ -102,10 +102,6 @@ namespace pe.edu.pucp.ferretin.controller.MCompras
                 }
                 catch (Exception e)
                 {
-                    for (i = 0; i < guiaRemision.GuiaRemisionProducto.Count(); i++)
-                    {
-                        guiaRemision.GuiaRemisionProducto[i].GuiaRemision = guiaRemision;
-                    }
                     guiaRemision.estado = 1;
                     db.GuiaRemision.InsertOnSubmit(guiaRemision);
                     return enviarCambios();
