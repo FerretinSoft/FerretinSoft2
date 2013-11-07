@@ -76,6 +76,10 @@ namespace pe.edu.pucp.ferretin.viewmodel.MVentas
 
         #region
 
+
+        public bool _valesGenerados = false;
+        public bool valesGenerados { get { return _valesGenerados; } set { _valesGenerados = value; NotifyPropertyChanged("valesGenerados"); } }
+
         private LoteVale _loteVale;
         public LoteVale loteVale
         {
@@ -241,6 +245,7 @@ namespace pe.edu.pucp.ferretin.viewmodel.MVentas
                 loteVale.Vale.Add(vale);
                 NotifyPropertyChanged("loteVale");
             }
+            valesGenerados = true;
         }
 
         public void viewLoteVale(Object id)

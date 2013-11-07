@@ -16,5 +16,22 @@ namespace pe.edu.pucp.ferretin.model
             }
         }
 
+        public string fechaEmisionString
+        {
+            get
+            {
+                if (fechaEmision != null)
+                {
+                    string fechaString = fechaEmision.ToString();
+                    DateTime fecha = Convert.ToDateTime(fechaString);
+                    fechaString = fecha.ToString("d");
+                    return fechaString;
+                }
+                else
+                    return null;
+            }
+
+        }
+
     }
 }
