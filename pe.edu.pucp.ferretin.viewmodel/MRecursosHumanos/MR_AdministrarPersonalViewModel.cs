@@ -1,13 +1,17 @@
-﻿using pe.edu.pucp.ferretin.controller.MRecursosHumanos;
+﻿using Microsoft.Win32;
+using pe.edu.pucp.ferretin.controller.MRecursosHumanos;
 using pe.edu.pucp.ferretin.model;
 using pe.edu.pucp.ferretin.viewmodel.Helper;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
+using System.Windows.Media;
+using System.Windows.Media.Imaging;
 
 namespace pe.edu.pucp.ferretin.viewmodel.MRecursosHumanos
 {
@@ -345,12 +349,81 @@ namespace pe.edu.pucp.ferretin.viewmodel.MRecursosHumanos
                 return _cancelEmpleadoCommand;
             }
         }
+
+        RelayCommand _uploadImageCommand;
+        public ICommand uploadImageCommand
+        {
+            get
+            {
+                if (_uploadImageCommand == null)
+                {
+                    _uploadImageCommand = new RelayCommand(uploadImage);
+                }
+                return _uploadImageCommand;
+            }
+        }
         #endregion
+
+
+        private ImageSource _empleadoImagen;
+        public ImageSource empleadoImagen
+        {
+            get
+            {
+                if (this.empleado.foto != null)
+                {
+                    MemoryStream strm = new MemoryStream();
+                    strm.Write(empleado.foto.ToArray(), 0, empleado.foto.Length);
+                    strm.Position = 0;
+                    System.Drawing.Image img = System.Drawing.Image.FromStream(strm);
+
+                    BitmapImage bitmapImage = new BitmapImage();
+                    bitmapImage.BeginInit();
+                    MemoryStream memoryStream = new MemoryStream();
+                    img.Save(memoryStream, System.Drawing.Imaging.ImageFormat.Bmp);
+                    memoryStream.Seek(0, SeekOrigin.Begin);
+                    bitmapImage.StreamSource = memoryStream;
+                    bitmapImage.EndInit();
+
+                    _empleadoImagen = bitmapImage;
+                }
+                return _empleadoImagen;
+            }
+            set
+            {
+                _empleadoImagen = value;
+                NotifyPropertyChanged("empleadoImagen");
+            }
+        }
+
 
 
 
         #region Comandos
 
+        public void uploadImage(Object id)
+        {
+            OpenFileDialog op = new OpenFileDialog();
+            op.Title = "Select a picture";
+            op.Filter = "All supported graphics|*.jpg;*.jpeg;*.png|" +
+                "JPEG (*.jpg;*.jpeg)|*.jpg;*.jpeg|" +
+                "Portable Network Graphic (*.png)|*.png";
+            if (op.ShowDialog() == true)
+            {
+                var bitmapImage = new BitmapImage(new Uri(op.FileName));
+                byte[] file_byte;
+                JpegBitmapEncoder encoder = new JpegBitmapEncoder();
+                encoder.Frames.Add(BitmapFrame.Create(bitmapImage));
+                using (MemoryStream ms = new MemoryStream())
+                {
+                    encoder.Save(ms);
+                    file_byte = ms.ToArray();
+                }
+                System.Data.Linq.Binary file_binary = new System.Data.Linq.Binary(file_byte);
+                empleado.foto = file_binary;
+                NotifyPropertyChanged("empleadoImagen");
+            }
+        }
         public void viewEditEmpleado(Object codEmpleado)
         {
             try
@@ -386,6 +459,8 @@ namespace pe.edu.pucp.ferretin.viewmodel.MRecursosHumanos
                     else
                     {
                         MessageBox.Show("Se actualizó el empleado con éxito");
+                        this.statusTab = Tab.BUSQUEDA;
+                        listaEmpleados = MR_EmpleadoService.listaEmpleados;
                     }
                 }
                 /*Para agregar un empleado nuevo*/
@@ -429,6 +504,8 @@ namespace pe.edu.pucp.ferretin.viewmodel.MRecursosHumanos
                             {
 
                                 MessageBox.Show("El empleado fue agregado con éxito");
+                                this.statusTab = Tab.BUSQUEDA;
+                                listaEmpleados = MR_EmpleadoService.listaEmpleados;
                                 //NotifyPropertyChanged("EmpleadoTienda");//Para el historial de empleos
                             }
                         }

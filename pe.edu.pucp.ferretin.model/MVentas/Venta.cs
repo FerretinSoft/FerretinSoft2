@@ -34,7 +34,7 @@ namespace pe.edu.pucp.ferretin.model
 
         partial void OntotalChanged()
         {
-            this.igv = this.total * (decimal)igvActual/100;
+            this.igv = Decimal.Round((this.total * (decimal)igvActual/100).Value,2);
             this.subTotal = this.total - this.igv;
             this.cobrado = 0;
             this.diferencia = this.total - this.cobrado;

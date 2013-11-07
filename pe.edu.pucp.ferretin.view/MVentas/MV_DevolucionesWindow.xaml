@@ -223,6 +223,7 @@
                                 <DataGridTextColumn Width="1*" Binding="{Binding Path=Producto.codigo}" ClipboardContentBinding="{x:Null}" Header="Cód Prod."/>
                                 <DataGridTextColumn Width="1.5*" Binding="{Binding Path=Producto.nombre}" ClipboardContentBinding="{x:Null}" Header="Descripción"/>
                                 <DataGridTextColumn Width="0.7*" Binding="{Binding Path=cantidad}" ClipboardContentBinding="{x:Null}" Header="Cant."/>
+                                <DataGridCheckBoxColumn Binding="{Binding Path=dardebaja}" IsReadOnly="False" Width="0.8*" ClipboardContentBinding="{x:Null}" Header="Dar de baja"/>
                                 <DataGridTextColumn Width="1.2*" Binding="{Binding Path=motivo}" Header="Motivo"/>
                                 <DataGridTextColumn Width="0.9*" Binding="{Binding Path=Producto.monedaString}" Header="Moneda"/>
                                 <DataGridTextColumn Width="0.9*" Binding="{Binding Path=Producto.precioLista}" ClipboardContentBinding="{x:Null}" Header="Precio"/>
@@ -337,7 +338,7 @@
                             <DataGridTextColumn Width="0.7*" Binding="{Binding Path=Producto.monedaString}" ClipboardContentBinding="{x:Null}" Header="Moneda"/>
                             <DataGridTextColumn Width="0.7*" Binding="{Binding Path=Producto.precioLista}" ClipboardContentBinding="{x:Null}" Header="Precio"/>
                             <DataGridTextColumn Width="0.7*" Binding="{Binding Path=descuento}" ClipboardContentBinding="{x:Null}" Header="Dscto. (%)"/>
-                            <DataGridTextColumn Width="1*" Binding="{Binding Path=montoReal}" ClipboardContentBinding="{x:Null}" Header="Importe"/>
+                            <DataGridTextColumn Width="1*" Binding="{Binding Path=montoParcial}" ClipboardContentBinding="{x:Null}" Header="Importe"/>
                         </DataGrid.Columns>
                     </DataGrid>
                     <StackPanel HorizontalAlignment="Right" Orientation="Horizontal" VerticalAlignment="Center" Grid.Row="3" Margin="5,0">
@@ -350,6 +351,7 @@
                             <DataGridTextColumn  IsReadOnly="True"  Width="1*" Binding="{Binding Path= Producto.codigo}" ClipboardContentBinding="{x:Null}" Header="Cód Prod."/>
                             <DataGridTextColumn IsReadOnly="True"  Width="2*" Binding="{Binding Path= Producto.nombre}" ClipboardContentBinding="{x:Null}" Header="Descripción"/>
                             <DataGridTextColumn IsReadOnly="False" Width="0.98*" Binding="{Binding Path= cantidad, Mode=TwoWay}" ClipboardContentBinding="{x:Null}" Header="Cant. Dev."/>
+                            <DataGridCheckBoxColumn Binding="{Binding Path=dardebaja,UpdateSourceTrigger=PropertyChanged}" IsReadOnly="False" Width="0.8*" ClipboardContentBinding="{x:Null}" Header="Dar de baja"/>
                             <DataGridTextColumn IsReadOnly="False"  Width="1*" Binding="{Binding Path= motivo, Mode=TwoWay}" ClipboardContentBinding="{x:Null}" Header="Motivo"/>
                             <DataGridTextColumn IsReadOnly="True" Width="0.7*" Binding="{Binding Path=Producto.monedaString}" ClipboardContentBinding="{x:Null}" Header="Moneda"/>
                             <DataGridTextColumn IsReadOnly="True" Width="0.7*" Binding="{Binding Path= Producto.precioLista}" ClipboardContentBinding="{x:Null}" Header="Precio"/>

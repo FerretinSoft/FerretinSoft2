@@ -14,7 +14,7 @@ namespace pe.edu.pucp.ferretin.viewmodel.MAlmacen
 {
     public class MA_MovimientosViewModel : ViewModelBase
     {
-        public IEnumerable<MovimientoEstado> estadosMovimiento
+        public IEnumerable<MovimientoEstado> estadosMovimientoS
         {
             get
             {
@@ -24,7 +24,15 @@ namespace pe.edu.pucp.ferretin.viewmodel.MAlmacen
             }
         }
 
-        public ObservableCollection<char> categoriasMovimiento
+        public IEnumerable<MovimientoEstado> estadosMovimiento
+        {
+            get
+            {
+                return MA_MovimientosService.estadosMovimiento;
+            }
+        }
+
+        /*public ObservableCollection<char> categoriasMovimiento
         {
             get
             {
@@ -33,7 +41,7 @@ namespace pe.edu.pucp.ferretin.viewmodel.MAlmacen
                 milista.Add('S');
                 return milista;
             }
-        }
+        }*/
 
         public bool isCreating
         {
@@ -46,6 +54,21 @@ namespace pe.edu.pucp.ferretin.viewmodel.MAlmacen
                 else
                 {
                     return false; //Se bloquearan par que no sean editables
+                }
+            }
+        }
+
+        public bool isNotFinished
+        {
+            get
+            {
+                if (movimiento != null && movimiento.MovimientoEstado != null && movimiento.MovimientoEstado.nombre == "Finalizado")
+                {
+                    return false; //Se Activaran
+                }
+                else
+                {
+                    return true; //Se bloquearan par que no sean editables
                 }
             }
         }
@@ -130,7 +153,8 @@ namespace pe.edu.pucp.ferretin.viewmodel.MAlmacen
         public MA_MovimientosViewModel()
         {
             _movimiento = new Movimiento();
-            _movimiento.fecha = DateTime.Today;
+            //_movimiento.fecha = DateTime.Today;
+            //_movimiento.codigo = Movimiento.generateCode();
         }
         #endregion
 
@@ -170,15 +194,33 @@ namespace pe.edu.pucp.ferretin.viewmodel.MAlmacen
                 //Si la pestaña es para agregar nuevo, limpio los input
                 switch (_statusTab)
                 {
-                    case Tab.BUSQUEDA: detallesTabHeader = "Nuevo"; movimiento = new Movimiento(); movimiento.fecha = DateTime.Today; break;//Si es agregar, creo un nuevo objeto Cliente
-                    case Tab.NUEVO: detallesTabHeader = "Nuevo"; movimiento = new Movimiento(); movimiento.fecha = DateTime.Today; break;//Si es agregar, creo un nuevo objeto Cliente
-                    case Tab.DETALLES: detallesTabHeader = "Detalles"; break;
-                    default: detallesTabHeader = "Nuevo"; movimiento = new Movimiento(); movimiento.fecha = DateTime.Today; break;//Si es agregar, creo un nuevo objeto Cliente
+                    case Tab.BUSQUEDA: 
+                        detallesTabHeader = "Nuevo"; 
+                        movimiento = new Movimiento(); 
+                        movimiento.fecha = DateTime.Today;
+                        movimiento.codigo = Movimiento.generateCode();
+                        break;//Si es agregar, creo un nuevo objeto Cliente
+                    case Tab.NUEVO: 
+                        detallesTabHeader = "Nuevo"; 
+                        movimiento = new Movimiento(); 
+                        movimiento.fecha = DateTime.Today;
+                        movimiento.codigo = Movimiento.generateCode();
+                        break;//Si es agregar, creo un nuevo objeto Cliente
+                    case Tab.DETALLES: 
+                        detallesTabHeader = "Detalles"; 
+                        break;
+                    default: 
+                        detallesTabHeader = "Nuevo"; 
+                        movimiento = new Movimiento(); 
+                        movimiento.fecha = DateTime.Today;
+                        movimiento.codigo = Movimiento.generateCode();
+                        break;//Si es agregar, creo un nuevo objeto Cliente
                 }
                 NotifyPropertyChanged("statusTab");
                 //Cuando se cambia el status, tambien se tiene que actualizar el currentIndex del tab
                 NotifyPropertyChanged("currentIndexTab"); //Hace que cambie el tab automaticamente
                 NotifyPropertyChanged("isCreating"); //Para que se activen o desactiven los inputs
+                NotifyPropertyChanged("isNotFinished");
             }
         }
         //Usado para mover los tabs de acuerdo a las acciones realizadas
@@ -412,7 +454,7 @@ namespace pe.edu.pucp.ferretin.viewmodel.MAlmacen
 
             if (movimiento.id > 0)//Si existe
             {
-                if (!MA_MovimientosService.enviarCambios())
+                if (!MA_MovimientosService.ActualizarMovimiento(movimiento))
                 {
                     MessageBox.Show("No se pudo actualizar el movimiento");
                 }
@@ -426,8 +468,9 @@ namespace pe.edu.pucp.ferretin.viewmodel.MAlmacen
                 //validación
                 if (movimiento.codigo == null || movimiento.codigo == "") MessageBox.Show("Debe llenar el campo código.");
                 else if (movimiento.MovimientoTipo == null) MessageBox.Show("Debe seleccionar un tipo de movimiento");
-                else if (movimiento.Tienda == null && movimiento.MovimientoTipo.categoria == 'S') MessageBox.Show("Debe seleccionar un almacén de salida de mercancía");
-                else if (movimiento.Tienda1 == null && movimiento.MovimientoTipo.categoria == 'E') MessageBox.Show("Debe seleccionar un almacén destino para la entrada de mercancía");
+                else if (movimiento.Tienda == null && movimiento.MovimientoTipo.categoriaEnum == MovimientoTipo.CategoriaMovimiento.SALIDA) MessageBox.Show("Debe seleccionar un almacén de salida de mercancía");
+                else if (movimiento.Tienda1 == null && movimiento.MovimientoTipo.categoriaEnum == MovimientoTipo.CategoriaMovimiento.ENTRADA) MessageBox.Show("Debe seleccionar un almacén destino para la entrada de mercancía");
+                else if (movimiento.Tienda == null || movimiento.Tienda1 == null && movimiento.MovimientoTipo.categoriaEnum == MovimientoTipo.CategoriaMovimiento.TRANSFERENCIA) MessageBox.Show("Debe seleccionar un almacén de salida de mercancía y un almacén de entrada");
                 else if (movimiento.MovimientoEstado == null) MessageBox.Show("Debe seleccionar un estado para el movimiento");
                 else if (movimiento.MovimientoProducto.Count <= 0) MessageBox.Show("Debe registrar al menos un Producto en su movimiento");
                 else

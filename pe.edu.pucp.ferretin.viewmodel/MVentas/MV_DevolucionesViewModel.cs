@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
+using pe.edu.pucp.ferretin.controller.MAlmacen;
 using pe.edu.pucp.ferretin.controller.MRecursosHumanos;
 using pe.edu.pucp.ferretin.controller.MSeguridad;
 using pe.edu.pucp.ferretin.controller.MVentas;
@@ -425,7 +426,6 @@ namespace pe.edu.pucp.ferretin.viewmodel.MVentas
             notaCredito.codigo = devolucion.codigo;
             notaCredito.fechaVencimiento = DateTime.Now.AddDays(Convert.ToInt32(MS_ParametroService.obtenerParametro("vigencia de notas de credito")));
             
-
                     if (!MV_DevolucionService.insertarDevolucion(devolucion))
                     {
                         MessageBox.Show("No se pudo agregar la nuevo devolución");
@@ -445,7 +445,20 @@ namespace pe.edu.pucp.ferretin.viewmodel.MVentas
                         selectedTab = 0;
                         NotifyPropertyChanged("selectedTab");
                     }
-            
+                    try
+                    {
+                        string resp = MA_SharedService.registrarDevolucion(devolucion.Empleado.tiendaActual, devolucion.DevolucionProducto);
+                        Console.WriteLine(resp + "hola");
+                    }
+                    catch
+                    {
+                        try
+                        {
+                            MessageBox.Show("error en almácen");
+                        }
+
+                        catch { }
+                    }
         }
 
         public void viewDetailDevolucion(Object id)

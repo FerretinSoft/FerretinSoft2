@@ -69,6 +69,7 @@
     </Compile>
     <Compile Include="MAlmacen\Categoria.cs" />
     <Compile Include="MAlmacen\Movimiento.cs" />
+    <Compile Include="MAlmacen\MovimientoEstado.cs" />
     <Compile Include="MAlmacen\MovimientoTipo.cs" />
     <Compile Include="MCompras\DocumentoCompra.cs" />
     <Compile Include="MCompras\Proveedor.cs" />
@@ -92,6 +93,7 @@
     <Compile Include="MVentas\MedioPago.cs" />
     <Compile Include="MVentas\NotaCredito.cs" />
     <Compile Include="MVentas\Promocion.cs" />
+    <Compile Include="MVentas\PromocionProducto.cs" />
     <Compile Include="MVentas\Vale.cs" />
     <Compile Include="MVentas\Venta.cs" />
     <Compile Include="MVentas\VentaProducto.cs" />

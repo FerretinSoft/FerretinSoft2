@@ -45,7 +45,7 @@
                     <ColumnDefinition/>
                     <ColumnDefinition Width="Auto"/>
                 </Grid.ColumnDefinitions>
-                <TextBox x:Name="nroDocSeleccionado" Text="{Binding nroDocSeleccionado,UpdateSourceTrigger=PropertyChanged}" VerticalContentAlignment="Center" VerticalAlignment="Bottom" Margin="0,0,0,3">
+                <TextBox x:Name="nroDocSeleccionado" Text="{Binding nroDocSeleccionado,UpdateSourceTrigger=PropertyChanged}" VerticalContentAlignment="Center" VerticalAlignment="Center" Margin="0,0,0,0">
                     <TextBox.InputBindings>
                         <KeyBinding Key="Enter" Command="{Binding cargarClienteCommand}" />
                     </TextBox.InputBindings>
@@ -98,10 +98,10 @@
                     <DataGridTextColumn Width="1.2*" Binding="{Binding Path=cantidad,UpdateSourceTrigger=PropertyChanged}" Header="Cantidad"/>
                     <DataGridTextColumn Width="1.2*" Binding="{Binding Path=Producto.monedaString}" IsReadOnly="True" Header="Moneda"/>
                     <DataGridTextColumn Width="1*" Binding="{Binding Path=Producto.precioLista}" IsReadOnly="True" Header="Precio"/>
-                    <DataGridTextColumn Width="1.5*" Binding="{Binding Path=Producto.descuento}" IsReadOnly="True" Header="Dscto. (%)"/>
+                    <DataGridTextColumn Width="1.5*" Binding="{Binding Path=descuentoPorcentaje,UpdateSourceTrigger=PropertyChanged}" IsReadOnly="True" Header="Dscto. (%)"/>
                     <DataGridTextColumn Width="1.2*" Binding="{Binding Path=montoParcial}" IsReadOnly="True" Header="Importe"/>
                     <DataGridTextColumn Width="1.7*" Binding="{Binding Path=Producto.precioPuntos}" IsReadOnly="True" Header="Precio Puntos"/>
-                    <DataGridCheckBoxColumn Width="1*" Binding="{Binding Path=canjeado,UpdateSourceTrigger=PropertyChanged,FallbackValue=0}" Header="Canjear"/>
+                    <DataGridCheckBoxColumn Width="1*" Binding="{Binding Path=canjeado,UpdateSourceTrigger=PropertyChanged}" Header="Canjear"/>
                 </DataGrid.Columns>
             </DataGrid>
             <Grid Grid.Row="2" Grid.Column="0" Margin="0,5">
@@ -125,14 +125,14 @@
                     <Label Content="Sub Total:" Grid.Row="1"/>
                     <Label Content="Total a Pagar:" Grid.Row="3"/>
                     <Label Content="%IGV:" Grid.Row="2"/>
-                    <TextBox TextWrapping="Wrap" Text="0" Grid.Column="1" HorizontalContentAlignment="Right" Grid.Row="0" VerticalContentAlignment="Center" Margin="0,2,0,2" IsEnabled="False"/>
+                    <TextBox TextWrapping="Wrap" Text="{Binding venta.puntosCanjeados}" Grid.Column="1" HorizontalContentAlignment="Right" Grid.Row="0" VerticalContentAlignment="Center" Margin="0,2,0,2" IsEnabled="False"/>
                     <TextBox TextWrapping="Wrap" Text="{Binding venta.subTotal}" Grid.Column="1" HorizontalContentAlignment="Right" Grid.Row="1" VerticalContentAlignment="Center" Margin="0,2,0,2" IsEnabled="False"/>
                     <TextBox TextWrapping="Wrap" Text="{Binding venta.igv}" Grid.Column="1" HorizontalContentAlignment="Right" Grid.Row="2" VerticalContentAlignment="Center" Margin="0,2,0,2" IsEnabled="False"/>
                     <TextBox TextWrapping="Wrap" Text="{Binding venta.total}" Grid.Column="1" HorizontalContentAlignment="Right" Grid.Row="3" VerticalContentAlignment="Center" Margin="0,2,0,2" IsEnabled="False"/>
                 </Grid>
             </Grid>
             <Grid Grid.Row="3" Margin="0,5,0,0">
-                <Button Grid.Column="1" x:Name="pagarBtn" Content="PAGAR" HorizontalAlignment="Right"  VerticalAlignment="Center" Width="75" Height="30" Click="pagarBtn_Click" Margin="0,0,80,0"/>
+                <Button Command="{Binding pagarCommand}" Grid.Column="1"  Content="PAGAR" HorizontalAlignment="Right"  VerticalAlignment="Center" Width="75" Height="30" Click="pagarBtn_Click" Margin="0,0,80,0"/>
                 <Button Grid.Column="1" Content="CANCELAR" HorizontalAlignment="Right"  VerticalAlignment="Center" Width="75" Height="30" Click="Button_Click_1"/>
             </Grid>
         </Grid>

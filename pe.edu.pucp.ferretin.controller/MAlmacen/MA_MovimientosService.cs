@@ -70,23 +70,116 @@ namespace pe.edu.pucp.ferretin.controller.MAlmacen
                 .OrderBy(m => m.fecha);
         }
 
-        public static void ActualizarMovimiento(Movimiento mov)
+        public static bool ActualizarMovimiento(Movimiento movimiento)
         {
-            //dc.Movimiento.InsertOnSubmit(mov);
-            //db.SubmitChanges();
+            if (movimiento.MovimientoEstado.nombre == "Finalizado")
+            {
+                if (!finalizarMovimiento(movimiento)) return false;
+
+            }
+                
+            return enviarCambios();
+        }
+
+        private static bool validarMovimiento(Movimiento movimiento)
+        {
+            if (movimiento.MovimientoTipo.categoriaEnum == MovimientoTipo.CategoriaMovimiento.ENTRADA) 
+                return true; //No hay restricciones para entrada a almacén
+            MovimientoProducto current;
+            for (int i = 0; i < movimiento.MovimientoProducto.Count; i++)
+            {
+                current = movimiento.MovimientoProducto[i];
+                ProductoAlmacen pa = MA_ProductoAlmacenService.ObtenerProductoAlmacenPorTiendaProducto(movimiento.Tienda, current.Producto);
+                if (pa.stock - current.cantidad < 0) return false;
+            }
+            return true;
+        }
+
+        private static bool finalizarMovimiento(Movimiento movimiento)
+        {
+            Dictionary<Producto, decimal> productos = new Dictionary<Producto, decimal>();
+            for (int i = 0; i < movimiento.MovimientoProducto.Count; i++)
+            {
+                productos.Add(movimiento.MovimientoProducto[i].Producto,
+                    (decimal)(movimiento.MovimientoProducto[i].cantidad != null ? movimiento.MovimientoProducto[i].cantidad : 0));
+            }
+            //actualizar stock
+            bool errors = true;
+            switch (movimiento.MovimientoTipo.categoriaEnum)
+            {
+                case MovimientoTipo.CategoriaMovimiento.ENTRADA:
+                    errors = errors && actualizarStockMovimiento(movimiento.Tienda1, 'E', productos);
+                    break;
+                case MovimientoTipo.CategoriaMovimiento.SALIDA:
+                    errors = errors && actualizarStockMovimiento(movimiento.Tienda, 'S', productos);
+                    break;
+                case MovimientoTipo.CategoriaMovimiento.TRANSFERENCIA:
+                    errors = errors && actualizarStockMovimiento(movimiento.Tienda, 'S', productos);
+                    errors = errors && actualizarStockMovimiento(movimiento.Tienda1, 'E', productos);
+                    break;
+                default:
+                    return false; // categoria de movimiento no valida
+            }
+
+            return errors; 
         }
 
         public static bool InsertarMovimiento(Movimiento movimiento)
-        {
+         {
             if (!db.Movimiento.Contains(movimiento))
             {
-                db.Movimiento.InsertOnSubmit(movimiento);
+                if (!validarMovimiento(movimiento)) return false; //movimiento no válido
+                
+                if (movimiento.MovimientoEstado.nombre == "Finalizado")
+                {
+                    Dictionary<Producto, decimal> productos = new Dictionary<Producto, decimal>();
+                    for (int i = 0; i < movimiento.MovimientoProducto.Count; i++)
+                    {
+                        productos.Add(movimiento.MovimientoProducto[i].Producto, 
+                            (decimal)(movimiento.MovimientoProducto[i].cantidad != null ? movimiento.MovimientoProducto[i].cantidad : 0));
+                    }
+                    //actualizar stock
+                    bool errors = true;
+                    switch (movimiento.MovimientoTipo.categoriaEnum)
+                    {
+                        case MovimientoTipo.CategoriaMovimiento.ENTRADA:
+                            errors = errors && actualizarStockMovimiento(movimiento.Tienda1, 'E', productos);
+                            break;
+                        case MovimientoTipo.CategoriaMovimiento.SALIDA:
+                            errors = errors && actualizarStockMovimiento(movimiento.Tienda, 'S', productos);
+                            break;
+                        case MovimientoTipo.CategoriaMovimiento.TRANSFERENCIA:
+                            errors = errors && actualizarStockMovimiento(movimiento.Tienda, 'S', productos);
+                            errors = errors && actualizarStockMovimiento(movimiento.Tienda1, 'E', productos);
+                            break;
+                        default:
+                            return false; // categoria de movimiento no valida
+                    }
+                    if (!errors)
+                        return false; //error actualizando los stocks de movimiento
+                }
+                if (movimiento.id <= 0) db.Movimiento.InsertOnSubmit(movimiento);
+                //db.SubmitChanges(); return true;
                 return enviarCambios();
             }
             else
             {
                 return false;
             }
+        }
+
+        public static bool actualizarStockMovimiento(Tienda almacen, char tipo, Dictionary<Producto,decimal> productos)
+        {
+            bool result = true; bool mode = true;
+            for (int i = 0; i < productos.Count; i++)
+            {
+                if (tipo == 'E') mode = true; //plus
+                else if (tipo == 'S') mode = false; //minus
+                
+                result = result && MA_ProductoAlmacenService.updateStock(almacen, productos.Keys.ElementAt(i), 
+                                                            productos.Values.ElementAt(i), mode);
+            }
+            return result;
         }
 
 

@@ -9,33 +9,13 @@ namespace pe.edu.pucp.ferretin.controller.MAlmacen
 {
     public class MA_TipoMovimientoService : MA_ComunService
     {
-        /*static FerretinDataContext dc = new FerretinDataContext();
-
-        private static IEnumerable<MovimientoTipo> _listaTipoMovimientos = null;
-
-        private static IEnumerable<MovimientoTipo> listaTipoMovimientos
+        public static MovimientoTipo getMovimientoTipoByName(String name)
         {
-            get
-            {
-                if (_listaTipoMovimientos == null)
-                {
-                    ObtenerListaTipoMovimientos();
-                }
-                return _listaTipoMovimientos;
-            }
-            set
-            {
-                _listaTipoMovimientos = value;
-            }
+            var respuesta = (from t in db.MovimientoTipo
+                             where t.nombre.ToLower().Equals(name.ToUpper())
+                             select t);
+            return respuesta.Count() >= 1 ? respuesta.Single() : null;
         }
-
-        public static IEnumerable<MovimientoTipo> ObtenerListaTipoMovimientos()
-        {
-            listaTipoMovimientos = from tipo in dc.MovimientoTipo
-                                   orderby tipo.nombre
-                                   select tipo;
-            return listaTipoMovimientos;
-        }*/
         
     }
 }

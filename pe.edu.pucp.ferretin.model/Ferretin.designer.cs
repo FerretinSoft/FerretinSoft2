@@ -33,6 +33,9 @@ namespace pe.edu.pucp.ferretin.model
     partial void InsertCargo(Cargo instance);
     partial void UpdateCargo(Cargo instance);
     partial void DeleteCargo(Cargo instance);
+    partial void InsertVentaProducto(VentaProducto instance);
+    partial void UpdateVentaProducto(VentaProducto instance);
+    partial void DeleteVentaProducto(VentaProducto instance);
     partial void InsertCategoria(Categoria instance);
     partial void UpdateCategoria(Categoria instance);
     partial void DeleteCategoria(Categoria instance);
@@ -45,9 +48,6 @@ namespace pe.edu.pucp.ferretin.model
     partial void InsertDevolucion(Devolucion instance);
     partial void UpdateDevolucion(Devolucion instance);
     partial void DeleteDevolucion(Devolucion instance);
-    partial void InsertDevolucionProducto(DevolucionProducto instance);
-    partial void UpdateDevolucionProducto(DevolucionProducto instance);
-    partial void DeleteDevolucionProducto(DevolucionProducto instance);
     partial void InsertDia(Dia instance);
     partial void UpdateDia(Dia instance);
     partial void DeleteDia(Dia instance);
@@ -81,9 +81,6 @@ namespace pe.edu.pucp.ferretin.model
     partial void InsertLote(Lote instance);
     partial void UpdateLote(Lote instance);
     partial void DeleteLote(Lote instance);
-    partial void InsertMenu(Menu instance);
-    partial void UpdateMenu(Menu instance);
-    partial void DeleteMenu(Menu instance);
     partial void InsertLoteVale(LoteVale instance);
     partial void UpdateLoteVale(LoteVale instance);
     partial void DeleteLoteVale(LoteVale instance);
@@ -93,12 +90,12 @@ namespace pe.edu.pucp.ferretin.model
     partial void InsertMedioPago(MedioPago instance);
     partial void UpdateMedioPago(MedioPago instance);
     partial void DeleteMedioPago(MedioPago instance);
+    partial void InsertMenu(Menu instance);
+    partial void UpdateMenu(Menu instance);
+    partial void DeleteMenu(Menu instance);
     partial void InsertMovimiento(Movimiento instance);
     partial void UpdateMovimiento(Movimiento instance);
     partial void DeleteMovimiento(Movimiento instance);
-    partial void InsertNotaCredito(NotaCredito instance);
-    partial void UpdateNotaCredito(NotaCredito instance);
-    partial void DeleteNotaCredito(NotaCredito instance);
     partial void InsertMovimientoEstado(MovimientoEstado instance);
     partial void UpdateMovimientoEstado(MovimientoEstado instance);
     partial void DeleteMovimientoEstado(MovimientoEstado instance);
@@ -108,12 +105,12 @@ namespace pe.edu.pucp.ferretin.model
     partial void InsertMovimientoTipo(MovimientoTipo instance);
     partial void UpdateMovimientoTipo(MovimientoTipo instance);
     partial void DeleteMovimientoTipo(MovimientoTipo instance);
+    partial void InsertNotaCredito(NotaCredito instance);
+    partial void UpdateNotaCredito(NotaCredito instance);
+    partial void DeleteNotaCredito(NotaCredito instance);
     partial void InsertParametro(Parametro instance);
     partial void UpdateParametro(Parametro instance);
     partial void DeleteParametro(Parametro instance);
-    partial void InsertVentaProducto(VentaProducto instance);
-    partial void UpdateVentaProducto(VentaProducto instance);
-    partial void DeleteVentaProducto(VentaProducto instance);
     partial void InsertPerfil(Perfil instance);
     partial void UpdatePerfil(Perfil instance);
     partial void DeletePerfil(Perfil instance);
@@ -135,6 +132,9 @@ namespace pe.edu.pucp.ferretin.model
     partial void InsertProforma(Proforma instance);
     partial void UpdateProforma(Proforma instance);
     partial void DeleteProforma(Proforma instance);
+    partial void InsertProformaProducto(ProformaProducto instance);
+    partial void UpdateProformaProducto(ProformaProducto instance);
+    partial void DeleteProformaProducto(ProformaProducto instance);
     partial void InsertPromocion(Promocion instance);
     partial void UpdatePromocion(Promocion instance);
     partial void DeletePromocion(Promocion instance);
@@ -201,6 +201,9 @@ namespace pe.edu.pucp.ferretin.model
     partial void InsertVentaMedioPago(VentaMedioPago instance);
     partial void UpdateVentaMedioPago(VentaMedioPago instance);
     partial void DeleteVentaMedioPago(VentaMedioPago instance);
+    partial void InsertDevolucionProducto(DevolucionProducto instance);
+    partial void UpdateDevolucionProducto(DevolucionProducto instance);
+    partial void DeleteDevolucionProducto(DevolucionProducto instance);
     #endregion
 		
 		public FerretinDataContext() : 
@@ -241,6 +244,14 @@ namespace pe.edu.pucp.ferretin.model
 			}
 		}
 		
+		public System.Data.Linq.Table<VentaProducto> VentaProducto
+		{
+			get
+			{
+				return this.GetTable<VentaProducto>();
+			}
+		}
+		
 		public System.Data.Linq.Table<Categoria> Categoria
 		{
 			get
@@ -270,14 +281,6 @@ namespace pe.edu.pucp.ferretin.model
 			get
 			{
 				return this.GetTable<Devolucion>();
-			}
-		}
-		
-		public System.Data.Linq.Table<DevolucionProducto> DevolucionProducto
-		{
-			get
-			{
-				return this.GetTable<DevolucionProducto>();
 			}
 		}
 		
@@ -369,14 +372,6 @@ namespace pe.edu.pucp.ferretin.model
 			}
 		}
 		
-		public System.Data.Linq.Table<Menu> Menu
-		{
-			get
-			{
-				return this.GetTable<Menu>();
-			}
-		}
-		
 		public System.Data.Linq.Table<LoteVale> LoteVale
 		{
 			get
@@ -401,19 +396,19 @@ namespace pe.edu.pucp.ferretin.model
 			}
 		}
 		
+		public System.Data.Linq.Table<Menu> Menu
+		{
+			get
+			{
+				return this.GetTable<Menu>();
+			}
+		}
+		
 		public System.Data.Linq.Table<Movimiento> Movimiento
 		{
 			get
 			{
 				return this.GetTable<Movimiento>();
-			}
-		}
-		
-		public System.Data.Linq.Table<NotaCredito> NotaCredito
-		{
-			get
-			{
-				return this.GetTable<NotaCredito>();
 			}
 		}
 		
@@ -441,19 +436,19 @@ namespace pe.edu.pucp.ferretin.model
 			}
 		}
 		
+		public System.Data.Linq.Table<NotaCredito> NotaCredito
+		{
+			get
+			{
+				return this.GetTable<NotaCredito>();
+			}
+		}
+		
 		public System.Data.Linq.Table<Parametro> Parametro
 		{
 			get
 			{
 				return this.GetTable<Parametro>();
-			}
-		}
-		
-		public System.Data.Linq.Table<VentaProducto> VentaProducto
-		{
-			get
-			{
-				return this.GetTable<VentaProducto>();
 			}
 		}
 		
@@ -510,6 +505,14 @@ namespace pe.edu.pucp.ferretin.model
 			get
 			{
 				return this.GetTable<Proforma>();
+			}
+		}
+		
+		public System.Data.Linq.Table<ProformaProducto> ProformaProducto
+		{
+			get
+			{
+				return this.GetTable<ProformaProducto>();
 			}
 		}
 		
@@ -686,6 +689,14 @@ namespace pe.edu.pucp.ferretin.model
 			get
 			{
 				return this.GetTable<VentaMedioPago>();
+			}
+		}
+		
+		public System.Data.Linq.Table<DevolucionProducto> DevolucionProducto
+		{
+			get
+			{
+				return this.GetTable<DevolucionProducto>();
 			}
 		}
 	}
@@ -873,6 +884,342 @@ namespace pe.edu.pucp.ferretin.model
 		{
 			this.SendPropertyChanging();
 			entity.Cargo = null;
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.VentaProducto")]
+	public partial class VentaProducto : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private System.Nullable<int> _cantidad;
+		
+		private System.Nullable<decimal> _montoParcial;
+		
+		private long _id;
+		
+		private System.Nullable<long> _id_venta;
+		
+		private System.Nullable<int> _id_producto;
+		
+		private System.Nullable<bool> _canjeado;
+		
+		private System.Nullable<decimal> _montoReal;
+		
+		private System.Nullable<decimal> _descuento;
+		
+		private System.Nullable<decimal> _descuentoPorcentaje;
+		
+		private EntityRef<Producto> _Producto;
+		
+		private EntityRef<Venta> _Venta;
+		
+    #region Definiciones de métodos de extensibilidad
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OncantidadChanging(System.Nullable<int> value);
+    partial void OncantidadChanged();
+    partial void OnmontoParcialChanging(System.Nullable<decimal> value);
+    partial void OnmontoParcialChanged();
+    partial void OnidChanging(long value);
+    partial void OnidChanged();
+    partial void Onid_ventaChanging(System.Nullable<long> value);
+    partial void Onid_ventaChanged();
+    partial void Onid_productoChanging(System.Nullable<int> value);
+    partial void Onid_productoChanged();
+    partial void OncanjeadoChanging(System.Nullable<bool> value);
+    partial void OncanjeadoChanged();
+    partial void OnmontoRealChanging(System.Nullable<decimal> value);
+    partial void OnmontoRealChanged();
+    partial void OndescuentoChanging(System.Nullable<decimal> value);
+    partial void OndescuentoChanged();
+    partial void OndescuentoPorcentajeChanging(System.Nullable<decimal> value);
+    partial void OndescuentoPorcentajeChanged();
+    #endregion
+		
+		public VentaProducto()
+		{
+			this._Producto = default(EntityRef<Producto>);
+			this._Venta = default(EntityRef<Venta>);
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_cantidad", DbType="Int")]
+		public System.Nullable<int> cantidad
+		{
+			get
+			{
+				return this._cantidad;
+			}
+			set
+			{
+				if ((this._cantidad != value))
+				{
+					this.OncantidadChanging(value);
+					this.SendPropertyChanging();
+					this._cantidad = value;
+					this.SendPropertyChanged("cantidad");
+					this.OncantidadChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_montoParcial", DbType="Decimal(10,2)")]
+		public System.Nullable<decimal> montoParcial
+		{
+			get
+			{
+				return this._montoParcial;
+			}
+			set
+			{
+				if ((this._montoParcial != value))
+				{
+					this.OnmontoParcialChanging(value);
+					this.SendPropertyChanging();
+					this._montoParcial = value;
+					this.SendPropertyChanged("montoParcial");
+					this.OnmontoParcialChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_id", AutoSync=AutoSync.OnInsert, DbType="BigInt NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
+		public long id
+		{
+			get
+			{
+				return this._id;
+			}
+			set
+			{
+				if ((this._id != value))
+				{
+					this.OnidChanging(value);
+					this.SendPropertyChanging();
+					this._id = value;
+					this.SendPropertyChanged("id");
+					this.OnidChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_id_venta", DbType="BigInt")]
+		public System.Nullable<long> id_venta
+		{
+			get
+			{
+				return this._id_venta;
+			}
+			set
+			{
+				if ((this._id_venta != value))
+				{
+					if (this._Venta.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.Onid_ventaChanging(value);
+					this.SendPropertyChanging();
+					this._id_venta = value;
+					this.SendPropertyChanged("id_venta");
+					this.Onid_ventaChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_id_producto", DbType="Int")]
+		public System.Nullable<int> id_producto
+		{
+			get
+			{
+				return this._id_producto;
+			}
+			set
+			{
+				if ((this._id_producto != value))
+				{
+					if (this._Producto.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.Onid_productoChanging(value);
+					this.SendPropertyChanging();
+					this._id_producto = value;
+					this.SendPropertyChanged("id_producto");
+					this.Onid_productoChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_canjeado", DbType="Bit")]
+		public System.Nullable<bool> canjeado
+		{
+			get
+			{
+				return this._canjeado;
+			}
+			set
+			{
+				if ((this._canjeado != value))
+				{
+					this.OncanjeadoChanging(value);
+					this.SendPropertyChanging();
+					this._canjeado = value;
+					this.SendPropertyChanged("canjeado");
+					this.OncanjeadoChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_montoReal", DbType="Decimal(18,2)")]
+		public System.Nullable<decimal> montoReal
+		{
+			get
+			{
+				return this._montoReal;
+			}
+			set
+			{
+				if ((this._montoReal != value))
+				{
+					this.OnmontoRealChanging(value);
+					this.SendPropertyChanging();
+					this._montoReal = value;
+					this.SendPropertyChanged("montoReal");
+					this.OnmontoRealChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_descuento", DbType="Decimal(18,2)")]
+		public System.Nullable<decimal> descuento
+		{
+			get
+			{
+				return this._descuento;
+			}
+			set
+			{
+				if ((this._descuento != value))
+				{
+					this.OndescuentoChanging(value);
+					this.SendPropertyChanging();
+					this._descuento = value;
+					this.SendPropertyChanged("descuento");
+					this.OndescuentoChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_descuentoPorcentaje", DbType="Decimal(18,2)")]
+		public System.Nullable<decimal> descuentoPorcentaje
+		{
+			get
+			{
+				return this._descuentoPorcentaje;
+			}
+			set
+			{
+				if ((this._descuentoPorcentaje != value))
+				{
+					this.OndescuentoPorcentajeChanging(value);
+					this.SendPropertyChanging();
+					this._descuentoPorcentaje = value;
+					this.SendPropertyChanged("descuentoPorcentaje");
+					this.OndescuentoPorcentajeChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Producto_VentaProducto", Storage="_Producto", ThisKey="id_producto", OtherKey="id", IsForeignKey=true)]
+		public Producto Producto
+		{
+			get
+			{
+				return this._Producto.Entity;
+			}
+			set
+			{
+				Producto previousValue = this._Producto.Entity;
+				if (((previousValue != value) 
+							|| (this._Producto.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._Producto.Entity = null;
+						previousValue.VentaProducto.Remove(this);
+					}
+					this._Producto.Entity = value;
+					if ((value != null))
+					{
+						value.VentaProducto.Add(this);
+						this._id_producto = value.id;
+					}
+					else
+					{
+						this._id_producto = default(Nullable<int>);
+					}
+					this.SendPropertyChanged("Producto");
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Venta_VentaProducto", Storage="_Venta", ThisKey="id_venta", OtherKey="id", IsForeignKey=true)]
+		public Venta Venta
+		{
+			get
+			{
+				return this._Venta.Entity;
+			}
+			set
+			{
+				Venta previousValue = this._Venta.Entity;
+				if (((previousValue != value) 
+							|| (this._Venta.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._Venta.Entity = null;
+						previousValue.VentaProducto.Remove(this);
+					}
+					this._Venta.Entity = value;
+					if ((value != null))
+					{
+						value.VentaProducto.Add(this);
+						this._id_venta = value.id;
+					}
+					else
+					{
+						this._id_venta = default(Nullable<long>);
+					}
+					this.SendPropertyChanged("Venta");
+				}
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
 		}
 	}
 	
@@ -2049,9 +2396,9 @@ namespace pe.edu.pucp.ferretin.model
 		
 		private System.Nullable<decimal> _subTotal;
 		
-		private EntitySet<DevolucionProducto> _DevolucionProducto;
-		
 		private EntitySet<NotaCredito> _NotaCredito;
+		
+		private EntitySet<DevolucionProducto> _DevolucionProducto;
 		
 		private EntityRef<Empleado> _Empleado;
 		
@@ -2083,8 +2430,8 @@ namespace pe.edu.pucp.ferretin.model
 		
 		public Devolucion()
 		{
-			this._DevolucionProducto = new EntitySet<DevolucionProducto>(new Action<DevolucionProducto>(this.attach_DevolucionProducto), new Action<DevolucionProducto>(this.detach_DevolucionProducto));
 			this._NotaCredito = new EntitySet<NotaCredito>(new Action<NotaCredito>(this.attach_NotaCredito), new Action<NotaCredito>(this.detach_NotaCredito));
+			this._DevolucionProducto = new EntitySet<DevolucionProducto>(new Action<DevolucionProducto>(this.attach_DevolucionProducto), new Action<DevolucionProducto>(this.detach_DevolucionProducto));
 			this._Empleado = default(EntityRef<Empleado>);
 			this._Venta = default(EntityRef<Venta>);
 			OnCreated();
@@ -2278,19 +2625,6 @@ namespace pe.edu.pucp.ferretin.model
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Devolucion_DevolucionProducto", Storage="_DevolucionProducto", ThisKey="id", OtherKey="id_devolucion")]
-		public EntitySet<DevolucionProducto> DevolucionProducto
-		{
-			get
-			{
-				return this._DevolucionProducto;
-			}
-			set
-			{
-				this._DevolucionProducto.Assign(value);
-			}
-		}
-		
 		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Devolucion_NotaCredito", Storage="_NotaCredito", ThisKey="id", OtherKey="id_devolucion")]
 		public EntitySet<NotaCredito> NotaCredito
 		{
@@ -2301,6 +2635,19 @@ namespace pe.edu.pucp.ferretin.model
 			set
 			{
 				this._NotaCredito.Assign(value);
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Devolucion_DevolucionProducto", Storage="_DevolucionProducto", ThisKey="id", OtherKey="id_devolucion")]
+		public EntitySet<DevolucionProducto> DevolucionProducto
+		{
+			get
+			{
+				return this._DevolucionProducto;
+			}
+			set
+			{
+				this._DevolucionProducto.Assign(value);
 			}
 		}
 		
@@ -2392,18 +2739,6 @@ namespace pe.edu.pucp.ferretin.model
 			}
 		}
 		
-		private void attach_DevolucionProducto(DevolucionProducto entity)
-		{
-			this.SendPropertyChanging();
-			entity.Devolucion = this;
-		}
-		
-		private void detach_DevolucionProducto(DevolucionProducto entity)
-		{
-			this.SendPropertyChanging();
-			entity.Devolucion = null;
-		}
-		
 		private void attach_NotaCredito(NotaCredito entity)
 		{
 			this.SendPropertyChanging();
@@ -2415,269 +2750,17 @@ namespace pe.edu.pucp.ferretin.model
 			this.SendPropertyChanging();
 			entity.Devolucion = null;
 		}
-	}
-	
-	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.DevolucionProducto")]
-	public partial class DevolucionProducto : INotifyPropertyChanging, INotifyPropertyChanged
-	{
 		
-		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
-		
-		private System.Nullable<decimal> _cantidad;
-		
-		private System.Nullable<decimal> _monto;
-		
-		private int _id;
-		
-		private System.Nullable<long> _id_devolucion;
-		
-		private System.Nullable<int> _id_producto;
-		
-		private string _motivo;
-		
-		private EntityRef<Devolucion> _Devolucion;
-		
-		private EntityRef<Producto> _Producto;
-		
-    #region Definiciones de métodos de extensibilidad
-    partial void OnLoaded();
-    partial void OnValidate(System.Data.Linq.ChangeAction action);
-    partial void OnCreated();
-    partial void OncantidadChanging(System.Nullable<decimal> value);
-    partial void OncantidadChanged();
-    partial void OnmontoChanging(System.Nullable<decimal> value);
-    partial void OnmontoChanged();
-    partial void OnidChanging(int value);
-    partial void OnidChanged();
-    partial void Onid_devolucionChanging(System.Nullable<long> value);
-    partial void Onid_devolucionChanged();
-    partial void Onid_productoChanging(System.Nullable<int> value);
-    partial void Onid_productoChanged();
-    partial void OnmotivoChanging(string value);
-    partial void OnmotivoChanged();
-    #endregion
-		
-		public DevolucionProducto()
+		private void attach_DevolucionProducto(DevolucionProducto entity)
 		{
-			this._Devolucion = default(EntityRef<Devolucion>);
-			this._Producto = default(EntityRef<Producto>);
-			OnCreated();
+			this.SendPropertyChanging();
+			entity.Devolucion = this;
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_cantidad", DbType="Decimal(10,2)")]
-		public System.Nullable<decimal> cantidad
+		private void detach_DevolucionProducto(DevolucionProducto entity)
 		{
-			get
-			{
-				return this._cantidad;
-			}
-			set
-			{
-				if ((this._cantidad != value))
-				{
-					this.OncantidadChanging(value);
-					this.SendPropertyChanging();
-					this._cantidad = value;
-					this.SendPropertyChanged("cantidad");
-					this.OncantidadChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_monto", DbType="Decimal(10,2)")]
-		public System.Nullable<decimal> monto
-		{
-			get
-			{
-				return this._monto;
-			}
-			set
-			{
-				if ((this._monto != value))
-				{
-					this.OnmontoChanging(value);
-					this.SendPropertyChanging();
-					this._monto = value;
-					this.SendPropertyChanged("monto");
-					this.OnmontoChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_id", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
-		public int id
-		{
-			get
-			{
-				return this._id;
-			}
-			set
-			{
-				if ((this._id != value))
-				{
-					this.OnidChanging(value);
-					this.SendPropertyChanging();
-					this._id = value;
-					this.SendPropertyChanged("id");
-					this.OnidChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_id_devolucion", DbType="BigInt")]
-		public System.Nullable<long> id_devolucion
-		{
-			get
-			{
-				return this._id_devolucion;
-			}
-			set
-			{
-				if ((this._id_devolucion != value))
-				{
-					if (this._Devolucion.HasLoadedOrAssignedValue)
-					{
-						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
-					}
-					this.Onid_devolucionChanging(value);
-					this.SendPropertyChanging();
-					this._id_devolucion = value;
-					this.SendPropertyChanged("id_devolucion");
-					this.Onid_devolucionChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_id_producto", DbType="Int")]
-		public System.Nullable<int> id_producto
-		{
-			get
-			{
-				return this._id_producto;
-			}
-			set
-			{
-				if ((this._id_producto != value))
-				{
-					if (this._Producto.HasLoadedOrAssignedValue)
-					{
-						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
-					}
-					this.Onid_productoChanging(value);
-					this.SendPropertyChanging();
-					this._id_producto = value;
-					this.SendPropertyChanged("id_producto");
-					this.Onid_productoChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_motivo", DbType="Text", UpdateCheck=UpdateCheck.Never)]
-		public string motivo
-		{
-			get
-			{
-				return this._motivo;
-			}
-			set
-			{
-				if ((this._motivo != value))
-				{
-					this.OnmotivoChanging(value);
-					this.SendPropertyChanging();
-					this._motivo = value;
-					this.SendPropertyChanged("motivo");
-					this.OnmotivoChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Devolucion_DevolucionProducto", Storage="_Devolucion", ThisKey="id_devolucion", OtherKey="id", IsForeignKey=true)]
-		public Devolucion Devolucion
-		{
-			get
-			{
-				return this._Devolucion.Entity;
-			}
-			set
-			{
-				Devolucion previousValue = this._Devolucion.Entity;
-				if (((previousValue != value) 
-							|| (this._Devolucion.HasLoadedOrAssignedValue == false)))
-				{
-					this.SendPropertyChanging();
-					if ((previousValue != null))
-					{
-						this._Devolucion.Entity = null;
-						previousValue.DevolucionProducto.Remove(this);
-					}
-					this._Devolucion.Entity = value;
-					if ((value != null))
-					{
-						value.DevolucionProducto.Add(this);
-						this._id_devolucion = value.id;
-					}
-					else
-					{
-						this._id_devolucion = default(Nullable<long>);
-					}
-					this.SendPropertyChanged("Devolucion");
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Producto_DevolucionProducto", Storage="_Producto", ThisKey="id_producto", OtherKey="id", IsForeignKey=true)]
-		public Producto Producto
-		{
-			get
-			{
-				return this._Producto.Entity;
-			}
-			set
-			{
-				Producto previousValue = this._Producto.Entity;
-				if (((previousValue != value) 
-							|| (this._Producto.HasLoadedOrAssignedValue == false)))
-				{
-					this.SendPropertyChanging();
-					if ((previousValue != null))
-					{
-						this._Producto.Entity = null;
-						previousValue.DevolucionProducto.Remove(this);
-					}
-					this._Producto.Entity = value;
-					if ((value != null))
-					{
-						value.DevolucionProducto.Add(this);
-						this._id_producto = value.id;
-					}
-					else
-					{
-						this._id_producto = default(Nullable<int>);
-					}
-					this.SendPropertyChanged("Producto");
-				}
-			}
-		}
-		
-		public event PropertyChangingEventHandler PropertyChanging;
-		
-		public event PropertyChangedEventHandler PropertyChanged;
-		
-		protected virtual void SendPropertyChanging()
-		{
-			if ((this.PropertyChanging != null))
-			{
-				this.PropertyChanging(this, emptyChangingEventArgs);
-			}
-		}
-		
-		protected virtual void SendPropertyChanged(String propertyName)
-		{
-			if ((this.PropertyChanged != null))
-			{
-				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-			}
+			this.SendPropertyChanging();
+			entity.Devolucion = null;
 		}
 	}
 	
@@ -6241,241 +6324,6 @@ namespace pe.edu.pucp.ferretin.model
 		}
 	}
 	
-	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Menu")]
-	public partial class Menu : INotifyPropertyChanging, INotifyPropertyChanged
-	{
-		
-		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
-		
-		private short _id;
-		
-		private System.Nullable<short> _id_menu_padre;
-		
-		private string _nombre;
-		
-		private EntitySet<Menu> _Menu2;
-		
-		private EntitySet<PerfilMenu> _PerfilMenu;
-		
-		private EntitySet<TransaccionTipo> _TransaccionTipo;
-		
-		private EntityRef<Menu> _Menu1;
-		
-    #region Definiciones de métodos de extensibilidad
-    partial void OnLoaded();
-    partial void OnValidate(System.Data.Linq.ChangeAction action);
-    partial void OnCreated();
-    partial void OnidChanging(short value);
-    partial void OnidChanged();
-    partial void Onid_menu_padreChanging(System.Nullable<short> value);
-    partial void Onid_menu_padreChanged();
-    partial void OnnombreChanging(string value);
-    partial void OnnombreChanged();
-    #endregion
-		
-		public Menu()
-		{
-			this._Menu2 = new EntitySet<Menu>(new Action<Menu>(this.attach_Menu2), new Action<Menu>(this.detach_Menu2));
-			this._PerfilMenu = new EntitySet<PerfilMenu>(new Action<PerfilMenu>(this.attach_PerfilMenu), new Action<PerfilMenu>(this.detach_PerfilMenu));
-			this._TransaccionTipo = new EntitySet<TransaccionTipo>(new Action<TransaccionTipo>(this.attach_TransaccionTipo), new Action<TransaccionTipo>(this.detach_TransaccionTipo));
-			this._Menu1 = default(EntityRef<Menu>);
-			OnCreated();
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_id", AutoSync=AutoSync.OnInsert, DbType="SmallInt NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
-		public short id
-		{
-			get
-			{
-				return this._id;
-			}
-			set
-			{
-				if ((this._id != value))
-				{
-					this.OnidChanging(value);
-					this.SendPropertyChanging();
-					this._id = value;
-					this.SendPropertyChanged("id");
-					this.OnidChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_id_menu_padre", DbType="SmallInt")]
-		public System.Nullable<short> id_menu_padre
-		{
-			get
-			{
-				return this._id_menu_padre;
-			}
-			set
-			{
-				if ((this._id_menu_padre != value))
-				{
-					if (this._Menu1.HasLoadedOrAssignedValue)
-					{
-						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
-					}
-					this.Onid_menu_padreChanging(value);
-					this.SendPropertyChanging();
-					this._id_menu_padre = value;
-					this.SendPropertyChanged("id_menu_padre");
-					this.Onid_menu_padreChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_nombre", DbType="VarChar(50)")]
-		public string nombre
-		{
-			get
-			{
-				return this._nombre;
-			}
-			set
-			{
-				if ((this._nombre != value))
-				{
-					this.OnnombreChanging(value);
-					this.SendPropertyChanging();
-					this._nombre = value;
-					this.SendPropertyChanged("nombre");
-					this.OnnombreChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Menu_Menu", Storage="_Menu2", ThisKey="id", OtherKey="id_menu_padre")]
-		public EntitySet<Menu> Menu2
-		{
-			get
-			{
-				return this._Menu2;
-			}
-			set
-			{
-				this._Menu2.Assign(value);
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Menu_PerfilMenu", Storage="_PerfilMenu", ThisKey="id", OtherKey="id_menu")]
-		public EntitySet<PerfilMenu> PerfilMenu
-		{
-			get
-			{
-				return this._PerfilMenu;
-			}
-			set
-			{
-				this._PerfilMenu.Assign(value);
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Menu_TransaccionTipo", Storage="_TransaccionTipo", ThisKey="id", OtherKey="id_menu")]
-		public EntitySet<TransaccionTipo> TransaccionTipo
-		{
-			get
-			{
-				return this._TransaccionTipo;
-			}
-			set
-			{
-				this._TransaccionTipo.Assign(value);
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Menu_Menu", Storage="_Menu1", ThisKey="id_menu_padre", OtherKey="id", IsForeignKey=true)]
-		public Menu Menu1
-		{
-			get
-			{
-				return this._Menu1.Entity;
-			}
-			set
-			{
-				Menu previousValue = this._Menu1.Entity;
-				if (((previousValue != value) 
-							|| (this._Menu1.HasLoadedOrAssignedValue == false)))
-				{
-					this.SendPropertyChanging();
-					if ((previousValue != null))
-					{
-						this._Menu1.Entity = null;
-						previousValue.Menu2.Remove(this);
-					}
-					this._Menu1.Entity = value;
-					if ((value != null))
-					{
-						value.Menu2.Add(this);
-						this._id_menu_padre = value.id;
-					}
-					else
-					{
-						this._id_menu_padre = default(Nullable<short>);
-					}
-					this.SendPropertyChanged("Menu1");
-				}
-			}
-		}
-		
-		public event PropertyChangingEventHandler PropertyChanging;
-		
-		public event PropertyChangedEventHandler PropertyChanged;
-		
-		protected virtual void SendPropertyChanging()
-		{
-			if ((this.PropertyChanging != null))
-			{
-				this.PropertyChanging(this, emptyChangingEventArgs);
-			}
-		}
-		
-		protected virtual void SendPropertyChanged(String propertyName)
-		{
-			if ((this.PropertyChanged != null))
-			{
-				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-			}
-		}
-		
-		private void attach_Menu2(Menu entity)
-		{
-			this.SendPropertyChanging();
-			entity.Menu1 = this;
-		}
-		
-		private void detach_Menu2(Menu entity)
-		{
-			this.SendPropertyChanging();
-			entity.Menu1 = null;
-		}
-		
-		private void attach_PerfilMenu(PerfilMenu entity)
-		{
-			this.SendPropertyChanging();
-			entity.Menu = this;
-		}
-		
-		private void detach_PerfilMenu(PerfilMenu entity)
-		{
-			this.SendPropertyChanging();
-			entity.Menu = null;
-		}
-		
-		private void attach_TransaccionTipo(TransaccionTipo entity)
-		{
-			this.SendPropertyChanging();
-			entity.Menu = this;
-		}
-		
-		private void detach_TransaccionTipo(TransaccionTipo entity)
-		{
-			this.SendPropertyChanging();
-			entity.Menu = null;
-		}
-	}
-	
 	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.LoteVale")]
 	public partial class LoteVale : INotifyPropertyChanging, INotifyPropertyChanged
 	{
@@ -7055,6 +6903,241 @@ namespace pe.edu.pucp.ferretin.model
 		}
 	}
 	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Menu")]
+	public partial class Menu : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private short _id;
+		
+		private System.Nullable<short> _id_menu_padre;
+		
+		private string _nombre;
+		
+		private EntitySet<Menu> _Menu2;
+		
+		private EntitySet<PerfilMenu> _PerfilMenu;
+		
+		private EntitySet<TransaccionTipo> _TransaccionTipo;
+		
+		private EntityRef<Menu> _Menu1;
+		
+    #region Definiciones de métodos de extensibilidad
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnidChanging(short value);
+    partial void OnidChanged();
+    partial void Onid_menu_padreChanging(System.Nullable<short> value);
+    partial void Onid_menu_padreChanged();
+    partial void OnnombreChanging(string value);
+    partial void OnnombreChanged();
+    #endregion
+		
+		public Menu()
+		{
+			this._Menu2 = new EntitySet<Menu>(new Action<Menu>(this.attach_Menu2), new Action<Menu>(this.detach_Menu2));
+			this._PerfilMenu = new EntitySet<PerfilMenu>(new Action<PerfilMenu>(this.attach_PerfilMenu), new Action<PerfilMenu>(this.detach_PerfilMenu));
+			this._TransaccionTipo = new EntitySet<TransaccionTipo>(new Action<TransaccionTipo>(this.attach_TransaccionTipo), new Action<TransaccionTipo>(this.detach_TransaccionTipo));
+			this._Menu1 = default(EntityRef<Menu>);
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_id", AutoSync=AutoSync.OnInsert, DbType="SmallInt NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
+		public short id
+		{
+			get
+			{
+				return this._id;
+			}
+			set
+			{
+				if ((this._id != value))
+				{
+					this.OnidChanging(value);
+					this.SendPropertyChanging();
+					this._id = value;
+					this.SendPropertyChanged("id");
+					this.OnidChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_id_menu_padre", DbType="SmallInt")]
+		public System.Nullable<short> id_menu_padre
+		{
+			get
+			{
+				return this._id_menu_padre;
+			}
+			set
+			{
+				if ((this._id_menu_padre != value))
+				{
+					if (this._Menu1.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.Onid_menu_padreChanging(value);
+					this.SendPropertyChanging();
+					this._id_menu_padre = value;
+					this.SendPropertyChanged("id_menu_padre");
+					this.Onid_menu_padreChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_nombre", DbType="VarChar(50)")]
+		public string nombre
+		{
+			get
+			{
+				return this._nombre;
+			}
+			set
+			{
+				if ((this._nombre != value))
+				{
+					this.OnnombreChanging(value);
+					this.SendPropertyChanging();
+					this._nombre = value;
+					this.SendPropertyChanged("nombre");
+					this.OnnombreChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Menu_Menu", Storage="_Menu2", ThisKey="id", OtherKey="id_menu_padre")]
+		public EntitySet<Menu> Menu2
+		{
+			get
+			{
+				return this._Menu2;
+			}
+			set
+			{
+				this._Menu2.Assign(value);
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Menu_PerfilMenu", Storage="_PerfilMenu", ThisKey="id", OtherKey="id_menu")]
+		public EntitySet<PerfilMenu> PerfilMenu
+		{
+			get
+			{
+				return this._PerfilMenu;
+			}
+			set
+			{
+				this._PerfilMenu.Assign(value);
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Menu_TransaccionTipo", Storage="_TransaccionTipo", ThisKey="id", OtherKey="id_menu")]
+		public EntitySet<TransaccionTipo> TransaccionTipo
+		{
+			get
+			{
+				return this._TransaccionTipo;
+			}
+			set
+			{
+				this._TransaccionTipo.Assign(value);
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Menu_Menu", Storage="_Menu1", ThisKey="id_menu_padre", OtherKey="id", IsForeignKey=true)]
+		public Menu Menu1
+		{
+			get
+			{
+				return this._Menu1.Entity;
+			}
+			set
+			{
+				Menu previousValue = this._Menu1.Entity;
+				if (((previousValue != value) 
+							|| (this._Menu1.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._Menu1.Entity = null;
+						previousValue.Menu2.Remove(this);
+					}
+					this._Menu1.Entity = value;
+					if ((value != null))
+					{
+						value.Menu2.Add(this);
+						this._id_menu_padre = value.id;
+					}
+					else
+					{
+						this._id_menu_padre = default(Nullable<short>);
+					}
+					this.SendPropertyChanged("Menu1");
+				}
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+		
+		private void attach_Menu2(Menu entity)
+		{
+			this.SendPropertyChanging();
+			entity.Menu1 = this;
+		}
+		
+		private void detach_Menu2(Menu entity)
+		{
+			this.SendPropertyChanging();
+			entity.Menu1 = null;
+		}
+		
+		private void attach_PerfilMenu(PerfilMenu entity)
+		{
+			this.SendPropertyChanging();
+			entity.Menu = this;
+		}
+		
+		private void detach_PerfilMenu(PerfilMenu entity)
+		{
+			this.SendPropertyChanging();
+			entity.Menu = null;
+		}
+		
+		private void attach_TransaccionTipo(TransaccionTipo entity)
+		{
+			this.SendPropertyChanging();
+			entity.Menu = this;
+		}
+		
+		private void detach_TransaccionTipo(TransaccionTipo entity)
+		{
+			this.SendPropertyChanging();
+			entity.Menu = null;
+		}
+	}
+	
 	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Movimiento")]
 	public partial class Movimiento : INotifyPropertyChanging, INotifyPropertyChanged
 	{
@@ -7474,281 +7557,6 @@ namespace pe.edu.pucp.ferretin.model
 		{
 			this.SendPropertyChanging();
 			entity.Movimiento = null;
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.NotaCredito")]
-	public partial class NotaCredito : INotifyPropertyChanging, INotifyPropertyChanged
-	{
-		
-		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
-		
-		private long _id;
-		
-		private string _codigo;
-		
-		private System.Nullable<System.DateTime> _fechaEmision;
-		
-		private System.Nullable<System.DateTime> _fechaVencimiento;
-		
-		private System.Nullable<decimal> _importe;
-		
-		private System.Nullable<long> _id_devolucion;
-		
-		private System.Nullable<int> _estado;
-		
-		private EntitySet<VentaMedioPago> _VentaMedioPago;
-		
-		private EntityRef<Devolucion> _Devolucion;
-		
-    #region Definiciones de métodos de extensibilidad
-    partial void OnLoaded();
-    partial void OnValidate(System.Data.Linq.ChangeAction action);
-    partial void OnCreated();
-    partial void OnidChanging(long value);
-    partial void OnidChanged();
-    partial void OncodigoChanging(string value);
-    partial void OncodigoChanged();
-    partial void OnfechaEmisionChanging(System.Nullable<System.DateTime> value);
-    partial void OnfechaEmisionChanged();
-    partial void OnfechaVencimientoChanging(System.Nullable<System.DateTime> value);
-    partial void OnfechaVencimientoChanged();
-    partial void OnimporteChanging(System.Nullable<decimal> value);
-    partial void OnimporteChanged();
-    partial void Onid_devolucionChanging(System.Nullable<long> value);
-    partial void Onid_devolucionChanged();
-    partial void OnestadoChanging(System.Nullable<int> value);
-    partial void OnestadoChanged();
-    #endregion
-		
-		public NotaCredito()
-		{
-			this._VentaMedioPago = new EntitySet<VentaMedioPago>(new Action<VentaMedioPago>(this.attach_VentaMedioPago), new Action<VentaMedioPago>(this.detach_VentaMedioPago));
-			this._Devolucion = default(EntityRef<Devolucion>);
-			OnCreated();
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_id", AutoSync=AutoSync.OnInsert, DbType="BigInt NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
-		public long id
-		{
-			get
-			{
-				return this._id;
-			}
-			set
-			{
-				if ((this._id != value))
-				{
-					this.OnidChanging(value);
-					this.SendPropertyChanging();
-					this._id = value;
-					this.SendPropertyChanged("id");
-					this.OnidChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_codigo", DbType="VarChar(15)")]
-		public string codigo
-		{
-			get
-			{
-				return this._codigo;
-			}
-			set
-			{
-				if ((this._codigo != value))
-				{
-					this.OncodigoChanging(value);
-					this.SendPropertyChanging();
-					this._codigo = value;
-					this.SendPropertyChanged("codigo");
-					this.OncodigoChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_fechaEmision", DbType="DateTime")]
-		public System.Nullable<System.DateTime> fechaEmision
-		{
-			get
-			{
-				return this._fechaEmision;
-			}
-			set
-			{
-				if ((this._fechaEmision != value))
-				{
-					this.OnfechaEmisionChanging(value);
-					this.SendPropertyChanging();
-					this._fechaEmision = value;
-					this.SendPropertyChanged("fechaEmision");
-					this.OnfechaEmisionChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_fechaVencimiento", DbType="DateTime")]
-		public System.Nullable<System.DateTime> fechaVencimiento
-		{
-			get
-			{
-				return this._fechaVencimiento;
-			}
-			set
-			{
-				if ((this._fechaVencimiento != value))
-				{
-					this.OnfechaVencimientoChanging(value);
-					this.SendPropertyChanging();
-					this._fechaVencimiento = value;
-					this.SendPropertyChanged("fechaVencimiento");
-					this.OnfechaVencimientoChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_importe", DbType="Decimal(10,2)")]
-		public System.Nullable<decimal> importe
-		{
-			get
-			{
-				return this._importe;
-			}
-			set
-			{
-				if ((this._importe != value))
-				{
-					this.OnimporteChanging(value);
-					this.SendPropertyChanging();
-					this._importe = value;
-					this.SendPropertyChanged("importe");
-					this.OnimporteChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_id_devolucion", DbType="BigInt")]
-		public System.Nullable<long> id_devolucion
-		{
-			get
-			{
-				return this._id_devolucion;
-			}
-			set
-			{
-				if ((this._id_devolucion != value))
-				{
-					if (this._Devolucion.HasLoadedOrAssignedValue)
-					{
-						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
-					}
-					this.Onid_devolucionChanging(value);
-					this.SendPropertyChanging();
-					this._id_devolucion = value;
-					this.SendPropertyChanged("id_devolucion");
-					this.Onid_devolucionChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_estado", DbType="Int")]
-		public System.Nullable<int> estado
-		{
-			get
-			{
-				return this._estado;
-			}
-			set
-			{
-				if ((this._estado != value))
-				{
-					this.OnestadoChanging(value);
-					this.SendPropertyChanging();
-					this._estado = value;
-					this.SendPropertyChanged("estado");
-					this.OnestadoChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="NotaCredito_VentaMedioPago", Storage="_VentaMedioPago", ThisKey="id", OtherKey="notaCredito_id")]
-		public EntitySet<VentaMedioPago> VentaMedioPago
-		{
-			get
-			{
-				return this._VentaMedioPago;
-			}
-			set
-			{
-				this._VentaMedioPago.Assign(value);
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Devolucion_NotaCredito", Storage="_Devolucion", ThisKey="id_devolucion", OtherKey="id", IsForeignKey=true)]
-		public Devolucion Devolucion
-		{
-			get
-			{
-				return this._Devolucion.Entity;
-			}
-			set
-			{
-				Devolucion previousValue = this._Devolucion.Entity;
-				if (((previousValue != value) 
-							|| (this._Devolucion.HasLoadedOrAssignedValue == false)))
-				{
-					this.SendPropertyChanging();
-					if ((previousValue != null))
-					{
-						this._Devolucion.Entity = null;
-						previousValue.NotaCredito.Remove(this);
-					}
-					this._Devolucion.Entity = value;
-					if ((value != null))
-					{
-						value.NotaCredito.Add(this);
-						this._id_devolucion = value.id;
-					}
-					else
-					{
-						this._id_devolucion = default(Nullable<long>);
-					}
-					this.SendPropertyChanged("Devolucion");
-				}
-			}
-		}
-		
-		public event PropertyChangingEventHandler PropertyChanging;
-		
-		public event PropertyChangedEventHandler PropertyChanged;
-		
-		protected virtual void SendPropertyChanging()
-		{
-			if ((this.PropertyChanging != null))
-			{
-				this.PropertyChanging(this, emptyChangingEventArgs);
-			}
-		}
-		
-		protected virtual void SendPropertyChanged(String propertyName)
-		{
-			if ((this.PropertyChanged != null))
-			{
-				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-			}
-		}
-		
-		private void attach_VentaMedioPago(VentaMedioPago entity)
-		{
-			this.SendPropertyChanging();
-			entity.NotaCredito = this;
-		}
-		
-		private void detach_VentaMedioPago(VentaMedioPago entity)
-		{
-			this.SendPropertyChanging();
-			entity.NotaCredito = null;
 		}
 	}
 	
@@ -8316,6 +8124,281 @@ namespace pe.edu.pucp.ferretin.model
 		}
 	}
 	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.NotaCredito")]
+	public partial class NotaCredito : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private long _id;
+		
+		private string _codigo;
+		
+		private System.Nullable<System.DateTime> _fechaEmision;
+		
+		private System.Nullable<System.DateTime> _fechaVencimiento;
+		
+		private System.Nullable<decimal> _importe;
+		
+		private System.Nullable<long> _id_devolucion;
+		
+		private System.Nullable<int> _estado;
+		
+		private EntitySet<VentaMedioPago> _VentaMedioPago;
+		
+		private EntityRef<Devolucion> _Devolucion;
+		
+    #region Definiciones de métodos de extensibilidad
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnidChanging(long value);
+    partial void OnidChanged();
+    partial void OncodigoChanging(string value);
+    partial void OncodigoChanged();
+    partial void OnfechaEmisionChanging(System.Nullable<System.DateTime> value);
+    partial void OnfechaEmisionChanged();
+    partial void OnfechaVencimientoChanging(System.Nullable<System.DateTime> value);
+    partial void OnfechaVencimientoChanged();
+    partial void OnimporteChanging(System.Nullable<decimal> value);
+    partial void OnimporteChanged();
+    partial void Onid_devolucionChanging(System.Nullable<long> value);
+    partial void Onid_devolucionChanged();
+    partial void OnestadoChanging(System.Nullable<int> value);
+    partial void OnestadoChanged();
+    #endregion
+		
+		public NotaCredito()
+		{
+			this._VentaMedioPago = new EntitySet<VentaMedioPago>(new Action<VentaMedioPago>(this.attach_VentaMedioPago), new Action<VentaMedioPago>(this.detach_VentaMedioPago));
+			this._Devolucion = default(EntityRef<Devolucion>);
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_id", AutoSync=AutoSync.OnInsert, DbType="BigInt NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
+		public long id
+		{
+			get
+			{
+				return this._id;
+			}
+			set
+			{
+				if ((this._id != value))
+				{
+					this.OnidChanging(value);
+					this.SendPropertyChanging();
+					this._id = value;
+					this.SendPropertyChanged("id");
+					this.OnidChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_codigo", DbType="VarChar(15)")]
+		public string codigo
+		{
+			get
+			{
+				return this._codigo;
+			}
+			set
+			{
+				if ((this._codigo != value))
+				{
+					this.OncodigoChanging(value);
+					this.SendPropertyChanging();
+					this._codigo = value;
+					this.SendPropertyChanged("codigo");
+					this.OncodigoChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_fechaEmision", DbType="DateTime")]
+		public System.Nullable<System.DateTime> fechaEmision
+		{
+			get
+			{
+				return this._fechaEmision;
+			}
+			set
+			{
+				if ((this._fechaEmision != value))
+				{
+					this.OnfechaEmisionChanging(value);
+					this.SendPropertyChanging();
+					this._fechaEmision = value;
+					this.SendPropertyChanged("fechaEmision");
+					this.OnfechaEmisionChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_fechaVencimiento", DbType="DateTime")]
+		public System.Nullable<System.DateTime> fechaVencimiento
+		{
+			get
+			{
+				return this._fechaVencimiento;
+			}
+			set
+			{
+				if ((this._fechaVencimiento != value))
+				{
+					this.OnfechaVencimientoChanging(value);
+					this.SendPropertyChanging();
+					this._fechaVencimiento = value;
+					this.SendPropertyChanged("fechaVencimiento");
+					this.OnfechaVencimientoChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_importe", DbType="Decimal(10,2)")]
+		public System.Nullable<decimal> importe
+		{
+			get
+			{
+				return this._importe;
+			}
+			set
+			{
+				if ((this._importe != value))
+				{
+					this.OnimporteChanging(value);
+					this.SendPropertyChanging();
+					this._importe = value;
+					this.SendPropertyChanged("importe");
+					this.OnimporteChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_id_devolucion", DbType="BigInt")]
+		public System.Nullable<long> id_devolucion
+		{
+			get
+			{
+				return this._id_devolucion;
+			}
+			set
+			{
+				if ((this._id_devolucion != value))
+				{
+					if (this._Devolucion.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.Onid_devolucionChanging(value);
+					this.SendPropertyChanging();
+					this._id_devolucion = value;
+					this.SendPropertyChanged("id_devolucion");
+					this.Onid_devolucionChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_estado", DbType="Int")]
+		public System.Nullable<int> estado
+		{
+			get
+			{
+				return this._estado;
+			}
+			set
+			{
+				if ((this._estado != value))
+				{
+					this.OnestadoChanging(value);
+					this.SendPropertyChanging();
+					this._estado = value;
+					this.SendPropertyChanged("estado");
+					this.OnestadoChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="NotaCredito_VentaMedioPago", Storage="_VentaMedioPago", ThisKey="id", OtherKey="notaCredito_id")]
+		public EntitySet<VentaMedioPago> VentaMedioPago
+		{
+			get
+			{
+				return this._VentaMedioPago;
+			}
+			set
+			{
+				this._VentaMedioPago.Assign(value);
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Devolucion_NotaCredito", Storage="_Devolucion", ThisKey="id_devolucion", OtherKey="id", IsForeignKey=true)]
+		public Devolucion Devolucion
+		{
+			get
+			{
+				return this._Devolucion.Entity;
+			}
+			set
+			{
+				Devolucion previousValue = this._Devolucion.Entity;
+				if (((previousValue != value) 
+							|| (this._Devolucion.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._Devolucion.Entity = null;
+						previousValue.NotaCredito.Remove(this);
+					}
+					this._Devolucion.Entity = value;
+					if ((value != null))
+					{
+						value.NotaCredito.Add(this);
+						this._id_devolucion = value.id;
+					}
+					else
+					{
+						this._id_devolucion = default(Nullable<long>);
+					}
+					this.SendPropertyChanged("Devolucion");
+				}
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+		
+		private void attach_VentaMedioPago(VentaMedioPago entity)
+		{
+			this.SendPropertyChanging();
+			entity.NotaCredito = this;
+		}
+		
+		private void detach_VentaMedioPago(VentaMedioPago entity)
+		{
+			this.SendPropertyChanging();
+			entity.NotaCredito = null;
+		}
+	}
+	
 	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Parametro")]
 	public partial class Parametro : INotifyPropertyChanging, INotifyPropertyChanged
 	{
@@ -8425,318 +8508,6 @@ namespace pe.edu.pucp.ferretin.model
 					this._valor = value;
 					this.SendPropertyChanged("valor");
 					this.OnvalorChanged();
-				}
-			}
-		}
-		
-		public event PropertyChangingEventHandler PropertyChanging;
-		
-		public event PropertyChangedEventHandler PropertyChanged;
-		
-		protected virtual void SendPropertyChanging()
-		{
-			if ((this.PropertyChanging != null))
-			{
-				this.PropertyChanging(this, emptyChangingEventArgs);
-			}
-		}
-		
-		protected virtual void SendPropertyChanged(String propertyName)
-		{
-			if ((this.PropertyChanged != null))
-			{
-				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.VentaProducto")]
-	public partial class VentaProducto : INotifyPropertyChanging, INotifyPropertyChanged
-	{
-		
-		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
-		
-		private System.Nullable<decimal> _cantidad;
-		
-		private System.Nullable<decimal> _montoParcial;
-		
-		private long _id;
-		
-		private System.Nullable<long> _id_venta;
-		
-		private System.Nullable<int> _id_producto;
-		
-		private System.Nullable<bool> _canjeado;
-		
-		private System.Nullable<decimal> _montoReal;
-		
-		private System.Nullable<decimal> _descuento;
-		
-		private EntityRef<Producto> _Producto;
-		
-		private EntityRef<Venta> _Venta;
-		
-    #region Definiciones de métodos de extensibilidad
-    partial void OnLoaded();
-    partial void OnValidate(System.Data.Linq.ChangeAction action);
-    partial void OnCreated();
-    partial void OncantidadChanging(System.Nullable<decimal> value);
-    partial void OncantidadChanged();
-    partial void OnmontoParcialChanging(System.Nullable<decimal> value);
-    partial void OnmontoParcialChanged();
-    partial void OnidChanging(long value);
-    partial void OnidChanged();
-    partial void Onid_ventaChanging(System.Nullable<long> value);
-    partial void Onid_ventaChanged();
-    partial void Onid_productoChanging(System.Nullable<int> value);
-    partial void Onid_productoChanged();
-    partial void OncanjeadoChanging(System.Nullable<bool> value);
-    partial void OncanjeadoChanged();
-    partial void OnmontoRealChanging(System.Nullable<decimal> value);
-    partial void OnmontoRealChanged();
-    partial void OndescuentoChanging(System.Nullable<decimal> value);
-    partial void OndescuentoChanged();
-    #endregion
-		
-		public VentaProducto()
-		{
-			this._Producto = default(EntityRef<Producto>);
-			this._Venta = default(EntityRef<Venta>);
-			OnCreated();
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_cantidad", DbType="Decimal(10,2)")]
-		public System.Nullable<decimal> cantidad
-		{
-			get
-			{
-				return this._cantidad;
-			}
-			set
-			{
-				if ((this._cantidad != value))
-				{
-					this.OncantidadChanging(value);
-					this.SendPropertyChanging();
-					this._cantidad = value;
-					this.SendPropertyChanged("cantidad");
-					this.OncantidadChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_montoParcial", DbType="Decimal(10,2)")]
-		public System.Nullable<decimal> montoParcial
-		{
-			get
-			{
-				return this._montoParcial;
-			}
-			set
-			{
-				if ((this._montoParcial != value))
-				{
-					this.OnmontoParcialChanging(value);
-					this.SendPropertyChanging();
-					this._montoParcial = value;
-					this.SendPropertyChanged("montoParcial");
-					this.OnmontoParcialChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_id", AutoSync=AutoSync.OnInsert, DbType="BigInt NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
-		public long id
-		{
-			get
-			{
-				return this._id;
-			}
-			set
-			{
-				if ((this._id != value))
-				{
-					this.OnidChanging(value);
-					this.SendPropertyChanging();
-					this._id = value;
-					this.SendPropertyChanged("id");
-					this.OnidChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_id_venta", DbType="BigInt")]
-		public System.Nullable<long> id_venta
-		{
-			get
-			{
-				return this._id_venta;
-			}
-			set
-			{
-				if ((this._id_venta != value))
-				{
-					if (this._Venta.HasLoadedOrAssignedValue)
-					{
-						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
-					}
-					this.Onid_ventaChanging(value);
-					this.SendPropertyChanging();
-					this._id_venta = value;
-					this.SendPropertyChanged("id_venta");
-					this.Onid_ventaChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_id_producto", DbType="Int")]
-		public System.Nullable<int> id_producto
-		{
-			get
-			{
-				return this._id_producto;
-			}
-			set
-			{
-				if ((this._id_producto != value))
-				{
-					if (this._Producto.HasLoadedOrAssignedValue)
-					{
-						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
-					}
-					this.Onid_productoChanging(value);
-					this.SendPropertyChanging();
-					this._id_producto = value;
-					this.SendPropertyChanged("id_producto");
-					this.Onid_productoChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_canjeado", DbType="Bit")]
-		public System.Nullable<bool> canjeado
-		{
-			get
-			{
-				return this._canjeado;
-			}
-			set
-			{
-				if ((this._canjeado != value))
-				{
-					this.OncanjeadoChanging(value);
-					this.SendPropertyChanging();
-					this._canjeado = value;
-					this.SendPropertyChanged("canjeado");
-					this.OncanjeadoChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_montoReal", DbType="Decimal(18,0)")]
-		public System.Nullable<decimal> montoReal
-		{
-			get
-			{
-				return this._montoReal;
-			}
-			set
-			{
-				if ((this._montoReal != value))
-				{
-					this.OnmontoRealChanging(value);
-					this.SendPropertyChanging();
-					this._montoReal = value;
-					this.SendPropertyChanged("montoReal");
-					this.OnmontoRealChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_descuento", DbType="Decimal(18,0)")]
-		public System.Nullable<decimal> descuento
-		{
-			get
-			{
-				return this._descuento;
-			}
-			set
-			{
-				if ((this._descuento != value))
-				{
-					this.OndescuentoChanging(value);
-					this.SendPropertyChanging();
-					this._descuento = value;
-					this.SendPropertyChanged("descuento");
-					this.OndescuentoChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Producto_VentaProducto", Storage="_Producto", ThisKey="id_producto", OtherKey="id", IsForeignKey=true)]
-		public Producto Producto
-		{
-			get
-			{
-				return this._Producto.Entity;
-			}
-			set
-			{
-				Producto previousValue = this._Producto.Entity;
-				if (((previousValue != value) 
-							|| (this._Producto.HasLoadedOrAssignedValue == false)))
-				{
-					this.SendPropertyChanging();
-					if ((previousValue != null))
-					{
-						this._Producto.Entity = null;
-						previousValue.VentaProducto.Remove(this);
-					}
-					this._Producto.Entity = value;
-					if ((value != null))
-					{
-						value.VentaProducto.Add(this);
-						this._id_producto = value.id;
-					}
-					else
-					{
-						this._id_producto = default(Nullable<int>);
-					}
-					this.SendPropertyChanged("Producto");
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Venta_VentaProducto", Storage="_Venta", ThisKey="id_venta", OtherKey="id", IsForeignKey=true)]
-		public Venta Venta
-		{
-			get
-			{
-				return this._Venta.Entity;
-			}
-			set
-			{
-				Venta previousValue = this._Venta.Entity;
-				if (((previousValue != value) 
-							|| (this._Venta.HasLoadedOrAssignedValue == false)))
-				{
-					this.SendPropertyChanging();
-					if ((previousValue != null))
-					{
-						this._Venta.Entity = null;
-						previousValue.VentaProducto.Remove(this);
-					}
-					this._Venta.Entity = value;
-					if ((value != null))
-					{
-						value.VentaProducto.Add(this);
-						this._id_venta = value.id;
-					}
-					else
-					{
-						this._id_venta = default(Nullable<long>);
-					}
-					this.SendPropertyChanged("Venta");
 				}
 			}
 		}
@@ -9291,7 +9062,7 @@ namespace pe.edu.pucp.ferretin.model
 		
 		private System.Nullable<int> _precioPuntos;
 		
-		private EntitySet<DevolucionProducto> _DevolucionProducto;
+		private EntitySet<VentaProducto> _VentaProducto;
 		
 		private EntitySet<DocumentoCompraProducto> _DocumentoCompraProducto;
 		
@@ -9299,19 +9070,21 @@ namespace pe.edu.pucp.ferretin.model
 		
 		private EntitySet<MovimientoProducto> _MovimientoProducto;
 		
-		private EntitySet<VentaProducto> _VentaProducto;
-		
 		private EntitySet<ProductoAlmacen> _ProductoAlmacen;
 		
 		private EntitySet<ProductoCategoria> _ProductoCategoria;
 		
 		private EntitySet<ProductoColor> _ProductoColor;
 		
+		private EntitySet<ProformaProducto> _ProformaProducto;
+		
 		private EntitySet<PromocionProducto> _PromocionProducto;
 		
 		private EntitySet<ProveedorProducto> _ProveedorProducto;
 		
 		private EntitySet<SolicitudAbastecimientoProducto> _SolicitudAbastecimientoProducto;
+		
+		private EntitySet<DevolucionProducto> _DevolucionProducto;
 		
 		private EntityRef<Material> _Material;
 		
@@ -9351,17 +9124,18 @@ namespace pe.edu.pucp.ferretin.model
 		
 		public Producto()
 		{
-			this._DevolucionProducto = new EntitySet<DevolucionProducto>(new Action<DevolucionProducto>(this.attach_DevolucionProducto), new Action<DevolucionProducto>(this.detach_DevolucionProducto));
+			this._VentaProducto = new EntitySet<VentaProducto>(new Action<VentaProducto>(this.attach_VentaProducto), new Action<VentaProducto>(this.detach_VentaProducto));
 			this._DocumentoCompraProducto = new EntitySet<DocumentoCompraProducto>(new Action<DocumentoCompraProducto>(this.attach_DocumentoCompraProducto), new Action<DocumentoCompraProducto>(this.detach_DocumentoCompraProducto));
 			this._Lote = new EntitySet<Lote>(new Action<Lote>(this.attach_Lote), new Action<Lote>(this.detach_Lote));
 			this._MovimientoProducto = new EntitySet<MovimientoProducto>(new Action<MovimientoProducto>(this.attach_MovimientoProducto), new Action<MovimientoProducto>(this.detach_MovimientoProducto));
-			this._VentaProducto = new EntitySet<VentaProducto>(new Action<VentaProducto>(this.attach_VentaProducto), new Action<VentaProducto>(this.detach_VentaProducto));
 			this._ProductoAlmacen = new EntitySet<ProductoAlmacen>(new Action<ProductoAlmacen>(this.attach_ProductoAlmacen), new Action<ProductoAlmacen>(this.detach_ProductoAlmacen));
 			this._ProductoCategoria = new EntitySet<ProductoCategoria>(new Action<ProductoCategoria>(this.attach_ProductoCategoria), new Action<ProductoCategoria>(this.detach_ProductoCategoria));
 			this._ProductoColor = new EntitySet<ProductoColor>(new Action<ProductoColor>(this.attach_ProductoColor), new Action<ProductoColor>(this.detach_ProductoColor));
+			this._ProformaProducto = new EntitySet<ProformaProducto>(new Action<ProformaProducto>(this.attach_ProformaProducto), new Action<ProformaProducto>(this.detach_ProformaProducto));
 			this._PromocionProducto = new EntitySet<PromocionProducto>(new Action<PromocionProducto>(this.attach_PromocionProducto), new Action<PromocionProducto>(this.detach_PromocionProducto));
 			this._ProveedorProducto = new EntitySet<ProveedorProducto>(new Action<ProveedorProducto>(this.attach_ProveedorProducto), new Action<ProveedorProducto>(this.detach_ProveedorProducto));
 			this._SolicitudAbastecimientoProducto = new EntitySet<SolicitudAbastecimientoProducto>(new Action<SolicitudAbastecimientoProducto>(this.attach_SolicitudAbastecimientoProducto), new Action<SolicitudAbastecimientoProducto>(this.detach_SolicitudAbastecimientoProducto));
+			this._DevolucionProducto = new EntitySet<DevolucionProducto>(new Action<DevolucionProducto>(this.attach_DevolucionProducto), new Action<DevolucionProducto>(this.detach_DevolucionProducto));
 			this._Material = default(EntityRef<Material>);
 			this._Material1 = default(EntityRef<Material>);
 			this._UnidadMedida = default(EntityRef<UnidadMedida>);
@@ -9620,16 +9394,16 @@ namespace pe.edu.pucp.ferretin.model
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Producto_DevolucionProducto", Storage="_DevolucionProducto", ThisKey="id", OtherKey="id_producto")]
-		public EntitySet<DevolucionProducto> DevolucionProducto
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Producto_VentaProducto", Storage="_VentaProducto", ThisKey="id", OtherKey="id_producto")]
+		public EntitySet<VentaProducto> VentaProducto
 		{
 			get
 			{
-				return this._DevolucionProducto;
+				return this._VentaProducto;
 			}
 			set
 			{
-				this._DevolucionProducto.Assign(value);
+				this._VentaProducto.Assign(value);
 			}
 		}
 		
@@ -9672,19 +9446,6 @@ namespace pe.edu.pucp.ferretin.model
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Producto_VentaProducto", Storage="_VentaProducto", ThisKey="id", OtherKey="id_producto")]
-		public EntitySet<VentaProducto> VentaProducto
-		{
-			get
-			{
-				return this._VentaProducto;
-			}
-			set
-			{
-				this._VentaProducto.Assign(value);
-			}
-		}
-		
 		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Producto_ProductoAlmacen", Storage="_ProductoAlmacen", ThisKey="id", OtherKey="id_producto")]
 		public EntitySet<ProductoAlmacen> ProductoAlmacen
 		{
@@ -9724,6 +9485,19 @@ namespace pe.edu.pucp.ferretin.model
 			}
 		}
 		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Producto_ProformaProducto", Storage="_ProformaProducto", ThisKey="id", OtherKey="producto_id")]
+		public EntitySet<ProformaProducto> ProformaProducto
+		{
+			get
+			{
+				return this._ProformaProducto;
+			}
+			set
+			{
+				this._ProformaProducto.Assign(value);
+			}
+		}
+		
 		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Producto_PromocionProducto", Storage="_PromocionProducto", ThisKey="id", OtherKey="producto_id")]
 		public EntitySet<PromocionProducto> PromocionProducto
 		{
@@ -9760,6 +9534,19 @@ namespace pe.edu.pucp.ferretin.model
 			set
 			{
 				this._SolicitudAbastecimientoProducto.Assign(value);
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Producto_DevolucionProducto", Storage="_DevolucionProducto", ThisKey="id", OtherKey="id_producto")]
+		public EntitySet<DevolucionProducto> DevolucionProducto
+		{
+			get
+			{
+				return this._DevolucionProducto;
+			}
+			set
+			{
+				this._DevolucionProducto.Assign(value);
 			}
 		}
 		
@@ -9885,13 +9672,13 @@ namespace pe.edu.pucp.ferretin.model
 			}
 		}
 		
-		private void attach_DevolucionProducto(DevolucionProducto entity)
+		private void attach_VentaProducto(VentaProducto entity)
 		{
 			this.SendPropertyChanging();
 			entity.Producto = this;
 		}
 		
-		private void detach_DevolucionProducto(DevolucionProducto entity)
+		private void detach_VentaProducto(VentaProducto entity)
 		{
 			this.SendPropertyChanging();
 			entity.Producto = null;
@@ -9933,18 +9720,6 @@ namespace pe.edu.pucp.ferretin.model
 			entity.Producto = null;
 		}
 		
-		private void attach_VentaProducto(VentaProducto entity)
-		{
-			this.SendPropertyChanging();
-			entity.Producto = this;
-		}
-		
-		private void detach_VentaProducto(VentaProducto entity)
-		{
-			this.SendPropertyChanging();
-			entity.Producto = null;
-		}
-		
 		private void attach_ProductoAlmacen(ProductoAlmacen entity)
 		{
 			this.SendPropertyChanging();
@@ -9981,6 +9756,18 @@ namespace pe.edu.pucp.ferretin.model
 			entity.Producto = null;
 		}
 		
+		private void attach_ProformaProducto(ProformaProducto entity)
+		{
+			this.SendPropertyChanging();
+			entity.Producto = this;
+		}
+		
+		private void detach_ProformaProducto(ProformaProducto entity)
+		{
+			this.SendPropertyChanging();
+			entity.Producto = null;
+		}
+		
 		private void attach_PromocionProducto(PromocionProducto entity)
 		{
 			this.SendPropertyChanging();
@@ -10012,6 +9799,18 @@ namespace pe.edu.pucp.ferretin.model
 		}
 		
 		private void detach_SolicitudAbastecimientoProducto(SolicitudAbastecimientoProducto entity)
+		{
+			this.SendPropertyChanging();
+			entity.Producto = null;
+		}
+		
+		private void attach_DevolucionProducto(DevolucionProducto entity)
+		{
+			this.SendPropertyChanging();
+			entity.Producto = this;
+		}
+		
+		private void detach_DevolucionProducto(DevolucionProducto entity)
 		{
 			this.SendPropertyChanging();
 			entity.Producto = null;
@@ -10742,6 +10541,8 @@ namespace pe.edu.pucp.ferretin.model
 		
 		private System.Nullable<int> _id_usuario;
 		
+		private EntitySet<ProformaProducto> _ProformaProducto;
+		
 		private EntityRef<Cliente> _Cliente;
 		
 		private EntityRef<Usuario> _Usuario;
@@ -10776,6 +10577,7 @@ namespace pe.edu.pucp.ferretin.model
 		
 		public Proforma()
 		{
+			this._ProformaProducto = new EntitySet<ProformaProducto>(new Action<ProformaProducto>(this.attach_ProformaProducto), new Action<ProformaProducto>(this.detach_ProformaProducto));
 			this._Cliente = default(EntityRef<Cliente>);
 			this._Usuario = default(EntityRef<Usuario>);
 			OnCreated();
@@ -11009,6 +10811,19 @@ namespace pe.edu.pucp.ferretin.model
 			}
 		}
 		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Proforma_ProformaProducto", Storage="_ProformaProducto", ThisKey="id", OtherKey="proforma_id")]
+		public EntitySet<ProformaProducto> ProformaProducto
+		{
+			get
+			{
+				return this._ProformaProducto;
+			}
+			set
+			{
+				this._ProformaProducto.Assign(value);
+			}
+		}
+		
 		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Cliente_Proforma", Storage="_Cliente", ThisKey="id_cliente", OtherKey="id", IsForeignKey=true)]
 		public Cliente Cliente
 		{
@@ -11073,6 +10888,330 @@ namespace pe.edu.pucp.ferretin.model
 						this._id_usuario = default(Nullable<int>);
 					}
 					this.SendPropertyChanged("Usuario");
+				}
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+		
+		private void attach_ProformaProducto(ProformaProducto entity)
+		{
+			this.SendPropertyChanging();
+			entity.Proforma = this;
+		}
+		
+		private void detach_ProformaProducto(ProformaProducto entity)
+		{
+			this.SendPropertyChanging();
+			entity.Proforma = null;
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.ProformaProducto")]
+	public partial class ProformaProducto : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private long _id;
+		
+		private System.Nullable<int> _proforma_id;
+		
+		private System.Nullable<int> _producto_id;
+		
+		private System.Nullable<int> _cantidad;
+		
+		private System.Nullable<decimal> _montoParcial;
+		
+		private System.Nullable<decimal> _montoReal;
+		
+		private System.Nullable<decimal> _descuento;
+		
+		private System.Nullable<decimal> _descuentoPorcentaje;
+		
+		private EntityRef<Producto> _Producto;
+		
+		private EntityRef<Proforma> _Proforma;
+		
+    #region Definiciones de métodos de extensibilidad
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnidChanging(long value);
+    partial void OnidChanged();
+    partial void Onproforma_idChanging(System.Nullable<int> value);
+    partial void Onproforma_idChanged();
+    partial void Onproducto_idChanging(System.Nullable<int> value);
+    partial void Onproducto_idChanged();
+    partial void OncantidadChanging(System.Nullable<int> value);
+    partial void OncantidadChanged();
+    partial void OnmontoParcialChanging(System.Nullable<decimal> value);
+    partial void OnmontoParcialChanged();
+    partial void OnmontoRealChanging(System.Nullable<decimal> value);
+    partial void OnmontoRealChanged();
+    partial void OndescuentoChanging(System.Nullable<decimal> value);
+    partial void OndescuentoChanged();
+    partial void OndescuentoPorcentajeChanging(System.Nullable<decimal> value);
+    partial void OndescuentoPorcentajeChanged();
+    #endregion
+		
+		public ProformaProducto()
+		{
+			this._Producto = default(EntityRef<Producto>);
+			this._Proforma = default(EntityRef<Proforma>);
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_id", DbType="BigInt NOT NULL", IsPrimaryKey=true)]
+		public long id
+		{
+			get
+			{
+				return this._id;
+			}
+			set
+			{
+				if ((this._id != value))
+				{
+					this.OnidChanging(value);
+					this.SendPropertyChanging();
+					this._id = value;
+					this.SendPropertyChanged("id");
+					this.OnidChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_proforma_id", DbType="Int")]
+		public System.Nullable<int> proforma_id
+		{
+			get
+			{
+				return this._proforma_id;
+			}
+			set
+			{
+				if ((this._proforma_id != value))
+				{
+					if (this._Proforma.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.Onproforma_idChanging(value);
+					this.SendPropertyChanging();
+					this._proforma_id = value;
+					this.SendPropertyChanged("proforma_id");
+					this.Onproforma_idChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_producto_id", DbType="Int")]
+		public System.Nullable<int> producto_id
+		{
+			get
+			{
+				return this._producto_id;
+			}
+			set
+			{
+				if ((this._producto_id != value))
+				{
+					if (this._Producto.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.Onproducto_idChanging(value);
+					this.SendPropertyChanging();
+					this._producto_id = value;
+					this.SendPropertyChanged("producto_id");
+					this.Onproducto_idChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_cantidad", DbType="Int")]
+		public System.Nullable<int> cantidad
+		{
+			get
+			{
+				return this._cantidad;
+			}
+			set
+			{
+				if ((this._cantidad != value))
+				{
+					this.OncantidadChanging(value);
+					this.SendPropertyChanging();
+					this._cantidad = value;
+					this.SendPropertyChanged("cantidad");
+					this.OncantidadChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_montoParcial", DbType="Decimal(18,2)")]
+		public System.Nullable<decimal> montoParcial
+		{
+			get
+			{
+				return this._montoParcial;
+			}
+			set
+			{
+				if ((this._montoParcial != value))
+				{
+					this.OnmontoParcialChanging(value);
+					this.SendPropertyChanging();
+					this._montoParcial = value;
+					this.SendPropertyChanged("montoParcial");
+					this.OnmontoParcialChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_montoReal", DbType="Decimal(18,2)")]
+		public System.Nullable<decimal> montoReal
+		{
+			get
+			{
+				return this._montoReal;
+			}
+			set
+			{
+				if ((this._montoReal != value))
+				{
+					this.OnmontoRealChanging(value);
+					this.SendPropertyChanging();
+					this._montoReal = value;
+					this.SendPropertyChanged("montoReal");
+					this.OnmontoRealChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_descuento", DbType="Decimal(18,2)")]
+		public System.Nullable<decimal> descuento
+		{
+			get
+			{
+				return this._descuento;
+			}
+			set
+			{
+				if ((this._descuento != value))
+				{
+					this.OndescuentoChanging(value);
+					this.SendPropertyChanging();
+					this._descuento = value;
+					this.SendPropertyChanged("descuento");
+					this.OndescuentoChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_descuentoPorcentaje", DbType="Decimal(18,2)")]
+		public System.Nullable<decimal> descuentoPorcentaje
+		{
+			get
+			{
+				return this._descuentoPorcentaje;
+			}
+			set
+			{
+				if ((this._descuentoPorcentaje != value))
+				{
+					this.OndescuentoPorcentajeChanging(value);
+					this.SendPropertyChanging();
+					this._descuentoPorcentaje = value;
+					this.SendPropertyChanged("descuentoPorcentaje");
+					this.OndescuentoPorcentajeChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Producto_ProformaProducto", Storage="_Producto", ThisKey="producto_id", OtherKey="id", IsForeignKey=true)]
+		public Producto Producto
+		{
+			get
+			{
+				return this._Producto.Entity;
+			}
+			set
+			{
+				Producto previousValue = this._Producto.Entity;
+				if (((previousValue != value) 
+							|| (this._Producto.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._Producto.Entity = null;
+						previousValue.ProformaProducto.Remove(this);
+					}
+					this._Producto.Entity = value;
+					if ((value != null))
+					{
+						value.ProformaProducto.Add(this);
+						this._producto_id = value.id;
+					}
+					else
+					{
+						this._producto_id = default(Nullable<int>);
+					}
+					this.SendPropertyChanged("Producto");
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Proforma_ProformaProducto", Storage="_Proforma", ThisKey="proforma_id", OtherKey="id", IsForeignKey=true)]
+		public Proforma Proforma
+		{
+			get
+			{
+				return this._Proforma.Entity;
+			}
+			set
+			{
+				Proforma previousValue = this._Proforma.Entity;
+				if (((previousValue != value) 
+							|| (this._Proforma.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._Proforma.Entity = null;
+						previousValue.ProformaProducto.Remove(this);
+					}
+					this._Proforma.Entity = value;
+					if ((value != null))
+					{
+						value.ProformaProducto.Add(this);
+						this._proforma_id = value.id;
+					}
+					else
+					{
+						this._proforma_id = default(Nullable<int>);
+					}
+					this.SendPropertyChanged("Proforma");
 				}
 			}
 		}
@@ -11344,7 +11483,7 @@ namespace pe.edu.pucp.ferretin.model
 		
 		private System.Nullable<int> _producto_id;
 		
-		private System.Nullable<int> _descuento;
+		private System.Nullable<decimal> _descuento;
 		
 		private System.Nullable<int> _cantMulUnidades;
 		
@@ -11368,7 +11507,7 @@ namespace pe.edu.pucp.ferretin.model
     partial void Onpromocion_idChanged();
     partial void Onproducto_idChanging(System.Nullable<int> value);
     partial void Onproducto_idChanged();
-    partial void OndescuentoChanging(System.Nullable<int> value);
+    partial void OndescuentoChanging(System.Nullable<decimal> value);
     partial void OndescuentoChanged();
     partial void OncantMulUnidadesChanging(System.Nullable<int> value);
     partial void OncantMulUnidadesChanged();
@@ -11455,8 +11594,8 @@ namespace pe.edu.pucp.ferretin.model
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_descuento", DbType="Int")]
-		public System.Nullable<int> descuento
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_descuento", DbType="Decimal(18,2)")]
+		public System.Nullable<decimal> descuento
 		{
 			get
 			{
@@ -16608,9 +16747,9 @@ namespace pe.edu.pucp.ferretin.model
 		
 		private System.Nullable<decimal> _diferencia;
 		
-		private EntitySet<Devolucion> _Devolucion;
-		
 		private EntitySet<VentaProducto> _VentaProducto;
+		
+		private EntitySet<Devolucion> _Devolucion;
 		
 		private EntitySet<VentaMedioPago> _VentaMedioPago;
 		
@@ -16654,8 +16793,8 @@ namespace pe.edu.pucp.ferretin.model
 		
 		public Venta()
 		{
-			this._Devolucion = new EntitySet<Devolucion>(new Action<Devolucion>(this.attach_Devolucion), new Action<Devolucion>(this.detach_Devolucion));
 			this._VentaProducto = new EntitySet<VentaProducto>(new Action<VentaProducto>(this.attach_VentaProducto), new Action<VentaProducto>(this.detach_VentaProducto));
+			this._Devolucion = new EntitySet<Devolucion>(new Action<Devolucion>(this.attach_Devolucion), new Action<Devolucion>(this.detach_Devolucion));
 			this._VentaMedioPago = new EntitySet<VentaMedioPago>(new Action<VentaMedioPago>(this.attach_VentaMedioPago), new Action<VentaMedioPago>(this.detach_VentaMedioPago));
 			this._Cliente = default(EntityRef<Cliente>);
 			this._Usuario = default(EntityRef<Usuario>);
@@ -16950,19 +17089,6 @@ namespace pe.edu.pucp.ferretin.model
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Venta_Devolucion", Storage="_Devolucion", ThisKey="id", OtherKey="id_venta")]
-		public EntitySet<Devolucion> Devolucion
-		{
-			get
-			{
-				return this._Devolucion;
-			}
-			set
-			{
-				this._Devolucion.Assign(value);
-			}
-		}
-		
 		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Venta_VentaProducto", Storage="_VentaProducto", ThisKey="id", OtherKey="id_venta")]
 		public EntitySet<VentaProducto> VentaProducto
 		{
@@ -16973,6 +17099,19 @@ namespace pe.edu.pucp.ferretin.model
 			set
 			{
 				this._VentaProducto.Assign(value);
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Venta_Devolucion", Storage="_Devolucion", ThisKey="id", OtherKey="id_venta")]
+		public EntitySet<Devolucion> Devolucion
+		{
+			get
+			{
+				return this._Devolucion;
+			}
+			set
+			{
+				this._Devolucion.Assign(value);
 			}
 		}
 		
@@ -17077,18 +17216,6 @@ namespace pe.edu.pucp.ferretin.model
 			}
 		}
 		
-		private void attach_Devolucion(Devolucion entity)
-		{
-			this.SendPropertyChanging();
-			entity.Venta = this;
-		}
-		
-		private void detach_Devolucion(Devolucion entity)
-		{
-			this.SendPropertyChanging();
-			entity.Venta = null;
-		}
-		
 		private void attach_VentaProducto(VentaProducto entity)
 		{
 			this.SendPropertyChanging();
@@ -17096,6 +17223,18 @@ namespace pe.edu.pucp.ferretin.model
 		}
 		
 		private void detach_VentaProducto(VentaProducto entity)
+		{
+			this.SendPropertyChanging();
+			entity.Venta = null;
+		}
+		
+		private void attach_Devolucion(Devolucion entity)
+		{
+			this.SendPropertyChanging();
+			entity.Venta = this;
+		}
+		
+		private void detach_Devolucion(Devolucion entity)
 		{
 			this.SendPropertyChanging();
 			entity.Venta = null;
@@ -17483,6 +17622,294 @@ namespace pe.edu.pucp.ferretin.model
 						this._id_venta = default(Nullable<long>);
 					}
 					this.SendPropertyChanged("Venta");
+				}
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.DevolucionProducto")]
+	public partial class DevolucionProducto : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private System.Nullable<decimal> _cantidad;
+		
+		private System.Nullable<decimal> _monto;
+		
+		private int _id;
+		
+		private System.Nullable<long> _id_devolucion;
+		
+		private System.Nullable<int> _id_producto;
+		
+		private string _motivo;
+		
+		private System.Nullable<bool> _dardebaja;
+		
+		private EntityRef<Devolucion> _Devolucion;
+		
+		private EntityRef<Producto> _Producto;
+		
+    #region Definiciones de métodos de extensibilidad
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OncantidadChanging(System.Nullable<decimal> value);
+    partial void OncantidadChanged();
+    partial void OnmontoChanging(System.Nullable<decimal> value);
+    partial void OnmontoChanged();
+    partial void OnidChanging(int value);
+    partial void OnidChanged();
+    partial void Onid_devolucionChanging(System.Nullable<long> value);
+    partial void Onid_devolucionChanged();
+    partial void Onid_productoChanging(System.Nullable<int> value);
+    partial void Onid_productoChanged();
+    partial void OnmotivoChanging(string value);
+    partial void OnmotivoChanged();
+    partial void OndardebajaChanging(System.Nullable<bool> value);
+    partial void OndardebajaChanged();
+    #endregion
+		
+		public DevolucionProducto()
+		{
+			this._Devolucion = default(EntityRef<Devolucion>);
+			this._Producto = default(EntityRef<Producto>);
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_cantidad", DbType="Decimal(10,2)")]
+		public System.Nullable<decimal> cantidad
+		{
+			get
+			{
+				return this._cantidad;
+			}
+			set
+			{
+				if ((this._cantidad != value))
+				{
+					this.OncantidadChanging(value);
+					this.SendPropertyChanging();
+					this._cantidad = value;
+					this.SendPropertyChanged("cantidad");
+					this.OncantidadChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_monto", DbType="Decimal(10,2)")]
+		public System.Nullable<decimal> monto
+		{
+			get
+			{
+				return this._monto;
+			}
+			set
+			{
+				if ((this._monto != value))
+				{
+					this.OnmontoChanging(value);
+					this.SendPropertyChanging();
+					this._monto = value;
+					this.SendPropertyChanged("monto");
+					this.OnmontoChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_id", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
+		public int id
+		{
+			get
+			{
+				return this._id;
+			}
+			set
+			{
+				if ((this._id != value))
+				{
+					this.OnidChanging(value);
+					this.SendPropertyChanging();
+					this._id = value;
+					this.SendPropertyChanged("id");
+					this.OnidChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_id_devolucion", DbType="BigInt")]
+		public System.Nullable<long> id_devolucion
+		{
+			get
+			{
+				return this._id_devolucion;
+			}
+			set
+			{
+				if ((this._id_devolucion != value))
+				{
+					if (this._Devolucion.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.Onid_devolucionChanging(value);
+					this.SendPropertyChanging();
+					this._id_devolucion = value;
+					this.SendPropertyChanged("id_devolucion");
+					this.Onid_devolucionChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_id_producto", DbType="Int")]
+		public System.Nullable<int> id_producto
+		{
+			get
+			{
+				return this._id_producto;
+			}
+			set
+			{
+				if ((this._id_producto != value))
+				{
+					if (this._Producto.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.Onid_productoChanging(value);
+					this.SendPropertyChanging();
+					this._id_producto = value;
+					this.SendPropertyChanged("id_producto");
+					this.Onid_productoChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_motivo", DbType="Text", UpdateCheck=UpdateCheck.Never)]
+		public string motivo
+		{
+			get
+			{
+				return this._motivo;
+			}
+			set
+			{
+				if ((this._motivo != value))
+				{
+					this.OnmotivoChanging(value);
+					this.SendPropertyChanging();
+					this._motivo = value;
+					this.SendPropertyChanged("motivo");
+					this.OnmotivoChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_dardebaja", DbType="Bit")]
+		public System.Nullable<bool> dardebaja
+		{
+			get
+			{
+				return this._dardebaja;
+			}
+			set
+			{
+				if ((this._dardebaja != value))
+				{
+					this.OndardebajaChanging(value);
+					this.SendPropertyChanging();
+					this._dardebaja = value;
+					this.SendPropertyChanged("dardebaja");
+					this.OndardebajaChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Devolucion_DevolucionProducto", Storage="_Devolucion", ThisKey="id_devolucion", OtherKey="id", IsForeignKey=true)]
+		public Devolucion Devolucion
+		{
+			get
+			{
+				return this._Devolucion.Entity;
+			}
+			set
+			{
+				Devolucion previousValue = this._Devolucion.Entity;
+				if (((previousValue != value) 
+							|| (this._Devolucion.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._Devolucion.Entity = null;
+						previousValue.DevolucionProducto.Remove(this);
+					}
+					this._Devolucion.Entity = value;
+					if ((value != null))
+					{
+						value.DevolucionProducto.Add(this);
+						this._id_devolucion = value.id;
+					}
+					else
+					{
+						this._id_devolucion = default(Nullable<long>);
+					}
+					this.SendPropertyChanged("Devolucion");
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Producto_DevolucionProducto", Storage="_Producto", ThisKey="id_producto", OtherKey="id", IsForeignKey=true)]
+		public Producto Producto
+		{
+			get
+			{
+				return this._Producto.Entity;
+			}
+			set
+			{
+				Producto previousValue = this._Producto.Entity;
+				if (((previousValue != value) 
+							|| (this._Producto.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._Producto.Entity = null;
+						previousValue.DevolucionProducto.Remove(this);
+					}
+					this._Producto.Entity = value;
+					if ((value != null))
+					{
+						value.DevolucionProducto.Add(this);
+						this._id_producto = value.id;
+					}
+					else
+					{
+						this._id_producto = default(Nullable<int>);
+					}
+					this.SendPropertyChanged("Producto");
 				}
 			}
 		}

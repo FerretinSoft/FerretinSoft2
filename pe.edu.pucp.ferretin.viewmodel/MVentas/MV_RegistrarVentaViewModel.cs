@@ -27,7 +27,8 @@ namespace pe.edu.pucp.ferretin.viewmodel.MVentas
             {
                 fecha = DateTime.Now,
                 igvActual = MS_SharedService.obtenerIGV()
-            };            
+            };
+            venta.VentaProducto.ListChanged += actualizarMontosVenta;
         }
 
         private string _nroDocSeleccionado = "";
@@ -74,7 +75,7 @@ namespace pe.edu.pucp.ferretin.viewmodel.MVentas
         {
             get
             {
-                if (venta.Cliente.imagen != null)
+                if (venta!=null && venta.Cliente != null && venta.Cliente.imagen != null)
                 {
                     MemoryStream strm = new MemoryStream();
                     strm.Write(venta.Cliente.imagen.ToArray(), 0, venta.Cliente.imagen.Length);
@@ -126,9 +127,32 @@ namespace pe.edu.pucp.ferretin.viewmodel.MVentas
                 return _agregarProductoCommand;
             }
         }
+
+        RelayCommand _pagarCommand;
+        public ICommand pagarCommand
+        {
+            get
+            {
+                if (_pagarCommand == null)
+                {
+                    _pagarCommand = new RelayCommand(pagar,canPagar);
+                }
+                return _pagarCommand;
+            }
+        }
         #endregion
 
         #region Comandos
+
+        public void pagar(object param)
+        {
+            
+        }
+
+        public bool canPagar(object param)
+        {
+            return this.venta != null && (venta.total > 0 || (venta.Cliente!=null && venta.puntosCanjeados > 0 && venta.puntosCanjeados <= venta.Cliente.puntosActual ) );
+        }
 
         public void cargarCliente(Object id)
         {
@@ -156,25 +180,44 @@ namespace pe.edu.pucp.ferretin.viewmodel.MVentas
                 }catch{}
 
                 if(producto !=null){
-                    VentaProducto ventaProducto = null;
                     if (venta.VentaProducto.Count(vp => vp.Producto.id == producto.id) == 1)
                     {
                         venta.VentaProducto.Single(vp => vp.Producto.id == producto.id).cantidad++;
                     }
                     else
                     {
-                        ventaProducto = new VentaProducto()
-                        {
-                            Producto = producto,
-                            Venta = this.venta,
-                            cantidad = 1,
-                            montoParcial = producto.precioLista
-                        };
+                        VentaProducto ventaProducto = new VentaProducto();
+                        ventaProducto.canjeado = false;
+                        ventaProducto.montoParcial = producto.precioLista;
+                        ventaProducto.Venta = venta;
+                        ventaProducto.Producto = producto;
+                        ventaProducto.cantidad = 1;
+                        ventaProducto.PromocionActual = MV_PromocionService.ultimaPromocionPorProducto(producto);
+                        ventaProducto.PropertyChanged += actualizarMontosVenta;
+                        
                         venta.VentaProducto.Add(ventaProducto);
+
+                        
                     }
                     NotifyPropertyChanged("venta");
                 }
             }
+        }
+
+        void actualizarMontosVenta(object sender, object e)
+        {
+            //elimino si algun producto tiene cantidad = 0
+            foreach(var vp in venta.VentaProducto){
+                if(vp.cantidad==0){
+                    venta.VentaProducto.Remove(vp);
+                }
+            }
+            
+            //Actualizo el total
+            venta.total = Decimal.Round(venta.VentaProducto.Sum(vp => vp.canjeado.Value ? 0 : vp.montoParcial).Value,2);
+
+            //Actualizo los puntos canjeados
+            venta.puntosCanjeados = (venta.VentaProducto.Sum(vp => vp.canjeado.Value ? vp.cantidad*vp.Producto.precioPuntos : 0));        
         }
 
         #endregion

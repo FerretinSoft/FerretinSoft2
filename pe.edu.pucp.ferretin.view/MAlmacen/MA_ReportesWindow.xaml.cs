@@ -1,4 +1,5 @@
-﻿using System;
+﻿using pe.edu.pucp.ferretin.model;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;

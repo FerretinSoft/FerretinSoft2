@@ -78,9 +78,26 @@ namespace pe.edu.pucp.ferretin.controller.MAlmacen
         /// <param name="tienda">Tienda desde la que se realiza la venta</param>
         /// <param name="items">Listado de VentaProductos para la venta</param>
         /// <returns>Devuelve la cadena vacia si se registró el movimiento correctamente, en caso contrario devuelve el error ocurrido</returns>
-        public static String registrarVenta(Tienda tienda, List<VentaProducto> items)
+        public static String registrarVenta(Tienda tienda, EntitySet<VentaProducto> items)
         {
-            return "";
+            Movimiento movimiento = new Movimiento();
+            movimiento.codigo = Movimiento.generateCode();
+            movimiento.fecha = DateTime.Today;
+            movimiento.MovimientoEstado = MA_EstadoMovimientoService.getMovimientoEstadoByName("Finalizado");
+            movimiento.MovimientoTipo = MA_TipoMovimientoService.getMovimientoTipoByName("Venta");
+            movimiento.Tienda = tienda;
+            movimiento.MovimientoProducto = new EntitySet<MovimientoProducto>();
+            MovimientoProducto current;
+            for (int i = 0; i < items.Count; i++)
+            {
+                current = new MovimientoProducto();
+                current.cantidad = items[i].cantidad;
+                current.Movimiento = movimiento;
+                current.Producto = items[i].Producto;
+                movimiento.MovimientoProducto.Add(current);                
+            }
+            bool ok = MA_MovimientosService.InsertarMovimiento(movimiento);
+            return (ok) ? "" : "Error al registrar el movimiento";
         }
 
         /// <summary>
@@ -89,9 +106,27 @@ namespace pe.edu.pucp.ferretin.controller.MAlmacen
         /// <param name="tienda">Tienda desde la que se realiza la venta</param>
         /// <param name="items">Listado de DevolucionProducto para la venta</param>
         /// <returns>Devuelve la cadena vacia si se registró el movimiento correctamente, en caso contrario devuelve el error ocurrido</returns>
-        public static String registrarDevolucion(Tienda tienda, List<DevolucionProducto> items)
+        public static String registrarDevolucion(Tienda tienda, EntitySet<DevolucionProducto> items)
         {
-            return "";
+            Movimiento movimiento = new Movimiento();
+            DateTime today = DateTime.Today;
+            movimiento.codigo = Movimiento.generateCode();
+            movimiento.fecha = today;
+            movimiento.MovimientoEstado = MA_EstadoMovimientoService.getMovimientoEstadoByName("Finalizado");
+            movimiento.MovimientoTipo = MA_TipoMovimientoService.getMovimientoTipoByName("Devolución");
+            movimiento.Tienda = tienda;
+            movimiento.MovimientoProducto = new EntitySet<MovimientoProducto>();
+            MovimientoProducto current;
+            for (int i = 0; i < items.Count; i++)
+            {
+                current = new MovimientoProducto();
+                current.cantidad = items[i].cantidad;
+                current.Movimiento = movimiento;
+                current.Producto = items[i].Producto;
+                movimiento.MovimientoProducto.Add(current);
+            }
+            bool ok = MA_MovimientosService.InsertarMovimiento(movimiento);
+            return (ok) ? "" : "Error al registrar el movimiento";
         }
 
         /// <summary>
@@ -100,9 +135,27 @@ namespace pe.edu.pucp.ferretin.controller.MAlmacen
         /// <param name="tienda">Almacen distribuidor que recepciona los productos</param>
         /// <param name="items">Listado de productos</param>
         /// <returns>Devuelve la cadena vacia si se registró el movimiento correctamente, en caso contrario devuelve el error ocurrido</returns>
-        public static String registrarCompra(Tienda tienda, List<DocumentoCompraProducto> items)
+        public static String registrarCompra(Tienda tienda, EntitySet<DocumentoCompraProducto> items)
         {
-            return "";
+            Movimiento movimiento = new Movimiento();
+            DateTime today = DateTime.Today;
+            movimiento.codigo = Movimiento.generateCode();
+            movimiento.fecha = today;
+            movimiento.MovimientoEstado = MA_EstadoMovimientoService.getMovimientoEstadoByName("Finalizado");
+            movimiento.MovimientoTipo = MA_TipoMovimientoService.getMovimientoTipoByName("Compra");
+            movimiento.Tienda = tienda;
+            movimiento.MovimientoProducto = new EntitySet<MovimientoProducto>();
+            MovimientoProducto current;
+            for (int i = 0; i < items.Count; i++)
+            {
+                current = new MovimientoProducto();
+                current.cantidad = items[i].cantidad;
+                current.Movimiento = movimiento;
+                current.Producto = items[i].Producto;
+                movimiento.MovimientoProducto.Add(current);
+            }
+            bool ok = MA_MovimientosService.InsertarMovimiento(movimiento);
+            return (ok) ? "" : "Error al registrar el movimiento";
         }
 
 
