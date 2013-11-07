@@ -66,15 +66,7 @@ namespace pe.edu.pucp.ferretin.controller.MSeguridad
                     )
                    orderby t.codigo
                    select t;
-            /*
-             * Alternativa al código anterior
-            return listaAlmacenes
-                .Where(t=>t.codigo!=null && t.codigo.ToLower().Contains(codTienda.ToLower().Trim()))
-                .Where(t=>(t.nombre != null && t.nombre.ToLower().Contains(nombre.ToLower().Trim())))
-                .Where(t=>(tipo == 0 || (t.tipo != null && t.tipo.Equals(tipo == 1 ? true : false))))
-                .Where(t=>(estado == 0 || (t.estado != null && t.estado.Equals(estado == 1 ? true : false))))
-                .Where(t=>(distrito == null || (t.UbigeoDistrito.id != null && t.UbigeoDistrito.id == distrito.id )));
-            */
+           
                    
         }
 
