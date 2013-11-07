@@ -17,6 +17,7 @@ using System.Windows;
 using Microsoft.Win32;
 
 
+
 namespace pe.edu.pucp.ferretin.viewmodel.MAlmacen
 {
     public class MA_MantenimientoProductosViewModel : ViewModelBase
@@ -27,16 +28,13 @@ namespace pe.edu.pucp.ferretin.viewmodel.MAlmacen
         public String searchNombre { get; set; }
         public Int16 searchIdCategoria { get; set; }
 
-        private IEnumerable<Categoria> _categoriasPadre;
-        public IEnumerable<Categoria> categoriasPadre { get { return _categoriasPadre; } set { _categoriasPadre = value; OnPropertyChanged("categoriasPadre"); } }
-
         public Image _imgProd { get; set; }
         public Image imgProd
         {
             set
             {
                 _imgProd = value;
-                OnPropertyChanged("imgProd");
+                NotifyPropertyChanged("imgProd");
             }
 
             get
@@ -45,38 +43,68 @@ namespace pe.edu.pucp.ferretin.viewmodel.MAlmacen
             }
         }
 
+        //private Categoria _categoria = new Categoria();
+        //private Categoria categoria
+        //{
+        //    get
+        //    {
+        //        foreach (var pc in _categoria.ProductoCategoria)
+        //        {
+
+
+
+
+
+        //        }
+
+
+
+        //    }
+
+        //    set
+        //    {
+
+
+
+
+        //    }
+
+        //}
+
+
+
         private IEnumerable<Categoria> _categoriaPrincipal;
         public IEnumerable<Categoria> categoriaPrincipal
         {
             get
             {
                 //Devolver la categoría padre
-                _categoriaPrincipal = MA_CategoriaService.categorias.Where(c => c.id_padre == null);
-                
+                //_categoriaPrincipal = MA_CategoriaService.categorias.Where(c => c.id_padre == null);
+                _categoriaPrincipal = MA_CategoriaService.obtenerCategoriasPadres();
                 return _categoriaPrincipal;
             }
             set
             {
                 _categoriaPrincipal = value;
-                OnPropertyChanged("categoriaPrincipal");
+                NotifyPropertyChanged("categoriaPrincipal");
             }
         }
-        private Categoria _CategoriaSeleccionada;
-        public Categoria CategoriaSeleccionada
-        {
+        //private Categoria _CategoriaSeleccionada;
+        //public Categoria CategoriaSeleccionada
+        //{
 
-            get
-            {
-                return _CategoriaSeleccionada;
-            }
-            set
-            {
-                _CategoriaSeleccionada = value;
-                //Actualizo el combobox de categorias padre
-                categoriasPadre = MA_CategoriaService.categorias.Where(c => c.nivel == _CategoriaSeleccionada.Categoria1.nivel);
-                OnPropertyChanged("CategoriaSeleccionada");
-            }
-        }
+        //    get
+        //    {
+        //        return _CategoriaSeleccionada;
+        //    }
+        //    set
+        //    {
+        //        _CategoriaSeleccionada = value;
+        //        //Actualizo el combobox de categorias padre
+        //        categoriasPadre = MA_CategoriaService.categorias.Where(c => c.nivel == _CategoriaSeleccionada.Categoria1.nivel);
+        //        NotifyPropertyChanged("CategoriaSeleccionada");
+        //    }
+        //}
 
 
 
@@ -399,17 +427,17 @@ namespace pe.edu.pucp.ferretin.viewmodel.MAlmacen
 
         #endregion
 
-                private void obtenerCategoriasDeProducto()
-        {
+        private void obtenerCategoriasDeProducto()
+        {   
             IEnumerable<Categoria> catxProd = MA_CategoriaService.obtenerCategoriasxProducto(producto.id);
-
-            IEnumerable<Categoria> res = _categoriaPrincipal.Intersect(catxProd);
+            IEnumerable<Categoria> res = categoriaPrincipal.Intersect(catxProd);
 
             foreach (Categoria r in res)
             {
                 r.isChecked = true;
-                Console.WriteLine(r.nombre);
             }
+
+            NotifyPropertyChanged("categoriaPrincipal");
             
         }
 
@@ -468,23 +496,10 @@ namespace pe.edu.pucp.ferretin.viewmodel.MAlmacen
             }
             else //Editar
             {
-                //Validaciones
-
-
-
-
-                //*************
-
                 MA_ProductoService.actualizarProducto();
             }
             
             //prodAlm = new ProductoAlmacen();
-        }
-
-        public byte[] imageToByteArray(String path)
-        {
-            byte[] b = File.ReadAllBytes(path);
-            return b;
         }
 
         private void tabBúsqueda_Click(object sender, MouseButtonEventArgs e)

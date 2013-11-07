@@ -1,20 +1,21 @@
 ﻿<Window
-        x:Class="pe.edu.pucp.ferretin.view.MAlmacen.MA_ReportesWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:viewmodel="clr-namespace:pe.edu.pucp.ferretin.viewmodel.MAlmacen;assembly=pe.edu.pucp.ferretin.viewmodel"
         xmlns:helper="clr-namespace:pe.edu.pucp.ferretin.viewmodel.Helper;assembly=pe.edu.pucp.ferretin.viewmodel"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" mc:Ignorable="d"
+        x:Class="pe.edu.pucp.ferretin.view.MAlmacen.MA_ReportesWindow"
         Title="Reportes Almacén" Height="375" Width="525" Icon="../Resources/ferretin_ico.ico" ResizeMode="CanMinimize">
     <Window.Resources>
         <viewmodel:MA_ReportesViewModel x:Key="MA_ReportesViewModel"/>
     </Window.Resources>
-    <Grid DataContext="{Binding Source={StaticResource MA_ReportesViewModel}}">
+    <Grid x:Name="main" DataContext="{Binding Source={StaticResource MA_ReportesViewModel}}">
         <Grid.RowDefinitions>
             <RowDefinition />
             <RowDefinition Height="40px"/>
 
         </Grid.RowDefinitions>
-        <Grid x:Name="repIntroGrid" Margin="0" Visibility="Collapsed">
+        <Grid x:Name="repIntroGrid" Margin="0" Visibility="Visible">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition/>
                 <ColumnDefinition/>
@@ -39,14 +40,13 @@
             <!--<DatePicker HorizontalAlignment="Left" Margin="98,62,0,0" VerticalAlignment="Top" DisplayDate="2013-09-01" Text="01/09/2013"/>-->
             <!--<DatePicker HorizontalAlignment="Left" Margin="343,62,0,0" VerticalAlignment="Top" DisplayDate="2013-09-01" Text="01/09/2013"/>-->
             <Label Content="Tienda" HorizontalAlignment="Left" Margin="15,56,0,0" VerticalAlignment="Top"/>
-            <ComboBox SelectedItem="{Binding selectedTienda}" ItemsSource="{Binding Path=listaTiendas}" DisplayMemberPath="nombre" SelectedValuePath="id" HorizontalAlignment="Left" Margin="96,60,0,0" VerticalAlignment="Top" Width="140" SelectedIndex="1">
-            </ComboBox>
+            <ComboBox Name="cmbTienda" SelectedItem="{Binding selectedTienda}" ItemsSource="{Binding listaTiendas}" DisplayMemberPath="nombre" SelectedValuePath="id" HorizontalAlignment="Left" Margin="96,60,0,0" VerticalAlignment="Top" Width="140" SelectedIndex="1"/>
             <Label Content="Alias:" HorizontalAlignment="Left" Margin="15,102,0,0" VerticalAlignment="Top"/>
             <TextBox HorizontalAlignment="Left" Height="23" Margin="96,102,0,0" TextWrapping="Wrap" Text="Reporte diario de movimientos" VerticalAlignment="Top" Width="375"/>
             <Label Content="Comentario:" HorizontalAlignment="Left" Margin="15,130,0,0" VerticalAlignment="Top"/>
             <TextBox HorizontalAlignment="Left" Height="49" Margin="96,130,0,0" TextWrapping="Wrap" Text="Muestra TODOS los movimientos del día" VerticalAlignment="Top" Width="375"/>
         </Grid>
-        <Grid x:Name="repFinalGrid" Margin="0" Visibility="Visible">
+        <Grid x:Name="repFinalGrid" Margin="0" Visibility="Collapsed">
             <Label Content="Reporte 10 productos TOP" HorizontalAlignment="Center" Margin="0,10,0,0" VerticalAlignment="Top" FontSize="16"/>
             <Grid Height="48" Margin="20,0" VerticalAlignment="Center">
                 <Grid.ColumnDefinitions>
@@ -56,7 +56,7 @@
                     <ColumnDefinition/>
                     <ColumnDefinition/>
                 </Grid.ColumnDefinitions>
-                <Button Grid.Column="0" Content="" HorizontalAlignment="Center" Margin="0" VerticalAlignment="Top" Width="48" Height="48" ToolTip="Visualizar Reporte">
+                <Button x:Name="btnViewReport" Grid.Column="0" Content="" HorizontalAlignment="Center" Margin="0" VerticalAlignment="Top" Width="48" Height="48" ToolTip="Visualizar Reporte" Click="btnViewReport_Click">
                     <Button.Background>
                         <ImageBrush ImageSource="../Resources/view_48.png" Stretch="Uniform"/>
                     </Button.Background>
