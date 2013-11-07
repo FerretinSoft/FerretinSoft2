@@ -205,7 +205,7 @@ namespace pe.edu.pucp.ferretin.viewmodel.MRecursosHumanos
                 {
                     case Tab.BUSQUEDA: detallesTabHeader = "Agregar"; empleado = new Empleado();  break;//Si es agregar, creo un nuevo objeto Empleado
                     case Tab.AGREGAR: detallesTabHeader = "Agregar"; empleado = new Empleado();
-                        try { this.selectedDepartamento.id = "15"; }
+                        try { this.selectedDepartamento.id = "15"; empleado.EmpleadoTienda=null; }
                         catch(Exception e) { }
                             break;//Si es agregar, creo un nuevo objeto Empleado
                     case Tab.MODIFICAR: detallesTabHeader = "Modificar"; break;
@@ -217,6 +217,7 @@ namespace pe.edu.pucp.ferretin.viewmodel.MRecursosHumanos
                 NotifyPropertyChanged("currentIndexTab"); //Hace que cambie el tab automaticamente
                 NotifyPropertyChanged("isCreating"); //Para que se activen o desactiven los inputs
                 NotifyPropertyChanged("listaEmpleadoTurno");
+                NotifyPropertyChanged("listaEmpleadoTiendas");
 
             }
         }
@@ -283,6 +284,31 @@ namespace pe.edu.pucp.ferretin.viewmodel.MRecursosHumanos
                 NotifyPropertyChanged("listaEmpleados");
             }
         }
+
+        private IEnumerable<EmpleadoTienda> _listaEmpleadoTiendas;
+        public IEnumerable<EmpleadoTienda> listaEmpleadoTiendas
+        {
+            get
+            {
+                if (empleado.EmpleadoTienda.Count() > 0)
+
+                    return this.empleado.EmpleadoTienda;
+
+                else
+                {
+                    return null;
+                
+                }
+            }
+            set
+            {
+                _listaEmpleadoTiendas = value;
+                NotifyPropertyChanged("listaEmpleadoTiendas");
+            }      
+        }
+
+
+
         #endregion
 
 
@@ -300,26 +326,7 @@ namespace pe.edu.pucp.ferretin.viewmodel.MRecursosHumanos
                     _listaEmpleadoTurno = empleado.empleadoTurnos;
                     return _listaEmpleadoTurno;
                 }
-                /*
-                EmpleadoTurno et2 = new EmpleadoTurno(); et2.Dia.id = 2; et2.Dia.nombre = "Lunes"; et2.estado = 1;
-                EmpleadoTurno et3 = new EmpleadoTurno(); et3.Dia.id = 3; et3.Dia.nombre = "Lunes"; et3.estado = 1;
-                EmpleadoTurno et4 = new EmpleadoTurno();  et4.Dia.id = 4; et4.Dia.nombre = "Lunes"; et4.estado = 1;
-                EmpleadoTurno et5 = new EmpleadoTurno();  et5.Dia.id = 5; et5.Dia.nombre = "Lunes"; et5.estado = 1;
-                EmpleadoTurno et6 = new EmpleadoTurno();  et6.Dia.id = 6; et6.Dia.nombre = "Lunes"; et6.estado = 1;
-                EmpleadoTurno et7 = new EmpleadoTurno();  et7.Dia.id = 7; et7.Dia.nombre = "Lunes"; et7.estado = 1;
-                */
-            
-                
-                /*
-                _listaEmpleadoTurno.ToList().Add(et2);
-                _listaEmpleadoTurno.ToList().Add(et3);
-                _listaEmpleadoTurno.ToList().Add(et4);
-                _listaEmpleadoTurno.ToList().Add(et5);
-                _listaEmpleadoTurno.ToList().Add(et6);
-                _listaEmpleadoTurno.ToList().Add(et7);
-                */
-                //return _listaEmpleadoTurno;
-                
+          
             }
 
             set
@@ -504,6 +511,7 @@ namespace pe.edu.pucp.ferretin.viewmodel.MRecursosHumanos
                         MessageBox.Show("Se actualizó el empleado con éxito");
                         this.statusTab = Tab.BUSQUEDA;
                         listaEmpleados = MR_EmpleadoService.listaEmpleados;
+                        NotifyPropertyChanged("listaEmpleadoTiendas");//Para el historial de empleos
                     }
                 }
                 /*Para agregar un empleado nuevo*/
@@ -538,6 +546,8 @@ namespace pe.edu.pucp.ferretin.viewmodel.MRecursosHumanos
                 }
             }
             NotifyPropertyChanged("listaEmpleados");
+            NotifyPropertyChanged("empleado");
+            NotifyPropertyChanged("listaEmpleadoTiendas");
         }
         public void cancelEmpleado(Object obj)
         {

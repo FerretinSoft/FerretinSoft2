@@ -81,28 +81,32 @@ namespace pe.edu.pucp.ferretin.view.MRecursosHumanos
             //    e.Handled = true;
 
 
-            //if (((e.Key >= Key.A && e.Key <= Key.Z) || e.Key == Key.Back || e.Key == Key.Tab))
-            //    e.Handled = false;
-            //else
-            //    e.Handled = true;
+            if (((e.Key >= Key.A && e.Key <= Key.Z) || e.Key == Key.Back || e.Key == Key.Tab ||  (e.Key == Key.Space)))
+                e.Handled = false;
+            else
+                e.Handled = true;
         }
 
          private void apPaterno_PreviewTextInput(object sender, TextCompositionEventArgs e)
         {
-           if (Regex.IsMatch(e.Text, @"^([A-Z][a-z ]+)(\s[A-Z][a-z]+)*$"))
+            if (Regex.IsMatch(e.Text, @"^([A-Z][a-z ]+)(\s[A-Z][a-z]+)*$"))
             {
                 e.Handled = true;
             }
             else
             {
                 e.Handled = false;
-            } 
+            }  
         }
 
          private void txtApPaterno_KeyDown(object sender, KeyEventArgs e)
          {
              //Validaciones para textbox de solo letras
             //if (!(e.Key >= Key.A && e.Key <= Key.Z)) e.Handled = true;
+             if (((e.Key >= Key.A && e.Key <= Key.Z) || e.Key == Key.Back || e.Key == Key.Tab || (e.Key == Key.Space)))
+                 e.Handled = false;
+             else
+                 e.Handled = true;
          }
 
 
@@ -115,14 +119,17 @@ namespace pe.edu.pucp.ferretin.view.MRecursosHumanos
             else
             {
                 e.Handled = false;
-            } 
+            }  
         
         }
 
          private void txtApMaterno_KeyDown(object sender, KeyEventArgs e)
          {
-             //Validaciones para textbox de solo letras
-           // if (!(e.Key >= Key.A && e.Key <= Key.Z)) e.Handled = true;
+         
+             if (((e.Key >= Key.A && e.Key <= Key.Z) || e.Key == Key.Back || e.Key == Key.Tab || (e.Key == Key.Space)))
+                 e.Handled = false;
+             else
+                 e.Handled = true;
 
          }
 
@@ -188,15 +195,33 @@ namespace pe.edu.pucp.ferretin.view.MRecursosHumanos
         {
             //Validaciones para textbox de solo letras
 
+            string patternStrict = @"^(([^<>()[\]\\.,;:\s@\""]+"
+       + @"(\.[^<>()[\]\\.,;:\s@\""]+)*)|(\"".+\""))@"
+       + @"((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}"
+       + @"\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+"
+       + @"[a-zA-Z]{2,}))$";
+            Regex reStrict = new Regex(patternStrict);
 
-            if (Regex.IsMatch(e.Text, @"/[-0-9a-zA-Z.+_]+@[-0-9a-zA-Z.+_]+\.[a-zA-Z]{2,4}/"))
-            {
+            //                      bool isLenientMatch = reLenient.IsMatch(emailAddress);
+            //                      return isLenientMatch;
+
+            //bool isStrictMatch = reStrict.IsMatch(correo.Text);
+            //return isStrictMatch;
+
+            if (reStrict.IsMatch(correo.Text))
                 e.Handled = true;
-            }
-            else
-            {
+            else 
                 e.Handled = false;
-            }
+            
+            
+            //if (Regex.IsMatch(e.Text, @"/[-0-9a-zA-Z.+_]+@[-0-9a-zA-Z.+_]+\.[a-zA-Z]{2,4}/"))
+            //{
+            //    e.Handled = true;
+            //}
+            //else
+            //{
+            //    e.Handled = false;
+            //}
 
            // e.Handled = Regex.IsMatch(correo.Text, "/[-0-9a-zA-Z.+_]+@[-0-9a-zA-Z.+_]+\.[a-zA-Z]{2,4}/");
 

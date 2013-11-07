@@ -208,7 +208,7 @@ namespace pe.edu.pucp.ferretin.viewmodel.MVentas
             }
         }
 
-        void actualizarMontosVenta(object sender, object e)
+        public void actualizarMontosVenta(object sender, object e)
         {
             //elimino si algun producto tiene cantidad = 0
             foreach(var vp in venta.VentaProducto){

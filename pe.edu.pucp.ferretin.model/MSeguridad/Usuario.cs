@@ -8,6 +8,14 @@ namespace pe.edu.pucp.ferretin.model
 {
     public partial class Usuario
     {
+        public String apellidoCompleto
+        {
+            get {
+                return this.Empleado.apPaterno + " " +this.Empleado.apMaterno;           
+            }
+            
+        }
+
         public String estadoAux
         {
             get

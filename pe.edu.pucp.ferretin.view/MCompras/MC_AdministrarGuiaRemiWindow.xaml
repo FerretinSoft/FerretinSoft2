@@ -21,7 +21,7 @@
                         <RowDefinition Height="37*"></RowDefinition>
                         <RowDefinition Height="255*"/>
                     </Grid.RowDefinitions>
-                    <GroupBox Header="Parámetros" Margin="0,13,20.105,48.969" BorderBrush="Black" Grid.ColumnSpan="4" Grid.RowSpan="2"/>
+                    <GroupBox Header="Parámetros" Margin="0,13,20,31" BorderBrush="Black" Grid.ColumnSpan="4"/>
 
                     <Label Content="Codigo:" HorizontalAlignment="Left" Height="26" VerticalAlignment="Top" Width="63" Margin="24,33,0,0" Grid.ColumnSpan="2"/>
 
@@ -40,7 +40,7 @@
                             <ImageBrush ImageSource="../Resources/refresh2_48.png"/>
                         </Button.Background>
                     </Button>
-                    <DataGrid ItemsSource="{Binding Path=listaGuiasRemision}" Margin="11,30,9,10" Grid.Row="1" RenderTransformOrigin="0.5,0.5" Grid.ColumnSpan="4" Grid.RowSpan="2" AutoGenerateColumns="False" CanUserAddRows="False" CanUserDeleteRows="False" IsReadOnly="True">
+                    <DataGrid ItemsSource="{Binding Path=listaGuiasRemision}" Margin="11,111,9,10" RenderTransformOrigin="0.5,0.5" Grid.ColumnSpan="4" Grid.RowSpan="3" AutoGenerateColumns="False" CanUserAddRows="False" CanUserDeleteRows="False" IsReadOnly="True">
                         <DataGrid.Columns>
                             <DataGridTemplateColumn Width="2.5*" Header="Guia de Remision">
                                 <DataGridTemplateColumn.CellTemplate>
@@ -55,15 +55,12 @@
                                     </DataTemplate>
                                 </DataGridTemplateColumn.CellTemplate>
                             </DataGridTemplateColumn>
-                            
+
                             <DataGridTextColumn Width="1.8*" Binding="{Binding Path=DocumentoCompra.Proveedor.razonSoc}" Header="Proveedor"/>
                             <DataGridTextColumn Width="2.0*" Binding="{Binding Path=fechaEmision}" Header="Fecha Recepcion"/>
                             <DataGridTextColumn Width="1.8*" Binding="{Binding Path=Tienda.nombre}" Header="Almacen"/>
                         </DataGrid.Columns>
                     </DataGrid>
-                    <Label Content="Destino:" HorizontalAlignment="Left" Height="26" VerticalAlignment="Top" Width="63" Margin="24,95,0,0"/>
-                    <ComboBox HorizontalAlignment="Left" Height="20" SelectedIndex="0" Margin="35.953,98,0,0" VerticalAlignment="Top" Width="130" Grid.Column="3" >
-                    </ComboBox>
                 </Grid>
             </TabItem>
             <TabItem>
@@ -93,7 +90,7 @@
                             <DataGridTextColumn Width="2.8*" Binding="{Binding Path=DocumentoCompraProducto.Producto.nombre}" IsReadOnly="True" Header="Producto"/>
                             <DataGridTextColumn Width="2.5*" Binding="{Binding Path=DocumentoCompraProducto.Producto.descripcion}" IsReadOnly="True" Header="Descripción"/>
                             <DataGridTextColumn Width="1.5*" Binding="{Binding Path=DocumentoCompraProducto.UnidadMedida.abreviatura}" IsReadOnly="True"  Header="Unidad"/>
-                            
+
                             <DataGridTextColumn Width="1.5*" Binding="{Binding Path=DocumentoCompraProducto.cantidad}" IsReadOnly="True" Header="Total"/>
                             <DataGridTextColumn Width="1.5*" Binding="{Binding Path=DocumentoCompraProducto.cantidadRestante}" IsReadOnly="True" Header="Restante"/>
                             <DataGridTextColumn Width="1.5*" Binding="{Binding Path=cantidadRecibida}"  Header="Recibida"/>
@@ -130,8 +127,8 @@
                     <TextBox Text="{Binding Path=guiaRemision.Tienda.nombre, Mode=OneWay}" HorizontalAlignment="Left" Height="23" Margin="59,78,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="150" IsEnabled="False" Grid.Column="2"/>
                     <TextBox Text="{Binding Path=guiaRemision.DocumentoCompra.Proveedor.razonSoc, Mode=OneWay}" HorizontalAlignment="Left" Height="23" Margin="59,32,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="150" IsEnabled="False" Grid.Column="2"/>
 
-                    <Button x:Name="guardarBtn" Command="{Binding saveGuiaRemisionCommand}" Content="GUARDAR" Grid.Column="2" HorizontalAlignment="Left" Margin="96,432,0,0" VerticalAlignment="Top" Width="80" Height="30"/>
-                    <Button x:Name="cancelarBtn" Content="CANCELAR" Grid.Column="2" HorizontalAlignment="Left" Margin="96,469,0,0" VerticalAlignment="Top" Width="80" Height="30" />
+                    <Button x:Name="guardarBtn"  Command="{Binding saveGuiaRemisionCommand}" Content="GUARDAR" Grid.Column="2" HorizontalAlignment="Left" Margin="96,432,0,0" VerticalAlignment="Top" Width="80" Height="30"/>
+                    <Button x:Name="cancelarBtn" Command="{Binding cancelGuiaRemisionCommand}" Content="CANCELAR" Grid.Column="2" HorizontalAlignment="Left" Margin="96,469,0,0" VerticalAlignment="Top" Width="80" Height="30" />
                     <Label Content="Cant. Prod. Recibidos" Grid.Column="1" HorizontalAlignment="Left" Margin="316.393,457,0,0" VerticalAlignment="Top" FontSize="14"/>
                     <Label Content="Cant. Prod. Total" Grid.Column="1" HorizontalAlignment="Left" Margin="0.393,459,0,0" VerticalAlignment="Top" FontSize="14"/>
                     <DatePicker SelectedDate="{Binding guiaRemision.fechaEmision}" Grid.Column="1" HorizontalAlignment="Left" Margin="115,79,0,0" VerticalAlignment="Top" Width="130"/>

@@ -91,13 +91,13 @@
                             <!-- Otras columnas -->
                             <!--<DataGridTextColumn Width="2*" Binding="{Binding Path=nombre}" ClipboardContentBinding="{x:Null}" Header="UserName"/> -->
                             <DataGridTextColumn Width="2.5*" Binding="{Binding Path=Empleado.nombre}" ClipboardContentBinding="{x:Null}" Header="Nombres"/>
-                            <DataGridTextColumn Width="3.2*" Binding="{Binding Path=Empleado.apPaterno}" ClipboardContentBinding="{x:Null}" Header="Apellidos"/>
+                            <DataGridTextColumn Width="3.2*" Binding="{Binding Path=apellidoCompleto}" ClipboardContentBinding="{x:Null}" Header="Apellidos"/>
                             <DataGridTextColumn Width="5*" Binding="{Binding Path=Perfil.nombre}" ClipboardContentBinding="{x:Null}" Header="Perfil"/>
                             <DataGridTextColumn Width="1.5*" Binding="{Binding Path=estadoAux}" ClipboardContentBinding="{x:Null}" Header="Estado"/>
                         </DataGrid.Columns>
                     </DataGrid>
 
-                    <ToolBar HorizontalAlignment="Left" Margin="10,25,0,0" Grid.Row="1" VerticalAlignment="Top" Height="24" Width="58" Grid.RowSpan="2">
+                    <ToolBar HorizontalAlignment="Left" Margin="10,25,0,0" Grid.Row="1" VerticalAlignment="Top" Height="24" Width="46" Grid.RowSpan="2">
                         <!-- Aqui se encuentra el boton para agregar nuevo usuario-->
                         <Button Command="{Binding Path=agregarUsuarioCommand}" x:Name="nuevoUsuarioBtn" Content="" VerticalAlignment="Bottom" Width="20" Margin="0,0,2,-1" Height="20">
                             <Button.Background>

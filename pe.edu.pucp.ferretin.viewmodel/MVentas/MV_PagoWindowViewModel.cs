@@ -184,6 +184,13 @@ namespace pe.edu.pucp.ferretin.viewmodel.MVentas
                             vmp.NotaCredito.estado = 1;
                         }
                     }
+                    foreach (var vp in venta.VentaProducto)
+                    {
+                        if (vp.PromocionActual != null)
+                        {
+                            vp.PromocionActual.stockActual--;
+                        }
+                    }
                 }
                 catch { }
 
@@ -195,7 +202,7 @@ namespace pe.edu.pucp.ferretin.viewmodel.MVentas
             }
             catch (Exception e)
             {
-                //result = "Error al registrar venta: "+ e.Message;
+                result = "Error al registrar venta: "+ e.Message;
             }
             if (result.Trim().Length>0)
             {

@@ -281,7 +281,11 @@ namespace pe.edu.pucp.ferretin.viewmodel.MSeguridad
         public void savePerfil(Object obj)
         {
             listaPerfiles = null;
-            if (perfil.nombre.Length <= 0) return;
+            if (perfil.nombre.Length <= 0)
+            {
+                MessageBox.Show("Ingrese datos en los campos necesarios, por favor");
+                return;
+            }
 
             /*Para actualizar un perfil existente*/
             if (perfil.id > 0)//Si existe
@@ -300,14 +304,17 @@ namespace pe.edu.pucp.ferretin.viewmodel.MSeguridad
             else
             {
                 ComunService.idVentana(10);
-                if (!MS_PerfilService.insertarPerfil(perfil))
-                {
-                    MessageBox.Show("No se pudo agregar el nuevo perfil");
-                }
-                else
-                {
-                    MessageBox.Show("El perfil fue agregado con éxito");
-                }
+               
+                    
+                    if (!MS_PerfilService.insertarPerfil(perfil))
+                    {
+                        MessageBox.Show("No se pudo agregar el nuevo perfil");
+                    }
+                    else
+                    {
+                        MessageBox.Show("El perfil fue agregado con éxito");
+                    }
+               
             }
             NotifyPropertyChanged("listaPerfiles");
         }

@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Collections;
 using System.Data.Linq;
-
+using System.Windows;
 using pe.edu.pucp.ferretin.controller.MRecursosHumanos;
 using pe.edu.pucp.ferretin.model;
 using System.Security.Cryptography;
@@ -70,7 +70,22 @@ namespace pe.edu.pucp.ferretin.controller.MSeguridad
         /*******************************************************/
         public static void actualizarUsuario(Usuario usuario)
         {
-            db.SubmitChanges();
+            try
+            {
+                db.SubmitChanges(ConflictMode.ContinueOnConflict);
+            }
+            catch(ChangeConflictException e) 
+            {
+                db.ChangeConflicts.ResolveAll(RefreshMode.KeepCurrentValues);
+                try
+                {
+                    db.SubmitChanges(ConflictMode.ContinueOnConflict);
+                }
+                catch 
+                {
+                    MessageBox.Show(e.Message); 
+                }
+            }
         }
 
 
