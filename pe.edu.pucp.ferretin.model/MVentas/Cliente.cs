@@ -47,6 +47,27 @@ namespace pe.edu.pucp.ferretin.model
             }
         }
 
+        public string tipoDocString
+        {
+            get
+            {
+                return (tipoDocumento == "RUC" ? "FACTURA " : "BOLETA ") + tipoDocumento + " " + nroDoc.ToUpper(); 
+            }
+        }
+
+        public string direccionDistrito
+        {
+            get
+            {
+                return direccion.ToUpper() + " " + UbigeoDistrito.nombre.ToUpper();
+            }
+        }
+        public string nombreMayusCompleto
+        {
+            get{
+                return nombreCompleto.ToUpper();
+            }
+        }
         public String nombreCompleto
         {
             get

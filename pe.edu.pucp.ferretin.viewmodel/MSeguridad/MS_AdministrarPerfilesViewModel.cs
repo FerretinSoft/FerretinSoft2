@@ -282,8 +282,11 @@ namespace pe.edu.pucp.ferretin.viewmodel.MSeguridad
         {
             listaPerfiles = null;
             if (perfil.nombre.Length <= 0) return;
+
+            /*Para actualizar un perfil existente*/
             if (perfil.id > 0)//Si existe
             {
+                ComunService.idVentana(11);
                 if (!MS_PerfilService.enviarCambios())
                 {
                     MessageBox.Show("No se pudo actualizar el perfil");
@@ -293,8 +296,10 @@ namespace pe.edu.pucp.ferretin.viewmodel.MSeguridad
                     MessageBox.Show("El perfil fue actualizado con éxito");
                 }
             }
+            /*Para agregar un perfil nuevo*/
             else
             {
+                ComunService.idVentana(10);
                 if (!MS_PerfilService.insertarPerfil(perfil))
                 {
                     MessageBox.Show("No se pudo agregar el nuevo perfil");

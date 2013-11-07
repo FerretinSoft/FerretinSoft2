@@ -19,6 +19,18 @@ namespace pe.edu.pucp.ferretin.model
             }
         }
 
+        public string puntosInfoString
+        {
+            get
+            {
+                if (Cliente!=null)
+                {
+                    return "PUNTOS - ACTUAL: " + Cliente.puntosActual.ToString() + " GANADOS: " + puntosGanados.ToString() + (puntosCanjeados>0?" CANJEADOS: " + puntosCanjeados.ToString():"");
+                }
+                return "";
+            }
+        }
+
         public String nombreCompletoVendedor
         {
             get
@@ -60,6 +72,32 @@ namespace pe.edu.pucp.ferretin.model
                     return null;
             }
 
+        }
+
+        public string fechaHoraString
+        {
+            get
+            {
+                if (fecha != null)
+                {
+                    string fechaString = fecha.ToString();
+                    DateTime fechaFormat = Convert.ToDateTime(fechaString);
+                    fechaString = fechaFormat.ToString("d/mm/yyyy hh:mm:ss");
+                    return fechaString;
+                }
+                else
+                {
+                    return null;
+                }
+            }
+        }
+
+        public string totalString
+        {
+            get
+            {
+                return "S/. " + total.ToString();
+            }
         }
         
     }
