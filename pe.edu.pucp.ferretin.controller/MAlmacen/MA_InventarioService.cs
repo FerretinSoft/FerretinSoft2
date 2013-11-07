@@ -160,6 +160,7 @@ namespace pe.edu.pucp.ferretin.controller.MAlmacen
             {
 
                 listaProdAlm = from pa in db.ProductoAlmacen
+                               orderby pa.id_producto,pa.Tienda.nombre
                                 select pa;
 
             }
