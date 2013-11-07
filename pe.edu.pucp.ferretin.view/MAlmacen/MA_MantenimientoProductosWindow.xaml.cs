@@ -1,5 +1,7 @@
 ﻿using Microsoft.Win32;
 using pe.edu.pucp.ferretin.controller.MAlmacen;
+using pe.edu.pucp.ferretin.model;
+using pe.edu.pucp.ferretin.viewmodel.MAlmacen;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -118,6 +120,35 @@ namespace pe.edu.pucp.ferretin.view.MAlmacen
             } 
 
 
+        }
+
+        public void guardarBtn(Producto producto)
+        {
+            //Validaciones
+
+            if (MA_ProductoService.agregarNuevoProducto(producto))
+            {
+                MessageBox.Show("El producto fue agregado con éxito");
+                //producto = new Producto();
+            }
+            else
+            {
+                MessageBox.Show("No se pudo agregar el producto");
+            }
+        }
+
+
+        private void btnGuardar_Click(object sender, RoutedEventArgs e)
+        {
+
+
+            MA_MantenimientoProductosEdicionStockWindow v = new MA_MantenimientoProductosEdicionStockWindow();
+            v.Owner = this;
+            var viewModelThis = this.main.DataContext as MA_MantenimientoProductosViewModel;
+            guardarBtn(viewModelThis.producto);
+            var viewModel = v.main.DataContext as MA_MantenimientoProductosEdicionStockViewModel;
+            viewModel.producto = viewModelThis.producto;
+            v.Show();
         }
     }
 }
