@@ -346,17 +346,15 @@ namespace pe.edu.pucp.ferretin.viewmodel.MSeguridad
         {
             if (dniJefe.Trim().Length > 0)
             {                
-                Empleado empleado = MR_SharedService.obtenerEmpleadoPorDNI(dniJefe);
+                Empleado empleado = MS_SharedService.obtenerJefePorDNI(dniJefe);
                 if (empleado != null)
-                {
-                    
-                    MessageBox.Show("El DNI ingresado no le pertenece a un Jefe");
-                
+                {                                                       
                     almacen.Empleado = empleado;
                 }
                 else
                 {
-                    MessageBox.Show("No se encontro un Jefe con el DNI ingresado");
+                    MessageBox.Show("El DNI ingresado no le pertenece a un Jefe");
+                    almacen.Empleado = null;
                 }
             }
             else
@@ -387,13 +385,21 @@ namespace pe.edu.pucp.ferretin.viewmodel.MSeguridad
         {
             get
             {
-                if (this.almacen.tipo == null)
-                    return _selectedTipo;
-                else
+                try{
+                    if (this.almacen.tipo == null)
+                        return _selectedTipo;
+                    else
+                   {
+                        _selectedTipo = (int)this.almacen.tipo;
+                        if (_selectedTipo == 0) comboEnabledAlmacen = true; else comboEnabledAlmacen = false;                
+                        return _selectedTipo;
+                
+                    }
+                }
+                catch (Exception e)
                 {
-                    _selectedTipo = (int)this.almacen.tipo;
-                    if (_selectedTipo == 0) comboEnabledAlmacen = true; else comboEnabledAlmacen = false;                
                     return _selectedTipo;
+
                 }
             }
             set

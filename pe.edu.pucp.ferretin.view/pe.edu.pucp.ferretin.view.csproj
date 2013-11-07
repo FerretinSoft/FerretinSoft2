@@ -249,6 +249,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="MVentas\MV_DocNotaCredito.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="MVentas\MV_MainWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -400,6 +404,9 @@
     </Compile>
     <Compile Include="MVentas\MV_DevolucionesWindow.xaml.cs">
       <DependentUpon>MV_DevolucionesWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="MVentas\MV_DocNotaCredito.xaml.cs">
+      <DependentUpon>MV_DocNotaCredito.xaml</DependentUpon>
     </Compile>
     <Compile Include="MVentas\MV_MainWindow.xaml.cs">
       <DependentUpon>MV_MainWindow.xaml</DependentUpon>

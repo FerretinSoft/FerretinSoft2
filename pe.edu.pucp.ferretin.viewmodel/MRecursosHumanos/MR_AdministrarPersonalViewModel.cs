@@ -69,6 +69,15 @@ namespace pe.edu.pucp.ferretin.viewmodel.MRecursosHumanos
         #endregion
 
 
+        public List<String> tiposTurnos
+        {
+            get
+            {
+                return new List<string>() { "8:00am - 2:00 pm", "2:00pm -10:00 pm", "9:00am - 5:00 pm" };
+            }
+        }
+
+
         public IEnumerable<Cargo> listaCargosAdd
         {
             get
@@ -195,7 +204,10 @@ namespace pe.edu.pucp.ferretin.viewmodel.MRecursosHumanos
                 switch (_statusTab)
                 {
                     case Tab.BUSQUEDA: detallesTabHeader = "Agregar"; empleado = new Empleado();  break;//Si es agregar, creo un nuevo objeto Empleado
-                    case Tab.AGREGAR: detallesTabHeader = "Agregar"; empleado = new Empleado(); break;//Si es agregar, creo un nuevo objeto Empleado
+                    case Tab.AGREGAR: detallesTabHeader = "Agregar"; empleado = new Empleado();
+                        try { this.selectedDepartamento.id = "15"; }
+                        catch(Exception e) { }
+                            break;//Si es agregar, creo un nuevo objeto Empleado
                     case Tab.MODIFICAR: detallesTabHeader = "Modificar"; break;
                     case Tab.DETALLES: detallesTabHeader = "Detalles"; break;
                     default: detallesTabHeader = "Agregar"; empleado = new Empleado(); break;//Si es agregar, creo un nuevo objeto Empleado
@@ -480,7 +492,7 @@ namespace pe.edu.pucp.ferretin.viewmodel.MRecursosHumanos
             else
             {
                 /*Para actualizar un empleado existente*/
-                if (empleado.id > 0)//Si existe
+                if ((empleado.id > 0) && VerificaCamposObligatorios(empleado))//Si existe
                 {
                     ComunService.idVentana(2);                    
                     if (!MR_EmpleadoService.enviarCambios())
@@ -500,28 +512,10 @@ namespace pe.edu.pucp.ferretin.viewmodel.MRecursosHumanos
                     //Validacion de Campos Obligatorios//
 
                     ComunService.idVentana(1);
-                    if (empleado.dni == null || empleado.dni == "") MessageBox.Show("Debe ingresar el campo DNI");
-                    else if (empleado.nombre == null || empleado.nombre == "") MessageBox.Show("Debe ingresar el campo Nombre");
-                    else if (empleado.apPaterno == null || empleado.nombre == "") MessageBox.Show("Debe ingresar el campo Apellido Paterno");
-                    else if (empleado.apMaterno == null || empleado.nombre == "") MessageBox.Show("Debe ingresar el campo Apellido Materno");
-                    else if (empleado.direccion == null || empleado.direccion == "") MessageBox.Show("Debe ingresar el campo Dirección");
 
-                    else if (selectedDepartamento == null) MessageBox.Show("Debe ingresar el campo Departamento");
-                    else if (selectedProvincia == null) MessageBox.Show("Debe ingresar el campo Provincia");
-                    else if (empleado.UbigeoDistrito == null) MessageBox.Show("Debe ingresar el campo Distrito");
-                    else if (empleado.telefono1 == null || empleado.telefono1 == "") MessageBox.Show("Debe ingresar el campo Teléfono");
+                    
 
-                    else if (empleado.fecNacimiento == null) MessageBox.Show("Debe ingresar el campo Fecha de Nacimiento");
-                    else if (empleado.sexo == null) MessageBox.Show("Debe ingresar el campo Sexo");
-
-
-                    else if (empleado.cargoActual == null) MessageBox.Show("Debe ingresar el campo Cargo");
-                    else if (empleado.tiendaActual == null) MessageBox.Show("Debe ingresar el campo Tienda");
-                    else if (empleado.GradoInstruccion == null) MessageBox.Show("Debe ingresar el campo Grado de instrucción");
-                    else if (empleado.ultimoSueldo <= 0) MessageBox.Show("Debe ingresar el campo Sueldo");
-
-                    else if (empleado.estado == null) MessageBox.Show("Debe ingresar el campo Estado");
-                    else
+                    if ( VerificaCamposObligatorios(empleado) && VerificaDNIEmpleado(empleado))
                     {
                         if (empleado.dni != null && empleado.nombre != null && empleado.apPaterno != null && empleado.apMaterno != null)
                         {
@@ -552,11 +546,42 @@ namespace pe.edu.pucp.ferretin.viewmodel.MRecursosHumanos
         }
 
 
+
         private bool canSaveExecute(object obj)
         {
             return base.UIValidationErrorCount == 0 && this.empleado.Errors.Count == 0;
         }
+
+
+        public bool VerificaCamposObligatorios(Empleado empleado)
+        {
+            
+            if (empleado.nombre == null || empleado.nombre == "" || empleado.apPaterno == null || empleado.nombre == "" ||
+                empleado.apMaterno == null || empleado.nombre == "" || empleado.direccion == null || empleado.direccion == "" ||
+                empleado.direccion == null || empleado.direccion == "" || selectedDepartamento == null || selectedProvincia == null ||
+                empleado.UbigeoDistrito == null || empleado.telefono1 == null || empleado.telefono1 == "" || empleado.telefono1 == "" ||
+                empleado.fecNacimiento == null || empleado.sexo ==null || empleado.cargoActual == null || empleado.tiendaActual == null ||
+                empleado.GradoInstruccion == null || empleado.ultimoSueldo <= 0  || empleado.estado == null)
+
+            {
+                MessageBox.Show("Completar todos los datos obligatorios");
+                return false;
+            }
+            return true;
+        }
+
+        public bool VerificaDNIEmpleado(Empleado empleado)
+        {
+            if (listaEmpleados.Count(et => et.dni.Equals(empleado.dni)) > 0)
+            {
+                MessageBox.Show("Eror : El DNI ingresado ya ha sido registrado");
+                return false;
+            }
+            return true;
+        }
+
         #endregion
+
 
 
 
