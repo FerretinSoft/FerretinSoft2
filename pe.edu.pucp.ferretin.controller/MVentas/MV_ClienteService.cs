@@ -34,7 +34,7 @@ namespace pe.edu.pucp.ferretin.controller.MVentas
                 //Usando concurrencia pesimista:
                 ///La lista de clientes se actualizara para ver los cambios
                 ///Si quisiera usar concurrencia optimista quito la siguiente linea
-                db.Refresh(RefreshMode.OverwriteCurrentValues, _listaClientes);
+                //db.Refresh(RefreshMode.OverwriteCurrentValues, _listaClientes);
                 return _listaClientes;
             }
             set

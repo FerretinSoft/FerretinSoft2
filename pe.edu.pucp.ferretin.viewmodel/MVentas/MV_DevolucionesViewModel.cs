@@ -445,8 +445,20 @@ namespace pe.edu.pucp.ferretin.viewmodel.MVentas
                         selectedTab = 0;
                         NotifyPropertyChanged("selectedTab");
                     }
-                    string resp = MA_SharedService.registrarDevolucion(devolucion.Empleado.tiendaActual, devolucion.DevolucionProducto);
-                    Console.WriteLine(resp + "hola");
+                    try
+                    {
+                        string resp = MA_SharedService.registrarDevolucion(devolucion.Empleado.tiendaActual, devolucion.DevolucionProducto);
+                        Console.WriteLine(resp + "hola");
+                    }
+                    catch
+                    {
+                        try
+                        {
+                            MessageBox.Show("error en almácen");
+                        }
+
+                        catch { }
+                    }
         }
 
         public void viewDetailDevolucion(Object id)
