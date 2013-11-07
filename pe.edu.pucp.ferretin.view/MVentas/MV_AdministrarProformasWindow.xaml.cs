@@ -1,4 +1,5 @@
-﻿using System;
+﻿using pe.edu.pucp.ferretin.viewmodel.MVentas;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -26,7 +27,7 @@ namespace pe.edu.pucp.ferretin.view.MVentas
 
         private void detalleProformaBtn_Click(object sender, RoutedEventArgs e)
         {
-            ProformasTab.SelectedIndex = 1;
+            
         }
 
         private void buscarClienteBtn_Click(object sender, RoutedEventArgs e)
@@ -43,7 +44,7 @@ namespace pe.edu.pucp.ferretin.view.MVentas
 
         private void nuevaProformaBtn_Click(object sender, RoutedEventArgs e)
         {
-            ProformasTab.SelectedIndex = 1;
+            
         }
 
         private void registrarProformaBtn_Click(object sender, RoutedEventArgs e)
@@ -64,6 +65,17 @@ namespace pe.edu.pucp.ferretin.view.MVentas
         private void Button_Click(object sender, RoutedEventArgs e)
         {
 
+        }
+
+        private void Button_Click_1(object sender, RoutedEventArgs e)
+        {
+            //Buscar cliente
+
+            MV_ClientesWindow v = new MV_ClientesWindow();
+            v.Owner = this;
+            var viewModel = v.main.DataContext as MV_ClientesViewModel;
+            viewModel.soloSeleccionarCliente = true;
+            v.Show();
         }
     }
 }

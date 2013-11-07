@@ -13,7 +13,7 @@
         </Grid.Background>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="1*"></ColumnDefinition>
-            <ColumnDefinition x:Name="clienteViewColumn" MaxWidth="250" Width="{Binding widthClienteBar,FallbackValue=0,Mode=OneWay}"></ColumnDefinition>
+            <ColumnDefinition  MaxWidth="250" Width="{Binding widthClienteBar,FallbackValue=0,Mode=OneWay}"></ColumnDefinition>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"></RowDefinition>
