@@ -43,6 +43,28 @@ namespace pe.edu.pucp.ferretin.controller.MCompras
             }
         }
 
+        private static IEnumerable<GuiaRemisionProducto> _listaGuiaRemisionProducto;
+        public static IEnumerable<GuiaRemisionProducto> listaGuiaRemisionProducto
+        {
+            get
+            {
+                if (_listaGuiaRemisionProducto == null)
+                {
+                    _listaGuiaRemisionProducto = db.GuiaRemisionProducto;
+                }
+                //Usando concurrencia pesimista:
+                ///La lista de documentos de compra se actualizara para ver los cambios
+                ///Si quisiera usar concurrencia optimista quito la siguiente linea
+                db.Refresh(RefreshMode.OverwriteCurrentValues, _listaGuiasRemision);
+                return _listaGuiaRemisionProducto;
+            }
+            set
+            {
+                _listaGuiaRemisionProducto = value;
+            }
+        }
+
+
         public static IEnumerable<GuiaRemision> buscarGuiasRemision(string codigo, string proveedor, DateTime? fechaDesde, DateTime? fechaHasta)
         {
             return from g in listaGuiasRemision
@@ -54,6 +76,16 @@ namespace pe.edu.pucp.ferretin.controller.MCompras
                           && (fechaHasta == null || (g.fechaRecepcion != null && g.fechaRecepcion <= fechaHasta))
                     )
                    orderby g.codigo
+                   select g;
+        }
+
+        public static IEnumerable<GuiaRemisionProducto> buscarProductosGuiaRemision(GuiaRemision guia)
+        {
+            return from g in listaGuiaRemisionProducto
+                   where (
+                       //Cada fila es un filtro
+                          (g.GuiaRemision.id == guia.id))
+                   orderby g.id
                    select g;
         }
 

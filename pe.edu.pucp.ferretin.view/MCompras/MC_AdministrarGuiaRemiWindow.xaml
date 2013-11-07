@@ -66,7 +66,10 @@
                     </ComboBox>
                 </Grid>
             </TabItem>
-            <TabItem Header="Detalle" >
+            <TabItem>
+                <TabItem.Header>
+                    <TextBlock Text="{Binding detallesTabHeader,Mode=OneWay,FallbackValue=Agregar}"/>
+                </TabItem.Header>
                 <Grid Background="#FFE5E5E5" Margin="0,-6,0.105,6.209">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="19*"/>
@@ -79,13 +82,13 @@
                     <Label x:Name="tipoDocLbl" Content="Código:" HorizontalAlignment="Left" Margin="0.393,32,0,0" VerticalAlignment="Top" Height="26" Width="105" Grid.Column="1"/>
                     <TextBox Text="{Binding Path=guiaRemision.codigo, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, NotifyOnValidationError=True, ValidatesOnDataErrors=True, ValidatesOnExceptions=True}" HorizontalAlignment="Left" Height="20" Margin="115,35,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="130" Grid.Column="1"/>
                     <Label x:Name="docOrdLbl" Content="Orden de Compra:" HorizontalAlignment="Left" Margin="284.393,32,0,0" VerticalAlignment="Top" Height="26" Width="121" Grid.Column="1"/>
-                    <TextBox Text="{Binding Path=guiaRemision.DocumentoCompra.codigo, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, NotifyOnValidationError=True, ValidatesOnDataErrors=True, ValidatesOnExceptions=True}" HorizontalAlignment="Left" Height="20" Margin="410,35,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="130" Grid.Column="1">
+                    <TextBox Text="{Binding ordenCompraCod, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, NotifyOnValidationError=True, ValidatesOnDataErrors=True, ValidatesOnExceptions=True}" HorizontalAlignment="Left" Height="20" Margin="410,35,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="130" Grid.Column="1">
                         <TextBox.InputBindings>
                             <KeyBinding Key="Enter" Command="{Binding cargarOCCommand}" />
                         </TextBox.InputBindings>
                     </TextBox>
 
-                    <DataGrid ItemsSource="{Binding Path=guiaRemision.GuiaRemisionProducto}" Margin="10,133,178,0" RenderTransformOrigin="0.5, 0.5" Height="279" VerticalAlignment="Top" Grid.ColumnSpan="3" AutoGenerateColumns="False" CanUserAddRows="False" CanUserDeleteRows="False">
+                    <DataGrid ItemsSource="{Binding Path=listaGuiaRemisionProducto}" Margin="10,133,178,0" RenderTransformOrigin="0.5, 0.5" Height="279" VerticalAlignment="Top" Grid.ColumnSpan="3" AutoGenerateColumns="False" CanUserAddRows="False" CanUserDeleteRows="False">
                         <DataGrid.Columns>
                             <DataGridTextColumn Width="2.8*" Binding="{Binding Path=DocumentoCompraProducto.Producto.nombre}"  Header="Producto"/>
                             <DataGridTextColumn Width="2.5*" Binding="{Binding Path=DocumentoCompraProducto.Producto.descripcion}"  Header="Descripción"/>

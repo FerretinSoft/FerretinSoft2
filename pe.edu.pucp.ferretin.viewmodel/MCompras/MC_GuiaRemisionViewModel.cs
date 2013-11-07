@@ -86,6 +86,22 @@ namespace pe.edu.pucp.ferretin.viewmodel.MCompras
             }
         }
 
+        private IEnumerable<GuiaRemisionProducto> _listaGuiaRemisionProducto = null;
+        public IEnumerable<GuiaRemisionProducto> listaGuiaRemisionProducto
+        {
+            get
+            {
+                if (guiaRemision.id >0)
+                    _listaGuiaRemisionProducto = MC_GuiaRemisionService.buscarProductosGuiaRemision(guiaRemision);
+                return _listaGuiaRemisionProducto;
+            }
+            set
+            {
+                _listaGuiaRemisionProducto = value;
+                NotifyPropertyChanged("listaGuiaRemisionProducto");
+            }
+        }
+
         //private IEnumerable<GuiaRemisionProducto> _listaProductosGuia;
         //public IEnumerable<GuiaRemisionProducto> listaProductosGuia
         //{
@@ -125,14 +141,17 @@ namespace pe.edu.pucp.ferretin.viewmodel.MCompras
                 switch (_statusTab)
                 {
                     case Tab.BUSQUEDA: detallesTabHeader = "Agregar"; guiaRemision = new GuiaRemision(); break;
-                    case Tab.AGREGAR: detallesTabHeader = "Agregar"; guiaRemision = new GuiaRemision(); break;
+                    case Tab.AGREGAR: detallesTabHeader = "Agregar"; guiaRemision = new GuiaRemision(); listaGuiaRemisionProducto = null;  break;
                     case Tab.MODIFICAR: detallesTabHeader = "Modificar"; break;
-                    case Tab.DETALLES: detallesTabHeader = "Detalles"; break;
+                    case Tab.DETALLES: detallesTabHeader = "Detalles";  break;
                     default: detallesTabHeader = "Agregar"; guiaRemision = new GuiaRemision(); break;//Si es agregar, creo un nuevo objeto Guia de Remision
                 }
                 NotifyPropertyChanged("statusTab");
                 //Cuando se cambia el status, tambien se tiene que actualizar el currentIndex del tab
                 NotifyPropertyChanged("currentIndexTab"); //Hace que cambie el tab automaticamente
+                NotifyPropertyChanged("guiaRemision");
+                NotifyPropertyChanged("listaGuiaRemisionProducto");
+                NotifyPropertyChanged("ordenCompraCod");
             }
         }
         //Usado para mover los tabs de acuerdo a las acciones realizadas
@@ -152,6 +171,7 @@ namespace pe.edu.pucp.ferretin.viewmodel.MCompras
             {
                 _detallesTabHeader = value;
                 NotifyPropertyChanged("detallesTabHeader");
+                NotifyPropertyChanged("listaGuiaRemisionProducto");
             }
         }
         #endregion
@@ -231,6 +251,9 @@ namespace pe.edu.pucp.ferretin.viewmodel.MCompras
             try
             {
                 this.guiaRemision = listaGuiasRemision.Single(guiaRemision => guiaRemision.id == (int)id);
+                NotifyPropertyChanged("guiaRemision");
+                NotifyPropertyChanged("listaGuiaRemisionProducto");
+                NotifyPropertyChanged("ordenCompraCod");
                 this.statusTab = Tab.MODIFICAR;
             }
             catch (Exception e)
@@ -271,30 +294,57 @@ namespace pe.edu.pucp.ferretin.viewmodel.MCompras
             //listaGuiasRemision = MC_GuiaRemisionService.listaGuiasRemision;
         }
 
+
+        private String _ordenCompraCod;
+        public String ordenCompraCod
+        {
+            get
+            {
+                try
+                {
+                    if ("".Equals(this.guiaRemision.DocumentoCompra.codigo) || this.guiaRemision.DocumentoCompra.codigo == null)
+                        return _ordenCompraCod;
+                    else
+                        return guiaRemision.DocumentoCompra.codigo;
+                }
+                catch (Exception e)
+                {
+                    return _ordenCompraCod;
+                }
+            }
+            set
+            {
+                _ordenCompraCod = value;
+                NotifyPropertyChanged("ordenCompraCod");
+            }
+        }
+
+
         public void cargarOC(Object id)
         {
             DocumentoCompra buscado = null;
             int i;
             try
             {
-                buscado = MC_DocumentoCompraService.obtenerDCByCodigo(searchOC);
+                buscado = MC_DocumentoCompraService.obtenerDCByCodigo(this._ordenCompraCod);
                 documentoCompra = buscado;
 
                 this.guiaRemision.DocumentoCompra = documentoCompra;
-                
-                
+
+                var sequence = new List<GuiaRemisionProducto>();
+
                 for (i = 0; i < documentoCompra.DocumentoCompraProducto.Count(); i++)
                 {
-                    GuiaRemisionProducto guiaLinea = new GuiaRemisionProducto();
-                    guiaLinea.id_guia_detalle = documentoCompra.DocumentoCompraProducto[i].id;
-                    guiaLinea.cantidadRecibida = 0;
-                    guiaLinea.DocumentoCompraProducto = documentoCompra.DocumentoCompraProducto[i];
-                    guiaRemision.GuiaRemisionProducto.Add(guiaLinea);
-                    
+                    GuiaRemisionProducto guiaLinea = new GuiaRemisionProducto() { id_guia_detalle = documentoCompra.DocumentoCompraProducto[i].id, cantidadRecibida = 0, DocumentoCompraProducto = documentoCompra.DocumentoCompraProducto[i]};
+                    sequence.Add(guiaLinea);             
+                    //GuiaRemisionProducto guiaLinea = new GuiaRemisionProducto();
+                    //guiaLinea.id_guia_detalle = documentoCompra.DocumentoCompraProducto[i].id;
+                    //guiaLinea.cantidadRecibida = 0;
+                    //guiaLinea.DocumentoCompraProducto = documentoCompra.DocumentoCompraProducto[i];
+                    //guiaRemision.GuiaRemisionProducto.Add(guiaLinea);
                 }
-                NotifyPropertyChanged("guiaRemision");
-
-                string nombrecito = guiaRemision.GuiaRemisionProducto[1].DocumentoCompraProducto.Producto.nombre;
+                listaGuiaRemisionProducto = sequence;
+                NotifyPropertyChanged("listaGuiaRemisionProducto");
                 }
             catch { }
 
