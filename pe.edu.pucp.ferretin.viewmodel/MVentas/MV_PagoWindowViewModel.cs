@@ -160,14 +160,42 @@ namespace pe.edu.pucp.ferretin.viewmodel.MVentas
             string result = String.Empty;
             try
             {
-                
+                try
+                {
+                    if (venta.Cliente != null)
+                    {
+                        venta.Cliente.puntosActual -= venta.Cliente.puntosActual == null ? 0 : venta.Cliente.puntosActual - venta.puntosCanjeados;
+                        venta.Cliente.puntosUsados += venta.Cliente.puntosUsados == null ? venta.puntosCanjeados : venta.Cliente.puntosUsados + venta.puntosCanjeados;
+                        venta.Cliente.puntosActual += venta.Cliente.puntosActual == null ? venta.puntosGanados : venta.Cliente.puntosActual + venta.puntosGanados;
+                        venta.Cliente.puntosGanados += venta.Cliente.puntosGanados == null ? venta.puntosGanados : venta.Cliente.puntosGanados + venta.puntosGanados;
+                        venta.Cliente.ultimaCompra = venta.fecha;
+                        venta.Cliente.totalCompras = venta.Cliente.totalCompras == null ? 1 : venta.Cliente.totalCompras + 1;
+                    }
+                    foreach (var vmp in venta.VentaMedioPago)
+                    {
+                        if (vmp.Vale != null)
+                        {
+                            vmp.Vale.estado = 1;
+                        }
+                        if (vmp.NotaCredito != null)
+                        {
+                            vmp.NotaCredito.estado = 1;
+                        }
+                    }
+                }
+                catch { }
+
                 result = MA_SharedService.registrarVenta(venta.Usuario.Empleado.tiendaActual, venta.VentaProducto);
+                if (result.Length <= 0)//si resulto bien
+                {
+                    
+                }
             }
             catch (Exception e)
             {
-                result = "Error al registrar venta: "+ e.Message;
+                //result = "Error al registrar venta: "+ e.Message;
             }
-            if (result.Length>=0)
+            if (result.Trim().Length>0)
             {
                 MessageBox.Show(result);
             }

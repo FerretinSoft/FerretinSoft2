@@ -56,7 +56,6 @@ namespace pe.edu.pucp.ferretin.controller.MAlmacen
                 return null;
         }
 
-
         public static void actualizarSolicitud(SolicitudAbastecimiento solicitud)
         {
             db.SubmitChanges();
@@ -97,7 +96,7 @@ namespace pe.edu.pucp.ferretin.controller.MAlmacen
             return result;
         }        
 
-        public static bool atenderSolicitud(Tienda almacen, SolicitudAbastecimiento solicitud)
+        /*public static bool atenderSolicitud(Tienda almacen, SolicitudAbastecimiento solicitud)
         {
             var productos = (from prodAlmacen in db.ProductoAlmacen
                             where prodAlmacen.Tienda == almacen
@@ -110,7 +109,7 @@ namespace pe.edu.pucp.ferretin.controller.MAlmacen
                 if ((decimal)stock < solicitud.SolicitudAbastecimientoProducto[i].cantidad) return false;
             }
             return true;
-        }        
+        }*/        
 
         public static bool insertarSolicitud(SolicitudAbastecimiento solicitud)
         {
@@ -119,7 +118,7 @@ namespace pe.edu.pucp.ferretin.controller.MAlmacen
                 //if (!db.TiendaHorario.Equals(almacen.TiendaHorario))
                 //    db.TiendaHorario.InsertAllOnSubmit(almacen.tiendasH);
 
-                db.SolicitudAbastecimiento.InsertOnSubmit(solicitud);
+                if (solicitud.id <= 0) db.SolicitudAbastecimiento.InsertOnSubmit(solicitud);
                 return enviarCambios();
             }
             else
@@ -127,5 +126,27 @@ namespace pe.edu.pucp.ferretin.controller.MAlmacen
                 return false;
             }
         }
+
+        public static bool validarAtencionSolicitud(Tienda proveedor, SolicitudAbastecimiento solicitud)
+        {
+            var productos = (from prodAlmacen in db.ProductoAlmacen
+                             where prodAlmacen.Tienda == proveedor
+                             select prodAlmacen);
+            for (int i = 0; i < solicitud.SolicitudAbastecimientoProducto.Count; i++)
+            {
+                var stock = (from prod in productos
+                             where prod.Producto == solicitud.SolicitudAbastecimientoProducto[i].Producto
+                             select prod.stock).First();
+                if ((decimal)stock < solicitud.SolicitudAbastecimientoProducto[i].cantidad) return false;
+            }
+            return true;
+        }
+
+        public static bool atenderSolicitud(Tienda proveedor, SolicitudAbastecimiento solicitud)
+        {
+            String errores = registrarTransferenciaAbastecimiento(proveedor, solicitud.Tienda, solicitud.SolicitudAbastecimientoProducto);
+            return (errores == "") ? true : false;
+        }
+    
     }
 }

@@ -18,7 +18,7 @@ namespace pe.edu.pucp.ferretin.controller.MAlmacen
                 if (pa.stock - cantidad < 0) return false; // stock insuficiente
                 pa.stock -= cantidad;
             }
-            return enviarCambios();            
+            return true;            
         }
 
         public static ProductoAlmacen ObtenerProductoAlmacenPorTiendaProducto(Tienda t, Producto p)

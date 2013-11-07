@@ -54,10 +54,10 @@
                             <DataGridTextColumn Width="2*" Binding="{Binding Path=SolicitudAbastecimientoEstado.nombre}"  Header="Estado"/>
                         </DataGrid.Columns>
                     </DataGrid>
-                    <ComboBox ItemsSource="{Binding tiendasFiltro,Mode=TwoWay}" SelectedIndex="0" DisplayMemberPath="nombre" SelectedItem="{Binding searchTienda, Mode=TwoWay}" HorizontalAlignment="Left" Margin="116,43,0,0" VerticalAlignment="Top" Width="155" Height="22">
+                    <ComboBox ItemsSource="{Binding tiendasHijas}" SelectedIndex="0" DisplayMemberPath="nombre" SelectedItem="{Binding searchTienda, Mode=TwoWay}" HorizontalAlignment="Left" Margin="116,43,0,0" VerticalAlignment="Top" Width="155" Height="22">
 
                     </ComboBox>
-                    <ComboBox SelectedIndex="0" ItemsSource="{Binding estadoSolicitud,Mode=TwoWay}" DisplayMemberPath="nombre" SelectedItem="{Binding searchEstado, Mode=TwoWay}" HorizontalAlignment="Left" Margin="402,43,0,0" VerticalAlignment="Top" Width="134" Height="22">
+                    <ComboBox SelectedIndex="0" ItemsSource="{Binding estadoSolicitud}" DisplayMemberPath="nombre" SelectedItem="{Binding searchEstado, Mode=TwoWay}" HorizontalAlignment="Left" Margin="402,43,0,0" VerticalAlignment="Top" Width="134" Height="22">
 
                     </ComboBox>
                     <Label Content="Fecha hasta:" HorizontalAlignment="Left" Height="26" VerticalAlignment="Top" Width="89" Margin="323,80,0,0"/>
@@ -88,19 +88,19 @@
                     <Label Content="Código:" HorizontalAlignment="Left" Height="26" VerticalAlignment="Top" Width="65" Margin="22,43,0,0"/>
                     <TextBox Text="{Binding Path=solicitud.codigo, Mode=TwoWay}"  x:Name="idTxtBox" HorizontalAlignment="Left" Height="23" Margin="133,46,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="166" IsEnabled="False"/>
                     <Label Content="Fecha solicitud:" HorizontalAlignment="Left" Height="26" VerticalAlignment="Top" Width="111" Margin="22,81,0,0"/>
-                    <DatePicker SelectedDate="{Binding Path=solicitud.fecha}" HorizontalAlignment="Left" Margin="133,82,0,0" VerticalAlignment="Top" Width="166"/>
+                    <DatePicker IsEnabled="False" SelectedDate="{Binding Path=solicitud.fecha}" HorizontalAlignment="Left" Margin="133,82,0,0" VerticalAlignment="Top" Width="166"/>
 
-                    <DataGrid ItemsSource="{Binding Path=solicitud.SolicitudAbastecimientoProducto}" Name="gridDetalle" Margin="5,5,5,5"  Grid.Row="1" AutoGenerateColumns="False" IsReadOnly="True" >
+                    <DataGrid ItemsSource="{Binding Path=productosPorSolicitud}" Name="gridDetalle" Margin="5,5,5,5"  Grid.Row="1" AutoGenerateColumns="False" IsReadOnly="True" >
                         <DataGrid.Columns>
-                            <DataGridTextColumn Width="1*" Binding="{Binding Path=Producto.codigo}" Header="Cód. Producto"/>
-                            <DataGridTextColumn Width="3*" Binding="{Binding Path=Producto.nombre}" Header="Nombre"/>
-                            <DataGridTextColumn Width="1*" Binding="{Binding Path=cantidad}" Header="Cantidad"/>
-                            <DataGridTextColumn Width="1*" Header="Stock"/>
+                            <DataGridTextColumn Width="1*" Binding="{Binding Path=productoPorSolicitud.Producto.codigo}" Header="Cód. Producto"/>
+                            <DataGridTextColumn Width="3*" Binding="{Binding Path=productoPorSolicitud.Producto.nombre}" Header="Nombre"/>
+                            <DataGridTextColumn Width="1*" Binding="{Binding Path=productoPorSolicitud.cantidad}" Header="Cantidad"/>
+                            <DataGridTextColumn Width="1*" Binding="{Binding Path=productoPorAlmacen.stock}" Header="Stock"/>
                         </DataGrid.Columns>
                     </DataGrid>
 
-                    <Button x:Name="atenderSolBtn" Command="{Binding atenderSolicitudCommand}" Content="ATENDER SOLICITUD" HorizontalAlignment="Right" Margin="0,0,287,9" Grid.Row="2" Width="123" Click="atenderSolBtn_Click" Height="30" VerticalAlignment="Bottom"/>
-                    <Button x:Name="anularSolBtn" Command="{Binding anularSolicitudCommand}" Content="ANULAR SOLICITUD" HorizontalAlignment="Right" Margin="0,0,148,9" Grid.Row="2" Width="123" Click="atenderSolBtn_Click" Height="30" VerticalAlignment="Bottom"/>
+                    <Button x:Name="atenderSolBtn" IsEnabled="{Binding esAtendible}" Command="{Binding atenderSolicitudCommand}" Content="ATENDER SOLICITUD" HorizontalAlignment="Right" Margin="0,0,287,9" Grid.Row="2" Width="123" Click="atenderSolBtn_Click" Height="30" VerticalAlignment="Bottom"/>
+                    <Button x:Name="anularSolBtn" IsEnabled="{Binding esAnulable}" Command="{Binding anularSolicitudCommand}" Content="ANULAR SOLICITUD" HorizontalAlignment="Right" Margin="0,0,148,9" Grid.Row="2" Width="123" Click="atenderSolBtn_Click" Height="30" VerticalAlignment="Bottom"/>
                     <TextBox HorizontalAlignment="Left" Height="23" Margin="433,46,0,0" TextWrapping="Wrap" Text="{Binding Path=solicitud.Tienda.nombre}" VerticalAlignment="Top" Width="208" IsEnabled="False"/>
                     <Button x:Name="anularSolBtn_Copy" Command="{Binding cancelSolicitudCommand}" Content="CANCELAR" HorizontalAlignment="Right" Margin="0,0,10,9" Grid.Row="2" Width="123" Click="atenderSolBtn_Click" Height="30" VerticalAlignment="Bottom"/>
                 </Grid>

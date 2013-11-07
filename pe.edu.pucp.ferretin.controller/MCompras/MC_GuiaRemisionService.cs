@@ -89,6 +89,30 @@ namespace pe.edu.pucp.ferretin.controller.MCompras
                    select g;
         }
 
+        public static bool insertarGuiaRemision(GuiaRemision guiaRemision)
+        {
+            GuiaRemision guia;
+            int i;
+            try
+            {
+                try
+                {
+                    guia = db.GuiaRemision.Single(t => t.codigo == guiaRemision.codigo);
+                    return false;
+                }
+                catch (Exception e)
+                {
+                    guiaRemision.estado = 1;
+                    db.GuiaRemision.InsertOnSubmit(guiaRemision);
+                    return enviarCambios();
+                }
+            }
+            catch (Exception e)
+            {
+                return false;
+            }
+        }
+
         #endregion
     }
 }
