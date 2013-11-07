@@ -106,6 +106,7 @@ namespace pe.edu.pucp.ferretin.controller
         public static void idVentana(int id)
         {
             idVent = id;
+            Console.WriteLine("VALOR DE IDVENT lslsl : " + id + " -- " + idVent);
         }
         /************************************************/
         private static IEnumerable<Tienda> _tiendas;
