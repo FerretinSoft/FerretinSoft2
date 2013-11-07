@@ -405,6 +405,7 @@ namespace pe.edu.pucp.ferretin.viewmodel.MSeguridad
             {
                 usuario.contrasena = MS_UsuarioService.encrypt("ferretinSoft");
                 usuario.intentosCon = Convert.ToInt16(listaParametros[0].valor);
+                ComunService.idVentana(39);
 
                 if (!MS_UsuarioService.enviarCambios())
                 {

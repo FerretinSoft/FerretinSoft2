@@ -16,6 +16,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using pe.edu.pucp.ferretin.controller.MSeguridad;
 using System.Text.RegularExpressions;
+using pe.edu.pucp.ferretin.controller;
 
 
 namespace pe.edu.pucp.ferretin.view.MSeguridad
@@ -117,6 +118,7 @@ namespace pe.edu.pucp.ferretin.view.MSeguridad
                     {
 
                         usuarioLog = value;
+                        ComunService.usuarioLo(value);
                         MS_CambiarContraseñaUsuario cc = new MS_CambiarContraseñaUsuario(usuarioLog);
                         MessageBox.Show("Inicio de sesión exitoso. A continuación cambie su contraseña.");
                         cc.Show();
