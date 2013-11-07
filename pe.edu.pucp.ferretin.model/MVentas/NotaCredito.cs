@@ -16,5 +16,38 @@ namespace pe.edu.pucp.ferretin.model
                 return estado == 1 ? "EXPIRADA" : "APLICABLE";
             }
         }
+        public string fechaEmisionString
+        { get
+            {
+                if (fechaEmision != null)
+                {
+                    string fechaString = fechaEmision.ToString();
+                    DateTime fecha = Convert.ToDateTime(fechaString);
+                    fechaString = fecha.ToString("d");
+                    return fechaString;
+                }
+                else
+                    return null;
+            }
+           
+        }
+
+        public string fechaVencimientoString
+        {
+            get
+            {
+                if (fechaVencimiento != null)
+                {
+                    string fechaString = fechaVencimiento.ToString();
+                    DateTime fecha = Convert.ToDateTime(fechaString);
+                    fechaString = fecha.ToString("d");
+                    return fechaString;
+                }
+                else
+                    return null;
+            }
+
+        }
+
     }
 }

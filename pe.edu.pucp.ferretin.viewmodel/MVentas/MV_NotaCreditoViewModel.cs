@@ -9,6 +9,11 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
 using pe.edu.pucp.ferretin.controller.MRecursosHumanos;
+using System.Windows.Documents;
+using System.Windows.Controls;
+using System.IO;
+using System.Xml;
+using System.Windows.Markup;
 
 namespace pe.edu.pucp.ferretin.viewmodel.MVentas
 {
@@ -166,9 +171,31 @@ namespace pe.edu.pucp.ferretin.viewmodel.MVentas
             }
         }
 
+        RelayCommand _imprimirDocCommand;
+        public ICommand imprimirDocCommand
+        {
+            get
+            {
+                if (_imprimirDocCommand == null)
+                {
+                    _imprimirDocCommand = new RelayCommand(imprimirDoc);
+                }
+                return _imprimirDocCommand;
+            }
+        }
+        
+
+
+
         #endregion
 
         #region commands
+
+        public void imprimirDoc(Object id)
+        {
+
+            MessageBox.Show(notaCredito.codigo);
+        }
 
         public void cargarVendedor(Object id)
         {

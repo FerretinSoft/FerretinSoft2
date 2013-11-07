@@ -1,4 +1,5 @@
-﻿using System;
+﻿using pe.edu.pucp.ferretin.controller;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -34,44 +35,93 @@ namespace pe.edu.pucp.ferretin.view.MAlmacen
 
         private void invProdBtn_Click(object sender, RoutedEventArgs e)
         {
-            MA_InventarioProductosWindow invWindow = new MA_InventarioProductosWindow();
-            invWindow.Show();
+            if (ComunService.usuarioLpermisos[21].estado == true)
+            {
+                MA_InventarioProductosWindow invWindow = new MA_InventarioProductosWindow();
+                invWindow.Show();
+            }
+            else
+            {
+                MessageBox.Show("Usted no cuenta con el permiso necesario.");
+            }
         }
 
         private void prodBtn_Click(object sender, RoutedEventArgs e)
         {
-            MA_MantenimientoProductosWindow prodWindow = new MA_MantenimientoProductosWindow();
-            prodWindow.Show();
+            if (ComunService.usuarioLpermisos[22].estado == true)
+            {
+                MA_MantenimientoProductosWindow prodWindow = new MA_MantenimientoProductosWindow();
+                prodWindow.Show();
+            }
+            else
+            {
+                MessageBox.Show("Usted no cuenta con el permiso necesario.");
+            }
         }
 
         private void movBtn_Click(object sender, RoutedEventArgs e)
         {
-            MA_MovimientosWindow movWindow = new MA_MovimientosWindow();
-            movWindow.Show();
+            if (ComunService.usuarioLpermisos[24].estado == true)
+            {
+                MA_MovimientosWindow movWindow = new MA_MovimientosWindow();
+                movWindow.Show();
+            }
+            else
+            {
+                MessageBox.Show("Usted no cuenta con el permiso necesario.");
+            }
         }
 
         private void repAlmacenBtn_Click(object sender, RoutedEventArgs e)
         {
-            MA_ReportesWindow repWindow = new MA_ReportesWindow();
-            repWindow.Show();
+            if (ComunService.usuarioLpermisos[26].estado == true)
+            {
+                MA_ReportesWindow repWindow = new MA_ReportesWindow();
+                repWindow.Show();
+            }
+            else
+            {
+                MessageBox.Show("Usted no cuenta con el permiso necesario.");
+            }
         }
 
         private void solAbastecimientoBtn_Click(object sender, RoutedEventArgs e)
         {
-            MA_RegistroSolAbastecimientoWindow solWindow = new MA_RegistroSolAbastecimientoWindow();
-            solWindow.Show();
+            if (ComunService.usuarioLpermisos[25].estado == true)
+            {
+                MA_RegistroSolAbastecimientoWindow solWindow = new MA_RegistroSolAbastecimientoWindow();
+                solWindow.Show();
+            }
+            else
+            {
+                MessageBox.Show("Usted no cuenta con el permiso necesario.");
+            }
         }
 
         private void mantCatBtn_Click(object sender, RoutedEventArgs e)
         {
-            MA_MantenimientoCategoriasWindow catWindow = new MA_MantenimientoCategoriasWindow();
-            catWindow.Show();
+            if (ComunService.usuarioLpermisos[23].estado == true)
+            {
+                MA_MantenimientoCategoriasWindow catWindow = new MA_MantenimientoCategoriasWindow();
+                catWindow.Show();
+            }
+            else
+            {
+                MessageBox.Show("Usted no cuenta con el permiso necesario.");
+            }
         }
 
         private void atencionSolicitudesBtn_Click(object sender, RoutedEventArgs e)
         {
-            MA_AtencionSolAbastecimientoWindow atenSol = new MA_AtencionSolAbastecimientoWindow();
-            atenSol.Show();
+            if (ComunService.usuarioLpermisos[25].estado == true)
+            {
+                MA_AtencionSolAbastecimientoWindow atenSol = new MA_AtencionSolAbastecimientoWindow();
+                atenSol.Show();
+            }
+            else
+            {
+                MessageBox.Show("Usted no cuenta con el permiso necesario.");
+            }
         }
     }
 }
