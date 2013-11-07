@@ -151,7 +151,7 @@ namespace pe.edu.pucp.ferretin.controller.MAlmacen
             movimiento.fecha = today;
             movimiento.MovimientoEstado = MA_EstadoMovimientoService.getMovimientoEstadoByName("Finalizado");
             movimiento.MovimientoTipo = MA_TipoMovimientoService.getMovimientoTipoByName("Compra");
-            movimiento.Tienda = tienda;
+            movimiento.Tienda1 = tienda;
             movimiento.MovimientoProducto = new EntitySet<MovimientoProducto>();
             MovimientoProducto current;
             for (int i = 0; i < items.Count; i++)
