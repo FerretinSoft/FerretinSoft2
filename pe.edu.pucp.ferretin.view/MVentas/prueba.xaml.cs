@@ -1,4 +1,5 @@
-﻿using System;
+﻿using pe.edu.pucp.ferretin.viewmodel.MVentas;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -19,9 +20,23 @@ namespace pe.edu.pucp.ferretin.view.MVentas
     /// </summary>
     public partial class prueba : Window
     {
+        private viewmodel.MVentas.MV_PagoWindowViewModel pagoViewModel;
+
         public prueba()
         {
             InitializeComponent();
+        }
+
+        public prueba(viewmodel.MVentas.MV_PagoWindowViewModel pagoViewModel)
+        {
+            InitializeComponent();
+
+            this.pagoViewModel = pagoViewModel;
+
+            var myDC = this.main.DataContext as pruebaViewModel;
+            myDC.venta = pagoViewModel.venta;
+
+            this.Show();
         }
     }
 }

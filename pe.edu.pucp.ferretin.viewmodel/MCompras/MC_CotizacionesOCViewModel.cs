@@ -365,29 +365,28 @@ namespace pe.edu.pucp.ferretin.viewmodel.MCompras
 
         public void saveDocumentoCompra(Object obj)
         {
-
-            if (documentoCompra.id > 0)//Si existe
-            {
-                if (!MC_DocumentoCompraService.enviarCambios())
-                {
-                    MessageBox.Show("No se pudo actualizar el documento de compra");
-                }
-                else
-                {
-                    MessageBox.Show("El documento de compra fue guardado con éxito");
-                }
-            }
-            else
-            {
-                //if (!MC_DocumentoCompraService.insertarDocumentoCompra(documentoCompra))
-                //{
-                //    MessageBox.Show("No se pudo agregar el nuevo documento de compra");
-                //}
-                //else
-                //{
-                //    MessageBox.Show("El documento de compra fue agregado con éxito");
-                //}
-            }
+            //if (documentoCompra.id > 0)//Si existe
+            //{
+            //    if (!MC_DocumentoCompraService.enviarCambios())
+            //    {
+            //        MessageBox.Show("No se pudo actualizar el documento de compra");
+            //    }
+            //    else
+            //    {
+            //        MessageBox.Show("El documento de compra fue guardado con éxito");
+            //    }
+            //}
+            //else
+            //{
+            //    if (!MC_DocumentoCompraService.insertarDocumentoCompra(documentoCompra))
+            //    {
+            //        MessageBox.Show("No se pudo agregar el nuevo documento de compra");
+            //    }
+            //    else
+            //    {
+            //        MessageBox.Show("El documento de compra fue agregado con éxito");
+            //    }
+            //}
         }
 
         public void cancelDocumentoCompra(Object obj)

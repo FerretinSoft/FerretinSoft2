@@ -45,7 +45,22 @@ namespace pe.edu.pucp.ferretin.model
             this.diferencia = this.total - this.cobrado;
         }
 
-        
+        public string fechaString
+        {
+            get
+            {
+                if (fecha != null)
+                {
+                    string fechaString = fecha.ToString();
+                    DateTime fechaFormat = Convert.ToDateTime(fechaString);
+                    fechaString = fechaFormat.ToString("d");
+                    return fechaString;
+                }
+                else
+                    return null;
+            }
+
+        }
         
     }
 }

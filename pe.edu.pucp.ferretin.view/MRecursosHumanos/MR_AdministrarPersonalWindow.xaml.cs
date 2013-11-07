@@ -51,16 +51,12 @@ namespace pe.edu.pucp.ferretin.view.MRecursosHumanos
 
         private void txtDNI_KeyDown(object sender, KeyEventArgs e)
         {
-            if (e.Key != Key.Space)
+            //Validaciones para que acepte solo numeros
+            if (((e.Key >= Key.D0 && e.Key <= Key.D9) || (e.Key >= Key.NumPad0 && e.Key <= Key.NumPad9) || e.Key == Key.Back || e.Key == Key.Tab))
                 e.Handled = false;
             else
-                e.Handled = true;
-     
-         
+                e.Handled = true;     
         }
-
-        
-        
 
 
         private void nombre_PreviewTextInput(object sender, TextCompositionEventArgs e)
@@ -73,8 +69,7 @@ namespace pe.edu.pucp.ferretin.view.MRecursosHumanos
             {
                 e.Handled = true;
             }
-
-            
+ 
 
             
         }
@@ -102,7 +97,7 @@ namespace pe.edu.pucp.ferretin.view.MRecursosHumanos
          private void txtApPaterno_KeyDown(object sender, KeyEventArgs e)
          {
              //Validaciones para textbox de solo letras
-            // if (!(e.Key >= Key.A && e.Key <= Key.Z)) e.Handled = true;
+            if (!(e.Key >= Key.A && e.Key <= Key.Z)) e.Handled = true;
          }
 
 
@@ -157,7 +152,7 @@ namespace pe.edu.pucp.ferretin.view.MRecursosHumanos
 
         private void txtTelf1_KeyDown (object sender, KeyEventArgs e)
         {
-            if (e.Key != Key.Space)
+            if (((e.Key >= Key.D0 && e.Key <= Key.D9) || (e.Key >= Key.NumPad0 && e.Key <= Key.NumPad9) || e.Key == Key.Back || e.Key == Key.Tab))
                 e.Handled = false;
             else
                 e.Handled = true;
@@ -177,7 +172,7 @@ namespace pe.edu.pucp.ferretin.view.MRecursosHumanos
         }
         private void txtTelf2_KeyDown(object sender, KeyEventArgs e)
         {
-            if (e.Key != Key.Space)
+            if (((e.Key >= Key.D0 && e.Key <= Key.D9) || (e.Key >= Key.NumPad0 && e.Key <= Key.NumPad9) || e.Key == Key.Back || e.Key == Key.Tab))
                 e.Handled = false;
             else
                 e.Handled = true;
@@ -186,22 +181,17 @@ namespace pe.edu.pucp.ferretin.view.MRecursosHumanos
         {
             //Validaciones para textbox de solo letras
 
-            string pattern = null;
-            pattern = @"^([0-9a-zA-Z]([-\\.\\w]*[0-9a-zA-Z])*@([0-9a-zA-Z][-\\w]*[0-9a-zA-Z]\\.)+[a-zA-Z]{2,15})$"; 
-                
-                ///^([a-z0-9_\.-]+)@([\da-z\.-]+)\.([a-z\.]{2,6})$/ 
-                //"^([0-9a-zA-Z]([-\\.\\w]*[0-9a-zA-Z])*@([0-9a-zA-Z][-\\w]*[0-9a-zA-Z]\\.)+[a-zA-Z]{2,9})$";
 
 
 
-			if (Regex.IsMatch(correo.Text, pattern))
-			{
-                e.Handled = true ;
-			}
-			else
-			{
-                e.Handled = false;
-			}
+            ////if (Regex.IsMatch(correo.Text, "/[-0-9a-zA-Z.+_]+@[-0-9a-zA-Z.+_]+\.[a-zA-Z]{2,4}/"))
+            ////{
+            ////    e.Handled = true ;
+            ////}
+            ////else
+            ////{
+            ////    e.Handled = false;
+            ////}
 
            // e.Handled = Regex.IsMatch(correo.Text, "/[-0-9a-zA-Z.+_]+@[-0-9a-zA-Z.+_]+\.[a-zA-Z]{2,4}/");
 
