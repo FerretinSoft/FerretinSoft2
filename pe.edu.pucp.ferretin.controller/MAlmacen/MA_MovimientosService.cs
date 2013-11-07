@@ -81,6 +81,20 @@ namespace pe.edu.pucp.ferretin.controller.MAlmacen
             return enviarCambios();
         }
 
+        private static bool validarMovimiento(Movimiento movimiento)
+        {
+            if (movimiento.MovimientoTipo.categoriaEnum == MovimientoTipo.CategoriaMovimiento.ENTRADA) 
+                return true; //No hay restricciones para entrada a almacén
+            MovimientoProducto current;
+            for (int i = 0; i < movimiento.MovimientoProducto.Count; i++)
+            {
+                current = movimiento.MovimientoProducto[i];
+                ProductoAlmacen pa = MA_ProductoAlmacenService.ObtenerProductoAlmacenPorTiendaProducto(movimiento.Tienda, current.Producto);
+                if (pa.stock - current.cantidad < 0) return false;
+            }
+            return true;
+        }
+
         private static bool finalizarMovimiento(Movimiento movimiento)
         {
             Dictionary<Producto, decimal> productos = new Dictionary<Producto, decimal>();
@@ -114,6 +128,8 @@ namespace pe.edu.pucp.ferretin.controller.MAlmacen
          {
             if (!db.Movimiento.Contains(movimiento))
             {
+                if (!validarMovimiento(movimiento)) return false; //movimiento no válido
+                
                 if (movimiento.MovimientoEstado.nombre == "Finalizado")
                 {
                     Dictionary<Producto, decimal> productos = new Dictionary<Producto, decimal>();
