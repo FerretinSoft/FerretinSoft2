@@ -69,6 +69,15 @@ namespace pe.edu.pucp.ferretin.viewmodel.MRecursosHumanos
         #endregion
 
 
+        public List<String> tiposTurnos
+        {
+            get
+            {
+                return new List<string>() { "8:00am - 2:00 pm", "2:00pm -10:00 pm", "9:00am - 5:00 pm" };
+            }
+        }
+
+
         public IEnumerable<Cargo> listaCargosAdd
         {
             get
