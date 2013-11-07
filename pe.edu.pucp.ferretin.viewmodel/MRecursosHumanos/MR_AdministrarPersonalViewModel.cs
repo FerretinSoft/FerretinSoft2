@@ -1,5 +1,6 @@
 ﻿using Microsoft.Win32;
 using pe.edu.pucp.ferretin.controller.MRecursosHumanos;
+using pe.edu.pucp.ferretin.controller;
 using pe.edu.pucp.ferretin.model;
 using pe.edu.pucp.ferretin.viewmodel.Helper;
 using System;
@@ -481,6 +482,7 @@ namespace pe.edu.pucp.ferretin.viewmodel.MRecursosHumanos
                 /*Para actualizar un empleado existente*/
                 if (empleado.id > 0)//Si existe
                 {
+                    ComunService.idVentana(2);                    
                     if (!MR_EmpleadoService.enviarCambios())
                     {
                         MessageBox.Show("No se pudo actualizar el empleado");
@@ -497,7 +499,7 @@ namespace pe.edu.pucp.ferretin.viewmodel.MRecursosHumanos
                 {
                     //Validacion de Campos Obligatorios//
 
-
+                    ComunService.idVentana(1);
                     if (empleado.dni == null || empleado.dni == "") MessageBox.Show("Debe ingresar el campo DNI");
                     else if (empleado.nombre == null || empleado.nombre == "") MessageBox.Show("Debe ingresar el campo Nombre");
                     else if (empleado.apPaterno == null || empleado.nombre == "") MessageBox.Show("Debe ingresar el campo Apellido Paterno");
