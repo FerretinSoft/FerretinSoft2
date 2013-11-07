@@ -58,5 +58,10 @@
         </GroupBox>
         <Label Content="Documento que modifica" HorizontalAlignment="Left" Margin="297,140,0,0" VerticalAlignment="Top"/>
         <Label Content="{Binding Path=notaCredito.Devolucion.Venta.nroDocumento}" HorizontalAlignment="Left" Margin="461,137,0,0" VerticalAlignment="Top"/>
+        <Button Content="" HorizontalAlignment="Left" Margin="10,350,0,0" VerticalAlignment="Top" Width="33" Height="28">
+            <Button.Background>
+                <ImageBrush ImageSource="/pe.edu.pucp.ferretin.view;component/Resources/print_48.png"/>
+            </Button.Background>
+        </Button>
     </Grid>
 </Window>
