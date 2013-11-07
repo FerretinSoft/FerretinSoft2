@@ -272,6 +272,51 @@ namespace pe.edu.pucp.ferretin.model
         }
 
 
+        /************EmpleadoTurno******************/
+
+        public IEnumerable<EmpleadoTurno> empleadoTurnos = null;
+        public void empleadoT()
+        {
+                if ((this.EmpleadoTurno.Where(t => t.id_empleado == this.id)).Count() <= 0)
+                {
+                    //Creo una nueva secuencia
+                    var sequence = Enumerable.Empty<EmpleadoTurno>();
+                    //Primero agrego un item de Todos para que salga al inicio
+                    //Pongo el ID en 0 para que al buscar, no filtre nada cuando se selecciona todos
+                    IEnumerable<EmpleadoTurno> empleadoTurnoL = new EmpleadoTurno[] { new EmpleadoTurno { id_empleado = this.id, Empleado = this, id_dia = 1, estado = 0 } };
+                    IEnumerable<EmpleadoTurno> empleadoTurnoM = new EmpleadoTurno[] { new EmpleadoTurno { id_empleado = this.id, Empleado = this, id_dia = 2, estado = 0 } };
+                    IEnumerable<EmpleadoTurno> empleadoTurnoMi = new EmpleadoTurno[] { new EmpleadoTurno { id_empleado = this.id, Empleado = this, id_dia = 3, estado = 0 } };
+                    IEnumerable<EmpleadoTurno> empleadoTurnoJ = new EmpleadoTurno[] { new EmpleadoTurno { id_empleado = this.id, Empleado = this, id_dia = 4, estado = 0 } };
+                    IEnumerable<EmpleadoTurno> empleadoTurnoV = new EmpleadoTurno[] { new EmpleadoTurno { id_empleado = this.id, Empleado = this, id_dia = 5, estado = 0 } };
+                    IEnumerable<EmpleadoTurno> empleadoTurnoS = new EmpleadoTurno[] { new EmpleadoTurno { id_empleado = this.id, Empleado = this, id_dia = 6, estado = 0 } };
+                    IEnumerable<EmpleadoTurno> empleadoTurnoD = new EmpleadoTurno[] { new EmpleadoTurno { id_empleado = this.id, Empleado = this, id_dia = 7, estado = 0 } };
+                    sequence.Concat(empleadoTurnoL).Concat(empleadoTurnoM).Concat(empleadoTurnoMi).Concat(empleadoTurnoJ).Concat(empleadoTurnoV).Concat(empleadoTurnoS).Concat(empleadoTurnoD);
+                    //empleadoT = sequence;
+                    this.empleadoTurnos = sequence;
+                }
+        }
+
+        //public void verificaEmpleadoTurno()
+        //{
+
+        //    if ((this.EmpleadoTurno.Where(t => t.id_empleado == this.id)).Count() <= 0)
+        //    {
+        //        //Creo una nueva secuencia
+        //        var sequence = Enumerable.Empty<EmpleadoTurno>();
+        //        //Primero agrego un item de Todos para que salga al inicio
+        //        //Pongo el ID en 0 para que al buscar, no filtre nada cuando se selecciona todos
+        //        IEnumerable<EmpleadoTurno> empleadoTurnoL = new EmpleadoTurno[] { new EmpleadoTurno { id_empleado = this.id, Empleado = this, id_dia=1, estado=0} };
+        //        IEnumerable<EmpleadoTurno> empleadoTurnoM = new EmpleadoTurno[] { new EmpleadoTurno { id_empleado = this.id, Empleado = this, id_dia=2, estado = 0 } };
+        //        IEnumerable<EmpleadoTurno> empleadoTurnoMi = new EmpleadoTurno[] { new EmpleadoTurno { id_empleado = this.id, Empleado = this,id_dia=3, estado = 0 } };
+        //        IEnumerable<EmpleadoTurno> empleadoTurnoJ = new EmpleadoTurno[] { new EmpleadoTurno { id_empleado = this.id, Empleado = this, id_dia=4, estado = 0 } };
+        //        IEnumerable<EmpleadoTurno> empleadoTurnoV = new EmpleadoTurno[] { new EmpleadoTurno { id_empleado = this.id, Empleado = this, id_dia=5, estado = 0 } };
+        //        IEnumerable<EmpleadoTurno> empleadoTurnoS = new EmpleadoTurno[] { new EmpleadoTurno { id_empleado = this.id, Empleado = this, id_dia=6, estado = 0 } };
+        //        IEnumerable<EmpleadoTurno> empleadoTurnoD = new EmpleadoTurno[] { new EmpleadoTurno { id_empleado = this.id, Empleado = this, id_dia=7, estado = 0 } };
+        //        sequence.Concat(empleadoTurnoL).Concat(empleadoTurnoM).Concat(empleadoTurnoMi).Concat(empleadoTurnoJ).Concat(empleadoTurnoV).Concat(empleadoTurnoS).Concat(empleadoTurnoD);
+        //        empleadoT = sequence;
+        //    }
+        //}
+
         #region Zona de Validaciones
 
         #region Código por default de la interfaz heredada
