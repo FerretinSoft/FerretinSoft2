@@ -112,6 +112,8 @@ namespace pe.edu.pucp.ferretin.view.MSeguridad
                 //Si el nombre de usuario y la contraseña coinciden.
                 if (value.nombre == this.nombreUsuario && value.contrasena == MS_UsuarioService.encrypt(this.contrasena))
                 {
+                    numIntentos.Content = "";
+                    lbLoginError.Content = "";
 
                     //Verifica si la contraseña coincide con "ferretinSoft". Si coincide entonces es la primera vez que esta logueando.
                     if (MS_UsuarioService.encrypt(this.contrasena) == MS_UsuarioService.encrypt("ferretinSoft"))
