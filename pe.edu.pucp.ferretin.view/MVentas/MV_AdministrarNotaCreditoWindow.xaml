@@ -2,7 +2,7 @@
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:viewmodel="clr-namespace:pe.edu.pucp.ferretin.viewmodel.MVentas;assembly=pe.edu.pucp.ferretin.viewmodel"
-        Title="Administrar Nota de Crédito" Icon="../Resources/ferretin_ico.ico" Width="827.701">
+        Title="Administrar Nota de Crédito" Height="600" Width="1200" Icon="../Resources/ferretin_ico.ico">
     <Window.Resources>
         <viewmodel:MV_NotaCreditoViewModel x:Key="MV_NotaCreditoViewModel"/>
     </Window.Resources>
@@ -79,8 +79,8 @@
                                 </Button>
                             </Grid>
                             <TextBox Text="{Binding nombreCliente, Mode=OneWay}" x:Name="searchNombreCliente" VerticalAlignment="Center" VerticalContentAlignment="Center" Grid.Column="3" Grid.ColumnSpan="2" Grid.Row="1" IsEnabled="False" Margin="0,2"/>
-                            <DatePicker SelectedDate="{Binding searchFechaInicio, Mode=OneWay}" VerticalAlignment="Center" Grid.Column="1" Grid.Row="2"  BorderThickness="0"/>
-                            <DatePicker SelectedDate="{Binding searchFechaFin, Mode=OneWay}" VerticalAlignment="Center" Grid.Column="3" Grid.Row="2" BorderThickness="0"/>
+                            <DatePicker SelectedDate="{Binding searchFechaInicio, Mode=TwoWay}" VerticalAlignment="Center" Grid.Column="1" Grid.Row="2"  BorderThickness="0"/>
+                            <DatePicker SelectedDate="{Binding searchFechaFin, Mode=TwoWay}" VerticalAlignment="Center" Grid.Column="3" Grid.Row="2" BorderThickness="0"/>
 
                             <Button Command="{Binding actualizarListaNotasDeCreditoCommand}" Grid.Row="3" BorderThickness="0" Grid.Column="5" Width="25" Height="25" VerticalAlignment="Center">
                                 <Button.Background>
@@ -107,7 +107,7 @@
                             <DataGridTextColumn Width="2*" Binding="{Binding Path=Devolucion.Venta.Cliente.nroDoc}" ClipboardContentBinding="{x:Null}" Header="ID Cliente"/>
                             <DataGridTextColumn Width="3*" Binding="{Binding Path=Devolucion.Venta.nombreCompletoCliente}" ClipboardContentBinding="{x:Null}" Header="Nombre Cliente"/>
                             <DataGridTextColumn Width="3*" Binding="{Binding Path=Devolucion.Venta.nombreCompletoVendedor}" ClipboardContentBinding="{x:Null}" Header="Vendedor"/>
-                            <DataGridTextColumn Width="2*" Binding="{Binding Path=fechaEmision}" ClipboardContentBinding="{x:Null}" Header="Fecha Emisión"/>
+                            <DataGridTextColumn Width="2*" Binding="{Binding Path=fechaEmisionString}" ClipboardContentBinding="{x:Null}" Header="Fecha Emisión"/>
                             <DataGridTextColumn Width="2*" Binding="{Binding Path=estadoString}" ClipboardContentBinding="{x:Null}" Header="Estado"/>
                             <DataGridTextColumn Width="2*" Binding="{Binding Path=importe}" ClipboardContentBinding="{x:Null}" Header="Importe"/>
                         </DataGrid.Columns>
@@ -153,10 +153,10 @@
                         <Label Content="Importe (inc IGV):" Grid.Row="9"/>
 
                         <TextBox IsEnabled="false" Text="{Binding Path=notaCredito.codigo, Mode=OneWay, ValidatesOnExceptions=true, NotifyOnValidationError=true}" VerticalAlignment="Center" Grid.Column="1"/>
-                        <TextBox IsEnabled="false" Text="{Binding Path=notaCredito.fechaEmision, Mode=OneWay, ValidatesOnExceptions=true, NotifyOnValidationError=true}" VerticalAlignment="Center" Grid.Column="1" Grid.Row="1"/>
+                        <TextBox IsEnabled="false" Text="{Binding Path=notaCredito.fechaEmisionString, Mode=OneWay, ValidatesOnExceptions=true, NotifyOnValidationError=true}" VerticalAlignment="Center" Grid.Column="1" Grid.Row="1"/>
                         <TextBox IsEnabled="false" Text="{Binding Path=notaCredito.Devolucion.Venta.Cliente.nroDoc, Mode=OneWay, ValidatesOnExceptions=true, NotifyOnValidationError=true}" VerticalAlignment="Center" Grid.Column="1" Grid.Row="2"/>
                         <TextBox IsEnabled="false" Text="{Binding Path=notaCredito.Devolucion.Venta.nombreCompletoCliente, Mode=OneWay, ValidatesOnExceptions=true, NotifyOnValidationError=true}" VerticalAlignment="Center" Grid.Column="1" Grid.Row="3"/>
-                        <TextBox IsEnabled="false" Text="{Binding Path=notaCredito.fechaVencimiento, Mode=OneWay, ValidatesOnExceptions=true, NotifyOnValidationError=true}" VerticalAlignment="Center" Grid.Column="1" Grid.Row="4"/>
+                        <TextBox IsEnabled="false" Text="{Binding Path=notaCredito.fechaVencimientoString, Mode=OneWay, ValidatesOnExceptions=true, NotifyOnValidationError=true}" VerticalAlignment="Center" Grid.Column="1" Grid.Row="4"/>
                         <TextBox IsEnabled="false" Text="{Binding Path=notaCredito.Devolucion.Venta.nombreCompletoVendedor, Mode=OneWay, ValidatesOnExceptions=true, NotifyOnValidationError=true}" VerticalAlignment="Center" Grid.Column="1" Grid.Row="5"/>
                         <TextBox IsEnabled="false" Text="{Binding Path=notaCredito.estadoString, Mode=OneWay}" VerticalAlignment="Center" Grid.Column="1" Grid.Row="7"/>
                         <TextBox IsEnabled="false" Text="Soles" VerticalAlignment="Center" Grid.Column="1" Grid.Row="8"/>
@@ -168,7 +168,7 @@
                             <DataGridTextColumn Width="1*" Binding="{Binding Path=Producto.codigo}" ClipboardContentBinding="{x:Null}" Header="Cód Prod."/>
                             <DataGridTextColumn Width="1.5*"  Binding="{Binding Path=Producto.nombre}" ClipboardContentBinding="{x:Null}" Header="Descripción"/>
                             <DataGridTextColumn Width="1*" Binding="{Binding Path=cantidad}" ClipboardContentBinding="{x:Null}" Header="Cant. Dev."/>
-                            <DataGridCheckBoxColumn Binding="{Binding Path=dardebaja}" IsReadOnly="False" Width="0.8*" ClipboardContentBinding="{x:Null}" Header="Dar de baja"/>
+                            <DataGridCheckBoxColumn Binding="{Binding Path=dardebaja}" IsReadOnly="False" Width="0.9*" ClipboardContentBinding="{x:Null}" Header="Dar de baja"/>
                             <DataGridTextColumn Width="1*" Binding="{Binding Path=motivo}" ClipboardContentBinding="{x:Null}" Header="Motivo"/>
                             <DataGridTextColumn Width="0.9*" Binding="{Binding Path=Producto.monedaString}" ClipboardContentBinding="{x:Null}" Header="Moneda"/>
                             <DataGridTextColumn Width="0.7*" Binding="{Binding Path=Producto.precioLista}" ClipboardContentBinding="{x:Null}" Header="Precio"/>

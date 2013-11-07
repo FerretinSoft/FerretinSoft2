@@ -163,11 +163,22 @@
                     <DataGrid  ItemsSource="{Binding listaEmpleadoTurno, Mode=TwoWay}"  CanUserAddRows="False" AutoGenerateColumns="False"  Grid.Column="5" HorizontalAlignment="Left" Margin="27,314,0,0" VerticalAlignment="Top" Height="85" Width="308">
                         <DataGrid.Columns>
                             <DataGridTextColumn Binding="{Binding Path=Dia.nombre}" Header="Día de la Semana" Width="3*"/>
-                            <DataGridComboBoxColumn Width="3*" ItemsSource="{Binding listaTurnos}"  DisplayMemberPath="nombre" SelectedValuePath="id" Header="Turno" >
-                              
-                                
-                                
-                                </DataGridComboBoxColumn>
+                            <DataGridComboBoxColumn Width="3*" Header="Turno">
+                                <DataGridComboBoxColumn.ElementStyle>
+                                    <Style TargetType="ComboBox">
+                                        <Setter Property="ItemsSource" Value="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type DataGrid}}, Path=DataContext.tiposTurnos}"/>
+                                        <Setter Property="SelectedIndex" Value="{Binding turno,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"/>
+                                        <Setter Property="IsEnabled" Value="{Binding turnoIsEnable,Mode=OneWay,UpdateSourceTrigger=PropertyChanged}"/>
+                                    </Style>
+                                </DataGridComboBoxColumn.ElementStyle>
+                                <DataGridComboBoxColumn.EditingElementStyle>
+                                    <Style TargetType="ComboBox">
+                                        <Setter Property="ItemsSource" Value="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type DataGrid}}, Path=DataContext.tiposTurnos}"/>
+                                        <Setter Property="SelectedIndex" Value="{Binding turno,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"/>
+                                        <Setter Property="IsEnabled" Value="{Binding turnoIsEnable,Mode=OneWay,UpdateSourceTrigger=PropertyChanged}"/>
+                                    </Style>
+                                </DataGridComboBoxColumn.EditingElementStyle>
+                            </DataGridComboBoxColumn>
                             <DataGridCheckBoxColumn Width="2*" Binding="{Binding Path=estado}" Header="Seleccionar"  />
                       
                             
