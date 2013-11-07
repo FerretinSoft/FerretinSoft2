@@ -190,7 +190,8 @@ namespace pe.edu.pucp.ferretin.viewmodel.MVentas
                     {
                         VentaProducto ventaProducto = new VentaProducto();
                         ventaProducto.canjeado = false;
-                        ventaProducto.montoParcial = producto.precioLista;
+                        ventaProducto.tipoCambio = (decimal)(MS_SharedService.obtenerTipodeCambio());
+                        ventaProducto.montoParcial = producto.moneda==1?producto.precioLista:producto.precioLista.Value*(decimal)(MS_SharedService.obtenerTipodeCambio());
                         ventaProducto.Venta = venta;
                         ventaProducto.Producto = producto;
                         ventaProducto.cantidad = 1;
@@ -220,6 +221,9 @@ namespace pe.edu.pucp.ferretin.viewmodel.MVentas
 
             //Actualizo los puntos canjeados
             venta.puntosCanjeados = (venta.VentaProducto.Sum(vp => vp.canjeado.Value ? vp.cantidad*vp.Producto.precioPuntos : 0));        
+
+            //Actualizo los puntos ganados
+            venta.puntosGanados = (venta.VentaProducto.Sum(vp => (vp.Producto!= null && vp.canjeado.Value == false) ? (vp.cantidad * vp.Producto.ganarPuntos) : 0));        
         }
 
         #endregion

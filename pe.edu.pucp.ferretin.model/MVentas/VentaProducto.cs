@@ -10,6 +10,22 @@ namespace pe.edu.pucp.ferretin.model
     public partial class VentaProducto : INotifyPropertyChanged
     {
 
+        public string cantidadNombreProducto
+        {
+            get
+            {
+                return cantidad.ToString() + " X " + Producto.nombre.ToUpper() + " ";
+            }
+        }
+
+        public string montoParcialString
+        {
+            get
+            {
+                return "S/. " + montoParcial.ToString();
+            }
+        }
+
         partial void OncantidadChanged()
         {
             //Cantidad no puede ser negativa
@@ -51,9 +67,12 @@ namespace pe.edu.pucp.ferretin.model
                 //Calculo la cantidad de productos sin descuento
                 int? prodSinDesc = cantidad - prodConDesc;
                 //Hallo el resultado de los productos con descuento y sin descuento
-                descuento = canjeado.Value ? 0 : (prodConDesc * Producto.precioLista * (1-desc) );
-                montoParcial = canjeado.Value ? 0 : Decimal.Round((prodConDesc*Producto.precioLista*desc + prodSinDesc*Producto.precioLista).Value,2) ;
-                montoReal = cantidad * Producto.precioLista;
+
+                decimal? productoPrecioLista = Producto.precioLista * (Producto.moneda == 1 ? 1 : (tipoCambio != null && tipoCambio <= 0) ? 1 : tipoCambio);
+
+                descuento = canjeado.Value ? 0 : (prodConDesc * productoPrecioLista * (1-desc) );
+                montoParcial = canjeado.Value ? 0 : Decimal.Round((prodConDesc*productoPrecioLista*desc + prodSinDesc*productoPrecioLista).Value,2) ;
+                montoReal = cantidad * productoPrecioLista;
             }
         }
 
@@ -74,5 +93,7 @@ namespace pe.edu.pucp.ferretin.model
 
 
         public PromocionProducto PromocionActual { get; set; }
+
+        public decimal tipoCambio { get; set; }
     }
 }
