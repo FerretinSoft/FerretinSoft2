@@ -304,8 +304,7 @@ namespace pe.edu.pucp.ferretin.viewmodel.MRecursosHumanos
             {
                 _listaEmpleadoTiendas = value;
                 NotifyPropertyChanged("listaEmpleadoTiendas");
-            }
-            
+            }      
         }
 
 
