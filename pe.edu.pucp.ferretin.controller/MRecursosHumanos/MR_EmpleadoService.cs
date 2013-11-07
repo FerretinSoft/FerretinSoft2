@@ -129,7 +129,7 @@ namespace pe.edu.pucp.ferretin.controller.MRecursosHumanos
         public static IEnumerable<Empleado> buscarEmpleados(string searchDNI, string searchNombre, int searchCodigo, Cargo searchCargo, Tienda searchTienda)
         {
             return listaEmpleados.Where(e => e.dni != null && e.dni.Contains(searchDNI))
-              .Where(e => e.nombreCompleto.Contains(searchNombre))
+              .Where(e => e.nombreCompleto.ToLower().Contains(searchNombre.ToLower().Trim()))
               .Where(e => (searchCodigo <=0) || (e.codEmpleado == searchCodigo))
               //estado 1=inactivo, 2=activo
               .Where(e => searchTienda == null || searchTienda.id <= 0 || (e.EmpleadoTienda.Single(et => et.estado == 2).Tienda.id == searchTienda.id))
