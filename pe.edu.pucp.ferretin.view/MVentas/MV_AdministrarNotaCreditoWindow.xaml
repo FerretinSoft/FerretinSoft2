@@ -108,7 +108,7 @@
                             <DataGridTextColumn Width="3*" Binding="{Binding Path=Devolucion.Venta.nombreCompletoCliente}" ClipboardContentBinding="{x:Null}" Header="Nombre Cliente"/>
                             <DataGridTextColumn Width="3*" Binding="{Binding Path=Devolucion.Venta.nombreCompletoVendedor}" ClipboardContentBinding="{x:Null}" Header="Vendedor"/>
                             <DataGridTextColumn Width="2*" Binding="{Binding Path=fechaEmision}" ClipboardContentBinding="{x:Null}" Header="Fecha Emisión"/>
-                            <DataGridTextColumn Width="2*" Binding="{x:Null}" ClipboardContentBinding="{x:Null}" Header="Estado"/>
+                            <DataGridTextColumn Width="2*" Binding="{Binding Path=estadoString}" ClipboardContentBinding="{x:Null}" Header="Estado"/>
                             <DataGridTextColumn Width="2*" Binding="{Binding Path=importe}" ClipboardContentBinding="{x:Null}" Header="Importe"/>
                         </DataGrid.Columns>
                     </DataGrid>
@@ -160,8 +160,8 @@
                         <TextBox IsEnabled="false" Text="{Binding Path=notaCredito.Devolucion.Venta.nombreCompletoVendedor, Mode=OneWay, ValidatesOnExceptions=true, NotifyOnValidationError=true}" VerticalAlignment="Center" Grid.Column="1" Grid.Row="5"/>
                         <TextBox IsEnabled="false" Text="{Binding Path=notaCredito.estadoString, Mode=OneWay}" VerticalAlignment="Center" Grid.Column="1" Grid.Row="7"/>
                         <TextBox IsEnabled="false" Text="Soles" VerticalAlignment="Center" Grid.Column="1" Grid.Row="8"/>
-                        <TextBox IsEnabled="false" Text="{Binding Path=notaCredito.importe, Mode=OneWay, ValidatesOnExceptions=true, NotifyOnValidationError=true}" VerticalAlignment="Center" HorizontalContentAlignment="Right" Grid.Column="1" Grid.Row="9"/>
-                        <Button Click="visualizar_DocClick" Grid.Row="11" Grid.Column="1" Padding="10,0" Height="30">IMPRIMIR</Button>
+                        <TextBox TextAlignment="Left" IsEnabled="false" Text="{Binding Path=notaCredito.importe, Mode=OneWay, ValidatesOnExceptions=true, NotifyOnValidationError=true}" VerticalAlignment="Center" HorizontalContentAlignment="Right" Grid.Column="1" Grid.Row="9"/>
+                        <Button Click="GenerarDoc_Click"  Grid.Row="11" Grid.Column="1" Padding="10,0" Height="30">IMPRIMIR</Button>
                     </Grid>
                     <DataGrid Margin="0,5,5,5" Grid.Column="1" ItemsSource="{Binding Path=listaProductos}" AutoGenerateColumns="False">
                         <DataGrid.Columns>
