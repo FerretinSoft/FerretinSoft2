@@ -26,7 +26,7 @@
         <Label Content="Fecha de Emisión" HorizontalAlignment="Left" Margin="297,114,0,0" VerticalAlignment="Top"/>
         <Label Content="{Binding Path=notaCredito.fechaEmisionString}" HorizontalAlignment="Left" Margin="462,114,0,0" VerticalAlignment="Top" Width="83"/>
 
-        <DataGrid Margin="0,171,5,103" ItemsSource="{Binding Path=notaCredito.Devolucion.DevolucionProducto}" AutoGenerateColumns="False">
+        <DataGrid BorderBrush="Transparent" HorizontalScrollBarVisibility="Hidden" VerticalScrollBarVisibility="Hidden" IsManipulationEnabled="False" IsReadOnly="True"  AutoGenerateColumns="False" CanUserAddRows="False" CanUserDeleteRows="False" CanUserReorderColumns="False" CanUserResizeColumns="False" CanUserResizeRows="False" CanUserSortColumns="False" Background="Transparent"  Margin="0,171,5,103" ItemsSource="{Binding Path=notaCredito.Devolucion.DevolucionProducto}">
             <DataGrid.Columns>
                 <DataGridTextColumn Width="0.8*" Binding="{Binding Path=Producto.codigo}" ClipboardContentBinding="{x:Null}" Header="Cód Prod."/>
                 <DataGridTextColumn Width="2*"  Binding="{Binding Path=Producto.nombre}" ClipboardContentBinding="{x:Null}" Header="Descripción"/>
@@ -58,7 +58,7 @@
         </GroupBox>
         <Label Content="Documento que modifica" HorizontalAlignment="Left" Margin="297,140,0,0" VerticalAlignment="Top"/>
         <Label Content="{Binding Path=notaCredito.Devolucion.Venta.nroDocumento}" HorizontalAlignment="Left" Margin="461,137,0,0" VerticalAlignment="Top"/>
-        <Button Content="" HorizontalAlignment="Left" Margin="10,350,0,0" VerticalAlignment="Top" Width="33" Height="28">
+        <Button x:Name="imprimirBtn" Click="Button_Click"  Content="" HorizontalAlignment="Left" Margin="10,350,0,0" VerticalAlignment="Top" Width="33" Height="28">
             <Button.Background>
                 <ImageBrush ImageSource="/pe.edu.pucp.ferretin.view;component/Resources/print_48.png"/>
             </Button.Background>
