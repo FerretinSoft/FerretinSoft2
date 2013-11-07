@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
+using pe.edu.pucp.ferretin.controller;
 using pe.edu.pucp.ferretin.controller.MVentas;
 using pe.edu.pucp.ferretin.model;
 using pe.edu.pucp.ferretin.viewmodel.Helper;
@@ -218,7 +219,7 @@ namespace pe.edu.pucp.ferretin.viewmodel.MVentas
 
         public void saveLoteVale(object id)
         {
-
+            ComunService.idVentana(7);
             if (!MV_ValeService.insertarLoteVale(loteVale))
             {
                 MessageBox.Show("No se pudo agregar el nuevo lote de vales");
@@ -239,7 +240,6 @@ namespace pe.edu.pucp.ferretin.viewmodel.MVentas
                 
                 loteVale.Vale.Add(vale);
                 NotifyPropertyChanged("loteVale");
-                Console.WriteLine(loteVale.Vale[i-1].codigo);
             }
         }
 

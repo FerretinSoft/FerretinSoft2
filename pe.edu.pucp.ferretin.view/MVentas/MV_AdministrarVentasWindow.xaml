@@ -111,7 +111,7 @@
                             <DataGridTextColumn Width="2*" Binding="{Binding Path=Cliente.nroDoc}" ClipboardContentBinding="{x:Null}" Header="Doc. Cliente"/>
                             <DataGridTextColumn Width="3*" Binding="{Binding Path=nombreCompletoCliente}" ClipboardContentBinding="{x:Null}" Header="Nombre Cliente"/>
                             <DataGridTextColumn Width="3*" Binding="{Binding Path=nombreCompletoVendedor}" ClipboardContentBinding="{x:Null}" Header="Vendedor"/>
-                            <DataGridTextColumn Width="2*" Binding="{Binding Path=fecha}" ClipboardContentBinding="{x:Null}" Header="Fecha Venta"/>
+                            <DataGridTextColumn Width="2*" Binding="{Binding Path=fechaString}" ClipboardContentBinding="{x:Null}" Header="Fecha Venta"/>
                             <DataGridTextColumn Width="2*" Binding="{Binding Path=total}" ClipboardContentBinding="{x:Null}" Header="Importe"/>
                         </DataGrid.Columns>
                     </DataGrid>
@@ -159,7 +159,7 @@
                         <Label Content="Puntos Canjeados:" Grid.Row="8"/>
                         <TextBox IsEnabled="false" Text="{Binding Path=venta.nroDocumento, Mode=OneWay, ValidatesOnExceptions=true, NotifyOnValidationError=true}" VerticalAlignment="Center" Grid.Column="1" Height="22" Margin="0,2"/>
                         <TextBox IsEnabled="false" Text="{Binding Path=venta.tipoDocumento, Mode=OneWay, ValidatesOnExceptions=true, NotifyOnValidationError=true}" VerticalAlignment="Center" Grid.Column="1" Grid.Row="1" Height="22" Margin="0,2"/>
-                        <TextBox IsEnabled="false" Text="{Binding Path=venta.fecha, Mode=OneWay, ValidatesOnExceptions=true, NotifyOnValidationError=true}" VerticalAlignment="Center" Grid.Column="1" Grid.Row="2" Height="22" Margin="0,2"/>
+                        <TextBox IsEnabled="false" Text="{Binding Path=venta.fechaString, Mode=OneWay, ValidatesOnExceptions=true, NotifyOnValidationError=true}" VerticalAlignment="Center" Grid.Column="1" Grid.Row="2" Height="22" Margin="0,2"/>
                         <TextBox IsEnabled="false" Text="{Binding Path=venta.Cliente.nroDoc,Mode=OneWay, ValidatesOnExceptions=true, NotifyOnValidationError=true}" VerticalAlignment="Center" Grid.Column="1" Grid.Row="3" Height="22" Margin="0,2"/>
                         <TextBox IsEnabled="false" Text="{Binding Path=venta.nombreCompletoCliente, Mode=OneWay, ValidatesOnExceptions=true, NotifyOnValidationError=true}" Margin="0,3" VerticalAlignment="Center" Grid.Column="1" Grid.Row="4" Height="22"/>
                         <TextBox Text="{Binding Path=venta.nombreCompletoVendedor, Mode=OneWay, ValidatesOnExceptions=true, NotifyOnValidationError=true}" Margin="0,3" VerticalAlignment="Center" Grid.Column="1" Grid.Row="5" Height="22" IsEnabled="False"/>

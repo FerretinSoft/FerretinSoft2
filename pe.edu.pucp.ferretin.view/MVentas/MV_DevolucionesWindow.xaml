@@ -77,7 +77,7 @@
                                     </Button.Background>
                                 </Button>
                             </Grid>
-                            <DatePicker SelectedDate="{Binding searchFechaInicio, Mode=OneWay}" Grid.Row="3" Grid.Column="1" VerticalAlignment="Center" BorderThickness="0"/>
+                            <DatePicker SelectedDate="{Binding searchFechaInicio, Mode=TwoWay}" Grid.Row="3" Grid.Column="1" VerticalAlignment="Center" BorderThickness="0"/>
 
                             <Grid Grid.Column="3" Grid.Row="0" Grid.ColumnSpan="2">
                                 <Grid.ColumnDefinitions>
@@ -112,7 +112,7 @@
 
                             </Grid>
 
-                            <DatePicker SelectedDate="{Binding searchFechaFin, Mode=OneWay}" Grid.Row="3" Grid.Column="3" VerticalAlignment="Center" BorderThickness="0"/>
+                            <DatePicker SelectedDate="{Binding searchFechaFin, Mode=TwoWay}" Grid.Row="3" Grid.Column="3" VerticalAlignment="Center" BorderThickness="0"/>
 
                             <Button Command="{Binding actualizarListaDevolucionesCommand}" Width="28" Height="28" BorderThickness="0" Grid.Column="5" Grid.Row="3">
                                 <Button.Background>
@@ -150,7 +150,7 @@
                             <DataGridTextColumn Width="1.5*" Binding="{Binding Path=Venta.Cliente.nroDoc}" ClipboardContentBinding="{x:Null}" Header="ID Cliente"/>
                             <DataGridTextColumn Width="4*" Binding="{Binding Path=Venta.Cliente.nombreCompleto}" ClipboardContentBinding="{x:Null}" Header="Nombre Cliente"/>
                             <DataGridTextColumn Width="4*" Binding="{Binding Path=Venta.nombreCompletoVendedor}" ClipboardContentBinding="{x:Null}" Header="Nombre Vendedor"/>
-                            <DataGridTextColumn Width="2*" Binding="{Binding Path=fecEmision}" ClipboardContentBinding="{x:Null}" Header="Fecha Devolución"/>
+                            <DataGridTextColumn Width="2*" Binding="{Binding Path=fecEmisionString}" ClipboardContentBinding="{x:Null}" Header="Fecha Devolución"/>
                             <DataGridTextColumn Width="1*" Binding="{Binding Path=total}" ClipboardContentBinding="{x:Null}" Header="Importe"/>
                         </DataGrid.Columns>
                     </DataGrid>
@@ -201,13 +201,13 @@
                         <Label Content="Comentarios:" VerticalAlignment="Center" Grid.Row="11"/>
                         <TextBox Text="{Binding Path=devolucion.codigo, Mode=OneWay, ValidatesOnExceptions=true, NotifyOnValidationError=true}" IsEnabled="false" VerticalAlignment="Center" Grid.Column="1" Grid.Row="0"/>
                         <TextBox Text="{Binding Path=devolucion.Venta.nroDocumento, Mode=OneWay}" IsEnabled="false" VerticalAlignment="Center" Grid.Column="1" Grid.Row="1"/>
-                        <TextBox IsEnabled="false" Text="{Binding Path=devolucion.fecEmision, Mode=OneWay}" VerticalAlignment="Center" Grid.Column="1" Grid.Row="2"/>
+                        <TextBox IsEnabled="false" Text="{Binding Path=devolucion.fecEmisionString, Mode=OneWay}" VerticalAlignment="Center" Grid.Column="1" Grid.Row="2"/>
                         <TextBox IsEnabled="false" Text="{Binding Path=devolucion.Venta.Cliente.nroDoc, Mode=OneWay}" VerticalAlignment="Center" Grid.Column="1" Grid.Row="3"/>
                         <TextBox IsEnabled="false" Text="{Binding Path=devolucion.Venta.nombreCompletoCliente, Mode=OneWay}" VerticalAlignment="Center" Grid.Column="1" Grid.Row="4"/>
                         <TextBox IsEnabled="false" Text="{Binding Path=devolucion.Venta.nombreCompletoVendedor, Mode=OneWay}" VerticalAlignment="Center" Grid.Column="1" Grid.Row="5"/>
                         <TextBox IsEnabled="false" Text="{Binding Path=notaCredito.codigo, Mode=OneWay}" VerticalAlignment="Center" Grid.Column="1" Grid.Row="6"/>
-                        <TextBox IsEnabled="false" Text="{Binding Path=notaCredito.fechaEmision, Mode=OneWay}" VerticalAlignment="Center" Grid.Column="1" Grid.Row="7"/>
-                        <TextBox IsEnabled="false" Text="{Binding Path=notaCredito.fechaVencimiento, Mode=OneWay}" VerticalAlignment="Center" Grid.Column="1" Grid.Row="8"/>
+                        <TextBox IsEnabled="false" Text="{Binding Path=notaCredito.fechaEmisionString, Mode=OneWay}" VerticalAlignment="Center" Grid.Column="1" Grid.Row="7"/>
+                        <TextBox IsEnabled="false" Text="{Binding Path=notaCredito.fechaVencimientoString, Mode=OneWay}" VerticalAlignment="Center" Grid.Column="1" Grid.Row="8"/>
                         <TextBox IsEnabled="false" Text="{Binding Path=notaCredito.estadoString, Mode=OneWay}" VerticalAlignment="Center" Grid.Column="1" Grid.Row="9"/>
                         <StackPanel Grid.Row="12" Grid.ColumnSpan="2" Margin="0,0,0,5">
                             <TextBox IsEnabled="False" Text="{Binding Path=devolucion.comentario, Mode=OneWay}" TextWrapping="Wrap" VerticalAlignment="Top" Height="100" Margin="0,0,0,5"/>
@@ -374,8 +374,8 @@
                             <TextBox Text="{Binding  Path=devolucion.comentario, Mode=TwoWay}" Height="70"/>
                         </StackPanel>
                         <StackPanel Orientation="Horizontal" Grid.Column="2" VerticalAlignment="Bottom" HorizontalAlignment="Right">
-                            <Button IsEnabled="{Binding Path=devolucionRegistrada}" Click="GenerarDoc_Click" Content="IMPRIMIR NOTA DE CRÉDITO" Height="30" Margin="0,0,10,0" Padding="5,0"/>
-                            <Button  IsEnabled="{Binding Path=noDevolucionRegistrada}" Command="{Binding saveDevolucionCommand}" Content="GUARDAR" Width="75" Height="30" Margin="0,0,10,0"/>
+                            <Button IsEnabled="{Binding Path=devolucionRegistrada, UpdateSourceTrigger=PropertyChanged}" Click="GenerarDoc_Click" Content="IMPRIMIR NOTA DE CRÉDITO" Height="30" Margin="0,0,10,0" Padding="5,0"/>
+                            <Button  IsEnabled="{Binding Path=noDevolucionRegistrada, UpdateSourceTrigger=PropertyChanged}" Command="{Binding saveDevolucionCommand}" Content="GUARDAR" Width="75" Height="30" Margin="0,0,10,0"/>
                             <Button Command="{Binding cancelDevolucionCommand}" Content="CANCELAR" Width="75" Height="30" Margin="0,0"/>
                         </StackPanel>
 

@@ -24,7 +24,7 @@
         <Label Content="{Binding Path=notaCredito.Devolucion.Venta.Cliente.direccion}" HorizontalAlignment="Left" Margin="102,114,0,0" VerticalAlignment="Top" Width="172"/>
         <Label Content="{Binding Path=notaCredito.Devolucion.Venta.Cliente.nroDoc}" HorizontalAlignment="Left" Margin="102,140,0,0" VerticalAlignment="Top" Width="172"/>
         <Label Content="Fecha de Emisión" HorizontalAlignment="Left" Margin="297,114,0,0" VerticalAlignment="Top"/>
-        <Label Content="{Binding Path=notaCredito.fechaEmision}" HorizontalAlignment="Left" Margin="462,114,0,0" VerticalAlignment="Top" Width="83"/>
+        <Label Content="{Binding Path=notaCredito.fechaEmisionString}" HorizontalAlignment="Left" Margin="462,114,0,0" VerticalAlignment="Top" Width="83"/>
 
         <DataGrid Margin="0,171,5,103" ItemsSource="{Binding Path=notaCredito.Devolucion.DevolucionProducto}" AutoGenerateColumns="False">
             <DataGrid.Columns>
