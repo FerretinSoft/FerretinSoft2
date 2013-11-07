@@ -15,10 +15,13 @@ namespace pe.edu.pucp.ferretin.model
         {      
             get
             {
-                for (i = 0; i < this.GuiaRemisionProducto.Count(); i++)
+                if (aux1 == 0)
                 {
-                    aux1 = aux1 + this.GuiaRemisionProducto[i].DocumentoCompraProducto.cantidad;
-                }
+                    for (i = 0; i < this.GuiaRemisionProducto.Count(); i++)
+                    {
+                        aux1 = aux1 + this.GuiaRemisionProducto[i].DocumentoCompraProducto.cantidad;
+                    }
+                }                
                 return aux1;
             }
         }
@@ -27,10 +30,13 @@ namespace pe.edu.pucp.ferretin.model
         {
             get
             {
-                for (i = 0; i < this.GuiaRemisionProducto.Count(); i++)
+                if (aux2 == 0)
                 {
-                    aux2 = aux2 + this.GuiaRemisionProducto[i].cantidadRecibida;
-                }
+                    for (i = 0; i < this.GuiaRemisionProducto.Count(); i++)
+                    {
+                        aux2 = aux2 + this.GuiaRemisionProducto[i].cantidadRecibida;
+                    }
+                }             
                 return aux2;
             }
         }

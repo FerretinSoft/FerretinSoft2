@@ -10,7 +10,7 @@
     <Grid DataContext="{Binding Source={StaticResource MA_MantenimientoProductos_SeleccionColorViewModel}}">
         <Label Content="Color" HorizontalAlignment="Left" Margin="50,23,0,0" VerticalAlignment="Top"/>
         <Button x:Name="btnAddColor" Content="Agregar color" HorizontalAlignment="Left" Margin="92,72,0,0" VerticalAlignment="Top" Width="99" Click="btnAddColor_Click"/>
-        <ComboBox x:Name="cmbColores" ItemsSource="{Binding Path=listaColores}" DisplayMemberPath="nombre" SelectedValuePath="id"  SelectedValue="{Binding Path=idColor}" HorizontalAlignment="Left" Margin="136,23,0,0" VerticalAlignment="Top" Width="120"/>
+        <ComboBox x:Name="cmbColores" ItemsSource="{Binding Path=listaColores}" DisplayMemberPath="abreviatura" SelectedValuePath="id"  SelectedValue="{Binding Path=idColor}" SelectedIndex="0" HorizontalAlignment="Left" Margin="136,23,0,0" VerticalAlignment="Top" Width="120"/>
 
     </Grid>
 </Window>
