@@ -16,6 +16,10 @@ using System.Windows.Shapes;
 using pe.edu.pucp.ferretin.viewmodel.MVentas;
 using pe.edu.pucp.ferretin.view.MRecursosHumanos;
 using pe.edu.pucp.ferretin.viewmodel.MRecursosHumanos;
+using System.IO;
+using System.Xml;
+using System.Windows.Markup;
+using System.Data;
 
 namespace pe.edu.pucp.ferretin.view.MVentas
 {
@@ -78,6 +82,15 @@ namespace pe.edu.pucp.ferretin.view.MVentas
         private void visualizar_DocClick(object sender, RoutedEventArgs e)
         {
             
+        }
+
+        private void GenerarDoc_Click(object sender, RoutedEventArgs e)
+        {
+            MV_DocNotaCredito p = new MV_DocNotaCredito();
+            MV_NotaCreditoViewModel actual = this.main.DataContext as MV_NotaCreditoViewModel;
+            MV_DocNotaCreditoViewModel padre = p.main.DataContext as MV_DocNotaCreditoViewModel;
+            padre.notaCredito = actual.notaCredito;
+            p.Show();
         }
         
         
