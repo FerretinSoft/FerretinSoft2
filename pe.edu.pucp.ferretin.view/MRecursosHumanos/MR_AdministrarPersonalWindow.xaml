@@ -40,7 +40,7 @@
                     </GroupBox>
                     <Label Content="DNI:" HorizontalAlignment="Left" Height="26" VerticalAlignment="Top" Width="45" Margin="26,42,0,0"/>
                     <Label Content="Nombre:" HorizontalAlignment="Left" Height="26" VerticalAlignment="Top" Width="57" Margin="223,36,0,0"/>
-                    <TextBox Text="{Binding searchDNI, Mode=TwoWay}" HorizontalAlignment="Left" Height="20" Margin="83,42,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
+                    <TextBox MaxLength="8" Text="{Binding searchDNI, Mode=TwoWay}" HorizontalAlignment="Left" Height="20" Margin="83,42,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" PreviewKeyDown="txtDNI_KeyDown"  PreviewTextInput="dni_PreviewTextInput" />
                     <TextBox Text="{Binding searchNombre, Mode=TwoWay}" HorizontalAlignment="Left" Height="20" Margin="290,39,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="332"/>
                     <Button Command="{Binding actualizarListaEmpleadosCommand}" HorizontalAlignment="Left" Margin="627,50,0,0" VerticalAlignment="Top" Width="31" Height="32" >
                         <Button.Background>
@@ -84,7 +84,7 @@
 
                     </ToolBar>
                     <Label Content="Código: " HorizontalAlignment="Left" Height="26" VerticalAlignment="Top" Width="107" Margin="26,67,0,0"/>
-                    <TextBox Text="{Binding searchCodigo, Mode=TwoWay}" HorizontalAlignment="Left" Height="20" Margin="83,73,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
+                    <TextBox MaxLength="8" Text="{Binding searchCodigo, Mode=TwoWay}" HorizontalAlignment="Left" Height="20" Margin="83,73,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" PreviewKeyDown="txtDNI_KeyDown"  PreviewTextInput="dni_PreviewTextInput"/>
                     <Label Content="Tienda:" HorizontalAlignment="Left" Height="26" VerticalAlignment="Top" Width="45" Margin="438,74,0,0"/>
                     <ComboBox ItemsSource="{Binding listaCargos}"  SelectedItem="{Binding searchCargo,Mode=TwoWay}" SelectedIndex="0"  DisplayMemberPath="nombre" SelectedValuePath="id"  HorizontalAlignment="Left" Margin="290,74,0,0" VerticalAlignment="Top" Width="120"/>
                     <ComboBox ItemsSource="{Binding listaTiendas}"  SelectedItem="{Binding searchTienda,Mode=TwoWay}" SelectedIndex="0"  DisplayMemberPath="nombre" SelectedValuePath="id" HorizontalAlignment="Left" Margin="502,74,0,0" VerticalAlignment="Top" Width="120">
