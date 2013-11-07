@@ -1,4 +1,6 @@
-﻿using pe.edu.pucp.ferretin.viewmodel.MVentas;
+﻿using pe.edu.pucp.ferretin.view.MAlmacen;
+using pe.edu.pucp.ferretin.viewmodel.MAlmacen;
+using pe.edu.pucp.ferretin.viewmodel.MVentas;
 using System;
 using System.Collections.Generic;
 using System.Linq;
