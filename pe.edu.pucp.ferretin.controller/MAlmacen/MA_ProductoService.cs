@@ -1,4 +1,5 @@
-﻿using pe.edu.pucp.ferretin.model;
+﻿using pe.edu.pucp.ferretin.controller.MSeguridad;
+using pe.edu.pucp.ferretin.model;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,6 +17,44 @@ namespace pe.edu.pucp.ferretin.controller.MAlmacen
         {
             IEnumerable<Producto> listaProd=from p in db.Producto
                                             select p;
+            return listaProd;
+        }
+
+        public static void crearStockProductoAlmacen(int idProd)
+        {
+            IEnumerable<Tienda> listaTiendas = MS_TiendaService.listaTiendas;
+            foreach (Tienda t in listaTiendas)
+            {
+                ProductoAlmacen pa = new ProductoAlmacen();
+                pa.id_almacen = t.id;
+                pa.id_producto = idProd;
+                pa.stock = 0;
+                pa.stockMin = 0;
+                db.ProductoAlmacen.InsertOnSubmit(pa);
+                db.SubmitChanges();
+            }
+        }
+
+        public static void guardarStockProductoAlmacen()
+        {
+            db.SubmitChanges();
+        }
+
+        public static IEnumerable<ProductoAlmacen> obtenerStockProductoAlmacen(int idProd)
+        {
+            IEnumerable<ProductoAlmacen> pa = from dpa in db.ProductoAlmacen
+                                              where (dpa.id_producto == idProd)
+                                              select dpa;
+
+            return pa;
+        }
+
+        public static IEnumerable<ProductoAlmacen> obtenerProductosPorTienda(int idTienda)
+        {
+            IEnumerable<ProductoAlmacen> listaProd = from pa in db.ProductoAlmacen
+                                                  where (pa.id_almacen == idTienda) &&
+                                                  (pa.estado==1)
+                                                  select pa;
             return listaProd;
         }
 
