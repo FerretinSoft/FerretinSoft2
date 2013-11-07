@@ -2,7 +2,7 @@
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:viewmodel="clr-namespace:pe.edu.pucp.ferretin.viewmodel.MVentas;assembly=pe.edu.pucp.ferretin.viewmodel"
-        Title="Devoluciones" Height="550" Width="850" Icon="../Resources/ferretin_ico.ico">
+        Title="Devoluciones" Height="600" Width="1200" Icon="../Resources/ferretin_ico.ico">
     <Window.Resources>
         <viewmodel:MV_DevolucionesViewModel x:Key="MV_DevolucionesViewModel"/>
     </Window.Resources>
@@ -223,7 +223,7 @@
                                 <DataGridTextColumn Width="1*" Binding="{Binding Path=Producto.codigo}" ClipboardContentBinding="{x:Null}" Header="Cód Prod."/>
                                 <DataGridTextColumn Width="1.5*" Binding="{Binding Path=Producto.nombre}" ClipboardContentBinding="{x:Null}" Header="Descripción"/>
                                 <DataGridTextColumn Width="0.7*" Binding="{Binding Path=cantidad}" ClipboardContentBinding="{x:Null}" Header="Cant."/>
-                                <DataGridCheckBoxColumn Binding="{Binding Path=dardebaja}" IsReadOnly="False" Width="0.8*" ClipboardContentBinding="{x:Null}" Header="Dar de baja"/>
+                                <DataGridCheckBoxColumn Binding="{Binding Path=dardebaja}" IsReadOnly="False" Width="0.9*" ClipboardContentBinding="{x:Null}" Header="Dar de baja"/>
                                 <DataGridTextColumn Width="1.2*" Binding="{Binding Path=motivo}" Header="Motivo"/>
                                 <DataGridTextColumn Width="0.9*" Binding="{Binding Path=Producto.monedaString}" Header="Moneda"/>
                                 <DataGridTextColumn Width="0.9*" Binding="{Binding Path=Producto.precioLista}" ClipboardContentBinding="{x:Null}" Header="Precio"/>
@@ -244,7 +244,7 @@
                                 </Grid.RowDefinitions>
                                 <Label Content="Sub Total:" VerticalAlignment="Center"/>
                                 <Label Content="%IGV:" VerticalAlignment="Center" Grid.Row="1"/>
-                                <Label Content="Total a Pagar:" VerticalAlignment="Center" Grid.Row="2"/>
+                                <Label Content="Total:" VerticalAlignment="Center" Grid.Row="2"/>
                                 <TextBox  Text="{Binding Path=devolucion.subTotal, Mode=OneWay}" VerticalAlignment="Center" IsEnabled="False" TextAlignment="Right" Grid.Column="1"/>
                                 <TextBox  Text="{Binding Path=devolucion.igv, Mode=OneWay}" VerticalAlignment="Center" IsEnabled="False" TextAlignment="Right" Grid.Column="1" Grid.Row="1"/>
                                 <TextBox  Text="{Binding Path=devolucion.total, Mode=OneWay}" VerticalAlignment="Center" IsEnabled="False" TextAlignment="Right" Grid.Column="1" Grid.Row="2"/>
@@ -374,8 +374,8 @@
                             <TextBox Text="{Binding  Path=devolucion.comentario, Mode=TwoWay}" Height="70"/>
                         </StackPanel>
                         <StackPanel Orientation="Horizontal" Grid.Column="2" VerticalAlignment="Bottom" HorizontalAlignment="Right">
-                            <Button Content="IMPRIMIR NOTA DE CRÉDITO" Height="30" Margin="0,0,10,0" Padding="5,0"/>
-                            <Button Command="{Binding saveDevolucionCommand}" Content="GUARDAR" Width="75" Height="30" Margin="0,0,10,0"/>
+                            <Button IsEnabled="{Binding Path=devolucionRegistrada}" Click="GenerarDoc_Click" Content="IMPRIMIR NOTA DE CRÉDITO" Height="30" Margin="0,0,10,0" Padding="5,0"/>
+                            <Button  IsEnabled="{Binding Path=noDevolucionRegistrada}" Command="{Binding saveDevolucionCommand}" Content="GUARDAR" Width="75" Height="30" Margin="0,0,10,0"/>
                             <Button Command="{Binding cancelDevolucionCommand}" Content="CANCELAR" Width="75" Height="30" Margin="0,0"/>
                         </StackPanel>
 
