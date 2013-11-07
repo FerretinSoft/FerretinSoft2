@@ -195,7 +195,7 @@ namespace pe.edu.pucp.ferretin.viewmodel.MVentas
             }
             catch (Exception e)
             {
-                //result = "Error al registrar venta: "+ e.Message;
+                result = "Error al registrar venta: "+ e.Message;
             }
             if (result.Trim().Length>0)
             {
