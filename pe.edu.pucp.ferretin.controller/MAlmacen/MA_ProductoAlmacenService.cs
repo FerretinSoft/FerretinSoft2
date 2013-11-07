@@ -23,11 +23,11 @@ namespace pe.edu.pucp.ferretin.controller.MAlmacen
 
         public static ProductoAlmacen ObtenerProductoAlmacenPorTiendaProducto(Tienda t, Producto p)
         {
-            ProductoAlmacen pa = (from m in db.ProductoAlmacen
-                                     where m.Tienda.Equals(t) && m.Producto.Equals(p)
-                                     select m).Single();
+            var pa = (from m in db.ProductoAlmacen
+                                     where t != null && m.Tienda.Equals(t) && p != null && m.Producto.Equals(p)
+                                     select m);
 
-            return pa;
+            return pa.Count() > 0 ? pa.Single() : null;
         }
     }
 }

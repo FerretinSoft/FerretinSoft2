@@ -58,17 +58,18 @@ namespace pe.edu.pucp.ferretin.viewmodel.MAlmacen
             }
         }
 
-        public bool isNotFinished
+        public bool estadoEditable
         {
             get
             {
-                if (movimiento != null && movimiento.MovimientoEstado != null && movimiento.MovimientoEstado.nombre == "Finalizado")
+                if (movimiento != null && movimiento.MovimientoEstado != null && 
+                    (movimiento.MovimientoEstado.nombre == "Finalizado" || movimiento.MovimientoEstado.nombre == "Anulado"))
                 {
-                    return false; //Se Activaran
+                    return false; 
                 }
                 else
                 {
-                    return true; //Se bloquearan par que no sean editables
+                    return true; 
                 }
             }
         }
@@ -100,6 +101,7 @@ namespace pe.edu.pucp.ferretin.viewmodel.MAlmacen
             {
                 _movimiento = value;
                 NotifyPropertyChanged("movimiento");
+                NotifyPropertyChanged("productosPorMovimiento");                
             }
         }
 
@@ -115,6 +117,21 @@ namespace pe.edu.pucp.ferretin.viewmodel.MAlmacen
             {
                 _listaMovimientos = value;
                 NotifyPropertyChanged("listaMovimientos");
+            }
+        }
+
+        private IEnumerable<MA_MovimientosService.MovimientoProductoTienda> _productosPorMovimiento;
+        public IEnumerable<MA_MovimientosService.MovimientoProductoTienda> productosPorMovimiento
+        {
+            get
+            {
+                _productosPorMovimiento = MA_MovimientosService.buscarProductosPorMovimientoTienda(movimiento);
+                return _productosPorMovimiento;
+            }
+            set
+            {
+                _productosPorMovimiento = value;
+                NotifyPropertyChanged("productosPorMovimiento");
             }
         }
 
@@ -220,7 +237,7 @@ namespace pe.edu.pucp.ferretin.viewmodel.MAlmacen
                 //Cuando se cambia el status, tambien se tiene que actualizar el currentIndex del tab
                 NotifyPropertyChanged("currentIndexTab"); //Hace que cambie el tab automaticamente
                 NotifyPropertyChanged("isCreating"); //Para que se activen o desactiven los inputs
-                NotifyPropertyChanged("isNotFinished");
+                NotifyPropertyChanged("estadoEditable");
             }
         }
         //Usado para mover los tabs de acuerdo a las acciones realizadas
@@ -415,7 +432,7 @@ namespace pe.edu.pucp.ferretin.viewmodel.MAlmacen
                 MovimientoProducto mproducto = new MovimientoProducto { cantidad = 1, Movimiento = movimiento, Producto = producto };
                 movimiento.MovimientoProducto.Add(mproducto);
                 NotifyPropertyChanged("movimiento");
-                NotifyPropertyChanged("movimiento.MovimientoProducto");
+                NotifyPropertyChanged("productosPorMovimiento");
             }
             else
             {
