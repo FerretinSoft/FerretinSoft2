@@ -85,7 +85,7 @@
                     <Label Content="Código:" HorizontalAlignment="Left" Margin="115,10,0,0" VerticalAlignment="Top"/>
                     <TextBox x:Name="txtCodigo" MaxLength="10" Text="{Binding Path=producto.codigo, Mode=TwoWay,  ValidatesOnExceptions=true, NotifyOnValidationError=true}" HorizontalAlignment="Left" Height="23" Margin="184,14,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="151" KeyDown="txtCodigo_KeyDown"/>
                     <Label Content="Nombre:" HorizontalAlignment="Left" Margin="115,41,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.464,1.231"/>
-                    <TextBox  Text="{Binding Path=producto.nombre, Mode=TwoWay,  ValidatesOnExceptions=true, NotifyOnValidationError=true}" HorizontalAlignment="Left" Height="23" Margin="115,72,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="220" />
+                    <TextBox x:Name="txtNombreDet"   Text="{Binding Path=producto.nombre, Mode=TwoWay,  ValidatesOnExceptions=true, NotifyOnValidationError=true}" HorizontalAlignment="Left" Height="23" Margin="115,72,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="220" />
                     <Label Content="Descripción:" HorizontalAlignment="Left" Margin="115,100,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.464,1.231"/>
                     <TextBox Text="{Binding Path=producto.descripcion, Mode=TwoWay,  ValidatesOnExceptions=true, NotifyOnValidationError=true}" HorizontalAlignment="Left" Height="36" Margin="115,131,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="220" Grid.RowSpan="2"/>
                     <Label Content="Material Secundario:" HorizontalAlignment="Left" Margin="10,73,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.464,1.231" Grid.Column="1"/>
@@ -141,6 +141,12 @@
                         </TreeView.ItemTemplate>
                     </helper:MyTreeView>
                     <Label Content="Categorías:" HorizontalAlignment="Left" Margin="10,5,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.464,1.231" Grid.Column="1" Grid.Row="1"/>
+                    <TextBlock HorizontalAlignment="Left" Margin="111,46,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Foreground="#FFC17474"><Run Language="es-pe" Text="*"/></TextBlock>
+                    <TextBlock HorizontalAlignment="Left" Margin="111,16,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Foreground="#FFC17474"><Run Language="es-pe" Text="*"/></TextBlock>
+                    <TextBlock HorizontalAlignment="Left" Margin="6,50,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Foreground="#FFC17474" Grid.Row="1"><Run Language="es-pe" Text="*"/></TextBlock>
+                    <TextBlock HorizontalAlignment="Left" Margin="5,16,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Foreground="#FFC17474" Grid.Column="1"><Run Language="es-pe" Text="*"/></TextBlock>
+                    <TextBlock HorizontalAlignment="Left" Margin="5,49,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Foreground="#FFC17474" Grid.Column="1"><Run Language="es-pe" Text="*"/></TextBlock>
+                    <TextBlock HorizontalAlignment="Left" Margin="5,79,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Foreground="#FFC17474" Grid.Column="1"><Run Language="es-pe" Text="*"/></TextBlock>
                 </Grid>
             </TabItem>
 

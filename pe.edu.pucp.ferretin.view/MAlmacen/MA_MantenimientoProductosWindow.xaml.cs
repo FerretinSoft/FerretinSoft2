@@ -22,9 +22,7 @@ namespace pe.edu.pucp.ferretin.view.MAlmacen
     public partial class MA_MantenimientoProductosWindow : Window
     {
         //MA_MantinimientoProductosViewModel pvm=new MA_MantinimientoProductosViewModel();
-
-        Image imagen;
-
+    
         public MA_MantenimientoProductosWindow()
         {
             InitializeComponent();
@@ -140,7 +138,12 @@ namespace pe.edu.pucp.ferretin.view.MAlmacen
 
         private void btnGuardar_Click(object sender, RoutedEventArgs e)
         {
-
+            if ((cmbUnidadMed.SelectedItem == null) || (cmbMatBase.SelectedItem==null) || (cmbMatSec.SelectedItem==null) || 
+                (txtCodigo.Text=="") || (txtNombreDet.Text=="") || (txtPrecio.Text==""))
+            {
+                MessageBox.Show("Verifique los datos ingresados");
+                return;
+            }
 
             MA_MantenimientoProductosEdicionStockWindow v = new MA_MantenimientoProductosEdicionStockWindow();
             v.Owner = this;

@@ -184,6 +184,13 @@ namespace pe.edu.pucp.ferretin.viewmodel.MVentas
                             vmp.NotaCredito.estado = 1;
                         }
                     }
+                    foreach (var vp in venta.VentaProducto)
+                    {
+                        if (vp.PromocionActual != null)
+                        {
+                            vp.PromocionActual.stockActual--;
+                        }
+                    }
                 }
                 catch { }
 

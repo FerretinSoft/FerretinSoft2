@@ -42,14 +42,19 @@ namespace pe.edu.pucp.ferretin.model
                 prodConDesc = prodConDesc > 0 && prodConDesc > (PromocionActual.maxPromVenta * PromocionActual.cantMulUnidades) ? (PromocionActual.maxPromVenta * PromocionActual.cantMulUnidades) : prodConDesc;
                 //Calculo la cantidad de productos sin descuento
                 int? prodSinDesc = cantidad - prodConDesc;
+
+                decimal? productoPrecioLista = Producto.precioLista * (Producto.moneda == 1 ? 1 : (tipoCambio != null && tipoCambio <= 0) ? 1 : tipoCambio);
+
                 //Hallo el resultado de los productos con descuento y sin descuento
-                descuento = (prodConDesc * Producto.precioLista * (1 - desc));
-                montoParcial = Decimal.Round((prodConDesc * Producto.precioLista * desc + prodSinDesc * Producto.precioLista).Value, 2);
-                montoReal = cantidad * Producto.precioLista;
+                descuento = (prodConDesc * productoPrecioLista * (1 - desc));
+                montoParcial = Decimal.Round((prodConDesc * productoPrecioLista * desc + prodSinDesc * productoPrecioLista).Value, 2);
+                montoReal = cantidad * productoPrecioLista;
             }
         }
 
 
         public PromocionProducto PromocionActual { get; set; }
+
+        public decimal tipoCambio { get; set; }
     }
 }
