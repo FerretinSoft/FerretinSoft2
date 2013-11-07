@@ -33,21 +33,21 @@
                     <ImageBrush ImageSource="../Resources/refresh2_48.png"/>
                 </Button.Background>
             </Button>
-            <DataGrid ItemsSource="{Binding Path=listaTransacciones,Mode=OneWay}" x:Name="auditoriasDg" Margin="10,20,10,10" Grid.Row="1" Grid.ColumnSpan="3" AutoGenerateColumns="False" CanUserAddRows="False" CanUserDeleteRows="False" IsReadOnly="True">
+            <DataGrid ItemsSource="{Binding Path=listaTransacciones,Mode=OneWay}" x:Name="auditoriasDg" Margin="10,20,10,10" Grid.Row="1" Grid.ColumnSpan="3" AutoGenerateColumns="False" CanUserResizeColumns="False" CanUserAddRows="False" CanUserDeleteRows="False" IsReadOnly="True">
                 <DataGrid.Columns>
                     <!-- Otras columnas -->
-                    <DataGridTextColumn Width="1.4*" Binding="{Binding Path=nroIP}" Header="IP"/>
-                    <DataGridTextColumn Width="1.7*" Binding="{Binding Path=nroMAC}" Header="MAC Address"/>
-                    <DataGridTextColumn Width="1*" Binding="{Binding Path=Usuario.nombre}" Header="Nombre Usuario"/>
+                    <DataGridTextColumn Width="1.2*" Binding="{Binding Path=nroIP}" Header="IP"/>
+                    <DataGridTextColumn Width="1.5*" Binding="{Binding Path=nroMAC}" Header="MAC Address"/>
+                    <DataGridTextColumn Width="1.4*" Binding="{Binding Path=Usuario.nombre}" Header="Nombre Usuario"/>
                     <DataGridTextColumn Width="2*" Binding="{Binding Path=Usuario.Perfil.nombre}" Header="Perfil"/>
-                    <DataGridTextColumn Width="2*" Binding="{Binding Path=fecha}" Header="Fecha y Hora"/>
+                    <DataGridTextColumn Width="2*" Binding="{Binding Path=fecha}" ClipboardContentBinding="{x:Null}" Header="Fecha y Hora"/>
                     <DataGridTextColumn Width="5*" Binding="{Binding Path=TransaccionTipo.descripcion}" Header="Transacción"/>
 
                 </DataGrid.Columns>
             </DataGrid>
             <Label Content="Fecha Desde:" HorizontalAlignment="Left" Height="26" VerticalAlignment="Top" Width="81" Margin="20,64,0,0"/>
-            <DatePicker HorizontalAlignment="Left" Margin="10,65,0,0" VerticalAlignment="Top" Width="167" Grid.Column="1" Height="24"/>
-            <DatePicker HorizontalAlignment="Left" VerticalAlignment="Top" Margin="185,67,0,0" Width="178" Grid.Column="2" Height="24"/>
+            <DatePicker SelectedDate="{Binding searchFechaDesde, Mode=TwoWay}" HorizontalAlignment="Left" Margin="10,65,0,0" VerticalAlignment="Top" Width="167" Grid.Column="1" Height="24"/>
+            <DatePicker SelectedDate="{Binding searchFechaHasta, Mode=TwoWay}" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="185,67,0,0" Width="178" Grid.Column="2" Height="24"/>
             <ComboBox ItemsSource="{Binding perfiles,Mode=OneWay}" DisplayMemberPath="nombre" SelectedIndex="0" SelectedItem="{Binding searchPerfil, Mode=TwoWay}" HorizontalAlignment="Left" Height="22" Margin="185,36,0,0" VerticalAlignment="Top" Width="178" Grid.Column="2">
 
             </ComboBox>

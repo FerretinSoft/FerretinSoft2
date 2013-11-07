@@ -54,12 +54,14 @@ namespace pe.edu.pucp.ferretin.controller.MAlmacen
             return movimiento;
         }
 
-        public static IEnumerable<Movimiento> obtenerMovimientoPorProducto(int idProd)
+        public static IEnumerable<Movimiento> obtenerMovimientoPorProducto(int idProd,int idTienda)
         {
             IEnumerable<Movimiento> lMov = from m in db.Movimiento
                                            from mp in db.MovimientoProducto
                                            where (mp.id_producto == idProd) &&
-                                           (mp.id_movimiento == m.id)
+                                           (mp.id_movimiento == m.id) &&
+                                           ((m.id_almacen_desde==idTienda)||
+                                           (m.id_almacen_hasta==idTienda))
                                            select m;
             foreach (Movimiento m in lMov)
             {

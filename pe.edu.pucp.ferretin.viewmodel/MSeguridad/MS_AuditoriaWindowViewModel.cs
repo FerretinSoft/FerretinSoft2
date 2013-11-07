@@ -21,7 +21,13 @@ namespace pe.edu.pucp.ferretin.viewmodel.MSeguridad
         public String searchNombreUsuario { get { return _searchNombreUsuario; } set { _searchNombreUsuario = value; } }
 
         private Perfil _searchPerfil = null;
-        public Perfil searchPerfil { get { return _searchPerfil; } set { _searchPerfil = value; NotifyPropertyChanged("searchPerfil"); } }        
+        public Perfil searchPerfil { get { return _searchPerfil; } set { _searchPerfil = value; NotifyPropertyChanged("searchPerfil"); } }
+        
+        public DateTime? _searchFechaDesde = null;
+        public DateTime? searchFechaDesde { get { return _searchFechaDesde; } set { _searchFechaDesde = value; NotifyPropertyChanged("searchFechaDesde"); } }
+
+        public DateTime? _searchFechaHasta = null;
+        public DateTime? searchFechaHasta { get { return _searchFechaHasta; } set { _searchFechaHasta = value; NotifyPropertyChanged("searchFechaHasta"); } }
         #endregion
 
         #region Manejo de los Tabs
@@ -121,7 +127,7 @@ namespace pe.edu.pucp.ferretin.viewmodel.MSeguridad
         {
             get
             {
-                _listaTransacciones = MS_TransaccionService.buscar(searchNombreUsuario,searchPerfil);
+                _listaTransacciones = MS_TransaccionService.buscar(searchNombreUsuario, searchPerfil, searchFechaDesde, searchFechaHasta);
                 return _listaTransacciones;
             }
             set

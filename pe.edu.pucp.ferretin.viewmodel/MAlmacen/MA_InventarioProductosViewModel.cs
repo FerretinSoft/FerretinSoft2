@@ -23,6 +23,20 @@ namespace pe.edu.pucp.ferretin.viewmodel.MAlmacen
         public String _searchNombre = "";
         public String searchNombre { get { return _searchNombre; } set { _searchNombre = value; NotifyPropertyChanged("_searchNombre"); } }
 
+        public ProductoAlmacen _productoAlmacenSeleccionado;
+        public ProductoAlmacen productoAlmacenSeleccionado
+        {
+            get
+            {
+                return _productoAlmacenSeleccionado;
+            }
+            set
+            {
+                _productoAlmacenSeleccionado = value;
+                NotifyPropertyChanged("productoAlmacenSeleccionado");
+            }
+        }
+
         public IEnumerable<Movimiento> _listaMovimientos;
         public IEnumerable<Movimiento> listaMovimientos
         {
@@ -138,6 +152,8 @@ namespace pe.edu.pucp.ferretin.viewmodel.MAlmacen
                 IEnumerable<Tienda> items = new Tienda[] { new Tienda { id = 0, nombre = "Todos" } };
                 //Luego concateno el itemcon los elementos del combobox
                 return items.Concat(MA_InventarioService.listaAlmacen);
+
+                //return MA_InventarioService.listaAlmacen;
             }
         }
 
@@ -197,6 +213,23 @@ namespace pe.edu.pucp.ferretin.viewmodel.MAlmacen
 
         #endregion
 
+        private IEnumerable<ProductoAlmacen> _listaProductoAlmacen;
+        public IEnumerable<ProductoAlmacen> listaProductoAlmacen
+        {
+            get
+            {
+                _listaProductoAlmacen = MA_InventarioService.obtenerProductosPorAlmacenCategoriaNombre(searchNombre, searchAlmacen, searchCategoria);
+                return _listaProductoAlmacen;
+            }
+            set
+            {   
+                _listaProductoAlmacen = value;
+                NotifyPropertyChanged("listaProductoAlmacen");
+            }
+        }
+
+
+
         private IEnumerable<Producto> _listaProducto;
         public IEnumerable<Producto> listaProducto
         {
@@ -204,7 +237,7 @@ namespace pe.edu.pucp.ferretin.viewmodel.MAlmacen
             {
                 if (searchAlmacen!=null)
                     Console.WriteLine(searchAlmacen.id);
-                _listaProducto = MA_InventarioService.obtenerProductosPorAlmacenCategoriaNombre(searchNombre, searchAlmacen, searchCategoria);
+                //_listaProducto = MA_InventarioService.obtenerProductosPorAlmacenCategoriaNombre(searchNombre, searchAlmacen, searchCategoria);
                 return _listaProducto;
             }
             set
@@ -253,10 +286,12 @@ namespace pe.edu.pucp.ferretin.viewmodel.MAlmacen
         private void viewDetalleInventario(object id)
         {
             try
-            {   
-                this.producto = listaProducto.Single(producto => producto.id == (int)id);
-                this.listaColores = MA_ProductoService.obtenerColoresPorProducto(this.producto.id);
-                this.listaMovimientos=MA_MovimientosService.obtenerMovimientoPorProducto(this.producto.id);
+            {
+                long idPa = (long)id;
+                productoAlmacenSeleccionado = (listaProductoAlmacen.Single(list => (list.id == idPa)));
+                this.producto = productoAlmacenSeleccionado.Producto;
+                this.listaColores = MA_ProductoService.obtenerColoresPorProducto(producto.id);
+                this.listaMovimientos = MA_MovimientosService.obtenerMovimientoPorProducto(producto.id,productoAlmacenSeleccionado.Tienda.id);
                 this.statusTab = Tab.DETALLES;
             }
             catch (Exception e)

@@ -84,8 +84,9 @@ namespace pe.edu.pucp.ferretin.controller.MVentas
         {
             return from c in listaVentas
                    where
-                   (c.nroDocumento != null && c.nroDocumento.Contains(nroDocumento)
-                   && c.Cliente.nroDoc != null && c.Cliente.nroDoc.Contains(nroDocCliente)
+                   (c.nroDocumento != null && c.nroDocumento.Contains(nroDocumento) 
+                   && c.Cliente == null || (c.Cliente != null
+                   && c.Cliente.nroDoc != null && c.Cliente.nroDoc.Contains(nroDocCliente))
                    && c.fecha != null && c.fecha >= fechaInicio
                    && c.fecha != null && c.fecha <= fechaFin
                    && c.Usuario.Empleado.dni != null && c.Usuario.Empleado.dni.Contains(searchVendedor)
@@ -144,6 +145,22 @@ namespace pe.edu.pucp.ferretin.controller.MVentas
 
 
 
+
+        public static string generarNroDoc(bool isFactura)
+        {
+            
+            Int64 numCodProf = listaVentas.Max(p => p.id) + 1;
+            string codDev = Convert.ToString(numCodProf);
+            while (true)
+            {
+                if (codDev.Length == 8)
+                    break;
+                else
+                    codDev = "0" + codDev;
+            }
+            return (isFactura?"F-":"B") + codDev + "-" + DateTime.Now.Year.ToString();
+            
+        }
     }
 
 }

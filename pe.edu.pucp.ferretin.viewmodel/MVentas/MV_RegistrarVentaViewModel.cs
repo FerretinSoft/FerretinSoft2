@@ -27,7 +27,8 @@ namespace pe.edu.pucp.ferretin.viewmodel.MVentas
             {
                 fecha = DateTime.Now,
                 igvActual = MS_SharedService.obtenerIGV(),
-                Usuario = MS_SharedService.usuarioL
+                Usuario = MS_SharedService.usuarioL,
+                estado = 0
             };
             venta.VentaProducto.ListChanged += actualizarMontosVenta;
         }
@@ -190,7 +191,8 @@ namespace pe.edu.pucp.ferretin.viewmodel.MVentas
                     {
                         VentaProducto ventaProducto = new VentaProducto();
                         ventaProducto.canjeado = false;
-                        ventaProducto.montoParcial = producto.precioLista;
+                        ventaProducto.tipoCambio = (decimal)(MS_SharedService.obtenerTipodeCambio());
+                        ventaProducto.montoParcial = producto.moneda==1?producto.precioLista:producto.precioLista.Value*(decimal)(MS_SharedService.obtenerTipodeCambio());
                         ventaProducto.Venta = venta;
                         ventaProducto.Producto = producto;
                         ventaProducto.cantidad = 1;
