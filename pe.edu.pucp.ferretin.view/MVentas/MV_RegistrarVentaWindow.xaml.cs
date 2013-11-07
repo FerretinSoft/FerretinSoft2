@@ -42,6 +42,9 @@ namespace pe.edu.pucp.ferretin.view.MVentas
         private void buscarProformaBtn_Click(object sender, RoutedEventArgs e)
         {
             MV_AdministrarProformasWindow profWindow = new MV_AdministrarProformasWindow();
+            profWindow.Owner = this;
+            MV_AdministrarProformasViewModel prodViewModel = profWindow.DataContext as MV_AdministrarProformasViewModel;
+            prodViewModel.soloSeleccionarProforma = true;
             profWindow.Show();
         }
 
