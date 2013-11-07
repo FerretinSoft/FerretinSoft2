@@ -26,7 +26,8 @@ namespace pe.edu.pucp.ferretin.viewmodel.MVentas
             venta = new Venta()
             {
                 fecha = DateTime.Now,
-                igvActual = MS_SharedService.obtenerIGV()
+                igvActual = MS_SharedService.obtenerIGV(),
+                Usuario = MS_SharedService.usuarioL
             };
             venta.VentaProducto.ListChanged += actualizarMontosVenta;
         }
