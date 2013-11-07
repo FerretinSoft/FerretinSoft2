@@ -15,5 +15,7 @@ namespace pe.edu.pucp.ferretin.model
                 return estado == 0 ? "Canjeable" : "Canjeado";
             }
         }
+
+        
     }
 }

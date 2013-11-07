@@ -91,7 +91,7 @@
                                 </DataGridTemplateColumn.CellTemplate>
                             </DataGridTemplateColumn>
                             <DataGridTextColumn Width="3*" Binding="{Binding Path=Cliente.nombreCompleto}" ClipboardContentBinding="{x:Null}" Header="Empresa"/>
-                            <DataGridTextColumn Width="2*" Binding="{Binding Path=fechaEmision}" ClipboardContentBinding="{x:Null}" Header="Fecha Emisión"/>
+                            <DataGridTextColumn Width="2*" Binding="{Binding Path=fechaEmisionString}" ClipboardContentBinding="{x:Null}" Header="Fecha Emisión"/>
                             <DataGridTextColumn Width="1*" Binding="{Binding Path=cantidad}" ClipboardContentBinding="{x:Null}" Header="Cantidad"/>
                             <DataGridTextColumn Width="1*" Binding="{Binding Path=monedaString}" ClipboardContentBinding="{x:Null}" Header="Moneda"/>
                             <DataGridTextColumn Width="1.5*" Binding="{Binding Path=monto}" ClipboardContentBinding="{x:Null}" Header="Monto"/>
@@ -162,7 +162,7 @@
                     </GroupBox>
                     <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Center">
                         <Button Command="{Binding generarValesCommand}" Visibility="{Binding Path=detallarVale}"  Content="Generar" Height="30" Padding="5" Margin="5,0" FontSize="14"/>
-                        <Button Command="{Binding saveLoteValeCommand}" Visibility="{Binding Path=detallarVale}"  Content="Guardar" Height="30" Padding="5" Margin="5,0" FontSize="14"/>
+                        <Button IsEnabled="{Binding Path=valesGenerados}" Command="{Binding saveLoteValeCommand}" Visibility="{Binding Path=detallarVale}"  Content="Guardar" Height="30" Padding="5" Margin="5,0" FontSize="14"/>
                         <Button Command="{Binding cancelarLoteValeCommand}" Visibility="{Binding Path=detallarVale}"  Content="Cancelar" Height="30" Padding="5" Margin="5,0" FontSize="14"/>
 
                     </StackPanel>
