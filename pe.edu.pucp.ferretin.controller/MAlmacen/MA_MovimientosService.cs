@@ -189,6 +189,7 @@ namespace pe.edu.pucp.ferretin.controller.MAlmacen
                 if (movimiento.id <= 0) db.Movimiento.InsertOnSubmit(movimiento);
                 //db.SubmitChanges(); return true;
                 return enviarCambios();
+                //return true;
             }
             else
             {
