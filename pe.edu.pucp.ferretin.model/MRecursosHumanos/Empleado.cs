@@ -160,19 +160,35 @@ namespace pe.edu.pucp.ferretin.model
             //Lleno el cargo nuevoEmpleoTienda con lo leido de la vista
             if (nuevoEmpleoTienda.Cargo == null)
             {
+
                 nuevoEmpleoTienda.Cargo = cargoActual;
+                //modificacion
+                nuevoEmpleoTienda.Tienda= tiendaActual;
+                nuevoEmpleoTienda.sueldo = ultimoSueldo;
+
+                //Finmodificacion
             }
 
             //Lleno la tienda nuevoEmpleoTienda con lo leido de la vista
             if (nuevoEmpleoTienda.Tienda == null)
             {
                 nuevoEmpleoTienda.Tienda = tiendaActual;
+                //modificacion
+                nuevoEmpleoTienda.Cargo = cargoActual;
+                nuevoEmpleoTienda.sueldo = ultimoSueldo;
+
+                //Finmodificacion
             }
 
             //Lleno el sueldo nuevoEmpleoTienda con lo leido de la vista
             if (nuevoEmpleoTienda.sueldo <= 0 || nuevoEmpleoTienda.sueldo==null)
             {
-                nuevoEmpleoTienda.sueldo = ultimoSueldo;         
+                nuevoEmpleoTienda.sueldo = ultimoSueldo;
+                //modificacion
+                nuevoEmpleoTienda.Cargo = cargoActual;
+                nuevoEmpleoTienda.Tienda = tiendaActual;
+
+                //Finmodificacion
             }
 
 
