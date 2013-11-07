@@ -33,7 +33,7 @@ namespace pe.edu.pucp.ferretin.controller.MSeguridad
 
 
         /*******************************************************/
-        public static IEnumerable<Transaccion> buscar(string nomUsuario, Perfil perfil)
+        public static IEnumerable<Transaccion> buscar(string nomUsuario, Perfil perfil, DateTime? fechaDesde, DateTime? fechaHasta)
         {
             Usuario user;
             int id = 0;
@@ -63,6 +63,11 @@ namespace pe.edu.pucp.ferretin.controller.MSeguridad
             transacciones = transacciones.Where(t => ((id==0) || (t.id_usuario==id)) );
             //Filtro por perfil
             transacciones = transacciones.Where(t => (perfil==null) || (perfil.id<=0) || (t.Usuario.Perfil.id == perfil.id) );
+            //Filtro por fechaInicio
+            transacciones = transacciones.Where(t => (fechaDesde == null || (t.fecha != null && t.fecha >= fechaDesde)) );
+            //Filtro por fechaFin
+            transacciones = transacciones.Where(t => (fechaHasta == null || (t.fecha != null && t.fecha <= fechaHasta)) );
+
             return transacciones;
         }
 

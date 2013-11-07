@@ -6,7 +6,7 @@
     <Window.Resources>
         <viewmodel:pruebaViewModel x:Key="pruebaViewModel"/>
     </Window.Resources>
-    <Grid x:Name="main" DataContext="{Binding Source={StaticResource pruebaViewModel}}">
+    <Grid x:Name="main" DataContext="{Binding Source={StaticResource pruebaViewModel}}" Focusable="False">
         <Grid>
             <Grid.RowDefinitions>
                 <RowDefinition/>
@@ -22,7 +22,7 @@
                     <TextBlock Text="{Binding venta.Usuario.Empleado.nombreCompleto}"/>
                 </TextBlock>
                 <TextBlock Text="RUC: 1102020202" HorizontalAlignment="Center" Margin="0"/>
-                <Grid Margin="10">
+                <Grid Margin="10" Height="Auto">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto"/>
                         <RowDefinition  Height="Auto"/>
@@ -32,9 +32,9 @@
                     </TextBlock>
                     <TextBlock HorizontalAlignment="Center" Grid.Row="1">
                         <StackPanel Orientation="Vertical">
-                            <TextBlock Text="{Binding venta.Cliente.nombreMayusCompleto}" Margin="5,0"/>
-                            <TextBlock Text="{Binding venta.Cliente.direccionDistrito}" Margin="5,0"/>
-                            <TextBlock Text="{Binding venta.puntosInfoString}" Margin="5,0"/>
+                            <TextBlock Text="{Binding venta.Cliente.nombreMayusCompleto}" Margin="5,0" Height="Auto"/>
+                            <TextBlock Text="{Binding venta.Cliente.direccionDistrito}" Margin="5,0" Height="Auto"/>
+                            <TextBlock Text="{Binding venta.puntosInfoString}" Margin="5,0" Height="Auto"/>
                         </StackPanel>
                     </TextBlock>
                     

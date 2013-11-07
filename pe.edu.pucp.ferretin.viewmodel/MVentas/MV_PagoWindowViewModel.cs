@@ -162,6 +162,8 @@ namespace pe.edu.pucp.ferretin.viewmodel.MVentas
             {
                 try
                 {
+                    venta.nroDocumento = MV_VentaService.generarNroDoc((venta.Cliente==null?false:(venta.Cliente.tipo==2)));
+                    venta.tipoDocumento = ((venta.Cliente == null ? 0 : (venta.Cliente.tipo == 2?1:0)));
                     if (venta.Cliente != null)
                     {
                         venta.Cliente.puntosActual -= venta.Cliente.puntosActual == null ? 0 : venta.Cliente.puntosActual - venta.puntosCanjeados;
