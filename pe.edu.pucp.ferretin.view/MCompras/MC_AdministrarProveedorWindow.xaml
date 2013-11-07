@@ -130,7 +130,7 @@
                         </DataGrid.Columns>
                     </DataGrid>
                     <ToolBar Grid.Column="4" HorizontalAlignment="Left" Margin="282.895,41,0,0" VerticalAlignment="Top" Height="25" Width="92">
-                        <Button  Command="{Binding agregarNuevoProductoCommand}" x:Name="nuevoProductoBtn" Content="" Height="20" VerticalAlignment="Top" Width="20" Margin="0,0,4,0" >
+                        <Button  Command="{Binding agregarNuevoProductoCommand}"  Content="" Height="20" VerticalAlignment="Top" Width="20" Margin="0,0,4,0" >
                             <Button.Background>
                                 <ImageBrush ImageSource="../Resources/add_20.png" Stretch="None"/>
                             </Button.Background>

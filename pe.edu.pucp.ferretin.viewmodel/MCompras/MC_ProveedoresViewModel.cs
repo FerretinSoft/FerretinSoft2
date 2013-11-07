@@ -57,6 +57,20 @@ namespace pe.edu.pucp.ferretin.viewmodel.MCompras
             }
         }
 
+        private Producto _prod;
+        public Producto prod
+        {
+            get
+            {
+                return _prod;
+            }
+            set
+            {
+                _prod = value;
+                NotifyPropertyChanged("prod");
+            }
+        }
+
       public string codProdAgregar { get; set; }
 
         public IEnumerable<Rubro> listaRubros
@@ -287,6 +301,37 @@ namespace pe.edu.pucp.ferretin.viewmodel.MCompras
                 }
             }
         }
+
+        public void saveProducto(Object obj)
+        {
+            provProd = (ProveedorProducto)obj;
+            if (provProd.id_producto > 0)//Si existe
+            {
+                if (!MC_ProveedorService.enviarCambios())
+                {
+                    MessageBox.Show("No se pudo actualizar al Producto");
+                }
+                else
+                {
+                    MessageBox.Show("El Producto fue guardado con éxito");
+                }
+            }
+            else
+            {
+
+                if (!MC_ProveedorService.InsertarProducto(provProd))
+                {
+                    MessageBox.Show("No se pudo agregar el nuevo proveedor");
+                }
+                else
+                {
+                    MessageBox.Show("El proveedor fue agregado con éxito");
+                    this.statusTab = Tab.BUSQUEDA;
+                    listaProveedores = MC_ProveedorService.listaProveedores;
+                }
+            }
+        }
+
         public void cancelProveedor(Object obj)
         {
             this.statusTab = Tab.BUSQUEDA;
@@ -301,28 +346,33 @@ namespace pe.edu.pucp.ferretin.viewmodel.MCompras
                 try
                 {
                     producto = MA_SharedService.obtenerProductoxCodigo(codProdAgregar);
-                    //string nombre = producto.nombre;
+                    string nombre = producto.nombre;
                 }
                 catch { }
 
                 if (producto != null)
                 {
                     ProveedorProducto pP = null;
-                    if (producto.ProveedorProducto.Count(vp => vp.Producto.id == producto.id) == 1)
+                    if (proveedor.ProveedorProducto.Count(vp => vp.Producto.id == producto.id) == 1)
                     {
+                        saveProducto(pP);
                     }
                     else
                     {
                         pP = new ProveedorProducto()
                         {
-                            Producto = producto
-
+                            Producto = producto,
+                            Proveedor=proveedor,
+                            precio = 4,
+                            tiempoEntrega="",
+                            estado=1
                         };
-                       
+                        proveedor.ProveedorProducto.Add(pP);
+                         saveProducto(pP);
                     }
-                   
+                    NotifyPropertyChanged("listaProductos");
                 }
-                NotifyPropertyChanged("listaProductos");
+                
             }
             else
             {
