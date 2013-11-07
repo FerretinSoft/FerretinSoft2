@@ -65,14 +65,16 @@ namespace pe.edu.pucp.ferretin.view.MRecursosHumanos
 
         private void nombre_PreviewTextInput(object sender, TextCompositionEventArgs e)
         {
-            ////if (Regex.IsMatch(e.Text, "[A-Z][a-zA-Z]*"))
-            ////{
-            ////    e.Handled = false;
-            ////}
-            ////else
-            ////{
-            ////    e.Handled = true;
-            ////}
+            if (Regex.IsMatch(e.Text, "^[a-zA-Z ]+$"))
+            {
+                e.Handled = false;
+            }
+            else
+            {
+                e.Handled = true;
+            }
+
+            
 
             
         }
