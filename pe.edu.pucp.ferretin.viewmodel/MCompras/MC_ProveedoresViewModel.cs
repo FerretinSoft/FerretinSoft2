@@ -1,4 +1,5 @@
-﻿using pe.edu.pucp.ferretin.controller.MCompras;
+﻿using pe.edu.pucp.ferretin.controller.MAlmacen;
+using pe.edu.pucp.ferretin.controller.MCompras;
 using pe.edu.pucp.ferretin.model;
 using pe.edu.pucp.ferretin.viewmodel.Helper;
 using System;
@@ -20,6 +21,14 @@ namespace pe.edu.pucp.ferretin.viewmodel.MCompras
         }
         #endregion
 
+        public bool isCreating
+        {
+            get
+            {
+                return true;
+            }
+        }
+
         private IEnumerable<Rubro> _rubros;
         public IEnumerable<Rubro> rubros
         {
@@ -33,6 +42,23 @@ namespace pe.edu.pucp.ferretin.viewmodel.MCompras
                 NotifyPropertyChanged("rubros");
             }
         }
+
+        private ProveedorProducto _provProd;
+        public ProveedorProducto provProd
+        {
+            get
+            {
+                return _provProd;
+            }
+            set
+            {
+                _provProd = value;
+                NotifyPropertyChanged("provProd");
+            }
+        }
+
+      public string codProdAgregar { get; set; }
+
         public IEnumerable<Rubro> listaRubros
         {
             get
@@ -192,6 +218,19 @@ namespace pe.edu.pucp.ferretin.viewmodel.MCompras
                 return _agregarProveedorCommand;
             }
         }
+
+        RelayCommand _agregarNuevoProductoCommand;
+        public ICommand agregarNuevoProductoCommand
+        {
+            get
+            {
+                if (_agregarNuevoProductoCommand == null)
+                {
+                    _agregarNuevoProductoCommand = new RelayCommand(agregarProducto);
+                }
+                return _agregarNuevoProductoCommand;
+            }
+        }
         #endregion
 
         #region Comandos
@@ -252,6 +291,44 @@ namespace pe.edu.pucp.ferretin.viewmodel.MCompras
         {
             this.statusTab = Tab.BUSQUEDA;
             listaProveedores = MC_ProveedorService.listaProveedores;
+        }
+
+        public void agregarProducto(Object obj)
+        {
+            if (codProdAgregar != null && codProdAgregar.Length > 0)
+            {
+                Producto producto = null;
+                try
+                {
+                    producto = MA_SharedService.obtenerProductoxCodigo(codProdAgregar);
+                    //string nombre = producto.nombre;
+                }
+                catch { }
+
+                if (producto != null)
+                {
+                    ProveedorProducto pP = null;
+                    if (producto.ProveedorProducto.Count(vp => vp.Producto.id == producto.id) == 1)
+                    {
+                    }
+                    else
+                    {
+                        pP = new ProveedorProducto()
+                        {
+                            Producto = producto
+
+                        };
+                       
+                    }
+                   
+                }
+                NotifyPropertyChanged("listaProductos");
+            }
+            else
+            {
+                MessageBox.Show("No se encontro ningun producto con el código proporcionado");
+            }
+            
         }
         #endregion
 
