@@ -316,6 +316,12 @@ namespace pe.edu.pucp.ferretin.viewmodel.MSeguridad
         /**************************************************/
         public void saveUsuario(Object obj)
         {
+            if (usuario.nombre.Length <= 0)
+            {
+                MessageBox.Show("Ingrese datos en los campos necesarios, por favor");
+                return;
+            }
+
             /*Para actualizar un usuario existente*/
             if (usuario.id > 0)//Si existe
             {
