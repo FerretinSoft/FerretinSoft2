@@ -45,7 +45,12 @@ namespace pe.edu.pucp.ferretin.controller.MVentas
             
             codProformaSearch = codProformaSearch==null?String.Empty:codProformaSearch.ToLower();
 
-            return from p in listaProformas select p;
+            return from p in listaProformas where
+                   p.codigo.ToUpper().Contains(codProformaSearch.ToUpper())
+                   && (usuarioSearch==null || p.Usuario.id.Equals(usuarioSearch.id))
+                   && (clienteSearch==null || p.Cliente==null || p.Cliente.id.Equals(clienteSearch.id))
+                   && (fechaDesdeSearch.AddDays(-1).CompareTo(p.fecEmision)<=0 && fechaHastaSearch.AddDays(1).CompareTo(p.fecEmision)>=0)
+                   select p;
         }
 
 

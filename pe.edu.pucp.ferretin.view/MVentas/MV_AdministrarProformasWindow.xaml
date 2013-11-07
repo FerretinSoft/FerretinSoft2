@@ -82,7 +82,7 @@
                     </GroupBox>
                     <ToolBar HorizontalAlignment="Left" Margin="10,134,0,0" VerticalAlignment="Top" Height="24">
 
-                        <Button x:Name="nuevaProformaBtn" Content="" VerticalAlignment="Top" Width="20" Margin="0,0,2,-1" Height="20">
+                        <Button Command="{Binding irAgregarCommand}" Content="" VerticalAlignment="Top" Width="20" Margin="0,0,2,-1" Height="20">
                             <Button.Background>
                                 <ImageBrush ImageSource="../Resources/add_20.png"/>
                             </Button.Background>
@@ -91,7 +91,19 @@
                     </ToolBar>
                     <DataGrid ItemsSource="{Binding listaProformas}" Grid.Row="1" Margin="5" IsManipulationEnabled="False" IsReadOnly="True" CanUserSortColumns="True" AutoGenerateColumns="False" CanUserAddRows="False" CanUserDeleteRows="False">
                         <DataGrid.Columns>
-                            <DataGridHyperlinkColumn Width="1.5*" Binding="{Binding codigo}" ContentBinding="{x:Null}" ClipboardContentBinding="{x:Null}" Header="Cód. Proforma"/>
+                            <DataGridTemplateColumn Width="2*" Header="Cód. Proforma">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <TextBlock>
+                                        <Hyperlink 
+                                            Command="{Binding Path=DataContext.viewDetailProformaCommand, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type DataGrid}}}" 
+                                            CommandParameter="{Binding id}">
+                                            <TextBlock Text="{Binding codigo}" />
+                                        </Hyperlink>
+                                        </TextBlock>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
                             <DataGridTextColumn Width="2*" Binding="{Binding Cliente.nroDoc}" ClipboardContentBinding="{x:Null}" Header="Doc. Cliente"/>
                             <DataGridTextColumn Width="3*" Binding="{Binding Cliente.nombreCompleto}" ClipboardContentBinding="{x:Null}" Header="Nombre Cliente"/>
                             <DataGridTextColumn Width="3*" Binding="{Binding Usuario.Empleado.nombreCompleto}" ClipboardContentBinding="{x:Null}" Header="Vendedor"/>
@@ -103,7 +115,7 @@
             </TabItem>
 
 
-            <TabItem Header="Nueva Proforma">
+            <TabItem Header="{Binding detallesTabHeader}">
                 <Grid Background="#FFE5E5E5">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="1*"/>
@@ -135,7 +147,7 @@
                         <Label Grid.Column="0" Grid.Row="2" Content="Cliente:"  Margin="0,0,0,0"/>
                         <Label Grid.Column="0" Grid.Row="3" Content="Fecha de Vencimiento:"  Margin="0,0,0,0"/>
 
-                        <DatePicker SelectedDate="{Binding proforma.fecVencimiento}" Grid.Column="1" Grid.Row="3" BorderThickness="0" />
+                        <DatePicker SelectedDate="{Binding proforma.fecVencimiento}" IsEnabled="{Binding esAgregar}" Grid.Column="1" Grid.Row="3" BorderThickness="0" />
                         <DatePicker SelectedDate="{Binding proforma.fecEmision, Mode=TwoWay}" Grid.Column="1" Grid.Row="0" IsEnabled="False" VerticalContentAlignment="Center" Margin="0" VerticalAlignment="Center"/>
                         <TextBox Text="{Binding proforma.codigo}"  Grid.Column="1" Grid.Row="1" IsEnabled="False" VerticalContentAlignment="Center" Margin="0,2,5,2" VerticalAlignment="Center"/>
 
@@ -144,12 +156,12 @@
                                 <ColumnDefinition/>
                                 <ColumnDefinition Width="Auto"/>
                             </Grid.ColumnDefinitions>
-                            <TextBox x:Name="nroDocSeleccionado" Text="{Binding proforma.Cliente.nroDoc, UpdateSourceTrigger=LostFocus}" VerticalContentAlignment="Center" VerticalAlignment="Center" Margin="0,0,0,0">
+                            <TextBox x:Name="nroDocSeleccionado" IsEnabled="{Binding esAgregar}" Text="{Binding proforma.Cliente.nroDoc, UpdateSourceTrigger=LostFocus}" VerticalContentAlignment="Center" VerticalAlignment="Center" Margin="0,0,0,0">
                                 <TextBox.InputBindings>
                                     <KeyBinding Key="Enter" Command="{Binding cargarClienteCommand}" />
                                 </TextBox.InputBindings>
                             </TextBox>
-                            <Button Command="{Binding buscarClienteCommand}"  Grid.Column="1" HorizontalAlignment="Right" VerticalAlignment="Center" Width="18" Height="18" Margin="4,0" Padding="0" BorderThickness="0" Click="Button_Click_1"  >
+                            <Button Command="{Binding buscarClienteCommand}" IsEnabled="{Binding esAgregar}"  Grid.Column="1" HorizontalAlignment="Right" VerticalAlignment="Center" Width="18" Height="18" Margin="4,0" Padding="0" BorderThickness="0" Click="Button_Click_1"  >
                                 <Button.Background>
                                     <ImageBrush ImageSource="../Resources/search1_20.png"/>
                                 </Button.Background>
@@ -177,7 +189,7 @@
                             <RowDefinition Height="Auto"/>
                             <RowDefinition Height="Auto"/>
                         </Grid.RowDefinitions>
-                        <ToolBar HorizontalAlignment="Left" Margin="0,0,0,0" Grid.ColumnSpan="2" Padding="0" VerticalAlignment="Center" Height="30" VerticalContentAlignment="Center">
+                        <ToolBar IsEnabled="{Binding esAgregar}" HorizontalAlignment="Left" Margin="0,0,0,0" Grid.ColumnSpan="2" Padding="0" VerticalAlignment="Center" Height="30" VerticalContentAlignment="Center">
                             <TextBlock Text="Código de Producto:" VerticalAlignment="Center" Margin="5,0"/>
                             <TextBox Text="{Binding codProdAgregar, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Width="100" BorderBrush="#DDD" Height="18" Margin="5,0" ToolTip="Escriba el código del producto que desea agregar y presione el boton +">
                                 <TextBox.InputBindings>
@@ -195,7 +207,7 @@
                                 </Button.Background>
                             </Button>
                         </ToolBar>
-                        <DataGrid ItemsSource="{Binding proforma.ProformaProducto, Mode=TwoWay, NotifyOnTargetUpdated=True, NotifyOnSourceUpdated=True, UpdateSourceTrigger=PropertyChanged}" AutoGenerateColumns="False" CanUserAddRows="False" Grid.Row="1" Grid.Column="0" VerticalAlignment="Stretch" Margin="0,5" Grid.ColumnSpan="2">
+                        <DataGrid IsEnabled="{Binding esAgregar}" ItemsSource="{Binding proforma.ProformaProducto, Mode=TwoWay, NotifyOnTargetUpdated=True, NotifyOnSourceUpdated=True, UpdateSourceTrigger=PropertyChanged}" AutoGenerateColumns="False" CanUserAddRows="False" Grid.Row="1" Grid.Column="0" VerticalAlignment="Stretch" Margin="0,5" Grid.ColumnSpan="2">
                             <DataGrid.Columns>
                                 <DataGridHyperlinkColumn Width="1.5*" Binding="{Binding Producto.codigo}" IsReadOnly="True" Header="Código"/>
                                 <DataGridTextColumn Width="2*" Binding="{Binding Producto.nombre}" Header="Nombre" IsReadOnly="True"/>
@@ -240,7 +252,7 @@
                             <TextBox Grid.Column="1" Grid.Row="1" Grid.RowSpan="2" VerticalAlignment="Stretch"/>
                         </Grid>
                         <StackPanel Grid.Row="3" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,5,0,0">
-                            <Button Command="{Binding registrarCommand}" Grid.Column="1" x:Name="registrarBtn" Content="REGISTRAR" HorizontalAlignment="Right" VerticalAlignment="Center" Height="30" Padding="5,0" Margin="0,0,10,0" />
+                            <Button Command="{Binding registrarCommand}" Grid.Column="1" x:Name="registrarBtn" Content="{Binding nombreBotonGuardar,Mode=OneWay}" HorizontalAlignment="Right" VerticalAlignment="Center" Height="30" Padding="5,0" Margin="0,0,10,0" Click="registrarBtn_Click" />
                             <Button Command="{Binding cancelarCommand}" Grid.Column="1" x:Name="cancelarBtn" Content="CANCELAR" HorizontalAlignment="Right" VerticalAlignment="Center" Height="30" Padding="5,0" />
                         </StackPanel>
                         <StackPanel Grid.Row="3" Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,5,0,0">

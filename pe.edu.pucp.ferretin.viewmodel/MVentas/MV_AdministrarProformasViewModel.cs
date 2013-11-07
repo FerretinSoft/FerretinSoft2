@@ -77,6 +77,14 @@ namespace pe.edu.pucp.ferretin.viewmodel.MVentas
                 return !soloSeleccionarProforma;
             }
         }
+        public String nombreBotonGuardar
+        {
+            get
+            {
+                return soloSeleccionarProforma ? "SELECCIONAR" : "GUARDAR";
+            }
+        }
+
         public string codProdAgregar { get; set; }
         private string _nroDocSeleccionado = "";
         public string nroDocSeleccionado
@@ -126,7 +134,14 @@ namespace pe.edu.pucp.ferretin.viewmodel.MVentas
             }
         }
         #endregion
-        
+
+        public bool esAgregar
+        {
+            get
+            {
+                return statusTab == Tab.AGREGAR;
+            }
+        }
 
         #region Manejo de los Tabs
         public enum Tab
@@ -146,7 +161,7 @@ namespace pe.edu.pucp.ferretin.viewmodel.MVentas
             {
                 if (value == Tab.DETALLES && proforma == null)
                 {
-
+                    _statusTab = Tab.BUSQUEDA;
                 }
                 _statusTab = value;
                 //Si cambió el estado de las pestañas también cambio los Header
@@ -156,6 +171,7 @@ namespace pe.edu.pucp.ferretin.viewmodel.MVentas
                     case Tab.BUSQUEDA: { 
                         detallesTabHeader = soloSeleccionarProforma ? "Detalles" : "Agregar";
                         NotifyPropertyChanged("listaProformas");
+                        
                         break;
                     };
                     case Tab.AGREGAR:
@@ -178,11 +194,18 @@ namespace pe.edu.pucp.ferretin.viewmodel.MVentas
                                 miproforma.ProformaProducto.ListChanged += actualizarMontosProforma;
                                 proforma = miproforma;
                             }
+                            
                             break;
                         }
                     case Tab.MODIFICAR: detallesTabHeader = "Modificar"; break;
-                    case Tab.DETALLES: detallesTabHeader = "Detalles"; break;
+                    case Tab.DETALLES:
+                        {
+
+                            detallesTabHeader = "Detalles"; 
+                            break;
+                        }
                 }
+                NotifyPropertyChanged("esAgregar");
                 NotifyPropertyChanged("statusTab");
                 //Cuando se cambia el status, tambien se tiene que actualizar el currentIndex del tab
                 NotifyPropertyChanged("currentIndexTab"); //Hace que cambie el tab automaticamente
@@ -333,9 +356,65 @@ namespace pe.edu.pucp.ferretin.viewmodel.MVentas
                 return _actualizarListaCommand;
             }
         }
+
+        RelayCommand _viewDetailProformaCommand;
+        public ICommand viewDetailProformaCommand
+        {
+            get
+            {
+                if (_viewDetailProformaCommand == null)
+                {
+                    _viewDetailProformaCommand = new RelayCommand(viewDetailProforma);
+                }
+                return _viewDetailProformaCommand;
+            }
+        }
+        RelayCommand _cancelarCommand;
+        public ICommand cancelarCommand
+        {
+            get
+            {
+                if (_cancelarCommand == null)
+                {
+                    _cancelarCommand = new RelayCommand(p=>statusTab=Tab.BUSQUEDA);
+                }
+                return _cancelarCommand;
+            }
+        }
+
+        RelayCommand _irAgregarCommand;
+        public ICommand irAgregarCommand
+        {
+            get
+            {
+                if (_irAgregarCommand == null)
+                {
+                    _irAgregarCommand = new RelayCommand(p => statusTab = Tab.AGREGAR,p=> !soloSeleccionarProforma);
+                }
+                return _irAgregarCommand;
+            }
+        }
+
         #endregion
 
         #region Comandos
+
+
+        private void viewDetailProforma(object id)
+        {
+            try
+            {
+                this.proforma = listaProformas.Single(p => p.id == (int)id);
+
+                
+                this.statusTab = Tab.DETALLES;
+                
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show(e.Message);
+            }
+        }
 
         public void registrar(object param)
         {
@@ -367,7 +446,12 @@ namespace pe.edu.pucp.ferretin.viewmodel.MVentas
 
         public bool canRegistrar(object param)
         {
-            return true;
+            if (soloSeleccionarProforma)
+            {
+                return true;
+            }
+            return esAgregar && proforma!=null && proforma.Cliente!=null && proforma.ProformaProducto.Count>0
+                ;
         }
 
         public void cargarCliente(Object id)
@@ -408,7 +492,7 @@ namespace pe.edu.pucp.ferretin.viewmodel.MVentas
                     else
                     {
                         ProformaProducto proformaProducto = new ProformaProducto();
-                        
+                        proformaProducto.tipoCambio = (decimal)MS_SharedService.obtenerTipodeCambio();
                         proformaProducto.montoParcial = producto.precioLista;
                         proformaProducto.Proforma = proforma;
                         proformaProducto.Producto = producto;

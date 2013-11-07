@@ -1,4 +1,7 @@
-﻿using pe.edu.pucp.ferretin.viewmodel.MVentas;
+﻿using pe.edu.pucp.ferretin.controller.MSeguridad;
+using pe.edu.pucp.ferretin.controller.MVentas;
+using pe.edu.pucp.ferretin.model;
+using pe.edu.pucp.ferretin.viewmodel.MVentas;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -76,6 +79,47 @@ namespace pe.edu.pucp.ferretin.view.MVentas
             var viewModel = v.main.DataContext as MV_ClientesViewModel;
             viewModel.soloSeleccionarCliente = true;
             v.Show();
+        }
+
+        private void registrarBtn_Click(object sender, RoutedEventArgs e)
+        {
+            if (this.Owner!=null)//Si tiene un padre
+            {
+                try
+                {
+                    MV_RegistrarVentaWindow padre = this.Owner as MV_RegistrarVentaWindow;
+                    MV_RegistrarVentaViewModel padreViewModel = padre.main.DataContext as MV_RegistrarVentaViewModel;
+
+                    MV_AdministrarProformasViewModel miVM = this.DataContext as MV_AdministrarProformasViewModel;
+
+                    if (miVM.proforma != null)
+                    {
+                        foreach (var vp in miVM.proforma.ProformaProducto)
+                        {
+                            VentaProducto ventaProducto = new VentaProducto();
+                            ventaProducto.canjeado = false;
+                            ventaProducto.tipoCambio = (decimal)(MS_SharedService.obtenerTipodeCambio());
+                            ventaProducto.montoParcial = vp.montoParcial;
+                            ventaProducto.Venta = padreViewModel.venta;
+                            ventaProducto.Producto = vp.Producto;
+                            ventaProducto.cantidad = vp.cantidad;
+                            ventaProducto.PromocionActual = MV_PromocionService.ultimaPromocionPorProducto(vp.Producto);
+                            ventaProducto.PropertyChanged += padreViewModel.actualizarMontosVenta;
+
+                            padreViewModel.venta.VentaProducto.Add(ventaProducto);
+                            padreViewModel.NotifyPropertyChanged("venta");
+                        }
+                        
+                       
+                    }
+                    this.Close();
+                }
+                catch(Exception ex) {
+                    //MessageBox.Show(ex.Message);
+                }
+
+                
+            }
         }
     }
 }
