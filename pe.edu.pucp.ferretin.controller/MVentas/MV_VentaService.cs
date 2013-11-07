@@ -144,6 +144,22 @@ namespace pe.edu.pucp.ferretin.controller.MVentas
 
 
 
+
+        public static string generarNroDoc(bool isFactura)
+        {
+            
+            Int64 numCodProf = listaVentas.Max(p => p.id) + 1;
+            string codDev = Convert.ToString(numCodProf);
+            while (true)
+            {
+                if (codDev.Length == 8)
+                    break;
+                else
+                    codDev = "0" + codDev;
+            }
+            return (isFactura?"F-":"B") + codDev + "-" + DateTime.Now.Year.ToString();
+            
+        }
     }
 
 }
