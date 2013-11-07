@@ -160,6 +160,7 @@ namespace pe.edu.pucp.ferretin.viewmodel.MVentas
             string result = String.Empty;
             try
             {
+                
                 result = MA_SharedService.registrarVenta(venta.Usuario.Empleado.tiendaActual, venta.VentaProducto);
             }
             catch (Exception e)
