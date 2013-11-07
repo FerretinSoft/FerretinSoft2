@@ -110,7 +110,8 @@ namespace pe.edu.pucp.ferretin.controller.MCompras
                     }
                     db.GuiaRemision.InsertOnSubmit(guiaRemision);
                     MA_SharedService.registrarCompra(guiaRemision.Tienda, guiaRemision.GuiaRemisionProducto);
-                    return enviarCambios();
+                    enviarCambios();
+                    return true;
                 }
             }
             catch (Exception e)
