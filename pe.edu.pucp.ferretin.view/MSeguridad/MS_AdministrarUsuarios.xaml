@@ -153,7 +153,7 @@
                         <Button Command="{Binding cancelUsuarioCommand}" Content="CANCELAR" Padding="5,0" Margin="5,10,5,52"/>
                     </StackPanel>
                     <Label Content="DNI Empleado" HorizontalAlignment="Left" Margin="214,58,0,0" VerticalAlignment="Top" Grid.Column="1"/>
-                    <TextBox x:Name="dniEmp" IsEnabled="{Binding editEmpleadoEnabled,Mode=OneWay}" Text="{Binding dniEmpleado, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" HorizontalAlignment="Left" Height="25" Margin="311,58,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="71" Grid.Column="1" PreviewTextInput="dniEmp_PreviewTextInput_1" MaxLength="8" Grid.ColumnSpan="2"/>
+                    <TextBox x:Name="dniEmp" IsEnabled="{Binding editEmpleadoEnabled,Mode=OneWay}" Text="{Binding dniEmpleado, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" HorizontalAlignment="Left" Height="25" Margin="311,58,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="71" Grid.Column="1" PreviewTextInput="dniEmp_PreviewTextInput_1" MaxLength="8" Grid.ColumnSpan="2" KeyDown="dniEmp_KeyDown" PreviewKeyDown="dniEmp_PreviewKeyDown"/>
                     <Label Content="*" HorizontalAlignment="Left" Margin="62,58,0,0" VerticalAlignment="Top" Foreground="Red" FontSize="14" Width="19" Height="22" RenderTransformOrigin="3.646,-0.402" Grid.Column="2"/>
                     <Button IsEnabled="{Binding editEmpleadoEnabled,Mode=OneWay}" Command="{Binding buscarClienteCommand}" Margin="81,60,231,331" VerticalAlignment="Center" Height="24"  BorderThickness="0" Grid.Column="2">
                         <Button.Background>
