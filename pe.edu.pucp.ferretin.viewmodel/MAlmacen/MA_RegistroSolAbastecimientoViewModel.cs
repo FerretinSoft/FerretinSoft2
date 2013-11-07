@@ -157,7 +157,7 @@ namespace pe.edu.pucp.ferretin.viewmodel.MAlmacen
         {
             get
             {
-                return tiendas.ElementAt(0);
+                return usuarioLogueado.Empleado.tiendaActual;
             }
         }
 
