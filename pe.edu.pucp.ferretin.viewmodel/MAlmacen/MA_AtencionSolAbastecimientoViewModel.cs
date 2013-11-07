@@ -130,7 +130,7 @@ namespace pe.edu.pucp.ferretin.viewmodel.MAlmacen
         {
             get
             {
-                return almacenes.ElementAt(0);
+                return usuarioLogueado.Empleado.tiendaActual;
             }
         }
 
@@ -145,6 +145,9 @@ namespace pe.edu.pucp.ferretin.viewmodel.MAlmacen
             {
                 _solicitud = value;
                 NotifyPropertyChanged("solicitud");
+                NotifyPropertyChanged("productosPorSolicitud");
+                NotifyPropertyChanged("esAtendible");
+                NotifyPropertyChanged("esAnulable");
             }
         }
 
@@ -161,6 +164,51 @@ namespace pe.edu.pucp.ferretin.viewmodel.MAlmacen
             {
                 _listaSolicitudes = value;
                 NotifyPropertyChanged("listaSolicitudes");
+            }
+        }
+
+        public IEnumerable<Tienda> tiendasHijas
+        {
+            get
+            {
+                var sequence = Enumerable.Empty<Tienda>();
+                IEnumerable<Tienda> items = new Tienda[] { new Tienda{ id = 0, nombre = "Todas" } };
+                return items.Concat(currentAlmacen.Tienda2);
+            }
+        }
+
+        private IEnumerable<MA_SolicitudAbastecimientoService.ProductoPorSolicitudTienda> _productosPorSolicitud;
+        public IEnumerable<MA_SolicitudAbastecimientoService.ProductoPorSolicitudTienda> productosPorSolicitud
+        {
+            get
+            {
+                _productosPorSolicitud = MA_SolicitudAbastecimientoService.buscarProductosPorSolicitud(currentAlmacen, solicitud);
+                return _productosPorSolicitud;
+            }
+            set
+            {
+                _productosPorSolicitud = value;
+                NotifyPropertyChanged("productosPorSolicitud");
+            }
+        }
+
+        public bool esAnulable
+        {
+            get 
+            {
+                if (solicitud != null && solicitud.SolicitudAbastecimientoEstado.nombre == "Pendiente")
+                    return true;
+                else return false;
+            }
+        }
+
+        public bool esAtendible
+        {
+            get
+            {
+                if (solicitud != null && solicitud.SolicitudAbastecimientoEstado.nombre == "Pendiente")
+                    return true;
+                else return false;
             }
         }
 
@@ -256,26 +304,31 @@ namespace pe.edu.pucp.ferretin.viewmodel.MAlmacen
 
             if (solicitud.id > 0)//Si existe
             {
-                if (!MA_SolicitudAbastecimientoService.atenderSolicitud(currentAlmacen, solicitud))
+                if (!MA_SolicitudAbastecimientoService.validarAtencionSolicitud(currentAlmacen, solicitud))
                 {
-                    MessageBox.Show("No se pudo atender la solicitud de abastecimiento");
+                    MessageBox.Show("El almacén no cuenta con suficiente stock para atender la solicitud.");
+
                 }
                 else
                 {
-                    solicitud.SolicitudAbastecimientoEstado = estadoSolicitud.FirstOrDefault(e => e.nombre == "Atendida");
-                    //falta descontar el stock del almacen central, para cada producto de la solicitud
-                    if (!MA_SolicitudAbastecimientoService.enviarCambios())
+                    MA_ComunService.idVentana(26);
+                        
+                    if (!MA_SolicitudAbastecimientoService.atenderSolicitud(currentAlmacen, solicitud))
                     {
                         MessageBox.Show("No se pudo atender la solicitud de abastecimiento");
                     }
                     else
                     {
+                        solicitud.SolicitudAbastecimientoEstado = estadoSolicitud.FirstOrDefault(e => e.nombre == "Atendida");
+                    
                         MessageBox.Show("La solicitud de abastecimiento fue atendida con éxito");
+                        MA_ComunService.enviarCambios();                        
                     }
+                    NotifyPropertyChanged("solicitud");
+                    NotifyPropertyChanged("listaSolicitudes");
+                    NotifyPropertyChanged("esAtendible");
+                    NotifyPropertyChanged("esAnulable");
                 }
-                NotifyPropertyChanged("solicitud");
-                NotifyPropertyChanged("listaSolicitudes");
-                
             }
         }
 
@@ -295,7 +348,8 @@ namespace pe.edu.pucp.ferretin.viewmodel.MAlmacen
                 }
                 NotifyPropertyChanged("solicitud");
                 NotifyPropertyChanged("listaSolicitudes");
-
+                NotifyPropertyChanged("esAtendible");
+                NotifyPropertyChanged("esAnulable");
             }
         }
 
@@ -304,7 +358,6 @@ namespace pe.edu.pucp.ferretin.viewmodel.MAlmacen
             this.statusTab = Tab.BUSQUEDA;
             listaSolicitudes = MA_SolicitudAbastecimientoService.listaSolicitudes;
         }
-
         
         #endregion
 
