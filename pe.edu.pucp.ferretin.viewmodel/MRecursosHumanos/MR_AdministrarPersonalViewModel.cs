@@ -117,7 +117,7 @@ namespace pe.edu.pucp.ferretin.viewmodel.MRecursosHumanos
                 //Pongo el ID en 0 para que al buscar, no filtre nada cuando se selecciona todos
                 IEnumerable<Tienda> items = new List<Tienda>();
                 //Luego concateno el itemcon los elementos del combobox
-                return items.Concat(almacenes);
+                return items.Concat(tiendas);
             }
         }
 
@@ -131,7 +131,7 @@ namespace pe.edu.pucp.ferretin.viewmodel.MRecursosHumanos
                 //Pongo el ID en 0 para que al buscar, no filtre nada cuando se selecciona todos
                 IEnumerable<Tienda> items = new Tienda[] { new Tienda { id = 0, nombre = "Todos" } };
                 //Luego concateno el itemcon los elementos del combobox
-                return items.Concat(almacenes);
+                return items.Concat(tiendas);
             }
         }
 

@@ -16,8 +16,8 @@ namespace pe.edu.pucp.ferretin.viewmodel.MCompras
         #region Constructor
         public MC_GuiaRemisionViewModel()
         {
-            _guiaRemision = new GuiaRemision();
-        }
+            _guiaRemision = new GuiaRemision();  
+            }
         #endregion
 
         #region Valores para el cuadro de Búsqueda
@@ -141,7 +141,10 @@ namespace pe.edu.pucp.ferretin.viewmodel.MCompras
                 switch (_statusTab)
                 {
                     case Tab.BUSQUEDA: detallesTabHeader = "Agregar"; guiaRemision = new GuiaRemision(); break;
-                    case Tab.AGREGAR: detallesTabHeader = "Agregar"; guiaRemision = new GuiaRemision(); listaGuiaRemisionProducto = null;  break;
+                    case Tab.AGREGAR: detallesTabHeader = "Agregar"; 
+                        guiaRemision = new GuiaRemision(); 
+                        listaGuiaRemisionProducto = null;
+                        guiaRemision.Tienda = MC_ComunService.usuarioL.Empleado.tiendaActual;break;
                     case Tab.MODIFICAR: detallesTabHeader = "Modificar"; break;
                     case Tab.DETALLES: detallesTabHeader = "Detalles";  break;
                     default: detallesTabHeader = "Agregar"; guiaRemision = new GuiaRemision(); break;//Si es agregar, creo un nuevo objeto Guia de Remision
@@ -264,28 +267,28 @@ namespace pe.edu.pucp.ferretin.viewmodel.MCompras
 
         public void saveGuiaRemision(Object obj)
         {
-            //if (guiaRemision.id > 0)//Si existe
-            //{
-            //    if (!MC_GuiaRemisionService.enviarCambios())
-            //    {
-            //        MessageBox.Show("No se pudo actualizar el documento de compra");
-            //    }
-            //    else
-            //    {
-            //        MessageBox.Show("El documento de compra fue guardado con éxito");
-            //    }
-            //}
-            //else
-            //{
-            //    if (!MC_DocumentoCompraService.insertarDocumentoCompra(documentoCompra))
-            //    {
-            //        MessageBox.Show("No se pudo agregar el nuevo documento de compra");
-            //    }
-            //    else
-            //    {
-            //        MessageBox.Show("El documento de compra fue agregado con éxito");
-            //    }
-            //}
+            if (guiaRemision.id > 0)//Si existe
+            {
+                if (!MC_GuiaRemisionService.enviarCambios())
+                {
+                    MessageBox.Show("No se pudo actualizar la guia de remision");
+                }
+                else
+                {
+                    MessageBox.Show("L guia de remision fue guardado con éxito");
+                }
+            }
+            else
+            {
+                if (!MC_GuiaRemisionService.insertarGuiaRemision(guiaRemision))
+                {
+                    MessageBox.Show("No se pudo agregar el nuevo documento de compra");
+                }
+                else
+                {
+                    MessageBox.Show("El documento de compra fue agregado con éxito");
+                }
+            }
         }
 
         public void cancelGuiaRemision(Object obj)
@@ -335,8 +338,9 @@ namespace pe.edu.pucp.ferretin.viewmodel.MCompras
 
                 for (i = 0; i < documentoCompra.DocumentoCompraProducto.Count(); i++)
                 {
-                    GuiaRemisionProducto guiaLinea = new GuiaRemisionProducto() { id_guia_detalle = documentoCompra.DocumentoCompraProducto[i].id, cantidadRecibida = 0, DocumentoCompraProducto = documentoCompra.DocumentoCompraProducto[i]};
-                    sequence.Add(guiaLinea);             
+                    GuiaRemisionProducto guiaLinea = new GuiaRemisionProducto() { id_guia_detalle = documentoCompra.DocumentoCompraProducto[i].id, cantidadRecibida = 0, DocumentoCompraProducto = documentoCompra.DocumentoCompraProducto[i], GuiaRemision = guiaRemision};
+                    sequence.Add(guiaLinea);
+                    guiaRemision.GuiaRemisionProducto.Add(guiaLinea);
                     //GuiaRemisionProducto guiaLinea = new GuiaRemisionProducto();
                     //guiaLinea.id_guia_detalle = documentoCompra.DocumentoCompraProducto[i].id;
                     //guiaLinea.cantidadRecibida = 0;

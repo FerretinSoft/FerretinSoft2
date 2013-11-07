@@ -76,6 +76,24 @@ namespace pe.edu.pucp.ferretin.view.MSeguridad
         }        
         #endregion
 
+        private void dniEmp_KeyDown(object sender, KeyEventArgs e)
+        {
+            //Validaciones para que acepte solo numeros
+            if (((e.Key >= Key.D0 && e.Key <= Key.D9) || (e.Key >= Key.NumPad0 && e.Key <= Key.NumPad9) || e.Key == Key.Back || e.Key == Key.Tab))
+                e.Handled = false;
+            else
+                e.Handled = true;
+        }
+
+        private void dniEmp_PreviewKeyDown(object sender, KeyEventArgs e)
+        {
+            //Validaciones para que acepte solo numeros
+            if (((e.Key >= Key.D0 && e.Key <= Key.D9) || (e.Key >= Key.NumPad0 && e.Key <= Key.NumPad9) || e.Key == Key.Back || e.Key == Key.Tab))
+                e.Handled = false;
+            else
+                e.Handled = true;
+        }
+
      
 
 
