@@ -344,27 +344,34 @@ namespace pe.edu.pucp.ferretin.viewmodel.MCompras
         {
             DocumentoCompra buscado = null;
             int i;
-            //try
-            //{
-            //    buscado = MC_DocumentoCompraService.obtenerDCByCodigo(searchOC);
-            //    documentoCompra = buscado;
-            //    this.guiaRemision.DocumentoCompra = documentoCompra;
-            //    this.guiaRemision.estado = 1;
-            //    this.guiaRemision.id_almacen = 
-            //    for (i = 0; i <= documentoCompra.DocumentoCompraProducto.Count(); i++)
-            //    {
+            try
+            {
+                buscado = MC_DocumentoCompraService.obtenerDCByCodigo(searchOC);
+                documentoCompra = buscado;
+
+                this.guiaRemision.DocumentoCompra = documentoCompra;
+                
+                
+                for (i = 0; i < documentoCompra.DocumentoCompraProducto.Count(); i++)
+                {
+                    GuiaRemisionProducto guiaLinea = new GuiaRemisionProducto();
+                    guiaLinea.id_guia_detalle = documentoCompra.DocumentoCompraProducto[i].id;
+                    guiaLinea.cantidadRecibida = 0;
+                    guiaLinea.DocumentoCompraProducto = documentoCompra.DocumentoCompraProducto[i];
+                    guiaRemision.GuiaRemisionProducto.Add(guiaLinea);
                     
-            //    }
-                             
-            //}
-            //catch { }
+                }
+                NotifyPropertyChanged("guiaRemision");
+
+                string nombrecito = guiaRemision.GuiaRemisionProducto[1].DocumentoCompraProducto.Producto.nombre;
+                }
+            catch { }
 
             if (buscado == null)
             {
                 documentoCompra = null;
                 MessageBox.Show("No se encontro ninguna Orden de Compra con el número de documento proporcionado", "No se encontro", MessageBoxButton.OK, MessageBoxImage.Question);
             }
-
         }
 
         //public void viewDetailVenta(Object id)

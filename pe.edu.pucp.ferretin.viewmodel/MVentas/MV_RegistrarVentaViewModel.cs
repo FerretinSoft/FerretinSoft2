@@ -70,6 +70,7 @@ namespace pe.edu.pucp.ferretin.viewmodel.MVentas
                 return venta.Cliente == null ? new GridLength(0) : GridLength.Auto;
             }
         }
+
         private ImageSource _clienteImagen;
         public ImageSource clienteImagen
         {

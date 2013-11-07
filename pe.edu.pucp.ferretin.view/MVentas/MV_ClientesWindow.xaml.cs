@@ -103,7 +103,21 @@ namespace pe.edu.pucp.ferretin.view.MVentas
 
                                     this.Close();
                                 }
-                                catch { }
+                                catch {
+                                    //Asu mare, esto que estamos haciendo esta re mal xD
+                                    try
+                                    {
+                                        MV_AdministrarProformasWindow padre = this.Owner as MV_AdministrarProformasWindow;
+                                        MV_ClientesViewModel my_DataContext = this.main.DataContext as MV_ClientesViewModel;
+                                        MV_AdministrarProformasViewModel padre_DataContext = padre.DataContext as MV_AdministrarProformasViewModel;
+
+                                        padre_DataContext.nroDocSeleccionado = my_DataContext.cliente.nroDoc;
+                                        this.Close();
+                                    }
+                                    catch
+                                    {
+                                    }
+                                }
                             }
                         }
 
