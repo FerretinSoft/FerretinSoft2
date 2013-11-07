@@ -195,7 +195,7 @@ namespace pe.edu.pucp.ferretin.viewmodel.MVentas
             {
                 //result = "Error al registrar venta: "+ e.Message;
             }
-            if (result.Length>=0)
+            if (result.Trim().Length>0)
             {
                 MessageBox.Show(result);
             }
