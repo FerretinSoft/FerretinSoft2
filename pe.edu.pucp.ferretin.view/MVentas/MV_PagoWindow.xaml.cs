@@ -70,5 +70,14 @@ namespace pe.edu.pucp.ferretin.view.MVentas
             };
             notaCredito.ShowDialog();
         }
+
+        private void Button_Click_3(object sender, RoutedEventArgs e)
+        {
+            PrintDialog printDialog = new PrintDialog();
+            if (printDialog.ShowDialog() == true)
+            {
+                printDialog.PrintVisual(main, "My First Print Job");
+            }
+        }
     }
 }
