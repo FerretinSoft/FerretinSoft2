@@ -83,20 +83,20 @@
 
                     </ComboBox>
                     <Label Content="Comentario:" HorizontalAlignment="Left" Margin="15,337,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.464,1.231" Height="26" Width="84"/>
-                    <DataGrid ItemsSource="{Binding movimiento.MovimientoProducto,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged,NotifyOnSourceUpdated=True,NotifyOnTargetUpdated=True}" Grid.Column="1" Margin="10,0,10,84" IsManipulationEnabled="True" CanUserAddRows="False"  IsEnabled="{Binding isCreating}" VerticalAlignment="Bottom" Height="285"  AutoGenerateColumns="False" >
+                    <DataGrid ItemsSource="{Binding productosPorMovimiento,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged,NotifyOnSourceUpdated=True,NotifyOnTargetUpdated=True}" Grid.Column="1" Margin="10,0,10,84" IsManipulationEnabled="True" CanUserAddRows="False"  IsEnabled="{Binding isCreating}" VerticalAlignment="Bottom" Height="285"  AutoGenerateColumns="False" >
                         <DataGrid.Columns>
-                            <DataGridTextColumn Width="0.75*" Binding="{Binding Path=Producto.codigo}" IsReadOnly="True" Header="Cód."/>
-                            <DataGridTextColumn Width="2*" Binding="{Binding Path=Producto.nombre}" IsReadOnly="True" Header="Nombre"/>
-                            <DataGridTextColumn Width="0.5*" Binding="{Binding Path=Producto.UnidadMedida.abreviatura}" Header="UM" IsReadOnly="True"/>
-                            <DataGridTextColumn Width="0.75*" Binding="{Binding Path=cantidad}" Header="Cantidad"/>
-                            <DataGridTextColumn Width="0.75*" Header="Stock" IsReadOnly="True"/>
+                            <DataGridTextColumn Width="0.75*" Binding="{Binding Path=movimientoProducto.Producto.codigo}" IsReadOnly="True" Header="Cód."/>
+                            <DataGridTextColumn Width="2*" Binding="{Binding Path=movimientoProducto.Producto.nombre}" IsReadOnly="True" Header="Nombre"/>
+                            <DataGridTextColumn Width="0.5*" Binding="{Binding Path=movimientoProducto.Producto.UnidadMedida.abreviatura}" Header="UM" IsReadOnly="True"/>
+                            <DataGridTextColumn Width="0.75*" Binding="{Binding Path=movimientoProducto.cantidad}" Header="Cantidad"/>
+                            <DataGridTextColumn Width="0.75*" Header="Stock" IsReadOnly="True" Binding="{Binding Path=productoAlmacen.stock}"/>
                         </DataGrid.Columns>
                     </DataGrid>
                     <Label Content="Fecha:" HorizontalAlignment="Left" Margin="15,99,0,0" VerticalAlignment="Top" Height="26" Width="102"/>
                     <DatePicker x:Name="fechaMovDate" SelectedDate="{Binding Path=movimiento.fecha, Mode=TwoWay}"  IsEnabled="{Binding isCreating}" HorizontalAlignment="Left" Margin="122,101,0,0" VerticalAlignment="Top" Width="147" Height="24"/>
                     <TextBox x:Name="noDocumentoTxt" HorizontalAlignment="Left" Height="23" IsEnabled="{Binding isCreating}" Margin="121,227,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="148"/>
                     <Label Content="Estado:" HorizontalAlignment="Left" Margin="15,300,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.464,1.231" Height="26" Width="74"/>
-                    <ComboBox ItemsSource="{Binding Path=estadosMovimiento}" IsEnabled="{Binding isNotFinished}" SelectedItem="{Binding Path=movimiento.MovimientoEstado}" DisplayMemberPath="nombre" HorizontalAlignment="Left" Margin="121,304,0,0" VerticalAlignment="Top" Width="148" Height="22">
+                    <ComboBox ItemsSource="{Binding Path=estadosMovimiento}" IsEnabled="{Binding estadoEditable}" SelectedItem="{Binding Path=movimiento.MovimientoEstado}" DisplayMemberPath="nombre" HorizontalAlignment="Left" Margin="121,304,0,0" VerticalAlignment="Top" Width="148" Height="22">
 
                     </ComboBox>
                     <Button x:Name="guardarMovimientoBtn" Command="{Binding saveMovimientoCommand}" Content="GUARDAR" Grid.Column="1" HorizontalAlignment="Left" Margin="85,379,0,0" VerticalAlignment="Top" Width="75" Height="30" />

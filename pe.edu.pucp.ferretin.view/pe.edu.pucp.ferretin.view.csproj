@@ -101,6 +101,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="MAlmacen\MA_MantenimientoProductosEdicionStockWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="MAlmacen\MA_MantenimientoProductosWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -265,6 +269,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="MVentas\prueba.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="MAlmacen\MA_AtencionSolAbastecimientoWindow.xaml.cs">
@@ -281,6 +289,9 @@
     </Compile>
     <Compile Include="MAlmacen\MA_MantenimientoCategoriasWindow.xaml.cs">
       <DependentUpon>MA_MantenimientoCategoriasWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="MAlmacen\MA_MantenimientoProductosEdicionStockWindow.xaml.cs">
+      <DependentUpon>MA_MantenimientoProductosEdicionStockWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="MAlmacen\MA_MantenimientoProductosWindow.xaml.cs">
       <DependentUpon>MA_MantenimientoProductosWindow.xaml</DependentUpon>
@@ -404,6 +415,9 @@
     </Compile>
     <Compile Include="MVentas\MV_ValeDialog.xaml.cs">
       <DependentUpon>MV_ValeDialog.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="MVentas\prueba.xaml.cs">
+      <DependentUpon>prueba.xaml</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>

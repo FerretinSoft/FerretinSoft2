@@ -35,39 +35,66 @@ namespace pe.edu.pucp.ferretin.view.MSeguridad
 
         private void adminUsuariosBtn_Click(object sender, RoutedEventArgs e)
         {
-            MSeguridad.MS_AdministrarUsuarios userAdminW = new MSeguridad.MS_AdministrarUsuarios();
-            userAdminW.ShowDialog();
+            if (ComunService.usuarioLpermisos[28].estado == true)
+            {
+                MSeguridad.MS_AdministrarUsuarios userAdminW = new MSeguridad.MS_AdministrarUsuarios();
+                userAdminW.ShowDialog();
+            }
+            else 
+            {
+                MessageBox.Show("Usted no cuenta con el permiso necesario.");
+            }
         }
 
         private void adminPerfilesBtn_Click(object sender, RoutedEventArgs e)
         {
-            MSeguridad.MS_AdministrarPerfiles perW = new MSeguridad.MS_AdministrarPerfiles();
-            perW.Show();
+            if (ComunService.usuarioLpermisos[29].estado == true)
+            {
+                MSeguridad.MS_AdministrarPerfiles perW = new MSeguridad.MS_AdministrarPerfiles();
+                perW.Show();
+            }
+            else
+            {
+                MessageBox.Show("Usted no cuenta con el permiso necesario.");
+            }
         }
 
         private void adminTiendasBtn_Click(object sender, RoutedEventArgs e)
         {
-            MSeguridad.MS_AdministrarTiendas tw = new MSeguridad.MS_AdministrarTiendas();
-            tw.Show();
+            if (ComunService.usuarioLpermisos[30].estado == true)
+            {
+                MSeguridad.MS_AdministrarTiendas tw = new MSeguridad.MS_AdministrarTiendas();
+                tw.Show();
+            }
+            else
+            {
+                MessageBox.Show("Usted no cuenta con el permiso necesario.");
+            }
         }
 
         private void parametrosBtn_Click(object sender, RoutedEventArgs e)
         {
-            MSeguridad.MS_ParametrosWindow paramW = new MSeguridad.MS_ParametrosWindow();
-            paramW.ShowDialog();
+            if (ComunService.usuarioLpermisos[31].estado == true)
+            {
+                MSeguridad.MS_ParametrosWindow paramW = new MSeguridad.MS_ParametrosWindow();
+                paramW.ShowDialog();
+            }
+            else
+            {
+                MessageBox.Show("Usted no cuenta con el permiso necesario.");
+            }
         }
 
         private void auditTransaccionesBtn_Click(object sender, RoutedEventArgs e)
         {
-
-            if ((bool)ComunService.usuarioLpermisos.ElementAt(32).estado)
+            if (ComunService.usuarioLpermisos[32].estado == true)
             {
                 MSeguridad.MS_AuditoriaWindow tw = new MSeguridad.MS_AuditoriaWindow();
                 tw.ShowDialog();
             }
             else
             {
-                MessageBox.Show("Usted no cuenta con los permisos necesarios.");
+                MessageBox.Show("Usted no cuenta con el permiso necesario.");
             }
         }
     }

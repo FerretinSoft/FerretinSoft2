@@ -10,7 +10,19 @@ namespace pe.edu.pucp.ferretin.controller.MAlmacen
 {
     public class MA_MovimientosService : MA_ComunService
     {
-       private static IEnumerable<Movimiento> _listaMovimientos;
+        public class MovimientoProductoTienda
+        {
+            public MovimientoProductoTienda(MovimientoProducto movimientoProducto, ProductoAlmacen productoAlmacen)
+            {
+                this.movimientoProducto = movimientoProducto;
+                this.productoAlmacen = productoAlmacen;
+            }
+
+            public MovimientoProducto movimientoProducto { get; set; }
+            public ProductoAlmacen productoAlmacen { get; set; }
+        }
+
+        private static IEnumerable<Movimiento> _listaMovimientos;
 
         public static IEnumerable<Movimiento> listaMovimientos
         {
@@ -59,6 +71,22 @@ namespace pe.edu.pucp.ferretin.controller.MAlmacen
             }
 
             return lMov;
+        }
+
+        public static IEnumerable<MovimientoProductoTienda> buscarProductosPorMovimientoTienda(Movimiento movimiento)
+        {
+            Tienda almacen = null;
+            if (movimiento.Tienda != null) almacen = movimiento.Tienda;
+            List<MovimientoProductoTienda> result = new List<MovimientoProductoTienda>();
+            if (movimiento == null) return result;
+            for (int i = 0; i < movimiento.MovimientoProducto.Count; i++)
+            {
+                ProductoAlmacen pa = MA_ProductoAlmacenService.ObtenerProductoAlmacenPorTiendaProducto(almacen,
+                                                                    movimiento.MovimientoProducto[i].Producto);
+                result.Add(new MovimientoProductoTienda(movimiento.MovimientoProducto[i], pa));
+            }
+
+            return result;
         }
 
         public static IEnumerable<Movimiento> buscarMovimientos(Tienda searchAlmacen, MovimientoEstado searchEstado, DateTime searchFechaDesde, DateTime searchFechaHasta)

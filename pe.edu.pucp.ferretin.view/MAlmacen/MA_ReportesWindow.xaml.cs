@@ -1,4 +1,5 @@
 ﻿using pe.edu.pucp.ferretin.model;
+using pe.edu.pucp.ferretin.viewmodel.MAlmacen;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -68,6 +69,17 @@ namespace pe.edu.pucp.ferretin.view.MAlmacen
 
 
             }
+        }
+
+        private void btnViewReport_Click(object sender, RoutedEventArgs e)
+        {
+            MA_ReportesStockPorTiendaWindow v = new MA_ReportesStockPorTiendaWindow();
+            v.Owner = this;
+            var viewModel = v.main.DataContext as MA_ReportesStockPorTiendaViewModel;
+            Tienda tiendaSelected = (Tienda)this.cmbTienda.SelectedItem;
+            
+            viewModel.tiendaSeleccionada = tiendaSelected;
+            v.Show();
         }
     }
 }

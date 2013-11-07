@@ -82,7 +82,7 @@ namespace pe.edu.pucp.ferretin.viewmodel.MAlmacen
                 {
                     case Tab.BUSQUEDA: 
                         detallesTabHeader = "Nueva Solicitud"; 
-                        solicitud = new SolicitudAbastecimiento(); 
+                        solicitud = new SolicitudAbastecimiento();
                         solicitud.fecha = DateTime.Today; 
                         solicitud.Tienda = currentTienda; 
                         break;
@@ -157,7 +157,7 @@ namespace pe.edu.pucp.ferretin.viewmodel.MAlmacen
         {
             get
             {
-                return tiendas.ElementAt(0);
+                return usuarioLogueado.Empleado.tiendaActual;
             }
         }
 
@@ -176,8 +176,8 @@ namespace pe.edu.pucp.ferretin.viewmodel.MAlmacen
             }
         }
 
-        private IEnumerable<Object> _productosPorSolicitud;
-        public IEnumerable<Object> productosPorSolicitud
+        private IEnumerable<MA_SolicitudAbastecimientoService.ProductoPorSolicitudTienda> _productosPorSolicitud;
+        public IEnumerable<MA_SolicitudAbastecimientoService.ProductoPorSolicitudTienda> productosPorSolicitud
         {
             get
             {

@@ -7,7 +7,7 @@
     <Window.Resources>
         <viewmodel:MA_MantenimientoProductosViewModel x:Key="MA_MantenimientoProductosViewModel"/>
     </Window.Resources>
-    <Grid DataContext="{Binding Source={StaticResource MA_MantenimientoProductosViewModel}}">
+    <Grid x:Name="main" DataContext="{Binding Source={StaticResource MA_MantenimientoProductosViewModel}}">
         <TabControl x:Name="productoTabControl" SelectedIndex="{Binding statusTab,Mode=TwoWay,FallbackValue=0}">
             <TabItem Header="Búsqueda de Productos" MouseUp="TabItem_MouseUp" >
                 <Grid Background="#FFE5E5E5">
@@ -116,7 +116,7 @@
                     <TextBox x:Name="txtStockMin" Text="{Binding Path=prodAlm.stockMin, Mode=TwoWay,  ValidatesOnExceptions=true, NotifyOnValidationError=true}" HorizontalAlignment="Left" Height="23" Margin="115,203,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="220" IsEnabled="False" Grid.Row="1"/>
                     <Label Content="Unidad de medida:" HorizontalAlignment="Left" Margin="10,11,0,0" VerticalAlignment="Top" Grid.Column="1"/>
                     <ComboBox x:Name="cmbUnidadMed"  ItemsSource="{Binding Path=listaUMed}" DisplayMemberPath="abreviatura" SelectedValuePath="id" SelectedValue="{Binding Path=producto.id_unidad_medida}" HorizontalAlignment="Left" Margin="128,14,0,0" VerticalAlignment="Top" Width="207" Height="22" Grid.Column="1" />
-                    <Button Content="GUARDAR" HorizontalAlignment="Left" Margin="230,242,0,0" VerticalAlignment="Top" Width="75" Height="30" Command="{Binding guardarCommand}" CommandParameter="{Binding detallesTabHeader}" Grid.Row="1"/>
+                    <Button x:Name="btnGuardar" Content="GUARDAR" HorizontalAlignment="Left" Margin="230,242,0,0" VerticalAlignment="Top" Width="75" Height="30" Grid.Row="1" Click="btnGuardar_Click"/>
                     <Button x:Name="btnCancelar" Content="CANCELAR" Grid.Column="1" HorizontalAlignment="Left" Margin="44,242,0,0" VerticalAlignment="Top" Width="75" Height="30" Grid.Row="1" Click="btnCancelar_Click"/>
                     <Label Content="Seleccione tienda:" HorizontalAlignment="Left" Margin="11,79,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.464,1.231" Grid.Row="1"/>
                     <ComboBox x:Name="cmbTienda" SelectedItem="{Binding selectedTienda}" ItemsSource="{Binding Path=listaTiendas}" DisplayMemberPath="nombre" SelectedValuePath="id" SelectedValue="{Binding Path=prodAlm.id_almacen}" HorizontalAlignment="Left" Margin="116,80,0,0" VerticalAlignment="Top" Width="220" Height="22" Grid.Row="1"/>
@@ -124,8 +124,8 @@
                     <helper:MyTreeView x:Name="treeCheckBoxes" ItemsSource="{Binding Path=categoriaPrincipal,Mode=TwoWay}" Background="#FFF5F5F5" HorizontalAlignment="Left" Height="182" Margin="10,44,0,0" VerticalAlignment="Top" Width="325" Grid.Column="1" Grid.Row="1">
                         <TreeView.ItemContainerStyle>
                             <Style TargetType="{x:Type TreeViewItem}">
-                                <Setter Property="IsExpanded" Value="{Binding IsExpanded, Mode=TwoWay,FallbackValue=True}" />
-                                <Setter Property="IsSelected" Value="{Binding IsSelected, Mode=TwoWay}" />
+                                <Setter Property="IsExpanded" Value="{Binding IsExpanded, FallbackValue=True}" />
+                                <Setter Property="IsSelected" Value="{Binding IsSelected}" />
                                 <Setter Property="FontWeight" Value="Normal" />
                                 <Style.Triggers>
                                     <Trigger Property="IsSelected" Value="True">
@@ -135,8 +135,8 @@
                             </Style>
                         </TreeView.ItemContainerStyle>
                         <TreeView.ItemTemplate>
-                            <HierarchicalDataTemplate  ItemsSource="{Binding Path=Categoria2}">
-                                <CheckBox x:Name="checkBoxTreeVal" IsChecked="{Binding isChecked}" VerticalAlignment="Center" Checked="checkTree" Content="{Binding nombre}"/>
+                            <HierarchicalDataTemplate  ItemsSource="{Binding Path=Categoria2,Mode=TwoWay}">
+                                <CheckBox x:Name="checkBoxTreeVal" IsChecked="{Binding Path=isChecked}" VerticalAlignment="Center" Checked="checkTree" Content="{Binding nombre}"/>
                             </HierarchicalDataTemplate>
                         </TreeView.ItemTemplate>
                     </helper:MyTreeView>

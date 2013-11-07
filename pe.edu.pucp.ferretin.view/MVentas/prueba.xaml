@@ -1,0 +1,31 @@
+﻿<Window x:Class="pe.edu.pucp.ferretin.view.MVentas.prueba"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:viewmodel="clr-namespace:pe.edu.pucp.ferretin.viewmodel.MVentas;assembly=pe.edu.pucp.ferretin.viewmodel" 
+        Title="prueba" Height="300" Width="300">
+    <Window.Resources>
+        <viewmodel:pruebaViewModel x:Key="pruebaViewModel"/>
+    </Window.Resources>
+    <Grid x:Name="main" DataContext="{Binding Source={StaticResource pruebaViewModel}}">
+        <FlowDocumentScrollViewer>
+            <FlowDocument>
+                <Paragraph>hola</Paragraph>
+                <Table BorderThickness="1" BorderBrush="Black">
+                    <TableRowGroup>
+                        <TableRow Background="LightBlue">
+                            <TableCell>
+                                <Paragraph>
+                                    <TextBox Text="{Binding Path=notaCredito.codigo}"></TextBox>
+                                </Paragraph>
+                            </TableCell>
+                            <TableCell>
+                                <Paragraph>Last name</Paragraph>
+                            </TableCell>
+                        </TableRow>
+                    </TableRowGroup>
+                </Table>
+
+            </FlowDocument>
+        </FlowDocumentScrollViewer>
+    </Grid>
+</Window>
