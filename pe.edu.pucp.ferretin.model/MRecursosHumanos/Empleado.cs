@@ -170,17 +170,18 @@ namespace pe.edu.pucp.ferretin.model
             }
 
             //Lleno el sueldo nuevoEmpleoTienda con lo leido de la vista
-            if (nuevoEmpleoTienda.sueldo <= 0)
+            if (nuevoEmpleoTienda.sueldo <= 0 || nuevoEmpleoTienda.sueldo==null)
             {
                 nuevoEmpleoTienda.sueldo = ultimoSueldo;         
             }
 
 
             //Lleno nuevoEmpleoTienda sino esta contenido
-            if (!this.EmpleadoTienda.Contains(nuevoEmpleoTienda))
-            {
+           if (!this.EmpleadoTienda.Contains(nuevoEmpleoTienda))
+           {
+         
                 this.EmpleadoTienda.Add(nuevoEmpleoTienda);
-            }
+           }
 
             ////if (EmpleadoTienda.Count(et => et.id_empleado == nuevoEmpleoTienda.id_empleado && et.id_cargo == nuevoEmpleoTienda.id_cargo && et.sueldo == nuevoEmpleoTienda.sueldo && et.id_tienda == nuevoEmpleoTienda.id_tienda) == 0)
             ////{

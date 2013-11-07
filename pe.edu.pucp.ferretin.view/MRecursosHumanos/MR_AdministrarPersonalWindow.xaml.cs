@@ -189,8 +189,7 @@ namespace pe.edu.pucp.ferretin.view.MRecursosHumanos
             //Validaciones para textbox de solo letras
 
 
-
-            if (Regex.IsMatch(correo.Text, @"^[a-zA-Z0-9]{1,10}@[a-zA-Z]{1,10}.(com|org)$"))
+            if (Regex.IsMatch(e.Text, @"/[-0-9a-zA-Z.+_]+@[-0-9a-zA-Z.+_]+\.[a-zA-Z]{2,4}/"))
             {
                 e.Handled = true;
             }
