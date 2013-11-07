@@ -142,7 +142,7 @@ namespace pe.edu.pucp.ferretin.viewmodel.MCompras
                 switch (_statusTab)
                 {
                     case Tab.BUSQUEDA: detallesTabHeader = "Agregar"; guiaRemision = new GuiaRemision(); break;
-                    case Tab.AGREGAR: detallesTabHeader = "Agregar"; 
+                    case Tab.AGREGAR: detallesTabHeader = "Agregar"; ordenCompraCod = ""; 
                         guiaRemision = new GuiaRemision(); 
                         listaGuiaRemisionProducto = null;
                         guiaRemision.Tienda = MC_ComunService.usuarioL.Empleado.tiendaActual;break;
@@ -292,12 +292,14 @@ namespace pe.edu.pucp.ferretin.viewmodel.MCompras
                     MessageBox.Show("La guia de remision se agrego con exito");
                 }
             }
+            NotifyPropertyChanged("listaGuiasRemision");
+            this.statusTab = Tab.BUSQUEDA;
         }
 
         public void cancelGuiaRemision(Object obj)
         {
-            //this.statusTab = Tab.BUSQUEDA;
-            //listaGuiasRemision = MC_GuiaRemisionService.listaGuiasRemision;
+            this.statusTab = Tab.BUSQUEDA;
+            listaGuiasRemision = MC_GuiaRemisionService.listaGuiasRemision;
         }
 
 
