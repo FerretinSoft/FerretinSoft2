@@ -220,6 +220,9 @@ namespace pe.edu.pucp.ferretin.viewmodel.MVentas
 
             //Actualizo los puntos canjeados
             venta.puntosCanjeados = (venta.VentaProducto.Sum(vp => vp.canjeado.Value ? vp.cantidad*vp.Producto.precioPuntos : 0));        
+
+            //Actualizo los puntos ganados
+            venta.puntosGanados = (venta.VentaProducto.Sum(vp => (vp.Producto!= null && vp.canjeado.Value == false) ? (vp.cantidad * vp.Producto.ganarPuntos) : 0));        
         }
 
         #endregion

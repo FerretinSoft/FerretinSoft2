@@ -10,6 +10,22 @@ namespace pe.edu.pucp.ferretin.model
     public partial class VentaProducto : INotifyPropertyChanged
     {
 
+        public string cantidadNombreProducto
+        {
+            get
+            {
+                return cantidad.ToString() + " X " + Producto.nombre.ToUpper() + " ";
+            }
+        }
+
+        public string montoParcialString
+        {
+            get
+            {
+                return "S/. " + montoParcial.ToString();
+            }
+        }
+
         partial void OncantidadChanged()
         {
             //Cantidad no puede ser negativa
