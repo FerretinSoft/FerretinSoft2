@@ -164,8 +164,8 @@
                         <TextBox IsEnabled="false" Text="{Binding Path=venta.nombreCompletoCliente, Mode=OneWay, ValidatesOnExceptions=true, NotifyOnValidationError=true}" Margin="0,3" VerticalAlignment="Center" Grid.Column="1" Grid.Row="4" Height="22"/>
                         <TextBox Text="{Binding Path=venta.nombreCompletoVendedor, Mode=OneWay, ValidatesOnExceptions=true, NotifyOnValidationError=true}" Margin="0,3" VerticalAlignment="Center" Grid.Column="1" Grid.Row="5" Height="22" IsEnabled="False"/>
                         <TextBox IsEnabled="false"  VerticalAlignment="Center" Grid.Column="1" Grid.Row="6" Height="22" Margin="0,2"/>
-                        <TextBox IsEnabled="false"  VerticalAlignment="Center" Grid.Column="1" Grid.Row="7" Height="22" Margin="0,2"/>
-                        <TextBox Text="{Binding Path=venta.puntosCanjeados, Mode=OneWay, ValidatesOnExceptions=true, NotifyOnValidationError=true}" IsEnabled="false"  VerticalAlignment="Top" Grid.Column="1" Grid.Row="8" Height="22"/>
+                        <TextBox TextAlignment="Left" Text="{Binding Path=venta.puntosGanados, Mode=OneWay, ValidatesOnExceptions=true, NotifyOnValidationError=true}" IsEnabled="false"  VerticalAlignment="Center" Grid.Column="1" Grid.Row="7" Height="22" Margin="0,2"/>
+                        <TextBox TextAlignment="Left" Text="{Binding Path=venta.puntosCanjeados, Mode=OneWay, ValidatesOnExceptions=true, NotifyOnValidationError=true}" IsEnabled="false"  VerticalAlignment="Top" Grid.Column="1" Grid.Row="8" Height="22"/>
 
                     </Grid>
                     <GroupBox Header="Importe" BorderBrush="Gray" Grid.Row="1" HorizontalAlignment="Stretch" Margin="5">

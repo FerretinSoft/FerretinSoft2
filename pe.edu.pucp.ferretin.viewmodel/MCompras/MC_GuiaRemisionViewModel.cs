@@ -22,83 +22,17 @@ namespace pe.edu.pucp.ferretin.viewmodel.MCompras
 
         #region Valores para el cuadro de Búsqueda
 
+        public String _searchCodigo = "";
+        public String searchCodigo { get { return _searchCodigo; } set { _searchCodigo = value; NotifyPropertyChanged("searchCodigo"); } }
 
-        //public String _nombreVendedor = "";
-        //public String nombreVendedor { get { return _nombreVendedor; } set { _nombreVendedor = value; NotifyPropertyChanged("nombreVendedor"); } }
+        public String _searchProveedor = "";
+        public String searchProveedor { get { return _searchProveedor; } set { _searchProveedor = value; NotifyPropertyChanged("searchProveedor"); } }
+        
+        public DateTime? _searchFechaDesde = null;
+        public DateTime? searchFechaDesde { get { return _searchFechaDesde; } set { _searchFechaDesde = value; NotifyPropertyChanged("searchFechaDesde"); } }
 
-
-        //public String _searchNroDocumento = "";
-        //public String searchNroDocumento { get { return _searchNroDocumento; } set { _searchNroDocumento = value; NotifyPropertyChanged("searchNroDocumento"); } }
-
-        //public String _searchNroDocCliente = "";
-        //public String searchNroDocCliente { get { return _searchNroDocCliente; } set { _searchNroDocCliente = value; NotifyPropertyChanged("searchNroDocCliente"); } }
-
-        //public DateTime _searchFechaInicio = DateTime.Parse("10/09/2013");
-        //public DateTime searchFechaInicio { get { return _searchFechaInicio; } set { _searchFechaInicio = value; NotifyPropertyChanged("searchFechaInicio"); } }
-
-        //public DateTime _searchFechaFin = DateTime.Today;
-        //public DateTime searchFechaFin { get { return _searchFechaFin; } set { _searchFechaFin = value; NotifyPropertyChanged("searchFechaFin"); } }
-
-        //public String _nombreCliente = "";
-        //public String nombreCliente { get { return _nombreCliente; } set { _nombreCliente = value; NotifyPropertyChanged("nombreCliente"); } }
-
-        //public long _id = 0;
-        //public long id { get { return _id; } set { _id = value; NotifyPropertyChanged("id"); } }
-
-        //private int _selectedTab = 0;
-        //public int selectedTab
-        //{
-        //    get
-        //    {
-        //        return _selectedTab;
-        //    }
-        //    set
-        //    {
-        //        _selectedTab = value;
-        //        NotifyPropertyChanged("selectedTab");
-        //    }
-        //}
-
-
-        //private bool _soloSeleccionarVenta = false;
-        //public bool soloSeleccionarVenta
-        //{
-        //    get
-        //    {
-        //        return _soloSeleccionarVenta;
-        //    }
-        //    set
-        //    {
-        //        _soloSeleccionarVenta = value;
-        //        NotifyPropertyChanged("soloSeleccionarVenta");
-        //        NotifyPropertyChanged("noSoloSeleccionarVenta");
-
-        //    }
-        //}
-
-        //private System.Windows.Visibility _soloEscogerVenta = System.Windows.Visibility.Hidden;
-        //public System.Windows.Visibility soloEscogerVenta
-        //{
-        //    get
-        //    {
-        //        return _soloEscogerVenta;
-        //    }
-        //    set
-        //    {
-        //        _soloEscogerVenta = value;
-        //        NotifyPropertyChanged("soloEscogerVenta");
-
-
-        //    }
-        //}
-        //public bool noSoloSeleccionarVenta
-        //{
-        //    get
-        //    {
-        //        return !soloSeleccionarVenta;
-        //    }
-        //}
-
+        public DateTime? _searchFechaHasta = null;
+        public DateTime? searchFechaHasta { get { return _searchFechaHasta; } set { _searchFechaHasta = value; NotifyPropertyChanged("searchFechaHasta"); } }
         #endregion
 
         #region Valores para la segunda pestana
@@ -141,7 +75,7 @@ namespace pe.edu.pucp.ferretin.viewmodel.MCompras
         {
             get
             {
-                //_listaGuiasRemision = MC_DocumentoCompraService.buscarGuiasRemision();
+                _listaGuiasRemision = MC_GuiaRemisionService.buscarGuiasRemision(searchCodigo, searchProveedor, searchFechaDesde, searchFechaHasta);
 
                 return _listaGuiasRemision;
             }
@@ -152,21 +86,21 @@ namespace pe.edu.pucp.ferretin.viewmodel.MCompras
             }
         }
 
-        private IEnumerable<GuiaRemisionProducto> _listaProductosGuia;
-        public IEnumerable<GuiaRemisionProducto> listaProductosGuia
-        {
-            get
-            {
-                //_listaGuiasRemision = MC_DocumentoCompraService.buscarGuiasRemision();
+        //private IEnumerable<GuiaRemisionProducto> _listaProductosGuia;
+        //public IEnumerable<GuiaRemisionProducto> listaProductosGuia
+        //{
+        //    get
+        //    {
+        //        //_listaGuiasRemision = MC_DocumentoCompraService.buscarGuiasRemision();
 
-                return _listaProductosGuia;
-            }
-            set
-            {
-                _listaProductosGuia = value;
-                NotifyPropertyChanged("listaProductosGuia");
-            }
-        }
+        //        return _listaProductosGuia;
+        //    }
+        //    set
+        //    {
+        //        _listaProductosGuia = value;
+        //        NotifyPropertyChanged("listaProductosGuia");
+        //    }
+        //}
         #endregion
 
         #region Manejo de los Tabs
@@ -185,10 +119,6 @@ namespace pe.edu.pucp.ferretin.viewmodel.MCompras
             }
             set
             {
-                if (value == Tab.DETALLES && guiaRemision == null)
-                {
-
-                }
                 _statusTab = value;
                 //Si cambió el estado de las pestañas también cambio los Header
                 //Si la pestaña es para agregar nuevo, limpio los input
@@ -198,6 +128,7 @@ namespace pe.edu.pucp.ferretin.viewmodel.MCompras
                     case Tab.AGREGAR: detallesTabHeader = "Agregar"; guiaRemision = new GuiaRemision(); break;
                     case Tab.MODIFICAR: detallesTabHeader = "Modificar"; break;
                     case Tab.DETALLES: detallesTabHeader = "Detalles"; break;
+                    default: detallesTabHeader = "Agregar"; guiaRemision = new GuiaRemision(); break;//Si es agregar, creo un nuevo objeto Guia de Remision
                 }
                 NotifyPropertyChanged("statusTab");
                 //Cuando se cambia el status, tambien se tiene que actualizar el currentIndex del tab
@@ -234,7 +165,7 @@ namespace pe.edu.pucp.ferretin.viewmodel.MCompras
             {
                 if (_actualizarListaGuiasRemisionCommand == null)
                 {
-                    _actualizarListaGuiasRemisionCommand = new RelayCommand(param => NotifyPropertyChanged("listaDocumentosCompra"));
+                    _actualizarListaGuiasRemisionCommand = new RelayCommand(param => NotifyPropertyChanged("listaGuiasRemision"));
                 }
                 return _actualizarListaGuiasRemisionCommand;
             }
@@ -299,7 +230,7 @@ namespace pe.edu.pucp.ferretin.viewmodel.MCompras
         {
             try
             {
-                this.guiaRemision = listaGuiasRemision.Single(guiaRemision => guiaRemision.id == (long)id);
+                this.guiaRemision = listaGuiasRemision.Single(guiaRemision => guiaRemision.id == (int)id);
                 this.statusTab = Tab.MODIFICAR;
             }
             catch (Exception e)

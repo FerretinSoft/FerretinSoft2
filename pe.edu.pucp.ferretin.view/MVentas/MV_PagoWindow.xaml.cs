@@ -73,8 +73,9 @@ namespace pe.edu.pucp.ferretin.view.MVentas
 
         private void Button_Click_3(object sender, RoutedEventArgs e)
         {
-            prueba prueba = new prueba();
-            prueba.Show();
+            MV_PagoWindowViewModel pagoViewModel = this.main.DataContext as MV_PagoWindowViewModel;
+            new prueba(pagoViewModel).Owner = this ;
+            
         }
     }
 }

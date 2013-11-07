@@ -91,5 +91,23 @@ namespace pe.edu.pucp.ferretin.controller.MSeguridad
             return Convert.ToInt32(obtenerParametro("vigencia de vale"));
         }
 
+        public static Empleado obtenerJefePorDNI(String dni)
+        {
+            try
+            {
+                Empleado temp = null;
+                temp = db.Empleado.Single(e => e.dni.Equals(dni));
+                //96 es el id del Jefe de Tienda
+                if (db.Usuario.Single(f => f.id_empleado == temp.id && f.id_perfil == 96) == null)
+                    return null;
+                else
+                    return temp;                                
+            }
+            catch
+            {
+                return null;
+            }
+        }
+
     }
 }

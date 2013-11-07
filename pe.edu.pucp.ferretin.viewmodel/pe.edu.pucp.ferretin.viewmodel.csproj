@@ -71,6 +71,7 @@
     <Compile Include="MSeguridad\MS_AdministrarTiendasViewModel.cs" />
     <Compile Include="MSeguridad\MS_AdministrarUsuariosViewModel.cs" />
     <Compile Include="MSeguridad\MS_AuditoriaWindowViewModel.cs" />
+    <Compile Include="MVentas\MV_DocNotaCreditoViewModel.cs" />
     <Compile Include="MVentas\MV_PromocionesViewModel.cs" />
     <Compile Include="MVentas\MV_ClientesViewModel.cs" />
     <Compile Include="Base\ViewModelBase.cs" />
