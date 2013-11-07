@@ -100,13 +100,13 @@ namespace pe.edu.pucp.ferretin.controller.MAlmacen
 
         public static bool ActualizarMovimiento(Movimiento movimiento)
         {
+            /*
             if (movimiento.MovimientoEstado.nombre == "Finalizado")
             {
                 if (!finalizarMovimiento(movimiento)) return false;
 
-            }
-                
-            return enviarCambios();
+            }*/
+            return true;
         }
 
         private static bool validarMovimiento(Movimiento movimiento)
@@ -157,13 +157,13 @@ namespace pe.edu.pucp.ferretin.controller.MAlmacen
             if (!db.Movimiento.Contains(movimiento))
             {
                 if (!validarMovimiento(movimiento)) return false; //movimiento no válido
-                
-                if (movimiento.MovimientoEstado.nombre == "Finalizado")
+
+                if (true)//(movimiento.MovimientoEstado.nombre == "Finalizado")
                 {
                     Dictionary<Producto, decimal> productos = new Dictionary<Producto, decimal>();
                     for (int i = 0; i < movimiento.MovimientoProducto.Count; i++)
                     {
-                        productos.Add(movimiento.MovimientoProducto[i].Producto, 
+                        productos.Add(movimiento.MovimientoProducto[i].Producto,
                             (decimal)(movimiento.MovimientoProducto[i].cantidad != null ? movimiento.MovimientoProducto[i].cantidad : 0));
                     }
                     //actualizar stock
@@ -185,11 +185,14 @@ namespace pe.edu.pucp.ferretin.controller.MAlmacen
                     }
                     if (!errors)
                         return false; //error actualizando los stocks de movimiento
+                    //return true;
                 }
+                
                 if (movimiento.id <= 0) db.Movimiento.InsertOnSubmit(movimiento);
                 //db.SubmitChanges(); return true;
+                //ComunService.idVentana(7);
                 return enviarCambios();
-                //return true;
+                
             }
             else
             {
