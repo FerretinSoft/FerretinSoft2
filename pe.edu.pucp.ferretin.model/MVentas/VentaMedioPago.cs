@@ -11,7 +11,13 @@ namespace pe.edu.pucp.ferretin.model
     public partial class VentaMedioPago
     {
 
-       
+        public string montoString
+        {
+            get
+            {
+                return (this.moneda == 0 ? " S/. " : "US $ ") + Decimal.Round(this.monto.Value, 2,MidpointRounding.ToEven).ToString();
+            }
+        }
 
         partial void OnmontoChanged()
         {

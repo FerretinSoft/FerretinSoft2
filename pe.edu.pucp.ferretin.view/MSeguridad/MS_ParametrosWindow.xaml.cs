@@ -1,4 +1,5 @@
 ﻿using pe.edu.pucp.ferretin.controller.MSeguridad;
+using pe.edu.pucp.ferretin.controller;
 using pe.edu.pucp.ferretin.model;
 using System;
 using System.Collections.Generic;
@@ -176,6 +177,8 @@ namespace pe.edu.pucp.ferretin.view.MSeguridad
         #region Boton Guardar
         private void Button_Click(object sender, RoutedEventArgs e)
         {
+            /*Para actualizar un parametro existente*/
+            ComunService.idVentana(13);
             if (MessageBox.Show("¿Está seguro que desea guardar estos cambios?", "Confirmación",
                                 MessageBoxButton.YesNo) == MessageBoxResult.Yes)
             {

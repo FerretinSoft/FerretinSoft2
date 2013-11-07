@@ -61,75 +61,82 @@ namespace pe.edu.pucp.ferretin.view.MRecursosHumanos
 
         private void nombre_PreviewTextInput(object sender, TextCompositionEventArgs e)
         {
-            if (Regex.IsMatch(e.Text, "^[a-zA-Z ]+$"))
-            {
-                e.Handled = false;
-            }
-            else
+            if (Regex.IsMatch(e.Text, @"^([A-Z][a-z ]+)(\s[A-Z][a-z]+)*$"))
             {
                 e.Handled = true;
             }
- 
-
-            
+            else
+            {
+                e.Handled = false;
+            }       
         }
 
         private void txtNombre_KeyDown(object sender, KeyEventArgs e)
         {
             //Validaciones para textbox de solo letras
 
-           if (!(e.Key >= Key.A && e.Key <= Key.Z) ) e.Handled = true;
+            //if (((e.Key >= Key.A && e.Key <= Key.Z) || e.Key == Key.Back || e.Key == Key.Tab || e.Key!=Key.Space ))
+            //    e.Handled = false;
+            //else
+            //    e.Handled = true;
 
 
+            //if (((e.Key >= Key.A && e.Key <= Key.Z) || e.Key == Key.Back || e.Key == Key.Tab))
+            //    e.Handled = false;
+            //else
+            //    e.Handled = true;
         }
+
          private void apPaterno_PreviewTextInput(object sender, TextCompositionEventArgs e)
         {
-            ////if (Regex.IsMatch(e.Text, "[a-zA-z]+([ '-][a-zA-Z]+)*"))
-            ////{
-            ////    e.Handled = false;
-            ////}
-            ////else
-            ////{
-            ////    e.Handled = true;
-            ////}
+           if (Regex.IsMatch(e.Text, @"^([A-Z][a-z ]+)(\s[A-Z][a-z]+)*$"))
+            {
+                e.Handled = true;
+            }
+            else
+            {
+                e.Handled = false;
+            } 
         }
 
          private void txtApPaterno_KeyDown(object sender, KeyEventArgs e)
          {
              //Validaciones para textbox de solo letras
-            if (!(e.Key >= Key.A && e.Key <= Key.Z)) e.Handled = true;
+            //if (!(e.Key >= Key.A && e.Key <= Key.Z)) e.Handled = true;
          }
 
 
          private void apMaterno_PreviewTextInput(object sender, TextCompositionEventArgs e)
         {
-            ////if (Regex.IsMatch(e.Text, "[a-zA-z]+([ '-][a-zA-Z]+)*"))
-            ////{
-            ////    e.Handled = false;
-            ////}
-            ////else
-            ////{
-            ////    e.Handled = true;
-            ////}
+            if (Regex.IsMatch(e.Text, @"^([A-Z][a-z ]+)(\s[A-Z][a-z]+)*$"))
+            {
+                e.Handled = true;
+            }
+            else
+            {
+                e.Handled = false;
+            } 
+        
         }
 
          private void txtApMaterno_KeyDown(object sender, KeyEventArgs e)
          {
              //Validaciones para textbox de solo letras
-           //  if (!(e.Key >= Key.A && e.Key <= Key.Z)) e.Handled = true;
+           // if (!(e.Key >= Key.A && e.Key <= Key.Z)) e.Handled = true;
+
          }
 
 
         private void direccion_PreviewTextInput(object sender, TextCompositionEventArgs e)
         {
-            ////if (Regex.IsMatch(e.Text, "\\d+\\s+([a-zA-Z]+|[a-zA-Z]+\\s[a-zA-Z]+)"))
-            ////{
-            ////    e.Handled = false;
-            ////}
-            ////else
-            ////{
-            ////    e.Handled = true;
-            ////}
+            if (Regex.IsMatch(e.Text, @"^[0-9]+(\s[a-zA-Z]+)+$")) 
+            {
+                e.Handled = true;
+            }
+            else
+            {
+                e.Handled = false;
+            }
         }
 
          private void txtDireccion_KeyDown(object sender, KeyEventArgs e)
@@ -182,16 +189,14 @@ namespace pe.edu.pucp.ferretin.view.MRecursosHumanos
             //Validaciones para textbox de solo letras
 
 
-
-
-            ////if (Regex.IsMatch(correo.Text, "/[-0-9a-zA-Z.+_]+@[-0-9a-zA-Z.+_]+\.[a-zA-Z]{2,4}/"))
-            ////{
-            ////    e.Handled = true ;
-            ////}
-            ////else
-            ////{
-            ////    e.Handled = false;
-            ////}
+            if (Regex.IsMatch(e.Text, @"/[-0-9a-zA-Z.+_]+@[-0-9a-zA-Z.+_]+\.[a-zA-Z]{2,4}/"))
+            {
+                e.Handled = true;
+            }
+            else
+            {
+                e.Handled = false;
+            }
 
            // e.Handled = Regex.IsMatch(correo.Text, "/[-0-9a-zA-Z.+_]+@[-0-9a-zA-Z.+_]+\.[a-zA-Z]{2,4}/");
 

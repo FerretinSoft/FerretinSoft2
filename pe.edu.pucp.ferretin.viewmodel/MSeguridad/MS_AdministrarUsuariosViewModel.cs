@@ -384,10 +384,12 @@ namespace pe.edu.pucp.ferretin.viewmodel.MSeguridad
             if (!MS_UsuarioService.validarUserName(usuario))
             {
                 MessageBox.Show("Usuario Existente");
+                busquedaExitosa = false;
             }
             else
             {
                 MessageBox.Show("Usuario Disponible");
+                busquedaExitosa = true;
             }
             
             //NotifyPropertyChanged("listaUsuarios");       
@@ -423,17 +425,19 @@ namespace pe.edu.pucp.ferretin.viewmodel.MSeguridad
                 Empleado empleado = MR_SharedService.obtenerEmpleadoPorDNI(dniEmpleado);
                 if (empleado != null)
                 {
-                    usuario.Empleado = empleado; 
+                    usuario.Empleado = empleado;
+                    busquedaExitosa = true;
                 }
                 else
                 {
                     MessageBox.Show("No se encontro un cliente con el DNI ingresado");
+                    busquedaExitosa = false;
                 }
             }
             else
             {
                 MessageBox.Show("Debe ingresar el DNI de algún empleado");
-                busquedaExitosa = true;
+                busquedaExitosa = false;
                 
             }
         }

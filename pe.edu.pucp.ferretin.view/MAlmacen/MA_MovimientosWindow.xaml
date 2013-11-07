@@ -72,7 +72,7 @@
                     <TextBox Text="{Binding Path=movimiento.codigo}" IsEnabled="False" Height="23" Margin="123,22,0,0" TextWrapping="Wrap" VerticalAlignment="Top" HorizontalAlignment="Left" Width="146"/>
                     <Label Content="Desde:" HorizontalAlignment="Left" Margin="15,138,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.464,1.231" Height="26" Width="56"/>
                     <Label Content="Hasta:" HorizontalAlignment="Left" Margin="15,182,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.464,1.231" Height="26" Width="74"/>
-                    <TextBox x:Name="comentarioTxt" Text="{Binding Path=movimiento.comentario, Mode=TwoWay}" HorizontalAlignment="Left" Margin="18,368,0,0" TextWrapping="Wrap" Width="252" Height="41" VerticalAlignment="Top"/>
+                    <TextBox x:Name="comentarioTxt" Text="{Binding Path=movimiento.comentario, Mode=TwoWay}" IsEnabled="{Binding isCreating}" HorizontalAlignment="Left" Margin="18,368,0,0" TextWrapping="Wrap" Width="252" Height="41" VerticalAlignment="Top"/>
                     <Label Content="Documento No.:" HorizontalAlignment="Left" Margin="15,224,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.464,1.231" Height="26" Width="99"/>
                     <ComboBox x:Name="tiendaDesdeCombo" ItemsSource="{Binding Path=tiendas}"  IsEnabled="{Binding isCreating}" SelectedItem="{Binding Path=movimiento.Tienda}" DisplayMemberPath="nombre" HorizontalAlignment="Left" Margin="123,142,0,0" VerticalAlignment="Top" Width="146" Height="22">
 

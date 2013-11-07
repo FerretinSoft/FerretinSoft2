@@ -38,5 +38,15 @@ namespace pe.edu.pucp.ferretin.view.MVentas
 
             this.Show();
         }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            PrintDialog printDialog = new PrintDialog();
+            if (printDialog.ShowDialog() == true)
+            {
+                printDialog.PrintVisual(printZone, "Boleta de venta");
+                this.Close();
+            }
+        }
     }
 }

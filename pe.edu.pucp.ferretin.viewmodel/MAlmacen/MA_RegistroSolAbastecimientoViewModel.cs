@@ -340,6 +340,7 @@ namespace pe.edu.pucp.ferretin.viewmodel.MAlmacen
 
             if (solicitud.id > 0)//Si existe
             {
+                MA_ComunService.idVentana(26);
                 if (!MA_SolicitudAbastecimientoService.enviarCambios())
                 {
                     MessageBox.Show("No se pudo actualizar la solicitud de abastecimiento");
@@ -357,6 +358,7 @@ namespace pe.edu.pucp.ferretin.viewmodel.MAlmacen
                 {
                     SolicitudAbastecimientoEstado estadoInicial = estadoSolicitud.FirstOrDefault(s => s.nombre == "Pendiente");
                     if (estadoInicial != null) solicitud.SolicitudAbastecimientoEstado = estadoInicial;
+                    MA_ComunService.idVentana(25);
                     if (!MA_SolicitudAbastecimientoService.insertarSolicitud(solicitud))
                     {
                         MessageBox.Show("No se pudo agregar la nueva solicitud");
