@@ -1,0 +1,43 @@
+﻿<Window x:Class="pe.edu.pucp.ferretin.view.MAlmacen.MA_DocumentoMovimiento"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:viewmodel="clr-namespace:pe.edu.pucp.ferretin.viewmodel.MAlmacen;assembly=pe.edu.pucp.ferretin.viewmodel" 
+        Title="Movimiento de Almacén" Height="418" Width="563" Icon="/pe.edu.pucp.ferretin.view;component/Resources/ferretin_ico.ico">
+    <Window.Resources>
+        <viewmodel:MA_DocumentoMovimientoViewModel x:Key="MA_DocumentoMovimientoViewModel"/>
+    </Window.Resources>
+    <Grid x:Name="main" DataContext="{Binding Source={StaticResource MA_DocumentoMovimientoViewModel}}">
+        <Label Content="{Binding Path=movimiento.codigo, FallbackValue=-}" HorizontalAlignment="Left" Margin="116,16,0,0" VerticalAlignment="Top" Width="158"/>
+        <Label Content="Código:" HorizontalAlignment="Left" Margin="10,16,0,0" VerticalAlignment="Top" Width="64" RenderTransformOrigin="1.997,0.47"/>
+        <Label Content="Tipo:"  HorizontalAlignment="Left" Margin="10,45,0,0" VerticalAlignment="Top" Width="64"/>
+        <Label Content="{Binding Path=movimiento.MovimientoTipo.nombre, FallbackValue=-}" HorizontalAlignment="Left" Margin="116,45,0,0" VerticalAlignment="Top" Width="158"/>
+        <Label Content="Fecha:" HorizontalAlignment="Left" Margin="10,76,0,0" VerticalAlignment="Top" Width="87"/>
+        <Label Content="{Binding Path=movimiento.fecha, FallbackValue=-}" HorizontalAlignment="Left" Margin="116,76,0,0" VerticalAlignment="Top" Width="158"/>
+        <Label Content="Origen:" HorizontalAlignment="Left" Margin="10,107,0,0" VerticalAlignment="Top" Width="87"/>
+        <Label Content="{Binding Path=movimiento.Tienda.nombre, FallbackValue=-}" HorizontalAlignment="Left" Margin="116,107,0,0" VerticalAlignment="Top" Width="158"/>
+        <Label Content="Dirección:" HorizontalAlignment="Left" Margin="10,138,0,0" VerticalAlignment="Top" Width="87"/>
+        <Label Content="{Binding Path=movimiento.Tienda.direccion, FallbackValue=-}" HorizontalAlignment="Left" Margin="116,138,0,0" VerticalAlignment="Top" Width="158"/>
+        <Label Content="Destino:" HorizontalAlignment="Left" Margin="297,107,0,0" VerticalAlignment="Top" Width="160"/>
+        <Label Content="{Binding Path=movimiento.Tienda1.nombre, FallbackValue=-}" HorizontalAlignment="Left" Margin="384,107,0,0" VerticalAlignment="Top" Width="160"/>
+        <Label Content="{Binding Path=movimiento.Tienda1.direccion, FallbackValue=-}" HorizontalAlignment="Left" Margin="384,137,0,0" VerticalAlignment="Top" Width="160"/>
+        <Label Content="Dirección:" HorizontalAlignment="Left" Margin="297,138,0,0" VerticalAlignment="Top" Width="87"/>
+
+        <DataGrid BorderBrush="Transparent" HorizontalScrollBarVisibility="Hidden" VerticalScrollBarVisibility="Hidden" IsManipulationEnabled="False" IsReadOnly="True"  AutoGenerateColumns="False" CanUserAddRows="False" CanUserDeleteRows="False" CanUserReorderColumns="False" CanUserResizeColumns="False" CanUserResizeRows="False" CanUserSortColumns="False" Background="Transparent"  Margin="0,171,5,42" ItemsSource="{Binding Path=movimiento.MovimientoProducto}">
+            <DataGrid.Columns>
+                <DataGridTextColumn Width="0.8*" Binding="{Binding Path=Producto.codigo}" ClipboardContentBinding="{x:Null}" Header="Código Producto"/>
+                <DataGridTextColumn Width="2*"  Binding="{Binding Path=Producto.nombre}" ClipboardContentBinding="{x:Null}" Header="Nombre"/>
+                <DataGridTextColumn Width="1*" Binding="{Binding Path=cantidad}" ClipboardContentBinding="{x:Null}" Header="Cantidad"/>
+                
+            </DataGrid.Columns>
+        </DataGrid>
+        <Label Content="{Binding Path=notaCredito.Devolucion.Venta.nroDocumento}" HorizontalAlignment="Left" Margin="461,137,0,0" VerticalAlignment="Top"/>
+        <Button x:Name="imprimirBtn" Content="" HorizontalAlignment="Left" Margin="512,350,0,0" VerticalAlignment="Top" Width="33" Height="28">
+            <Button.Background>
+                <ImageBrush ImageSource="/pe.edu.pucp.ferretin.view;component/Resources/print_48.png"/>
+            </Button.Background>
+        </Button>
+        <Image HorizontalAlignment="Left" Height="78" Margin="297,10,0,0" VerticalAlignment="Top" Width="248" Source="/pe.edu.pucp.ferretin.view;component/Resources/ferretinLogo2.png"/>
+        
+    </Grid>
+</Window>
+
