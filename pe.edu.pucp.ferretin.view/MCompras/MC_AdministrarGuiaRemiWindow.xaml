@@ -93,10 +93,10 @@
                             <DataGridTextColumn Width="2.8*" Binding="{Binding Path=DocumentoCompraProducto.Producto.nombre}" IsReadOnly="True" Header="Producto"/>
                             <DataGridTextColumn Width="2.5*" Binding="{Binding Path=DocumentoCompraProducto.Producto.descripcion}" IsReadOnly="True" Header="Descripción"/>
                             <DataGridTextColumn Width="1.5*" Binding="{Binding Path=DocumentoCompraProducto.UnidadMedida.abreviatura}" IsReadOnly="True"  Header="Unidad"/>
-                            <DataGridTextColumn Width="1.5*" Binding="{Binding Path=DocumentoCompraProducto.precioUnit}" IsReadOnly="True" Header="Precio Unit."/>
-                            <DataGridTextColumn Width="1.5*" Binding="{Binding Path=DocumentoCompraProducto.cantidad}" IsReadOnly="True" Header="Cantidad"/>
-                            <DataGridTextColumn Width="1.8*" Binding="{Binding Path=DocumentoCompraProducto.montoParcial}" IsReadOnly="True" Header="Total"/>
-                            <DataGridTextColumn Width="2.2*" Binding="{Binding Path=cantidadRecibida}"  Header="Cantidad Recibida"/>
+                            
+                            <DataGridTextColumn Width="1.5*" Binding="{Binding Path=DocumentoCompraProducto.cantidad}" IsReadOnly="True" Header="Total"/>
+                            <DataGridTextColumn Width="1.5*" Binding="{Binding Path=DocumentoCompraProducto.cantidadRestante}" IsReadOnly="True" Header="Restante"/>
+                            <DataGridTextColumn Width="1.5*" Binding="{Binding Path=cantidadRecibida}"  Header="Recibida"/>
                         </DataGrid.Columns>
                     </DataGrid>
                     <GroupBox Header="Resumen" Margin="10,432,179.105,0" BorderBrush="Black" Height="78" VerticalAlignment="Top" Grid.ColumnSpan="3">
