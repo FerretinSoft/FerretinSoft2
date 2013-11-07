@@ -102,9 +102,9 @@ namespace pe.edu.pucp.ferretin.controller.MVentas
             return from c in listaClientes
                    where
                    (c.nroDoc != null && c.nroDoc.Contains(nroDoc)
-                       && c.nombre != null && c.nombre.Contains(nombre)
-                       && c.apPaterno != null && c.apPaterno.Contains(apPaterno)
-                       && c.apMaterno != null && c.apMaterno.Contains(apMaterno)
+                       && c.nombre != null && c.nombre.ToLower().Contains(nombre.ToLower().Trim())
+                       && c.apPaterno != null && c.apPaterno.ToLower().Contains(apPaterno.ToLower().Trim())
+                       && c.apMaterno != null && c.apMaterno.ToLower().Contains(apMaterno.ToLower().Trim())
                        && c.tipoDocumento != null && c.tipoDocumento.Contains(tipoDocumento)
                     )
                    orderby c.nroDoc
