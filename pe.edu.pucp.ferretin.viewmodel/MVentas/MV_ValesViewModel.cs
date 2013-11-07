@@ -223,7 +223,7 @@ namespace pe.edu.pucp.ferretin.viewmodel.MVentas
 
         public void saveLoteVale(object id)
         {
-            ComunService.idVentana(7);
+            ComunService.idVentana(50);
             if (!MV_ValeService.insertarLoteVale(loteVale))
             {
                 MessageBox.Show("No se pudo agregar el nuevo lote de vales");
