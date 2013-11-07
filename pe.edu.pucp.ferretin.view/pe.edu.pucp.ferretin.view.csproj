@@ -89,6 +89,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="MAlmacen\MA_DocumentoMovimiento.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="MAlmacen\MA_InventarioProductosWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -284,6 +288,9 @@
     </Compile>
     <Compile Include="MAlmacen\MA_ColoresProductosWindow.xaml.cs">
       <DependentUpon>MA_ColoresProductosWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="MAlmacen\MA_DocumentoMovimiento.xaml.cs">
+      <DependentUpon>MA_DocumentoMovimiento.xaml</DependentUpon>
     </Compile>
     <Compile Include="MAlmacen\MA_InventarioProductosWindow.xaml.cs">
       <DependentUpon>MA_InventarioProductosWindow.xaml</DependentUpon>

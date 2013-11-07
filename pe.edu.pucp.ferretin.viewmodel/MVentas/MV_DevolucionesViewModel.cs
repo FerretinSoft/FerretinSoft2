@@ -434,7 +434,7 @@ namespace pe.edu.pucp.ferretin.viewmodel.MVentas
             notaCredito.estado = 0;
             notaCredito.codigo = devolucion.codigo;
             notaCredito.fechaVencimiento = DateTime.Now.AddDays(Convert.ToInt32(MS_ParametroService.obtenerParametro("vigencia de notas de credito")));
-            ComunService.idVentana(7);
+            ComunService.idVentana(40);
                     if (!MV_DevolucionService.insertarDevolucion(devolucion))
                     {
                         MessageBox.Show("No se pudo agregar la nuevo devolución");
@@ -444,7 +444,7 @@ namespace pe.edu.pucp.ferretin.viewmodel.MVentas
                         MessageBox.Show("La devolución fue agregado con éxito");
                     }
             notaCredito.id_devolucion = devolucion.id;
-            ComunService.idVentana(7);
+            ComunService.idVentana(44);
                     if (!MV_NotaCreditoService.insertarNotaCredito(notaCredito))
                     {
                         MessageBox.Show("No se pudo agregar la nueva Nota de Crédito");

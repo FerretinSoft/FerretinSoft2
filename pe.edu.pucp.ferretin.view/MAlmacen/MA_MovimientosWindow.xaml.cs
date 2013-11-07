@@ -45,5 +45,16 @@ namespace pe.edu.pucp.ferretin.view.MAlmacen
                 }
             }
         }
+
+        private void visualizarDocumentoBtn_Click(object sender, RoutedEventArgs e)
+        {
+            MA_DocumentoMovimiento w = new MA_DocumentoMovimiento();
+            MA_MovimientosViewModel movVM = this.main.DataContext as MA_MovimientosViewModel;
+            MA_DocumentoMovimientoViewModel docVM = w.main.DataContext as MA_DocumentoMovimientoViewModel;
+            docVM.movimiento = movVM.movimiento;
+            w.Show();
+        }
+
+        
     }
 }

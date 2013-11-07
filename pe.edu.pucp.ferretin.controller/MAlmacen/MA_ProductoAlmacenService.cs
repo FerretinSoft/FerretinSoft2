@@ -27,7 +27,7 @@ namespace pe.edu.pucp.ferretin.controller.MAlmacen
                                      where t != null && m.Tienda.Equals(t) && p != null && m.Producto.Equals(p)
                                      select m);
 
-            return pa.Count() > 0 ? pa.Single() : null;
+            return pa.Count() > 0 ? pa.First() : null;
         }
     }
 }
