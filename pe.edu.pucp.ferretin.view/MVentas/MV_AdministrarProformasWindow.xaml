@@ -169,7 +169,7 @@
                         </Grid>
 
                         <TextBox Grid.Column="3" Grid.Row="0" IsEnabled="False" Text="" VerticalContentAlignment="Center" Margin="0,2,20,2" VerticalAlignment="Center"/>
-                        <Button Grid.Column="3" Grid.Row="0" x:Name="buscarProformaBtn" HorizontalAlignment="Right" VerticalAlignment="Center" Width="18" Height="18" Margin="0,5,0,5" Padding="0" BorderThickness="0">
+                        <Button IsEnabled="{Binding esAgregar}"  Grid.Column="3" Grid.Row="0" x:Name="buscarProformaBtn" HorizontalAlignment="Right" VerticalAlignment="Center" Width="18" Height="18" Margin="0,5,0,5" Padding="0" BorderThickness="0" Click="buscarProformaBtn_Click_1">
                             <Button.Background>
                                 <ImageBrush ImageSource="../Resources/search1_20.png"/>
                             </Button.Background>

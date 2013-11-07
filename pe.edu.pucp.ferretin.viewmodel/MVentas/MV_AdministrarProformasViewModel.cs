@@ -212,7 +212,7 @@ namespace pe.edu.pucp.ferretin.viewmodel.MVentas
             }
         }
 
-        void actualizarMontosProforma(object sender, object e)
+        public void actualizarMontosProforma(object sender, object e)
         {
             //elimino si algun producto tiene cantidad = 0
             foreach (var pp in proforma.ProformaProducto)
