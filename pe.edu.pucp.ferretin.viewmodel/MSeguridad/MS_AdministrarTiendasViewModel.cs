@@ -387,13 +387,21 @@ namespace pe.edu.pucp.ferretin.viewmodel.MSeguridad
         {
             get
             {
-                if (this.almacen.tipo == null)
-                    return _selectedTipo;
-                else
+                try{
+                    if (this.almacen.tipo == null)
+                        return _selectedTipo;
+                    else
+                   {
+                        _selectedTipo = (int)this.almacen.tipo;
+                        if (_selectedTipo == 0) comboEnabledAlmacen = true; else comboEnabledAlmacen = false;                
+                        return _selectedTipo;
+                
+                    }
+                }
+                catch (Exception e)
                 {
-                    _selectedTipo = (int)this.almacen.tipo;
-                    if (_selectedTipo == 0) comboEnabledAlmacen = true; else comboEnabledAlmacen = false;                
                     return _selectedTipo;
+
                 }
             }
             set
