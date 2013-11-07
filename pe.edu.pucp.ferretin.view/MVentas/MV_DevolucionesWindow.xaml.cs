@@ -105,7 +105,14 @@ namespace pe.edu.pucp.ferretin.view.MVentas
 
         }
 
-
+        private void GenerarDoc_Click(object sender, RoutedEventArgs e)
+        {
+            MV_DocNotaCredito p = new MV_DocNotaCredito();
+            MV_NotaCreditoViewModel actual = this.main.DataContext as MV_NotaCreditoViewModel;
+            MV_DocNotaCreditoViewModel padre = p.main.DataContext as MV_DocNotaCreditoViewModel;
+            padre.notaCredito = actual.notaCredito;
+            p.Show();
+        }
 
 
         private void TextBox_SelectionChanged_1(object sender, RoutedEventArgs e)

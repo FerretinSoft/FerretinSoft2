@@ -61,7 +61,12 @@ namespace pe.edu.pucp.ferretin.viewmodel.MVentas
         public String _nombreVendedor = "";
         public String nombreVendedor { get { return _nombreVendedor; } set { _nombreVendedor = value; NotifyPropertyChanged("nombreVendedor"); } }
 
-        
+        public bool _devolucionRegistrada = false;
+        public bool devolucionRegistrada { get { return _devolucionRegistrada; } set { _devolucionRegistrada = value; NotifyPropertyChanged("devolucionRegistrada"); } }
+
+        public bool _noDevolucionRegistrada = false;
+        public bool noDevolucionRegistrada { get { return !devolucionRegistrada; } set { _noDevolucionRegistrada = value; NotifyPropertyChanged("noDevolucionRegistrada"); } }
+
 
         public String _searchNroDevolucion = "";
         public String searchNroDevolucion { get { return _searchNroDevolucion; } set { _searchNroDevolucion = value; NotifyPropertyChanged("searchNroDevolucion"); } }
@@ -441,14 +446,12 @@ namespace pe.edu.pucp.ferretin.viewmodel.MVentas
                     }
                     else
                     {
-                        MessageBox.Show("La Nota de Crédito fue agregado con éxito");
-                        selectedTab = 0;
+                        //MessageBox.Show("La Nota de Crédito fue agregado con éxito");
                         NotifyPropertyChanged("selectedTab");
                     }
                     try
                     {
                         string resp = MA_SharedService.registrarDevolucion(devolucion.Empleado.tiendaActual, devolucion.DevolucionProducto);
-                        Console.WriteLine(resp + "hola");
                     }
                     catch
                     {
@@ -459,6 +462,7 @@ namespace pe.edu.pucp.ferretin.viewmodel.MVentas
 
                         catch { }
                     }
+                    this.devolucionRegistrada = true;
         }
 
         public void viewDetailDevolucion(Object id)
