@@ -68,6 +68,8 @@ namespace pe.edu.pucp.ferretin.controller
                     transaccion.fecha = today;
                     Usuario user = ComunService.usuarioL;
                     transaccion.id_usuario = user.id;
+                    transaccion.id_tipo_transaccion = (short)ComunService.idVent;
+                    Console.WriteLine("VALOR DE IDVENT : " + ComunService.idVent + " - " + transaccion.id_tipo_transaccion);
                     db.Transaccion.InsertOnSubmit(transaccion);
                     return true;
                 }
@@ -92,7 +94,8 @@ namespace pe.edu.pucp.ferretin.controller
                     return false;
                 }
             }
-        }
+        }        
+
         /**********************************************************************/
         public static string obtenerIp()
         {

@@ -70,5 +70,11 @@ namespace pe.edu.pucp.ferretin.view.MVentas
             };
             notaCredito.ShowDialog();
         }
+
+        private void Button_Click_3(object sender, RoutedEventArgs e)
+        {
+            prueba prueba = new prueba();
+            prueba.Show();
+        }
     }
 }

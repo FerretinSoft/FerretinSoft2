@@ -1,4 +1,5 @@
-﻿using System;
+﻿using pe.edu.pucp.ferretin.controller;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -36,8 +37,15 @@ namespace pe.edu.pucp.ferretin.view.MRecursosHumanos
 
         private void adminPersonalBtn_Click(object sender, RoutedEventArgs e)
         {
-            MR_AdministrarPersonalWindow adminW = new MR_AdministrarPersonalWindow();
-            adminW.Show();
+            if (ComunService.usuarioLpermisos[2].estado == true)
+            {
+                MR_AdministrarPersonalWindow adminW = new MR_AdministrarPersonalWindow();
+                adminW.Show();
+            }
+            else
+            {
+                MessageBox.Show("Usted no cuenta con el permiso necesario.");
+            }
 
         }
     }

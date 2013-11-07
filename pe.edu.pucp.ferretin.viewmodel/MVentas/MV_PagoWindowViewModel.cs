@@ -1,4 +1,5 @@
-﻿using pe.edu.pucp.ferretin.controller.MSeguridad;
+﻿using pe.edu.pucp.ferretin.controller.MAlmacen;
+using pe.edu.pucp.ferretin.controller.MSeguridad;
 using pe.edu.pucp.ferretin.controller.MVentas;
 using pe.edu.pucp.ferretin.model;
 using pe.edu.pucp.ferretin.viewmodel.Helper;
@@ -156,6 +157,19 @@ namespace pe.edu.pucp.ferretin.viewmodel.MVentas
 
         public void imprimirDocumento(object param)
         {
+            string result = String.Empty;
+            try
+            {
+                result = MA_SharedService.registrarVenta(venta.Usuario.Empleado.tiendaActual, venta.VentaProducto);
+            }
+            catch (Exception e)
+            {
+                result = "Error al registrar venta: "+ e.Message;
+            }
+            if (result.Length>=0)
+            {
+                MessageBox.Show(result);
+            }
         }
 
         private bool canAgregarPago(object param)

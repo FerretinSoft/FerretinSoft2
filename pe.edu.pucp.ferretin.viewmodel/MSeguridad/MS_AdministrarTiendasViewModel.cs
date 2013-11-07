@@ -97,7 +97,9 @@ namespace pe.edu.pucp.ferretin.viewmodel.MSeguridad
                         else if (tempCadenaNumero.Length == 2)
                             this.almacen.codigo = "TND0" + tempCadenaNumero;
                         else
-                            this.almacen.codigo = "TND" + tempCadenaNumero;                        
+                            this.almacen.codigo = "TND" + tempCadenaNumero;
+                        selectedTipo = -1;
+                        almacen.fecCreacion = DateTime.Today;
                         break;//Si es agregar, creo un nuevo objeto Almacen
                     case Tab.MODIFICAR: detallesTabHeader = "Modificar"; break;
                     case Tab.DETALLES: detallesTabHeader = "Detalles"; break;
@@ -106,6 +108,7 @@ namespace pe.edu.pucp.ferretin.viewmodel.MSeguridad
                 NotifyPropertyChanged("statusTab");
                 //Cuando se cambia el status, tambien se tiene que actualizar el currentIndex del tab
                 NotifyPropertyChanged("currentIndexTab"); //Hace que cambie el tab automaticamente
+                NotifyPropertyChanged("selectedTipo");
             }
         }
         //Usado para mover los tabs de acuerdo a las acciones realizadas
@@ -299,7 +302,8 @@ namespace pe.edu.pucp.ferretin.viewmodel.MSeguridad
         {            
             if (almacen.id > 0)//Si existe
             {
-                if (VerificaHorario(almacen))
+                ComunService.idVentana(8);
+                if (VerificaCamposObligatorios(almacen) && VerificaHorario(almacen))
                 {
                     if (!MS_TiendaService.enviarCambios())
                     {
@@ -314,7 +318,8 @@ namespace pe.edu.pucp.ferretin.viewmodel.MSeguridad
             }
             else
             {
-                if (VerificaHorario(almacen))
+                ComunService.idVentana(7);
+                if (VerificaCamposObligatorios(almacen) && VerificaHorario(almacen))
                 {
                     if (!MS_TiendaService.insertarAlmacen(almacen))
                     {
@@ -375,7 +380,74 @@ namespace pe.edu.pucp.ferretin.viewmodel.MSeguridad
                 NotifyPropertyChanged("almacenes");
                 this.almacen.id_abastecedor = _selectedTienda.id;
             }
-        }        
+        }
+
+        private int _selectedTipo = -1;
+        public int selectedTipo
+        {
+            get
+            {
+                try{
+                    if (this.almacen.tipo == null)
+                        return _selectedTipo;
+                    else
+                   {
+                        _selectedTipo = (int)this.almacen.tipo;
+                        if (_selectedTipo == 0) comboEnabledAlmacen = true; else comboEnabledAlmacen = false;                
+                        return _selectedTipo;
+                
+                    }
+                }
+                catch (Exception e)
+                {
+                    return _selectedTipo;
+
+                }
+            }
+            set
+            {
+                _selectedTipo = value;
+                if (_selectedTipo == 0)
+                    comboEnabledAlmacen = true;
+                else
+                {
+                    comboEnabledAlmacen = false;
+                    almacenes = null;
+                }
+                NotifyPropertyChanged("selectedTipo");
+                NotifyPropertyChanged("comboEnabledAlmacen");
+                this.almacen.tipo = _selectedTipo;
+            }
+        }
+
+
+        private bool _comboEnabledAlmacen = false;
+        public bool comboEnabledAlmacen
+        {
+            get
+            {               
+                return _comboEnabledAlmacen;          
+            }
+            set
+            {
+                _comboEnabledAlmacen = value;
+                NotifyPropertyChanged("comboEnabledAlmacen");                
+            }
+        }
+
+        public bool VerificaCamposObligatorios(Tienda tienda)
+        {
+            if (tienda.nombre == null||(tienda.tipo == -1 || tienda.tipo == null)
+                    ||tienda.direccion==null||tienda.telefono1==null|| "".Equals(tienda.direccion)
+                    || "".Equals(tienda.nombre) || "".Equals(tienda.telefono1)
+                    ||tienda.nombre==null||tienda.telefono1==null||
+                    (tienda.tipo == 0 && tienda.Tienda1 == null))
+            {                
+                MessageBox.Show("Completar todos los datos obligatorios");
+                return false;
+            }
+            return true;
+        }
 
         public bool VerificaHorario(Tienda tienda)
         {

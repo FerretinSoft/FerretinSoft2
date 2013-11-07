@@ -95,13 +95,20 @@ namespace pe.edu.pucp.ferretin.controller
                 _almacenes = value;
             }
         }
-
+        /************************************************/
         public static string userlog;
         public static void usuarioLogeado (Usuario user)
         {
              userlog = user.nombre;
         }
-
+        /************************************************/
+        public static int idVent;
+        public static void idVentana(int id)
+        {
+            idVent = id;
+            Console.WriteLine("VALOR DE IDVENT lslsl : " + id + " -- " + idVent);
+        }
+        /************************************************/
         private static IEnumerable<Tienda> _tiendas;
         public static IEnumerable<Tienda> tiendas
         {
