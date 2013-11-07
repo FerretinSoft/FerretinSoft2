@@ -9,7 +9,26 @@ namespace pe.edu.pucp.ferretin.model
     partial class Producto
     {
         public IEnumerable<Categoria> listaCategoria{get;set;}
-        public String cadenaCategoria { get; set; }
+
+        public String _cadenaCategoria;
+        public String cadenaCategoria
+        {
+            get
+            {
+                String cad = "";
+                foreach (ProductoCategoria pc in ProductoCategoria)
+                {
+                    if (cad != "") cad += ", ";
+                    cad += pc.Categoria.nombre;
+                }
+                _cadenaCategoria = cad;
+                return _cadenaCategoria;
+            }
+            set{
+
+                _cadenaCategoria = value;
+            }
+        }
         public String almacen { get; set; }
         public int stock { get; set; }
         public int stockMinimo { get; set; }

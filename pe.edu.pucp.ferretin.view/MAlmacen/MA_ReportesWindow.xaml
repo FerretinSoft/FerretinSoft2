@@ -40,7 +40,7 @@
             <!--<DatePicker HorizontalAlignment="Left" Margin="98,62,0,0" VerticalAlignment="Top" DisplayDate="2013-09-01" Text="01/09/2013"/>-->
             <!--<DatePicker HorizontalAlignment="Left" Margin="343,62,0,0" VerticalAlignment="Top" DisplayDate="2013-09-01" Text="01/09/2013"/>-->
             <Label Content="Tienda" HorizontalAlignment="Left" Margin="15,56,0,0" VerticalAlignment="Top"/>
-            <ComboBox Name="cmbTienda" SelectedItem="{Binding selectedTienda}" ItemsSource="{Binding listaTiendas}" DisplayMemberPath="nombre" SelectedValuePath="id" HorizontalAlignment="Left" Margin="96,60,0,0" VerticalAlignment="Top" Width="140" SelectedIndex="1"/>
+            <ComboBox Name="cmbTienda" SelectedItem="{Binding selectedTienda}" ItemsSource="{Binding listaTiendas}" DisplayMemberPath="nombre" SelectedValuePath="id" HorizontalAlignment="Left" Margin="96,60,0,0" VerticalAlignment="Top" Width="140" SelectedIndex="0"/>
             <Label Content="Alias:" HorizontalAlignment="Left" Margin="15,102,0,0" VerticalAlignment="Top"/>
             <TextBox HorizontalAlignment="Left" Height="23" Margin="96,102,0,0" TextWrapping="Wrap" Text="Reporte diario de movimientos" VerticalAlignment="Top" Width="375"/>
             <Label Content="Comentario:" HorizontalAlignment="Left" Margin="15,130,0,0" VerticalAlignment="Top"/>
