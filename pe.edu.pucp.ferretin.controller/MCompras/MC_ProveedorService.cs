@@ -100,6 +100,19 @@ namespace pe.edu.pucp.ferretin.controller.MCompras
                    select c;
         }
 
+        public static bool InsertarProducto(ProveedorProducto provprod)
+        {
+            if (!db.ProveedorProducto.Contains(provprod))
+            {
+                db.ProveedorProducto.InsertOnSubmit(provprod);
+                return enviarCambios();
+            }
+            else
+            {
+                return false;
+            }
+        }
+
         #endregion
     }
 }

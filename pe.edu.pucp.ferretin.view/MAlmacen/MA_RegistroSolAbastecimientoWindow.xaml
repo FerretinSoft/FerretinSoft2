@@ -80,13 +80,13 @@
 
                     <Label Content="Tienda:" HorizontalAlignment="Left" Height="26" VerticalAlignment="Top" Width="64" Margin="326,43,0,0"/>
                     <Label Content="Estado:" HorizontalAlignment="Left" Height="26" VerticalAlignment="Top" Width="65" Margin="325,82,0,0"/>
-                    <DataGrid IsReadOnly="{Binding isCreating}" ItemsSource="{Binding productosPorSolicitud,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged,NotifyOnSourceUpdated=True,NotifyOnTargetUpdated=True}" Name="gridGenerar" Margin="8,30,2,3" Grid.Row="1" AutoGenerateColumns="False"  CanUserDeleteRows="False" IsManipulationEnabled="True" CanUserAddRows="False">
+                    <DataGrid IsEnabled="{Binding isCreating}" ItemsSource="{Binding productosPorSolicitud,Mode=TwoWay}" Margin="8,30,2,3" Grid.Row="1" AutoGenerateColumns="False"  CanUserDeleteRows="False" IsManipulationEnabled="True" CanUserAddRows="False">
                         <DataGrid.Columns>
-                            <DataGridTextColumn Width="2*" Binding="{Binding Path=SolicitudAbastecimientoProducto.Producto.codigo}"  IsReadOnly="True" Header="Cód. Producto"/>
-                            <DataGridTextColumn Width="2*" Binding="{Binding Path=SolicitudAbastecimientoProducto.Producto.nombre}"  IsReadOnly="True"  Header="Nombre"/>
-                            <DataGridTextColumn Width="2*" Binding="{Binding Path=SolicitudAbastecimientoProducto.cantidad}"  Header="Cantidad" IsReadOnly="{Binding isCreating}"/>
-                            <DataGridTextColumn Width="2*" Binding="{Binding Path=ProductoAlmacen.stock}" Header="En Stock" IsReadOnly="True" />
-                            <DataGridTextColumn Width="2*" Binding="{Binding Path=ProductoAlmacen.stockMin}" Header="Stock mínimo" IsReadOnly="True" />
+                            <DataGridTextColumn Width="2*" Binding="{Binding Path=productoPorSolicitud.Producto.codigo}"  IsReadOnly="True" Header="Cód. Producto"/>
+                            <DataGridTextColumn Width="2*" Binding="{Binding Path=productoPorSolicitud.Producto.nombre}"  IsReadOnly="True"  Header="Nombre"/>
+                            <DataGridTextColumn Width="2*" Binding="{Binding Path=productoPorSolicitud.cantidad}"  Header="Cantidad" IsReadOnly="{Binding isCreating}"/>
+                            <DataGridTextColumn Width="2*" Binding="{Binding Path=productoPorAlmacen.stock}" Header="En Stock" IsReadOnly="True" />
+                            <DataGridTextColumn Width="2*" Binding="{Binding Path=productoPorAlmacen.stockMin}" Header="Stock mínimo" IsReadOnly="True" />
                         </DataGrid.Columns>
                     </DataGrid>
                     <Label Content="Fecha solicitud:" HorizontalAlignment="Left" Height="26" VerticalAlignment="Top" Width="111" Margin="22,81,0,0"/>

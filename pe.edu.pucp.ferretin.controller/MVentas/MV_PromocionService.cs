@@ -11,9 +11,10 @@ namespace pe.edu.pucp.ferretin.controller.MVentas
     {
         public static IEnumerable<Promocion> buscarPromociones(string codPromSearch, DateTime fechaDesdeSearch, DateTime fechaHastaSearch, int estadoSearch)
         {
-            return db.Promocion.Where(p => p.codigo.ToUpper().Contains(codPromSearch.ToUpper())).
-                Where(p => DateTime.Compare(p.fechaDesde.Value,fechaDesdeSearch)>=0 || DateTime.Compare(p.fechaHasta.Value,fechaHastaSearch)<=0 ).
-                Where(p => estadoSearch <= 0 || p.estado == estadoSearch);
+            return from p in db.Promocion where
+                (p.codigo.ToUpper().Contains(codPromSearch.ToUpper()))
+                && (DateTime.Compare(p.fechaDesde.Value,fechaDesdeSearch)>=0 || DateTime.Compare(p.fechaHasta.Value,fechaHastaSearch)<=0 )
+                && (estadoSearch <= 0 || p.estado == estadoSearch) select p;
         }
 
         /// <summary>

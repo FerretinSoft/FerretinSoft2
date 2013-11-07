@@ -1,17 +1,26 @@
-﻿using pe.edu.pucp.ferretin.model;
+﻿using pe.edu.pucp.ferretin.controller.MAlmacen;
+using pe.edu.pucp.ferretin.controller.MSeguridad;
+using pe.edu.pucp.ferretin.controller.MVentas;
+using pe.edu.pucp.ferretin.model;
+using pe.edu.pucp.ferretin.viewmodel.Helper;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
+using System.Windows.Input;
+using System.Windows.Media;
+using System.Windows.Media.Imaging;
 
 namespace pe.edu.pucp.ferretin.viewmodel.MVentas
 {
     public class MV_AdministrarProformasViewModel : ViewModelBase
     {
         #region Atributos del Buscador
-        public string codProforma { get; set; }
-        public string clienteSearch { get; set; }
+        public string codProformaSearch { get; set; }
+        public Cliente clienteSearch { get; set; }
 
         private DateTime _fechaDesdeSearch = DateTime.Today.AddDays(-30);
         public DateTime fechaDesdeSearch
@@ -41,7 +50,7 @@ namespace pe.edu.pucp.ferretin.viewmodel.MVentas
             }
         }
 
-        public Empleado vendedor { get; set; }
+        public Usuario usuarioSearch { get; set; }
 
         #endregion
 
@@ -68,7 +77,24 @@ namespace pe.edu.pucp.ferretin.viewmodel.MVentas
                 return !soloSeleccionarProforma;
             }
         }
-
+        public string codProdAgregar { get; set; }
+        private string _nroDocSeleccionado = "";
+        public string nroDocSeleccionado
+        {
+            get
+            {
+                return _nroDocSeleccionado;
+            }
+            set
+            {
+                _nroDocSeleccionado = value;
+                if (value.Length == 8 || value.Length == 11)
+                {
+                    cargarCliente(null);
+                }
+                NotifyPropertyChanged("nroDocSeleccionado");
+            }
+        }
         #region Lista Proformas y Edicion de Proforma
         private Proforma _proforma;
         public Proforma proforma
@@ -90,9 +116,7 @@ namespace pe.edu.pucp.ferretin.viewmodel.MVentas
         {
             get
             {
-                
-                //_listaProformas = MV_ProformaService.buscarProformas(searchNroDoc, searchNombre, searchApPaterno, searchApMaterno, searchTipoDocumento);
-
+                _listaProformas = MV_ProformasService.buscarProformas(codProformaSearch, usuarioSearch, clienteSearch, fechaDesdeSearch, fechaHastaSearch);
                 return _listaProformas;
             }
             set
@@ -129,8 +153,33 @@ namespace pe.edu.pucp.ferretin.viewmodel.MVentas
                 //Si la pestaña es para agregar nuevo, limpio los input
                 switch (_statusTab)
                 {
-                    case Tab.BUSQUEDA: detallesTabHeader = soloSeleccionarProforma ? "Detalles" : "Agregar"; break;//Si es agregar, creo un nuevo objeto Proforma
-                    case Tab.AGREGAR: detallesTabHeader = "Agregar"; proforma = new Proforma(); break;//Si es agregar, creo un nuevo objeto Proforma
+                    case Tab.BUSQUEDA: { 
+                        detallesTabHeader = soloSeleccionarProforma ? "Detalles" : "Agregar";
+                        NotifyPropertyChanged("listaProformas");
+                        break;
+                    };
+                    case Tab.AGREGAR:
+                        {
+                            if (proforma == null || proforma.id > 0)
+                            {
+                                detallesTabHeader = "Agregar";
+                                var miproforma = new Proforma()
+                                {
+                                    codigo = MV_ProformasService.newCodProforma,
+                                    Usuario = usuarioLogueado,
+                                    fecEmision = DateTime.Now,
+                                    fecVencimiento = DateTime.Now.AddDays(5),
+                                    Cliente = new Cliente(),
+                                    igvActual = MS_SharedService.obtenerIGV(),
+                                    igv = 0,
+                                    subTotal = 0,
+                                    total = 0,
+                                };
+                                miproforma.ProformaProducto.ListChanged += actualizarMontosProforma;
+                                proforma = miproforma;
+                            }
+                            break;
+                        }
                     case Tab.MODIFICAR: detallesTabHeader = "Modificar"; break;
                     case Tab.DETALLES: detallesTabHeader = "Detalles"; break;
                 }
@@ -138,6 +187,23 @@ namespace pe.edu.pucp.ferretin.viewmodel.MVentas
                 //Cuando se cambia el status, tambien se tiene que actualizar el currentIndex del tab
                 NotifyPropertyChanged("currentIndexTab"); //Hace que cambie el tab automaticamente
             }
+        }
+
+        void actualizarMontosProforma(object sender, object e)
+        {
+            //elimino si algun producto tiene cantidad = 0
+            foreach (var pp in proforma.ProformaProducto)
+            {
+                if (pp.cantidad == 0)
+                {
+                    proforma.ProformaProducto.Remove(pp);
+                }
+            }
+
+            //Actualizo el total
+            proforma.total = Decimal.Round(proforma.ProformaProducto.Sum(pp=> pp.montoParcial).Value, 2);
+
+            
         }
         //Usado para mover los tabs de acuerdo a las acciones realizadas
         public int currentIndexTab
@@ -173,5 +239,194 @@ namespace pe.edu.pucp.ferretin.viewmodel.MVentas
         }
         #endregion
 
+
+
+        public GridLength widthClienteBar
+        {
+            get
+            {
+                return proforma.Cliente == null ? new GridLength(0) : GridLength.Auto;
+            }
+        }
+
+        private ImageSource _clienteImagen;
+        public ImageSource clienteImagen
+        {
+            get
+            {
+                
+                if (proforma != null && proforma.Cliente != null && proforma.Cliente.imagen != null)
+                {
+                    MemoryStream strm = new MemoryStream();
+                    strm.Write(proforma.Cliente.imagen.ToArray(), 0, proforma.Cliente.imagen.Length);
+                    strm.Position = 0;
+                    System.Drawing.Image img = System.Drawing.Image.FromStream(strm);
+
+                    BitmapImage bitmapImage = new BitmapImage();
+                    bitmapImage.BeginInit();
+                    MemoryStream memoryStream = new MemoryStream();
+                    img.Save(memoryStream, System.Drawing.Imaging.ImageFormat.Bmp);
+                    memoryStream.Seek(0, SeekOrigin.Begin);
+                    bitmapImage.StreamSource = memoryStream;
+                    bitmapImage.EndInit();
+
+                    _clienteImagen = bitmapImage;
+                }
+                return _clienteImagen;
+            }
+            set
+            {
+                _clienteImagen = value;
+                NotifyPropertyChanged("clienteImagen");
+            }
+        }
+
+        #region RalayCommand
+        RelayCommand _cargarClienteCommand;
+        public ICommand cargarClienteCommand
+        {
+            get
+            {
+                if (_cargarClienteCommand == null)
+                {
+                    _cargarClienteCommand = new RelayCommand(cargarCliente);
+                }
+                return _cargarClienteCommand;
+            }
+        }
+
+        RelayCommand _agregarProductoCommand;
+        public ICommand agregarProductoCommand
+        {
+            get
+            {
+                if (_agregarProductoCommand == null)
+                {
+                    _agregarProductoCommand = new RelayCommand(agregarProducto);
+                }
+                return _agregarProductoCommand;
+            }
+        }
+
+        RelayCommand _registrarCommand;
+        public ICommand registrarCommand
+        {
+            get
+            {
+                if (_registrarCommand == null)
+                {
+                    _registrarCommand = new RelayCommand(registrar, canRegistrar);
+                }
+                return _registrarCommand;
+            }
+        }
+
+        RelayCommand _actualizarListaCommand;
+        public ICommand actualizarListaCommand
+        {
+            get
+            {
+                if (_actualizarListaCommand == null)
+                {
+                    _actualizarListaCommand = new RelayCommand(p => NotifyPropertyChanged("listaProformas"));
+                }
+                return _actualizarListaCommand;
+            }
+        }
+        #endregion
+
+        #region Comandos
+
+        public void registrar(object param)
+        {
+            if (soloSeleccionarProforma)
+            {
+
+            }
+            else
+            {
+
+                if (proforma.id > 0)//Si existe
+                {
+                   MessageBox.Show("No se puede modificar una proforma, puede en su lugar puede crear otra");
+                }
+                else
+                {
+                    if (!MV_ProformasService.insertarProforma(proforma))
+                    {
+                        MessageBox.Show("No se pudo agregar la nueva Proforma");
+                    }
+                    else
+                    {
+                        MessageBox.Show("La proforma fue agregada con éxito");
+                        statusTab = Tab.BUSQUEDA;
+                    }
+                }
+            }
+        }
+
+        public bool canRegistrar(object param)
+        {
+            return true;
+        }
+
+        public void cargarCliente(Object id)
+        {
+            Cliente buscado = null;
+            try
+            {
+                buscado = MV_ClienteService.obtenerClienteByNroDoc(nroDocSeleccionado);
+            }
+            catch { }
+
+            if (buscado == null)
+            {
+                MessageBox.Show("No se encontro ningún Cliente con el número de documento proporcionado", "No se encontro", MessageBoxButton.OK, MessageBoxImage.Question);
+            }
+            proforma.Cliente = buscado;
+            NotifyPropertyChanged("clienteImagen");
+            NotifyPropertyChanged("widthClienteBar");
+        }
+
+        public void agregarProducto(Object id)
+        {
+            if (codProdAgregar != null && codProdAgregar.Length > 0)
+            {
+                Producto producto = null;
+                try
+                {
+                    producto = MA_SharedService.obtenerProductoxCodigo(codProdAgregar);
+                }
+                catch { }
+
+                if (producto != null)
+                {
+                    if (proforma.ProformaProducto.Count(vp => vp.Producto.id == producto.id) == 1)
+                    {
+                        proforma.ProformaProducto.Single(vp => vp.Producto.id == producto.id).cantidad++;
+                    }
+                    else
+                    {
+                        ProformaProducto proformaProducto = new ProformaProducto();
+                        
+                        proformaProducto.montoParcial = producto.precioLista;
+                        proformaProducto.Proforma = proforma;
+                        proformaProducto.Producto = producto;
+                        proformaProducto.cantidad = 1;
+                        proformaProducto.PromocionActual = MV_PromocionService.ultimaPromocionPorProducto(producto);
+                        proformaProducto.PropertyChanged += actualizarMontosProforma;
+                        
+                        proforma.ProformaProducto.Add(proformaProducto);
+                        proforma.ProformaProducto.ListChanged += actualizarMontosProforma;
+
+                    }
+                    NotifyPropertyChanged("proforma");
+                }
+            }
+        }
+
+        
+
+        #endregion
     }
 }

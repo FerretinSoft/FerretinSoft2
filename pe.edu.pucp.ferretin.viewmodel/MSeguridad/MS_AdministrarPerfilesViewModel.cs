@@ -26,21 +26,13 @@ namespace pe.edu.pucp.ferretin.viewmodel.MSeguridad
 
         public Menu CategoriaSeleccionada { get; set; }
 
-        private Menu _menuPadre;
         public Menu menuPadre
         {
             get
             {
                 //Devolver la categoría padre
-                if (_menuPadre == null)
-                    _menuPadre = MS_PerfilService.menuPadre();
-                return _menuPadre;
-            }
-            set
-            {
-                _menuPadre = value;
-                NotifyPropertyChanged("menuPadre");
-            }            
+                return MS_PerfilService.menuPadre;
+            }           
             
         }
 
@@ -53,6 +45,7 @@ namespace pe.edu.pucp.ferretin.viewmodel.MSeguridad
             BUSQUEDA, AGREGAR, MODIFICAR, DETALLES
         }
         /************************************************/
+        
         private tabs _statusTab = tabs.BUSQUEDA; //pestaña default 
         public tabs statusTab
         {
@@ -63,45 +56,48 @@ namespace pe.edu.pucp.ferretin.viewmodel.MSeguridad
             set
             {
                 _statusTab = value;
-                //Si cambió el estado de las pestañas también cambio los Header
-                //Si la pestaña es para agregar nuevo, limpio los input
                 switch (value)
                 {
-                    case tabs.BUSQUEDA: detallesTabHeader = "Agregar"; perfil = new Perfil(); break;//Si es agregar, creo un nuevo objeto Cliente
+                    case tabs.BUSQUEDA: detallesTabHeader = "Agregar";
+                        {
+                            break;
+                        }
                     case tabs.AGREGAR:
                         {
+                            
                             detallesTabHeader = "Agregar";
-                            var miperfil = new Perfil();
-                            miperfil.nombre = "jaja";
-                            PerfilMenu perfilMenu = new PerfilMenu();
-                            copiarPerfil(perfilMenu, menuPadre, miperfil);
-                            miperfil.PerfilMenu.Add(perfilMenu);
-                            perfil = miperfil;
+                            if (perfil == null || perfil.id>0)
+                            {
+                                perfil = new Perfil();
+                                perfil.nombre = "";
+                                PerfilMenu perfilMenu = new PerfilMenu();
+                                copiarPerfil(perfilMenu, menuPadre, perfil);
+                                perfil.estado = 2;
+                                perfil.PerfilMenu.Add(perfilMenu);
+                            }
+                            NotifyPropertyChanged("perfil");
                             break;
-                        };//Si es agregar, creo un nuevo objeto Cliente
+                        };
                     case tabs.MODIFICAR: detallesTabHeader = "Modificar"; break;
                     case tabs.DETALLES: detallesTabHeader = "Detalles"; break;
-                    default: detallesTabHeader = "Agregar"; perfil = new Perfil(); break;//Si es agregar, creo un nuevo objeto Cliente
                 }
-                //Cuando se cambia el status, tambien se tiene que cambiar el currentIndex del tab
-                //currentIndexTab = _statusTab == 0 ? 0 : 1;
                 NotifyPropertyChanged("statusTab");
-                //Cuando se cambia el status, tambien se tiene que actualizar el currentIndex del tab
-                NotifyPropertyChanged("currentIndexTab"); //Hace que cambie el tab automaticamente
+                NotifyPropertyChanged("currentIndexTab");
             }
         }
 
-        private void copiarPerfil(PerfilMenu perfilMenu, Menu menu, Perfil perfil)
+        private void copiarPerfil(PerfilMenu perfilMenu, Menu menu,Perfil perfil)
         {
             //perfilMenu.Perfil = perfil;
             perfilMenu.Menu = menu;
             perfilMenu.estado = false;
+            perfilMenu.Perfil = perfil;
 
             for (int i = 0; i < menu.Menu2.Count;i++ )
             {
                 PerfilMenu hijoperfilMenu = new PerfilMenu();
                 perfilMenu.PerfilMenu2.Add(hijoperfilMenu);
-                copiarPerfil(hijoperfilMenu, menu.Menu2.ElementAt(i), perfil);
+                copiarPerfil(hijoperfilMenu, menu.Menu2.ElementAt(i),perfil);
             }
         }
         
@@ -126,11 +122,10 @@ namespace pe.edu.pucp.ferretin.viewmodel.MSeguridad
                 NotifyPropertyChanged("detallesTabHeader");
             }
         }
-        /************************************************/
+
         #endregion
 
         #region Lista de Perfiles y Edición de Perfiles
-        /************************************************/
 
         private IEnumerable<Menu> _menus;
         public IEnumerable<Menu> menus
@@ -139,7 +134,7 @@ namespace pe.edu.pucp.ferretin.viewmodel.MSeguridad
             {
                 if (_menus == null)
                 {
-                    _menus = MS_PerfilService.db.Menu.ToList();
+                    _menus = MS_PerfilService.db.Menu;
                 }
                 return _menus;
             }
@@ -150,52 +145,20 @@ namespace pe.edu.pucp.ferretin.viewmodel.MSeguridad
             }
         }
 
-        public Perfil _perfil = new Perfil();
+        public Perfil _perfil = null;
         public Perfil perfil
         {
             get
             {
-                foreach (var perfilMenu in _perfil.PerfilMenu)
-                {
-                    for (int i=0;i<menus.Count();i++)
-                    {
-
-                        if (perfilMenu.Menu == menus.ElementAt(i) )
-                        {
-                            if (perfilMenu.estado.Value)
-                            {
-                                menus.ElementAt(i).isChecked = true;
-                            }else
-                            {
-                                menus.ElementAt(i).isChecked = false;
-                            }
-                        }                        
-                    }
-                }
                 return _perfil;
             }
             set
             {
                 _perfil = value;                
-                NotifyPropertyChanged("menuPadre");
                 NotifyPropertyChanged("perfil");
             }
         }
-        /************************************************/
-        public IEnumerable<Perfil> perfiles
-        {
-            get
-            {
-                //Creo una nueva secuencia
-                var sequence = Enumerable.Empty<Perfil>();
-                //Primero agrego un item de Todos para que salga al inicio
-                //Pongo el ID en 0 para que al buscar, no filtre nada cuando se selecciona todos
-                IEnumerable<Perfil> items = new Perfil[] { new Perfil { id = 0, nombre = "Todos" } };
-                //Luego concateno el itemcon los elementos del combobox
-                return items.Concat(MS_PerfilService.obtenerPerfiles());
-            }
-        }         
-        /************************************************/
+
         private IEnumerable<Perfil> _listaPerfiles;
         public IEnumerable<Perfil> listaPerfiles
         {
@@ -306,15 +269,8 @@ namespace pe.edu.pucp.ferretin.viewmodel.MSeguridad
         {
             try
             {
-                //se instancia un perfil paa cargar los textbox de la ventana edit
-                this.perfil = listaPerfiles.Single(perfil => perfil.id == (short)id);
-                //if (this.almacen.id_ubigeo != null)
-                //{
-                //    selectedProvincia = this.almacen.UbigeoDistrito.UbigeoProvincia;
-                //    selectedDepartamento = selectedProvincia.UbigeoDepartamento;
-                //}
-                this.statusTab = tabs.MODIFICAR;                
- 
+                perfil = listaPerfiles.Single(p => p.id == (short)id);
+                this.statusTab = tabs.MODIFICAR;
             }
             catch (Exception e)
             {
@@ -324,37 +280,8 @@ namespace pe.edu.pucp.ferretin.viewmodel.MSeguridad
         /**************************************************/
         public void savePerfil(Object obj)
         {
-            //Actulizo los checkbox seleccionados
-
-            foreach (var menu in menus)
-            {
-                
-                int cantidad = perfil.PerfilMenu.Count(pm => (pm.Menu == menu));
-                if (cantidad <= 0)
-                {
-                    perfil.PerfilMenu.Add(new PerfilMenu { Menu = menu, estado = menu.isChecked, Perfil = perfil });
-                }
-            }
-
-            for (int i = 0; i < perfil.PerfilMenu.Count(); i++)
-            {
-                foreach (var menu in menus)
-                {
-                    if (perfil.PerfilMenu[i].Menu == menu)
-                    {
-                        if (!menu.isChecked)
-                        {
-                            perfil.PerfilMenu[i].estado = false;
-                        }
-                        else
-                        {
-                            perfil.PerfilMenu[i].estado = true;
-                        }
-                    }
-                }
-            }
-
-            /*Para actualizar un usuario existente*/
+            listaPerfiles = null;
+            if (perfil.nombre.Length <= 0) return;
             if (perfil.id > 0)//Si existe
             {
                 if (!MS_PerfilService.enviarCambios())
@@ -366,7 +293,6 @@ namespace pe.edu.pucp.ferretin.viewmodel.MSeguridad
                     MessageBox.Show("El perfil fue actualizado con éxito");
                 }
             }
-            /*Para agregar un usuario nuevo*/
             else
             {
                 if (!MS_PerfilService.insertarPerfil(perfil))

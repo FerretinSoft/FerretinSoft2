@@ -167,12 +167,6 @@ namespace pe.edu.pucp.ferretin.viewmodel.MSeguridad
                 return MS_UsuarioService.obtenerPerfiles();
             }
         }
-
-
-        
-
-
-
         /**************************************************/
         private IEnumerable<Usuario> _listaUsuarios;
         public IEnumerable<Usuario> listaUsuarios
@@ -325,6 +319,7 @@ namespace pe.edu.pucp.ferretin.viewmodel.MSeguridad
             /*Para actualizar un usuario existente*/
             if (usuario.id > 0)//Si existe
             {
+                ComunService.idVentana(5);
                 /***************************************/
                 List<Parametro> listaParametros;
                 listaParametros = MS_ParametroService.obtenerListaParametros().ToList();
@@ -337,6 +332,7 @@ namespace pe.edu.pucp.ferretin.viewmodel.MSeguridad
                 }
                 else
                 {
+                    //ComunService.idVentana(5);
                     MessageBox.Show("El usuario fue actualizado con éxito");
                     this.statusTab = tabs.BUSQUEDA;
                     listaUsuarios = MS_UsuarioService.listaUsuarios;
@@ -345,8 +341,11 @@ namespace pe.edu.pucp.ferretin.viewmodel.MSeguridad
             /*Para agregar un usuario nuevo*/
             else
             {
+                ComunService.idVentana(4);
+                /***************************************/
                 if (this._dniEmpleado == "" || usuario.nombre == null || (this._busquedaExitosa == false ))
                     MessageBox.Show("Ingrese datos en los campos necesarios, por favor");
+                /***************************************/
                 else
                 {
 
@@ -358,11 +357,12 @@ namespace pe.edu.pucp.ferretin.viewmodel.MSeguridad
                     /**********************/
 
                     if (!MS_UsuarioService.insertarUsuario(usuario))
-                    {
+                    {                        
                         MessageBox.Show("No se pudo agregar, el usuario ya existe");
                     }
                     else
                     {
+                        //ComunService.idVentana(4);
                         MessageBox.Show("El usuario fue agregado con éxito");
                         this.statusTab = tabs.BUSQUEDA;
                         listaUsuarios = MS_UsuarioService.listaUsuarios;
@@ -414,7 +414,6 @@ namespace pe.edu.pucp.ferretin.viewmodel.MSeguridad
                 }
             }           
         }
-
         #endregion
 
         void buscarCliente(object var)

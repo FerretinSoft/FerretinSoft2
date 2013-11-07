@@ -269,6 +269,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="MVentas\prueba.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="MAlmacen\MA_AtencionSolAbastecimientoWindow.xaml.cs">
@@ -411,6 +415,9 @@
     </Compile>
     <Compile Include="MVentas\MV_ValeDialog.xaml.cs">
       <DependentUpon>MV_ValeDialog.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="MVentas\prueba.xaml.cs">
+      <DependentUpon>prueba.xaml</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>

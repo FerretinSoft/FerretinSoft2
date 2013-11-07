@@ -1,4 +1,5 @@
-﻿using pe.edu.pucp.ferretin.controller.MCompras;
+﻿using pe.edu.pucp.ferretin.controller.MAlmacen;
+using pe.edu.pucp.ferretin.controller.MCompras;
 using pe.edu.pucp.ferretin.model;
 using pe.edu.pucp.ferretin.viewmodel.Helper;
 using System;
@@ -20,6 +21,14 @@ namespace pe.edu.pucp.ferretin.viewmodel.MCompras
         }
         #endregion
 
+        public bool isCreating
+        {
+            get
+            {
+                return true;
+            }
+        }
+
         private IEnumerable<Rubro> _rubros;
         public IEnumerable<Rubro> rubros
         {
@@ -33,6 +42,37 @@ namespace pe.edu.pucp.ferretin.viewmodel.MCompras
                 NotifyPropertyChanged("rubros");
             }
         }
+
+        private ProveedorProducto _provProd;
+        public ProveedorProducto provProd
+        {
+            get
+            {
+                return _provProd;
+            }
+            set
+            {
+                _provProd = value;
+                NotifyPropertyChanged("provProd");
+            }
+        }
+
+        private Producto _prod;
+        public Producto prod
+        {
+            get
+            {
+                return _prod;
+            }
+            set
+            {
+                _prod = value;
+                NotifyPropertyChanged("prod");
+            }
+        }
+
+      public string codProdAgregar { get; set; }
+
         public IEnumerable<Rubro> listaRubros
         {
             get
@@ -192,6 +232,19 @@ namespace pe.edu.pucp.ferretin.viewmodel.MCompras
                 return _agregarProveedorCommand;
             }
         }
+
+        RelayCommand _agregarNuevoProductoCommand;
+        public ICommand agregarNuevoProductoCommand
+        {
+            get
+            {
+                if (_agregarNuevoProductoCommand == null)
+                {
+                    _agregarNuevoProductoCommand = new RelayCommand(agregarProducto);
+                }
+                return _agregarNuevoProductoCommand;
+            }
+        }
         #endregion
 
         #region Comandos
@@ -248,10 +301,84 @@ namespace pe.edu.pucp.ferretin.viewmodel.MCompras
                 }
             }
         }
+
+        public void saveProducto(Object obj)
+        {
+            provProd = (ProveedorProducto)obj;
+            if (provProd.id_producto > 0)//Si existe
+            {
+                if (!MC_ProveedorService.enviarCambios())
+                {
+                    MessageBox.Show("No se pudo actualizar al Producto");
+                }
+                else
+                {
+                    MessageBox.Show("El Producto fue guardado con éxito");
+                }
+            }
+            else
+            {
+
+                if (!MC_ProveedorService.InsertarProducto(provProd))
+                {
+                    MessageBox.Show("No se pudo agregar el nuevo proveedor");
+                }
+                else
+                {
+                    MessageBox.Show("El proveedor fue agregado con éxito");
+                    this.statusTab = Tab.BUSQUEDA;
+                    listaProveedores = MC_ProveedorService.listaProveedores;
+                }
+            }
+        }
+
         public void cancelProveedor(Object obj)
         {
             this.statusTab = Tab.BUSQUEDA;
             listaProveedores = MC_ProveedorService.listaProveedores;
+        }
+
+        public void agregarProducto(Object obj)
+        {
+            if (codProdAgregar != null && codProdAgregar.Length > 0)
+            {
+                Producto producto = null;
+                try
+                {
+                    producto = MA_SharedService.obtenerProductoxCodigo(codProdAgregar);
+                    string nombre = producto.nombre;
+                }
+                catch { }
+
+                if (producto != null)
+                {
+                    ProveedorProducto pP = null;
+                    if (proveedor.ProveedorProducto.Count(vp => vp.Producto.id == producto.id) == 1)
+                    {
+                        saveProducto(pP);
+                    }
+                    else
+                    {
+                        pP = new ProveedorProducto()
+                        {
+                            Producto = producto,
+                            Proveedor=proveedor,
+                            precio = 4,
+                            tiempoEntrega="",
+                            estado=1
+                        };
+                        proveedor.ProveedorProducto.Add(pP);
+                         saveProducto(pP);
+                    }
+                    NotifyPropertyChanged("listaProductos");
+                }
+                
+            }
+            else
+            {
+                MessageBox.Show("No se encontro ningun producto con el código proporcionado");
+            }
+            
         }
         #endregion
 

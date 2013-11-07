@@ -10,6 +10,19 @@ namespace pe.edu.pucp.ferretin.controller.MAlmacen
 {
     public class MA_SolicitudAbastecimientoService : MA_ComunService
     {
+
+        public class ProductoPorSolicitudTienda
+        {
+            public ProductoPorSolicitudTienda(SolicitudAbastecimientoProducto productoPorSolicitud, ProductoAlmacen productoPorAlmacen)
+            {
+                this.productoPorAlmacen = productoPorAlmacen;
+                this.productoPorSolicitud = productoPorSolicitud;
+            }
+
+            public SolicitudAbastecimientoProducto productoPorSolicitud { get; set; }
+            public ProductoAlmacen productoPorAlmacen { get; set; }
+        }
+        
         public static IEnumerable<SolicitudAbastecimiento> _listaSolicitudes;
         public static IEnumerable<SolicitudAbastecimiento> listaSolicitudes
         {
@@ -70,14 +83,18 @@ namespace pe.edu.pucp.ferretin.controller.MAlmacen
 
         }
 
-        public static IEnumerable<Object> buscarProductosPorSolicitud(Tienda almacen, SolicitudAbastecimiento solicitud)
+        public static IEnumerable<ProductoPorSolicitudTienda> buscarProductosPorSolicitud(Tienda almacen, SolicitudAbastecimiento solicitud)
         {
-            var result = (from prodSol in db.SolicitudAbastecimientoProducto 
-                          join prodAlm in db.ProductoAlmacen on prodSol.Producto equals prodAlm.Producto
-                          where prodSol.SolicitudAbastecimiento == solicitud && prodAlm.Tienda == almacen
-                          select new {SolicitudAbastecimientoProducto = prodSol, ProductoAlmacen = prodAlm });
+            List<ProductoPorSolicitudTienda> result = new List<ProductoPorSolicitudTienda>();
+            if (solicitud == null) return result;
+            for (int i = 0; i < solicitud.SolicitudAbastecimientoProducto.Count; i++)
+            {
+                ProductoAlmacen pa = MA_ProductoAlmacenService.ObtenerProductoAlmacenPorTiendaProducto(almacen, 
+                                                                    solicitud.SolicitudAbastecimientoProducto[i].Producto);
+                result.Add(new ProductoPorSolicitudTienda(solicitud.SolicitudAbastecimientoProducto[i], pa));
+            }
+            
             return result;
-
         }        
 
         public static bool atenderSolicitud(Tienda almacen, SolicitudAbastecimiento solicitud)

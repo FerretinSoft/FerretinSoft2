@@ -58,6 +58,8 @@ namespace pe.edu.pucp.ferretin.view.MVentas
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
+
+            //Buscar Cliente
             MV_ClientesWindow v = new MV_ClientesWindow();
             v.Owner = this;
             var viewModel = v.main.DataContext as MV_ClientesViewModel;

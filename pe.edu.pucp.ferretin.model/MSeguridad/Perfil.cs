@@ -25,10 +25,6 @@ namespace pe.edu.pucp.ferretin.model
                 }
                 return _PerfilMenuPadre;
             }
-            set
-            {
-                _PerfilMenuPadre = value;
-            }
         }
     }
 }
