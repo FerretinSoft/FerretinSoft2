@@ -96,8 +96,8 @@ namespace pe.edu.pucp.ferretin.controller.MAlmacen
                 current.Producto = items[i].Producto;
                 movimiento.MovimientoProducto.Add(current);                
             }
-            MA_MovimientosService.InsertarMovimiento(movimiento);
-            return "";
+            bool ok = MA_MovimientosService.InsertarMovimiento(movimiento);
+            return (ok) ? "" : "Error al registrar el movimiento";
         }
 
         /// <summary>
@@ -106,7 +106,7 @@ namespace pe.edu.pucp.ferretin.controller.MAlmacen
         /// <param name="tienda">Tienda desde la que se realiza la venta</param>
         /// <param name="items">Listado de DevolucionProducto para la venta</param>
         /// <returns>Devuelve la cadena vacia si se registró el movimiento correctamente, en caso contrario devuelve el error ocurrido</returns>
-        public static String registrarDevolucion(Tienda tienda, List<DevolucionProducto> items)
+        public static String registrarDevolucion(Tienda tienda, EntitySet<DevolucionProducto> items)
         {
             Movimiento movimiento = new Movimiento();
             DateTime today = DateTime.Today;
@@ -125,8 +125,8 @@ namespace pe.edu.pucp.ferretin.controller.MAlmacen
                 current.Producto = items[i].Producto;
                 movimiento.MovimientoProducto.Add(current);
             }
-            MA_MovimientosService.InsertarMovimiento(movimiento);
-            return "";
+            bool ok = MA_MovimientosService.InsertarMovimiento(movimiento);
+            return (ok) ? "" : "Error al registrar el movimiento";
         }
 
         /// <summary>
@@ -154,9 +154,8 @@ namespace pe.edu.pucp.ferretin.controller.MAlmacen
                 current.Producto = items[i].Producto;
                 movimiento.MovimientoProducto.Add(current);
             }
-            MA_MovimientosService.InsertarMovimiento(movimiento);
-            return "";
-            return "";
+            bool ok = MA_MovimientosService.InsertarMovimiento(movimiento);
+            return (ok) ? "" : "Error al registrar el movimiento";
         }
 
 
