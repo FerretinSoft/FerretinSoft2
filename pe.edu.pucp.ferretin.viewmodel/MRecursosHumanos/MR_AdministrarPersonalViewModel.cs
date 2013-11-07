@@ -68,6 +68,20 @@ namespace pe.edu.pucp.ferretin.viewmodel.MRecursosHumanos
         #endregion
 
 
+        public IEnumerable<Cargo> listaCargosAdd
+        {
+            get
+            {
+                //Creo una nueva secuencia
+                var sequence = Enumerable.Empty<Cargo>();
+                //Primero agrego un item de Todos para que salga al inicio
+                //Pongo el ID en 0 para que al buscar, no filtre nada cuando se selecciona todos
+                IEnumerable<Cargo> items = new List<Cargo>();
+                //Luego concateno el itemcon los elementos del combobox
+                return items.Concat(MR_CargTieService.cargos);
+            }
+        }
+
         public IEnumerable<Cargo> listaCargos
         {
             get
@@ -82,6 +96,20 @@ namespace pe.edu.pucp.ferretin.viewmodel.MRecursosHumanos
             }
         }
 
+
+        public IEnumerable<Tienda> listaTiendasAdd
+        {
+            get
+            {
+                //Creo una nueva secuencia
+                var sequence = Enumerable.Empty<Tienda>();
+                //Primero agrego un item de Todos para que salga al inicio
+                //Pongo el ID en 0 para que al buscar, no filtre nada cuando se selecciona todos
+                IEnumerable<Tienda> items = new List<Tienda>();
+                //Luego concateno el itemcon los elementos del combobox
+                return items.Concat(almacenes);
+            }
+        }
 
         public IEnumerable<Tienda> listaTiendas
         {
@@ -175,7 +203,7 @@ namespace pe.edu.pucp.ferretin.viewmodel.MRecursosHumanos
                 //Cuando se cambia el status, tambien se tiene que actualizar el currentIndex del tab
                 NotifyPropertyChanged("currentIndexTab"); //Hace que cambie el tab automaticamente
                 NotifyPropertyChanged("isCreating"); //Para que se activen o desactiven los inputs
-                
+                NotifyPropertyChanged("listaEmpleadoTurno");
 
             }
         }
@@ -245,47 +273,48 @@ namespace pe.edu.pucp.ferretin.viewmodel.MRecursosHumanos
         #endregion
 
 
-        private IEnumerable<EmpleadoTurno> _listaEmpleadoTurno = new List<EmpleadoTurno>();
+        private IEnumerable<EmpleadoTurno> _listaEmpleadoTurno;
+        private List<EmpleadoTurno> _listaTemp = new List<EmpleadoTurno>();
         public IEnumerable<EmpleadoTurno> listaEmpleadoTurno
         {
             get
             {
-                EmpleadoTurno et1 = new EmpleadoTurno(); et1.id_dia = 1; et1.estado = 1;
-                EmpleadoTurno et2 = new EmpleadoTurno(); et2.id_dia = 2; et2.estado = 1;
-                EmpleadoTurno et3 = new EmpleadoTurno(); et3.id_dia = 3; et3.estado = 1;
-                EmpleadoTurno et4 = new EmpleadoTurno(); et4.id_dia = 4; et4.estado = 1;
-                EmpleadoTurno et5 = new EmpleadoTurno(); et5.id_dia = 5; et5.estado = 1;
-                EmpleadoTurno et6 = new EmpleadoTurno(); et6.id_dia = 6; et6.estado = 1;
-                EmpleadoTurno et7 = new EmpleadoTurno(); et7.id_dia = 7; et7.estado = 1;
-
+                if (empleado.EmpleadoTurno.Count() > 0)
+                    return empleado.EmpleadoTurno;
+                else
+                {
+                    empleado.empleadoT();
+                    _listaEmpleadoTurno = empleado.empleadoTurnos;
+                    return _listaEmpleadoTurno;
+                }
+                /*
+                EmpleadoTurno et2 = new EmpleadoTurno(); et2.Dia.id = 2; et2.Dia.nombre = "Lunes"; et2.estado = 1;
+                EmpleadoTurno et3 = new EmpleadoTurno(); et3.Dia.id = 3; et3.Dia.nombre = "Lunes"; et3.estado = 1;
+                EmpleadoTurno et4 = new EmpleadoTurno();  et4.Dia.id = 4; et4.Dia.nombre = "Lunes"; et4.estado = 1;
+                EmpleadoTurno et5 = new EmpleadoTurno();  et5.Dia.id = 5; et5.Dia.nombre = "Lunes"; et5.estado = 1;
+                EmpleadoTurno et6 = new EmpleadoTurno();  et6.Dia.id = 6; et6.Dia.nombre = "Lunes"; et6.estado = 1;
+                EmpleadoTurno et7 = new EmpleadoTurno();  et7.Dia.id = 7; et7.Dia.nombre = "Lunes"; et7.estado = 1;
+                */
             
-                _listaEmpleadoTurno.ToList().Add(et1);
+                
+                /*
                 _listaEmpleadoTurno.ToList().Add(et2);
                 _listaEmpleadoTurno.ToList().Add(et3);
                 _listaEmpleadoTurno.ToList().Add(et4);
                 _listaEmpleadoTurno.ToList().Add(et5);
                 _listaEmpleadoTurno.ToList().Add(et6);
                 _listaEmpleadoTurno.ToList().Add(et7);
-
-                return _listaEmpleadoTurno;
-                        
+                */
+                //return _listaEmpleadoTurno;
+                
             }
 
             set
             {
                 _listaEmpleadoTurno = value;
-                
-            
-            
+    
             }
-        
-        
-        
         }
-
-
-
-
 
         #region RelayCommand
         RelayCommand _actualizarListaEmpleadosCommand;
