@@ -109,7 +109,7 @@
                                 <ImageBrush ImageSource="/Resources/add_20.png" Stretch="None"/>
                             </Button.Background>
                         </Button>
-                        
+
 
                         <!-- fin de boton-->
                     </ToolBar>
@@ -118,7 +118,7 @@
             </TabItem>
 
             <!--TAB EDICION -->
-            
+
             <TabItem x:Name="detallesTab" Margin="1,-1,-5,-2">
                 <TabItem.Header>
                     <TextBlock Text="{Binding detallesTabHeader,Mode=OneWay,FallbackValue=Agregar}"/>
@@ -131,6 +131,8 @@
 
                     <Label Content="Perfil:" HorizontalAlignment="Left" Margin="22,23,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.464,1.231" Height="26" Width="39"/>
                     <Label Content="Permisos por Módulo:" HorizontalAlignment="Left" Margin="0,23,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.464,1.231" Height="26" Width="139" Grid.Column="1"/>
+                    <Label Content="*" HorizontalAlignment="Left" Margin="287,23,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.464,1.231" Height="26" Width="39" Grid.ColumnSpan="2" Foreground="Red"/>
+
                     <TextBox Text="{Binding Path=perfil.nombre, Mode=TwoWay, ValidatesOnExceptions=true, NotifyOnValidationError=true}" x:Name="nombreTxtBox" HorizontalAlignment="Left" Height="26" Margin="80,23,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="207"/>
                     <TextBox Text="{Binding Path=perfil.descripcion, Mode=TwoWay, ValidatesOnExceptions=true, NotifyOnValidationError=true}" x:Name="descripcionTxtBox" HorizontalAlignment="Left" Height="163" Margin="22,130,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="265"/>
 

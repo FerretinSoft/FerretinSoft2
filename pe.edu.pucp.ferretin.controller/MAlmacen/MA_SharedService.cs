@@ -141,7 +141,7 @@ namespace pe.edu.pucp.ferretin.controller.MAlmacen
         /// <param name="tienda">Almacen distribuidor que recepciona los productos</param>
         /// <param name="items">Listado de productos</param>
         /// <returns>Devuelve la cadena vacia si se registró el movimiento correctamente, en caso contrario devuelve el error ocurrido</returns>
-        public static String registrarCompra(Tienda tienda, EntitySet<DocumentoCompraProducto> items)
+        public static String registrarCompra(Tienda tienda, EntitySet<GuiaRemisionProducto> items)
         {
             if (items.Count <= 0) return "Debe haber al menos un producto para realizar el movimiento.";
             
@@ -151,15 +151,15 @@ namespace pe.edu.pucp.ferretin.controller.MAlmacen
             movimiento.fecha = today;
             movimiento.MovimientoEstado = MA_EstadoMovimientoService.getMovimientoEstadoByName("Finalizado");
             movimiento.MovimientoTipo = MA_TipoMovimientoService.getMovimientoTipoByName("Compra");
-            movimiento.Tienda = tienda;
+            movimiento.Tienda1 = tienda;
             movimiento.MovimientoProducto = new EntitySet<MovimientoProducto>();
             MovimientoProducto current;
             for (int i = 0; i < items.Count; i++)
             {
                 current = new MovimientoProducto();
-                current.cantidad = items[i].cantidad;
+                current.cantidad = items[i].cantidadRecibida;
                 current.Movimiento = movimiento;
-                current.Producto = items[i].Producto;
+                current.Producto = items[i].DocumentoCompraProducto.Producto;
                 movimiento.MovimientoProducto.Add(current);
             }
             bool ok = MA_MovimientosService.InsertarMovimiento(movimiento);

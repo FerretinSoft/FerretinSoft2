@@ -8,6 +8,7 @@ using pe.edu.pucp.ferretin.viewmodel.Helper;
 using pe.edu.pucp.ferretin.controller.MCompras;
 using System.Windows.Input;
 using System.Windows;
+using pe.edu.pucp.ferretin.controller;
 
 namespace pe.edu.pucp.ferretin.viewmodel.MCompras
 {
@@ -269,24 +270,26 @@ namespace pe.edu.pucp.ferretin.viewmodel.MCompras
         {
             if (guiaRemision.id > 0)//Si existe
             {
+                ComunService.idVentana(37);
                 if (!MC_GuiaRemisionService.enviarCambios())
                 {
                     MessageBox.Show("No se pudo actualizar la guia de remision");
                 }
                 else
                 {
-                    MessageBox.Show("L guia de remision fue guardado con éxito");
+                    MessageBox.Show("LA guia de remision fue guardado con éxito");
                 }
             }
             else
             {
+                ComunService.idVentana(36);
                 if (!MC_GuiaRemisionService.insertarGuiaRemision(guiaRemision))
                 {
-                    MessageBox.Show("No se pudo agregar el nuevo documento de compra");
+                    MessageBox.Show("No se pudo agregar la nueva guia de remision");
                 }
                 else
                 {
-                    MessageBox.Show("El documento de compra fue agregado con éxito");
+                    MessageBox.Show("La guia de remision se agrego con exito");
                 }
             }
         }

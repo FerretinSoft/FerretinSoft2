@@ -5,6 +5,7 @@ using System.Data.Linq;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using pe.edu.pucp.ferretin.controller.MAlmacen;
 
 namespace pe.edu.pucp.ferretin.controller.MCompras
 {
@@ -107,8 +108,10 @@ namespace pe.edu.pucp.ferretin.controller.MCompras
                     {
                         guiaRemision.DocumentoCompra.DocumentoCompraProducto[i].cantidadRestante = guiaRemision.DocumentoCompra.DocumentoCompraProducto[i].cantidadRestante - guiaRemision.GuiaRemisionProducto[i].cantidadRecibida;
                     }
-                    db.GuiaRemision.InsertOnSubmit(guiaRemision);           
-                    return enviarCambios();
+                    db.GuiaRemision.InsertOnSubmit(guiaRemision);
+                    MA_SharedService.registrarCompra(guiaRemision.Tienda, guiaRemision.GuiaRemisionProducto);
+                    enviarCambios();
+                    return true;
                 }
             }
             catch (Exception e)
