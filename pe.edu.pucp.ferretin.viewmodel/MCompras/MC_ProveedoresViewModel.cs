@@ -277,6 +277,7 @@ namespace pe.edu.pucp.ferretin.viewmodel.MCompras
 
             if (proveedor.id > 0)//Si existe
             {
+                MC_ComunService.idVentana(31);
                 if (!MC_ProveedorService.enviarCambios())
                 {
                     MessageBox.Show("No se pudo actualizar al Proveedor");
@@ -288,7 +289,7 @@ namespace pe.edu.pucp.ferretin.viewmodel.MCompras
             }
             else
             {
-                
+                MC_ComunService.idVentana(30);
                 if (!MC_ProveedorService.insertarProveedor(proveedor))
                 {
                     MessageBox.Show("No se pudo agregar el nuevo proveedor");
@@ -307,6 +308,7 @@ namespace pe.edu.pucp.ferretin.viewmodel.MCompras
             provProd = (ProveedorProducto)obj;
             if (provProd.id_producto > 0)//Si existe
             {
+                MC_ComunService.idVentana(31);
                 if (!MC_ProveedorService.enviarCambios())
                 {
                     MessageBox.Show("No se pudo actualizar al Producto");

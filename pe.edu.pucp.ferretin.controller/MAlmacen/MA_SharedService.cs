@@ -123,7 +123,7 @@ namespace pe.edu.pucp.ferretin.controller.MAlmacen
             MovimientoProducto current;
             for (int i = 0; i < items.Count; i++)
             {
-                if (items[i] != null && (bool)items[i].dardebaja) continue;
+                if (items[i].dardebaja != null && (bool)items[i].dardebaja) continue;
                 current = new MovimientoProducto();
                 current.cantidad = items[i].cantidad;
                 current.Movimiento = movimiento;
