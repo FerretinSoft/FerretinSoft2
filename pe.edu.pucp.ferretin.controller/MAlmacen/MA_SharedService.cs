@@ -198,6 +198,16 @@ namespace pe.edu.pucp.ferretin.controller.MAlmacen
             return (ok) ? "" : "Error al registrar el movimiento";
         }
 
+        /// <summary>
+        /// Devuelve un listado de productos que necesitan ser abastecidos para un almacén determinado
+        /// </summary>
+        /// <param name="almacen"></param>
+        /// <returns></returns>
+        public static IEnumerable<ProductoAlmacen> obtenerProductosPorAbastecer(Tienda almacen)
+        {
+            return almacen.ProductoAlmacen;
+        }
+
 
 
     }
