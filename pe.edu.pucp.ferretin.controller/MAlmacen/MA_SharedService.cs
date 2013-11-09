@@ -203,9 +203,14 @@ namespace pe.edu.pucp.ferretin.controller.MAlmacen
         /// </summary>
         /// <param name="almacen"></param>
         /// <returns></returns>
-        public static IEnumerable<ProductoAlmacen> obtenerProductosPorAbastecer(Tienda almacen)
+        public static Dictionary<ProductoAlmacen, decimal> obtenerProductosPorAbastecer(Tienda almacen)
         {
-            return almacen.ProductoAlmacen;
+            Dictionary<ProductoAlmacen, decimal> result = new Dictionary<ProductoAlmacen, decimal>();
+            for (int i = 0; i < almacen.ProductoAlmacen.Count; i++)
+			{
+			    result.Add(almacen.ProductoAlmacen[i], 100);
+			}
+            return result;
         }
 
 
