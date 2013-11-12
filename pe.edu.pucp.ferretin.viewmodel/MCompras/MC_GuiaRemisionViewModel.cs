@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using pe.edu.pucp.ferretin.model;
 using pe.edu.pucp.ferretin.viewmodel.Helper;
 using pe.edu.pucp.ferretin.controller.MCompras;
@@ -363,46 +361,6 @@ namespace pe.edu.pucp.ferretin.viewmodel.MCompras
                 MessageBox.Show("No se encontro ninguna Orden de Compra con el número de documento proporcionado", "No se encontro", MessageBoxButton.OK, MessageBoxImage.Question);
             }
         }
-
-        //public void viewDetailVenta(Object id)
-        //{
-        //    try
-        //    {
-        //        this.venta = listaVentas.Single(venta => venta.id == (long)id);
-        //        this.listaProductos = MV_VentaService.obtenerProductosbyIdVenta((long)id);
-        //        this.listaMedioPago = MV_VentaService.obtenerMedioDePagobyIdVenta((long)id);
-        //        selectedTab = 1;
-        //    }
-        //    catch (Exception e)
-        //    {
-        //        MessageBox.Show(e.Message);
-        //    }
-        //}
-
-        //public void cargarCliente(Object id)
-        //{
-        //    Cliente buscado = null;
-        //    try
-        //    {
-        //        buscado = MV_ClienteService.obtenerClienteByNroDoc(searchNroDocCliente);
-        //    }
-        //    catch { }
-
-        //    if (buscado == null)
-        //    {
-        //        MessageBox.Show("No se encontro ningún Cliente con el número de documento proporcionado", "No se encontro", MessageBoxButton.OK, MessageBoxImage.Question);
-        //        nombreCliente = "";
-        //        searchNroDocCliente = "";
-        //    }
-        //    else
-        //    {
-        //        nombreCliente = buscado.nombreCompleto;
-        //        searchNroDocCliente = buscado.nroDoc;
-        //    }
-        //    NotifyPropertyChanged("nombreCliente");
-        //    NotifyPropertyChanged("searchNroDocCliente");
-        //}
-
         #endregion
     }
 }

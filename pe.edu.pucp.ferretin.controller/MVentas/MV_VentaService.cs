@@ -84,9 +84,7 @@ namespace pe.edu.pucp.ferretin.controller.MVentas
         {
             return from c in listaVentas
                    where
-                   (
-                     c.nroDocumento!=null                   )
-                    
+                   c.nroDocumento != null
                    orderby c.nroDocumento
                    select c;
         }

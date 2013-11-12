@@ -123,7 +123,7 @@ namespace pe.edu.pucp.ferretin.controller.MAlmacen
             MovimientoProducto current;
             for (int i = 0; i < items.Count; i++)
             {
-                if (items[i] != null && (bool)items[i].dardebaja) continue;
+                if (items[i].dardebaja != null && (bool)items[i].dardebaja) continue;
                 current = new MovimientoProducto();
                 current.cantidad = items[i].cantidad;
                 current.Movimiento = movimiento;
@@ -196,6 +196,21 @@ namespace pe.edu.pucp.ferretin.controller.MAlmacen
             }
             bool ok = MA_MovimientosService.InsertarMovimiento(movimiento);
             return (ok) ? "" : "Error al registrar el movimiento";
+        }
+
+        /// <summary>
+        /// Devuelve un listado de productos que necesitan ser abastecidos para un almacén determinado
+        /// </summary>
+        /// <param name="almacen"></param>
+        /// <returns></returns>
+        public static Dictionary<ProductoAlmacen, decimal> obtenerProductosPorAbastecer(Tienda almacen)
+        {
+            Dictionary<ProductoAlmacen, decimal> result = new Dictionary<ProductoAlmacen, decimal>();
+            for (int i = 0; i < almacen.ProductoAlmacen.Count; i++)
+			{
+			    result.Add(almacen.ProductoAlmacen[i], 100);
+			}
+            return result;
         }
 
 

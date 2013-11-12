@@ -68,7 +68,9 @@ namespace pe.edu.pucp.ferretin.view.MRecursosHumanos
             else
             {
                 e.Handled = false;
-            }       
+            }   
+    
+
         }
 
         private void txtNombre_KeyDown(object sender, KeyEventArgs e)
@@ -195,12 +197,7 @@ namespace pe.edu.pucp.ferretin.view.MRecursosHumanos
         {
             //Validaciones para textbox de solo letras
 
-            string patternStrict = @"^(([^<>()[\]\\.,;:\s@\""]+"
-       + @"(\.[^<>()[\]\\.,;:\s@\""]+)*)|(\"".+\""))@"
-       + @"((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}"
-       + @"\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+"
-       + @"[a-zA-Z]{2,}))$";
-            Regex reStrict = new Regex(patternStrict);
+            
 
             //                      bool isLenientMatch = reLenient.IsMatch(emailAddress);
             //                      return isLenientMatch;
@@ -208,7 +205,7 @@ namespace pe.edu.pucp.ferretin.view.MRecursosHumanos
             //bool isStrictMatch = reStrict.IsMatch(correo.Text);
             //return isStrictMatch;
 
-            if (reStrict.IsMatch(correo.Text))
+            if (Regex.IsMatch(correo.Text, @"^([0-9a-zA-Z]([-\.\w]*[0-9a-zA-Z])*@([0-9a-zA-Z][-\w]*[0-9a-zA-Z]\.)+[a-zA-Z]{4,15})$"))
                 e.Handled = true;
             else 
                 e.Handled = false;

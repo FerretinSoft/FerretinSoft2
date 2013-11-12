@@ -133,7 +133,7 @@
                     <TextBox MaxLength="7" Text="{Binding Path=empleado.telefono1, Mode=TwoWay,  ValidatesOnExceptions=true, NotifyOnValidationError=true, ValidatesOnDataErrors=True}"  HorizontalAlignment="Left" Height="23" Margin="47,335,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="97" Grid.Column="3" Grid.ColumnSpan="2" PreviewKeyDown="txtTelf1_KeyDown" PreviewTextInput="telf1_PreviewTextInput"/>
                     <TextBox MaxLength="9" Text="{Binding Path=empleado.telefono2, Mode=TwoWay,  ValidatesOnExceptions=true, NotifyOnValidationError=true, ValidatesOnDataErrors=True}"  HorizontalAlignment="Left" Height="23" Margin="137,338,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="97" Grid.Column="4" PreviewKeyDown="txtTelf2_KeyDown" PreviewTextInput="telf2_PreviewTextInput"/>
                     <Label Content="Email:" HorizontalAlignment="Left" Margin="12,374,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.464,1.231" Grid.ColumnSpan="4"/>
-                    <TextBox MaxLength="20" x:Name="correo" Text="{Binding Path=empleado.email, Mode=TwoWay,  ValidatesOnExceptions=true, NotifyOnValidationError=true, ValidatesOnDataErrors=True}"  HorizontalAlignment="Left" Height="23" Margin="47,374,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="246" Grid.Column="3" Grid.ColumnSpan="2" PreviewKeyDown="txtEmail_KeyDown" PreviewTextInput="email_PreviewTextInput"/>
+                    <TextBox MaxLength="30" x:Name="correo" Text="{Binding Path=empleado.email, Mode=TwoWay,  ValidatesOnExceptions=true, NotifyOnValidationError=true, ValidatesOnDataErrors=True}"  HorizontalAlignment="Left" Height="23" Margin="47,374,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="246" Grid.Column="3" Grid.ColumnSpan="2" PreviewKeyDown="txtEmail_KeyDown" PreviewTextInput="email_PreviewTextInput"/>
                     <Label Content=" Sexo:" HorizontalAlignment="Left" Margin="92,408,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.464,1.231" Grid.Column="4"/>
                     <ComboBox SelectedIndex="{Binding empleado.nombreSexo}"  HorizontalAlignment="Left" Margin="139,412,0,0" VerticalAlignment="Top" Width="97" Grid.Column="4">          
                         
@@ -160,7 +160,7 @@
                     </ComboBox>
                     <TextBox x:Name="sueldo" Text="{Binding empleado.ultimoSueldo, ValidatesOnExceptions=true, NotifyOnValidationError=true , ValidatesOnDataErrors=True}"  HorizontalAlignment="Left" Height="23" Margin="152,121,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="181" Grid.Column="5" PreviewKeyDown="txtSueldo_KeyDown" PreviewTextInput="sueldo_PreviewTextInput" />
                     <Label Content="Historial:" HorizontalAlignment="Left" Margin="27,185,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.464,1.231" Grid.Column="5"/>
-                    <DataGrid  ItemsSource="{Binding listaEmpleadoTurno, UpdateSourceTrigger=PropertyChanged,NotifyOnSourceUpdated=True,NotifyOnTargetUpdated=True,Mode=TwoWay}"  CanUserAddRows="False" AutoGenerateColumns="False"  Grid.Column="5" HorizontalAlignment="Left" Margin="27,314,0,0" VerticalAlignment="Top" Height="85" Width="308">
+                    <DataGrid  ItemsSource="{Binding empleado.EmpleadoTurno, UpdateSourceTrigger=PropertyChanged,NotifyOnSourceUpdated=True,NotifyOnTargetUpdated=True,Mode=TwoWay}"  CanUserAddRows="False" AutoGenerateColumns="False"  Grid.Column="5" HorizontalAlignment="Left" Margin="27,314,0,0" VerticalAlignment="Top" Height="85" Width="308">
                         <DataGrid.Columns>
                             <DataGridTextColumn Binding="{Binding Path=Dia.nombre}" Header="Día de la Semana" Width="3*"/>
                             <DataGridComboBoxColumn Width="3*" Header="Turno">
@@ -171,7 +171,13 @@
                                         <Setter Property="IsEnabled" Value="{Binding turnoIsEnable,Mode=OneWay,UpdateSourceTrigger=PropertyChanged}"/>
                                     </Style>
                                 </DataGridComboBoxColumn.ElementStyle>
-                               
+                                <DataGridComboBoxColumn.EditingElementStyle>
+                                    <Style TargetType="ComboBox">
+                                        <Setter Property="ItemsSource" Value="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type DataGrid}}, Path=DataContext.tiposTurnos}"/>
+                                        <Setter Property="SelectedIndex" Value="{Binding id_turno,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"/>
+                                        <Setter Property="IsEnabled" Value="{Binding turnoIsEnable,Mode=OneWay,UpdateSourceTrigger=PropertyChanged}"/>
+                                    </Style>
+                                </DataGridComboBoxColumn.EditingElementStyle>
                             </DataGridComboBoxColumn>
                             <DataGridCheckBoxColumn Width="2*" Binding="{Binding Path=estado}" Header="Seleccionar"  />
                       

@@ -51,6 +51,7 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Data.Entity" />
     <Reference Include="System.Data.Linq" />
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
@@ -86,6 +87,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="MAlmacen\MA_ColoresProductosWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="MAlmacen\MA_DocumentoMovimiento.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -146,6 +151,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="MCompras\MC_AtenderSolicitudWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="MCompras\MC_BuscarProductosProveedorWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -285,6 +294,9 @@
     <Compile Include="MAlmacen\MA_ColoresProductosWindow.xaml.cs">
       <DependentUpon>MA_ColoresProductosWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="MAlmacen\MA_DocumentoMovimiento.xaml.cs">
+      <DependentUpon>MA_DocumentoMovimiento.xaml</DependentUpon>
+    </Compile>
     <Compile Include="MAlmacen\MA_InventarioProductosWindow.xaml.cs">
       <DependentUpon>MA_InventarioProductosWindow.xaml</DependentUpon>
     </Compile>
@@ -329,6 +341,9 @@
     </Compile>
     <Compile Include="MCompras\MC_AtenderSolicitudWindow.xaml.cs">
       <DependentUpon>MC_AtenderSolicitudWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="MCompras\MC_BuscarProductosProveedorWindow.xaml.cs">
+      <DependentUpon>MC_BuscarProductosProveedorWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="MCompras\MC_BuscarProveedorProductoWindow.xaml.cs">
       <DependentUpon>MC_BuscarProveedorProductoWindow.xaml</DependentUpon>

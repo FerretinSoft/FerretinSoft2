@@ -3,8 +3,6 @@ using System;
 using System.Collections.Generic;
 using System.Data.Linq;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace pe.edu.pucp.ferretin.controller.MCompras
 {
@@ -40,6 +38,27 @@ namespace pe.edu.pucp.ferretin.controller.MCompras
             set
             {
                 _listaDocumentosCompra = value;
+            }
+        }
+
+        private static IEnumerable<DocumentoCompraProducto> _listaProductosDC;
+        public static IEnumerable<DocumentoCompraProducto> listaProductosDC
+        {
+            get
+            {
+                if (_listaProductosDC == null)
+                {
+                    _listaProductosDC = db.DocumentoCompraProducto;
+                }
+                //Usando concurrencia pesimista:
+                ///La lista de documentos de compra se actualizara para ver los cambios
+                ///Si quisiera usar concurrencia optimista quito la siguiente linea
+                db.Refresh(RefreshMode.OverwriteCurrentValues, _listaProductosDC);
+                return _listaProductosDC;
+            }
+            set
+            {
+                _listaProductosDC = value;
             }
         }
 
@@ -108,6 +127,16 @@ namespace pe.edu.pucp.ferretin.controller.MCompras
                 }
             }
             
+        }
+
+        public static IEnumerable<DocumentoCompraProducto> buscarProductosDC(DocumentoCompra doc)
+        {
+            return from g in listaProductosDC
+                   where (
+                       //Cada fila es un filtro
+                          (g.DocumentoCompra.id == doc.id))
+                   orderby g.id
+                   select g;
         }
 
         public static IEnumerable<DocumentoCompra> buscarTodosDocumentosCompra()
