@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using pe.edu.pucp.ferretin.model;
 using pe.edu.pucp.ferretin.viewmodel.Helper;
 using pe.edu.pucp.ferretin.controller.MCompras;
@@ -64,6 +62,22 @@ namespace pe.edu.pucp.ferretin.viewmodel.MCompras
             {
                 _listaEstadosDC = value;
                 NotifyPropertyChanged("listaEstadosDC");
+            }
+        }
+
+        private IEnumerable<DocumentoCompraProducto> _listaProductosDC = null;
+        public IEnumerable<DocumentoCompraProducto> listaProductosDC
+        {
+            get
+            {
+                if (documentoCompra.id > 0)
+                    _listaProductosDC = MC_DocumentoCompraService.buscarProductosDC(documentoCompra);
+                return _listaProductosDC;
+            }
+            set
+            {
+                _listaProductosDC = value;
+                NotifyPropertyChanged("listaProductosDC");
             }
         }
 
@@ -158,15 +172,17 @@ namespace pe.edu.pucp.ferretin.viewmodel.MCompras
                 //Si la pestaña es para agregar nuevo, limpio los input
                 switch (_statusTab)
                 {
-                    case Tab.BUSQUEDA: detallesTabHeader = "Agregar"; documentoCompra = new DocumentoCompra(); break;//Si es agregar, creo un nuevo objeto Cliente
-                    case Tab.AGREGAR: detallesTabHeader = "Agregar"; documentoCompra = new DocumentoCompra(); break;//Si es agregar, creo un nuevo objeto Cliente
+                    case Tab.BUSQUEDA: detallesTabHeader = "Agregar"; documentoCompra = new DocumentoCompra(); listaProductosDC = new List<DocumentoCompraProducto>(); break;//Si es agregar, creo un nuevo objeto Cliente
+                    case Tab.AGREGAR: detallesTabHeader = "Agregar"; documentoCompra = new DocumentoCompra(); listaProductosDC = new List<DocumentoCompraProducto>(); break;//Si es agregar, creo un nuevo objeto Cliente
                     case Tab.MODIFICAR: detallesTabHeader = "Modificar"; break;
                     case Tab.DETALLES: detallesTabHeader = "Detalles"; break;
-                    default: detallesTabHeader = "Agregar"; documentoCompra = new DocumentoCompra(); break;//Si es agregar, creo un nuevo objeto Cliente
+                    default: detallesTabHeader = "Agregar"; documentoCompra = new DocumentoCompra(); listaProductosDC = new List<DocumentoCompraProducto>(); break;//Si es agregar, creo un nuevo objeto Cliente
                 }
                 NotifyPropertyChanged("statusTab");
                 //Cuando se cambia el status, tambien se tiene que actualizar el currentIndex del tab
                 NotifyPropertyChanged("currentIndexTab"); //Hace que cambie el tab automaticamente
+                NotifyPropertyChanged("documentoCompra");
+                NotifyPropertyChanged("listaProductosDC");
             }
         }
         //Usado para mover los tabs de acuerdo a las acciones realizadas
@@ -238,6 +254,22 @@ namespace pe.edu.pucp.ferretin.viewmodel.MCompras
             }
         }
 
+        //buscarProductosProveedorCommand
+
+        //RelayCommand _buscarProductosProveedorCommand;
+        //public ICommand buscarProductosProveedorCommand
+        //{
+        //    get
+        //    {
+        //        if (searchProveedor == "")
+        //        {
+        //            MC_BuscarProductosProveedorWindow vpp = new MC_BuscarProductosProveedorWindow()
+        //                ;
+        //        }
+        //        return _buscarProductosProveedorCommand;
+        //    }
+        //}
+
         RelayCommand _agregarCotizacionCommand;
         public ICommand agregarCotizacionCommand
         {
@@ -248,6 +280,7 @@ namespace pe.edu.pucp.ferretin.viewmodel.MCompras
                     _agregarCotizacionCommand = new RelayCommand(agregarCotizacion);
                 }
                 return _agregarCotizacionCommand;
+
             }
         }
 

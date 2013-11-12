@@ -82,6 +82,16 @@ namespace pe.edu.pucp.ferretin.controller.MSeguridad
                 }
                 catch (Exception e)
                 {
+                    //Obtiene el ultimo codigo de la tienda y le suma 1 para que se el codigo de la tienda a agregar
+                    tiend = db.Tienda.OrderByDescending(t => t.id).First();
+                    String tempCadenaNumero = (Int32.Parse(tiend.codigo.Substring(tiend.codigo.Length - 3)) + 1).ToString();
+                    if (tempCadenaNumero.Length == 1)
+                        tienda.codigo = "TND00" + tempCadenaNumero;
+                    else if (tempCadenaNumero.Length == 2)
+                        tienda.codigo = "TND0" + tempCadenaNumero;
+                    else
+                        tienda.codigo = "TND" + tempCadenaNumero;
+                    //*************************************************//
                     db.Tienda.InsertOnSubmit(tienda);
                     return enviarCambios();
                 }                

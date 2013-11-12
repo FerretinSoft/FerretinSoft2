@@ -89,17 +89,10 @@ namespace pe.edu.pucp.ferretin.viewmodel.MSeguridad
                 switch (_statusTab)
                 {
                     case Tab.BUSQUEDA: detallesTabHeader = "Agregar"; almacen = new Tienda(); break;//Si es agregar, creo un nuevo objeto Almacen
-                    case Tab.AGREGAR: detallesTabHeader = "Agregar"; almacen = new Tienda();                                                
-                        //Obtiene el ultimo codigo de la tienda y le suma 1 para que se el codigo de la tienda a agregar
-                        String tempCadenaNumero = (Int32.Parse(listaAlmacenes.Last().codigo.Substring(listaAlmacenes.Last().codigo.Length - 3))+1).ToString();                        
-                        if(tempCadenaNumero.Length==1)
-                            this.almacen.codigo = "TND00" + tempCadenaNumero;
-                        else if (tempCadenaNumero.Length == 2)
-                            this.almacen.codigo = "TND0" + tempCadenaNumero;
-                        else
-                            this.almacen.codigo = "TND" + tempCadenaNumero;
+                    case Tab.AGREGAR: detallesTabHeader = "Agregar"; almacen = new Tienda();                        
                         selectedTipo = -1;
                         almacen.fecCreacion = DateTime.Today;
+                        almacen.estado = 1;
                         break;//Si es agregar, creo un nuevo objeto Almacen
                     case Tab.MODIFICAR: detallesTabHeader = "Modificar"; break;
                     case Tab.DETALLES: detallesTabHeader = "Detalles"; break;
@@ -409,11 +402,13 @@ namespace pe.edu.pucp.ferretin.viewmodel.MSeguridad
                     comboEnabledAlmacen = true;
                 else
                 {
-                    comboEnabledAlmacen = false;
-                    almacenes = null;
+                    comboEnabledAlmacen = false;                   
+                    almacen.Tienda1 = null;
+                    _defaultcomboIndex = -1;
                 }
-                NotifyPropertyChanged("selectedTipo");
+                NotifyPropertyChanged("selectedTipo");                
                 NotifyPropertyChanged("comboEnabledAlmacen");
+                NotifyPropertyChanged("defaultcomboIndex");
                 this.almacen.tipo = _selectedTipo;
             }
         }
@@ -428,10 +423,23 @@ namespace pe.edu.pucp.ferretin.viewmodel.MSeguridad
             }
             set
             {
-                _comboEnabledAlmacen = value;
+                _comboEnabledAlmacen = value;               
                 NotifyPropertyChanged("comboEnabledAlmacen");                
             }
         }
+        private int _defaultcomboIndex = -1;
+        public int defaultcomboIndex{
+            get
+            {
+                return _defaultcomboIndex;
+            }
+            set
+            {
+                _defaultcomboIndex = value;
+                NotifyPropertyChanged("defaultcomboIndex");
+            }
+        }
+
 
         public bool VerificaCamposObligatorios(Tienda tienda)
         {
