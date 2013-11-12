@@ -29,11 +29,12 @@
                         <RowDefinition Height="125*"/>
                     </Grid.RowDefinitions>
                     <GroupBox Header="Parámetros" Margin="5,2,5,4" BorderBrush="Black" Grid.ColumnSpan="2"/>
+                    
+                    <!-- Labels -->
                     <Label Content="Módulo:" HorizontalAlignment="Left" Height="26" VerticalAlignment="Top" Width="54" Margin="21,21,0,0"/>
                     <Label Content="Descripción:" HorizontalAlignment="Left" Height="26" VerticalAlignment="Top" Width="80" Margin="222,25,0,0" Grid.Column="1" RenderTransformOrigin="0.781,0.538"/>
-
-                    <!--Aca estan los textBox de la ventana-->
-                    <!--checkbox perfil-->
+                    
+                    <!-- TextBox -->
                     <TextBox Text="{Binding searchDescripcion}" HorizontalAlignment="Left" Margin="305,27,0,0" VerticalAlignment="Top" Width="182" Height="22" Grid.Column="1"/>
 
                     <!--
@@ -46,7 +47,8 @@
                         <CheckBox Content="Vendedor" IsChecked="True"/>
                     </ComboBox>
                     -->
-                    <!--checkbox modulo-->
+                    
+                    <!--CheckBox -->                    
                     <ComboBox SelectedIndex="{Binding searchModulo, Mode=TwoWay}" HorizontalAlignment="Left" Margin="80,25,0,0" VerticalAlignment="Top" Width="133" Height="22" Grid.ColumnSpan="2">
                         <ComboBoxItem Content="Todos"/>
                         <ComboBoxItem Content="Almacen"/>
@@ -56,14 +58,21 @@
                         <ComboBoxItem Content="Seguridad"/>
                     </ComboBox>
 
-
+                    <!-- Button -->
                     <Button Command="{Binding actualizarListaPerfilesCommand}" x:Name="buscarPerfilesBtn" HorizontalAlignment="Left" Margin="494,21,0,0" VerticalAlignment="Top" Width="32" Height="32" RenderTransformOrigin="0.3,-0.35" Grid.Column="1">
                         <Button.Background>
                             <ImageBrush ImageSource="/Resources/refresh2_48.png"/>
                         </Button.Background>
                     </Button>
+                    <ToolBar HorizontalAlignment="Left" Margin="11,1,0,0" VerticalAlignment="Top" Height="24" Width="46" Grid.Row="1">
+                        <Button Command="{Binding Path=agregarPerfilCommand}" x:Name="nuevoPerfilBtn" Content="" VerticalAlignment="Bottom" Width="20" Margin="0,0,2,-1" Height="20">
+                            <Button.Background>
+                                <ImageBrush ImageSource="/Resources/add_20.png" Stretch="None"/>
+                            </Button.Background>
+                        </Button>
+                    </ToolBar>
 
-                    <!-- Aca se encuentra el Grid de la ventana-->
+                    <!-- DataGrid -->
                     <DataGrid ItemsSource="{Binding Path=listaPerfiles,Mode=OneWay}" x:Name="perfilesGrid" Margin="10,30,0,5" Grid.RowSpan="2" Grid.ColumnSpan="2"  AutoGenerateColumns="False" CanUserAddRows="False" CanUserDeleteRows="False" IsReadOnly="True" Grid.Row="1">
                         <DataGrid.Columns>
                             <!-- Columnas del Grid -->
@@ -76,7 +85,8 @@
                                 </DataGridHyperlinkColumn.ElementStyle>
                             </DataGridHyperlinkColumn>
                              -->
-                            <DataGridTemplateColumn Width="3*" Header="Perfil">
+                            <!-- Columna Hypervinculo -->
+                            <DataGridTemplateColumn Width="2.5*" Header="Perfil">
                                 <DataGridTemplateColumn.CellTemplate>
                                     <DataTemplate>
                                         <TextBlock>
@@ -91,34 +101,15 @@
                             </DataGridTemplateColumn>
 
                             <!-- Otras columnas -->
-                            <DataGridTextColumn Width="3*" Binding="{Binding Path=modulo, Mode=TwoWay}" ClipboardContentBinding="{x:Null}" Header="Módulo"/>
-                            <DataGridTextColumn Width="4*" Binding="{Binding Path=descripcion}" ClipboardContentBinding="{x:Null}" Header="Descripción"/>
+                            <DataGridTextColumn Width="2.5*" Binding="{Binding Path=modulo, Mode=TwoWay}" ClipboardContentBinding="{x:Null}" Header="Módulo"/>
+                            <DataGridTextColumn Width="4.7*" Binding="{Binding Path=descripcion}" ClipboardContentBinding="{x:Null}" Header="Descripción"/>
                         </DataGrid.Columns>
                     </DataGrid>
-
-                    <ToolBar HorizontalAlignment="Left" Margin="11,1,0,0" VerticalAlignment="Top" Height="24" Width="46" Grid.Row="1">
-                        <!-- Aqui se encuentra el boton para agregar nuevo perfil
-                        <Button x:Name="nuevoPerfilBtn" Content="" VerticalAlignment="Top" Width="20" Margin="0,0,0,-1" Height="20" Click="nuevoPerfilBtn_Click">
-                            <Button.Background>
-                                <ImageBrush ImageSource="../Resources/add_20.png" Stretch="None"/>
-                            </Button.Background>
-                        </Button>-->
-
-                        <Button Command="{Binding Path=agregarPerfilCommand}" x:Name="nuevoPerfilBtn" Content="" VerticalAlignment="Bottom" Width="20" Margin="0,0,2,-1" Height="20">
-                            <Button.Background>
-                                <ImageBrush ImageSource="/Resources/add_20.png" Stretch="None"/>
-                            </Button.Background>
-                        </Button>
-
-
-                        <!-- fin de boton-->
-                    </ToolBar>
 
                 </Grid>
             </TabItem>
 
             <!--TAB EDICION -->
-
             <TabItem x:Name="detallesTab" Margin="1,-1,-5,-2">
                 <TabItem.Header>
                     <TextBlock Text="{Binding detallesTabHeader,Mode=OneWay,FallbackValue=Agregar}"/>
@@ -129,14 +120,24 @@
                         <ColumnDefinition/>
                     </Grid.ColumnDefinitions>
 
+                    <!-- Labels -->
                     <Label Content="Perfil:" HorizontalAlignment="Left" Margin="22,23,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.464,1.231" Height="26" Width="39"/>
-                    <Label Content="Permisos por Módulo:" HorizontalAlignment="Left" Margin="0,23,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.464,1.231" Height="26" Width="139" Grid.Column="1"/>
                     <Label Content="*" HorizontalAlignment="Left" Margin="287,23,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.464,1.231" Height="26" Width="39" Grid.ColumnSpan="2" Foreground="Red"/>
+                    <Label Content="Permisos por Módulo:" HorizontalAlignment="Left" Margin="0,23,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.464,1.231" Height="26" Width="139" Grid.Column="1"/>
+                    <Label Content="Estado:" HorizontalAlignment="Left" Margin="22,62,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.464,1.231" Height="26" Width="48"/>
+                    <Label Content="Descripción:" HorizontalAlignment="Left" Margin="22,99,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.464,1.231" Height="26" Width="74"/>
 
+                    <!-- TexBoxes -->
                     <TextBox Text="{Binding Path=perfil.nombre, Mode=TwoWay, ValidatesOnExceptions=true, NotifyOnValidationError=true}" x:Name="nombreTxtBox" HorizontalAlignment="Left" Height="26" Margin="80,23,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="207"/>
                     <TextBox Text="{Binding Path=perfil.descripcion, Mode=TwoWay, ValidatesOnExceptions=true, NotifyOnValidationError=true}" x:Name="descripcionTxtBox" HorizontalAlignment="Left" Height="163" Margin="22,130,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="265"/>
 
-                    <Label Content="Descripción:" HorizontalAlignment="Left" Margin="22,99,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.464,1.231" Height="26" Width="74"/>
+                    <!-- ComboBox -->
+                    <ComboBox SelectedIndex="{Binding Path=perfil.estado , FallbackValue=1, Mode=TwoWay}"  x:Name="estadoCombo" HorizontalAlignment="Left" Margin="80,62,0,0" VerticalAlignment="Top" Width="105" Height="26" >
+                        <ComboBoxItem Content="Inactivo"/>
+                        <ComboBoxItem Content="Activo"/>
+                    </ComboBox>
+                    
+                    <!-- Tree -->
                     <helper:MyTreeView ItemsSource="{Binding Path=perfil.PerfilMenuPadre,Mode=OneWay}" SelectedItem_="{Binding Path=CategoriaSeleccionada, Mode=TwoWay}" Background="#FFF5F5F5" HorizontalAlignment="Left" Height="239" Margin="0,54,0,0" VerticalAlignment="Top" Width="309" Grid.Column="1">
                         <TreeView.ItemContainerStyle>
                             <Style TargetType="{x:Type TreeViewItem}">
@@ -160,17 +161,10 @@
                     </helper:MyTreeView>
                     <Button  Command="{Binding cancelPerfilCommand}" Content="CANCELAR" Padding="5,0" Margin="10,298,224,55" Grid.Column="1"/>
                     <Button Command="{Binding savePerfilCommand}" Content="GUARDAR" Padding="5,0" Margin="236,298,0,55"/>
-                    <Label Content="Estado:" HorizontalAlignment="Left" Margin="22,62,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.464,1.231" Height="26" Width="48"/>
-                    <ComboBox SelectedIndex="{Binding Path=perfil.estado , FallbackValue=1, Mode=TwoWay}"  x:Name="estadoCombo" HorizontalAlignment="Left" Margin="80,62,0,0" VerticalAlignment="Top" Width="105" Height="26" >
-                        <ComboBoxItem Content="Inactivo"/>
-                        <ComboBoxItem Content="Activo"/>
-                    </ComboBox>
-
+                    
                 </Grid>
             </TabItem>
-
-
+            
         </TabControl>
-
     </Grid>
 </Window>

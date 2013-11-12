@@ -82,6 +82,22 @@ namespace pe.edu.pucp.ferretin.viewmodel.MAlmacen
                 return _nuevaCategoriaCommand;
             }
         }
+
+
+        //deleteCategoriaCommand
+        RelayCommand _deleteCategoriaCommand;
+        public ICommand deleteCategoriaCommand
+        {
+            get
+            {
+                if (_deleteCategoriaCommand == null)
+                {
+                    _deleteCategoriaCommand = new RelayCommand(deleteCategoria);
+                }
+                return _deleteCategoriaCommand;
+            }
+        }
+
         #endregion
 
         #region Comandos
@@ -92,6 +108,22 @@ namespace pe.edu.pucp.ferretin.viewmodel.MAlmacen
             categoria.nivel = (byte)(CategoriaSeleccionada.nivel + 1);
             categoria.Categoria1 = CategoriaSeleccionada;
             CategoriaSeleccionada = categoria;
+        }
+
+        public void deleteCategoria(Object obj)
+        {
+            bool valor=MA_CategoriaService.eliminarCategoria(CategoriaSeleccionada);
+            if (valor)
+            {
+                MessageBox.Show("No se puede eliminar la categoria");
+            }
+            else 
+            {
+                MessageBox.Show("La Categoría se elimino con éxito");
+            }
+
+           
+           
         }
 
         public void saveCategoria(Object obj)
