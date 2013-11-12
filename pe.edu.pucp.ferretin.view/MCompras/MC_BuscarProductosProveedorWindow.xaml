@@ -15,7 +15,14 @@
                     <DataGridTextColumn Width="2.5*" Binding="{Binding Path=Producto.nombre}" IsReadOnly="True" Header="Producto"/>
                     <DataGridTextColumn Width="1.5*" Binding="{Binding Path=precio}" IsReadOnly="True" Header="Precio Unit."/>
                     <DataGridTextColumn Width="2.0*" Binding="{Binding Path=tiempoEntrega}" IsReadOnly="True" Header="Tiempo de Entrega"/>
-                    <DataGridCheckBoxColumn Width="0.8*" Binding="{Binding Path=isSelected}" IsReadOnly="False"/>
+
+                    <DataGridTemplateColumn Header="Seleccionar">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <CheckBox IsChecked="{Binding IsSelected, Mode=TwoWay}" />
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
                 </DataGrid.Columns>
             </DataGrid>
             <Label Content="Proveedor:" HorizontalAlignment="Left" Margin="231,15,0,0" VerticalAlignment="Top"/>
