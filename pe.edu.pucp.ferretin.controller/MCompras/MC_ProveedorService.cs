@@ -90,6 +90,7 @@ namespace pe.edu.pucp.ferretin.controller.MCompras
                    select p;
         }
 
+
         public static IEnumerable<ProveedorProducto> obtenerProductosbyIdProveedor(int id_proveedor)
         {
             return from c in listaProductos
@@ -97,6 +98,17 @@ namespace pe.edu.pucp.ferretin.controller.MCompras
                    (c.id_proveedor != null && c.id_proveedor.Equals(id_proveedor)
                     )
                    orderby c.id_proveedor
+                   select c;
+        }
+
+        public static IEnumerable<ProveedorProducto> obtenerProductosProveedor(string proveedor, string producto)
+        {
+            return from c in listaProductos
+                   where
+                   (c.id_proveedor != null && c.Proveedor.razonSoc.ToLower().Trim().Contains(proveedor.ToLower().Trim())
+                   && (c.Producto.nombre.ToLower().Trim().Contains(producto.ToLower().Trim())) 
+                   )
+                   orderby c.Producto.nombre
                    select c;
         }
 

@@ -153,6 +153,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="MCompras\MC_BuscarProductosProveedorWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="MCompras\MC_BuscarProveedorProductoWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -336,6 +340,9 @@
     </Compile>
     <Compile Include="MCompras\MC_AtenderSolicitudWindow.xaml.cs">
       <DependentUpon>MC_AtenderSolicitudWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="MCompras\MC_BuscarProductosProveedorWindow.xaml.cs">
+      <DependentUpon>MC_BuscarProductosProveedorWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="MCompras\MC_BuscarProveedorProductoWindow.xaml.cs">
       <DependentUpon>MC_BuscarProveedorProductoWindow.xaml</DependentUpon>

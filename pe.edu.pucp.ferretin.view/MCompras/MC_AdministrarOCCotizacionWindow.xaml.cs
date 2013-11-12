@@ -30,5 +30,13 @@ namespace pe.edu.pucp.ferretin.view.MCompras
             p.Owner = this;
             var viewModel = p.main.DataContext as MC_AdministrarProveedorWindow;
         }
+
+        private void agregarProducto_Click(object sender, RoutedEventArgs e)
+        {
+            MC_BuscarProductosProveedorWindow v = new MC_BuscarProductosProveedorWindow();
+            v.Owner = this;
+            v.ShowDialog();
+            //var viewModel = v.main.DataContext as MC_BuscarProductosProveedorWindow;
+        }
     }
 }

@@ -158,7 +158,7 @@
                         </Button.Background>
                     </Button>
                     <ToolBar Margin="11,105,0,0" Width="67" HorizontalAlignment="Left" VerticalAlignment="Top" Grid.ColumnSpan="2">
-                        <Button x:Name="agregarProducto" Content="" VerticalAlignment="Top" Width="20" Margin="0,1,0,-0.895" Height="20">
+                        <Button x:Name="agregarProducto" VerticalAlignment="Top" Width="20" Margin="0,1,0,-0.895" Height="20" Click="agregarProducto_Click">
                             <Button.Background>
                                 <ImageBrush ImageSource="../Resources/add_20.png" Stretch="None"/>
                             </Button.Background>

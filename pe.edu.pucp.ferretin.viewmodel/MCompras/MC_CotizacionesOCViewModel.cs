@@ -238,6 +238,22 @@ namespace pe.edu.pucp.ferretin.viewmodel.MCompras
             }
         }
 
+        //buscarProductosProveedorCommand
+
+        //RelayCommand _buscarProductosProveedorCommand;
+        //public ICommand buscarProductosProveedorCommand
+        //{
+        //    get
+        //    {
+        //        if (searchProveedor == "")
+        //        {
+        //            MC_BuscarProductosProveedorWindow vpp = new MC_BuscarProductosProveedorWindow()
+        //                ;
+        //        }
+        //        return _buscarProductosProveedorCommand;
+        //    }
+        //}
+
         RelayCommand _agregarCotizacionCommand;
         public ICommand agregarCotizacionCommand
         {
