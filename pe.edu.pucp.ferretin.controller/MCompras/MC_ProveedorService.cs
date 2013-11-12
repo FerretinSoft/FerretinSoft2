@@ -73,12 +73,13 @@ namespace pe.edu.pucp.ferretin.controller.MCompras
 
       // public static bool 
 
-        public static IEnumerable<Proveedor> buscarProveedores(string ruc, string razonSoc, Rubro rubro)
+        public static IEnumerable<Proveedor> buscarProveedores(string ruc, string razonSoc, Rubro rubro,string tipo)
         {
             return from p in listaProveedores
                    where
-                   (p.razonSoc != null && p.razonSoc.Contains(razonSoc)
+                   (p.razonSoc != null && p.razonSoc.ToLower().Contains(razonSoc.ToLower().Trim())
                        && p.ruc != null && p.ruc.Contains(ruc)&&
+                       p.tipo!=null && p.tipo.Contains(tipo)&&
                       
                         (rubro==null|| rubro.id==0 ||( p.id_rubro!=null && p.id_rubro == rubro.id))
                   

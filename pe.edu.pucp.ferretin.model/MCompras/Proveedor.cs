@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace pe.edu.pucp.ferretin.model
 {
-    public partial class Proveedor //: IDataErrorInfo
+    public partial class Proveedor : IDataErrorInfo
     {
         #region atributos
         public int tipoProv
@@ -72,87 +72,70 @@ namespace pe.edu.pucp.ferretin.model
         }
         #endregion
 
-        //public string this[string columnName]
-        //{
-        //    get
-        //    {
-        //        string errorMessage = string.Empty;
-        //        this.Errors.Remove(columnName);
+        public string this[string columnName]
+        {
+            get
+            {
+                string errorMessage = string.Empty;
+                this.Errors.Remove(columnName);
 
-        //        switch (columnName)
-        //        {
-        //            case "telefono1":
-        //                if (String.IsNullOrEmpty(this.telefono1))
-        //                {
-        //                    errorMessage = "El Teléfono 1 no debe estar vacio.";
-        //                }
+                switch (columnName)
+                {
+                    
+                    case "ruc":
+                        if (String.IsNullOrEmpty(this.ruc))
+                        {
+                            errorMessage = "Debe ingresar un número de documento.";
+                        }
+                        else
+                        {
+                            Int64 nro = 0;
+                            Int64.TryParse(ruc, out nro);
+                            if (tipo == "EMPRESA" || tipo == "PERSONA NATURAL")
+                            {
+                                if (tipo == "PERSONA NATURAL" && (nro < 10000000 || nro > 99999999))
+                                {
+                                    errorMessage = "El DNI debe tener 8 números";
+                                }
+                                if (tipo == "EMPRESA" && (nro < 10000000000 || nro > 99999999999))
+                                {
+                                    errorMessage = "El RUC debe tener 11 números";
+                                }
+                            }
+                            else
+                            {
+                                errorMessage = "Debe seleccionar un tipo de Proveedor";
+                            }
+                        }
+                        break;
+                    case "razonSoc":
+                        if (String.IsNullOrEmpty(razonSoc))
+                        {
+                            if (tipo == "PERSONA NATURAL")
+                                errorMessage = "Debe ingresar el Nombre del Proveedor";
+                            else if (tipo == "EMPRESA")
+                                errorMessage = "Debe Ingresar la Razón Social de la Empresa";
+                            else
+                                errorMessage = "Debe seleccionar un tipo de documento";
+                        }
+                        break;
+                  
+                    case "UbigeoDistrito":
+                        if (UbigeoDistrito == null || String.IsNullOrEmpty(UbigeoDistrito.id))
+                        {
+                            errorMessage = "Debe seleccionar un Pais, Provincia, Ciudad y Distrito";
+                        }
+                        break;
+                }
 
-        //                break;
-        //            case "nroDoc":
-        //                if (String.IsNullOrEmpty(this.nroDoc))
-        //                {
-        //                    errorMessage = "Debe ingresar un número de documento.";
-        //                }
-        //                else
-        //                {
-        //                    Int64 nro = 0;
-        //                    Int64.TryParse(nroDoc, out nro);
-        //                    if (tipoDocumento == "DNI" || tipoDocumento == "RUC")
-        //                    {
-        //                        if (tipoDocumento == "DNI" && (nro < 10000000 || nro > 99999999))
-        //                        {
-        //                            errorMessage = "El DNI debe tener 8 números";
-        //                        }
-        //                        if (tipoDocumento == "RUC" && (nro < 10000000000 || nro > 99999999999))
-        //                        {
-        //                            errorMessage = "El RUC debe tener 11 números";
-        //                        }
-        //                    }
-        //                    else
-        //                    {
-        //                        errorMessage = "Debe seleccionar un tipo de documento";
-        //                    }
-        //                }
-        //                break;
-        //            case "nombre":
-        //                if (String.IsNullOrEmpty(nombre))
-        //                {
-        //                    if (tipoDocumento == "DNI")
-        //                        errorMessage = "Debe ingresar un Nombre para el Cliente";
-        //                    else if (tipoDocumento == "RUC")
-        //                        errorMessage = "Debe Ingresar la Razón Social de la Empresa";
-        //                    else
-        //                        errorMessage = "Debe seleccionar un tipo de documento";
-        //                }
-        //                break;
-        //            case "apPaterno":
-        //                if (tipoDocumento == "DNI" && String.IsNullOrEmpty(apPaterno))
-        //                {
-        //                    errorMessage = "Debe ingresar un Apellido Paterno para el Cliente";
-        //                }
-        //                break;
-        //            case "apMaterno":
-        //                if (tipoDocumento == "DNI" && String.IsNullOrEmpty(apMaterno))
-        //                {
-        //                    errorMessage = "Debe ingresar un Apellido Materno para el Cliente";
-        //                }
-        //                break;
-        //            case "UbigeoDistrito":
-        //                if (UbigeoDistrito == null || String.IsNullOrEmpty(UbigeoDistrito.id))
-        //                {
-        //                    errorMessage = "Debe seleccionar un Pais, Provincia, Ciudad y Distrito";
-        //                }
-        //                break;
-        //        }
+                if (!string.IsNullOrEmpty(errorMessage))
+                {
+                    this.Errors.Add(columnName, errorMessage);
+                }
 
-        //        if (!string.IsNullOrEmpty(errorMessage))
-        //        {
-        //            this.Errors.Add(columnName, errorMessage);
-        //        }
-
-        //        return errorMessage;
-        //    }
-        //}
+                return errorMessage;
+            }
+        }
         #endregion
 
 
