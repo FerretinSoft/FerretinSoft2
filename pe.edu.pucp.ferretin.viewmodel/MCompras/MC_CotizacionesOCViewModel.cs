@@ -6,6 +6,7 @@ using pe.edu.pucp.ferretin.viewmodel.Helper;
 using pe.edu.pucp.ferretin.controller.MCompras;
 using System.Windows.Input;
 using System.Windows;
+using pe.edu.pucp.ferretin.controller;
 
 namespace pe.edu.pucp.ferretin.viewmodel.MCompras
 {
@@ -15,6 +16,7 @@ namespace pe.edu.pucp.ferretin.viewmodel.MCompras
         public MC_CotizacionesOCViewModel()
         {
             _documentoCompra = new DocumentoCompra();
+            _usuarioIngreso = MC_ComunService.usuarioL;
         }
         #endregion
 
@@ -101,6 +103,24 @@ namespace pe.edu.pucp.ferretin.viewmodel.MCompras
         public DateTime? _searchFechaHasta = null;
         public DateTime? searchFechaHasta { get { return _searchFechaHasta; } set { _searchFechaHasta = value; NotifyPropertyChanged("searchFechaHasta"); } }
 
+        public Usuario _usuarioIngreso = null;
+        public Usuario usuarioIngreso
+        {
+            get
+            {
+                if (documentoCompra.id > 0)
+                    return documentoCompra.Usuario1;
+                else
+                {
+                    return _usuarioIngreso;
+                }
+            }
+            set
+            {
+                _usuarioIngreso = value;
+                NotifyPropertyChanged("usuarioIngreso");
+            }
+        }
 
         #endregion
 
@@ -145,6 +165,31 @@ namespace pe.edu.pucp.ferretin.viewmodel.MCompras
             {
                 _labelFechaDC2 = value;
                 NotifyPropertyChanged("labelFechaDC2");
+            }
+        }
+
+        private String _proveedorNombre;
+        public String proveedorNombre
+        {
+            get
+            {
+                try
+                {
+                    if(documentoCompra.id > 0)
+                            return documentoCompra.Proveedor.razonSoc;
+                        else
+                            return _proveedorNombre;
+                                          
+                }
+                catch (Exception e)
+                {
+                    return _proveedorNombre;
+                }
+            }
+            set
+            {
+                _proveedorNombre = value;
+                NotifyPropertyChanged("proveedorNombre");
             }
         }
 
@@ -334,6 +379,19 @@ namespace pe.edu.pucp.ferretin.viewmodel.MCompras
             }
         }
 
+        RelayCommand _cargarProveedorCommand;
+        public ICommand cargarProveedorCommand
+        {
+            get
+            {
+                if (_cargarProveedorCommand == null)
+                {
+                    _cargarProveedorCommand = new RelayCommand(cargarProveedor);
+                }
+                return _cargarProveedorCommand;
+            }
+        }
+
         #endregion
 
         #region Comandos
@@ -372,6 +430,10 @@ namespace pe.edu.pucp.ferretin.viewmodel.MCompras
                 this.labelCodigo = "Cotizacion";
                 this.labelFechaDC1 = "Fecha Emision";
                 this.labelFechaDC2 = "Fecha Vencimiento";
+                this.proveedorNombre = "";
+                this.documentoCompra.tipo = 1;
+                this.documentoCompra.id_estado = 1;
+                this.documentoCompra.Usuario1 = usuarioIngreso;
 
             }
             catch (Exception e)
@@ -388,6 +450,10 @@ namespace pe.edu.pucp.ferretin.viewmodel.MCompras
                 this.labelCodigo = "Orden Compra";
                 this.labelFechaDC1 = "Fecha Emision";
                 this.labelFechaDC2 = "Fecha Pago";
+                this.proveedorNombre = "";
+                this.documentoCompra.tipo = 2;
+                this.documentoCompra.id_estado = 1;
+                this.documentoCompra.Usuario1 = usuarioIngreso;
 
             }
             catch (Exception e)
@@ -398,34 +464,69 @@ namespace pe.edu.pucp.ferretin.viewmodel.MCompras
 
         public void saveDocumentoCompra(Object obj)
         {
-            //if (documentoCompra.id > 0)//Si existe
-            //{
-            //    if (!MC_DocumentoCompraService.enviarCambios())
-            //    {
-            //        MessageBox.Show("No se pudo actualizar el documento de compra");
-            //    }
-            //    else
-            //    {
-            //        MessageBox.Show("El documento de compra fue guardado con éxito");
-            //    }
-            //}
-            //else
-            //{
-            //    if (!MC_DocumentoCompraService.insertarDocumentoCompra(documentoCompra))
-            //    {
-            //        MessageBox.Show("No se pudo agregar el nuevo documento de compra");
-            //    }
-            //    else
-            //    {
-            //        MessageBox.Show("El documento de compra fue agregado con éxito");
-            //    }
-            //}
+            int i;
+            if (documentoCompra.id > 0)//Si existe
+            {
+                ComunService.idVentana(37);
+                if (!MC_DocumentoCompraService.enviarCambios())
+                {
+                    MessageBox.Show("No se pudo actualizar el Documento de Compra");
+                }
+                else
+                {
+                    MessageBox.Show("El Documento de Compra fue guardado con éxito");
+                }
+            }
+            else
+            {
+                ComunService.idVentana(36);
+                List<DocumentoCompraProducto> listAux = listaProductosDC.ToList();
+                for (i = 0; i < listaProductosDC.Count(); i++)
+                {
+                    DocumentoCompraProducto guiaDC = new DocumentoCompraProducto() { DocumentoCompra = documentoCompra, Producto = listAux[i].Producto, UnidadMedida = listAux[i].UnidadMedida, precioUnit = listAux[i].precioUnit, estado = listAux[i].estado, cantidad = listAux[i].cantidad, cantidadRestante = listAux[i].cantidad, montoParcial = listAux[i].cantidad * listAux[i].precioUnit};
+                    documentoCompra.DocumentoCompraProducto.Add(guiaDC);
+                    //guiaRemision.GuiaRemisionProducto.Add(guiaLinea);
+                    //GuiaRemisionProducto guiaLinea = new GuiaRemisionProducto();
+                    //guiaLinea.id_guia_detalle = documentoCompra.DocumentoCompraProducto[i].id;
+                    //guiaLinea.cantidadRecibida = 0;
+                    //guiaLinea.DocumentoCompraProducto = documentoCompra.DocumentoCompraProducto[i];
+                    //guiaRemision.GuiaRemisionProducto.Add(guiaLinea);
+                }
+                if (!MC_DocumentoCompraService.insertarDocumentoCompra(documentoCompra))
+                {
+                    MessageBox.Show("No se pudo agregar la nueva guia de remision");
+                }
+                else
+                {
+                    MessageBox.Show("La guia de remision se agrego con exito");
+                }
+            }
+            NotifyPropertyChanged("listaGuiasRemision");
+            this.statusTab = Tab.BUSQUEDA;
         }
 
         public void cancelDocumentoCompra(Object obj)
         {
             this.statusTab = Tab.BUSQUEDA;
             listaDocumentosCompra = MC_DocumentoCompraService.listaDocumentosCompra;
+        }
+
+        public void cargarProveedor(Object id)
+        {
+            Proveedor buscado = null;
+            int i;
+            try
+            {
+                buscado = MC_ProveedorService.buscarProveedorByName(this._proveedorNombre);
+                documentoCompra.Proveedor = buscado;
+                NotifyPropertyChanged("documentoCompra");
+            }
+            catch { }
+
+            if (buscado == null)
+            {
+                MessageBox.Show("No se encontro ninguna Proveedor", "No se encontro", MessageBoxButton.OK, MessageBoxImage.Question);
+            }
         }
 
         #endregion

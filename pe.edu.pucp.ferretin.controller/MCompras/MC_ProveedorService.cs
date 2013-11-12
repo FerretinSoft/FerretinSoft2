@@ -88,8 +88,22 @@ namespace pe.edu.pucp.ferretin.controller.MCompras
                    select p;
         }
 
+       //buscarProveedorByName
 
-        public static IEnumerable<ProveedorProducto> obtenerProductosbyIdProveedor(int id_proveedor)
+        public static Proveedor buscarProveedorByName(string razonSoc)
+        {
+            IEnumerable<Proveedor> proveedores = (from p in listaProveedores
+                                                  where
+                                                  (p.razonSoc != null && p.razonSoc.Contains(razonSoc))
+                                                  orderby p.razonSoc
+                                                  select p);
+            if (proveedores.Count() > 0)
+                return proveedores.First();
+            else
+                return null;
+        }
+       
+       public static IEnumerable<ProveedorProducto> obtenerProductosbyIdProveedor(int id_proveedor)
         {
             return from c in listaProductos
                    where

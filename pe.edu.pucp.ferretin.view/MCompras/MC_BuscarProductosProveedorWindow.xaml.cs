@@ -33,14 +33,16 @@ namespace pe.edu.pucp.ferretin.view.MCompras
                     var sequence = new List<DocumentoCompraProducto>();
                     if (miViewModel.listaProductosProveedorFinal != null)
                     {
-
                         List<ProveedorProducto> listAux = miViewModel.listaProductosProveedorFinal.ToList();
                         for (int i = 0; i < listAux.Count(); i++)
                         {
                             if (listAux[i].isSelected)
                             {
                                 var linea = new DocumentoCompraProducto() { 
-                                    Producto = listAux[i].Producto
+                                    Producto = listAux[i].Producto,
+                                    UnidadMedida = listAux[i].UnidadMedida,
+                                    precioUnit = listAux[i].precio,
+                                    id_unidad_medida = listAux[i].id_unidad
                                 };
                                 sequence.Add(linea);
                             }
