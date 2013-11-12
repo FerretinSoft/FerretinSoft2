@@ -21,7 +21,18 @@ namespace pe.edu.pucp.ferretin.viewmodel.MCompras
         #region Valores para los controles de la ventana
 
         public string _searchProveedor = "";
-        public string searchProveedor { get { return _searchProveedor; } set { _searchProveedor = value; NotifyPropertyChanged("searchProveedor"); } }
+        public string searchProveedor 
+        { 
+            get 
+            { 
+                return _searchProveedor; 
+            } 
+            set 
+            { 
+                _searchProveedor = value; 
+                NotifyPropertyChanged("searchProveedor"); 
+            } 
+        }
 
         public string _searchProducto = "";
         public string searchProducto { get { return _searchProducto; } set { _searchProducto = value; NotifyPropertyChanged("searchProducto"); } }
