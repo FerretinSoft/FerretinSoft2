@@ -1,10 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
+using System.Windows.Media;
+using System.Windows.Media.Imaging;
 
 using pe.edu.pucp.ferretin.controller;
 using pe.edu.pucp.ferretin.controller.MSeguridad;
@@ -142,6 +145,7 @@ namespace pe.edu.pucp.ferretin.viewmodel.MSeguridad
                     dniEmpleado = "";
                 }
                 NotifyPropertyChanged("usuario");
+                NotifyPropertyChanged("usuarioImagen");
             }
         }
         /**************************************************/
@@ -294,6 +298,44 @@ namespace pe.edu.pucp.ferretin.viewmodel.MSeguridad
 
         #endregion
 
+        private ImageSource _usuarioImagen;
+        public ImageSource usuarioImagen
+        {
+            get
+            {
+                try
+                {
+                    if (this.usuario.Empleado.foto != null)
+                    {
+                        MemoryStream strm = new MemoryStream();
+                        strm.Write(usuario.Empleado.foto.ToArray(), 0, usuario.Empleado.foto.Length);
+                        strm.Position = 0;
+                        System.Drawing.Image img = System.Drawing.Image.FromStream(strm);
+
+                        BitmapImage bitmapImage = new BitmapImage();
+                        bitmapImage.BeginInit();
+                        MemoryStream memoryStream = new MemoryStream();
+                        img.Save(memoryStream, System.Drawing.Imaging.ImageFormat.Bmp);
+                        memoryStream.Seek(0, SeekOrigin.Begin);
+                        bitmapImage.StreamSource = memoryStream;
+                        bitmapImage.EndInit();
+
+                        _usuarioImagen = bitmapImage;                        
+                    }
+                }
+                catch (Exception )
+                {
+                    
+                }
+                return _usuarioImagen;                
+            }
+            set
+            {
+                _usuarioImagen = value;
+                NotifyPropertyChanged("usuarioImagen");
+            }
+        }
+
         #region Comandos
         /**************************************************/
         public void viewEditUsuario(Object id)
@@ -316,7 +358,7 @@ namespace pe.edu.pucp.ferretin.viewmodel.MSeguridad
         /**************************************************/
         public void saveUsuario(Object obj)
         {
-            if (usuario.nombre.Length <= 0)
+            if (usuario.nombre == null || usuario.nombre.Length <= 0)
             {
                 MessageBox.Show("Ingrese datos en los campos necesarios, por favor");
                 return;
@@ -424,7 +466,7 @@ namespace pe.edu.pucp.ferretin.viewmodel.MSeguridad
             }           
         }
         #endregion
-
+        
         void buscarCliente(object var)
         {
             if (dniEmpleado.Trim().Length > 0)
@@ -444,8 +486,7 @@ namespace pe.edu.pucp.ferretin.viewmodel.MSeguridad
             else
             {
                 MessageBox.Show("Debe ingresar el DNI de algún empleado");
-                busquedaExitosa = false;
-                
+                busquedaExitosa = false;                
             }
         }
 
