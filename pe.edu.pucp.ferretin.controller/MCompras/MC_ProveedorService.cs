@@ -51,6 +51,8 @@ namespace pe.edu.pucp.ferretin.controller.MCompras
                 _listaProductos = value;
             }
         }
+
+        
       
 
         
@@ -102,8 +104,8 @@ namespace pe.edu.pucp.ferretin.controller.MCompras
             else
                 return null;
         }
-       
-       public static IEnumerable<ProveedorProducto> obtenerProductosbyIdProveedor(int id_proveedor)
+
+        public static IEnumerable<ProveedorProducto> obtenerProductosbyIdProveedor(int id_proveedor)
         {
             return from c in listaProductos
                    where
@@ -129,7 +131,8 @@ namespace pe.edu.pucp.ferretin.controller.MCompras
             if (!db.ProveedorProducto.Contains(provprod))
             {
                 db.ProveedorProducto.InsertOnSubmit(provprod);
-                return enviarCambios();
+                
+                return false;
             }
             else
             {
