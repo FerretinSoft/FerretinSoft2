@@ -124,6 +124,7 @@ namespace pe.edu.pucp.ferretin.viewmodel.MCompras
         {
             get
             {
+                String searchTipoDocumento = this.searchTipoDocumento == 1 ? "DNI" : (this.searchTipoDocumento == 2 ? "RUC" : "");
                 _listaProveedores = MC_ProveedorService.buscarProveedores(searchRuc, searchRazonSoc, searchRubro);
                 return _listaProveedores;
             }
@@ -160,7 +161,8 @@ namespace pe.edu.pucp.ferretin.viewmodel.MCompras
 
         public Rubro _searchRubro = null;
         public Rubro searchRubro { get { return _searchRubro; } set { _searchRubro = value; NotifyPropertyChanged("searchRubro"); } }
-
+        public int _searchTipoDocumento = 0;
+        public int searchTipoDocumento { get { return _searchTipoDocumento; } set { _searchTipoDocumento = value; NotifyPropertyChanged("searchTipoDocumento"); } }
        
         #endregion
 
