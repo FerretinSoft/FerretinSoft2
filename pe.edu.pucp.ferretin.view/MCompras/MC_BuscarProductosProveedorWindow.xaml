@@ -34,7 +34,7 @@
                     <ImageBrush ImageSource="../Resources/refresh2_48.png"/>
                 </Button.Background>
             </Button>
-            <Button Content="AGREGAR" Command="{Binding agregarListaProductosProveedorCommand}" HorizontalAlignment="Left" Margin="181,252,0,12" Width="100"/>
+            <Button Content="AGREGAR" Command="{Binding agregarListaProductosProveedorCommand}" HorizontalAlignment="Left" Margin="181,252,0,12" Width="100" Click="Button_Click"/>
             <Button Content="CANCELAR" HorizontalAlignment="Left" Margin="303,252,0,12" Width="100"/>
 
         </Grid>
