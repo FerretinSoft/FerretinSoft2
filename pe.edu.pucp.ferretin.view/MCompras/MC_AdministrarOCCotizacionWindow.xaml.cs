@@ -1,16 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
+﻿using System.Windows;
+using pe.edu.pucp.ferretin.viewmodel.MCompras;
 
 namespace pe.edu.pucp.ferretin.view.MCompras
 {
@@ -36,7 +25,7 @@ namespace pe.edu.pucp.ferretin.view.MCompras
             MC_BuscarProductosProveedorWindow v = new MC_BuscarProductosProveedorWindow();
             v.Owner = this;
             v.ShowDialog();
-            //var viewModel = v.main.DataContext as MC_BuscarProductosProveedorWindow;
+            var viewModel = v.main.DataContext as MC_BuscarProductosProveedorViewModel;            
         }
     }
 }

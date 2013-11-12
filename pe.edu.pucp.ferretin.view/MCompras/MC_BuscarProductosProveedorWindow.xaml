@@ -7,7 +7,7 @@
     <Window.Resources>
         <viewmodel:MC_BuscarProductosProveedorViewModel x:Key="MC_BuscarProductosProveedorViewModel"/>
     </Window.Resources>
-    <Grid DataContext="{Binding Source={StaticResource MC_BuscarProductosProveedorViewModel}}">
+    <Grid x:Name="main" DataContext="{Binding Source={StaticResource MC_BuscarProductosProveedorViewModel}}">
         <Grid Background="#FFE5E5E5">
             <DataGrid ItemsSource="{Binding Path=listaProductosProveedor, UpdateSourceTrigger=PropertyChanged,NotifyOnSourceUpdated=True,NotifyOnTargetUpdated=True,Mode=TwoWay}" AutoGenerateColumns="False" CanUserAddRows="False" CanUserDeleteRows="False" Margin="10,47,12,0" Height="200" VerticalAlignment="Top">
                 <DataGrid.Columns>
