@@ -3,19 +3,19 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:viewmodel="clr-namespace:pe.edu.pucp.ferretin.viewmodel.MCompras;assembly=pe.edu.pucp.ferretin.viewmodel"
         xmlns:helper="clr-namespace:pe.edu.pucp.ferretin.viewmodel.Helper;assembly=pe.edu.pucp.ferretin.viewmodel"
-        Title="Busqueda - Productos Proveedor" Icon="../Resources/ferretin_ico.ico" Height="344" Width="599.412" ResizeMode="NoResize" WindowStartupLocation="CenterScreen">
+        Title="Busqueda - Productos Proveedor" Icon="../Resources/ferretin_ico.ico" Height="334" Width="599.412" ResizeMode="NoResize" WindowStartupLocation="CenterScreen">
     <Window.Resources>
         <viewmodel:MC_BuscarProductosProveedorViewModel x:Key="MC_BuscarProductosProveedorViewModel"/>
     </Window.Resources>
     <Grid DataContext="{Binding Source={StaticResource MC_BuscarProductosProveedorViewModel}}">
         <Grid Background="#FFE5E5E5">
-            <DataGrid ItemsSource="{Binding Path=listaProductosProveedor}" AutoGenerateColumns="False" CanUserAddRows="False" CanUserDeleteRows="False" Margin="10,47,12,59">
+            <DataGrid ItemsSource="{Binding Path=listaProductosProveedor, UpdateSourceTrigger=PropertyChanged,NotifyOnSourceUpdated=True,NotifyOnTargetUpdated=True,Mode=TwoWay}" AutoGenerateColumns="False" CanUserAddRows="False" CanUserDeleteRows="False" Margin="10,47,12,59">
                 <DataGrid.Columns>
-                    <DataGridTextColumn Width="1.5*" Binding="{Binding Path=Producto.codigo}"  Header="Codigo"/>
-                    <DataGridTextColumn Width="2.5*" Binding="{Binding Path=Producto.nombre}"  Header="Producto"/>
-                    <DataGridTextColumn Width="1.5*" Binding="{Binding Path=precio}"  Header="Precio Unit."/>
-                    <DataGridTextColumn Width="2.0*" Binding="{Binding Path=tiempoEntrega}"  Header="Tiempo de Entrega"/>
-                    <DataGridCheckBoxColumn Width="0.8*" Binding="{x:Null}" IsReadOnly="False"/>
+                    <DataGridTextColumn Width="1.5*" Binding="{Binding Path=Producto.codigo}" IsReadOnly="True" Header="Codigo"/>
+                    <DataGridTextColumn Width="2.5*" Binding="{Binding Path=Producto.nombre}" IsReadOnly="True" Header="Producto"/>
+                    <DataGridTextColumn Width="1.5*" Binding="{Binding Path=precio}" IsReadOnly="True" Header="Precio Unit."/>
+                    <DataGridTextColumn Width="2.0*" Binding="{Binding Path=tiempoEntrega}" IsReadOnly="True" Header="Tiempo de Entrega"/>
+                    <DataGridCheckBoxColumn Width="0.8*" Binding="{Binding Path=isSelected}" IsReadOnly="False"/>
                 </DataGrid.Columns>
             </DataGrid>
             <Label Content="Proveedor:" HorizontalAlignment="Left" Margin="231,15,0,0" VerticalAlignment="Top"/>
@@ -27,8 +27,8 @@
                     <ImageBrush ImageSource="../Resources/refresh2_48.png"/>
                 </Button.Background>
             </Button>
-            <Button Content="AGREGAR" HorizontalAlignment="Left" Height="32" Margin="181,274,0,0" VerticalAlignment="Top" Width="100"/>
-            <Button Content="CANCELAR" HorizontalAlignment="Left" Height="32" Margin="303,274,0,0" VerticalAlignment="Top" Width="100"/>
+            <Button Content="AGREGAR" HorizontalAlignment="Left" Height="32" Margin="181,262,0,0" VerticalAlignment="Top" Width="100"/>
+            <Button Content="CANCELAR" HorizontalAlignment="Left" Height="32" Margin="303,262,0,0" VerticalAlignment="Top" Width="100"/>
 
         </Grid>
     </Grid>
