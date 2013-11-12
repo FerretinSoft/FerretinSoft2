@@ -72,6 +72,19 @@ namespace pe.edu.pucp.ferretin.viewmodel.MCompras
             }
         }
 
+        private IEnumerable<ProveedorProducto> _listaProductosProveedorFinal = null;
+        public IEnumerable<ProveedorProducto> listaProductosProveedorFinal
+        {
+            get
+            {
+                return _listaProductosProveedorFinal;
+            }
+            set
+            {
+                _listaProductosProveedorFinal = value;
+                NotifyPropertyChanged("listaProductosProveedorFinal");
+            }
+        }
         #endregion
 
         #region Relay Commands
@@ -89,6 +102,61 @@ namespace pe.edu.pucp.ferretin.viewmodel.MCompras
             }
         }
 
+        //RelayCommand _agregarListaProductosProveedorCommand;
+        //public ICommand agregarListaProductosProveedorCommand
+        //{
+        //    get
+        //    {
+        //        if (_agregarListaProductosProveedorCommand == null)
+        //        {
+        //            _agregarListaProductosProveedorCommand = new RelayCommand(param => NotifyPropertyChanged("listaProductosProveedorFinal"));
+        //        }
+        //        return _agregarListaProductosProveedorCommand;
+        //    }
+        //}
+
+        RelayCommand _agregarListaProductosProveedorCommand;
+        public ICommand agregarListaProductosProveedorCommand
+        {
+            get
+            {
+                if (_agregarListaProductosProveedorCommand == null)
+                {
+                    _agregarListaProductosProveedorCommand = new RelayCommand(agregarListaProductosProveedor);
+                }
+                return _agregarListaProductosProveedorCommand;
+            }
+        }
+
         #endregion 
+
+        #region Commands
+
+        public void agregarListaProductosProveedor(Object id)
+        {
+            int i;
+            try
+            {
+                if (listaProductosProveedor != null)
+                {
+                    var sequence = new List<ProveedorProducto>();
+                    List<ProveedorProducto> listAux = listaProductosProveedor.ToList();
+                    for (i = 0; i < listaProductosProveedor.Count(); i++)
+                    {
+                        ProveedorProducto linea;
+                        if (listAux[i].isSelected)
+                        {
+                            linea = new ProveedorProducto() { Producto = listAux[i].Producto, Proveedor = listAux[i].Proveedor, id = listAux[i].id, UnidadMedida = listAux[i].UnidadMedida, estado = listAux[i].estado, precio = listAux[i].precio, tiempoEntrega = listAux[i].tiempoEntrega, isSelected = listAux[i].isSelected };
+                            sequence.Add(linea);
+                        }                          
+                    }
+                    listaProductosProveedorFinal = sequence;
+                }
+                NotifyPropertyChanged("listaProductosProveedorFinal");
+            }
+            catch { }
+        }
+
+        #endregion
     }
 }
