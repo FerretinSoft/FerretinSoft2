@@ -522,15 +522,27 @@ namespace pe.edu.pucp.ferretin.viewmodel.MRecursosHumanos
         {
             try
             {
-                //Muestra Null en turnos/
+
                 
+
+                this.empleado = listaEmpleados.Single(empleado => empleado.codEmpleado == (int)codEmpleado);
+
+                if (this.empleado.EmpleadoTurno == null)
+                {
+                   
+                    this.empleado.empleadoT();
+ 
+                
+                }
+                    
+                //Muestra Null en turnos/
+
                 foreach (EmpleadoTurno et in this.empleado.EmpleadoTurno)
                 {
                     if (et.estado == 0) et.id_turno = null;
-                
+
                 }
 
-                this.empleado = listaEmpleados.Single(empleado => empleado.codEmpleado == (int)codEmpleado);
                 if (this.empleado.id_ubigeo_distrito != null)
                 {
                     selectedProvincia = this.empleado.UbigeoDistrito.UbigeoProvincia;
@@ -579,9 +591,7 @@ namespace pe.edu.pucp.ferretin.viewmodel.MRecursosHumanos
                     //Validacion de Campos Obligatorios//
 
                     ComunService.idVentana(1);
-
-
-                    
+             
                     if ( VerificaCamposObligatorios(empleado) && VerificaDNIEmpleado(empleado))
                     {
                         if (empleado.dni != null && empleado.nombre != null && empleado.apPaterno != null && empleado.apMaterno != null)

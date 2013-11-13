@@ -104,21 +104,7 @@ namespace pe.edu.pucp.ferretin.view.MAlmacen
             cpw.Show();
         }
 
-        private void btnCambiarImagen_Click(object sender, RoutedEventArgs e)
-        {
-            OpenFileDialog openFileDialog1 = new OpenFileDialog();
-            openFileDialog1.Filter = "Archivos de imágen (.jpg)|*.jpg";
-            openFileDialog1.FilterIndex = 1;
-            openFileDialog1.Multiselect = false;
-            bool? pressOK = openFileDialog1.ShowDialog();
-
-            if (pressOK == true)
-            {
-                imagenProducto.Source = new BitmapImage(new Uri(openFileDialog1.FileName));
-            } 
-
-
-        }
+      
 
         public void guardarBtn(Producto producto)
         {
