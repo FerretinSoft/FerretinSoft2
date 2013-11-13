@@ -66,7 +66,7 @@ namespace pe.edu.pucp.ferretin.model
                 int? prodSinDesc = cantidad - prodConDesc;
                 //Hallo el resultado de los productos con descuento y sin descuento
 
-                decimal? productoPrecioLista = Producto.precioLista * (Producto.moneda == 1 ? 1 : (tipoCambio != null && tipoCambio <= 0) ? 1 : tipoCambio);
+                decimal? productoPrecioLista = Producto.precioLista * (Producto.moneda == 0/*soles*/ ? 1 : (tipoCambio != null && tipoCambio <= 0) ? 1 : tipoCambio);
 
                 descuento = Decimal.Round(canjeado.Value ? 0 : (prodConDesc * productoPrecioLista * (1-desc) ).Value,2);
                 montoParcial = canjeado.Value ? 0 : Decimal.Round((prodConDesc*productoPrecioLista*desc + prodSinDesc*productoPrecioLista).Value,2) ;

@@ -99,7 +99,7 @@ namespace pe.edu.pucp.ferretin.controller.MVentas
 
         public static IEnumerable<Cliente> buscarClientes(string nroDoc, string nombre, string apPaterno, string apMaterno, string tipoDocumento)
         {
-            return from c in db.Cliente
+            return from c in listaClientes
                    where
                    (c.nroDoc != null && c.nroDoc.Contains(nroDoc)
                        && ( c.nombre == null || c.nombre.ToLower().Contains(nombre.ToLower().Trim()) )

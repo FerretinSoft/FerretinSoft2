@@ -218,13 +218,6 @@ namespace pe.edu.pucp.ferretin.viewmodel.MVentas
 
         public void actualizarMontosVenta(object sender, object e)
         {
-            //elimino si algun producto tiene cantidad = 0
-            foreach(var vp in venta.VentaProducto){
-                if(vp.cantidad==0){
-                    venta.VentaProducto.Remove(vp);
-                }
-            }
-            
             //Actualizo el total
             venta.total = Decimal.Round(venta.VentaProducto.Sum(vp => vp.canjeado.Value ? 0 : vp.montoParcial).Value,2);
 

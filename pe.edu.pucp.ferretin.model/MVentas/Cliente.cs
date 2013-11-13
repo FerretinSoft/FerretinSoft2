@@ -11,7 +11,7 @@ namespace pe.edu.pucp.ferretin.model
     /// <summary>
     /// Clase extendida de la entidad Cliente, con la cual también se podrán hacer validaciones
     /// </summary>
-    public partial class Cliente : IDataErrorInfo
+    public partial class Cliente : INotifyPropertyChanged, IDataErrorInfo
     {
 
         #region Zona de atributos
@@ -44,6 +44,7 @@ namespace pe.edu.pucp.ferretin.model
                 else
                     tipoDocumento = "";
                 this.SendPropertyChanged("tipo");
+                this.SendPropertyChanged("isBoleta");
             }
         }
 

@@ -38,92 +38,74 @@ namespace pe.edu.pucp.ferretin.view.MVentas
             {
                 try
                 {
-                    MV_RegistrarVentaWindow padre = this.Owner as MV_RegistrarVentaWindow;
-                    MV_ClientesViewModel my_DataContext = this.main.DataContext as MV_ClientesViewModel;
-                    MV_RegistrarVentaViewModel padre_DataContext = padre.main.DataContext as MV_RegistrarVentaViewModel;
 
-                    padre_DataContext.nroDocSeleccionado = my_DataContext.cliente.nroDoc;
-                    this.Close();
+                    MV_ClientesViewModel my_DataContext = this.DataContext as MV_ClientesViewModel;
+                    
+                    if (Owner is MV_RegistrarVentaWindow)
+                    {
+                        MV_RegistrarVentaWindow padre = Owner as MV_RegistrarVentaWindow;
+                        if (my_DataContext.soloSeleccionarCliente)
+                        {
+                            MV_RegistrarVentaViewModel padre_DataContext = padre.main.DataContext as MV_RegistrarVentaViewModel;
+                            padre_DataContext.nroDocSeleccionado = my_DataContext.cliente.nroDoc;
+                            this.Close();
+                        }
+                    }
+                    else if (Owner is MV_DevolucionesWindow)
+                    {
+                        MV_DevolucionesWindow padre = this.Owner as MV_DevolucionesWindow;
+                        MV_DevolucionesViewModel padre_DataContext = padre.main.DataContext as MV_DevolucionesViewModel;
+                        padre_DataContext.searchNroDocCliente = my_DataContext.cliente.nroDoc;
+                        padre_DataContext.searchnombreCliente = my_DataContext.cliente.nombreCompleto;
+                        this.Close();
+                    }
+                    else if (Owner is MV_AdministrarNotaCreditoWindow)
+                    {
+                        MV_AdministrarNotaCreditoWindow padre = this.Owner as MV_AdministrarNotaCreditoWindow;
+                        MV_NotaCreditoViewModel padre_DataContext = padre.main.DataContext as MV_NotaCreditoViewModel;
+                        padre_DataContext.searchNroDocCliente = my_DataContext.cliente.nroDoc;
+                        padre_DataContext.nombreCliente = my_DataContext.cliente.nombreCompleto;
+                        this.Close();
+                    }
+                    else if (Owner is MV_AdministrarVentasWindow)
+                    {
+                        MV_AdministrarVentasWindow padre = this.Owner as MV_AdministrarVentasWindow;
+                        MV_VentasViewModel padre_DataContext = padre.main.DataContext as MV_VentasViewModel;
+                        padre_DataContext.searchNroDocCliente = my_DataContext.cliente.nroDoc;
+                        padre_DataContext.nombreCliente = my_DataContext.cliente.nombreCompleto;
+                        this.Close();
+                    }
+                    else if (Owner is MV_AdministrarValesWindow)
+                    {
+                        MV_AdministrarValesWindow padre = this.Owner as MV_AdministrarValesWindow;
+                        MV_ValesViewModel padre_DataContext = padre.main.DataContext as MV_ValesViewModel;
+                        if (padre_DataContext.selectedTab == 0)
+                        {
+                            padre_DataContext.searchNroDocCliente = my_DataContext.cliente.nroDoc;
+                            padre_DataContext.nombreCliente = my_DataContext.cliente.nombreCompleto;
+                        }
+                        if (padre_DataContext.selectedTab == 1)
+                            padre_DataContext.loteVale.Cliente = my_DataContext.cliente;
+                        this.Close();
+                    }
+                    else if (Owner is MV_AdministrarProformasWindow)
+                    {
+                        MV_AdministrarProformasWindow padre = this.Owner as MV_AdministrarProformasWindow;
+                        MV_AdministrarProformasViewModel padre_DataContext = padre.DataContext as MV_AdministrarProformasViewModel;
+                        padre_DataContext.nroDocSeleccionado = my_DataContext.cliente.nroDoc;
+                        this.Close();
+                    }
+                    
                 }
                 catch
                 {
-                    try
-                    {
-                        MV_DevolucionesWindow padre = this.Owner as MV_DevolucionesWindow;
-                        MV_ClientesViewModel my_DataContext = this.main.DataContext as MV_ClientesViewModel;
-                        MV_DevolucionesViewModel padre_DataContext = padre.main.DataContext as MV_DevolucionesViewModel;
-
-                        padre_DataContext.searchNroDocCliente = my_DataContext.cliente.nroDoc;
-                        padre_DataContext.searchnombreCliente = my_DataContext.cliente.nombreCompleto;
-                        
-                        this.Close();
-                    }
-
-                    catch
-                    {
-                        try
-                        {
-                            MV_AdministrarNotaCreditoWindow padre = this.Owner as MV_AdministrarNotaCreditoWindow;
-                            MV_ClientesViewModel my_DataContext = this.main.DataContext as MV_ClientesViewModel;
-                            MV_NotaCreditoViewModel padre_DataContext = padre.main.DataContext as MV_NotaCreditoViewModel;
-
-                            padre_DataContext.searchNroDocCliente = my_DataContext.cliente.nroDoc;
-                            padre_DataContext.nombreCliente = my_DataContext.cliente.nombreCompleto;
-                            this.Close();
-                        }
-
-                        catch
-                        {
-                            try
-                            {
-                                MV_AdministrarVentasWindow padre = this.Owner as MV_AdministrarVentasWindow;
-                                MV_ClientesViewModel my_DataContext = this.main.DataContext as MV_ClientesViewModel;
-                                MV_VentasViewModel padre_DataContext = padre.main.DataContext as MV_VentasViewModel;
-                                padre_DataContext.searchNroDocCliente = my_DataContext.cliente.nroDoc;
-                                padre_DataContext.nombreCliente = my_DataContext.cliente.nombreCompleto;
-                                this.Close();
-                            }
-
-                            catch
-                            {
-                                try
-                                {
-                                    MV_AdministrarValesWindow padre = this.Owner as MV_AdministrarValesWindow;
-                                    MV_ClientesViewModel my_DataContext = this.main.DataContext as MV_ClientesViewModel;
-                                    MV_ValesViewModel padre_DataContext = padre.main.DataContext as MV_ValesViewModel;
-                                    if (padre_DataContext.selectedTab == 0)
-                                    {
-                                        padre_DataContext.searchNroDocCliente = my_DataContext.cliente.nroDoc;
-                                        padre_DataContext.nombreCliente = my_DataContext.cliente.nombreCompleto;
-                                    }
-                                    if (padre_DataContext.selectedTab == 1) 
-                                        padre_DataContext.loteVale.Cliente = my_DataContext.cliente;
-                                    
-                                    
-
-                                    this.Close();
-                                }
-                                catch {
-                                    //Asu mare, esto que estamos haciendo esta re mal xD
-                                    try
-                                    {
-                                        MV_AdministrarProformasWindow padre = this.Owner as MV_AdministrarProformasWindow;
-                                        MV_ClientesViewModel my_DataContext = this.main.DataContext as MV_ClientesViewModel;
-                                        MV_AdministrarProformasViewModel padre_DataContext = padre.DataContext as MV_AdministrarProformasViewModel;
-
-                                        padre_DataContext.nroDocSeleccionado = my_DataContext.cliente.nroDoc;
-                                        this.Close();
-                                    }
-                                    catch
-                                    {
-                                    }
-                                }
-                            }
-                        }
-
-                    }
                 }
             }
+        }
+
+        private void TextBlock_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+
         }
     }
 
