@@ -128,7 +128,7 @@ namespace pe.edu.pucp.ferretin.viewmodel.MVentas
                             ventaMP.NotaCredito = notaCreditoSeleccionado;
                             ventaMP.MedioPago = mediosPago.ElementAt(3);
                             ventaMP.detalle = "Nota de Crédito N° " + notaCreditoSeleccionado.codigo.ToString();
-                            ventaMP.moneda = 1;//TODO siempre en soles?
+                            ventaMP.moneda = 0;//TODO siempre en soles?
                             ventaMP.monto = notaCreditoSeleccionado.importe;
                             notaCreditoSeleccionado = null;
                         }
