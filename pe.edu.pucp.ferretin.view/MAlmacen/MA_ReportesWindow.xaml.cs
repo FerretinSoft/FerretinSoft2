@@ -24,6 +24,14 @@ namespace pe.edu.pucp.ferretin.view.MAlmacen
         int estado = 0; //variable que representa el estado en que se encuentra la elaboración del reporte:
         // estado=0 > intro; estado=1 > configuración; estado=2 > fin
 
+        int reporte = 0; 
+        /*
+         * 1 - Reporte de Stock
+         * 2 - Reporte Kardex
+         * 3 - Reporte Kardex diario
+         * 4 - Reporte Kardex mensual
+         * */
+
         public MA_ReportesWindow()
         {
             InitializeComponent();
@@ -34,10 +42,16 @@ namespace pe.edu.pucp.ferretin.view.MAlmacen
             switch (estado)
             {
                 case 0:
-                    repIntroGrid.Visibility = System.Windows.Visibility.Collapsed;
-                    repConfGrid.Visibility = System.Windows.Visibility.Visible;
-                    estado = 1;
-                    repAntBtn.IsEnabled = true;
+                    if (reporte > 0)
+                    {
+                        repIntroGrid.Visibility = System.Windows.Visibility.Collapsed;
+                        setConfValues();
+                        repConfGrid.Visibility = System.Windows.Visibility.Visible;
+                        estado = 1;
+                        repAntBtn.IsEnabled = true;
+                    }
+                    else
+                        MessageBox.Show("Debe seleccionar algún reporte");
                     break;
                 case 1:
                     repConfGrid.Visibility = System.Windows.Visibility.Collapsed;
@@ -47,6 +61,43 @@ namespace pe.edu.pucp.ferretin.view.MAlmacen
                     break;
 
 
+            }
+        }
+
+        private void setConfValues()
+        {
+            switch (reporte)
+            {
+                case 1: // reporte de stock
+                    fechaDesdePicker.IsEnabled = false;
+                    fechaHastaPicker.IsEnabled = false;
+                    aliasText.Text = "";
+                    comentarioText.Text = "Reporte de stock de productos por tienda a la fecha.";
+                    break;
+                case 2: // reporte kardex
+                    fechaDesdePicker.IsEnabled = true;
+                    fechaDesdePicker.SelectedDate = null;
+                    fechaHastaPicker.IsEnabled = true;
+                    fechaHastaPicker.SelectedDate = null;
+                    aliasText.Text = "";
+                    comentarioText.Text = "Reporte kardex de movimientos de almacén en el período a seleccionar.";
+                    break;
+                case 3: // reporte kardex diario
+                    fechaDesdePicker.IsEnabled = true;
+                    fechaDesdePicker.SelectedDate = DateTime.Today;
+                    fechaHastaPicker.IsEnabled = true;
+                    fechaHastaPicker.SelectedDate = DateTime.Today;
+                    aliasText.Text = "Reporte kardex diario";
+                    comentarioText.Text = "Reporte kardex de movimientos diarios de almacén.";
+                    break;
+                case 4: // reporte kardex mensual (mes en curso)
+                    fechaDesdePicker.IsEnabled = true;
+                    fechaDesdePicker.SelectedDate = new DateTime(DateTime.Today.Year, DateTime.Today.Month, 1);
+                    fechaHastaPicker.IsEnabled = true;
+                    fechaHastaPicker.SelectedDate = DateTime.Today;
+                    aliasText.Text = "Reporte kardex mensual";
+                    comentarioText.Text = "Reporte kardex de movimientos de almacén en el mes en curso.";
+                    break;
             }
         }
 
@@ -61,8 +112,8 @@ namespace pe.edu.pucp.ferretin.view.MAlmacen
                     repAntBtn.IsEnabled = false;
                     break;
                 case 2:
-                    repConfGrid.Visibility = System.Windows.Visibility.Visible;
                     repFinalGrid.Visibility = System.Windows.Visibility.Collapsed;
+                    repConfGrid.Visibility = System.Windows.Visibility.Visible;
                     estado = 1;
                     repSigBtn.IsEnabled = true;
                     break;
@@ -81,5 +132,49 @@ namespace pe.edu.pucp.ferretin.view.MAlmacen
             viewModel.tiendaSeleccionada = tiendaSelected;
             v.Show();
         }
+
+        private void reportesBaseListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            reportesFavoritosListBox.SelectedIndex = -1;
+            switch (reportesBaseListBox.SelectedIndex)
+            {
+                case 0://reporte de stock de productos
+                    reporte = 1;
+                    //MessageBox.Show("Stock de productos");
+                    break;
+                case 1://reporte kardex
+                    reporte = 2;    
+                    //MessageBox.Show("Kardex");
+                    break;
+                default:
+                    reporte = 0;
+                    break;
+            }
+        }
+
+        private void reportesFavoritosListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            reportesBaseListBox.SelectedIndex = -1;
+            switch (reportesFavoritosListBox.SelectedIndex)
+            {
+                case 0: // kardex diario
+                    reporte = 3;
+                    //MessageBox.Show("kardex diario");
+                    break;
+                case 1: // kardex mensual
+                    reporte = 4;
+                    //MessageBox.Show("Kardex mensual");
+                    break;
+                default:
+                    reporte = 0;
+                    break;
+            }
+        }
+
+       
+
+        
+
+        
     }
 }
