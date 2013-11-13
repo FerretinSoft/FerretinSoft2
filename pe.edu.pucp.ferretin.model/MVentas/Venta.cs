@@ -99,6 +99,30 @@ namespace pe.edu.pucp.ferretin.model
                 return "S/. " + total.ToString();
             }
         }
-        
+
+        public string subTotalString
+        {
+            get
+            {
+                return "S/. " +  subTotal;
+            }
+        }
+
+        public string igvString
+        {
+            get
+            {
+                return "S/. " + igv;
+            }
+        }
+
+        public string tipoDocVentaString
+        {
+            get
+            {
+                return tipoDocumento == 0 ? "Boleta" : "Factura";
+            }
+        }
+
     }
 }

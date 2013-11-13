@@ -227,8 +227,8 @@
                                 <DataGridTextColumn Width="1.2*" Binding="{Binding Path=motivo}" Header="Motivo"/>
                                 <DataGridTextColumn Width="0.9*" Binding="{Binding Path=Producto.monedaString}" Header="Moneda"/>
                                 <DataGridTextColumn Width="0.9*" Binding="{Binding Path=Producto.precioLista}" ClipboardContentBinding="{x:Null}" Header="Precio"/>
-                                <DataGridTextColumn Width="1*"  ClipboardContentBinding="{x:Null}" Header="Dscto. (%)"/>
-                                <DataGridTextColumn Width="1*" Binding="{Binding Path=monto}" ClipboardContentBinding="{x:Null}" Header="Importe"/>
+                                <DataGridTextColumn Width="1*"  ClipboardContentBinding="{x:Null}" Header="Dscto. (S/.)"/>
+                                <DataGridTextColumn Width="1*" Binding="{Binding Path=monto}" ClipboardContentBinding="{x:Null}" Header="Importe (S/.)"/>
                             </DataGrid.Columns>
                         </DataGrid>
                         <GroupBox Header="Importe" BorderBrush="Gray" Grid.Row="1" Height="Auto" VerticalAlignment="Bottom" HorizontalAlignment="Right">
@@ -245,9 +245,9 @@
                                 <Label Content="Sub Total:" VerticalAlignment="Center"/>
                                 <Label Content="%IGV:" VerticalAlignment="Center" Grid.Row="1"/>
                                 <Label Content="Total:" VerticalAlignment="Center" Grid.Row="2"/>
-                                <TextBox  Text="{Binding Path=devolucion.subTotal, Mode=OneWay}" VerticalAlignment="Center" IsEnabled="False" TextAlignment="Right" Grid.Column="1"/>
-                                <TextBox  Text="{Binding Path=devolucion.igv, Mode=OneWay}" VerticalAlignment="Center" IsEnabled="False" TextAlignment="Right" Grid.Column="1" Grid.Row="1"/>
-                                <TextBox  Text="{Binding Path=devolucion.total, Mode=OneWay}" VerticalAlignment="Center" IsEnabled="False" TextAlignment="Right" Grid.Column="1" Grid.Row="2"/>
+                                <TextBox  Text="{Binding Path=devolucion.subTotalString, Mode=OneWay}" VerticalAlignment="Center" IsEnabled="False" TextAlignment="Right" Grid.Column="1"/>
+                                <TextBox  Text="{Binding Path=devolucion.igvString, Mode=OneWay}" VerticalAlignment="Center" IsEnabled="False" TextAlignment="Right" Grid.Column="1" Grid.Row="1"/>
+                                <TextBox  Text="{Binding Path=devolucion.totalString, Mode=OneWay}" VerticalAlignment="Center" IsEnabled="False" TextAlignment="Right" Grid.Column="1" Grid.Row="2"/>
                             </Grid>
                         </GroupBox>
                     </Grid>
@@ -346,7 +346,7 @@
                         <TextBox Text="{Binding Path=devolucion.Venta.total}" x:Name="totalComprado" VerticalAlignment="Center" Width="100" IsEnabled="False" TextAlignment="Right" />
                     </StackPanel>
                     <TextBlock Grid.Row="4" Margin="5,5" VerticalAlignment="Center">Productos a Devolver:</TextBlock>
-                    <DataGrid ItemsSource="{Binding Path=devolucion.DevolucionProducto,UpdateSourceTrigger=PropertyChanged,NotifyOnSourceUpdated=True,NotifyOnTargetUpdated=True,Mode=TwoWay}" AutoGenerateColumns="False"  Grid.Row="5" Margin="0,0,5,0">
+                    <DataGrid CanUserAddRows="False" ItemsSource="{Binding Path=devolucion.DevolucionProducto,UpdateSourceTrigger=PropertyChanged,NotifyOnSourceUpdated=True,NotifyOnTargetUpdated=True,Mode=TwoWay}" AutoGenerateColumns="False"  Grid.Row="5" Margin="0,0,5,0">
                         <DataGrid.Columns>
                             <DataGridTextColumn  IsReadOnly="True"  Width="1*" Binding="{Binding Path= Producto.codigo}" ClipboardContentBinding="{x:Null}" Header="Cód Prod."/>
                             <DataGridTextColumn IsReadOnly="True"  Width="2*" Binding="{Binding Path= Producto.nombre}" ClipboardContentBinding="{x:Null}" Header="Descripción"/>
