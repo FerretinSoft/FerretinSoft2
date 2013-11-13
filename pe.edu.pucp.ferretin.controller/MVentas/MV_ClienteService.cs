@@ -97,11 +97,11 @@ namespace pe.edu.pucp.ferretin.controller.MVentas
             }
         }
 
-        public static IEnumerable<Cliente> buscarClientes(long nroDoc, string nombre, string apPaterno, string apMaterno, string tipoDocumento)
+        public static IEnumerable<Cliente> buscarClientes(long? nroDoc, string nombre, string apPaterno, string apMaterno, string tipoDocumento)
         {
             return from c in listaClientes
                    where
-                   (c.nroDoc != null && c.nroDoc.Equals(nroDoc)
+                   (c.nroDoc == null || nroDoc ==null || c.nroDoc.Equals(nroDoc)
                        && ( c.nombre == null || c.nombre.ToLower().Contains(nombre.ToLower().Trim()) )
                        && ( c.apPaterno == null || c.apPaterno.ToLower().Contains(apPaterno.ToLower().Trim()) )
                        && ( c.apMaterno == null || c.apMaterno.ToLower().Contains(apMaterno.ToLower().Trim()) )

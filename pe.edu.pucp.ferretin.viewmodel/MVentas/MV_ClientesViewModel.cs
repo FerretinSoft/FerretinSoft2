@@ -58,8 +58,8 @@ namespace pe.edu.pucp.ferretin.viewmodel.MVentas
         }
 
         #region Valores para el cuadro de Búsqueda
-        public long _searchNroDoc;
-        public long searchNroDoc { get { return _searchNroDoc; } set { _searchNroDoc = value; NotifyPropertyChanged("searchNroDoc"); } }
+        public long? _searchNroDoc = null;
+        public long? searchNroDoc { get { return _searchNroDoc; } set { _searchNroDoc = value; NotifyPropertyChanged("searchNroDoc"); } }
         
         public String _searchNombre = "";
         public String searchNombre { get { return _searchNombre; } set { _searchNombre = value; NotifyPropertyChanged("searchNombre"); } }
