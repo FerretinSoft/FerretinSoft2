@@ -43,33 +43,7 @@ namespace pe.edu.pucp.ferretin.viewmodel.MAlmacen
             }
         }
 
-        //private Categoria _categoria = new Categoria();
-        //private Categoria categoria
-        //{
-        //    get
-        //    {
-        //        foreach (var pc in _categoria.ProductoCategoria)
-        //        {
-
-
-
-
-
-        //        }
-
-
-
-        //    }
-
-        //    set
-        //    {
-
-
-
-
-        //    }
-
-        //}
+     
 
 
 
@@ -289,6 +263,7 @@ namespace pe.edu.pucp.ferretin.viewmodel.MAlmacen
             {
                 _prod = value;
                 NotifyPropertyChanged("producto");
+                NotifyPropertyChanged("productoImagen");
             }
         }
 
@@ -317,9 +292,12 @@ namespace pe.edu.pucp.ferretin.viewmodel.MAlmacen
             {
                 _detallesTabHeader = value;
                 NotifyPropertyChanged("detallesTabHeader");
+                NotifyPropertyChanged("productoImagen");
             }
         }
 
+
+        #region manejo de tabs
         public enum tabs
         {
             //Pestañas virtuales:
@@ -341,7 +319,7 @@ namespace pe.edu.pucp.ferretin.viewmodel.MAlmacen
                 switch (value)
                 {
                     case (int)tabs.BUSQUEDA: detallesTabHeader = "Agregar Producto"; producto = new Producto(); break;//Si es agregar, creo un nuevo objeto Cliente
-                    case (int)tabs.AGREGAR: detallesTabHeader = "Agregar Producto"; producto = new Producto(); prodAlm = new ProductoAlmacen(); break;//Si es agregar, creo un nuevo objeto Cliente
+                    case (int)tabs.AGREGAR: detallesTabHeader = "Agregar Producto"; productoImagen = null; producto = new Producto(); prodAlm = new ProductoAlmacen(); break;//Si es agregar, creo un nuevo objeto Cliente
                     case (int)tabs.MODIFICAR: detallesTabHeader = "Edición de Producto"; break;
 
 
@@ -352,8 +330,10 @@ namespace pe.edu.pucp.ferretin.viewmodel.MAlmacen
                 //Cuando se cambia el status, tambien se tiene que cambiar el currentIndex del tab
                 //currentIndexTab = _statusTab == 0 ? 0 : 1;
                 NotifyPropertyChanged("statusTab");
+                NotifyPropertyChanged("productoImagen");
             }
         }
+        #endregion
 
         #region RelayCommand
 
@@ -371,6 +351,19 @@ namespace pe.edu.pucp.ferretin.viewmodel.MAlmacen
             }
         }
 
+
+        RelayCommand _uploadImageCommand;
+        public ICommand uploadImageCommand
+        {
+            get
+            {
+                if (_uploadImageCommand == null)
+                {
+                    _uploadImageCommand = new RelayCommand(uploadImage);
+                }
+                return _uploadImageCommand;
+            }
+        }
 
         RelayCommand _nuevoProductoCommand;
         public ICommand nuevoProductoCommand
@@ -502,10 +495,76 @@ namespace pe.edu.pucp.ferretin.viewmodel.MAlmacen
             //prodAlm = new ProductoAlmacen();
         }
 
+
         private void tabBúsqueda_Click(object sender, MouseButtonEventArgs e)
         {
             //enable_disable_campos(true);
         }
 
+
+
+
+        #region comandos para obtener foto y cargar foto
+
+         //obtener  foto
+        private ImageSource _productoImagen;
+        public ImageSource productoImagen
+        {
+            get
+            {
+                if (this.producto.imagen != null)
+                {
+                    MemoryStream strm = new MemoryStream();
+                    strm.Write(producto.imagen.ToArray(), 0, producto.imagen.Length);
+                    strm.Position = 0;
+                    System.Drawing.Image img = System.Drawing.Image.FromStream(strm);
+
+                    BitmapImage bitmapImage = new BitmapImage();
+                    bitmapImage.BeginInit();
+                    MemoryStream memoryStream = new MemoryStream();
+                    img.Save(memoryStream, System.Drawing.Imaging.ImageFormat.Bmp);
+                    memoryStream.Seek(0, SeekOrigin.Begin);
+                    bitmapImage.StreamSource = memoryStream;
+                    bitmapImage.EndInit();
+
+                    _productoImagen = bitmapImage;
+                }
+                return _productoImagen;
+            }
+            set
+            {
+                _productoImagen = value;
+                NotifyPropertyChanged("productoImagen");
+            }
+        }
+
+
+        //cargar  foto
+        public void uploadImage(Object id)
+        {
+            OpenFileDialog op = new OpenFileDialog();
+            op.Title = "Select a picture";
+            op.Filter = "All supported graphics|*.jpg;*.jpeg;*.png|" +
+                "JPEG (*.jpg;*.jpeg)|*.jpg;*.jpeg|" +
+                "Portable Network Graphic (*.png)|*.png";
+            if (op.ShowDialog() == true)
+            {
+                var bitmapImage = new BitmapImage(new Uri(op.FileName));
+                byte[] file_byte;
+                JpegBitmapEncoder encoder = new JpegBitmapEncoder();
+                encoder.Frames.Add(BitmapFrame.Create(bitmapImage));
+                using (MemoryStream ms = new MemoryStream())
+                {
+                    encoder.Save(ms);
+                    file_byte = ms.ToArray();
+                }
+                System.Data.Linq.Binary file_binary = new System.Data.Linq.Binary(file_byte);
+                producto.imagen = file_binary;
+                NotifyPropertyChanged("productoImagen");
+            }
+        }
+
+
+        #endregion
     }
 }
