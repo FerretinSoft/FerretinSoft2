@@ -1,15 +1,20 @@
-﻿using pe.edu.pucp.ferretin.controller;
+﻿using Microsoft.Win32;
+using pe.edu.pucp.ferretin.controller;
 using pe.edu.pucp.ferretin.controller.MRecursosHumanos;
 using pe.edu.pucp.ferretin.controller.MSeguridad;
 using pe.edu.pucp.ferretin.model;
 using pe.edu.pucp.ferretin.viewmodel.Helper;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
+using System.Windows.Media;
+using System.Windows.Media.Imaging;
+
 
 namespace pe.edu.pucp.ferretin.viewmodel.MSeguridad
 {
@@ -269,10 +274,48 @@ namespace pe.edu.pucp.ferretin.viewmodel.MSeguridad
                 }
                 return _buscarJefeCommand;
             }
-        }        
+        }
+
+        RelayCommand _uploadImageCommand;
+        public ICommand uploadImageCommand
+        {
+            get
+            {
+                if (_uploadImageCommand == null)
+                {
+                    _uploadImageCommand = new RelayCommand(uploadImage);
+                }
+                return _uploadImageCommand;
+            }
+        }
+
         #endregion
 
         #region Comandos
+
+        public void uploadImage(Object id)
+        {
+            OpenFileDialog op = new OpenFileDialog();
+            op.Title = "Select a picture";
+            op.Filter = "All supported graphics|*.jpg;*.jpeg;*.png|" +
+                "JPEG (*.jpg;*.jpeg)|*.jpg;*.jpeg|" +
+                "Portable Network Graphic (*.png)|*.png";
+            if (op.ShowDialog() == true)
+            {
+                var bitmapImage = new BitmapImage(new Uri(op.FileName));
+                byte[] file_byte;
+                JpegBitmapEncoder encoder = new JpegBitmapEncoder();
+                encoder.Frames.Add(BitmapFrame.Create(bitmapImage));
+                using (MemoryStream ms = new MemoryStream())
+                {
+                    encoder.Save(ms);
+                    file_byte = ms.ToArray();
+                }
+                System.Data.Linq.Binary file_binary = new System.Data.Linq.Binary(file_byte);                
+                //tienda.foto = file_binary;
+                NotifyPropertyChanged("tiendaImagen");
+            }
+        }
 
         public void viewEditAlmacen(Object id)
         {
@@ -372,6 +415,42 @@ namespace pe.edu.pucp.ferretin.viewmodel.MSeguridad
                 this.almacen.id_abastecedor = _selectedTienda.id;
             }
         }
+
+        private ImageSource _tiendaImagen;
+        public ImageSource tiendaImagen
+        {
+            get
+            {
+                /*
+                if (this.tienda.foto != null)
+                {
+                    MemoryStream strm = new MemoryStream();
+                    strm.Write(empleado.foto.ToArray(), 0, tienda.foto.Length);
+                    strm.Position = 0;
+                    System.Drawing.Image img = System.Drawing.Image.FromStream(strm);
+
+                    BitmapImage bitmapImage = new BitmapImage();
+                    bitmapImage.BeginInit();
+                    MemoryStream memoryStream = new MemoryStream();
+                    img.Save(memoryStream, System.Drawing.Imaging.ImageFormat.Bmp);
+                    memoryStream.Seek(0, SeekOrigin.Begin);
+                    bitmapImage.StreamSource = memoryStream;
+                    bitmapImage.EndInit();
+
+                    _tiendaImagen = bitmapImage;
+                }
+                 */
+                 return _tiendaImagen;
+             
+            }
+            set
+            {
+                _tiendaImagen = value;
+                NotifyPropertyChanged("tiendaImagen");
+            }
+        }
+
+
 
         private int _selectedTipo = -1;
         public int selectedTipo

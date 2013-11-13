@@ -124,7 +124,7 @@
                     <GroupBox Header="Horarios de Atencion" Margin="20,212,0,119" BorderBrush="Black" Grid.ColumnSpan="3" Grid.Column="5"/>
                     <GroupBox Header="Tienda" Margin="10,0,0,181" BorderBrush="Black" Grid.ColumnSpan="4" Grid.Column="1"/>
                     <Button Command="{Binding uploadImageCommand}" Width="172" Margin="94,26,0,0"  HorizontalAlignment="Left" Height="173" VerticalAlignment="Top" Grid.Column="6" Grid.ColumnSpan="2">
-                        <Image Source="{Binding empleadoImagen,Mode=OneWay,UpdateSourceTrigger=PropertyChanged}" Stretch="Fill">
+                        <Image Source="{Binding tiendaImagen,Mode=OneWay,UpdateSourceTrigger=PropertyChanged}" Stretch="Fill">
                         </Image>
                     </Button>
                     <Label Content="Código:" HorizontalAlignment="Left" Margin="1,26,0,0" VerticalAlignment="Top" Grid.Column="3" Height="26" Width="50"/>
