@@ -203,13 +203,13 @@ namespace pe.edu.pucp.ferretin.viewmodel.MRecursosHumanos
                 //Si la pestaña es para agregar nuevo, limpio los input
                 switch (_statusTab)
                 {
-                    case Tab.BUSQUEDA: detallesTabHeader = "Agregar"; empleado = new Empleado();  break;//Si es agregar, creo un nuevo objeto Empleado
+                    case Tab.BUSQUEDA: detallesTabHeader = "Agregar"; empleadoImagen = null; ; empleado = new Empleado(); break;//Si es agregar, creo un nuevo objeto Empleado
                     case Tab.AGREGAR: detallesTabHeader = "Agregar"; empleado = new Empleado();
-                        try { this.selectedDepartamento.id = "15"; empleado.EmpleadoTienda=null; }
+                        try { this.selectedDepartamento.id = "15"; empleado.EmpleadoTienda = null; empleadoImagen = null; }
                         catch(Exception e) { }
                             break;//Si es agregar, creo un nuevo objeto Empleado
-                    case Tab.MODIFICAR: detallesTabHeader = "Modificar"; break;
-                    case Tab.DETALLES: detallesTabHeader = "Detalles"; break;
+                    case Tab.MODIFICAR: detallesTabHeader = "Modificar"; empleadoImagen = null; break;
+                    case Tab.DETALLES: detallesTabHeader = "Detalles";  break;
                     default: detallesTabHeader = "Agregar"; empleado = new Empleado(); break;//Si es agregar, creo un nuevo objeto Empleado
                 }
                 NotifyPropertyChanged("statusTab");
@@ -218,6 +218,7 @@ namespace pe.edu.pucp.ferretin.viewmodel.MRecursosHumanos
                 NotifyPropertyChanged("isCreating"); //Para que se activen o desactiven los inputs
                 NotifyPropertyChanged("listaEmpleadoTurno");
                 NotifyPropertyChanged("listaEmpleadoTiendas");
+                NotifyPropertyChanged("empleadoImagen");
 
             }
         }
