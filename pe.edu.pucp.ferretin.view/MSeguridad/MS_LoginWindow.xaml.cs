@@ -140,6 +140,8 @@ namespace pe.edu.pucp.ferretin.view.MSeguridad
                         listaParametros = MS_ParametroService.obtenerListaParametros().ToList();
                         //Inicia sesion correctamente.
                         value.intentosCon = Convert.ToInt16(listaParametros[0].valor);  //Se restablece el numero de intentos del usuario.
+
+
                         MS_UsuarioService.actualizarUsuario(value);                     
                         
                         usuarioLog = value;

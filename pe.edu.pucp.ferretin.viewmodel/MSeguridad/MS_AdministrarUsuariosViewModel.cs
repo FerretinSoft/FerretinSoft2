@@ -402,6 +402,7 @@ namespace pe.edu.pucp.ferretin.viewmodel.MSeguridad
                     List<Parametro> listaParametros;
                     listaParametros = MS_ParametroService.obtenerListaParametros().ToList();
                     usuario.intentosCon = Convert.ToInt16(listaParametros[0].valor);
+                    usuario.ultimoCambioContrasena = DateTime.Now;
                     /**********************/
 
                     if (!MS_UsuarioService.insertarUsuario(usuario))
@@ -453,6 +454,7 @@ namespace pe.edu.pucp.ferretin.viewmodel.MSeguridad
             {
                 usuario.contrasena = MS_UsuarioService.encrypt("ferretinSoft");
                 usuario.intentosCon = Convert.ToInt16(listaParametros[0].valor);
+                usuario.ultimoCambioContrasena = DateTime.Now;
                 ComunService.idVentana(39);
 
                 if (!MS_UsuarioService.enviarCambios())
