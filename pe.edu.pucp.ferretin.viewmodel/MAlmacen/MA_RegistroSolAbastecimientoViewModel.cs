@@ -182,7 +182,10 @@ namespace pe.edu.pucp.ferretin.viewmodel.MAlmacen
         {
             get
             {
-                _productosPorSolicitud = MA_SolicitudAbastecimientoService.buscarProductosPorSolicitud(currentTienda, solicitud);
+                if (solicitud != null && solicitud.id > 0)
+                    _productosPorSolicitud = MA_SolicitudAbastecimientoService.buscarProductosPorSolicitud(currentTienda, solicitud);
+                else
+                    _productosPorSolicitud = MA_SolicitudAbastecimientoService.initProductosPorSolicitud(currentTienda, solicitud);
                 return _productosPorSolicitud;
             }
             set
