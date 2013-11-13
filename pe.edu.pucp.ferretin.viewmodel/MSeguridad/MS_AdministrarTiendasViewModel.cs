@@ -98,6 +98,7 @@ namespace pe.edu.pucp.ferretin.viewmodel.MSeguridad
                         selectedTipo = -1;
                         almacen.fecCreacion = DateTime.Today;
                         almacen.estado = 1;
+                        tiendaImagen = null;
                         break;//Si es agregar, creo un nuevo objeto Almacen
                     case Tab.MODIFICAR: detallesTabHeader = "Modificar"; break;
                     case Tab.DETALLES: detallesTabHeader = "Detalles"; break;
@@ -106,7 +107,7 @@ namespace pe.edu.pucp.ferretin.viewmodel.MSeguridad
                 NotifyPropertyChanged("statusTab");
                 //Cuando se cambia el status, tambien se tiene que actualizar el currentIndex del tab
                 NotifyPropertyChanged("currentIndexTab"); //Hace que cambie el tab automaticamente
-                NotifyPropertyChanged("selectedTipo");
+                NotifyPropertyChanged("selectedTipo");                
             }
         }
         //Usado para mover los tabs de acuerdo a las acciones realizadas
@@ -153,6 +154,7 @@ namespace pe.edu.pucp.ferretin.viewmodel.MSeguridad
                     almacenEmpleadoDni = almacen.Empleado.dni;
                 }
                 NotifyPropertyChanged("almacen");
+                NotifyPropertyChanged("tiendaImagen");
             }
         }
 
@@ -311,8 +313,8 @@ namespace pe.edu.pucp.ferretin.viewmodel.MSeguridad
                     encoder.Save(ms);
                     file_byte = ms.ToArray();
                 }
-                System.Data.Linq.Binary file_binary = new System.Data.Linq.Binary(file_byte);                
-                //tienda.foto = file_binary;
+                System.Data.Linq.Binary file_binary = new System.Data.Linq.Binary(file_byte);             
+                almacen.foto = file_binary;
                 NotifyPropertyChanged("tiendaImagen");
             }
         }
@@ -420,12 +422,11 @@ namespace pe.edu.pucp.ferretin.viewmodel.MSeguridad
         public ImageSource tiendaImagen
         {
             get
-            {
-                /*
-                if (this.tienda.foto != null)
+            {                
+                if (this.almacen.foto != null)
                 {
                     MemoryStream strm = new MemoryStream();
-                    strm.Write(empleado.foto.ToArray(), 0, tienda.foto.Length);
+                    strm.Write(almacen.foto.ToArray(), 0, almacen.foto.Length);
                     strm.Position = 0;
                     System.Drawing.Image img = System.Drawing.Image.FromStream(strm);
 
@@ -438,8 +439,7 @@ namespace pe.edu.pucp.ferretin.viewmodel.MSeguridad
                     bitmapImage.EndInit();
 
                     _tiendaImagen = bitmapImage;
-                }
-                 */
+                }                 
                  return _tiendaImagen;
              
             }
