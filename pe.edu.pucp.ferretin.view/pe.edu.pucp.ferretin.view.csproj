@@ -226,6 +226,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="MVentas\MV_AdministrarPrecioProductos.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="MVentas\MV_AdministrarProformasWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -395,6 +399,9 @@
     </Compile>
     <Compile Include="MVentas\MV_AdministrarNotaCreditoWindow.xaml.cs">
       <DependentUpon>MV_AdministrarNotaCreditoWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="MVentas\MV_AdministrarPrecioProductos.xaml.cs">
+      <DependentUpon>MV_AdministrarPrecioProductos.xaml</DependentUpon>
     </Compile>
     <Compile Include="MVentas\MV_AdministrarProformasWindow.xaml.cs">
       <DependentUpon>MV_AdministrarProformasWindow.xaml</DependentUpon>
