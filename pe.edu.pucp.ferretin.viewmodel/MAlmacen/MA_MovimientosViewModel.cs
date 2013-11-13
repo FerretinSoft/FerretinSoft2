@@ -213,13 +213,13 @@ namespace pe.edu.pucp.ferretin.viewmodel.MAlmacen
                 {
                     case Tab.BUSQUEDA: 
                         detallesTabHeader = "Nuevo"; 
-                        movimiento = new Movimiento(); 
-                        movimiento.fecha = DateTime.Today;
-                        movimiento.codigo = Movimiento.generateCode();
+                        //movimiento = new Movimiento(); 
+                        //movimiento.fecha = DateTime.Today;
+                        //movimiento.codigo = Movimiento.generateCode();
                         break;//Si es agregar, creo un nuevo objeto Cliente
                     case Tab.NUEVO: 
                         detallesTabHeader = "Nuevo"; 
-                        movimiento = new Movimiento(); 
+                        if (movimiento == null || movimiento.id > 0) movimiento = new Movimiento(); 
                         movimiento.fecha = DateTime.Today;
                         movimiento.codigo = Movimiento.generateCode();
                         break;//Si es agregar, creo un nuevo objeto Cliente
@@ -228,9 +228,9 @@ namespace pe.edu.pucp.ferretin.viewmodel.MAlmacen
                         break;
                     default: 
                         detallesTabHeader = "Nuevo"; 
-                        movimiento = new Movimiento(); 
-                        movimiento.fecha = DateTime.Today;
-                        movimiento.codigo = Movimiento.generateCode();
+                        //movimiento = new Movimiento(); 
+                        //movimiento.fecha = DateTime.Today;
+                        //movimiento.codigo = Movimiento.generateCode();
                         break;//Si es agregar, creo un nuevo objeto Cliente
                 }
                 NotifyPropertyChanged("statusTab");

@@ -82,24 +82,25 @@ namespace pe.edu.pucp.ferretin.viewmodel.MAlmacen
                 {
                     case Tab.BUSQUEDA: 
                         detallesTabHeader = "Nueva Solicitud"; 
-                        solicitud = new SolicitudAbastecimiento();
-                        solicitud.fecha = DateTime.Today; 
-                        solicitud.Tienda = currentTienda; 
+                        //if (solicitud == null) solicitud = new SolicitudAbastecimiento();
+                        //solicitud.fecha = DateTime.Today; 
+                        //solicitud.Tienda = currentTienda; 
                         break;
                     case Tab.AGREGAR: 
                         detallesTabHeader = "Nueva Solicitud"; 
-                        solicitud = new SolicitudAbastecimiento(); 
+                        if(solicitud == null || solicitud.id > 0) solicitud = new SolicitudAbastecimiento(); 
                         solicitud.fecha = DateTime.Today; 
-                        solicitud.Tienda = currentTienda; 
+                        solicitud.Tienda = currentTienda;
+                        solicitud.codigo = SolicitudAbastecimiento.generateCode();
                         break;//Si es agregar, creo un nuevo objeto Almacen
                     case Tab.DETALLES: 
                         detallesTabHeader = "Detalles"; 
                         break;
                     default: 
                         detallesTabHeader = "Nueva Solicitud"; 
-                        solicitud = new SolicitudAbastecimiento(); 
-                        solicitud.fecha = DateTime.Today; 
-                        solicitud.Tienda = currentTienda; 
+                        //solicitud = new SolicitudAbastecimiento(); 
+                        //solicitud.fecha = DateTime.Today; 
+                        //solicitud.Tienda = currentTienda; 
                         break;//Si es agregar, creo un nuevo objeto Almacen
                 }
                 NotifyPropertyChanged("statusTab");
