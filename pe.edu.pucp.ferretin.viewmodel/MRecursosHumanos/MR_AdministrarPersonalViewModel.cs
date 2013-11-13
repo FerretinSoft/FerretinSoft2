@@ -261,6 +261,7 @@ namespace pe.edu.pucp.ferretin.viewmodel.MRecursosHumanos
                     distritos = MR_EmpleadoService.distritos.Where(distrito => distrito.id_ubig_provincia.Equals(id_provincia));
                 }
                 NotifyPropertyChanged("empleado");
+                NotifyPropertyChanged("empleadoImagen");
             }
         }
         
@@ -521,8 +522,8 @@ namespace pe.edu.pucp.ferretin.viewmodel.MRecursosHumanos
 
                     ComunService.idVentana(1);
 
-                    
 
+                    empleado.empleadoT();
                     if ( VerificaCamposObligatorios(empleado) && VerificaDNIEmpleado(empleado))
                     {
                         if (empleado.dni != null && empleado.nombre != null && empleado.apPaterno != null && empleado.apMaterno != null)
