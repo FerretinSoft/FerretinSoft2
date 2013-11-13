@@ -648,7 +648,7 @@
                     <TextBox Text="{Binding Path=dniJefe,Mode=TwoWay}" MaxLength="8" HorizontalAlignment="Left" Height="26" Margin="10,486,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="110" Grid.Column="4" PreviewKeyDown="txtDNI_KeyDown" PreviewTextInput="ValidaDNI" />
                     <Label Content="Almacén &#xD;&#xA;Abastecedor:" HorizontalAlignment="Left" Margin="91,87,0,0" VerticalAlignment="Top" Grid.Column="4" Height="41" Width="80"/>
                     <ComboBox Name="almacenesAbast" ItemsSource="{Binding Path=almacenes}" SelectedItem="{Binding Path=almacen.Tienda1}" DisplayMemberPath="nombre" HorizontalAlignment="Left" Margin="186,97,0,0" VerticalAlignment="Top" Width="105" Grid.Column="4" Height="26"
-                              IsEnabled="{Binding comboEnabledAlmacen}" SelectedIndex="{Binding defaultcomboIndex}">                    
+                              IsEnabled="{Binding comboEnabledAlmacen}" SelectedIndex="{Binding defaultcomboIndex}">
                     </ComboBox>
                     <Label Content="Tipo:" HorizontalAlignment="Left" Margin="1,97,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.464,1.231" Grid.Column="3" Height="30" Width="36"/>
                     <ComboBox SelectedIndex="{Binding selectedTipo, Mode=TwoWay, FallbackValue=-1}" x:Name="tipoCombo" HorizontalAlignment="Left" Margin="54,98,0,0" VerticalAlignment="Top" Width="108" Grid.Column="3" Height="25" Grid.ColumnSpan="2">
@@ -671,6 +671,7 @@
                     <Label Content="*" HorizontalAlignment="Left" Margin="80,138,0,0" VerticalAlignment="Top" Foreground="Red" FontSize="14" Width="15" Height="22" RenderTransformOrigin="3.646,-0.402" Grid.Column="3" Grid.ColumnSpan="2"/>
                     <Label Content="*" HorizontalAlignment="Left" Margin="80,252,0,0" VerticalAlignment="Top" Foreground="Red" FontSize="14" Width="15" Height="22" RenderTransformOrigin="3.646,-0.402" Grid.Column="3" Grid.ColumnSpan="2"/>
                     <Label Content="*" HorizontalAlignment="Left" Margin="171,98,0,0" VerticalAlignment="Top" Foreground="Red" FontSize="14" Width="15" Height="22" RenderTransformOrigin="3.646,-0.402" Grid.Column="4"/>
+                    <Label Content="*" HorizontalAlignment="Left" Margin="172,214,0,0" VerticalAlignment="Top" Foreground="Red" FontSize="14" Width="15" Height="22" RenderTransformOrigin="3.646,-0.402" Grid.Column="4"/>
                 </Grid>
             </TabItem>
         </TabControl>
