@@ -1,15 +1,20 @@
-﻿using pe.edu.pucp.ferretin.controller;
+﻿using Microsoft.Win32;
+using pe.edu.pucp.ferretin.controller;
 using pe.edu.pucp.ferretin.controller.MRecursosHumanos;
 using pe.edu.pucp.ferretin.controller.MSeguridad;
 using pe.edu.pucp.ferretin.model;
 using pe.edu.pucp.ferretin.viewmodel.Helper;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
+using System.Windows.Media;
+using System.Windows.Media.Imaging;
+
 
 namespace pe.edu.pucp.ferretin.viewmodel.MSeguridad
 {
@@ -88,20 +93,21 @@ namespace pe.edu.pucp.ferretin.viewmodel.MSeguridad
                 //Si la pestaña es para agregar nuevo, limpio los input
                 switch (_statusTab)
                 {
-                    case Tab.BUSQUEDA: detallesTabHeader = "Agregar"; almacen = new Tienda(); break;//Si es agregar, creo un nuevo objeto Almacen
+                    case Tab.BUSQUEDA: detallesTabHeader = "Agregar"; almacen = new Tienda(); tiendaImagen = null; break;//Si es agregar, creo un nuevo objeto Almacen
                     case Tab.AGREGAR: detallesTabHeader = "Agregar"; almacen = new Tienda();                        
                         selectedTipo = -1;
                         almacen.fecCreacion = DateTime.Today;
                         almacen.estado = 1;
+                        tiendaImagen = null;
                         break;//Si es agregar, creo un nuevo objeto Almacen
-                    case Tab.MODIFICAR: detallesTabHeader = "Modificar"; break;
+                    case Tab.MODIFICAR: detallesTabHeader = "Modificar"; tiendaImagen = null; break;
                     case Tab.DETALLES: detallesTabHeader = "Detalles"; break;
                     default: detallesTabHeader = "Agregar"; almacen = new Tienda(); break;//Si es agregar, creo un nuevo objeto Almacen
                 }
                 NotifyPropertyChanged("statusTab");
                 //Cuando se cambia el status, tambien se tiene que actualizar el currentIndex del tab
                 NotifyPropertyChanged("currentIndexTab"); //Hace que cambie el tab automaticamente
-                NotifyPropertyChanged("selectedTipo");
+                NotifyPropertyChanged("selectedTipo");                
             }
         }
         //Usado para mover los tabs de acuerdo a las acciones realizadas
@@ -148,6 +154,7 @@ namespace pe.edu.pucp.ferretin.viewmodel.MSeguridad
                     almacenEmpleadoDni = almacen.Empleado.dni;
                 }
                 NotifyPropertyChanged("almacen");
+                NotifyPropertyChanged("tiendaImagen");
             }
         }
 
@@ -269,10 +276,48 @@ namespace pe.edu.pucp.ferretin.viewmodel.MSeguridad
                 }
                 return _buscarJefeCommand;
             }
-        }        
+        }
+
+        RelayCommand _uploadImageCommand;
+        public ICommand uploadImageCommand
+        {
+            get
+            {
+                if (_uploadImageCommand == null)
+                {
+                    _uploadImageCommand = new RelayCommand(uploadImage);
+                }
+                return _uploadImageCommand;
+            }
+        }
+
         #endregion
 
         #region Comandos
+
+        public void uploadImage(Object id)
+        {
+            OpenFileDialog op = new OpenFileDialog();
+            op.Title = "Select a picture";
+            op.Filter = "All supported graphics|*.jpg;*.jpeg;*.png|" +
+                "JPEG (*.jpg;*.jpeg)|*.jpg;*.jpeg|" +
+                "Portable Network Graphic (*.png)|*.png";
+            if (op.ShowDialog() == true)
+            {
+                var bitmapImage = new BitmapImage(new Uri(op.FileName));
+                byte[] file_byte;
+                JpegBitmapEncoder encoder = new JpegBitmapEncoder();
+                encoder.Frames.Add(BitmapFrame.Create(bitmapImage));
+                using (MemoryStream ms = new MemoryStream())
+                {
+                    encoder.Save(ms);
+                    file_byte = ms.ToArray();
+                }
+                System.Data.Linq.Binary file_binary = new System.Data.Linq.Binary(file_byte);             
+                almacen.foto = file_binary;
+                NotifyPropertyChanged("tiendaImagen");
+            }
+        }
 
         public void viewEditAlmacen(Object id)
         {
@@ -373,6 +418,40 @@ namespace pe.edu.pucp.ferretin.viewmodel.MSeguridad
             }
         }
 
+        private ImageSource _tiendaImagen;
+        public ImageSource tiendaImagen
+        {
+            get
+            {                
+                if (this.almacen.foto != null)
+                {
+                    MemoryStream strm = new MemoryStream();
+                    strm.Write(almacen.foto.ToArray(), 0, almacen.foto.Length);
+                    strm.Position = 0;
+                    System.Drawing.Image img = System.Drawing.Image.FromStream(strm);
+
+                    BitmapImage bitmapImage = new BitmapImage();
+                    bitmapImage.BeginInit();
+                    MemoryStream memoryStream = new MemoryStream();
+                    img.Save(memoryStream, System.Drawing.Imaging.ImageFormat.Bmp);
+                    memoryStream.Seek(0, SeekOrigin.Begin);
+                    bitmapImage.StreamSource = memoryStream;
+                    bitmapImage.EndInit();
+
+                    _tiendaImagen = bitmapImage;
+                }                 
+                 return _tiendaImagen;
+             
+            }
+            set
+            {
+                _tiendaImagen = value;
+                NotifyPropertyChanged("tiendaImagen");
+            }
+        }
+
+
+
         private int _selectedTipo = -1;
         public int selectedTipo
         {
@@ -446,6 +525,7 @@ namespace pe.edu.pucp.ferretin.viewmodel.MSeguridad
             if (tienda.nombre == null||(tienda.tipo == -1 || tienda.tipo == null)
                     ||tienda.direccion==null||tienda.telefono1==null|| "".Equals(tienda.direccion)
                     || "".Equals(tienda.nombre) || "".Equals(tienda.telefono1)
+                    ||tienda.id_ubigeo == null || "".Equals(tienda.id_ubigeo)
                     ||tienda.nombre==null||tienda.telefono1==null||
                     (tienda.tipo == 0 && tienda.Tienda1 == null))
             {                

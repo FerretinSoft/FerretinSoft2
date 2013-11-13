@@ -154,7 +154,8 @@ namespace pe.edu.pucp.ferretin.viewmodel
             {
                 _selectedDepartamento = value;
                 NotifyPropertyChanged("selectedDepartamento");
-                provincias = from d in ComunService.provincias where d.id_ubig_departamento == value.id select d;
+                if(_selectedDepartamento!=null)
+                    provincias = from d in ComunService.provincias where d.id_ubig_departamento == value.id select d;
             }
         }
 
@@ -170,7 +171,8 @@ namespace pe.edu.pucp.ferretin.viewmodel
             {
                 _selectedProvincia = value;
                 NotifyPropertyChanged("selectedProvincia");
-                distritos = from d in ComunService.distritos where d.id_ubig_provincia == value.id select d;
+                if (_selectedProvincia != null)
+                    distritos = from d in ComunService.distritos where d.id_ubig_provincia == value.id select d;
             }
         }
 

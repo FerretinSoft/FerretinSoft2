@@ -99,7 +99,15 @@ namespace pe.edu.pucp.ferretin.viewmodel.MVentas
                 switch (_statusTab)
                 {
                     case Tab.BUSQUEDA: detallesTabHeader = soloSeleccionarCliente?"Detalles":"Agregar"; break;//Si es agregar, creo un nuevo objeto Cliente
-                    case Tab.AGREGAR: detallesTabHeader = "Agregar"; cliente = new Cliente(); break;//Si es agregar, creo un nuevo objeto Cliente
+                    case Tab.AGREGAR:
+                        {
+                            detallesTabHeader = "Agregar";
+                            cliente = new Cliente();
+                            clienteImagen = null;
+                            selectedDepartamento = null;
+                            selectedProvincia = null;
+                            break;//Si es agregar, creo un nuevo objeto Cliente
+                        }
                     case Tab.MODIFICAR: detallesTabHeader = "Modificar"; break;
                     case Tab.DETALLES: detallesTabHeader = "Detalles"; break;
                 }
@@ -306,7 +314,7 @@ namespace pe.edu.pucp.ferretin.viewmodel.MVentas
         {
             try
             {
-                this.cliente = listaClientes.Single(cliente => cliente.id == (int)id);
+                this.cliente = MV_ClienteService.obtenerClienteById((int)id);
                 if (this.cliente.id_ubigeo != null)
                 {
                     selectedProvincia = this.cliente.UbigeoDistrito.UbigeoProvincia;
@@ -341,6 +349,7 @@ namespace pe.edu.pucp.ferretin.viewmodel.MVentas
                     else
                     {
                         MessageBox.Show("El cliente fue guardado con éxito");
+                        this.statusTab = Tab.BUSQUEDA;
                     }
                 }
                 else
@@ -352,6 +361,7 @@ namespace pe.edu.pucp.ferretin.viewmodel.MVentas
                     else
                     {
                         MessageBox.Show("El cliente fue agregado con éxito");
+                        this.statusTab = Tab.BUSQUEDA;
                     }
                 }
             }
@@ -359,7 +369,7 @@ namespace pe.edu.pucp.ferretin.viewmodel.MVentas
         public void cancelCliente(Object obj)
         {
             this.statusTab = Tab.BUSQUEDA;
-            listaClientes = MV_ClienteService.listaClientes;
+            listaClientes = MV_ClienteService.db.Cliente;
         }
 
         private bool canSaveExecute(object obj)

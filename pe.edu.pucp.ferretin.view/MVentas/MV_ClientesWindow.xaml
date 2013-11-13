@@ -82,7 +82,7 @@
                     </ToolBar>
                     <DataGrid ItemsSource="{Binding Path=listaClientes}" Margin="5" Grid.Row="2" IsManipulationEnabled="False" IsReadOnly="True" CanUserSortColumns="True" AutoGenerateColumns="False" CanUserAddRows="False" CanUserDeleteRows="False"  >
                         <DataGrid.Columns>
-                            <DataGridTemplateColumn Width="2.5*" Header="Núm. Doc">
+                            <DataGridTemplateColumn Width="80" Header="Núm. Doc">
                                 <DataGridTemplateColumn.CellTemplate>
                                     <DataTemplate>
                                         <TextBlock>
@@ -95,12 +95,12 @@
                                     </DataTemplate>
                                 </DataGridTemplateColumn.CellTemplate>
                             </DataGridTemplateColumn>
-                            <DataGridTextColumn Width="2.2*" Binding="{Binding Path=tipoDocumento}" Header="Tipo Doc."/>
-                            <DataGridTextColumn Width="4*" Binding="{Binding Path=nombre}" Header="Nombre"/>
-                            <DataGridTextColumn Width="4*" Binding="{Binding Path=apPaterno}" Header="Apellido Paterno"/>
-                            <DataGridTextColumn Width="4*" Binding="{Binding Path=apMaterno}" Header="Apellido Materno"/>
-                            <DataGridTextColumn Width="2*" Binding="{Binding Path=telefono1}" Header="Teléfono"/>
-                            <DataGridTextColumn Width="1.7*" Binding="{Binding Path=puntosActual}" Header="Puntos"/>
+                            <DataGridTextColumn Width="35" Binding="{Binding Path=tipoDocumento}" Header="Doc."/>
+                            <DataGridTextColumn Width="1*" Binding="{Binding Path=nombreCompleto}" Header="Nombre / Razón Social"/>
+                            <DataGridTextColumn Width="100" Binding="{Binding Path=telefono1}" Header="Teléfono"/>
+                            <DataGridTextColumn Width="50" Binding="{Binding Path=puntosActual}" Header="Puntos">
+                                
+                            </DataGridTextColumn>
                         </DataGrid.Columns>
                     </DataGrid>
                 </Grid>
@@ -145,7 +145,7 @@
                         </Button>
                         <Label Content="Núm. Doc:" VerticalContentAlignment="Center" Grid.Column="1" Grid.Row="2"/>
                         <Label Content="Tipo Doc:" Grid.Column="1" Grid.Row="1" VerticalContentAlignment="Center"/>
-                        <ComboBox SelectedIndex="{Binding Path=cliente.tipo, Mode=TwoWay, UpdateSourceTrigger=LostFocus, NotifyOnValidationError=True, ValidatesOnDataErrors=True, ValidatesOnExceptions=True}" VerticalContentAlignment="Center" Height="22" Grid.Column="2" Grid.Row="1" Grid.ColumnSpan="2" Margin="0,10,0,9">
+                        <ComboBox SelectedIndex="{Binding Path=cliente.tipo, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, NotifyOnValidationError=True, ValidatesOnDataErrors=True, ValidatesOnExceptions=True}" VerticalContentAlignment="Center" Height="22" Grid.Column="2" Grid.Row="1" Grid.ColumnSpan="2" Margin="0,10,0,9">
                             <ComboBoxItem Content=""></ComboBoxItem>
                             <ComboBoxItem Content="DNI"></ComboBoxItem>
                             <ComboBoxItem Content="RUC"></ComboBoxItem>
@@ -182,8 +182,8 @@
                             <ListBoxItem Content="Persona Jurídica"/>
                         </ComboBox>
                         <TextBox Text="{Binding Path=cliente.nombre, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, NotifyOnValidationError=True, ValidatesOnDataErrors=True, ValidatesOnExceptions=True}" VerticalAlignment="Center" Grid.Column="1" Grid.Row="4" Grid.ColumnSpan="3" Height="22" Margin="0,4,0,5"/>
-                        <TextBox Text="{Binding Path=cliente.apPaterno, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, NotifyOnValidationError=True, ValidatesOnDataErrors=True, ValidatesOnExceptions=True}" VerticalAlignment="Center" Grid.Column="1" Grid.Row="5" Grid.ColumnSpan="3" Height="22" Margin="0,5,0,3"/>
-                        <TextBox Text="{Binding Path=cliente.apMaterno, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, NotifyOnValidationError=True, ValidatesOnDataErrors=True, ValidatesOnExceptions=True}" VerticalAlignment="Center" Grid.Column="1" Grid.Row="6" Grid.ColumnSpan="3" Height="22" Margin="0,5,0,3"/>
+                        <TextBox Text="{Binding Path=cliente.apPaterno, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, NotifyOnValidationError=True, ValidatesOnDataErrors=True, ValidatesOnExceptions=True}" IsEnabled="{Binding cliente.isBoleta,UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Center" Grid.Column="1" Grid.Row="5" Grid.ColumnSpan="3" Height="22" Margin="0,5,0,3"/>
+                        <TextBox Text="{Binding Path=cliente.apMaterno, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, NotifyOnValidationError=True, ValidatesOnDataErrors=True, ValidatesOnExceptions=True}" IsEnabled="{Binding cliente.isBoleta,UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Center" Grid.Column="1" Grid.Row="6" Grid.ColumnSpan="3" Height="22" Margin="0,5,0,3"/>
 
                         <TextBox Text="{Binding Path=cliente.direccion, Mode=TwoWay,  ValidatesOnExceptions=true, NotifyOnValidationError=true}" VerticalAlignment="Center" Grid.Column="1" Grid.Row="7" Grid.ColumnSpan="3" Height="22" Margin="0,3,0,4"/>
                         <ComboBox VerticalAlignment="Center" Grid.Column="1" Grid.Row="8" Grid.ColumnSpan="1" Height="22" SelectedIndex="0" IsEditable="False">

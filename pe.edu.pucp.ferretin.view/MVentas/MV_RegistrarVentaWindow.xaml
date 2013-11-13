@@ -97,9 +97,21 @@
                     <DataGridTextColumn Width="2*" Binding="{Binding Path=Producto.nombre}" Header="Nombre" IsReadOnly="True"/>
                     <DataGridTextColumn Width="1.2*" Binding="{Binding Path=cantidad,UpdateSourceTrigger=PropertyChanged}" Header="Cantidad"/>
                     <DataGridTextColumn Width="1.2*" Binding="{Binding Path=Producto.monedaString}" IsReadOnly="True" Header="Moneda"/>
-                    <DataGridTextColumn Width="1*" Binding="{Binding Path=Producto.precioLista}" IsReadOnly="True" Header="Precio"/>
+                    <DataGridTextColumn Width="1*" Binding="{Binding Path=Producto.precioLista}" IsReadOnly="True" Header="Precio">
+                        <DataGridTextColumn.CellStyle>
+                            <Style>
+                                <Setter Property="FrameworkElement.HorizontalAlignment" Value="Right"/>
+                            </Style>
+                        </DataGridTextColumn.CellStyle>
+                    </DataGridTextColumn>
                     <DataGridTextColumn Width="1.5*" Binding="{Binding Path=descuentoPorcentaje,UpdateSourceTrigger=PropertyChanged}" IsReadOnly="True" Header="Dscto. (%)"/>
-                    <DataGridTextColumn Width="1.2*" Binding="{Binding Path=montoParcial}" IsReadOnly="True" Header="Importe"/>
+                    <DataGridTextColumn Width="1.2*" Binding="{Binding Path=montoParcial}" IsReadOnly="True" Header="Importe">
+                        <DataGridTextColumn.CellStyle>
+                            <Style>
+                                <Setter Property="FrameworkElement.HorizontalAlignment" Value="Right"/>
+                            </Style>
+                        </DataGridTextColumn.CellStyle>
+                    </DataGridTextColumn>
                     <DataGridTextColumn Width="1.7*" Binding="{Binding Path=Producto.precioPuntos}" IsReadOnly="True" Header="Precio Puntos"/>
                     <DataGridCheckBoxColumn Width="1*" Binding="{Binding Path=canjeado,UpdateSourceTrigger=PropertyChanged}" Header="Canjear"/>
                 </DataGrid.Columns>

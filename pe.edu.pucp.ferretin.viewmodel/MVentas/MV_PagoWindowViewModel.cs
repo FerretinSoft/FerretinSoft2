@@ -85,10 +85,11 @@ namespace pe.edu.pucp.ferretin.viewmodel.MVentas
                 return;
             }
             int tipoPago = int.Parse(param.ToString());
-            VentaMedioPago ventaMP = new VentaMedioPago()
+            var ventaMP = new VentaMedioPago()
             {
                 Venta = venta,
-                moneda = 0
+                moneda = 0,
+                tipoCambio = (decimal)MS_SharedService.obtenerTipodeCambio()
             };
             ventaMP.PropertyChanged += ventaMP_PropertyChanged;
 
@@ -105,8 +106,6 @@ namespace pe.edu.pucp.ferretin.viewmodel.MVentas
                         ventaMP.MedioPago = mediosPago.ElementAt(1);
                         ventaMP.detalle = "# Transacción " + new Random(100).Next(11111111, 99999999).ToString() + "";
                         ventaMP.monto = venta.diferencia;
-                        ventaMP.montoReadOnly = true;
-                        ventaMP.monedaReadOnly = true;
                         break;
                     };
                 case 3: //Pago Vale
@@ -118,10 +117,6 @@ namespace pe.edu.pucp.ferretin.viewmodel.MVentas
                             ventaMP.detalle = "Vale N° " + valeSeleccionado.codigo.ToString();
                             ventaMP.moneda = valeSeleccionado.LoteVale.moneda-1;
                             ventaMP.monto = valeSeleccionado.LoteVale.monto;
-                            
-                            ventaMP.montoReadOnly = true;
-                            ventaMP.monedaReadOnly = true;
-
                             valeSeleccionado = null;
                         }
                         break;
@@ -133,12 +128,8 @@ namespace pe.edu.pucp.ferretin.viewmodel.MVentas
                             ventaMP.NotaCredito = notaCreditoSeleccionado;
                             ventaMP.MedioPago = mediosPago.ElementAt(3);
                             ventaMP.detalle = "Nota de Crédito N° " + notaCreditoSeleccionado.codigo.ToString();
-                            ventaMP.moneda = 1;//TODO siempre en soles?
+                            ventaMP.moneda = 0;//TODO siempre en soles?
                             ventaMP.monto = notaCreditoSeleccionado.importe;
-
-                            ventaMP.montoReadOnly = true;
-                            ventaMP.monedaReadOnly = true;
-
                             notaCreditoSeleccionado = null;
                         }
                         break;
@@ -227,7 +218,8 @@ namespace pe.edu.pucp.ferretin.viewmodel.MVentas
 
         void actualizarCobrado()
         {
-            venta.cobrado = venta.VentaMedioPago.Sum(vmp => vmp.moneda == 0 ? vmp.monto : (decimal)MS_SharedService.obtenerTipodeCambio() * vmp.monto);
+            
+            venta.cobrado = Decimal.Round(venta.VentaMedioPago.Sum(vmp => vmp.moneda == 0 ? vmp.monto : vmp.tipoCambio * vmp.monto).Value, 2);
         }
         #endregion
 

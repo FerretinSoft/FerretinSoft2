@@ -47,9 +47,9 @@ namespace pe.edu.pucp.ferretin.model
         partial void OntotalChanged()
         {
             this.igv = Decimal.Round((this.total * (decimal)igvActual/100).Value,2);
-            this.subTotal = this.total - this.igv;
+            this.subTotal = Decimal.Round(this.total.Value - this.igv.Value,2);
             this.cobrado = 0;
-            this.diferencia = this.total - this.cobrado;
+            this.diferencia = Decimal.Round(this.total.Value - this.cobrado.Value,2);
         }
 
         partial void OncobradoChanged()

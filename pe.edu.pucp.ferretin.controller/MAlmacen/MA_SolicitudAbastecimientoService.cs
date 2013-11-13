@@ -94,7 +94,28 @@ namespace pe.edu.pucp.ferretin.controller.MAlmacen
             }
             
             return result;
-        }        
+        }
+
+        public static IEnumerable<ProductoPorSolicitudTienda> initProductosPorSolicitud(Tienda almacen, SolicitudAbastecimiento solicitud)
+        {
+            List<ProductoPorSolicitudTienda> result = new List<ProductoPorSolicitudTienda>();
+            if (solicitud == null) return result;
+            decimal diferencia;
+            for (int i = 0; i < almacen.ProductoAlmacen.Count; i++)
+            {
+                ProductoAlmacen pa = almacen.ProductoAlmacen[i];
+                diferencia = ((pa.stock == null)?0:(decimal)pa.stock) - ((pa.stockMin == null)?0:(decimal)pa.stockMin);
+                if (diferencia < 0) // sugerir abastecimiento de producto por debajo del stock minimo
+                {
+                    SolicitudAbastecimientoProducto sap = new SolicitudAbastecimientoProducto();
+                    sap.cantidad = diferencia * -1;
+                    sap.Producto = pa.Producto;
+                    solicitud.SolicitudAbastecimientoProducto.Add(sap);
+                    result.Add(new ProductoPorSolicitudTienda(sap, pa));
+                }                
+            }
+            return result;
+        }
 
         /*public static bool atenderSolicitud(Tienda almacen, SolicitudAbastecimiento solicitud)
         {

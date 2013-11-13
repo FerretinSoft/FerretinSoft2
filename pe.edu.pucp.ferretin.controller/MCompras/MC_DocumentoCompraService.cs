@@ -130,11 +130,11 @@ namespace pe.edu.pucp.ferretin.controller.MCompras
         }
 
         public static IEnumerable<DocumentoCompraProducto> buscarProductosDC(DocumentoCompra doc)
-        {
+        {           
             return from g in listaProductosDC
                    where (
                        //Cada fila es un filtro
-                          (g.DocumentoCompra.id == doc.id))
+                          (g.id_documento_compra == doc.id))
                    orderby g.id
                    select g;
         }

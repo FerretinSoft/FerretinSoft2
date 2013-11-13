@@ -203,13 +203,13 @@ namespace pe.edu.pucp.ferretin.viewmodel.MRecursosHumanos
                 //Si la pestaña es para agregar nuevo, limpio los input
                 switch (_statusTab)
                 {
-                    case Tab.BUSQUEDA: detallesTabHeader = "Agregar"; empleado = new Empleado();  break;//Si es agregar, creo un nuevo objeto Empleado
+                    case Tab.BUSQUEDA: detallesTabHeader = "Agregar"; empleadoImagen = null; ; empleado = new Empleado(); break;//Si es agregar, creo un nuevo objeto Empleado
                     case Tab.AGREGAR: detallesTabHeader = "Agregar"; empleado = new Empleado();
-                        try { this.selectedDepartamento.id = "15"; empleado.EmpleadoTienda=null; }
+                        try { this.selectedDepartamento.id = "15"; empleado.EmpleadoTienda = null; empleadoImagen = null; }
                         catch(Exception e) { }
                             break;//Si es agregar, creo un nuevo objeto Empleado
-                    case Tab.MODIFICAR: detallesTabHeader = "Modificar"; break;
-                    case Tab.DETALLES: detallesTabHeader = "Detalles"; break;
+                    case Tab.MODIFICAR: detallesTabHeader = "Modificar"; empleadoImagen = null; break;
+                    case Tab.DETALLES: detallesTabHeader = "Detalles";  break;
                     default: detallesTabHeader = "Agregar"; empleado = new Empleado(); break;//Si es agregar, creo un nuevo objeto Empleado
                 }
                 NotifyPropertyChanged("statusTab");
@@ -218,6 +218,7 @@ namespace pe.edu.pucp.ferretin.viewmodel.MRecursosHumanos
                 NotifyPropertyChanged("isCreating"); //Para que se activen o desactiven los inputs
                 NotifyPropertyChanged("listaEmpleadoTurno");
                 NotifyPropertyChanged("listaEmpleadoTiendas");
+                NotifyPropertyChanged("empleadoImagen");
 
             }
         }
@@ -261,6 +262,7 @@ namespace pe.edu.pucp.ferretin.viewmodel.MRecursosHumanos
                     distritos = MR_EmpleadoService.distritos.Where(distrito => distrito.id_ubig_provincia.Equals(id_provincia));
                 }
                 NotifyPropertyChanged("empleado");
+                NotifyPropertyChanged("empleadoImagen");
             }
         }
         
@@ -477,7 +479,15 @@ namespace pe.edu.pucp.ferretin.viewmodel.MRecursosHumanos
         {
             try
             {
+                //Muestra Null en turnos/
                 this.empleado = listaEmpleados.Single(empleado => empleado.codEmpleado == (int)codEmpleado);
+                foreach (EmpleadoTurno et in this.empleado.EmpleadoTurno)
+                {
+                    if (et.estado == 0) et.id_turno = null;
+                
+                }
+
+                
                 if (this.empleado.id_ubigeo_distrito != null)
                 {
                     selectedProvincia = this.empleado.UbigeoDistrito.UbigeoProvincia;
@@ -501,7 +511,13 @@ namespace pe.edu.pucp.ferretin.viewmodel.MRecursosHumanos
                 /*Para actualizar un empleado existente*/
                 if ((empleado.id > 0) && VerificaCamposObligatorios(empleado))//Si existe
                 {
-                    ComunService.idVentana(2);                    
+                    ComunService.idVentana(2);    
+                    foreach (EmpleadoTurno et in empleado.EmpleadoTurno)
+                    {
+                        if (et.id_turno == 0) et.id_turno = null;
+
+                    }
+
                     if (!MR_EmpleadoService.enviarCambios())
                     {
                         MessageBox.Show("No se pudo actualizar el empleado");
@@ -521,8 +537,8 @@ namespace pe.edu.pucp.ferretin.viewmodel.MRecursosHumanos
 
                     ComunService.idVentana(1);
 
-                    
 
+                    empleado.empleadoT();
                     if ( VerificaCamposObligatorios(empleado) && VerificaDNIEmpleado(empleado))
                     {
                         if (empleado.dni != null && empleado.nombre != null && empleado.apPaterno != null && empleado.apMaterno != null)
