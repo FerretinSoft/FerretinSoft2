@@ -99,13 +99,13 @@ namespace pe.edu.pucp.ferretin.controller.MVentas
 
         public static IEnumerable<Cliente> buscarClientes(string nroDoc, string nombre, string apPaterno, string apMaterno, string tipoDocumento)
         {
-            return from c in listaClientes
+            return from c in db.Cliente
                    where
                    (c.nroDoc != null && c.nroDoc.Contains(nroDoc)
-                       && c.nombre != null && c.nombre.ToLower().Contains(nombre.ToLower().Trim())
-                       && c.apPaterno != null && c.apPaterno.ToLower().Contains(apPaterno.ToLower().Trim())
-                       && c.apMaterno != null && c.apMaterno.ToLower().Contains(apMaterno.ToLower().Trim())
-                       && c.tipoDocumento != null && c.tipoDocumento.Contains(tipoDocumento)
+                       && ( c.nombre == null || c.nombre.ToLower().Contains(nombre.ToLower().Trim()) )
+                       && ( c.apPaterno == null || c.apPaterno.ToLower().Contains(apPaterno.ToLower().Trim()) )
+                       && ( c.apMaterno == null || c.apMaterno.ToLower().Contains(apMaterno.ToLower().Trim()) )
+                       && ( c.tipoDocumento == null || c.tipoDocumento.Contains(tipoDocumento) )
                     )
                    orderby c.nroDoc
                    select c;

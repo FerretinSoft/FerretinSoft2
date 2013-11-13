@@ -259,7 +259,7 @@ namespace pe.edu.pucp.ferretin.viewmodel.MAlmacen
             {
                 if (_actualizarListaInventarioCommand == null)
                 {
-                    _actualizarListaInventarioCommand = new RelayCommand(param => NotifyPropertyChanged("listaProducto"));
+                    _actualizarListaInventarioCommand = new RelayCommand(param => NotifyPropertyChanged("listaProductoAlmacen"));
                 }
                 return _actualizarListaInventarioCommand;
             }
