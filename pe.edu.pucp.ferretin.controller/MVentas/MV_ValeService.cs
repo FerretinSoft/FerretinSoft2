@@ -52,12 +52,12 @@ namespace pe.edu.pucp.ferretin.controller.MVentas
             }
         }
 
-        public static IEnumerable<LoteVale> buscarLotesVale(string nroCodLote, string nroDocCliente, DateTime fechaInicio, DateTime fechaFin)
+        public static IEnumerable<LoteVale> buscarLotesVale(string nroCodLote, long? nroDocCliente, DateTime fechaInicio, DateTime fechaFin)
         {
             return from c in listaLoteVale
                    where
                    (c.codigo != null && c.codigo.Contains(nroCodLote)
-                   && c.Cliente.nroDoc != null && c.Cliente.nroDoc.Contains(nroDocCliente)
+                   && c.Cliente.nroDoc != null && c.Cliente.nroDoc.Equals(nroDocCliente)
                    && c.fechaEmision != null && c.fechaEmision >= fechaInicio           
                     )
                    orderby c.codigo

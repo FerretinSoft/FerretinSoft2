@@ -34,8 +34,8 @@ namespace pe.edu.pucp.ferretin.viewmodel.MVentas
         public String _nombreCliente = "";
         public String nombreCliente { get { return _nombreCliente; } set { _nombreCliente = value; NotifyPropertyChanged("nombreCliente"); } }
 
-        public String _searchNroDocCliente = "";
-        public String searchNroDocCliente { get { return _searchNroDocCliente; } set { _searchNroDocCliente = value; NotifyPropertyChanged("searchNroDocCliente"); } }
+        public long? _searchNroDocCliente = null;
+        public long? searchNroDocCliente { get { return _searchNroDocCliente; } set { _searchNroDocCliente = value; NotifyPropertyChanged("searchNroDocCliente"); } }
 
         public string _detallesTabHeader = "";
         public String detallesTabHeader { get { return _detallesTabHeader; } set { _detallesTabHeader = value; NotifyPropertyChanged("detallesTabHeader"); } }

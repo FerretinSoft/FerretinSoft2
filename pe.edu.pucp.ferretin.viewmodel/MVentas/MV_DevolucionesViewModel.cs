@@ -43,8 +43,8 @@ namespace pe.edu.pucp.ferretin.viewmodel.MVentas
         public String _loadNroDocumento = "";
         public String loadNroDocumento { get { return _loadNroDocumento; } set { _loadNroDocumento = value; NotifyPropertyChanged("loadNroDocumento"); } }
 
-        public String _searchNroDocCliente = "";
-        public String searchNroDocCliente { get { return _searchNroDocCliente; } set { _searchNroDocCliente = value; NotifyPropertyChanged("searchNroDocCliente"); } }
+        public long? _searchNroDocCliente;
+        public long? searchNroDocCliente { get { return _searchNroDocCliente; } set { _searchNroDocCliente = value; NotifyPropertyChanged("searchNroDocCliente"); } }
 
         public String _searchnombreCliente = "";
         public String searchnombreCliente { get { return _searchnombreCliente; } set { _searchnombreCliente = value; NotifyPropertyChanged("searchnombreCliente"); } }
@@ -410,7 +410,7 @@ namespace pe.edu.pucp.ferretin.viewmodel.MVentas
             {
                 MessageBox.Show("No se encontro ningún cliente con el número de documento proporcionado", "No se encontro", MessageBoxButton.OK, MessageBoxImage.Question);
                 searchnombreCliente = "";
-                searchNroDocCliente = "";
+                searchNroDocCliente = null;
             }
             
             NotifyPropertyChanged("searchnombreCliente");
