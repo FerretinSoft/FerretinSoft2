@@ -205,23 +205,17 @@ namespace pe.edu.pucp.ferretin.view.MRecursosHumanos
             //bool isStrictMatch = reStrict.IsMatch(correo.Text);
             //return isStrictMatch;
 
-            if (Regex.IsMatch(correo.Text, @"^([0-9a-zA-Z]([-\.\w]*[0-9a-zA-Z])*@([0-9a-zA-Z][-\w]*[0-9a-zA-Z]\.)+[a-zA-Z]{4,15})$"))
-                e.Handled = true;
-            else 
+            
+            //if (Regex.IsMatch(correo.Text, @"^([0-9a-zA-Z]([-\.\w]*[0-9a-zA-Z])*@([0-9a-zA-Z][-\w]*[0-9a-zA-Z]\.)+[a-zA-Z]{4,15})$"))
+            
+             if  ( !Regex.IsMatch(correo.Text, @"^[a-zA-Z][.]*[a-zA-Z0-9]@[a-zA-Z0-9]*[a-zA-Z0-9](.)[a-zA-Z][a-zA-Z\.]*[a-zA-Z]$"))
+                
                 e.Handled = false;
+            else 
+                e.Handled = true;
             
             
-            //if (Regex.IsMatch(e.Text, @"/[-0-9a-zA-Z.+_]+@[-0-9a-zA-Z.+_]+\.[a-zA-Z]{2,4}/"))
-            //{
-            //    e.Handled = true;
-            //}
-            //else
-            //{
-            //    e.Handled = false;
-            //}
-
-           // e.Handled = Regex.IsMatch(correo.Text, "/[-0-9a-zA-Z.+_]+@[-0-9a-zA-Z.+_]+\.[a-zA-Z]{2,4}/");
-
+           
         }
 
         private void txtEmail_KeyDown(object sender, KeyEventArgs e)
@@ -248,7 +242,7 @@ namespace pe.edu.pucp.ferretin.view.MRecursosHumanos
         private void txtSueldo_KeyDown(object sender, KeyEventArgs e)
         {
 
-            if (e.Key != Key.Space)
+            if ((e.Key != Key.Space))
                 e.Handled = false;
             else
                 e.Handled = true;
