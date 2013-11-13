@@ -211,7 +211,6 @@
                     <Label Content="*" HorizontalAlignment="Left" Margin="234,154,0,0" VerticalAlignment="Top" Foreground="Red" FontSize="14" Width="24" Height="23" Grid.ColumnSpan="2" Grid.Column="4"/>
                     <Label Content="*" HorizontalAlignment="Left" Margin="234,185,0,0" VerticalAlignment="Top" Foreground="Red" FontSize="14" Width="24" Height="23" Grid.ColumnSpan="2" Grid.Column="4"/>
                     <Label Content="*" HorizontalAlignment="Left" Margin="234,217,0,0" VerticalAlignment="Top" Foreground="Red" FontSize="14" Width="24" Height="23" Grid.ColumnSpan="2" Grid.Column="4"/>
-                    <Label Content="*" HorizontalAlignment="Left" Margin="234,260,0,0" VerticalAlignment="Top" Foreground="Red" FontSize="14" Width="24" Height="23" Grid.ColumnSpan="2" Grid.Column="4"/>
                     <Label Content="*" HorizontalAlignment="Left" Margin="234,295,0,0" VerticalAlignment="Top" Foreground="Red" FontSize="14" Width="24" Height="23" Grid.ColumnSpan="2" Grid.Column="4"/>
                     <Label Content="*" HorizontalAlignment="Left" Margin="85,335,0,0" VerticalAlignment="Top" Foreground="Red" FontSize="14" Width="24" Height="23" Grid.Column="4" />
                     <Label Content="*" HorizontalAlignment="Left" Margin="234,412,0,0" VerticalAlignment="Top" Foreground="Red" FontSize="14" Width="24" Height="23" Grid.ColumnSpan="2" Grid.Column="4"/>
@@ -221,7 +220,6 @@
                     <Label Content="*" HorizontalAlignment="Left" Margin="333,91,-10,0"  VerticalAlignment="Top" Foreground="Red" FontSize="14" Width="24" Height="23" Grid.Column="5"/>
                     <Label Content="*" HorizontalAlignment="Left" Margin="333,121,-10,0"  VerticalAlignment="Top" Foreground="Red" FontSize="14" Width="24" Height="23" Grid.Column="5"/>
                     <Label Content="*" HorizontalAlignment="Left" Margin="333,155,-10,0"  VerticalAlignment="Top" Foreground="Red" FontSize="14" Width="24" Height="23" Grid.Column="5"/>
-                    <Label Content="*" HorizontalAlignment="Left" Margin="84,294,0,0" VerticalAlignment="Top" Foreground="Red" FontSize="14" Width="24" Height="23" Grid.Column="4"/>
 
                 </Grid>
             </TabItem>
