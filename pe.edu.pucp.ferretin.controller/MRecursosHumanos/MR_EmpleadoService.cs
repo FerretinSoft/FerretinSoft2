@@ -119,6 +119,20 @@ namespace pe.edu.pucp.ferretin.controller.MRecursosHumanos
                 return false;
         }
 
+        public static void insertarEmpTurno(EmpleadoTurno empturno)
+        {
+
+            if (!db.EmpleadoTurno.Contains(empturno))
+            {
+
+                db.EmpleadoTurno.InsertOnSubmit(empturno);
+               
+
+            }
+            
+        }
+
+
         public static void actualizarEmpleado(Empleado empleado)
         {
            

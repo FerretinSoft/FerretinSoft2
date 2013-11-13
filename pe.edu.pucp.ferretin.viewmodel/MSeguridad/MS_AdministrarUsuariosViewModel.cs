@@ -85,9 +85,9 @@ namespace pe.edu.pucp.ferretin.viewmodel.MSeguridad
                 //Si la pestaña es para agregar nuevo, limpio los input
                 switch (value)
                 {
-                    case tabs.BUSQUEDA: detallesTabHeader = "Agregar"; usuario = new Usuario(); break;//Si es agregar, creo un nuevo objeto Usuario
-                    case tabs.AGREGAR: detallesTabHeader = "Agregar"; usuario = new Usuario();  break;//Si es agregar, creo un nuevo objeto Usuario
-                    case tabs.MODIFICAR: detallesTabHeader = "Modificar"; break;
+                    case tabs.BUSQUEDA: detallesTabHeader = "Agregar"; usuario = new Usuario(); usuarioImagen = null; break;//Si es agregar, creo un nuevo objeto Usuario
+                    case tabs.AGREGAR: detallesTabHeader = "Agregar"; usuario = new Usuario(); break; //Si es agregar, creo un nuevo objeto Usuario
+                    case tabs.MODIFICAR: detallesTabHeader = "Modificar"; usuarioImagen = null; break;
                     case tabs.DETALLES: detallesTabHeader = "Detalles"; break;
                     default: detallesTabHeader = "Agregar"; usuario = new Usuario(); break;//Si es agregar, creo un nuevo objeto Cliente
                 }

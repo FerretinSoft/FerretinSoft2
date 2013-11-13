@@ -39,7 +39,7 @@
                     <Label Content="Estado:" HorizontalAlignment="Left" Height="26" VerticalAlignment="Top" Width="68" Margin="331,83,0,0" Grid.RowSpan="2" />
 
                     <!-- TextBoxes -->
-                    <TextBox HorizontalAlignment="Left" x:Name="nombreUsuarioSearchTxtBox" Text="{Binding searchNombreUsuario, Mode=TwoWay}" Height="20" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Margin="154,32,0,0"/>
+                    <TextBox HorizontalAlignment="Left" x:Name="nombreUsuarioSearchTxtBox" Text="{Binding searchNombreUsuario, Mode=TwoWay}" Height="20" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Margin="154,28,0,0"/>
                     <TextBox HorizontalAlignment="Left" x:Name="nombresTxtBox" Text="{Binding searchNombres, Mode=TwoWay}" Height="20" Margin="154,58,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
                     <TextBox HorizontalAlignment="Left" x:Name="apellidosTxtBox" Text="{Binding searchApellidos, Mode=TwoWay}" Height="20" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Margin="447,32,0,0" />
                     <TextBox HorizontalAlignment="Left" x:Name="codigoSearchTxtBox" Text="{Binding searchApellidosMat, Mode=TwoWay}" Height="20" Margin="447,58,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
@@ -126,9 +126,9 @@
                     <!-- Labels -->
 
                     <Label Content="DNI Empleado" HorizontalAlignment="Left" Margin="247,58,0,0" VerticalAlignment="Top" Grid.Column="1" Grid.ColumnSpan="2"/>
-                    <Label Content="*" HorizontalAlignment="Left" Margin="90,57,0,0" VerticalAlignment="Top" Foreground="Red" FontSize="14" Width="19" Height="22" RenderTransformOrigin="3.646,-0.402" Grid.Column="2"/>
+                    <Label Content="*" HorizontalAlignment="Left" Margin="90,58,0,0" VerticalAlignment="Top" Foreground="Red" FontSize="14" Width="19" Height="22" RenderTransformOrigin="3.646,-0.402" Grid.Column="2"/>
                     <Label Content="Nombre de &#xD;&#xA;Usuario:" HorizontalAlignment="Left" Margin="246,88,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.464,1.231" Grid.Column="1" Height="43"/>
-                    <Label Content="*" HorizontalAlignment="Left" Margin="166,88,0,0" VerticalAlignment="Top" Foreground="Red" FontSize="14" Width="19" Height="26" RenderTransformOrigin="3.646,-0.402" Grid.Column="2"/>
+                    <Label Content="*" HorizontalAlignment="Left" Margin="177,88,0,0" VerticalAlignment="Top" Foreground="Red" FontSize="14" Width="19" Height="26" RenderTransformOrigin="3.646,-0.402" Grid.Column="2"/>
                     <Label Content="Nombre:" HorizontalAlignment="Left" Margin="114,134,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.464,1.231" Grid.Column="1"/>
                     <Label Content="Apellido Paterno:" HorizontalAlignment="Left" Margin="114,160,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.464,1.231" Grid.Column="1"/>
                     <Label Content="Apellido Materno:" HorizontalAlignment="Left" Margin="114,188,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.464,1.231" Grid.Column="1"/>
@@ -136,8 +136,8 @@
                     <Label Content="Perfil:" HorizontalAlignment="Left" Margin="114,242,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.464,1.231" Grid.Column="1"/>
 
                     <!-- TextBoxes -->
-                    <TextBox x:Name="dniEmp" IsEnabled="{Binding editEmpleadoEnabled,Mode=OneWay}" Text="{Binding dniEmpleado, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" HorizontalAlignment="Left" Height="25" Margin="14,54,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="71" Grid.Column="2" PreviewTextInput="dniEmp_PreviewTextInput_1" MaxLength="8" KeyDown="dniEmp_KeyDown" PreviewKeyDown="dniEmp_PreviewKeyDown"/>
-                    <TextBox Text="{Binding Path=usuario.nombre, Mode=TwoWay, ValidatesOnExceptions=true, NotifyOnValidationError=true}" MaxLength="20" HorizontalAlignment="Left" Height="25" Margin="14,88,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="154" x:Name="nombreUsuarioTxtBox" Grid.Column="2" PreviewTextInput="nombreUsuarioTxtBox_PreviewTextInput" PreviewKeyDown="nombreUsuarioTxtBox_PreviewKeyDown" />
+                    <TextBox x:Name="dniEmp" IsEnabled="{Binding editEmpleadoEnabled,Mode=OneWay}" Text="{Binding dniEmpleado, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" HorizontalAlignment="Left" Height="25" Margin="19,54,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="71" Grid.Column="2" MaxLength="8" PreviewTextInput="dniEmp_PreviewTextInput" PreviewKeyDown="dniEmp_PreviewKeyDown"/>
+                    <TextBox Text="{Binding Path=usuario.nombre, Mode=TwoWay, ValidatesOnExceptions=true, NotifyOnValidationError=true}" MaxLength="20" HorizontalAlignment="Left" Height="25" Margin="19,88,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="158" x:Name="nombreUsuarioTxtBox" Grid.Column="2" PreviewTextInput="nombreUsuarioTxtBox_PreviewTextInput" PreviewKeyDown="nombreUsuarioTxtBox_PreviewKeyDown"/>
                     <TextBox Text="{Binding Path=usuario.Empleado.nombre, Mode=TwoWay, ValidatesOnExceptions=true, NotifyOnValidationError=true}" HorizontalAlignment="Left" Height="22" Margin="247,136,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="285" Grid.ColumnSpan="2" IsEnabled="False" Grid.Column="1" />
                     <TextBox Text="{Binding Path=usuario.Empleado.apPaterno, Mode=TwoWay, ValidatesOnExceptions=true, NotifyOnValidationError=true}" HorizontalAlignment="Left" Height="22" Margin="247,164,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="285" Grid.ColumnSpan="2" IsEnabled="False" Grid.Column="1" />
                     <TextBox Text="{Binding Path=usuario.Empleado.apMaterno, Mode=TwoWay, ValidatesOnExceptions=true, NotifyOnValidationError=true}" HorizontalAlignment="Left" Height="22" Margin="247,192,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="285" Grid.ColumnSpan="2" IsEnabled="False" Grid.Column="1" />
@@ -159,7 +159,7 @@
                             <ImageBrush ImageSource="../Resources/search1_20.png"/>
                         </Button.Background>
                     </Button>
-                    <Button Command="{Binding buscarNombreUsuarioCommand}" Margin="185,87,132,302" VerticalAlignment="Center" Height="26"  BorderThickness="0" Grid.Column="2">
+                    <Button Command="{Binding buscarNombreUsuarioCommand}" Margin="196,88,120,301" VerticalAlignment="Center" Height="26"  BorderThickness="0" Grid.Column="2">
                         <Button.Background>
                             <ImageBrush ImageSource="/pe.edu.pucp.ferretin.view;component/Resources/search1_20.png"/>
                         </Button.Background>
