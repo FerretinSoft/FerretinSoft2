@@ -268,7 +268,7 @@ namespace pe.edu.pucp.ferretin.viewmodel.MVentas
         {
             get
             {
-                return proforma==null && proforma.Cliente == null ? new GridLength(0) : GridLength.Auto;
+                return (proforma == null || proforma.Cliente == null) ? new GridLength(0) : GridLength.Auto;
             }
         }
 

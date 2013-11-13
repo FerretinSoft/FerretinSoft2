@@ -46,6 +46,14 @@ namespace pe.edu.pucp.ferretin.viewmodel.MVentas
                 if (value.Length == 8 || value.Length == 11)
                 {
                     cargarCliente(null);
+                }else if(value.Length==0)
+                {
+                    if (venta != null && venta.Cliente != null)
+                    {
+                        venta.Cliente = null;
+                        clienteImagen = null;
+                        NotifyPropertyChanged("widthClienteBar");
+                    }
                 }
                 NotifyPropertyChanged("nroDocSeleccionado");
             }
