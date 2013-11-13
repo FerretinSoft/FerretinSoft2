@@ -26,7 +26,7 @@
                 </DataGrid.Columns>
             </DataGrid>
             <Label Content="Proveedor:" HorizontalAlignment="Left" Margin="231,15,0,0" VerticalAlignment="Top"/>
-            <TextBox Text="{Binding searchProveedor, Mode=TwoWay}" HorizontalAlignment="Left" Height="23" Margin="303,15,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="220"/>
+            <TextBox x:Name="proveedorTxt" Text="{Binding searchProveedor, Mode=TwoWay}" HorizontalAlignment="Left" Height="23" Margin="303,15,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="220"/>
             <Label Content="Producto:" HorizontalAlignment="Left" Margin="10,15,0,0" VerticalAlignment="Top"/>
             <TextBox Text="{Binding searchProducto, Mode=TwoWay}" HorizontalAlignment="Left" Height="23" Margin="76,15,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="136"/>
             <Button Command="{Binding actualizarListaProductosProveedorCommand}" Margin="537,10,0,0" RenderTransformOrigin="0.3,-0.35" Height="32" VerticalAlignment="Top" HorizontalAlignment="Left" Width="32">

@@ -22,10 +22,21 @@ namespace pe.edu.pucp.ferretin.view.MCompras
 
         private void agregarProducto_Click(object sender, RoutedEventArgs e)
         {
-            MC_BuscarProductosProveedorWindow v = new MC_BuscarProductosProveedorWindow();
-            v.Owner = this;
-            v.ShowDialog();
-            var viewModel = v.main.DataContext as MC_BuscarProductosProveedorViewModel;            
+
+            if ((string)(this.razSoc_Lbl.Content) != "")
+            {
+                MC_BuscarProductosProveedorWindow v = new MC_BuscarProductosProveedorWindow();
+                v.Owner = this;
+                var viewModel = v.main.DataContext as MC_BuscarProductosProveedorViewModel;
+                viewModel.searchProveedor = (string)(this.razSoc_Lbl.Content);
+                v.proveedorTxt.IsEnabled = false;
+                v.ShowDialog();              
+            }
+            else
+            {
+                MessageBox.Show("Debe ingresar un Proveedor", "Mensaje error", MessageBoxButton.OK, MessageBoxImage.Question);
+            }
+            
         }
     }
 }

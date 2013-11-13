@@ -130,11 +130,11 @@ namespace pe.edu.pucp.ferretin.controller.MCompras
         }
 
         public static IEnumerable<DocumentoCompraProducto> buscarProductosDC(DocumentoCompra doc)
-        {
+        {           
             return from g in listaProductosDC
                    where (
                        //Cada fila es un filtro
-                          (g.DocumentoCompra.id == doc.id))
+                          (g.id_documento_compra == doc.id))
                    orderby g.id
                    select g;
         }
@@ -177,6 +177,36 @@ namespace pe.edu.pucp.ferretin.controller.MCompras
                 return null;
         }
 
+        public static bool insertarDocumentoCompra(DocumentoCompra documentoCompra)
+        {
+            DocumentoCompra doc;
+            int i;
+            try
+            {
+                try
+                {
+                    doc = db.DocumentoCompra.Single(t => t.id == documentoCompra.id);
+                    return false;
+                }
+                catch (Exception e)
+                {
+                    //guiaRemision.estado = 1;
+                    //for (i = 0; i < guiaRemision.GuiaRemisionProducto.Count(); i++)
+                    //{
+                    //    guiaRemision.DocumentoCompra.DocumentoCompraProducto[i].cantidadRestante = guiaRemision.DocumentoCompra.DocumentoCompraProducto[i].cantidadRestante - guiaRemision.GuiaRemisionProducto[i].cantidadRecibida;
+                    //}
+                    db.DocumentoCompra.InsertOnSubmit(documentoCompra);
+                   // db.GuiaRemision.InsertOnSubmit(guiaRemision);
+                    //MA_SharedService.registrarCompra(guiaRemision.Tienda, guiaRemision.GuiaRemisionProducto);
+                    enviarCambios();
+                    return true;
+                }
+            }
+            catch (Exception e)
+            {
+                return false;
+            }
+        }
         #endregion
 
     }
