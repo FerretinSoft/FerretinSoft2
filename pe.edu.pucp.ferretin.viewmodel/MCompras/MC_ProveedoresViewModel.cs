@@ -13,6 +13,35 @@ namespace pe.edu.pucp.ferretin.viewmodel.MCompras
     public class MC_ProveedoresViewModel:ViewModelBase
     {
 
+
+        public string _labelCodigo = null;
+        public string labelCodigo
+        {
+            get
+            {
+                return _labelCodigo;
+            }
+            set
+            {
+                _labelCodigo = value;
+                NotifyPropertyChanged("labelCodigo");
+            }
+        }
+        public string _labelNombre = null;
+        public string labelNombre
+        {
+            get
+            {
+                return _labelNombre;
+            }
+            set
+            {
+                _labelNombre = value;
+                NotifyPropertyChanged("labelNombre");
+            }
+        }
+
+
         private bool _soloSeleccionarProveedor = false;
         public bool soloSeleccionarProveedor
         {
@@ -111,7 +140,10 @@ namespace pe.edu.pucp.ferretin.viewmodel.MCompras
                 var sequence = Enumerable.Empty<Rubro>();
                 //Primero agrego un item de Todos para que salga al inicio
                 //Pongo el ID en 0 para que al buscar, no filtre nada cuando se selecciona todos
-                IEnumerable<Rubro> items = new Rubro[] { new Rubro { id=0, nombre="Todos"} };
+              
+                    IEnumerable<Rubro> items = new Rubro[] { new Rubro { id = 0, nombre = "Todos" } };
+               
+                
                 //Luego concateno el itemcon los elementos del combobox
                 return items.Concat(MC_RubroService.rubro);
             }
@@ -164,6 +196,7 @@ namespace pe.edu.pucp.ferretin.viewmodel.MCompras
             {
                 _listaProveedores = value;
                 NotifyPropertyChanged("listaProveedores");
+                NotifyPropertyChanged("proveedor.ProveedorProducto");
                 
             }
 
@@ -182,6 +215,9 @@ namespace pe.edu.pucp.ferretin.viewmodel.MCompras
                 NotifyPropertyChanged("proveedor.ProveedorProducto");
             }
         }
+
+    
+
         #endregion
 
         #region Valores para el cuadro de Búsqueda
@@ -287,6 +323,7 @@ namespace pe.edu.pucp.ferretin.viewmodel.MCompras
                 if (_agregarNuevoProductoCommand == null)
                 {
                     _agregarNuevoProductoCommand = new RelayCommand(agregarProducto);
+                    NotifyPropertyChanged("proveedor.ProveedorProducto");
                 }
                 return _agregarNuevoProductoCommand;
             }
@@ -302,7 +339,9 @@ namespace pe.edu.pucp.ferretin.viewmodel.MCompras
                 this.proveedor= listaProveedores.Single(proveedor => proveedor.id == (int)id);
                 this.listaProductos = MC_ProveedorService.obtenerProductosbyIdProveedor((int)id);
                 if (this.proveedor.id_ubigeo != null)
+
                 {
+                    
                     selectedProvincia = this.proveedor.UbigeoDistrito.UbigeoProvincia;
                     selectedDepartamento = selectedProvincia.UbigeoDepartamento;
                 }
@@ -470,8 +509,23 @@ namespace pe.edu.pucp.ferretin.viewmodel.MCompras
                 switch (_statusTab)
                 {
                     case Tab.BUSQUEDA: detallesTabHeader = soloSeleccionarProveedor ? "Detalles" : "Agregar"; break;
-                    case Tab.AGREGAR: detallesTabHeader = "Agregar"; proveedor = new Proveedor(); break;
-                    case Tab.MODIFICAR: detallesTabHeader = "Modificar"; break;
+                    case Tab.AGREGAR: detallesTabHeader = "Agregar"; proveedor = new Proveedor(); labelCodigo = "Código:"; labelNombre = "Nombre Proveedor:"; NotifyPropertyChanged("labelCodigo");
+                        NotifyPropertyChanged("labelNombre"); break;
+                    case Tab.MODIFICAR: detallesTabHeader = "Modificar"; if (this.proveedor.tipo == "EMPRESA")
+                        {
+                            labelCodigo = "RUC :";
+                            labelNombre = "Razón Social :";
+                            NotifyPropertyChanged("labelCodigo");
+                            NotifyPropertyChanged("labelNombre");
+
+                        }
+                        if (this.proveedor.tipo == "PERSONA NATURAL")
+                        {
+                            labelCodigo = "DNI :";
+                            labelNombre = "Nombre :";
+                            NotifyPropertyChanged("labelNombre");
+                            NotifyPropertyChanged("labelCodigo");
+                        } break;
                     case Tab.DETALLES: detallesTabHeader = "Detalles"; break;
                    // default: detallesTabHeader = "Agregar"; proveedor = new Proveedor(); break;
                 }
