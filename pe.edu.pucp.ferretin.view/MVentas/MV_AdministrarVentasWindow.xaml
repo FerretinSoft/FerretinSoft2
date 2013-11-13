@@ -197,9 +197,9 @@
                             <DataGridTextColumn Width="0.9*"  Binding="{Binding Path=cantidad}" ClipboardContentBinding="{x:Null}" Header="Cantidad"/>
                             <DataGridTextColumn Width="1*"  Binding="{Binding Path=Producto.monedaString}" Header="Moneda"/>
                             <DataGridTextColumn Width="0.9*" Binding="{Binding Path=Producto.precioLista}" ClipboardContentBinding="{x:Null}" Header="Precio"/>
-                            <DataGridTextColumn Width="1*" Binding="{Binding Path=descuento}" ClipboardContentBinding="{x:Null}" Header="Dscto(S/.)"/>
-                            <DataGridTextColumn Width="1*"  Binding="{Binding Path=montoParcial}" ClipboardContentBinding="{x:Null}" Header="Importe(S/.)"/>
-                            <DataGridTextColumn Width="1.2*" Binding="{Binding Path=precioPuntos}" ClipboardContentBinding="{x:Null}" Header="Precio Ptos"/>
+                            <DataGridTextColumn Width="1*" Binding="{Binding Path=descuento}" ClipboardContentBinding="{x:Null}" Header="Dscto (S/.)"/>
+                            <DataGridTextColumn Width="1.2*"  Binding="{Binding Path=montoParcial}" ClipboardContentBinding="{x:Null}" Header="Importe (S/.)"/>
+                            <DataGridTextColumn Width="1*" Binding="{Binding Path=precioPuntos}" ClipboardContentBinding="{x:Null}" Header="Precio Ptos"/>
                             <DataGridCheckBoxColumn IsReadOnly="True" Width="0.9*" Binding="{Binding Path=canjeado}" Header="Canjeado"/>
                         </DataGrid.Columns>
                     </DataGrid>
@@ -208,7 +208,7 @@
                             <DataGridTextColumn Width="1*" Binding="{Binding Path=MedioPago.nombre}" ClipboardContentBinding="{x:Null}" Header="Modo Pago"/>
                             <DataGridTextColumn Width="2*" Binding="{Binding Path=MedioPago.descripcion}" ClipboardContentBinding="{x:Null}" Header="Descripción"/>
                             <DataGridTextColumn Width="1*" ClipboardContentBinding="{x:Null}" Header="Cod. Vale"/>
-                            <DataGridTextColumn Width="1*" Header="Moneda"/>
+                            <DataGridTextColumn Width="1*" Binding="{Binding Path=monedaString}" Header="Moneda"/>
                             <DataGridTextColumn Width="1*" Binding="{Binding Path=monto}" ClipboardContentBinding="{x:Null}" Header="Importe"/>
                         </DataGrid.Columns>
                     </DataGrid>

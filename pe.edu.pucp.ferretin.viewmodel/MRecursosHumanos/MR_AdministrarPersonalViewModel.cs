@@ -64,9 +64,51 @@ namespace pe.edu.pucp.ferretin.viewmodel.MRecursosHumanos
                 return soloSeleccionarVendedor ? "SELECCIONAR" : "GUARDAR";
             }
         }
+
+        public UbigeoDepartamento searchDepartamento
+        {
+            get 
+            {
+                return ComunService.departamentos.Single(d => d.nombre.Equals("LIMA"));
+            }
+        }
         
+        private UbigeoProvincia _searchProvincia;
+        public UbigeoProvincia searchProvincia
+        {
+            get
+            {
+                return _searchProvincia;
+                //return ComunService.provincias.Single(d => d.id.Equals("1501"));//Es pronvincia de lima
+            }
+            set
+            {
+                _searchProvincia = value;
+                NotifyPropertyChanged("searchProvincia");
+                distritos = from d in ComunService.distritos where d.id_ubig_provincia == value.id select d;
+            }
+        }
+        //private int _searchTipo = 0;
+        //public int searchTipo { get { return _searchTipo; } set { _searchTipo = value; NotifyPropertyChanged("searchTipo"); } }
+        public UbigeoDistrito _searchDistrito;
+        public UbigeoDistrito searchDistrito
+        {
+            get
+            {
+                return _searchDistrito;
+                //return ComunService.distritos.Single(d => d.id_ubig_provincia.Equals("1501"));
+            }
+            set
+            {
+                _searchDistrito = value;
+                NotifyPropertyChanged("searchDistrito");
+                NotifyPropertyChanged("distritos");
+            }
+        }
+       
         
         #endregion
+
 
 
         public List<String> tiposTurnos
@@ -261,6 +303,7 @@ namespace pe.edu.pucp.ferretin.viewmodel.MRecursosHumanos
                     String id_departamento = value.UbigeoDistrito.UbigeoProvincia.id_ubig_departamento;
                     distritos = MR_EmpleadoService.distritos.Where(distrito => distrito.id_ubig_provincia.Equals(id_provincia));
                 }
+                
                 NotifyPropertyChanged("empleado");
                 NotifyPropertyChanged("empleadoImagen");
             }
@@ -480,14 +523,14 @@ namespace pe.edu.pucp.ferretin.viewmodel.MRecursosHumanos
             try
             {
                 //Muestra Null en turnos/
-                this.empleado = listaEmpleados.Single(empleado => empleado.codEmpleado == (int)codEmpleado);
+                
                 foreach (EmpleadoTurno et in this.empleado.EmpleadoTurno)
                 {
                     if (et.estado == 0) et.id_turno = null;
                 
                 }
 
-                
+                this.empleado = listaEmpleados.Single(empleado => empleado.codEmpleado == (int)codEmpleado);
                 if (this.empleado.id_ubigeo_distrito != null)
                 {
                     selectedProvincia = this.empleado.UbigeoDistrito.UbigeoProvincia;
@@ -538,11 +581,12 @@ namespace pe.edu.pucp.ferretin.viewmodel.MRecursosHumanos
                     ComunService.idVentana(1);
 
 
-                    empleado.empleadoT();
+                    
                     if ( VerificaCamposObligatorios(empleado) && VerificaDNIEmpleado(empleado))
                     {
                         if (empleado.dni != null && empleado.nombre != null && empleado.apPaterno != null && empleado.apMaterno != null)
                         {
+                            empleado.empleadoT();
                             empleado.codEmpleado = 100060 + listaEmpleados.Count();
 
                             if (!MR_EmpleadoService.insertarEmpleado(empleado))
@@ -567,8 +611,20 @@ namespace pe.edu.pucp.ferretin.viewmodel.MRecursosHumanos
         }
         public void cancelEmpleado(Object obj)
         {
-            this.statusTab = Tab.BUSQUEDA;
-            listaEmpleados = MR_EmpleadoService.listaEmpleados;
+            MessageBoxResult result =MessageBox.Show("Está seguro que desea cerrar esta ventana?",
+            "Confirmación", MessageBoxButton.OKCancel, MessageBoxImage.Warning);
+            if (result == MessageBoxResult.OK)
+            {
+                // Yes code here
+                this.statusTab = Tab.BUSQUEDA;
+                listaEmpleados = MR_EmpleadoService.listaEmpleados;
+            }
+            //else
+            //{
+            //    // No code here
+            //} 
+            //this.statusTab = Tab.BUSQUEDA;
+            //listaEmpleados = MR_EmpleadoService.listaEmpleados;
         }
 
 

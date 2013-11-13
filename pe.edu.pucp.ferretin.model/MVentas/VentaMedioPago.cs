@@ -10,6 +10,13 @@ namespace pe.edu.pucp.ferretin.model
 {
     public partial class VentaMedioPago
     {
+        public string monedaString
+        {
+            get
+            {
+                return moneda == 0 ? "Soles" : "Dolares";
+            }
+        }
 
         public string montoString
         {

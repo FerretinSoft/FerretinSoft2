@@ -89,14 +89,16 @@ namespace pe.edu.pucp.ferretin.controller.MVentas
                                select c.codigo).Max();;
             
                 Vale vale = new Vale();
-                vale.codigo = Convert.ToString(Convert.ToInt32(codVale) + offset);
+            
+                vale.codigo =  Convert.ToString(Convert.ToInt32(codVale) + offset);
                 while (true)
                 {
-                    if (vale.codigo.Length == 8)
+                    if (vale.codigo.Length == 6)
                         break;
                     else
                         vale.codigo = "0" + vale.codigo;
                 }
+                vale.codigo = "V" + vale.codigo + "-" + DateTime.Now.Year.ToString();
                 vale.estado = 0;
             return vale;
         }
