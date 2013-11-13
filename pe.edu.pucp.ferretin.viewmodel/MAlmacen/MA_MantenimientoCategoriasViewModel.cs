@@ -32,6 +32,7 @@ namespace pe.edu.pucp.ferretin.viewmodel.MAlmacen
             {
                 //Devolver la categoría padre
                _categoriaPrincipal = MA_CategoriaService.categorias.Where(c => c.id_padre == null);
+               
                 return _categoriaPrincipal;
             }
             set
@@ -83,6 +84,19 @@ namespace pe.edu.pucp.ferretin.viewmodel.MAlmacen
             }
         }
 
+        RelayCommand _actualizarArbolCategoriaCommand;
+        public ICommand actualizarArbolCategoriaCommand
+        {
+            get
+            {
+                if (_actualizarArbolCategoriaCommand == null)
+                {
+                    _actualizarArbolCategoriaCommand = new RelayCommand(param => NotifyPropertyChanged("categoriaPrincipal"));
+                }
+                return _actualizarArbolCategoriaCommand;
+            } 
+        }
+
 
         //deleteCategoriaCommand
         RelayCommand _deleteCategoriaCommand;
@@ -102,6 +116,8 @@ namespace pe.edu.pucp.ferretin.viewmodel.MAlmacen
 
         #region Comandos
 
+       
+
         public void nuevaCategoria(Object obj)
         {
             Categoria categoria = new Categoria();
@@ -113,9 +129,9 @@ namespace pe.edu.pucp.ferretin.viewmodel.MAlmacen
         public void deleteCategoria(Object obj)
         {
             bool valor=MA_CategoriaService.eliminarCategoria(CategoriaSeleccionada);
-            if (valor)
+            if (valor==false)
             {
-                MessageBox.Show("No se puede eliminar la categoria");
+                MessageBox.Show("La Categoría esta asignada, no se pudo eliminar");
             }
             else 
             {
@@ -142,13 +158,27 @@ namespace pe.edu.pucp.ferretin.viewmodel.MAlmacen
             }
             else
             {
-                if (!MA_CategoriaService.insertarCategoria(CategoriaSeleccionada))
+                if (CategoriaSeleccionada.nombre == null)
                 {
-                    MessageBox.Show("No se pudo agregar la nuevo categoría");
+                    MessageBox.Show("Ingresar el nombre de la categoría");
+                }
+                else if(CategoriaSeleccionada.descripcion==null){
+                    MessageBox.Show("Ingresar la descripción de la categoría");
+                }
+                else if (CategoriaSeleccionada.nombre == null && CategoriaSeleccionada.descripcion == null) {
+                    MessageBox.Show("Ingresar todos los campos");
                 }
                 else
                 {
-                    MessageBox.Show("La categoría fue agregado con éxito");
+                    if (!MA_CategoriaService.insertarCategoria(CategoriaSeleccionada))
+                    {
+                        MessageBox.Show("No se pudo agregar la nuevo categoría");
+                    }
+                    else
+                    {
+                        MessageBox.Show("La categoría fue agregado con éxito");
+
+                    }
                 }
             }
             NotifyPropertyChanged("categoriaPrincipal");
