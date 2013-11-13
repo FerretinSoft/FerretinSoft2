@@ -48,7 +48,7 @@
                             <DataGridCheckBoxColumn Header="Estado" Binding="{Binding Path=estado}" Width="1*"/>
                         </DataGrid.Columns>
                     </DataGrid>
-                    <ComboBox x:Name="categoriaCombo" ItemsSource="{Binding Path=listaCategorias}" DisplayMemberPath="nombre" SelectedValuePath="id"  SelectedValue="{Binding Path=searchIdCategoria}"  HorizontalAlignment="Left" Margin="317,43,0,0" VerticalAlignment="Top" Width="180" Height="22" Grid.Column="1">
+                    <ComboBox x:Name="categoriaCombo" ItemsSource="{Binding Path=listaCategorias}" DisplayMemberPath="nombre" SelectedValuePath="id"  SelectedItem="{Binding searchIdCategoria, Mode=TwoWay}"  HorizontalAlignment="Left" Margin="317,43,0,0" VerticalAlignment="Top" Width="180" Height="22" Grid.Column="1">
 
                     </ComboBox>
                     <Label Content="Nombre:" HorizontalAlignment="Left" Height="26" VerticalAlignment="Top" Width="64" Margin="15,43,0,0"/>
