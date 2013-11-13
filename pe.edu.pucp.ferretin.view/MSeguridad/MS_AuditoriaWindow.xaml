@@ -40,7 +40,7 @@
                     <DataGridTextColumn Width="1.5*" Binding="{Binding Path=nroMAC}" Header="MAC Address"/>
                     <DataGridTextColumn Width="1.4*" Binding="{Binding Path=Usuario.nombre}" Header="Nombre Usuario"/>
                     <DataGridTextColumn Width="2*" Binding="{Binding Path=Usuario.Perfil.nombre}" Header="Perfil"/>
-                    <DataGridTextColumn Width="2*" Binding="{Binding Path=fecha}" ClipboardContentBinding="{x:Null}" Header="Fecha y Hora"/>
+                    <DataGridTextColumn Width="2*" Binding="{Binding Path=fecha, StringFormat=\{0:dd/MM/yy HH:mm:ss\}}" ClipboardContentBinding="{x:Null}" Header="Fecha y Hora"/>
                     <DataGridTextColumn Width="5*" Binding="{Binding Path=TransaccionTipo.descripcion}" Header="Transacción"/>
 
                 </DataGrid.Columns>

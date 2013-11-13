@@ -70,6 +70,7 @@ namespace pe.edu.pucp.ferretin.view.MSeguridad
             if (usuarioLog.contrasena == MS_UsuarioService.encrypt(conActual.Password) && nuevaCon.Password == confirmarCon.Password && !String.IsNullOrEmpty(nuevaCon.Password) && nuevaCon.Password.Length >= 6 && r.IsMatch(nuevaCon.Password))
             {
                 usuarioLog.contrasena = MS_UsuarioService.encrypt(nuevaCon.Password);
+                usuarioLog.ultimoCambioContrasena = DateTime.Now;
                 MS_UsuarioService.actualizarUsuario(usuarioLog);
 
 
