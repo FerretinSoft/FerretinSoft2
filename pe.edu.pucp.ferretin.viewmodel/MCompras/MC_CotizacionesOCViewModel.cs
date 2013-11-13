@@ -16,7 +16,6 @@ namespace pe.edu.pucp.ferretin.viewmodel.MCompras
         public MC_CotizacionesOCViewModel()
         {
             _documentoCompra = new DocumentoCompra();
-            _usuarioIngreso = MC_ComunService.usuarioL;
         }
         #endregion
 
@@ -72,8 +71,6 @@ namespace pe.edu.pucp.ferretin.viewmodel.MCompras
         {
             get
             {
-                if (documentoCompra.id > 0)
-                    _listaProductosDC = MC_DocumentoCompraService.buscarProductosDC(documentoCompra);
                 return _listaProductosDC;
             }
             set
@@ -219,15 +216,13 @@ namespace pe.edu.pucp.ferretin.viewmodel.MCompras
                 {
                     case Tab.BUSQUEDA: detallesTabHeader = "Agregar"; documentoCompra = new DocumentoCompra(); listaProductosDC = new List<DocumentoCompraProducto>(); break;//Si es agregar, creo un nuevo objeto Cliente
                     case Tab.AGREGAR: detallesTabHeader = "Agregar"; documentoCompra = new DocumentoCompra(); listaProductosDC = new List<DocumentoCompraProducto>(); break;//Si es agregar, creo un nuevo objeto Cliente
-                    case Tab.MODIFICAR: detallesTabHeader = "Modificar"; break;
-                    case Tab.DETALLES: detallesTabHeader = "Detalles"; break;
+                    case Tab.MODIFICAR: detallesTabHeader = "Modificar"; listaProductosDC = MC_DocumentoCompraService.buscarProductosDC(documentoCompra); break;
+                    case Tab.DETALLES: detallesTabHeader = "Detalles"; listaProductosDC = MC_DocumentoCompraService.buscarProductosDC(documentoCompra); break;
                     default: detallesTabHeader = "Agregar"; documentoCompra = new DocumentoCompra(); listaProductosDC = new List<DocumentoCompraProducto>(); break;//Si es agregar, creo un nuevo objeto Cliente
                 }
                 NotifyPropertyChanged("statusTab");
                 //Cuando se cambia el status, tambien se tiene que actualizar el currentIndex del tab
                 NotifyPropertyChanged("currentIndexTab"); //Hace que cambie el tab automaticamente
-                NotifyPropertyChanged("documentoCompra");
-                NotifyPropertyChanged("listaProductosDC");
             }
         }
         //Usado para mover los tabs de acuerdo a las acciones realizadas
@@ -298,22 +293,6 @@ namespace pe.edu.pucp.ferretin.viewmodel.MCompras
                 return _actualizarListaDocumentosCompraCommand;
             }
         }
-
-        //buscarProductosProveedorCommand
-
-        //RelayCommand _buscarProductosProveedorCommand;
-        //public ICommand buscarProductosProveedorCommand
-        //{
-        //    get
-        //    {
-        //        if (searchProveedor == "")
-        //        {
-        //            MC_BuscarProductosProveedorWindow vpp = new MC_BuscarProductosProveedorWindow()
-        //                ;
-        //        }
-        //        return _buscarProductosProveedorCommand;
-        //    }
-        //}
 
         RelayCommand _agregarCotizacionCommand;
         public ICommand agregarCotizacionCommand
@@ -400,8 +379,7 @@ namespace pe.edu.pucp.ferretin.viewmodel.MCompras
         {
             try
             {
-                this.documentoCompra = listaDocumentosCompra.Single(documentoCompra => documentoCompra.id == (long)id);
-                this.statusTab = Tab.MODIFICAR;
+                this.documentoCompra = listaDocumentosCompra.Single(documentoCompra => documentoCompra.id == (long)id);               
                 if (this.documentoCompra.tipoDC == "Cotizacion")
                 {
                     this.labelCodigo = "Cotizacion";
@@ -414,7 +392,7 @@ namespace pe.edu.pucp.ferretin.viewmodel.MCompras
                     this.labelFechaDC1 = "Fecha Emision";
                     this.labelFechaDC2 = "Fecha Pago";
                 }
-
+                this.statusTab = Tab.MODIFICAR;
             }
             catch (Exception e)
             {

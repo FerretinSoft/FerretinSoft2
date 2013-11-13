@@ -12,6 +12,38 @@ namespace pe.edu.pucp.ferretin.viewmodel.MCompras
 {
     public class MC_ProveedoresViewModel:ViewModelBase
     {
+
+        private bool _soloSeleccionarProveedor = false;
+        public bool soloSeleccionarProveedor
+        {
+            get
+            {
+                return _soloSeleccionarProveedor;
+            }
+            set
+            {
+                _soloSeleccionarProveedor = value;
+                NotifyPropertyChanged("soloSeleccionarProveedor");
+                NotifyPropertyChanged("nombreBotonGuardar");
+                NotifyPropertyChanged("noSoloSeleccionarProveedor");
+                detallesTabHeader = value ? "Detalles" : "Agregar";
+            }
+        }
+        public bool noSoloSeleccionarProveedor
+        {
+            get
+            {
+                return !soloSeleccionarProveedor;
+            }
+        }
+        public String nombreBotonGuardar
+        {
+            get
+            {
+                return soloSeleccionarProveedor ? "SELECCIONAR" : "GUARDAR";
+            }
+        }
+        
         #region Constructor
         public MC_ProveedoresViewModel()
         {
@@ -124,8 +156,8 @@ namespace pe.edu.pucp.ferretin.viewmodel.MCompras
         {
             get
             {
-                String searchTipoDocumento = this.searchTipoDocumento == 1 ? "DNI" : (this.searchTipoDocumento == 2 ? "RUC" : "");
-                _listaProveedores = MC_ProveedorService.buscarProveedores(searchRuc, searchRazonSoc, searchRubro);
+                String searchTipoDocumento = this.searchTipoDocumento == 1 ? "EMPRESA" : (this.searchTipoDocumento == 2 ? "PERSONA NATURAL" : "");
+                _listaProveedores = MC_ProveedorService.buscarProveedores(searchRuc, searchRazonSoc, searchRubro,searchTipoDocumento);
                 return _listaProveedores;
             }
             set
@@ -147,7 +179,7 @@ namespace pe.edu.pucp.ferretin.viewmodel.MCompras
             set
             {
                 _listaProductos = value;
-                NotifyPropertyChanged("listaProductos");
+                NotifyPropertyChanged("proveedor.ProveedorProducto");
             }
         }
         #endregion
@@ -167,6 +199,20 @@ namespace pe.edu.pucp.ferretin.viewmodel.MCompras
         #endregion
 
         #region RalayCommand
+
+        RelayCommand _actualizarListaProductosCommand;
+        public ICommand actualizarListaProductosCommand
+        {
+            get
+            {
+                if (_actualizarListaProductosCommand == null)
+                {
+                    _actualizarListaProductosCommand = new RelayCommand(param => NotifyPropertyChanged("proveedor.ProveedorProducto"));
+                }
+                return _actualizarListaProductosCommand;
+            }
+        }
+
         RelayCommand _actualizarListaProveedoresCommand;
         public ICommand actualizarListaProveedoresCommand
         {
@@ -202,7 +248,7 @@ namespace pe.edu.pucp.ferretin.viewmodel.MCompras
             {
                 if (_saveProveedoresCommand == null)
                 {
-                    _saveProveedoresCommand = new RelayCommand(saveProveedor);
+                    _saveProveedoresCommand = new RelayCommand(saveProveedor, canSaveExecute);
                 }
                 return _saveProveedoresCommand;
             }
@@ -265,7 +311,11 @@ namespace pe.edu.pucp.ferretin.viewmodel.MCompras
                 {
                     selectedRubro = this.proveedor.Rubro;
                 }
-                this.statusTab = Tab.MODIFICAR;
+                if (soloSeleccionarProveedor)
+                    this.statusTab = Tab.DETALLES;
+                else
+                    this.statusTab = Tab.MODIFICAR;
+                
             }
             catch (Exception e)
             {
@@ -274,31 +324,39 @@ namespace pe.edu.pucp.ferretin.viewmodel.MCompras
         }
         public void saveProveedor(Object obj)
         {
-
-            if (proveedor.id > 0)//Si existe
+            if (soloSeleccionarProveedor)
             {
-                MC_ComunService.idVentana(31);
-                if (!MC_ProveedorService.enviarCambios())
-                {
-                    MessageBox.Show("No se pudo actualizar al Proveedor");
-                }
-                else
-                {
-                    MessageBox.Show("El Proveedor fue guardado con éxito");
-                }
+
             }
             else
             {
-                MC_ComunService.idVentana(30);
-                if (!MC_ProveedorService.insertarProveedor(proveedor))
+                if (proveedor.id > 0)//Si existe
                 {
-                    MessageBox.Show("No se pudo agregar el nuevo proveedor");
+                    MC_ComunService.idVentana(31);
+                    if (!MC_ProveedorService.enviarCambios())
+                    {
+                        MessageBox.Show("No se pudo actualizar al Proveedor");
+                    }
+                    else
+                    {
+                        MessageBox.Show("El Proveedor fue guardado con éxito");
+                    }
                 }
                 else
                 {
-                    MessageBox.Show("El proveedor fue agregado con éxito");
-                    this.statusTab = Tab.BUSQUEDA;
-                    listaProveedores = MC_ProveedorService.listaProveedores;
+                    proveedor.estado = 1;
+
+                    MC_ComunService.idVentana(30);
+                    if (!MC_ProveedorService.insertarProveedor(proveedor))
+                    {
+                        MessageBox.Show("No se pudo agregar el nuevo proveedor");
+                    }
+                    else
+                    {
+                        MessageBox.Show("El proveedor fue agregado con éxito");
+                        this.statusTab = Tab.BUSQUEDA;
+                        listaProveedores = MC_ProveedorService.listaProveedores;
+                    }
                 }
             }
         }
@@ -316,6 +374,7 @@ namespace pe.edu.pucp.ferretin.viewmodel.MCompras
                 else
                 {
                     MessageBox.Show("El Producto fue guardado con éxito");
+                    NotifyPropertyChanged("proveedor.ProveedorProducto");
                 }
             }
             else
@@ -327,9 +386,9 @@ namespace pe.edu.pucp.ferretin.viewmodel.MCompras
                 }
                 else
                 {
-                    MessageBox.Show("El proveedor fue agregado con éxito");
+                    MessageBox.Show("El producto fue agregado con éxito");
                     this.statusTab = Tab.BUSQUEDA;
-                    listaProveedores = MC_ProveedorService.listaProveedores;
+                    listaProductos = MC_ProveedorService.listaProductos;
                 }
             }
         }
@@ -358,6 +417,7 @@ namespace pe.edu.pucp.ferretin.viewmodel.MCompras
                     if (proveedor.ProveedorProducto.Count(vp => vp.Producto.id == producto.id) == 1)
                     {
                         saveProducto(pP);
+                        NotifyPropertyChanged("proveedor.ProveedorProducto");
                     }
                     else
                     {
@@ -372,7 +432,7 @@ namespace pe.edu.pucp.ferretin.viewmodel.MCompras
                         proveedor.ProveedorProducto.Add(pP);
                          saveProducto(pP);
                     }
-                    NotifyPropertyChanged("listaProductos");
+                    NotifyPropertyChanged("proveedor.PoveedorProducto");
                 }
                 
             }
@@ -400,16 +460,20 @@ namespace pe.edu.pucp.ferretin.viewmodel.MCompras
             }
             set
             {
+                if (value == Tab.DETALLES && proveedor == null)
+                {
+
+                }
                 _statusTab = value;
                 //Si cambió el estado de las pestañas también cambio los Header
                 //Si la pestaña es para agregar nuevo, limpio los input
                 switch (_statusTab)
                 {
-                    case Tab.BUSQUEDA: detallesTabHeader = "Agregar"; proveedor = new Proveedor(); break;
+                    case Tab.BUSQUEDA: detallesTabHeader = soloSeleccionarProveedor ? "Detalles" : "Agregar"; break;
                     case Tab.AGREGAR: detallesTabHeader = "Agregar"; proveedor = new Proveedor(); break;
                     case Tab.MODIFICAR: detallesTabHeader = "Modificar"; break;
                     case Tab.DETALLES: detallesTabHeader = "Detalles"; break;
-                    default: detallesTabHeader = "Agregar"; proveedor = new Proveedor(); break;
+                   // default: detallesTabHeader = "Agregar"; proveedor = new Proveedor(); break;
                 }
                 NotifyPropertyChanged("statusTab");
                 //Cuando se cambia el status, tambien se tiene que actualizar el currentIndex del tab
@@ -421,7 +485,17 @@ namespace pe.edu.pucp.ferretin.viewmodel.MCompras
         public int currentIndexTab
         {
             get { return _statusTab == Tab.BUSQUEDA ? 0 : 1; }
-            set { statusTab = value == 0 ? Tab.BUSQUEDA : Tab.AGREGAR; }
+
+            set {
+                if (soloSeleccionarProveedor)
+                {
+                    statusTab = value == 0 ? Tab.BUSQUEDA : Tab.DETALLES;
+                }
+                else
+                {
+                    statusTab = value == 0 ? Tab.BUSQUEDA : Tab.AGREGAR;
+                }
+            }
         }
         private String _detallesTabHeader = "Agregar"; //Default
         public String detallesTabHeader
@@ -436,7 +510,19 @@ namespace pe.edu.pucp.ferretin.viewmodel.MCompras
                 NotifyPropertyChanged("detallesTabHeader");
             }
         }
+
+
+       
+       
         #endregion
 
+        private bool canSaveExecute(object obj)
+        {
+            if (soloSeleccionarProveedor)
+            {
+                return proveedor != null;
+            }
+            return base.UIValidationErrorCount == 0 && this.proveedor.Errors.Count == 0;
+        }
     }
 }
