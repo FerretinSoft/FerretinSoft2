@@ -72,7 +72,7 @@ namespace pe.edu.pucp.ferretin.model
         {
             get
             {
-                return String.Join(" ", nombre, apPaterno, apMaterno);
+                return String.Join(" ", nombre, apPaterno, apMaterno).ToUpper();
             }
         }
 
