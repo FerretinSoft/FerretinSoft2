@@ -26,7 +26,7 @@ namespace pe.edu.pucp.ferretin.viewmodel.MAlmacen
         public IEnumerable<Categoria> listaCategoriasAsignadas { get; set; }
 
         public String searchNombre { get; set; }
-        public Int16 searchIdCategoria { get; set; }
+        public Categoria searchIdCategoria { get; set; }
 
         public Image _imgProd { get; set; }
         public Image imgProd
@@ -216,18 +216,17 @@ namespace pe.edu.pucp.ferretin.viewmodel.MAlmacen
 
 
 
-        public IEnumerable<Categoria> _listaCategorias;
         public IEnumerable<Categoria> listaCategorias
         {
             get
             {
-                _listaCategorias = MA_CategoriaService.categorias;
-                return _listaCategorias;
-            }
-            set
-            {
-                _listaCategorias=value;
-                NotifyPropertyChanged("listaCategorias");
+                //Creo una nueva secuencia
+                var sequence = Enumerable.Empty<Categoria>();
+                //Primero agrego un item de Todos para que salga al inicio
+                //Pongo el ID en 0 para que al buscar, no filtre nada cuando se selecciona todos
+                IEnumerable<Categoria> items = new Categoria[] { new Categoria { id = 0, nombre = "Todos" } };
+                //Luego concateno el itemcon los elementos del combobox
+                return items.Concat(MA_InventarioService.listaCategoria);
             }
         }
 

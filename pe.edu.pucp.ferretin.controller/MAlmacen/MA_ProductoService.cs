@@ -99,12 +99,17 @@ namespace pe.edu.pucp.ferretin.controller.MAlmacen
         }
 
 
-        public static IEnumerable<Producto> obtenerProductosPorNombre(String search, bool chkActivo, bool chkInactivo, Int16 idcategoria)
+        public static IEnumerable<Producto> obtenerProductosPorNombre(String search, bool chkActivo, bool chkInactivo, Categoria idCategoria)
         {
             int intActivo = chkActivo == true ? 1 : 0;
             int intInactivo = chkInactivo == true ? 0 : 1;
-
-            if (idcategoria == 0)
+            if ((idCategoria ==null && search =="") || (idCategoria.nombre=="Todos" && search=="")) {
+                listaProductos = from p in db.Producto
+                                 orderby p.id
+                                 select p;
+                       
+            }
+            else if (idCategoria.id == 0)
             {
                 listaProductos =
                     from p in db.Producto
@@ -119,7 +124,7 @@ namespace pe.edu.pucp.ferretin.controller.MAlmacen
                     from pc in db.ProductoCategoria
                     where
                     p.nombre.Contains(search) &&
-                    (pc.id_categoria == idcategoria) &&
+                    (pc.id_categoria == idCategoria.id) &&
                     pc.id_producto == p.id
                     select p;
             }
