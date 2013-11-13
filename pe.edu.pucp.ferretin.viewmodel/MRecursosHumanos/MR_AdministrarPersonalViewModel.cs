@@ -478,7 +478,15 @@ namespace pe.edu.pucp.ferretin.viewmodel.MRecursosHumanos
         {
             try
             {
+                //Muestra Null en turnos/
                 this.empleado = listaEmpleados.Single(empleado => empleado.codEmpleado == (int)codEmpleado);
+                foreach (EmpleadoTurno et in this.empleado.EmpleadoTurno)
+                {
+                    if (et.estado == 0) et.id_turno = null;
+                
+                }
+
+                
                 if (this.empleado.id_ubigeo_distrito != null)
                 {
                     selectedProvincia = this.empleado.UbigeoDistrito.UbigeoProvincia;
@@ -502,7 +510,13 @@ namespace pe.edu.pucp.ferretin.viewmodel.MRecursosHumanos
                 /*Para actualizar un empleado existente*/
                 if ((empleado.id > 0) && VerificaCamposObligatorios(empleado))//Si existe
                 {
-                    ComunService.idVentana(2);                    
+                    ComunService.idVentana(2);    
+                    foreach (EmpleadoTurno et in empleado.EmpleadoTurno)
+                    {
+                        if (et.id_turno == 0) et.id_turno = null;
+
+                    }
+
                     if (!MR_EmpleadoService.enviarCambios())
                     {
                         MessageBox.Show("No se pudo actualizar el empleado");
