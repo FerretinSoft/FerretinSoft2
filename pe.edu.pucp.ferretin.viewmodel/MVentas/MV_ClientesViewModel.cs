@@ -99,7 +99,15 @@ namespace pe.edu.pucp.ferretin.viewmodel.MVentas
                 switch (_statusTab)
                 {
                     case Tab.BUSQUEDA: detallesTabHeader = soloSeleccionarCliente?"Detalles":"Agregar"; break;//Si es agregar, creo un nuevo objeto Cliente
-                    case Tab.AGREGAR: detallesTabHeader = "Agregar"; cliente = new Cliente(); break;//Si es agregar, creo un nuevo objeto Cliente
+                    case Tab.AGREGAR:
+                        {
+                            detallesTabHeader = "Agregar";
+                            cliente = new Cliente();
+                            clienteImagen = null;
+                            selectedDepartamento = null;
+                            selectedProvincia = null;
+                            break;//Si es agregar, creo un nuevo objeto Cliente
+                        }
                     case Tab.MODIFICAR: detallesTabHeader = "Modificar"; break;
                     case Tab.DETALLES: detallesTabHeader = "Detalles"; break;
                 }
