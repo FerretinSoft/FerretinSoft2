@@ -17,6 +17,8 @@ namespace pe.edu.pucp.ferretin.viewmodel.MVentas
 {
     public class MV_DevolucionesViewModel : ViewModelBase
     {
+          
+
         #region Constructor
         public MV_DevolucionesViewModel()
         {
@@ -386,7 +388,7 @@ namespace pe.edu.pucp.ferretin.viewmodel.MVentas
 
             if (buscado == null)
             {
-                MessageBox.Show("No se encontro ninguna Venta con el número de documento proporcionado", "No se encontro", MessageBoxButton.OK, MessageBoxImage.Question);
+                MessageBox.Show("No se encontro ninguna venta con el número de documento proporcionado", "No se encontro", MessageBoxButton.OK, MessageBoxImage.Question);
             }
             NotifyPropertyChanged("searchnombreCliente");
             NotifyPropertyChanged("searchNroDocCliente");
@@ -419,12 +421,36 @@ namespace pe.edu.pucp.ferretin.viewmodel.MVentas
 
         public void cancelDevolucion(Object obj)
         {
-            selectedTab = 0;
-            this.listaDevoluciones = MV_DevolucionService.listaDevoluciones;
+            string messageBoxText;
+            if (devolucionRegistrada == false)
+                messageBoxText = "¿Desea cancelar la transacción? Usted perderá la información ingresada";
+            else
+                messageBoxText = "¿Desea regresar al búscador? Usted aún no ha impreso la nota de crédito generada";
+            string caption = "Mensaje de confirmación";
+            MessageBoxButton button = MessageBoxButton.OKCancel;
+            MessageBoxResult result = MessageBox.Show(messageBoxText, caption, button);
+            switch (result)
+            {
+                case MessageBoxResult.OK:
+                        selectedTab = 0;
+                        this.listaDevoluciones = MV_DevolucionService.listaDevoluciones;
+                    break;
+                case MessageBoxResult.Cancel:
+                    break;
+            }
+
+
         }
 
         public void saveDevolucion(Object obj)
         {
+            string messageBoxText = "¿Desea confirmar la transacción? Se procederá a almacenar la información ingresada";
+            string caption = "Mensaje de confirmación";
+            MessageBoxButton button = MessageBoxButton.OKCancel;
+            MessageBoxResult result = MessageBox.Show(messageBoxText, caption, button);
+            switch (result)
+            {
+                case MessageBoxResult.OK:
             devolucion.id_empleado = usuarioLogueado.Empleado.id;
             devolucion.codigo = MV_DevolucionService.obtenerCodDevolucion();
             notaCredito.fechaEmision = DateTime.Now;
@@ -432,7 +458,7 @@ namespace pe.edu.pucp.ferretin.viewmodel.MVentas
             devolucion.total = devolucion.igv + devolucion.subTotal;
             notaCredito.importe = devolucion.total;
             notaCredito.estado = 0;
-            notaCredito.codigo = devolucion.codigo;
+            notaCredito.codigo = "NC-" + devolucion.codigo + DateTime.Today.Year;
             notaCredito.fechaVencimiento = DateTime.Now.AddDays(Convert.ToInt32(MS_ParametroService.obtenerParametro("vigencia de notas de credito")));
             ComunService.idVentana(40);
                     if (!MV_DevolucionService.insertarDevolucion(devolucion))
@@ -441,7 +467,7 @@ namespace pe.edu.pucp.ferretin.viewmodel.MVentas
                     }
                     else
                     {
-                        MessageBox.Show("La devolución fue agregado con éxito");
+                        MessageBox.Show("La devolución fue agregado con éxito con el siguiente código: " + devolucion.codigo);
                     }
             notaCredito.id_devolucion = devolucion.id;
             ComunService.idVentana(44);
@@ -451,7 +477,7 @@ namespace pe.edu.pucp.ferretin.viewmodel.MVentas
                     }
                     else
                     {
-                        //MessageBox.Show("La Nota de Crédito fue agregado con éxito");
+                        MessageBox.Show("La Nota de Crédito fue agregado con éxito con el siguiente código: " + notaCredito.codigo);
                         NotifyPropertyChanged("selectedTab");
                     }
                     try
@@ -462,13 +488,17 @@ namespace pe.edu.pucp.ferretin.viewmodel.MVentas
                     {
                         try
                         {
-                            MessageBox.Show("error en almácen");
+                            MessageBox.Show("Error en registrar movimiento en almácen");
                         }
 
                         catch { }
                     }
                     this.devolucionRegistrada = true;
                     this.noDevolucionRegistrada = false;
+                    break;
+                case MessageBoxResult.Cancel:
+                    break;
+            }
         }
 
         public void viewDetailDevolucion(Object id)
@@ -497,8 +527,7 @@ namespace pe.edu.pucp.ferretin.viewmodel.MVentas
                  prodDev.id_producto = prodSelec.id_producto;
                  prodDev.monto = prodDev.cantidad * prodDev.Producto.precioLista;
                  devolucion.total = 0;
-                 devolucion.id_venta = prodSelec.Venta.id;
-                 
+                 devolucion.id_venta = prodSelec.Venta.id;                 
                  devolucion.DevolucionProducto.Add(prodDev);
                  NotifyPropertyChanged("devolucion");
             }

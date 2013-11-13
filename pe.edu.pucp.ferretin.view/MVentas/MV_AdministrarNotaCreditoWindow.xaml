@@ -145,7 +145,8 @@
                         </Grid.RowDefinitions>
                         <Label Content="N° Nota de Crédito:" />
                         <Label Content="Fecha Emisión:" Grid.Row="1" />
-                        <Label Content="Cliente:" Grid.Row="2" />
+                        <Label Content="RUC:" Grid.Row="2" />
+                        <Label Content="Razón Social:" Grid.Row="3" />
                         <Label Content="Fecha Vencimiento:" Grid.Row="4"/>
                         <Label Content="Vendedor:" Grid.Row="5"/>
                         <Label Content="Estado:" Grid.Row="7"/>
@@ -159,7 +160,7 @@
                         <TextBox IsEnabled="false" Text="{Binding Path=notaCredito.Devolucion.Venta.nombreCompletoVendedor, Mode=OneWay, ValidatesOnExceptions=true, NotifyOnValidationError=true}" VerticalAlignment="Center" Grid.Column="1" Grid.Row="5"/>
                         <TextBox IsEnabled="false" Text="{Binding Path=notaCredito.estadoString, Mode=OneWay}" VerticalAlignment="Center" Grid.Column="1" Grid.Row="7"/>
                         <TextBox TextAlignment="Left" IsEnabled="false" Text="{Binding Path=notaCredito.importeString, Mode=OneWay, ValidatesOnExceptions=true, NotifyOnValidationError=true}" VerticalAlignment="Center" HorizontalContentAlignment="Right" Grid.Column="1" Grid.Row="9"/>
-                        <Button Click="GenerarDoc_Click"  Grid.Row="11" Grid.Column="1" Padding="10,0" Height="30">IMPRIMIR</Button>
+                        <Button Click="GenerarDoc_Click"  Grid.Row="11" Grid.Column="1" Padding="10,0" Height="30">IMPRIMIR NOTA DE CRÉDITO</Button>
                     </Grid>
                     <DataGrid Margin="0,5,5,5" Grid.Column="1" ItemsSource="{Binding Path=listaProductos}" AutoGenerateColumns="False">
                         <DataGrid.Columns>

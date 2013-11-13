@@ -1,8 +1,8 @@
 ﻿<Window x:Class="pe.edu.pucp.ferretin.view.MVentas.MV_MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Title="Módulo de Ventas" WindowStartupLocation="CenterScreen" Height="543.284" Width="400" MinWidth="400" MinHeight="500" Icon="../Resources/ferretin_ico.ico" ResizeMode="CanResizeWithGrip" Closed="Window_Closed">
-    <Grid>
+        Title="Módulo de Ventas" WindowStartupLocation="CenterScreen" Height="608.956" Width="400" MinWidth="400" MinHeight="500" Icon="../Resources/ferretin_ico.ico" ResizeMode="CanResizeWithGrip" Closed="Window_Closed">
+    <Grid Margin="0,0,0,1">
 
         <Grid.Background>
             <ImageBrush ImageSource="../Resources/texture_1_100.png" TileMode="FlipX" 
@@ -55,7 +55,7 @@
                         <ImageBrush ImageSource="../Resources/forward_32.png"/>
                     </Button.Background>
                 </Button>
-                <Label Content="Servicios Postventa" FontSize="16"/>
+                <Label Content="Servicios Post-Venta" FontSize="16"/>
             </StackPanel>
             <StackPanel Orientation="Horizontal" Margin="0,10" Cursor="Hand" MouseDown="administrarProformasBtn_Click">
                 <Button x:Name="registrarProformaBtn" Content="" Width="32" Height="32" Click="administrarProformasBtn_Click">
@@ -72,6 +72,15 @@
                     </Button.Background>
                 </Button>
                 <Label Content="Administrar Vales" FontSize="16"/>
+            </StackPanel>
+
+            <StackPanel Orientation="Horizontal" Margin="0,10" Cursor="Hand" MouseDown="precioProdBtn_Click">
+                <Button x:Name="precioProdBtn" Content="" Width="32" Height="32" Click="precioProdBtn_Click">
+                    <Button.Background>
+                        <ImageBrush ImageSource="../Resources/forward_32.png"/>
+                    </Button.Background>
+                </Button>
+                <Label Content="Administración Precio Productos" FontSize="16"/>
             </StackPanel>
             <StackPanel Orientation="Horizontal" Margin="0,10" Cursor="Hand" MouseDown="repVentasBtn_Click">
                 <Button x:Name="repVentasBtn" Content="" Width="32" Height="32" Click="repVentasBtn_Click">
