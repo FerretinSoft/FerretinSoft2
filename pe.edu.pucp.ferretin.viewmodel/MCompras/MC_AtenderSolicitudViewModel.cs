@@ -67,7 +67,8 @@ namespace pe.edu.pucp.ferretin.viewmodel.MCompras
                 Usuario usuario = ComunService.usuarioL;
                 Tienda tienda = usuario.Empleado.tiendaActual;
                 ProductoSol actual;
-                foreach (var entry in MA_SharedService.obtenerProductosPorAbastecer(tienda))
+                Dictionary<ProductoAlmacen,decimal> diccionario = MA_SharedService.obtenerProductosPorAbastecer(tienda);
+                foreach (var entry in diccionario)
                 {
                     actual = new ProductoSol();
                     actual.cantidad = entry.Value;
@@ -78,7 +79,7 @@ namespace pe.edu.pucp.ferretin.viewmodel.MCompras
                 int i;
                 for (i = 0; i < _listaProductosSol.Count(); i++)
                 {
-                    _listaProductosSol[i].posiProveedor = MC_ProveedorService.obtenerPosiblesProveedores(_listaProductosSol[i].producto); 
+                    _listaProductosSol[i].posiProveedor = MC_ProveedorService.obtenerPosiblesProveedores(_listaProductosSol[i].producto);
                 }
 
                 return _listaProductosSol;
