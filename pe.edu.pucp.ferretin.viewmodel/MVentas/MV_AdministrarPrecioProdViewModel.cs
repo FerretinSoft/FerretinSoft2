@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
+using pe.edu.pucp.ferretin.controller;
 using pe.edu.pucp.ferretin.controller.MAlmacen;
 using pe.edu.pucp.ferretin.controller.MVentas;
 using pe.edu.pucp.ferretin.model;
@@ -135,10 +136,60 @@ namespace pe.edu.pucp.ferretin.viewmodel.MVentas
             }
         }
 
+        RelayCommand _savePrecioProductoCommand;
+        public ICommand savePrecioProductoCommand
+        {
+            get
+            {
+                if (_savePrecioProductoCommand == null)
+                {
+                    _savePrecioProductoCommand = new RelayCommand(savePrecioProducto);
+                }
+                return _savePrecioProductoCommand;
+            }
+        }
+
         #endregion
 
         #region commands
 
+        public void savePrecioProducto(Object obj)
+        {
+            string messageBoxText = "¿Desea confirmar la transacción? Se procederá a almacenar la información ingresada";
+            string caption = "Mensaje de confirmación";
+            MessageBoxButton button = MessageBoxButton.OKCancel;
+            MessageBoxResult result = MessageBox.Show(messageBoxText, caption, button);
+            switch (result)
+            {
+                case MessageBoxResult.OK:
+                    ComunService.idVentana(40);
+                    productoPrecio.Producto.precioLista = productoPrecio.precio;
+                    productoPrecio.Producto.precioPuntos = productoPrecio.precioPuntos;
+                    productoPrecio.estado = true;
+                    if (historialPrecios.Count() != 0)
+                    {
+
+                        ProductoPrecio updProducto = (from c in historialPrecios
+                                                      where c.estado == true
+                                                      select c).Single();
+                        updProducto.estado = false;
+                    }
+                   
+                    ComunService.idVentana(40);
+                    if (!MV_ProductoPrecioService.insertarPrecio(productoPrecio))
+                    {
+                        MessageBox.Show("No se pudo agregar el nuevo precio");
+                    }
+                    else
+                    {
+                        MessageBox.Show("El nuevo precio fue agregado con éxito");
+                        selectedTab = 0;
+                    }
+                    break;
+                case MessageBoxResult.Cancel:
+                    break;
+            }
+        }
 
         public void viewDetailHistorialProd(Object id)
         {
