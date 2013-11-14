@@ -103,6 +103,7 @@ namespace pe.edu.pucp.ferretin.viewmodel.MCompras
                 if (_generarOCSCommand == null)
                 {
                     _generarOCSCommand = new RelayCommand(generarOCS);
+                    NotifyPropertyChanged("productoSol");
                 }
                 return _generarOCSCommand;
 
@@ -111,6 +112,12 @@ namespace pe.edu.pucp.ferretin.viewmodel.MCompras
 
         public void generarOCS(Object id)
         {
+            int i;
+            for (i = 0; i < this.listaProductosSol.Count(); i++)
+            {
+                Proveedor p = listaProductosSol[i].selectedProveedor;
+            }
+            //this._productoSol;
             //Proveedor buscado = null;
             //int i;
             //try

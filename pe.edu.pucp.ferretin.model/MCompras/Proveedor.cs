@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 namespace pe.edu.pucp.ferretin.model
 {
 
-    public partial class Proveedor : IDataErrorInfo
+    public partial class Proveedor : INotifyPropertyChanged, IDataErrorInfo
     {
         #region atributos
         public int tipoProv

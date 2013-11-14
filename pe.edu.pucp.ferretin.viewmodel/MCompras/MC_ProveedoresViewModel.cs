@@ -455,8 +455,8 @@ namespace pe.edu.pucp.ferretin.viewmodel.MCompras
                     ProveedorProducto pP = null;
                     if (proveedor.ProveedorProducto.Count(vp => vp.Producto.id == producto.id) == 1)
                     {
-                        saveProducto(pP);
-                        NotifyPropertyChanged("proveedor.ProveedorProducto");
+                        //saveProducto(pP);
+                        NotifyPropertyChanged("proveedor");
                     }
                     else
                     {
@@ -469,7 +469,8 @@ namespace pe.edu.pucp.ferretin.viewmodel.MCompras
                             estado=1
                         };
                         proveedor.ProveedorProducto.Add(pP);
-                         saveProducto(pP);
+                        NotifyPropertyChanged("proveedor");
+                         //saveProducto(pP);
                     }
                     NotifyPropertyChanged("proveedor.PoveedorProducto");
                 }
