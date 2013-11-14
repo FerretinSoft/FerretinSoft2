@@ -287,7 +287,7 @@ namespace pe.edu.pucp.ferretin.viewmodel.MVentas
         {
             try
             {
-                this.promocion = listaPromociones.Single(promocion => promocion.id == (int)id);
+                this.promocion = MV_PromocionService.db.Promocion.Single(promocion => promocion.id == (int)id);
                 
                 if (soloSeleccionarPromocion)
                     this.statusTab = Tab.DETALLES;
