@@ -11,5 +11,10 @@ namespace pe.edu.pucp.ferretin.view.MCompras
         {
             InitializeComponent();
         }
+
+        private void consolidarBtn_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }

@@ -39,13 +39,14 @@ namespace pe.edu.pucp.ferretin.viewmodel.MSeguridad
         public int searchEstado { get { return _searchEstado; } set { _searchEstado = value; NotifyPropertyChanged("searchEstado"); } }
         #endregion
 
+        /************************************************/
         public String _dniEmpleado = "";
         public String dniEmpleado
         {
             get { return _dniEmpleado; }
             set { _dniEmpleado = value; NotifyPropertyChanged("dniEmpleado"); }
         }
-
+        /************************************************/
         public bool editEmpleadoEnabled
         {
             get
@@ -53,9 +54,17 @@ namespace pe.edu.pucp.ferretin.viewmodel.MSeguridad
                 return statusTab == tabs.AGREGAR ? true : false;
             }
         }
-
-        public bool _busquedaExitosa = false;
-        public bool busquedaExitosa
+        /************************************************/
+        public bool editEmpleadoEnabled2
+        {
+            get
+            {
+                return statusTab == tabs.AGREGAR ? false : true;
+            }
+        }
+        /************************************************/
+        public int _busquedaExitosa = 0;
+        public int busquedaExitosa
         {
             get { return _busquedaExitosa; }
             set { _busquedaExitosa = value; NotifyPropertyChanged("busquedaExitosa"); }
@@ -97,6 +106,7 @@ namespace pe.edu.pucp.ferretin.viewmodel.MSeguridad
                 //Cuando se cambia el status, tambien se tiene que actualizar el currentIndex del tab
                 NotifyPropertyChanged("currentIndexTab"); //Hace que cambie el tab automaticamente
                 NotifyPropertyChanged("editEmpleadoEnabled");
+                NotifyPropertyChanged("editEmpleadoEnabled2");
             }
         }
         /************************************************/
@@ -358,12 +368,56 @@ namespace pe.edu.pucp.ferretin.viewmodel.MSeguridad
         /**************************************************/
         public void saveUsuario(Object obj)
         {
-            if (usuario.nombre == null || usuario.nombre.Length <= 0)
+            
+            /********************** Validar cuando no se ingresa ningun dato obligatorio **********************************/
+            if ((this._dniEmpleado == ""  || this._dniEmpleado == null) && (usuario.nombre == null || usuario.nombre.Length <= 0))
             {
-                MessageBox.Show("Ingrese datos en los campos necesarios, por favor");
+                MessageBox.Show("Ingrese datos en los campos obligatorios, por favor");
                 return;
             }
+            else
+            {
+                /************************ Validar cuando no se ingresa dni correcto  ********************************/
+                if (this._dniEmpleado == "" )
+                {
+                    MessageBox.Show("Ingrese dni de usuario correcto, por favor");
+                    return;
+                }                
+                /********************* Validar cuando no se ingresa nombre de usuario correcto **********************/
+                if (usuario.nombre == null || usuario.nombre.Length <= 0)
+                {
+                    MessageBox.Show("Ingrese nombre de usuario correcto, por favor");
+                    return;
+                }
+                /********************* Validar cuando se ingresa estado null **********************/
+                if (usuario.estado == null)
+                {
+                    MessageBox.Show("Ingrese estado de usuario correcto, por favor");
+                    return;
+                }
+                /********************* Validar cuando no se ingresa nombre de usuario correcto **********************/
+                if (usuario.Perfil==null)
+                {
+                    MessageBox.Show("Ingrese perfil de usuario correcto, por favor");
+                    return;
+                }
+                /********************* Validar cuando se ingresa nombre de usuario y no se dio el boton de verificar **********************/
+                if (!MS_UsuarioService.validarUserName(usuario))
+                {
+                    MessageBox.Show("Verifique, el usuario ya existe");
+                    return;
+                }
+                /* Validar cuando no se ha realizado la busqueda de empleado o la verificacion de nombre de usuario mediante los botones */
+                if (this._busquedaExitosa < 2)
+                {
+                    MessageBox.Show("Realize la busqueda de empleado o verifique el nombre de usuario");
+                    return;
+                }
 
+            }
+            
+            
+            /********************************************************/
             /*Para actualizar un usuario existente*/
             if (usuario.id > 0)//Si existe
             {
@@ -376,7 +430,7 @@ namespace pe.edu.pucp.ferretin.viewmodel.MSeguridad
 
                 if (!MS_UsuarioService.enviarCambios())
                 {
-                    MessageBox.Show("No se pudo actualizar el usuario, revise los campos");
+                    MessageBox.Show("No se pudo actualizar el usuario revise los campos");
                 }
                 else
                 {
@@ -391,8 +445,8 @@ namespace pe.edu.pucp.ferretin.viewmodel.MSeguridad
             {
                 ComunService.idVentana(4);
                 /***************************************/
-                if (this._dniEmpleado == "" || usuario.nombre == null || (this._busquedaExitosa == false ))
-                    MessageBox.Show("Ingrese datos en los campos necesarios, por favor");
+                if (this._dniEmpleado == "" || usuario.nombre == null || (this._busquedaExitosa < 2 ))
+                    MessageBox.Show("Ingrese dni de usuario, correcto, por favor");
                 /***************************************/
                 else
                 {
@@ -429,16 +483,23 @@ namespace pe.edu.pucp.ferretin.viewmodel.MSeguridad
         }
         /**************************************************/
         public void buscarNombreUsuario(Object obj)
-        {            
-            if (!MS_UsuarioService.validarUserName(usuario))
+        {
+            if (usuario.nombre == null || usuario.nombre == "")
             {
-                MessageBox.Show("Usuario Existente");
-                busquedaExitosa = false;
+                MessageBox.Show("Usuario no puede ser vacio");
+                busquedaExitosa = busquedaExitosa + 1;
             }
             else
             {
-                MessageBox.Show("Usuario Disponible");
-                busquedaExitosa = true;
+                if (!MS_UsuarioService.validarUserName(usuario))
+                {
+                    MessageBox.Show("Usuario Existente");                    
+                }
+                else
+                {
+                    MessageBox.Show("Usuario Disponible");
+                    busquedaExitosa = busquedaExitosa + 1;
+                }
             }
             
             //NotifyPropertyChanged("listaUsuarios");       
@@ -477,18 +538,16 @@ namespace pe.edu.pucp.ferretin.viewmodel.MSeguridad
                 if (empleado != null)
                 {
                     usuario.Empleado = empleado;
-                    busquedaExitosa = true;
+                    busquedaExitosa = busquedaExitosa + 1;
                 }
                 else
                 {
-                    MessageBox.Show("No se encontro un cliente con el DNI ingresado");
-                    busquedaExitosa = false;
+                    MessageBox.Show("No se encontro un cliente con el DNI ingresado");                    
                 }
             }
             else
             {
-                MessageBox.Show("Debe ingresar el DNI de algún empleado");
-                busquedaExitosa = false;                
+                MessageBox.Show("Debe ingresar el DNI de algún empleado");                
             }
         }
 
