@@ -185,7 +185,7 @@ namespace pe.edu.pucp.ferretin.viewmodel.MRecursosHumanos
                 var sequence = Enumerable.Empty<GradoInstruccion>();
                 //Primero agrego un item de Todos para que salga al inicio
                 //Pongo el ID en 0 para que al buscar, no filtre nada cuando se selecciona todos
-                IEnumerable<GradoInstruccion> items = new GradoInstruccion[] { new GradoInstruccion { id = 0, nombre = "Todos" } };
+                IEnumerable<GradoInstruccion> items = new List<GradoInstruccion>();
                 //Luego concateno el itemcon los elementos del combobox
                 return items.Concat(MR_ComunService.gradosInstruccion);
                 
@@ -331,27 +331,7 @@ namespace pe.edu.pucp.ferretin.viewmodel.MRecursosHumanos
             }
         }
 
-        ////////////private IEnumerable<EmpleadoTienda> _listaEmpleadoTiendas;
-        ////////////public IEnumerable<EmpleadoTienda> listaEmpleadoTiendas
-        ////////////{
-        ////////////    get
-        ////////////    {
-        ////////////        if (empleado.EmpleadoTienda.Count() > 0)
 
-        ////////////            return this.empleado.EmpleadoTienda;
-
-        ////////////        else
-        ////////////        {
-        ////////////            return null;
-                
-        ////////////        }
-        ////////////    }
-        ////////////    set
-        ////////////    {
-        ////////////        _listaEmpleadoTiendas = value;
-        ////////////        NotifyPropertyChanged("listaEmpleadoTiendas");
-        ////////////    }      
-        ////////////}
 
 
 
@@ -405,7 +385,7 @@ namespace pe.edu.pucp.ferretin.viewmodel.MRecursosHumanos
             {
                 if (_saveEmpleadoCommand == null)
                 {
-                    _saveEmpleadoCommand = new RelayCommand(saveEmpleado,canSaveExecute);
+                    _saveEmpleadoCommand = new RelayCommand(saveEmpleado);
                 }
                 return _saveEmpleadoCommand;
             }
@@ -534,13 +514,13 @@ namespace pe.edu.pucp.ferretin.viewmodel.MRecursosHumanos
         }
         public void saveEmpleado(Object obj)
         {
-            string message = "Está seguro de guardar los cambios?";
-            string caption = "Confirmación";
-            MessageBoxButton buttons = MessageBoxButton.OKCancel;
-            MessageBoxImage icon = MessageBoxImage.Question;
-            if (MessageBox.Show(message, caption, buttons, icon) == MessageBoxResult.OK)
-            {
-                // OK code here
+            //////string message = "Está seguro de guardar los cambios?";
+            //////string caption = "Confirmación";
+            //////MessageBoxButton buttons = MessageBoxButton.OKCancel;
+            //////MessageBoxImage icon = MessageBoxImage.Question;
+            //////if (MessageBox.Show(message, caption, buttons, icon) == MessageBoxResult.OK)
+            //////{
+            //////    // OK code here
 
                 if (soloSeleccionarVendedor)
                 {
@@ -563,7 +543,7 @@ namespace pe.edu.pucp.ferretin.viewmodel.MRecursosHumanos
                             if (!MR_EmpleadoService.enviarCambios())
                             {
                                 MessageBox.Show("No se pudo actualizar el empleado");
-                                NotifyPropertyChanged("empleado");
+                               
                             }
                             else
                             {
@@ -599,17 +579,17 @@ namespace pe.edu.pucp.ferretin.viewmodel.MRecursosHumanos
                                     listaEmpleados = MR_EmpleadoService.listaEmpleados;
                                     //NotifyPropertyChanged("EmpleadoTienda");//Para el historial de empleos
                                 }
-                            }
+                        }
                         //////}
                     }
                 }
 
-            }
-            else
-            {
-                // Cancel code here
-                this.statusTab = Tab.BUSQUEDA;
-            } 
+            ////////}
+            ////////else
+            ////////{
+            ////////    // Cancel code here
+            ////////    this.statusTab = Tab.BUSQUEDA;
+            ////////} 
             NotifyPropertyChanged("listaEmpleados");
             NotifyPropertyChanged("empleado");
             NotifyPropertyChanged("listaEmpleadoTiendas");
