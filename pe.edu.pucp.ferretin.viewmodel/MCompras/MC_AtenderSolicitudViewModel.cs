@@ -1,5 +1,6 @@
 ﻿using pe.edu.pucp.ferretin.controller;
 using pe.edu.pucp.ferretin.controller.MAlmacen;
+using pe.edu.pucp.ferretin.controller.MCompras;
 using pe.edu.pucp.ferretin.model;
 using System;
 using System.Collections.Generic;
@@ -72,10 +73,14 @@ namespace pe.edu.pucp.ferretin.viewmodel.MCompras
                     actual.cantidad = entry.Value;
                     actual.producto = entry.Key;
                     _listaProductosSol.Add(actual);
-                    // do something with entry.Value or entry.Key
-                    
+                    // do something with entry.Value or entry.Key                   
                 }
-               // MA_SharedService.obtenerProductosPorAbastecer(tienda);
+                int i;
+                for (i = 0; i < _listaProductosSol.Count(); i++)
+                {
+                    _listaProductosSol[i].posiProveedor = MC_ProveedorService.obtenerPosiblesProveedores(_listaProductosSol[i].producto); 
+                }
+
                 return _listaProductosSol;
             }
             set
@@ -89,5 +94,7 @@ namespace pe.edu.pucp.ferretin.viewmodel.MCompras
         }
 
         #endregion
+
+
     }
 } 

@@ -35,7 +35,7 @@
                             <DataGridTextColumn Width="3*" Binding="{Binding Path=producto.Tienda.nombre}" Header=" Almacén"/>
                             <DataGridTextColumn Width="1.5*" Binding="{Binding Path=producto.stock}"  Header="Stock"/>
                             <DataGridTextColumn Width="1.5*" Binding="{Binding Path=cantidad}"  Header="Cant. Compra"/>
-                            <DataGridTextColumn Width="3.5*" Binding="{x:Null}" ClipboardContentBinding="{x:Null}" Header="Proveedor"/>
+                            <DataGridTextColumn Width="3.5*" Binding="{Binding Path= posiProveedor.razonSoc}" Header="Proveedor"/>
                             <DataGridTemplateColumn Header="Seleccionar">
                                 <DataGridTemplateColumn.CellTemplate>
                                     <DataTemplate>
