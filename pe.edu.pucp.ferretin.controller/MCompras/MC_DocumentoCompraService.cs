@@ -6,6 +6,7 @@ using System.Linq;
 
 namespace pe.edu.pucp.ferretin.controller.MCompras
 {
+
     public class MC_DocumentoCompraService : MC_ComunService
     {
 

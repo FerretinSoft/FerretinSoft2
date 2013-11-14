@@ -49,8 +49,8 @@
                                     <ColumnDefinition/>
                                     <ColumnDefinition Width="Auto"/>
                                 </Grid.ColumnDefinitions>
-                                <TextBox Text="{Binding clienteSearch.nroDoc}" VerticalAlignment="Center" HorizontalAlignment="Stretch"/>
-                                <Button x:Name="buscarClienteBtn" VerticalAlignment="Center" Width="20" Height="20" BorderThickness="0" Grid.Column="1">
+                                <TextBox Text="{Binding clienteSearch.nroDoc,UpdateSourceTrigger=PropertyChanged}" IsEnabled="False" VerticalAlignment="Center" HorizontalAlignment="Stretch"/>
+                                <Button x:Name="buscarClienteBtn" VerticalAlignment="Center" Width="20" Height="20" BorderThickness="0" Grid.Column="1" Click="buscarClienteBtn_Click_1">
                                     <Button.Background>
                                         <ImageBrush ImageSource="../Resources/search1_20.png"/>
                                     </Button.Background>
@@ -69,7 +69,7 @@
                                     </Button.Background>
                                 </Button>
                             </Grid>
-                            <TextBox Text="" VerticalAlignment="Center" Grid.Column="2" Grid.ColumnSpan="3" Grid.Row="1" IsEnabled="False" Margin="0,3"/>
+                            <TextBox Text="{Binding clienteSearch.nombreCompleto,Mode=OneWay}" VerticalAlignment="Center" Grid.Column="2" Grid.ColumnSpan="3" Grid.Row="1" IsEnabled="False" Margin="0,3"/>
                             <DatePicker SelectedDate="{Binding fechaDesdeSearch}" VerticalAlignment="Center" Grid.Column="1" Grid.Row="2"  Margin="0,3,10,3" BorderThickness="0"/>
                             <DatePicker SelectedDate="{Binding fechaHastaSearch}" VerticalAlignment="Center" Grid.Column="3" Grid.Row="2" BorderThickness="0"/>
 
