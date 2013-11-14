@@ -40,7 +40,7 @@
         <Button Content="GUARDAR" HorizontalAlignment="Left" Margin="114,358,0,0" VerticalAlignment="Top" Width="75" RenderTransformOrigin="1.347,-0.05" Height="30" Click="Button_Click"/>
         <Button Content="CANCELAR" HorizontalAlignment="Left" Margin="268,358,0,0" VerticalAlignment="Top" Width="75" RenderTransformOrigin="1.347,-0.05" Height="30" Click="Button_Click_1"/>
         <Label Content="(minutos)" HorizontalAlignment="Left" Margin="358,62,0,0" VerticalAlignment="Top" Height="26" Width="61"/>
-        <Label Content="(meses)" HorizontalAlignment="Left" Margin="358,93,0,0" VerticalAlignment="Top" Height="26" Width="61" RenderTransformOrigin="0.462,0.994"/>
+        <Label Content="(días)" HorizontalAlignment="Left" Margin="358,93,0,0" VerticalAlignment="Top" Height="26" Width="61" RenderTransformOrigin="0.462,0.994"/>
         <Label Content="(días)" HorizontalAlignment="Left" Margin="359,226,0,0" VerticalAlignment="Top" Height="26" Width="61"/>
         <Label Content="(soles)" HorizontalAlignment="Left" Margin="359,126,0,0" VerticalAlignment="Top" Height="26" Width="61"/>
         <Label Content="Vigencia de las Notas de Crédito:" HorizontalAlignment="Left" Margin="22,255,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.464,1.231" Height="26" Width="192"/>

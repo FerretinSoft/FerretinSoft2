@@ -127,9 +127,9 @@
                             <Label Content="Empresa RUC :" Grid.Column="2" VerticalContentAlignment="Center"/>
                             <Label Content="Fecha Emisión:" Grid.Column="0" Grid.Row="1" VerticalContentAlignment="Center"/>
                             <DatePicker SelectedDate="{Binding Path=loteVale.fechaEmision, Mode=TwoWay}" VerticalAlignment="Center" Grid.Column="1" Grid.Row="1"  BorderThickness="0" IsEnabled="False"/>
-                            <TextBox IsEnabled="False" Text="{Binding Path=loteVale.codigo, Mode=TwoWay}" VerticalAlignment="Center" Grid.Column="1" Margin="0,0,26,0"/>
+                            <TextBox IsEnabled="False" Text="" VerticalAlignment="Center" Grid.Column="1" Margin="0,0,26,0"/>
                             <Label Content="Fecha Vencimiento:" Grid.Column="0" Grid.Row="2" VerticalContentAlignment="Center"/>
-                            <DatePicker SelectedDate="{Binding Path=loteVale.fechaVencimiento, Mode=TwoWay}" VerticalAlignment="Center" Grid.Column="1" Grid.Row="2"  BorderThickness="0" />
+                            <DatePicker IsEnabled="False" SelectedDate="{Binding Path=loteVale.fechaVencimiento, Mode=TwoWay}" VerticalAlignment="Center" Grid.Column="1" Grid.Row="2"  BorderThickness="0" />
                             <Grid Grid.Column="3">
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="103"></ColumnDefinition>

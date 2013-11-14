@@ -82,7 +82,7 @@
 
                     </ComboBox>
                     <Label Content="Comentario:" HorizontalAlignment="Left" Margin="15,337,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.464,1.231" Height="26" Width="84"/>
-                    <DataGrid ItemsSource="{Binding productosPorMovimiento,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged,NotifyOnSourceUpdated=True,NotifyOnTargetUpdated=True}" Grid.Column="1" Margin="10,0,10,84" IsManipulationEnabled="True" CanUserAddRows="False"  IsEnabled="{Binding isCreating}" VerticalAlignment="Bottom" Height="285"  AutoGenerateColumns="False" >
+                    <DataGrid x:Name="productosGrid" ItemsSource="{Binding productosPorMovimiento,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged,NotifyOnSourceUpdated=True,NotifyOnTargetUpdated=True}" Grid.Column="1" Margin="10,0,10,84" IsManipulationEnabled="True" CanUserAddRows="False"  IsEnabled="{Binding isCreating}" VerticalAlignment="Bottom" Height="261"  AutoGenerateColumns="False" >
                         <DataGrid.Columns>
                             <DataGridTextColumn Width="0.75*" Binding="{Binding Path=movimientoProducto.Producto.codigo}" IsReadOnly="True" Header="Cód."/>
                             <DataGridTextColumn Width="2*" Binding="{Binding Path=movimientoProducto.Producto.nombre}" IsReadOnly="True" Header="Nombre"/>
@@ -111,6 +111,11 @@
                     <Label Content="*" HorizontalAlignment="Left" Margin="269,300,0,0" VerticalAlignment="Top" Foreground="Red" FontSize="14" Width="24" Height="23" Grid.ColumnSpan="2"/>
                     <Label Content="*" HorizontalAlignment="Left" Margin="269,101,0,0" VerticalAlignment="Top" Foreground="Red" FontSize="14" Width="24" Height="23" Grid.ColumnSpan="2"/>
                     <Label Content="*" HorizontalAlignment="Left" Margin="269,61,0,0" VerticalAlignment="Top" Foreground="Red" FontSize="14" Width="24" Height="23" Grid.ColumnSpan="2"/>
+                    <Button IsEnabled="{Binding isCreating}" Command="{Binding borrarProductoCommand}" Content="" Grid.Column="1" HorizontalAlignment="Left" Margin="10,57,0,0" VerticalAlignment="Top" Width="20">
+                        <Button.Background>
+                            <ImageBrush ImageSource="/pe.edu.pucp.ferretin.view;component/Resources/trash_20.png"/>
+                        </Button.Background>
+                    </Button>
                 </Grid>
             </TabItem>
             <TabItem Header="Tipos de Movimiento">

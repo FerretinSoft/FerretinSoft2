@@ -23,7 +23,7 @@
                 </Style>
             </TreeView.ItemContainerStyle>
             <TreeView.ItemTemplate>
-                <HierarchicalDataTemplate  ItemsSource="{Binding Path=Categoria2}">
+                <HierarchicalDataTemplate  ItemsSource="{Binding Path=Categoria2, UpdateSourceTrigger=PropertyChanged}">
                     <TextBlock Text="{Binding nombre}" />
                 </HierarchicalDataTemplate>
             </TreeView.ItemTemplate>
@@ -45,6 +45,11 @@
             <Button Command ="{Binding Path= deleteCategoriaCommand}" x:Name="deleteCategoria" Content="" Height="20" VerticalAlignment="Top" Width="20" Margin="0,0,2,0">
                 <Button.Background>
                     <ImageBrush ImageSource="../Resources/trash_20.png"/>
+                </Button.Background>
+            </Button>
+            <Button Command ="{Binding Path= actualizarArbolCategoriaCommand}" x:Name="actualizarArbolCategoria" Content="" Height="20" VerticalAlignment="Top" Width="20" Margin="0,0,2,0">
+                <Button.Background>
+                    <ImageBrush ImageSource="../Resources/refresh2_48.png"/>
                 </Button.Background>
             </Button>
 

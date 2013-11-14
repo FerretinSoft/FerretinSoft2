@@ -34,8 +34,8 @@ namespace pe.edu.pucp.ferretin.viewmodel.MVentas
         public String _nombreCliente = "";
         public String nombreCliente { get { return _nombreCliente; } set { _nombreCliente = value; NotifyPropertyChanged("nombreCliente"); } }
 
-        public String _searchNroDocCliente = "";
-        public String searchNroDocCliente { get { return _searchNroDocCliente; } set { _searchNroDocCliente = value; NotifyPropertyChanged("searchNroDocCliente"); } }
+        public long? _searchNroDocCliente = null;
+        public long? searchNroDocCliente { get { return _searchNroDocCliente; } set { _searchNroDocCliente = value; NotifyPropertyChanged("searchNroDocCliente"); } }
 
         public string _detallesTabHeader = "";
         public String detallesTabHeader { get { return _detallesTabHeader; } set { _detallesTabHeader = value; NotifyPropertyChanged("detallesTabHeader"); } }
@@ -216,13 +216,32 @@ namespace pe.edu.pucp.ferretin.viewmodel.MVentas
 
         public void cancelarLoteVale(object id)
         {
-            loteVale.Vale = new System.Data.Linq.EntitySet<Vale>();
-            this.loteVale = new LoteVale();
-            this.selectedTab = 0;
+            string messageBoxText = "¿Desea cancelar la transacción? Usted perderá la información ingresada";
+            string caption = "Mensaje de confirmación";
+            MessageBoxButton button = MessageBoxButton.OKCancel;
+            MessageBoxResult result = MessageBox.Show(messageBoxText, caption, button);
+            switch (result)
+            {
+                case MessageBoxResult.OK:
+                    loteVale.Vale = new System.Data.Linq.EntitySet<Vale>();
+                    this.loteVale = new LoteVale();
+                    this.selectedTab = 0;
+                    break;
+
+                case MessageBoxResult.Cancel:
+                    break;
+            }
         }
 
         public void saveLoteVale(object id)
         {
+            string messageBoxText = "¿Desea confirmar la transacción? Se procederá a almacenar la información ingresada";
+            string caption = "Mensaje de confirmación";
+            MessageBoxButton button = MessageBoxButton.OKCancel;
+            MessageBoxResult result = MessageBox.Show(messageBoxText, caption, button);
+            switch (result)
+            {
+                case MessageBoxResult.OK:
             ComunService.idVentana(50);
             if (!MV_ValeService.insertarLoteVale(loteVale))
             {
@@ -233,19 +252,45 @@ namespace pe.edu.pucp.ferretin.viewmodel.MVentas
                 MessageBox.Show("El lote de vales fue agregado con éxito");
             }
             this.selectedTab = 0;
+                break;
+                case MessageBoxResult.Cancel:
+                break;
+            }
         }
 
         public void generarVales(object id)
         {
-            loteVale.Vale = new System.Data.Linq.EntitySet<Vale>();
-            for (int i = 1; i <= (int)loteVale.cantidad; i++)
+            if (loteVale.cantidad != null && loteVale.cantidad > 0)
             {
-                Vale vale = MV_ValeService.generarVale((int)loteVale.cantidad, i);
-                
-                loteVale.Vale.Add(vale);
-                NotifyPropertyChanged("loteVale");
+                string messageBoxText = "¿Desea generar " + loteVale.cantidad + " vales?";
+                string caption = "Mensaje de confirmación";
+                MessageBoxButton button = MessageBoxButton.OKCancel;
+                MessageBoxResult result = MessageBox.Show(messageBoxText, caption, button);
+                switch (result)
+                {
+                    case MessageBoxResult.OK:
+                        loteVale.Vale = new System.Data.Linq.EntitySet<Vale>();
+                        for (int i = 1; i <= (int)loteVale.cantidad; i++)
+                        {
+                            Vale vale = MV_ValeService.generarVale((int)loteVale.cantidad, i);
+
+                            loteVale.Vale.Add(vale);
+                            NotifyPropertyChanged("loteVale");
+                        }
+                        valesGenerados = true;
+                        break;
+                    case MessageBoxResult.Cancel:
+                        break;
+                }
             }
-            valesGenerados = true;
+            else
+            {
+                string messageBoxText = "Debe ingresar una cantidad de válida de vales";
+                string caption = "Mensaje de confirmación";
+                MessageBoxButton button = MessageBoxButton.OK;
+                MessageBox.Show(messageBoxText, caption, button);
+            }
+
         }
 
         public void viewLoteVale(Object id)

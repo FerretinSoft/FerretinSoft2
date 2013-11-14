@@ -33,8 +33,8 @@ namespace pe.edu.pucp.ferretin.viewmodel.MVentas
         public String _searchNroDocumento = "";
         public String searchNroDocumento { get { return _searchNroDocumento; } set { _searchNroDocumento = value; NotifyPropertyChanged("searchNroDocumento"); } }
 
-        public String _searchNroDocCliente = "";
-        public String searchNroDocCliente { get { return _searchNroDocCliente; } set { _searchNroDocCliente = value; NotifyPropertyChanged("searchNroDocCliente"); } }
+        public long? _searchNroDocCliente;
+        public long? searchNroDocCliente { get { return _searchNroDocCliente; } set { _searchNroDocCliente = value; NotifyPropertyChanged("searchNroDocCliente"); } }
 
         public DateTime _searchFechaInicio = DateTime.Parse("10/09/2013");
         public DateTime searchFechaInicio { get { return _searchFechaInicio; } set { _searchFechaInicio = value; NotifyPropertyChanged("searchFechaInicio"); } }
@@ -269,7 +269,7 @@ namespace pe.edu.pucp.ferretin.viewmodel.MVentas
             {
                 MessageBox.Show("No se encontro ningún Cliente con el número de documento proporcionado", "No se encontro", MessageBoxButton.OK, MessageBoxImage.Question);
                 nombreCliente = "";
-                searchNroDocCliente = "";
+                searchNroDocCliente=null;
             }
             else
             {

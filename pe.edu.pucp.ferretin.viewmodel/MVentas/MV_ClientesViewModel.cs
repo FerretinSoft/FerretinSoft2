@@ -4,6 +4,7 @@ using pe.edu.pucp.ferretin.model;
 using pe.edu.pucp.ferretin.viewmodel.Helper;
 using System;
 using System.Collections.Generic;
+using System.Data.Linq;
 using System.Drawing.Imaging;
 using System.IO;
 using System.Linq;
@@ -57,8 +58,8 @@ namespace pe.edu.pucp.ferretin.viewmodel.MVentas
         }
 
         #region Valores para el cuadro de Búsqueda
-        public String _searchNroDoc = "";
-        public String searchNroDoc { get { return _searchNroDoc; } set { _searchNroDoc = value; NotifyPropertyChanged("searchNroDoc"); } }
+        public long? _searchNroDoc = null;
+        public long? searchNroDoc { get { return _searchNroDoc; } set { _searchNroDoc = value; NotifyPropertyChanged("searchNroDoc"); } }
         
         public String _searchNombre = "";
         public String searchNombre { get { return _searchNombre; } set { _searchNombre = value; NotifyPropertyChanged("searchNombre"); } }
@@ -80,6 +81,9 @@ namespace pe.edu.pucp.ferretin.viewmodel.MVentas
             //0       1        2          3
             BUSQUEDA, AGREGAR, MODIFICAR, DETALLES
         }
+
+        bool cambiarSoloSeleccionarCliente = false;
+
         private Tab _statusTab = Tab.BUSQUEDA; //pestaña default 
         public Tab statusTab
         {
@@ -98,8 +102,35 @@ namespace pe.edu.pucp.ferretin.viewmodel.MVentas
                 //Si la pestaña es para agregar nuevo, limpio los input
                 switch (_statusTab)
                 {
-                    case Tab.BUSQUEDA: detallesTabHeader = soloSeleccionarCliente?"Detalles":"Agregar"; break;//Si es agregar, creo un nuevo objeto Cliente
-                    case Tab.AGREGAR: detallesTabHeader = "Agregar"; cliente = new Cliente(); break;//Si es agregar, creo un nuevo objeto Cliente
+                    case Tab.BUSQUEDA:
+                        {
+                            //Borro si hubo algun cambio que no fue guardado
+                            ChangeSet changes = MV_ClienteService.db.GetChangeSet();
+                            MV_ClienteService.db.Refresh(RefreshMode.OverwriteCurrentValues, changes.Updates); 
+
+                            detallesTabHeader = soloSeleccionarCliente ? "Detalles" : "Agregar";
+                            NotifyPropertyChanged("listaClientes");
+                            break;//Si es agregar, creo un nuevo objeto Cliente
+                        }
+                    case Tab.AGREGAR:
+                        {
+                            soloSeleccionarCliente = false;
+                            cambiarSoloSeleccionarCliente = true;
+
+                            detallesTabHeader = "Agregar";
+                            cliente = new Cliente()
+                            {
+                                tipo = 1,
+                                nombre = "",
+                                apMaterno = "",
+                                apPaterno = "",
+                                telefono1 = ""
+                            };
+                            clienteImagen = null;
+                            selectedDepartamento = null;
+                            selectedProvincia = null;
+                            break;//Si es agregar, creo un nuevo objeto Cliente
+                        }
                     case Tab.MODIFICAR: detallesTabHeader = "Modificar"; break;
                     case Tab.DETALLES: detallesTabHeader = "Detalles"; break;
                 }
@@ -219,6 +250,18 @@ namespace pe.edu.pucp.ferretin.viewmodel.MVentas
                 return _saveClienteCommand;
             }
         }
+        RelayCommand _nuevoClienteCommand;
+        public ICommand nuevoClienteCommand
+        {
+            get
+            {
+                if (_nuevoClienteCommand == null)
+                {
+                    _nuevoClienteCommand = new RelayCommand(nuevoCliente);
+                }
+                return _nuevoClienteCommand;
+            }
+        }
 
         RelayCommand _cancelClienteCommand;
         public ICommand cancelClienteCommand
@@ -269,6 +312,10 @@ namespace pe.edu.pucp.ferretin.viewmodel.MVentas
 
                     _clienteImagen = bitmapImage;
                 }
+                else
+                {
+                    _clienteImagen = null;
+                }
                 return _clienteImagen;
             }
             set
@@ -306,7 +353,7 @@ namespace pe.edu.pucp.ferretin.viewmodel.MVentas
         {
             try
             {
-                this.cliente = listaClientes.Single(cliente => cliente.id == (int)id);
+                this.cliente = MV_ClienteService.obtenerClienteById((int)id);
                 if (this.cliente.id_ubigeo != null)
                 {
                     selectedProvincia = this.cliente.UbigeoDistrito.UbigeoProvincia;
@@ -321,6 +368,12 @@ namespace pe.edu.pucp.ferretin.viewmodel.MVentas
             {
                 MessageBox.Show(e.Message);
             }
+        }
+
+        public void nuevoCliente(Object obj)
+        {
+            this.statusTab = Tab.AGREGAR;
+
         }
         public void saveCliente(Object obj)
         {
@@ -341,6 +394,8 @@ namespace pe.edu.pucp.ferretin.viewmodel.MVentas
                     else
                     {
                         MessageBox.Show("El cliente fue guardado con éxito");
+                        this.statusTab = Tab.BUSQUEDA;
+
                     }
                 }
                 else
@@ -352,6 +407,12 @@ namespace pe.edu.pucp.ferretin.viewmodel.MVentas
                     else
                     {
                         MessageBox.Show("El cliente fue agregado con éxito");
+                        this.statusTab = Tab.BUSQUEDA;
+                        if (!soloSeleccionarCliente && cambiarSoloSeleccionarCliente)
+                        {
+                            soloSeleccionarCliente = true;
+                        }
+
                     }
                 }
             }
@@ -359,7 +420,6 @@ namespace pe.edu.pucp.ferretin.viewmodel.MVentas
         public void cancelCliente(Object obj)
         {
             this.statusTab = Tab.BUSQUEDA;
-            listaClientes = MV_ClienteService.listaClientes;
         }
 
         private bool canSaveExecute(object obj)

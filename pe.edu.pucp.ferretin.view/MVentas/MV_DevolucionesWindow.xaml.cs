@@ -48,7 +48,7 @@ namespace pe.edu.pucp.ferretin.view.MVentas
         {
             MV_ClientesWindow v = new MV_ClientesWindow();
             v.Owner = this;
-            var viewModel = v.main.DataContext as MV_ClientesViewModel;
+            var viewModel = v.DataContext as MV_ClientesViewModel;
             viewModel.soloSeleccionarCliente = true;
             v.Show();     
         }
@@ -57,7 +57,7 @@ namespace pe.edu.pucp.ferretin.view.MVentas
         {
             MV_ClientesWindow v = new MV_ClientesWindow();
             v.Owner = this;
-            var viewModel = v.main.DataContext as MV_ClientesViewModel;
+            var viewModel = v.DataContext as MV_ClientesViewModel;
             viewModel.soloSeleccionarCliente = true;
            
             v.Show();     
@@ -111,6 +111,7 @@ namespace pe.edu.pucp.ferretin.view.MVentas
             MV_DevolucionesViewModel actual = this.main.DataContext as MV_DevolucionesViewModel;
             MV_DocNotaCreditoViewModel padre = p.main.DataContext as MV_DocNotaCreditoViewModel;
             padre.notaCredito = actual.notaCredito;
+            actual.selectedTab = 0;
             p.Show();
         }
 
@@ -120,5 +121,6 @@ namespace pe.edu.pucp.ferretin.view.MVentas
       
 
         }
+
     }
 }

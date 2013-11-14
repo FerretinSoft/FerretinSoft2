@@ -162,6 +162,20 @@ namespace pe.edu.pucp.ferretin.view.MVentas
             }
         }
 
+        private void precioProdBtn_Click(object sender, RoutedEventArgs e)
+        {
+            //if (ComunService.usuarioLpermisos[8].estado == true)
+            //{
+            MV_AdministrarPrecioProductos w = new MV_AdministrarPrecioProductos();
+            w.Show();
+            //}
+            //else
+            //{
+            //    MessageBox.Show("Usted no cuenta con el permiso necesario");
+            //}
+        }
+
+
         private void Window_Closed(object sender, EventArgs e)
         {
             INSTANCE = null;

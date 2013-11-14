@@ -48,21 +48,31 @@ namespace pe.edu.pucp.ferretin.controller.MAlmacen
         public static bool eliminarCategoria(Categoria categoria) 
         {
             //verificamos que la Categoria no este en uso
-             
-           _listaProductoCategoria= from c in db.ProductoCategoria
-                where (c.id_categoria.Equals(categoria.id))
-                select c;
+            var deleteCategoria = from cat in db.Categoria
+                                  where cat.id.Equals(categoria.id)
+                                  select cat;
 
-          
-            if (db.Categoria.Contains(categoria) && _listaProductoCategoria==null)
+            var estaEnUso = from catProducto in db.ProductoCategoria
+                            where catProducto.id_categoria.Equals(categoria.id)
+                            select catProducto;
+
+            if (estaEnUso == null)
             {
-                //se puede eliminar la categoria
-                db.Categoria.DeleteOnSubmit(categoria);
-                return enviarCambios();
+                foreach (var cat in deleteCategoria)
+                {
+                    db.Categoria.DeleteOnSubmit(categoria);
+                }
+                try
+                {
+                    db.SubmitChanges();
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine(e);
+                }
+                return true;
             }
-            else 
-            {
-
+            else {
                 return false;
             }
         }

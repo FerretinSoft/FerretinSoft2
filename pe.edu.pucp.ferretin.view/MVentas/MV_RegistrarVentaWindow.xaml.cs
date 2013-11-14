@@ -65,7 +65,7 @@ namespace pe.edu.pucp.ferretin.view.MVentas
             //Buscar Cliente
             MV_ClientesWindow v = new MV_ClientesWindow();
             v.Owner = this;
-            var viewModel = v.main.DataContext as MV_ClientesViewModel;
+            var viewModel = v.DataContext as MV_ClientesViewModel;
             viewModel.soloSeleccionarCliente = true;
             v.Show();
         }

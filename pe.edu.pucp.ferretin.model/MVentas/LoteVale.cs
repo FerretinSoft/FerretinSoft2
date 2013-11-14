@@ -12,7 +12,7 @@ namespace pe.edu.pucp.ferretin.model
         {
             get
             {
-                return moneda == 1 ? "Soles" : "Dolares";
+                return moneda == 0 ? "Soles" : "Dolares";
             }
         }
 

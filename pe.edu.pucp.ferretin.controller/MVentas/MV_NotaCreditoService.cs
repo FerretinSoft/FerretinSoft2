@@ -36,12 +36,12 @@ namespace pe.edu.pucp.ferretin.controller.MVentas
 
 
 
-        public static IEnumerable<NotaCredito> buscarNotaCredito(string nroNotaCredito, string nroDocCliente, DateTime fechaInicio, DateTime fechaFin, string searchVendedor)
+        public static IEnumerable<NotaCredito> buscarNotaCredito(string nroNotaCredito, long? nroDocCliente, DateTime fechaInicio, DateTime fechaFin, string searchVendedor)
         {
             return from c in listaNotasCredito
                    where
                    (c.codigo != null && c.codigo.Contains(nroNotaCredito)
-                   && c.Devolucion.Venta.Cliente.nroDoc != null && c.Devolucion.Venta.Cliente.nroDoc.Contains(nroDocCliente)
+                   && c.Devolucion.Venta.Cliente.nroDoc != null && c.Devolucion.Venta.Cliente.nroDoc.Equals(nroDocCliente)
                    && c.Devolucion.fecEmision != null && c.Devolucion.fecEmision >= fechaInicio
                    && c.Devolucion.fecEmision != null && c.Devolucion.fecEmision <= fechaFin
                    && c.Devolucion.Venta.Usuario.Empleado.dni != null && c.Devolucion.Venta.Usuario.Empleado.dni.Contains(searchVendedor)

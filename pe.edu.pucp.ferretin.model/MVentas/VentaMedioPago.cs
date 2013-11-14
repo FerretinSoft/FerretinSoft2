@@ -10,6 +10,13 @@ namespace pe.edu.pucp.ferretin.model
 {
     public partial class VentaMedioPago
     {
+        public string monedaString
+        {
+            get
+            {
+                return moneda == 0 ? "Soles" : "Dolares";
+            }
+        }
 
         public string montoString
         {
@@ -19,38 +26,50 @@ namespace pe.edu.pucp.ferretin.model
             }
         }
 
+        public decimal? tipoCambio { get; set; }
+
+        partial void OnmonedaChanged()
+        {
+            if ( tipoCambio!=null && monto!=null && tipoCambio>0  && monto>0)
+            {
+                var newMonto = monto;
+                if (moneda == 0)//Soles
+                {
+                    newMonto *= tipoCambio;
+                }
+                else if (moneda == 1)//Dolares
+                {
+                    newMonto /= tipoCambio;
+                }
+                monto = Decimal.Round(newMonto.Value, 2);
+            }
+        }
+
         partial void OnmontoChanged()
         {
-            //if (monto == 0)
-           // {
-            //    Venta.VentaMedioPago.Remove(this);
-            //}
+            if (monto < 0)
+            {
+                monto = 0;
+            }
             
         }
 
-        private bool _montoReadOnly = false;
         public bool montoReadOnly
         {
             get
             {
-                return _montoReadOnly;
-            }
-            set
-            {
-                _montoReadOnly = value;
+                if (Vale != null) return true;
+                if (NotaCredito != null) return true;
+                return false;
             }
         }
 
-        private bool _monedaReadOnly = false;
+        
         public bool monedaReadOnly
         {
             get
             {
-                return _monedaReadOnly;
-            }
-            set
-            {
-                _monedaReadOnly = value;
+                return montoReadOnly;
             }
         }
 

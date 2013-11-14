@@ -138,7 +138,7 @@ namespace pe.edu.pucp.ferretin.view
         #region Botones Cambiar Contraseña y Cerrar Sesion
         private void cambiarPasswMenuItem_Click(object sender, RoutedEventArgs e)
         {
-            MSeguridad.MS_CambiarContraseñaUsuario wCambiar = new MSeguridad.MS_CambiarContraseñaUsuario(usuarioLog);
+            MSeguridad.MS_CambiarContraseñaUsuario wCambiar = new MSeguridad.MS_CambiarContraseñaUsuario(usuarioLog, 0);
             wCambiar.Show();
         }
 

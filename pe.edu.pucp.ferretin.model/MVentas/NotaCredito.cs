@@ -49,5 +49,19 @@ namespace pe.edu.pucp.ferretin.model
 
         }
 
+        public string importeString
+        {
+            get
+            {
+                if (importe != null)
+                {
+                    return "S/. " + importe;
+                }
+                else
+                    return null;
+            }
+
+        }
+
     }
 }
