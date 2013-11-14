@@ -35,21 +35,14 @@
                             <DataGridTextColumn Width="3*" Binding="{Binding Path=producto.Tienda.nombre}" Header=" Almacén"/>
                             <DataGridTextColumn Width="1.5*" Binding="{Binding Path=producto.stock}"  Header="Stock"/>
                             <DataGridTextColumn Width="1.5*" Binding="{Binding Path=cantidad}"  Header="Cant. Compra"/>
+
                             <DataGridTemplateColumn Width="3*" Header="Proveedor" >
-                                
-                                    <DataGridTemplateColumn.CellTemplate>
-                                        <DataTemplate>
-                                        <ComboBox Margin="2" ItemsSource="{Binding  posiProveedor}" DisplayMemberPath="razonSoc" />
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <ComboBox Margin="2" ItemsSource="{Binding  posiProveedor}" DisplayMemberPath="razonSoc" SelectedItem="{Binding selectedProveedor}"/>
                                         </DataTemplate>
                                     </DataGridTemplateColumn.CellTemplate>
                                 </DataGridTemplateColumn>
-                                <!--<DataGridComboBoxColumn.EditingElementStyle>
-                                    <Style TargetType="ComboBox">
-                                        <Setter Property="ItemsSource" Value="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type DataGrid}}, Path=DataContext.tiposTurnos}"/>
-                                        <Setter Property="SelectedIndex" Value="{Binding id_turno,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"/>
-                                        <Setter Property="IsEnabled" Value="{Binding turnoIsEnable,Mode=OneWay,UpdateSourceTrigger=PropertyChanged}"/>
-                                    </Style>
-                                </DataGridComboBoxColumn.EditingElementStyle>-->
                             
                             <DataGridTemplateColumn Header="Seleccionar">
                                 <DataGridTemplateColumn.CellTemplate>
@@ -61,7 +54,7 @@
 
                         </DataGrid.Columns>
                     </DataGrid>
-                    <Button x:Name="consolidarBtn" Content="GENERAR" Margin="255,0,445.717,20.005" VerticalAlignment="Bottom" Height="30" RenderTransformOrigin="0.594,-0.567" Grid.Row="1" Click="consolidarBtn_Click"/>
+                    <Button Command="{Binding generarOCSCommand}" x:Name="consolidarBtn" Content="GENERAR" Margin="255,0,445.717,20.005" VerticalAlignment="Bottom" Height="30" RenderTransformOrigin="0.594,-0.567" Grid.Row="1" Click="consolidarBtn_Click"/>
                     <Button x:Name="cancelarBtn" Content="CANCELAR " Margin="494,0,206.717,20.005" VerticalAlignment="Bottom" Height="30" RenderTransformOrigin="0.594,-0.567" Grid.Row="1"/>
                 </Grid>
             </TabItem>
