@@ -87,8 +87,6 @@ namespace pe.edu.pucp.ferretin.viewmodel.MCompras
             {
                 _listaProductosSol = value;
                 NotifyPropertyChanged("listaProductosSol");
-
-
             }
 
         }

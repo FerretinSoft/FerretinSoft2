@@ -2,6 +2,7 @@
 
 namespace pe.edu.pucp.ferretin.model
 {
+
     public partial class ProveedorProducto : INotifyPropertyChanged
     {
         private bool _isSelected;
