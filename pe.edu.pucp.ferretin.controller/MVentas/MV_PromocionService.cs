@@ -13,8 +13,8 @@ namespace pe.edu.pucp.ferretin.controller.MVentas
         {
             return from p in db.Promocion where
                 (p.codigo.ToUpper().Contains(codPromSearch.ToUpper()))
-                && (DateTime.Compare(p.fechaDesde.Value,fechaDesdeSearch)>=0 || DateTime.Compare(p.fechaHasta.Value,fechaHastaSearch)<=0 )
-                && (estadoSearch <= 0 || p.estado == estadoSearch) select p;
+                && (p.fechaDesde == null || p.fechaHasta == null || DateTime.Compare(p.fechaDesde.Value, fechaDesdeSearch) >= 0 || DateTime.Compare(p.fechaHasta.Value, fechaHastaSearch) <= 0)
+                && (estadoSearch <= 0 || p.esActivo == (estadoSearch==1)) select p;
         }
 
         /// <summary>
@@ -25,6 +25,10 @@ namespace pe.edu.pucp.ferretin.controller.MVentas
         {
             if (!db.Promocion.Contains(promocion))
             {
+                foreach (var pp in promocion.PromocionProducto)
+                    pp.stockActual = pp.stockTotal;
+                promocion.estado = 1;
+                promocion.codigo = newCodPromocion;
                 db.Promocion.InsertOnSubmit(promocion);
                 return enviarCambios();
             }
@@ -34,16 +38,17 @@ namespace pe.edu.pucp.ferretin.controller.MVentas
             }
         }
 
-        public static PromocionProducto ultimaPromocionPorProducto(Producto producto)
+        public static PromocionProducto ultimaPromocionPorProducto(Producto producto, Tienda tienda)
         {
             try
             {
                 //Todas las promociones con stock del producto
-                foreach (var ultimoProdProm in db.PromocionProducto.Where(pp => pp.Producto.id == producto.id && pp.stockActual > 0))
+                var promociones = db.Promocion.Where(p => (p.PromocionTienda.Count(pt => pt.Tienda.id.Equals(tienda.id)) > 0) && p.estado == 1 && p.fechaDesde <= DateTime.Today && p.fechaHasta >= DateTime.Today);
+                foreach (var promocion in promociones)
                 {
-                    if (ultimoProdProm != null && ultimoProdProm.Promocion.fechaDesde <= DateTime.Today && ultimoProdProm.Promocion.fechaHasta >= DateTime.Today && ultimoProdProm.Promocion.estado == 1)
+                    foreach(var promocionProducto in promocion.PromocionProducto.Where(pp=>pp.Producto.id.Equals(producto.id) && pp.stockActual>0 ) )
                     {
-                        return ultimoProdProm;
+                        return promocionProducto;
                     }
                 }
                 return null;
@@ -51,6 +56,24 @@ namespace pe.edu.pucp.ferretin.controller.MVentas
             catch
             {
                 return null;
+            }
+        }
+
+
+        public static string newCodPromocion
+        {
+            get
+            {
+                Int64 numCodProm = db.Promocion.Max(p => p.id) + 1;
+                string codProm = Convert.ToString(numCodProm);
+                while (true)
+                {
+                    if (codProm.Length == 8)
+                        break;
+                    else
+                        codProm = "0" + codProm;
+                }
+                return codProm + "-" + DateTime.Now.Year.ToString();
             }
         }
 

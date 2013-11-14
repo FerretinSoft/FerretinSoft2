@@ -198,13 +198,14 @@ namespace pe.edu.pucp.ferretin.viewmodel.MVentas
                     else
                     {
                         VentaProducto ventaProducto = new VentaProducto();
+                        ventaProducto.PromocionActual = MV_PromocionService.ultimaPromocionPorProducto(producto, MS_SharedService.usuarioL.Empleado.tiendaActual);
                         ventaProducto.canjeado = false;
                         ventaProducto.tipoCambio = (decimal)(MS_SharedService.obtenerTipodeCambio());
                         //ventaProducto.montoParcial = producto.moneda==1?producto.precioLista:producto.precioLista.Value*(decimal)(MS_SharedService.obtenerTipodeCambio());
                         ventaProducto.Venta = venta;
                         ventaProducto.Producto = producto;
                         ventaProducto.cantidad = 1;
-                        ventaProducto.PromocionActual = MV_PromocionService.ultimaPromocionPorProducto(producto);
+                        
                         ventaProducto.PropertyChanged += actualizarMontosVenta;
                         
                         venta.VentaProducto.Add(ventaProducto);

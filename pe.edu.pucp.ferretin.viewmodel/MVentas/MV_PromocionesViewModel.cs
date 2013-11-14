@@ -1,5 +1,6 @@
 ﻿using pe.edu.pucp.ferretin.controller;
 using pe.edu.pucp.ferretin.controller.MAlmacen;
+using pe.edu.pucp.ferretin.controller.MSeguridad;
 using pe.edu.pucp.ferretin.controller.MVentas;
 using pe.edu.pucp.ferretin.model;
 using pe.edu.pucp.ferretin.viewmodel.Helper;
@@ -119,7 +120,22 @@ namespace pe.edu.pucp.ferretin.viewmodel.MVentas
                 switch (_statusTab)
                 {
                     case Tab.BUSQUEDA: detallesTabHeader = soloSeleccionarPromocion ? "Detalles" : "Agregar"; break;//Si es agregar, creo un nuevo objeto Promocion
-                    case Tab.AGREGAR: detallesTabHeader = "Agregar"; promocion = new Promocion(); break;//Si es agregar, creo un nuevo objeto Promocion
+                    case Tab.AGREGAR: 
+                        {
+                            detallesTabHeader = "Agregar"; 
+                            var p = new Promocion();
+                            foreach (var tienda in MS_SharedService.tiendas)
+                            {
+
+                                p.PromocionTienda.Add(new PromocionTienda()
+                                {
+                                    activo = false,
+                                    Tienda = tienda
+                                });
+                            }
+                            promocion = p;
+                            break;
+                        }
                     case Tab.MODIFICAR: detallesTabHeader = "Modificar"; break;
                     case Tab.DETALLES: detallesTabHeader = "Detalles"; break;
                 }
@@ -326,6 +342,7 @@ namespace pe.edu.pucp.ferretin.viewmodel.MVentas
             if (result == MessageBoxResult.OK)
             {
                 MV_PromocionService.db.Refresh(System.Data.Linq.RefreshMode.OverwriteCurrentValues, this.promocion);
+                listaPromociones = null;
                 this.statusTab = Tab.BUSQUEDA;
             }
         }

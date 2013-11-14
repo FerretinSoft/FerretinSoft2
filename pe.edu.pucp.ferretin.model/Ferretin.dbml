@@ -535,16 +535,6 @@
       <Association Name="Promocion_PromocionProducto" Member="Promocion" ThisKey="promocion_id" OtherKey="id" Type="Promocion" IsForeignKey="true" />
     </Type>
   </Table>
-  <Table Name="dbo.PromocionTienda" Member="PromocionTienda">
-    <Type Name="PromocionTienda">
-      <Column Name="id" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
-      <Column Name="promocion_id" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="tienda_id" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="activo" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
-      <Association Name="Promocion_PromocionTienda" Member="Promocion" ThisKey="promocion_id" OtherKey="id" Type="Promocion" IsForeignKey="true" />
-      <Association Name="Tienda_PromocionTienda" Member="Tienda" ThisKey="tienda_id" OtherKey="id" Type="Tienda" IsForeignKey="true" />
-    </Type>
-  </Table>
   <Table Name="dbo.Proveedor" Member="Proveedor">
     <Type Name="Proveedor">
       <Column Name="id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
@@ -658,10 +648,10 @@
       <Association Name="Tienda_Movimiento" Member="Movimiento" ThisKey="id" OtherKey="id_almacen_desde" Type="Movimiento" />
       <Association Name="Tienda_Movimiento1" Member="Movimiento1" ThisKey="id" OtherKey="id_almacen_hasta" Type="Movimiento" />
       <Association Name="Tienda_ProductoAlmacen" Member="ProductoAlmacen" ThisKey="id" OtherKey="id_almacen" Type="ProductoAlmacen" />
-      <Association Name="Tienda_PromocionTienda" Member="PromocionTienda" ThisKey="id" OtherKey="tienda_id" Type="PromocionTienda" />
       <Association Name="Tienda_SolicitudAbastecimiento" Member="SolicitudAbastecimiento" ThisKey="id" OtherKey="id_almacen" Type="SolicitudAbastecimiento" />
       <Association Name="Tienda_Tienda" Member="Tienda2" ThisKey="id" OtherKey="id_abastecedor" Type="Tienda" />
       <Association Name="Tienda_TiendaHorario" Member="TiendaHorario" ThisKey="id" OtherKey="id_almacen" Type="TiendaHorario" />
+      <Association Name="Tienda_PromocionTienda" Member="PromocionTienda" ThisKey="id" OtherKey="tienda_id" Type="PromocionTienda" />
       <Association Name="Tienda_Tienda" Member="Tienda1" ThisKey="id_abastecedor" OtherKey="id" Type="Tienda" IsForeignKey="true" />
       <Association Name="Empleado_Tienda" Member="Empleado" ThisKey="id_jefe" OtherKey="id" Type="Empleado" IsForeignKey="true" />
       <Association Name="UbigeoDistrito_Tienda" Member="UbigeoDistrito" ThisKey="id_ubigeo" OtherKey="id" Type="UbigeoDistrito" IsForeignKey="true" />
@@ -812,6 +802,16 @@
       <Association Name="Vale_VentaMedioPago" Member="Vale" ThisKey="vale_id" OtherKey="id" Type="Vale" IsForeignKey="true" />
       <Association Name="MedioPago_VentaMedioPago" Member="MedioPago" ThisKey="id_medio_pago" OtherKey="id" Type="MedioPago" IsForeignKey="true" />
       <Association Name="Venta_VentaMedioPago" Member="Venta" ThisKey="id_venta" OtherKey="id" Type="Venta" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.PromocionTienda" Member="PromocionTienda">
+    <Type Name="PromocionTienda">
+      <Column Name="promocion_id" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="tienda_id" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="activo" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Association Name="Promocion_PromocionTienda" Member="Promocion" ThisKey="promocion_id" OtherKey="id" Type="Promocion" IsForeignKey="true" />
+      <Association Name="Tienda_PromocionTienda" Member="Tienda" ThisKey="tienda_id" OtherKey="id" Type="Tienda" IsForeignKey="true" />
     </Type>
   </Table>
 </Database>
