@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 
 namespace pe.edu.pucp.ferretin.model
 {
+
     public partial class Proveedor : IDataErrorInfo
     {
         #region atributos
@@ -124,6 +125,24 @@ namespace pe.edu.pucp.ferretin.model
                         if (UbigeoDistrito == null || String.IsNullOrEmpty(UbigeoDistrito.id))
                         {
                             errorMessage = "Debe seleccionar un Pais, Provincia, Ciudad y Distrito";
+                        }
+                        break;
+
+                    case "direccion":
+                        if (String.IsNullOrEmpty(direccion))
+                        {
+                        
+                                errorMessage = "Debe ingresar la Dirección del Proveedor";
+                           
+                        }
+                        break;
+                    case "id_rubro":
+                        
+                        if (id_rubro <1 || id_rubro==null || id_rubro >6)
+                        {
+
+                            errorMessage = "Debe seleccionar un Rubro";
+
                         }
                         break;
                 }

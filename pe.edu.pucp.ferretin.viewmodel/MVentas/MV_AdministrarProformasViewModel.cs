@@ -1,4 +1,5 @@
-﻿using pe.edu.pucp.ferretin.controller.MAlmacen;
+﻿using pe.edu.pucp.ferretin.controller;
+using pe.edu.pucp.ferretin.controller.MAlmacen;
 using pe.edu.pucp.ferretin.controller.MSeguridad;
 using pe.edu.pucp.ferretin.controller.MVentas;
 using pe.edu.pucp.ferretin.model;
@@ -20,7 +21,8 @@ namespace pe.edu.pucp.ferretin.viewmodel.MVentas
     {
         #region Atributos del Buscador
         public string codProformaSearch { get; set; }
-        public Cliente clienteSearch { get; set; }
+        private Cliente _clienteSearch;
+        public Cliente clienteSearch { get { return _clienteSearch; } set { _clienteSearch = value; NotifyPropertyChanged("clienteSearch"); } }
 
         private DateTime _fechaDesdeSearch = DateTime.Today.AddDays(-30);
         public DateTime fechaDesdeSearch
@@ -401,7 +403,7 @@ namespace pe.edu.pucp.ferretin.viewmodel.MVentas
         {
             try
             {
-                this.proforma = listaProformas.Single(p => p.id == (int)id);
+                this.proforma = MV_ProformasService.db.Proforma.Single(p => p.id == (int)id);
 
                 
                 this.statusTab = Tab.DETALLES;
@@ -428,6 +430,7 @@ namespace pe.edu.pucp.ferretin.viewmodel.MVentas
                 }
                 else
                 {
+                    ComunService.idVentana(48);
                     if (!MV_ProformasService.insertarProforma(proforma))
                     {
                         MessageBox.Show("No se pudo agregar la nueva Proforma");
@@ -489,12 +492,12 @@ namespace pe.edu.pucp.ferretin.viewmodel.MVentas
                     else
                     {
                         ProformaProducto proformaProducto = new ProformaProducto();
+                        proformaProducto.PromocionActual = MV_PromocionService.ultimaPromocionPorProducto(producto, MS_SharedService.usuarioL.Empleado.tiendaActual);
                         proformaProducto.tipoCambio = (decimal)MS_SharedService.obtenerTipodeCambio();
-                        proformaProducto.montoParcial = producto.precioLista;
                         proformaProducto.Proforma = proforma;
                         proformaProducto.Producto = producto;
                         proformaProducto.cantidad = 1;
-                        proformaProducto.PromocionActual = MV_PromocionService.ultimaPromocionPorProducto(producto);
+                        
                         proformaProducto.PropertyChanged += actualizarMontosProforma;
                         
                         proforma.ProformaProducto.Add(proformaProducto);

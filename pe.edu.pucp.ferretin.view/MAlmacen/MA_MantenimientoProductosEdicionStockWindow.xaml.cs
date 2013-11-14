@@ -23,5 +23,10 @@ namespace pe.edu.pucp.ferretin.view.MAlmacen
         {
             InitializeComponent();
         }
+
+        private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            //e.Cancel = true;
+        }
     }
 }

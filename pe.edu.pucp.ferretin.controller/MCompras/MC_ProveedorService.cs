@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Data.Linq;
 using System.Linq;
 
+
 namespace pe.edu.pucp.ferretin.controller.MCompras
 {
    public class MC_ProveedorService:MC_ComunService
@@ -138,6 +139,19 @@ namespace pe.edu.pucp.ferretin.controller.MCompras
             {
                 return false;
             }
+        }
+
+        public static IEnumerable<Proveedor> obtenerPosiblesProveedores(ProductoAlmacen pa)
+        {
+            IEnumerable<ProveedorProducto> productos = (from p in listaProductos
+                                                  where
+                                                  (p.id_producto != null && p.Producto == pa.Producto)                                                
+                                                  select p);
+
+            IEnumerable<Proveedor> proveedores = (from p in productos
+                                                  select p.Proveedor).Take(4);
+
+            return proveedores;
         }
 
         #endregion

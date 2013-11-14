@@ -1,6 +1,7 @@
 ﻿
 namespace pe.edu.pucp.ferretin.model
 {
+
     public partial class DocumentoCompra
     {
         public string tipoDC

@@ -26,13 +26,13 @@ namespace pe.edu.pucp.ferretin.view.MAlmacen
         public MA_MantenimientoProductosWindow()
         {
             InitializeComponent();
-            this.txtCodigo.IsEnabled = false;
+            //this.txtCodigo.IsEnabled = false;
         }
 
         private void nuevoProductoBtn_Click(object sender, RoutedEventArgs e)
         {
             //Click en icono +
-            this.txtCodigo.IsEnabled = true;
+            //this.txtCodigo.IsEnabled = true;
             this.cmbTienda.IsEnabled = false;
             productoTabControl.SelectedIndex = 1;
 
@@ -41,14 +41,14 @@ namespace pe.edu.pucp.ferretin.view.MAlmacen
         private void TextBlock_MouseUp(object sender, MouseButtonEventArgs e)
         {
             //Click directo en agregar producto
-            this.txtCodigo.IsEnabled = true;
+            //this.txtCodigo.IsEnabled = true;
             this.cmbTienda.IsEnabled = false;
         }
 
         private void TabItem_MouseUp(object sender, MouseButtonEventArgs e)
         {
             //Editar producto
-            this.txtCodigo.IsEnabled = false;
+            //this.txtCodigo.IsEnabled = false;
             this.cmbTienda.IsEnabled = true;
         }
 
@@ -100,8 +100,8 @@ namespace pe.edu.pucp.ferretin.view.MAlmacen
 
         private void btnAddColor_Click(object sender, RoutedEventArgs e)
         {
-            MA_ColoresProductosWindow cpw = new MA_ColoresProductosWindow(MA_ProductoService.obtenerIDProducto(txtCodigo.Text));
-            cpw.Show();
+            //MA_ColoresProductosWindow cpw = new MA_ColoresProductosWindow(MA_ProductoService.obtenerIDProducto(txtCodigo.Text));
+            //cpw.Show();
         }
 
       
@@ -110,6 +110,17 @@ namespace pe.edu.pucp.ferretin.view.MAlmacen
         {
             //Validaciones
 
+            String ultimoCodigo = MA_ProductoService.obtenerUltimoCodigo();
+            int cod = Convert.ToInt32(ultimoCodigo) + 1;
+            String newCod=cod.ToString();
+
+            for (int i = 0; i < 10 - (cod.ToString()).Length; i++)
+                newCod = "0" + newCod;
+            
+            producto.codigo = newCod;
+            
+            
+            
             if (MA_ProductoService.agregarNuevoProducto(producto))
             {
                 MessageBox.Show("El producto fue agregado con éxito");
@@ -125,19 +136,32 @@ namespace pe.edu.pucp.ferretin.view.MAlmacen
         private void btnGuardar_Click(object sender, RoutedEventArgs e)
         {
             if ((cmbUnidadMed.SelectedItem == null) || (cmbMatBase.SelectedItem==null) || (cmbMatSec.SelectedItem==null) || 
-                (txtCodigo.Text=="") || (txtNombreDet.Text=="") || (txtPrecio.Text==""))
+                (txtNombreDet.Text=="") || (txtPrecio.Text==""))
             {
                 MessageBox.Show("Verifique los datos ingresados");
                 return;
             }
-
-            MA_MantenimientoProductosEdicionStockWindow v = new MA_MantenimientoProductosEdicionStockWindow();
-            v.Owner = this;
             var viewModelThis = this.main.DataContext as MA_MantenimientoProductosViewModel;
-            guardarBtn(viewModelThis.producto);
-            var viewModel = v.main.DataContext as MA_MantenimientoProductosEdicionStockViewModel;
-            viewModel.producto = viewModelThis.producto;
-            v.Show();
+            //Edición
+            
+            if (productoTabControl.SelectedValue.ToString().Contains("Edición de Producto"))
+            {
+                MA_ProductoService.actualizarProducto(viewModelThis.listaCategorias,viewModelThis.producto);
+                MessageBox.Show("El producto fue modificado con éxito");
+                productoTabControl.SelectedIndex = 0;
+            }
+            else //Nuevo producto
+            {
+
+                MA_MantenimientoProductosEdicionStockWindow v = new MA_MantenimientoProductosEdicionStockWindow();
+                v.Owner = this;
+                guardarBtn(viewModelThis.producto);
+                viewModelThis.guardarCategoriasProducto();
+                var viewModel = v.main.DataContext as MA_MantenimientoProductosEdicionStockViewModel;
+                viewModel.producto = viewModelThis.producto;
+                productoTabControl.SelectedIndex = 0;
+                v.Show();
+            }
         }
     }
 }

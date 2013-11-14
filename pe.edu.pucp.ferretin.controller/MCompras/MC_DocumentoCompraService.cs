@@ -6,6 +6,7 @@ using System.Linq;
 
 namespace pe.edu.pucp.ferretin.controller.MCompras
 {
+
     public class MC_DocumentoCompraService : MC_ComunService
     {
 
@@ -59,6 +60,27 @@ namespace pe.edu.pucp.ferretin.controller.MCompras
             set
             {
                 _listaProductosDC = value;
+            }
+        }
+
+        private static IEnumerable<DocumentoCompraEstado> _listaEstadosDC;
+        public static IEnumerable<DocumentoCompraEstado> listaEstadosDC
+        {
+            get
+            {
+                if (_listaEstadosDC == null)
+                {
+                    _listaEstadosDC = db.DocumentoCompraEstado;
+                }
+                //Usando concurrencia pesimista:
+                ///La lista de documentos de compra se actualizara para ver los cambios
+                ///Si quisiera usar concurrencia optimista quito la siguiente linea
+                db.Refresh(RefreshMode.OverwriteCurrentValues, _listaEstadosDC);
+                return _listaEstadosDC;
+            }
+            set
+            {
+                _listaEstadosDC = value;
             }
         }
 
@@ -146,6 +168,19 @@ namespace pe.edu.pucp.ferretin.controller.MCompras
                    (d.codigo != null)
                    orderby d.codigo
                    select d;
+        }
+
+        //obtenerEstado
+        public static DocumentoCompraEstado obtenerEstado(int id)
+        {
+
+            IEnumerable<DocumentoCompraEstado> estados = (from e in listaEstadosDC
+                                                       where e.id == id
+                                                       select e);
+            if (estados.Count() > 0)
+                return estados.First();
+            else
+                return null;          
         }
 
         public static IEnumerable<DocumentoCompraEstado> obtenerEstadosPorTipoDC(int tipoDocumento)

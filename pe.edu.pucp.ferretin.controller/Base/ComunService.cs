@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+
 namespace pe.edu.pucp.ferretin.controller
 {
     /// <summary>
@@ -129,7 +130,14 @@ namespace pe.edu.pucp.ferretin.controller
         {
             usuarioL = user;
         }
-
+        /*********************************************/
+        //Tienda que esta siendo agregada al sistema.
+        public static Tienda tienda;
+        public static void tiendaAg(Tienda tnd)
+        {            
+            tienda = tnd;
+        }
+        /*********************************************/
         //Permisos del usuario logueado al sistema.
         public static List<PerfilMenu> usuarioLpermisos;
         public static void obtenerPermisos(Usuario usuario)

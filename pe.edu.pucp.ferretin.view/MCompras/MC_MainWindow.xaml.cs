@@ -30,11 +30,13 @@ namespace pe.edu.pucp.ferretin.view.MCompras
         {
             if (ComunService.usuarioLpermisos[16].estado == true)
             {
-                MAlmacen.MA_RegistroSolAbastecimientoWindow solabas = new MAlmacen.MA_RegistroSolAbastecimientoWindow();
-                solabas.consolidarBtn.Visibility = System.Windows.Visibility.Visible;
-                //solabas.atenderSolTab.Visibility = System.Windows.Visibility.Hidden;
-                solabas.generarSolTab.Visibility = System.Windows.Visibility.Hidden;
-                solabas.ShowDialog();
+                //MAlmacen.MA_RegistroSolAbastecimientoWindow solabas = new MAlmacen.MA_RegistroSolAbastecimientoWindow();
+                //solabas.consolidarBtn.Visibility = System.Windows.Visibility.Visible;
+                ////solabas.atenderSolTab.Visibility = System.Windows.Visibility.Hidden;
+                //solabas.generarSolTab.Visibility = System.Windows.Visibility.Hidden;
+                //solabas.ShowDialog();
+                MC_AtenderSolicitudWindow solabs = new MC_AtenderSolicitudWindow();
+                solabs.Show();
             }
             else
             {

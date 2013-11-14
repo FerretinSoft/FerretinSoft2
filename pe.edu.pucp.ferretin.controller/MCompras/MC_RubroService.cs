@@ -3,6 +3,7 @@ using pe.edu.pucp.ferretin.model;
 using System.Collections.Generic;
 using System.Linq;
 
+
 namespace pe.edu.pucp.ferretin.controller.MCompras
 {
     public class MC_RubroService : MR_ComunService

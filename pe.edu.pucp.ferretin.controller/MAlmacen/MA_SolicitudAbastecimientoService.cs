@@ -71,6 +71,15 @@ namespace pe.edu.pucp.ferretin.controller.MAlmacen
             
         }
 
+        public static IEnumerable<SolicitudAbastecimiento> buscarSolicitudesPendientesPorTienda(Tienda tienda)
+        {
+            SolicitudAbastecimientoEstado estado = estadosSolicitud.Where(es => es.nombre == "Pendiente").FirstOrDefault();
+            return listaSolicitudes
+                .Where(m => (tienda == null) || m.Tienda == tienda)
+                .Where(m => (estado == null) || (estado.id <= 0) || (m.SolicitudAbastecimientoEstado == estado));
+
+        }
+
         public static IEnumerable<SolicitudAbastecimiento> buscar(Tienda almacen, Tienda tienda, SolicitudAbastecimientoEstado estado, DateTime fechaDesde, DateTime fechaHasta)
         {
             return listaSolicitudes

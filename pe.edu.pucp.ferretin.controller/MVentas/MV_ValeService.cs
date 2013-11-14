@@ -57,7 +57,7 @@ namespace pe.edu.pucp.ferretin.controller.MVentas
             return from c in listaLoteVale
                    where
                    (c.codigo != null && c.codigo.Contains(nroCodLote)
-                   && c.Cliente.nroDoc != null && c.Cliente.nroDoc.Equals(nroDocCliente)
+                   && (c.Cliente == null || nroDocCliente == null || c.Cliente.nroDoc.Equals(nroDocCliente))
                    && c.fechaEmision != null && c.fechaEmision >= fechaInicio           
                     )
                    orderby c.codigo

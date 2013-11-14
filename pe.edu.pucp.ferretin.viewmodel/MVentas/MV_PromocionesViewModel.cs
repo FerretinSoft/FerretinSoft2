@@ -1,4 +1,6 @@
-﻿using pe.edu.pucp.ferretin.controller.MAlmacen;
+﻿using pe.edu.pucp.ferretin.controller;
+using pe.edu.pucp.ferretin.controller.MAlmacen;
+using pe.edu.pucp.ferretin.controller.MSeguridad;
 using pe.edu.pucp.ferretin.controller.MVentas;
 using pe.edu.pucp.ferretin.model;
 using pe.edu.pucp.ferretin.viewmodel.Helper;
@@ -118,7 +120,22 @@ namespace pe.edu.pucp.ferretin.viewmodel.MVentas
                 switch (_statusTab)
                 {
                     case Tab.BUSQUEDA: detallesTabHeader = soloSeleccionarPromocion ? "Detalles" : "Agregar"; break;//Si es agregar, creo un nuevo objeto Promocion
-                    case Tab.AGREGAR: detallesTabHeader = "Agregar"; promocion = new Promocion(); break;//Si es agregar, creo un nuevo objeto Promocion
+                    case Tab.AGREGAR: 
+                        {
+                            detallesTabHeader = "Agregar"; 
+                            var p = new Promocion();
+                            foreach (var tienda in MS_SharedService.tiendas)
+                            {
+
+                                p.PromocionTienda.Add(new PromocionTienda()
+                                {
+                                    activo = false,
+                                    Tienda = tienda
+                                });
+                            }
+                            promocion = p;
+                            break;
+                        }
                     case Tab.MODIFICAR: detallesTabHeader = "Modificar"; break;
                     case Tab.DETALLES: detallesTabHeader = "Detalles"; break;
                 }
@@ -270,7 +287,7 @@ namespace pe.edu.pucp.ferretin.viewmodel.MVentas
         {
             try
             {
-                this.promocion = listaPromociones.Single(promocion => promocion.id == (int)id);
+                this.promocion = MV_PromocionService.db.Promocion.Single(promocion => promocion.id == (int)id);
                 
                 if (soloSeleccionarPromocion)
                     this.statusTab = Tab.DETALLES;
@@ -294,6 +311,7 @@ namespace pe.edu.pucp.ferretin.viewmodel.MVentas
 
                 if (promocion.id > 0)//Si existe
                 {
+                    ComunService.idVentana(48);
                     if (!MV_PromocionService.enviarCambios())
                     {
                         MessageBox.Show("No se pudo actualizar el promocion");
@@ -305,6 +323,7 @@ namespace pe.edu.pucp.ferretin.viewmodel.MVentas
                 }
                 else
                 {
+                    ComunService.idVentana(48);
                     if (!MV_PromocionService.insertarPromocion(promocion))
                     {
                         MessageBox.Show("No se pudo agregar el nuevo promocion");
@@ -318,8 +337,14 @@ namespace pe.edu.pucp.ferretin.viewmodel.MVentas
         }
         public void cancelPromocion(Object obj)
         {
-            MV_PromocionService.db.Refresh(System.Data.Linq.RefreshMode.OverwriteCurrentValues, this.promocion);
-            this.statusTab = Tab.BUSQUEDA;
+            MessageBoxResult result =MessageBox.Show("Al salir, perderá todos los datos ingresados. ¿Desea continuar?",
+                                        "ATENCIÓN", MessageBoxButton.OKCancel, MessageBoxImage.Warning);
+            if (result == MessageBoxResult.OK)
+            {
+                MV_PromocionService.db.Refresh(System.Data.Linq.RefreshMode.OverwriteCurrentValues, this.promocion);
+                listaPromociones = null;
+                this.statusTab = Tab.BUSQUEDA;
+            }
         }
 
         private bool canSaveExecute(object obj)

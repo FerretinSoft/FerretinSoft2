@@ -1,4 +1,5 @@
 ﻿using Microsoft.Win32;
+using pe.edu.pucp.ferretin.controller;
 using pe.edu.pucp.ferretin.controller.MVentas;
 using pe.edu.pucp.ferretin.model;
 using pe.edu.pucp.ferretin.viewmodel.Helper;
@@ -387,6 +388,7 @@ namespace pe.edu.pucp.ferretin.viewmodel.MVentas
 
                 if (cliente.id > 0)//Si existe
                 {
+                    ComunService.idVentana(46);
                     if (!MV_ClienteService.enviarCambios())
                     {
                         MessageBox.Show("No se pudo actualizar el cliente");
@@ -400,6 +402,7 @@ namespace pe.edu.pucp.ferretin.viewmodel.MVentas
                 }
                 else
                 {
+                    ComunService.idVentana(45);
                     if (!MV_ClienteService.insertarCliente(cliente))
                     {
                         MessageBox.Show("No se pudo agregar el nuevo cliente");
@@ -419,7 +422,12 @@ namespace pe.edu.pucp.ferretin.viewmodel.MVentas
         }
         public void cancelCliente(Object obj)
         {
-            this.statusTab = Tab.BUSQUEDA;
+            MessageBoxResult result =MessageBox.Show("Al salir, perderá todos los datos ingresados. ¿Desea continuar?",
+                                        "ATENCIÓN", MessageBoxButton.OKCancel, MessageBoxImage.Warning);
+            if (result == MessageBoxResult.OK)
+            {
+                this.statusTab = Tab.BUSQUEDA;
+            }
         }
 
         private bool canSaveExecute(object obj)
