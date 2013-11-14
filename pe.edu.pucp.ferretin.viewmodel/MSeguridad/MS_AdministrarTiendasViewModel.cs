@@ -372,12 +372,19 @@ namespace pe.edu.pucp.ferretin.viewmodel.MSeguridad
             }
             NotifyPropertyChanged("listaAlmacenes");
         }
-
+        //Mensaje de Advertencia al presionar el boton CANCELAR
         public void cancelAlmacen(Object obj)
         {
-            this.statusTab = Tab.BUSQUEDA;
-            listaAlmacenes = MS_TiendaService.listaTiendas;
+            MessageBoxResult result =MessageBox.Show("Al salir, perderá todos los datos ingresados. ¿Desea continuar?",
+            "ATENCIÓN", MessageBoxButton.OKCancel, MessageBoxImage.Warning);
+            if (result == MessageBoxResult.OK)
+            {
+                this.statusTab = Tab.BUSQUEDA;
+                listaAlmacenes = MS_TiendaService.listaTiendas;
+            }
         }
+
+
         #endregion
 
         void buscarJefe(object var)
@@ -422,25 +429,30 @@ namespace pe.edu.pucp.ferretin.viewmodel.MSeguridad
         public ImageSource tiendaImagen
         {
             get
-            {                
-                if (this.almacen.foto != null)
+            {
+                try
                 {
-                    MemoryStream strm = new MemoryStream();
-                    strm.Write(almacen.foto.ToArray(), 0, almacen.foto.Length);
-                    strm.Position = 0;
-                    System.Drawing.Image img = System.Drawing.Image.FromStream(strm);
+                    if (this.almacen.foto != null)
+                    {
+                        MemoryStream strm = new MemoryStream();
+                        strm.Write(almacen.foto.ToArray(), 0, almacen.foto.Length);
+                        strm.Position = 0;
+                        System.Drawing.Image img = System.Drawing.Image.FromStream(strm);
 
-                    BitmapImage bitmapImage = new BitmapImage();
-                    bitmapImage.BeginInit();
-                    MemoryStream memoryStream = new MemoryStream();
-                    img.Save(memoryStream, System.Drawing.Imaging.ImageFormat.Bmp);
-                    memoryStream.Seek(0, SeekOrigin.Begin);
-                    bitmapImage.StreamSource = memoryStream;
-                    bitmapImage.EndInit();
+                        BitmapImage bitmapImage = new BitmapImage();
+                        bitmapImage.BeginInit();
+                        MemoryStream memoryStream = new MemoryStream();
+                        img.Save(memoryStream, System.Drawing.Imaging.ImageFormat.Bmp);
+                        memoryStream.Seek(0, SeekOrigin.Begin);
+                        bitmapImage.StreamSource = memoryStream;
+                        bitmapImage.EndInit();
 
-                    _tiendaImagen = bitmapImage;
-                }                 
-                 return _tiendaImagen;
+                        _tiendaImagen = bitmapImage;
+                    }
+                    return _tiendaImagen;
+                } catch(Exception e){
+                    return _tiendaImagen;
+                }
              
             }
             set
