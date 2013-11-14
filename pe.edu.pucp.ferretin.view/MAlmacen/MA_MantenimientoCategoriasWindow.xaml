@@ -31,7 +31,7 @@
         <Label Content="Nombre de categoría:" HorizontalAlignment="Left" Margin="307,49,0,0" VerticalAlignment="Top"/>
         <Label Content="Categorías padre:" HorizontalAlignment="Left" Margin="307,86,0,0" VerticalAlignment="Top"/>
         <Label Content="Descripción:" HorizontalAlignment="Left" Margin="307,129,0,0" VerticalAlignment="Top"/>
-        <TextBox Text="{Binding Path=CategoriaSeleccionada.nombre,Mode=TwoWay}"  HorizontalAlignment="Left" Height="23" Margin="438,49,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="229"/>
+        <TextBox Text="{Binding Path=CategoriaSeleccionada.nombre,Mode=TwoWay}"  HorizontalAlignment="Left" Height="23" Margin="438,49,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="229" PreviewKeyDown="TextBox_PreviewKeyDown"/>
         <ComboBox ItemsSource="{Binding Path=categoriasPadre,Mode=TwoWay}" DisplayMemberPath="nombre" SelectedItem="{Binding Path=CategoriaSeleccionada.Categoria1}" HorizontalAlignment="Left" Margin="438,88,0,0" VerticalAlignment="Top" Width="229"/>
         <TextBox Text="{Binding Path=CategoriaSeleccionada.descripcion,Mode=TwoWay}" Height="84" Margin="438,129,31,0" TextWrapping="Wrap" VerticalAlignment="Top"/>
         <Button Command="{Binding saveCategoriaCommand}" Content="GUARDAR" HorizontalAlignment="Left" Margin="438,255,0,0" VerticalAlignment="Top" Width="76" Height="30"/>
