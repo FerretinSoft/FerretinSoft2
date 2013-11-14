@@ -169,6 +169,32 @@ namespace pe.edu.pucp.ferretin.viewmodel.MCompras
             }
         }
 
+        public Visibility ingresaFactura
+        {
+            get
+            {
+                if (documentoCompra.id > 0)
+                {
+                    if (documentoCompra.tipo == 2) // ES ORDEN DE COMPRA
+                    {
+                        switch (documentoCompra.DocumentoCompraEstado.nombre)
+                        {
+                            case "Emitida":
+                                return Visibility.Visible;
+                            case "Facturada":
+                                return Visibility.Visible;
+                            default:
+                                return Visibility.Hidden;
+                        }
+                    }
+                    else // ES COTIZACION
+                        return Visibility.Hidden;
+                    
+                }
+                return Visibility.Hidden;
+            }
+        }
+
         private IEnumerable<DocumentoCompraEstado> _listaEstadosDC;
         public IEnumerable<DocumentoCompraEstado> listaEstadosDC
         {
@@ -383,6 +409,8 @@ namespace pe.edu.pucp.ferretin.viewmodel.MCompras
                 NotifyPropertyChanged("btnAprobarLabel");
                 NotifyPropertyChanged("generarAprobar");
                 NotifyPropertyChanged("isCreatingFechaPago");
+                NotifyPropertyChanged("ingresaFactura");
+                
                 //NotifyPropertyChanged("usuarioIngreso");
             }
         }

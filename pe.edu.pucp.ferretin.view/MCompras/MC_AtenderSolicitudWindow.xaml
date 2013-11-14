@@ -39,11 +39,28 @@
                             <DataGridTemplateColumn Width="3*" Header="Proveedor" >
                                 <DataGridTemplateColumn.CellTemplate>
                                     <DataTemplate>
-                                        <ComboBox Margin="2" ItemsSource="{Binding  posiProveedor}" DisplayMemberPath="razonSoc" SelectedItem="{Binding selectedProveedor}"/>
+                                        <ComboBox Margin="2" ItemsSource="{Binding  posiProveedor}" DisplayMemberPath="razonSoc"/>
                                         </DataTemplate>
                                     </DataGridTemplateColumn.CellTemplate>
                                 </DataGridTemplateColumn>
-                            
+
+
+
+                            <DataGridComboBoxColumn Header="PROVEEDOR" SelectedValueBinding="{Binding Path=selectedProveedor}" DisplayMemberPath="razonSoc" SelectedValuePath="razonSoc">
+                                <DataGridComboBoxColumn.ElementStyle>
+                                    <Style TargetType="ComboBox">
+                                        <Setter Property="ItemsSource" Value="{Binding Path=posiProveedor}" />
+                                    </Style>
+                                </DataGridComboBoxColumn.ElementStyle>
+                                <DataGridComboBoxColumn.EditingElementStyle>
+                                    <Style TargetType="ComboBox">
+                                        <Setter Property="ItemsSource" Value="{Binding Path=posiProveedor}" />
+                                    </Style>
+                                </DataGridComboBoxColumn.EditingElementStyle>
+                            </DataGridComboBoxColumn>
+
+
+
                             <DataGridTemplateColumn Header="Seleccionar">
                                 <DataGridTemplateColumn.CellTemplate>
                                     <DataTemplate>
