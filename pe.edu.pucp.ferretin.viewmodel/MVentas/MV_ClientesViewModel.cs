@@ -106,8 +106,8 @@ namespace pe.edu.pucp.ferretin.viewmodel.MVentas
                     case Tab.BUSQUEDA:
                         {
                             //Borro si hubo algun cambio que no fue guardado
-                            //ChangeSet changes = MV_ClienteService.db.GetChangeSet();
-                            //MV_ClienteService.db.Refresh(RefreshMode.OverwriteCurrentValues, changes.Updates); 
+                            ChangeSet changes = MV_ClienteService.db.GetChangeSet();
+                            MV_ClienteService.db.Refresh(RefreshMode.OverwriteCurrentValues, changes.Updates); 
 
                             detallesTabHeader = soloSeleccionarCliente ? "Detalles" : "Agregar";
                             NotifyPropertyChanged("listaClientes");
