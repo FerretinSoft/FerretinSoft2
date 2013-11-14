@@ -13,29 +13,29 @@
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition/>
                     </Grid.ColumnDefinitions>
-                    <GroupBox Header="Parámetros" Height="94" Margin="10,10,0,0" BorderBrush="Black" VerticalAlignment="Top" Width="652" HorizontalAlignment="Left"/>
-                    <Label Content="Código:" HorizontalAlignment="Left" Height="32" Margin="21,34,0,0" VerticalAlignment="Top" Width="67"/>
-                    <Label Content="Fecha desde:" HorizontalAlignment="Left" Height="31" VerticalAlignment="Top" Width="91" Margin="21,64,0,0"/>
-                    <Label Content="Fecha hasta:" HorizontalAlignment="Left" Height="31" VerticalAlignment="Top" Width="91" Margin="331,64,0,0" RenderTransformOrigin="0.747,0.516"/>
-                    <DatePicker HorizontalAlignment="Left" Margin="111,65,0,0" VerticalAlignment="Top" Width="171" Height="24"/>
-                    <DatePicker HorizontalAlignment="Left" Margin="421,65,0,0" VerticalAlignment="Top" Width="171" RenderTransformOrigin="0.336,0.417" Height="24"/>
-                    <TextBox HorizontalAlignment="Left" Height="22" Margin="111,37,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="171"/>
-                    <Button x:Name="buscarSolicitudAbs" HorizontalAlignment="Left" Margin="616,64,0,0" Width="32" RenderTransformOrigin="0.3,-0.35" Height="32" VerticalAlignment="Top">
+                    <GroupBox Header="Parámetros" Height="73" Margin="10,10,0,0" BorderBrush="Black" VerticalAlignment="Top" Width="790" HorizontalAlignment="Left"/>
+                    <Label Content="Producto:" HorizontalAlignment="Left" Height="32" Margin="21,34,0,0" VerticalAlignment="Top" Width="67"/>
+                    
+
+                    <TextBox HorizontalAlignment="Left" Height="22" Margin="111,37,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="223"/>
+                    <Button x:Name="buscarSolicitudAbs" HorizontalAlignment="Left" Margin="700,34,0,0" Width="32" RenderTransformOrigin="0.3,-0.35" Height="32" VerticalAlignment="Top">
                         <Button.Background>
                             <ImageBrush ImageSource="../Resources/refresh2_48.png"/>
                         </Button.Background>
                     </Button>
-                    <DataGrid Margin="10,109,10,10" Grid.RowSpan="2">
+                    <DataGrid Margin="10,103,9.717,65.005" Grid.RowSpan="2">
                         <DataGrid.Columns>
-                            <DataGridCheckBoxColumn Width="1*" Binding="{x:Null}" CanUserSort="False" CanUserResize="False" ClipboardContentBinding="{x:Null}"/>
-                            <DataGridHyperlinkColumn Width="2*" Binding="{x:Null}" ContentBinding="{x:Null}" ClipboardContentBinding="{x:Null}" Header="Código"/>
-                            <DataGridTextColumn Width="2.5*" Binding="{x:Null}" ClipboardContentBinding="{x:Null}" Header="Fecha Solicitud"/>
-                            <DataGridTextColumn Width="2.5*" Binding="{x:Null}" ClipboardContentBinding="{x:Null}" Header="Fecha Atención"/>
-                            <DataGridTextColumn Width="2.5*" Binding="{x:Null}" ClipboardContentBinding="{x:Null}" Header="Tienda"/>
-                            <DataGridTextColumn Width="2.5*" Binding="{x:Null}" ClipboardContentBinding="{x:Null}" Header="Estado"/>
+                            <DataGridCheckBoxColumn Width="0.5*" Binding="{x:Null}" CanUserSort="False" CanUserResize="False" ClipboardContentBinding="{x:Null}"/>
+                            <DataGridHyperlinkColumn Width="3*" Binding="{x:Null}" ContentBinding="{x:Null}" ClipboardContentBinding="{x:Null}" Header="Producto"/>
+                            <DataGridTextColumn Width="3*" Binding="{x:Null}" ClipboardContentBinding="{x:Null}" Header=" Almacén"/>
+                            <DataGridTextColumn Width="1.5*" Binding="{x:Null}" ClipboardContentBinding="{x:Null}" Header="Stock"/>
+                            <DataGridTextColumn Width="1.5*" Binding="{x:Null}" ClipboardContentBinding="{x:Null}" Header="Cant. Compra"/>
+                            <DataGridTextColumn Width="3.5*" Binding="{x:Null}" ClipboardContentBinding="{x:Null}" Header="Proveedor"/>
+                            <DataGridCheckBoxColumn Width="1.28*" Binding="{x:Null}" ClipboardContentBinding="{x:Null}" Header="Selecciona" />
                         </DataGrid.Columns>
                     </DataGrid>
-                    <Button x:Name="consolidarBtn" Content="CONSOLIDAR" Margin="691,0,10,34" VerticalAlignment="Bottom" Height="30" RenderTransformOrigin="0.594,-0.567"/>
+                    <Button x:Name="consolidarBtn" Content="CONSOLIDAR" Margin="486,0,214.717,20.005" VerticalAlignment="Bottom" Height="30" RenderTransformOrigin="0.594,-0.567" Grid.Row="1" Click="consolidarBtn_Click"/>
+                    <Button x:Name="cancelarBtn" Content="CANCELAR " Margin="623,0,77.717,20.005" VerticalAlignment="Bottom" Height="30" RenderTransformOrigin="0.594,-0.567" Grid.Row="1"/>
                 </Grid>
             </TabItem>
         </TabControl>

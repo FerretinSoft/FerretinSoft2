@@ -94,12 +94,12 @@
                         <ComboBoxItem Content="EMPRESA"></ComboBoxItem>
                         <ComboBoxItem Content="PERSONA NARUTAL"></ComboBoxItem>
                     </ComboBox>
-                    <Label Content="DNI/RUC:" HorizontalAlignment="Left" Margin="10,75,0,0" VerticalAlignment="Top" Grid.ColumnSpan="4" Height="26" Width="61"/>
+                    <Label  Content="{Binding labelCodigo}" HorizontalAlignment="Left" Margin="10,75,0,0" VerticalAlignment="Top" Grid.ColumnSpan="4" Height="26" Width="61"/>
                     <TextBox MaxLength="11"  Text="{Binding Path=proveedor.ruc, Mode=TwoWay, UpdateSourceTrigger=LostFocus, NotifyOnValidationError=True, ValidatesOnDataErrors=True, ValidatesOnExceptions=True}" HorizontalAlignment="Left" Height="23" Margin="101,77,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="144" Grid.Column="3" PreviewTextInput="cod_PreviewTextInput" PreviewKeyDown="cod_PreviewKeyDown"/>
-                    <Label Content="Nombre Proveedor:" HorizontalAlignment="Left" Margin="10,108,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.464,1.231" Grid.ColumnSpan="4" Height="26" Width="119"/>
+                    <Label  Content="{Binding labelNombre}"  HorizontalAlignment="Left" Margin="10,108,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.464,1.231" Grid.ColumnSpan="4" Height="26" Width="119"/>
                     <TextBox Text="{Binding Path=proveedor.razonSoc, Mode=TwoWay, UpdateSourceTrigger=LostFocus, NotifyOnValidationError=True, ValidatesOnDataErrors=True, ValidatesOnExceptions=True}" HorizontalAlignment="Left" Height="23" Margin="101,110,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="214" Grid.Column="3"/>
                     <Label Content="Rubro:" HorizontalAlignment="Left" Margin="10,140,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.464,1.231" Grid.ColumnSpan="4" Height="26" Width="45"/>
-                    <ComboBox ItemsSource="{Binding listaRubros}" DisplayMemberPath="nombre" SelectedItem="{Binding Path=proveedor.Rubro, Mode=TwoWay, ValidatesOnExceptions=True, NotifyOnValidationError= True}"   x:Name="rubroCbx" HorizontalAlignment="Left" Margin="101,141,0,0" VerticalAlignment="Top" Width="144" Grid.Column="3" Height="22">
+                    <ComboBox ItemsSource="{Binding listaRubros}" SelectedIndex="0" DisplayMemberPath="nombre" SelectedItem="{Binding Path=proveedor.Rubro, Mode=TwoWay, UpdateSourceTrigger=LostFocus, NotifyOnValidationError=True, ValidatesOnDataErrors=True, ValidatesOnExceptions=True}"   x:Name="rubroCbx" HorizontalAlignment="Left" Margin="101,141,0,0" VerticalAlignment="Top" Width="144" Grid.Column="3" Height="22">
 
                     </ComboBox>
                     <Label Content="Departamento:" HorizontalAlignment="Left" Margin="10,206,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.464,1.231" Grid.ColumnSpan="4" Height="26" Width="89"/>
