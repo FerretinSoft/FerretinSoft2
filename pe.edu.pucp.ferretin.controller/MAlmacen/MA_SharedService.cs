@@ -193,6 +193,8 @@ namespace pe.edu.pucp.ferretin.controller.MAlmacen
                 current.Movimiento = movimiento;
                 current.Producto = items[i].Producto;
                 movimiento.MovimientoProducto.Add(current);
+                items[i].cantidadAtendida = items[i].cantidadAtendida;
+                items[i].cantidadRestante = 0;
             }
             bool ok = MA_MovimientosService.InsertarMovimiento(movimiento);
             return (ok) ? "" : "Error al registrar el movimiento";
@@ -206,10 +208,26 @@ namespace pe.edu.pucp.ferretin.controller.MAlmacen
         public static Dictionary<ProductoAlmacen, decimal> obtenerProductosPorAbastecer(Tienda almacen)
         {
             Dictionary<ProductoAlmacen, decimal> result = new Dictionary<ProductoAlmacen, decimal>();
+            ProductoAlmacen current; decimal diferencia;
             for (int i = 0; i < almacen.ProductoAlmacen.Count; i++)
 			{
-			    result.Add(almacen.ProductoAlmacen[i], 100);
+                current = almacen.ProductoAlmacen[i];
+                diferencia = (decimal)current.stock - (decimal)current.stockMin;
+                if(diferencia < 0)
+                    result.Add(current, diferencia * -1);
 			}
+            foreach (var item in MA_SolicitudAbastecimientoService.buscarSolicitudesPendientesPorTienda(almacen))
+            {
+                foreach (var prod in item.SolicitudAbastecimientoProducto)
+                {
+                    current = MA_ProductoAlmacenService.ObtenerProductoAlmacenPorTiendaProducto(almacen, prod.Producto);
+                    if (prod.cantidadRestante > current.stock)
+                    {
+                        if (!result.ContainsKey(current))
+                            result.Add(current, (decimal)prod.cantidadRestante - (decimal)current.stock);
+                    }
+                }                
+            }
             return result;
         }
 
