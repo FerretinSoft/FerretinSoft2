@@ -39,13 +39,14 @@ namespace pe.edu.pucp.ferretin.viewmodel.MSeguridad
         public int searchEstado { get { return _searchEstado; } set { _searchEstado = value; NotifyPropertyChanged("searchEstado"); } }
         #endregion
 
+        /************************************************/
         public String _dniEmpleado = "";
         public String dniEmpleado
         {
             get { return _dniEmpleado; }
             set { _dniEmpleado = value; NotifyPropertyChanged("dniEmpleado"); }
         }
-
+        /************************************************/
         public bool editEmpleadoEnabled
         {
             get
@@ -53,7 +54,15 @@ namespace pe.edu.pucp.ferretin.viewmodel.MSeguridad
                 return statusTab == tabs.AGREGAR ? true : false;
             }
         }
-
+        /************************************************/
+        public bool editEmpleadoEnabled2
+        {
+            get
+            {
+                return statusTab == tabs.AGREGAR ? false : true;
+            }
+        }
+        /************************************************/
         public int _busquedaExitosa = 0;
         public int busquedaExitosa
         {
@@ -97,6 +106,7 @@ namespace pe.edu.pucp.ferretin.viewmodel.MSeguridad
                 //Cuando se cambia el status, tambien se tiene que actualizar el currentIndex del tab
                 NotifyPropertyChanged("currentIndexTab"); //Hace que cambie el tab automaticamente
                 NotifyPropertyChanged("editEmpleadoEnabled");
+                NotifyPropertyChanged("editEmpleadoEnabled2");
             }
         }
         /************************************************/
