@@ -7,6 +7,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using pe.edu.pucp.ferretin.viewmodel.Helper;
+using System.Windows.Input;
 
 namespace pe.edu.pucp.ferretin.viewmodel.MCompras
 {
@@ -89,11 +91,41 @@ namespace pe.edu.pucp.ferretin.viewmodel.MCompras
                 _listaProductosSol = value;
                 NotifyPropertyChanged("listaProductosSol");
             }
-
         }
 
         #endregion
 
+        RelayCommand _generarOCSCommand;
+        public ICommand generarOCSCommand
+        {
+            get
+            {
+                if (_generarOCSCommand == null)
+                {
+                    _generarOCSCommand = new RelayCommand(generarOCS);
+                }
+                return _generarOCSCommand;
+
+            }
+        }
+
+        public void generarOCS(Object id)
+        {
+            //Proveedor buscado = null;
+            //int i;
+            //try
+            //{
+            //    buscado = MC_ProveedorService.buscarProveedorByName(this._proveedorNombre);
+            //    documentoCompra.Proveedor = buscado;
+            //    NotifyPropertyChanged("documentoCompra");
+            //}
+            //catch { }
+
+            //if (buscado == null)
+            //{
+            //    MessageBox.Show("No se encontro ninguna Proveedor", "No se encontro", MessageBoxButton.OK, MessageBoxImage.Question);
+            //}
+        }
 
     }
 } 

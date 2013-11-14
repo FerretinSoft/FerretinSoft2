@@ -11,6 +11,6 @@ namespace pe.edu.pucp.ferretin.model
         public ProductoAlmacen producto { get; set; }
         public decimal cantidad {get; set;}
         public IEnumerable<Proveedor> posiProveedor { get; set; }
-
+        public Proveedor selectedProveedor { get; set; }
     }
 }
