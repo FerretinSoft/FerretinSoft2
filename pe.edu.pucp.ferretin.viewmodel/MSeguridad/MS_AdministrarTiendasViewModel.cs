@@ -3,6 +3,7 @@ using pe.edu.pucp.ferretin.controller;
 using pe.edu.pucp.ferretin.controller.MRecursosHumanos;
 using pe.edu.pucp.ferretin.controller.MSeguridad;
 using pe.edu.pucp.ferretin.model;
+//using pe.edu.pucp.ferretin.tdd.MSeguridad;
 using pe.edu.pucp.ferretin.viewmodel.Helper;
 using System;
 using System.Collections.Generic;
@@ -20,6 +21,46 @@ namespace pe.edu.pucp.ferretin.viewmodel.MSeguridad
 {
     public class MS_AdministrarTiendasViewModel : ViewModelBase
     {
+        /*
+        private static Tienda _tnd;
+        public static Tienda tnd
+        {
+            get
+            {
+                return _tnd;
+            }
+            set
+            {
+                _tnd = value;                  
+            }
+        }
+        */
+
+        
+        private string _NameAlmacen=null;
+        public string NameAlmacen
+        {
+            get
+            {
+                 if (_NameAlmacen==null) _NameAlmacen = almacen.nombre;
+                return _NameAlmacen;
+            }
+            set
+            {
+                _NameAlmacen = value;               
+                NotifyPropertyChanged("NameAlmacen");
+            }
+        }
+        
+
+
+
+        //public MS_AdministrarTiendasViewModel()
+        //{
+        //    this.Valor = almacen.nombre;
+        //}
+
+
         #region Valores para el cuadro de Búsqueda
 
         public String _dniJefe = "";
@@ -294,7 +335,7 @@ namespace pe.edu.pucp.ferretin.viewmodel.MSeguridad
         #endregion
 
         #region Comandos
-
+        /**************************************************/
         public void uploadImage(Object id)
         {
             OpenFileDialog op = new OpenFileDialog();
@@ -318,7 +359,7 @@ namespace pe.edu.pucp.ferretin.viewmodel.MSeguridad
                 NotifyPropertyChanged("tiendaImagen");
             }
         }
-
+        /**************************************************/
         public void viewEditAlmacen(Object id)
         {
             try
@@ -336,9 +377,10 @@ namespace pe.edu.pucp.ferretin.viewmodel.MSeguridad
                 MessageBox.Show(e.Message);
             }
         }
+        /**************************************************/
         public void saveAlmacen(Object obj)
         {            
-            if (almacen.id > 0)//Si existe
+            if (almacen.id > 0)//Actualizar Tienda
             {
                 ComunService.idVentana(8);
                 if (VerificaCamposObligatorios(almacen) && VerificaHorario(almacen))
@@ -356,6 +398,10 @@ namespace pe.edu.pucp.ferretin.viewmodel.MSeguridad
             }
             else
             {
+                //Para una tienda nueva
+                /*Se envia el almacen para analizar sus valores ingresados TDD*/
+                //ComunService.tiendaAg(almacen);
+                //MS_AdministrarTiendasTest.nombre_tienda_debe_ser_diferente_de_vacio();
                 ComunService.idVentana(7);
                 if (VerificaCamposObligatorios(almacen) && VerificaHorario(almacen))
                 {
@@ -372,6 +418,7 @@ namespace pe.edu.pucp.ferretin.viewmodel.MSeguridad
             }
             NotifyPropertyChanged("listaAlmacenes");
         }
+        /**************************************************/
         //Mensaje de Advertencia al presionar el boton CANCELAR
         public void cancelAlmacen(Object obj)
         {
@@ -387,6 +434,7 @@ namespace pe.edu.pucp.ferretin.viewmodel.MSeguridad
 
         #endregion
 
+        /**************************************************/
         void buscarJefe(object var)
         {
             if (dniJefe.Trim().Length > 0)
@@ -407,7 +455,7 @@ namespace pe.edu.pucp.ferretin.viewmodel.MSeguridad
                 MessageBox.Show("Debe ingresar el DNI de algún Jefe");                
             }
         }
-
+        /**************************************************/
         private Tienda _selectedTienda;
         public Tienda selectedTienda
         {
@@ -424,7 +472,7 @@ namespace pe.edu.pucp.ferretin.viewmodel.MSeguridad
                 this.almacen.id_abastecedor = _selectedTienda.id;
             }
         }
-
+        /**************************************************/
         private ImageSource _tiendaImagen;
         public ImageSource tiendaImagen
         {
@@ -461,9 +509,7 @@ namespace pe.edu.pucp.ferretin.viewmodel.MSeguridad
                 NotifyPropertyChanged("tiendaImagen");
             }
         }
-
-
-
+        /**************************************************/
         private int _selectedTipo = -1;
         public int selectedTipo
         {
@@ -503,8 +549,7 @@ namespace pe.edu.pucp.ferretin.viewmodel.MSeguridad
                 this.almacen.tipo = _selectedTipo;
             }
         }
-
-
+        /**************************************************/
         private bool _comboEnabledAlmacen = false;
         public bool comboEnabledAlmacen
         {
@@ -518,6 +563,7 @@ namespace pe.edu.pucp.ferretin.viewmodel.MSeguridad
                 NotifyPropertyChanged("comboEnabledAlmacen");                
             }
         }
+        /**************************************************/
         private int _defaultcomboIndex = -1;
         public int defaultcomboIndex{
             get
@@ -530,8 +576,7 @@ namespace pe.edu.pucp.ferretin.viewmodel.MSeguridad
                 NotifyPropertyChanged("defaultcomboIndex");
             }
         }
-
-
+        /**************************************************/
         public bool VerificaCamposObligatorios(Tienda tienda)
         {
             if (tienda.nombre == null||(tienda.tipo == -1 || tienda.tipo == null)
@@ -546,7 +591,7 @@ namespace pe.edu.pucp.ferretin.viewmodel.MSeguridad
             }
             return true;
         }
-
+        /**************************************************/
         public bool VerificaHorario(Tienda tienda)
         {
             if (tienda.lunesHoraInicio > tienda.lunesHoraFin ||
@@ -562,7 +607,7 @@ namespace pe.edu.pucp.ferretin.viewmodel.MSeguridad
             }
             return true;
         }
-
+        /**************************************************/
 
     }
 }

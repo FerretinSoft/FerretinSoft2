@@ -1,6 +1,6 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Express 2012 for Windows Desktop
+# Visual Studio 2012
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "pe.edu.pucp.ferretin.view", "pe.edu.pucp.ferretin.view\pe.edu.pucp.ferretin.view.csproj", "{71456603-0C07-4627-AA16-1C686D82FC2F}"
 	ProjectSection(ProjectDependencies) = postProject
 		{FBF7538A-F51A-4F45-84D1-B90FD464C71A} = {FBF7538A-F51A-4F45-84D1-B90FD464C71A}
@@ -12,6 +12,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "pe.edu.pucp.ferretin.controller", "pe.edu.pucp.ferretin.controller\pe.edu.pucp.ferretin.controller.csproj", "{534FC2B6-43E2-40B5-8B9D-90BD421B307B}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "pe.edu.pucp.ferretin.viewmodel", "pe.edu.pucp.ferretin.viewmodel\pe.edu.pucp.ferretin.viewmodel.csproj", "{FBF7538A-F51A-4F45-84D1-B90FD464C71A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "pe.edu.pucp.ferretin.tdd", "pe.edu.pucp.ferretin.tdd\pe.edu.pucp.ferretin.tdd.csproj", "{5B6041A2-92A0-420D-A2F0-E65947C0F9A8}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -35,6 +37,10 @@ Global
 		{FBF7538A-F51A-4F45-84D1-B90FD464C71A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FBF7538A-F51A-4F45-84D1-B90FD464C71A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FBF7538A-F51A-4F45-84D1-B90FD464C71A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5B6041A2-92A0-420D-A2F0-E65947C0F9A8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5B6041A2-92A0-420D-A2F0-E65947C0F9A8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5B6041A2-92A0-420D-A2F0-E65947C0F9A8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5B6041A2-92A0-420D-A2F0-E65947C0F9A8}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

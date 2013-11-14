@@ -245,9 +245,29 @@ namespace pe.edu.pucp.ferretin.viewmodel
         {
             get
             {
-                return ComunService.usuarioL; ;
+                return ComunService.usuarioL;
             }
         }
+        /*********************************************/
+        private Tienda _tiendaTest;
+        public Tienda tiendaTest
+        {
+            get
+            {
+                if (_tiendaTest == null)
+                {
+                    _tiendaTest = ComunService.tienda;
+                }
+                return _tiendaTest;
+            }
+            set
+            {
+                _tiendaTest = value;
+            }
+        }
+        /*********************************************/
+
+
 
     }
 }
