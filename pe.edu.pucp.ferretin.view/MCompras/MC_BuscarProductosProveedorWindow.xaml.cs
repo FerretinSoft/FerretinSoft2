@@ -24,16 +24,14 @@ namespace pe.edu.pucp.ferretin.view.MCompras
                 try
                 {
                     MC_BuscarProductosProveedorViewModel miViewModel = this.main.DataContext as MC_BuscarProductosProveedorViewModel;
-
                     MC_AdministrarOCCotizacionWindow padre = this.Owner as MC_AdministrarOCCotizacionWindow;
                     MC_CotizacionesOCViewModel padreViewModel = padre.main.DataContext as MC_CotizacionesOCViewModel;
+                    IEnumerable<ProveedorProducto> listaPPFinal = miViewModel.listaProductosProveedorFinal;
 
-                    //IEnumerable<ProveedorProducto>  mio = miViewModel.listaProductosProveedorFinal;
-                    
                     var sequence = new List<DocumentoCompraProducto>();
-                    if (miViewModel.listaProductosProveedorFinal != null)
+                    if (listaPPFinal != null)
                     {
-                        List<ProveedorProducto> listAux = miViewModel.listaProductosProveedorFinal.ToList();
+                        List<ProveedorProducto> listAux = listaPPFinal.ToList();
                         for (int i = 0; i < listAux.Count(); i++)
                         {
                             if (listAux[i].isSelected)

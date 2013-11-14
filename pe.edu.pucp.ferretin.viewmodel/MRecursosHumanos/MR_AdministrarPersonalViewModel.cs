@@ -88,8 +88,7 @@ namespace pe.edu.pucp.ferretin.viewmodel.MRecursosHumanos
                 distritos = from d in ComunService.distritos where d.id_ubig_provincia == value.id select d;
             }
         }
-        //private int _searchTipo = 0;
-        //public int searchTipo { get { return _searchTipo; } set { _searchTipo = value; NotifyPropertyChanged("searchTipo"); } }
+        
         public UbigeoDistrito _searchDistrito;
         public UbigeoDistrito searchDistrito
         {
@@ -258,8 +257,8 @@ namespace pe.edu.pucp.ferretin.viewmodel.MRecursosHumanos
                 //Cuando se cambia el status, tambien se tiene que actualizar el currentIndex del tab
                 NotifyPropertyChanged("currentIndexTab"); //Hace que cambie el tab automaticamente
                 NotifyPropertyChanged("isCreating"); //Para que se activen o desactiven los inputs
-                NotifyPropertyChanged("listaEmpleadoTurno");
-                NotifyPropertyChanged("listaEmpleadoTiendas");
+                ////////////NotifyPropertyChanged("listaEmpleadoTurno");
+                ////////////NotifyPropertyChanged("listaEmpleadoTiendas");
                 NotifyPropertyChanged("empleadoImagen");
 
             }
@@ -303,7 +302,9 @@ namespace pe.edu.pucp.ferretin.viewmodel.MRecursosHumanos
                     String id_departamento = value.UbigeoDistrito.UbigeoProvincia.id_ubig_departamento;
                     distritos = MR_EmpleadoService.distritos.Where(distrito => distrito.id_ubig_provincia.Equals(id_provincia));
                 }
-                
+
+             
+
                 NotifyPropertyChanged("empleado");
                 NotifyPropertyChanged("empleadoImagen");
             }
@@ -330,56 +331,34 @@ namespace pe.edu.pucp.ferretin.viewmodel.MRecursosHumanos
             }
         }
 
-        private IEnumerable<EmpleadoTienda> _listaEmpleadoTiendas;
-        public IEnumerable<EmpleadoTienda> listaEmpleadoTiendas
-        {
-            get
-            {
-                if (empleado.EmpleadoTienda.Count() > 0)
+        ////////////private IEnumerable<EmpleadoTienda> _listaEmpleadoTiendas;
+        ////////////public IEnumerable<EmpleadoTienda> listaEmpleadoTiendas
+        ////////////{
+        ////////////    get
+        ////////////    {
+        ////////////        if (empleado.EmpleadoTienda.Count() > 0)
 
-                    return this.empleado.EmpleadoTienda;
+        ////////////            return this.empleado.EmpleadoTienda;
 
-                else
-                {
-                    return null;
+        ////////////        else
+        ////////////        {
+        ////////////            return null;
                 
-                }
-            }
-            set
-            {
-                _listaEmpleadoTiendas = value;
-                NotifyPropertyChanged("listaEmpleadoTiendas");
-            }      
-        }
+        ////////////        }
+        ////////////    }
+        ////////////    set
+        ////////////    {
+        ////////////        _listaEmpleadoTiendas = value;
+        ////////////        NotifyPropertyChanged("listaEmpleadoTiendas");
+        ////////////    }      
+        ////////////}
 
 
 
         #endregion
 
 
-        private IEnumerable<EmpleadoTurno> _listaEmpleadoTurno;
-        private List<EmpleadoTurno> _listaTemp = new List<EmpleadoTurno>();
-        public IEnumerable<EmpleadoTurno> listaEmpleadoTurno
-        {
-            get
-            {
-                if (empleado.EmpleadoTurno.Count() > 0)
-                    return empleado.EmpleadoTurno;
-                else
-                {
-                    empleado.empleadoT();
-                    _listaEmpleadoTurno = empleado.empleadoTurnos;
-                    return _listaEmpleadoTurno;
-                }
-          
-            }
-
-            set
-            {
-                _listaEmpleadoTurno = value;
-    
-            }
-        }
+     
 
         #region RelayCommand
         RelayCommand _actualizarListaEmpleadosCommand;
@@ -523,17 +502,15 @@ namespace pe.edu.pucp.ferretin.viewmodel.MRecursosHumanos
             try
             {
 
-                
-
                 this.empleado = listaEmpleados.Single(empleado => empleado.codEmpleado == (int)codEmpleado);
 
-                if (this.empleado.EmpleadoTurno == null)
-                {
+                //////if (this.empleado.EmpleadoTurno == null)
+                //////{
                    
-                    this.empleado.empleadoT();
+                //////    this.empleado.empleadoT();
  
                 
-                }
+                //////}
                     
                 //Muestra Null en turnos/
 
@@ -572,25 +549,29 @@ namespace pe.edu.pucp.ferretin.viewmodel.MRecursosHumanos
                 else
                 {
                     /*Para actualizar un empleado existente*/
-                    if ((empleado.id > 0) && VerificaCamposObligatorios(empleado))//Si existe
+                    if (empleado.id > 0)//Si existe
                     {
                         ComunService.idVentana(2);
-                        foreach (EmpleadoTurno et in empleado.EmpleadoTurno)
+                        if (VerificaCamposObligatorios(empleado))
                         {
-                            if (et.id_turno == 0) et.id_turno = null;
+                            foreach (EmpleadoTurno et in empleado.EmpleadoTurno)
+                            {
+                                if (et.id_turno == 0) et.id_turno = null;
 
-                        }
+                            }
 
-                        if (!MR_EmpleadoService.enviarCambios())
-                        {
-                            MessageBox.Show("No se pudo actualizar el empleado");
-                        }
-                        else
-                        {
-                            MessageBox.Show("Se actualizó el empleado con éxito");
-                            this.statusTab = Tab.BUSQUEDA;
-                            listaEmpleados = MR_EmpleadoService.listaEmpleados;
-                            NotifyPropertyChanged("listaEmpleadoTiendas");//Para el historial de empleos
+                            if (!MR_EmpleadoService.enviarCambios())
+                            {
+                                MessageBox.Show("No se pudo actualizar el empleado");
+                                NotifyPropertyChanged("empleado");
+                            }
+                            else
+                            {
+                                MessageBox.Show("Se actualizó el empleado con éxito");
+                                this.statusTab = Tab.BUSQUEDA;
+                                listaEmpleados = MR_EmpleadoService.listaEmpleados;
+                                ////////////NotifyPropertyChanged("listaEmpleadoTiendas");//Para el historial de empleos
+                            }
                         }
                     }
                     /*Para agregar un empleado nuevo*/
@@ -600,10 +581,9 @@ namespace pe.edu.pucp.ferretin.viewmodel.MRecursosHumanos
 
                         ComunService.idVentana(1);
 
-                        if (VerificaCamposObligatorios(empleado) && VerificaDNIEmpleado(empleado))
+                        if (VerificaDNIEmpleado(empleado)&& VerificaCamposObligatorios(empleado)&& (empleado.id==0) )
                         {
-                            if (empleado.dni != null && empleado.nombre != null && empleado.apPaterno != null && empleado.apMaterno != null)
-                            {
+                            
                                 empleado.empleadoT();
                                 empleado.codEmpleado = 100060 + listaEmpleados.Count();
 
@@ -620,15 +600,16 @@ namespace pe.edu.pucp.ferretin.viewmodel.MRecursosHumanos
                                     //NotifyPropertyChanged("EmpleadoTienda");//Para el historial de empleos
                                 }
                             }
-                        }
+                        //////}
                     }
                 }
 
             }
-            //else
-            //{
-            //    // Cancel code here
-            //} 
+            else
+            {
+                // Cancel code here
+                this.statusTab = Tab.BUSQUEDA;
+            } 
             NotifyPropertyChanged("listaEmpleados");
             NotifyPropertyChanged("empleado");
             NotifyPropertyChanged("listaEmpleadoTiendas");
@@ -639,39 +620,35 @@ namespace pe.edu.pucp.ferretin.viewmodel.MRecursosHumanos
         }
         public void cancelEmpleado(Object obj)
         {
-            MessageBoxResult result =MessageBox.Show("Está seguro que desea cerrar esta ventana?",
-            "Confirmación", MessageBoxButton.OKCancel, MessageBoxImage.Warning);
+            MessageBoxResult result = MessageBox.Show("Al salir perderá todos los datos ingresados. ¿Desea continuar?",
+            "ATENCIÓN", MessageBoxButton.OKCancel, MessageBoxImage.Warning);
             if (result == MessageBoxResult.OK)
             {
                 // Yes code here
                 this.statusTab = Tab.BUSQUEDA;
                 listaEmpleados = MR_EmpleadoService.listaEmpleados;
             }
-            //else
-            //{
-            //    // No code here
-            //} 
-            //this.statusTab = Tab.BUSQUEDA;
-            //listaEmpleados = MR_EmpleadoService.listaEmpleados;
+      
         }
 
 
 
         private bool canSaveExecute(object obj)
         {
-            return base.UIValidationErrorCount == 0 && this.empleado.Errors.Count == 0;
+            //////////return base.UIValidationErrorCount == 0 && this.empleado.Errors.Count == 0;
+            return base.UIValidationErrorCount == 0;
         }
 
 
         public bool VerificaCamposObligatorios(Empleado empleado)
         {
-            
-            if (empleado.nombre == null || empleado.nombre == "" || empleado.apPaterno == null || empleado.nombre == "" ||
-                empleado.apMaterno == null || empleado.nombre == "" || empleado.direccion == null || empleado.direccion == "" ||
+
+            if (empleado.nombre == null || empleado.nombre == "" || empleado.apPaterno == null || empleado.apPaterno == "" ||
+                empleado.apMaterno == null || empleado.apMaterno == "" || empleado.direccion == null || empleado.direccion == "" ||
                 empleado.direccion == null || empleado.direccion == "" || selectedDepartamento == null || selectedProvincia == null ||
                 empleado.UbigeoDistrito == null || empleado.telefono1 == null || empleado.telefono1 == "" || empleado.telefono1 == "" ||
                 empleado.fecNacimiento == null || empleado.sexo ==null || empleado.cargoActual == null || empleado.tiendaActual == null ||
-                empleado.GradoInstruccion == null || empleado.ultimoSueldo <= 0  || empleado.estado == null)
+                empleado.GradoInstruccion == null || empleado.ultimoSueldo <= 0  || empleado.estado == 0)
 
             {
                 MessageBox.Show("Completar todos los datos obligatorios");
