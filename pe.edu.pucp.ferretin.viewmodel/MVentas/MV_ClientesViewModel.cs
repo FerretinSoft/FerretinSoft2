@@ -422,7 +422,12 @@ namespace pe.edu.pucp.ferretin.viewmodel.MVentas
         }
         public void cancelCliente(Object obj)
         {
-            this.statusTab = Tab.BUSQUEDA;
+            MessageBoxResult result =MessageBox.Show("Al salir, perderá todos los datos ingresados. ¿Desea continuar?",
+                                        "ATENCIÓN", MessageBoxButton.OKCancel, MessageBoxImage.Warning);
+            if (result == MessageBoxResult.OK)
+            {
+                this.statusTab = Tab.BUSQUEDA;
+            }
         }
 
         private bool canSaveExecute(object obj)

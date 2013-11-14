@@ -85,6 +85,8 @@
                             <DataGridTextColumn Width="2*" Binding="{Binding Path=productoPorSolicitud.Producto.codigo}"  IsReadOnly="True" Header="Cód. Producto"/>
                             <DataGridTextColumn Width="2*" Binding="{Binding Path=productoPorSolicitud.Producto.nombre}"  IsReadOnly="True"  Header="Nombre"/>
                             <DataGridTextColumn Width="2*" Binding="{Binding Path=productoPorSolicitud.cantidad}"  Header="Cantidad" IsReadOnly="{Binding isCreating}"/>
+                            <DataGridTextColumn Width="2*" Binding="{Binding Path=productoPorSolicitud.cantidadAtendida}" Header="Ctdad. Atendida" IsReadOnly="True" />
+                            <DataGridTextColumn Width="2*" Binding="{Binding Path=productoPorSolicitud.cantidadRestante}" Header="Ctdad. Restante" IsReadOnly="True" />
                             <DataGridTextColumn Width="2*" Binding="{Binding Path=productoPorAlmacen.stock}" Header="En Stock" IsReadOnly="True" />
                             <DataGridTextColumn Width="2*" Binding="{Binding Path=productoPorAlmacen.stockMin}" Header="Stock mínimo" IsReadOnly="True" />
                         </DataGrid.Columns>

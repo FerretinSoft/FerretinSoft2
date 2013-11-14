@@ -321,8 +321,13 @@ namespace pe.edu.pucp.ferretin.viewmodel.MVentas
         }
         public void cancelPromocion(Object obj)
         {
-            MV_PromocionService.db.Refresh(System.Data.Linq.RefreshMode.OverwriteCurrentValues, this.promocion);
-            this.statusTab = Tab.BUSQUEDA;
+            MessageBoxResult result =MessageBox.Show("Al salir, perderá todos los datos ingresados. ¿Desea continuar?",
+                                        "ATENCIÓN", MessageBoxButton.OKCancel, MessageBoxImage.Warning);
+            if (result == MessageBoxResult.OK)
+            {
+                MV_PromocionService.db.Refresh(System.Data.Linq.RefreshMode.OverwriteCurrentValues, this.promocion);
+                this.statusTab = Tab.BUSQUEDA;
+            }
         }
 
         private bool canSaveExecute(object obj)

@@ -1,7 +1,7 @@
 ﻿<Window x:Class="pe.edu.pucp.ferretin.view.MVentas.MV_ReportesVentasWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Title="Reportes Ventas" Height="353.004" Width="473.851" Icon="../Resources/ferretin_ico.ico">
+        Title="Reportes Ventas" Height="353.004" Width="473.851" Icon="../Resources/ferretin_ico.ico" WindowStartupLocation="CenterScreen">
     <Grid>
         <Grid.Background>
             <ImageBrush ImageSource="../Resources/texture_3_100.png" TileMode="FlipX" 

@@ -37,8 +37,19 @@ namespace pe.edu.pucp.ferretin.model
         {
             get
             {
-                return this.estado == 1 ? "Inactivo" : "Activo";
+                if (this.estado == 1)
+                    return "Inactivo";
+                else
+                    if (this.estado == 2)
+                        return "Activo";
+                    else
+                        if (this.estado == 0) 
+                            return "";
+                return "";
+
+               // return this.estado == 1 ? "Inactivo" : "Activo";
             }
+
         }
 
         public int nombreSexo
@@ -49,9 +60,11 @@ namespace pe.edu.pucp.ferretin.model
                     return 0;
                 else
                     if (this.sexo == 'F')
-                        return 1;
-                    else
-                        return 2;
+                    return 1;
+                 else
+                        if (this.sexo==null)
+                    return 2;
+                return 2;
                 
             }
 
@@ -60,8 +73,11 @@ namespace pe.edu.pucp.ferretin.model
                 if (value == 0)
                     this.sexo = 'M';
                 else
-                if (value == 1)
-                    this.sexo = 'F';
+                    if (value == 1)
+                        this.sexo = 'F';
+                    else
+                        if (value == 2)
+                        this.sexo = null;
                
             
             }
@@ -201,17 +217,9 @@ namespace pe.edu.pucp.ferretin.model
                
            }
 
-            ////if (EmpleadoTienda.Count(et => et.id_empleado == nuevoEmpleoTienda.id_empleado && et.id_cargo == nuevoEmpleoTienda.id_cargo && et.sueldo == nuevoEmpleoTienda.sueldo && et.id_tienda == nuevoEmpleoTienda.id_tienda) == 0)
-            ////{
-            ////    this.EmpleadoTienda.Add(nuevoEmpleoTienda);
-
-            ////}
-
+      
 
         }
-
-       
-      
 
        
 
@@ -232,61 +240,6 @@ namespace pe.edu.pucp.ferretin.model
                     ultimoEmpleadoTienda.fecFin = DateTime.Today;
                     ultimoEmpleadoTienda.estado = 1; //inactivar
                 }
-            }
-        }
-
-        //Definir Nueva clase para Turnos//
-
-
-        public Turno _turnoSeleccionar;
-        public Turno turnoSeleccionar
-        {
-            get
-            {
-                if (_turnoSeleccionar == null && ultimoEmpleadoTienda != null)
-                    _cargoActual = ultimoEmpleadoTienda.Cargo;
-                return _turnoSeleccionar;
-            }
-            set
-            {
-
-                nuevoEmpleadoTurno.Turno = value;
-                _turnoSeleccionar = value;
-               
-                
-            }
-        }
-
-
-        private EmpleadoTurno ultimoEmpleadoTurno
-        {
-            get
-            {
-                if (this.EmpleadoTurno.Count(et => et.estado == 1) > 0)
-                {
-                    return this.EmpleadoTurno.Last(et => et.estado == 1);
-                }
-                else
-                {
-                    return null;
-                }
-            }
-        }
-
-
-        private EmpleadoTurno _nuevoEmpleadoTurno;
-        public EmpleadoTurno nuevoEmpleadoTurno
-        {
-            get
-            {
-                return _nuevoEmpleadoTurno;
-            }
-            set
-            {
-                _nuevoEmpleadoTurno = value;
-                _nuevoEmpleadoTurno.estado = 2;
-                
-
             }
         }
 
@@ -317,148 +270,148 @@ namespace pe.edu.pucp.ferretin.model
 
 
 
-        #region Zona de Validaciones
+        ////#region Zona de Validaciones
 
-        #region Código por default de la interfaz heredada
-        public string Error
-        {
-            get { throw new NotImplementedException(); }
-        }
+        ////#region Código por default de la interfaz heredada
+        ////public string Error
+        ////{
+        ////    get { throw new NotImplementedException(); }
+        ////}
 
-        protected Dictionary<string, string> _errors = new Dictionary<string, string>();
-        public IDictionary<string, string> Errors
-        {
-            get { return _errors; }
-        }
-        #endregion
+        ////protected Dictionary<string, string> _errors = new Dictionary<string, string>();
+        ////public IDictionary<string, string> Errors
+        ////{
+        ////    get { return _errors; }
+        ////}
+        ////#endregion
 
-        public string this[string columnName]
-        {
-            get
-            {
-                string errorMessage = string.Empty;
-                this.Errors.Remove(columnName);
+        ////public string this[string columnName]
+        ////{
+        ////    get
+        ////    {
+        ////        string errorMessage = string.Empty;
+        ////        this.Errors.Remove(columnName);
 
-                switch (columnName)
-                {
-                    case "dni":
-                        if (String.IsNullOrEmpty(this.dni))
-                        {
-                            errorMessage = "Debe ingresar el DNI.";
-                        }
-                        else
-                        {
-                            Int64 nro = 0;
-                            Int64.TryParse(dni, out nro);
+        ////        switch (columnName)
+        ////        {
+        ////            case "dni":
+        ////                if (String.IsNullOrEmpty(this.dni))
+        ////                {
+        ////                    errorMessage = "Debe ingresar el DNI.";
+        ////                }
+        ////                else
+        ////                {
+        ////                    Int64 nro = 0;
+        ////                    Int64.TryParse(dni, out nro);
 
-                            if (nro < 10000000 || nro > 99999999)
-                            {
-                                errorMessage = "El DNI debe tener 8 números";
-                            }
-                        }
-                        break;
+        ////                    if (nro < 10000000 || nro > 99999999)
+        ////                    {
+        ////                        errorMessage = "El DNI debe tener 8 números";
+        ////                    }
+        ////                }
+        ////                break;
 
-                    case "nombre":
-                        if (String.IsNullOrEmpty(this.nombre))
-                        {
-                            errorMessage = "Debe ingresar un nombre del personal";
-                        }
-                        break;
-                    case "apPaterno":
-                        if (String.IsNullOrEmpty(this.apPaterno))
-                        {
-                            errorMessage = "Debe ingresar un Apellido Paterno del Personal";
-                        }
-                        break;
-                    case "apMaterno":
-                        if (String.IsNullOrEmpty(this.apMaterno))
-                        {
-                            errorMessage = "Debe ingresar un Apellido Materno del Personal";
-                        }
-                        break;
+        ////            case "nombre":
+        ////                if (String.IsNullOrEmpty(this.nombre))
+        ////                {
+        ////                    errorMessage = "Debe ingresar un nombre del personal";
+        ////                }
+        ////                break;
+        ////            case "apPaterno":
+        ////                if (String.IsNullOrEmpty(this.apPaterno))
+        ////                {
+        ////                    errorMessage = "Debe ingresar un Apellido Paterno del Personal";
+        ////                }
+        ////                break;
+        ////            case "apMaterno":
+        ////                if (String.IsNullOrEmpty(this.apMaterno))
+        ////                {
+        ////                    errorMessage = "Debe ingresar un Apellido Materno del Personal";
+        ////                }
+        ////                break;
 
-                    case "telefono1":
-                        if (String.IsNullOrEmpty(this.telefono1))
-                        {
-                            errorMessage = "El Teléfono 1 no debe estar vacio.";
-                        }
+        ////            case "telefono1":
+        ////                if (String.IsNullOrEmpty(this.telefono1))
+        ////                {
+        ////                    errorMessage = "El Teléfono 1 no debe estar vacio.";
+        ////                }
 
-                        break;
+        ////                break;
 
-                    case "telefono2":
-                        if (String.IsNullOrEmpty(this.telefono2))
-                        {
-                            errorMessage = "El Teléfono 2 no debe estar vacio.";
-                        }
-                        break;
+        ////            case "telefono2":
+        ////                if (String.IsNullOrEmpty(this.telefono2))
+        ////                {
+        ////                    errorMessage = "El Teléfono 2 no debe estar vacio.";
+        ////                }
+        ////                break;
 
-                    case "email":
-                        if (String.IsNullOrEmpty(this.email))
-                        {
-                            errorMessage = "Debe ingresar un correo electronico";
-                        }
-                        break;
-                    case "direccion":
-                        if (String.IsNullOrEmpty(this.direccion))
-                        {
-                            errorMessage = "Debe ingresar la direccion del personal";
-                        }
-                        break;
+        ////            case "email":
+        ////                if (String.IsNullOrEmpty(this.email))
+        ////                {
+        ////                    errorMessage = "Debe ingresar un correo electronico";
+        ////                }
+        ////                break;
+        ////            case "direccion":
+        ////                if (String.IsNullOrEmpty(this.direccion))
+        ////                {
+        ////                    errorMessage = "Debe ingresar la direccion del personal";
+        ////                }
+        ////                break;
 
-                    case "UbigeoDistrito":
-                        if (UbigeoDistrito == null || String.IsNullOrEmpty(UbigeoDistrito.id))
-                        {
-                            errorMessage = "Debe seleccionar un Pais, Provincia, Ciudad y Distrito";
-                        }
-                        break;
+        ////            case "UbigeoDistrito":
+        ////                if (UbigeoDistrito == null || String.IsNullOrEmpty(UbigeoDistrito.id))
+        ////                {
+        ////                    errorMessage = "Debe seleccionar un Pais, Provincia, Ciudad y Distrito";
+        ////                }
+        ////                break;
 
-                    case "ultimoSueldo":
-                        string strsueldo = "";
-                        this.ultimoSueldo.ToString(strsueldo);
-                        if (String.IsNullOrEmpty(strsueldo))
-                        {
-                            errorMessage = "Debe ingresar el Sueldo del empleado";
-                        }
-                        break;
+        ////            case "ultimoSueldo":
+        ////                string strsueldo = "";
+        ////                this.ultimoSueldo.ToString(strsueldo);
+        ////                if (String.IsNullOrEmpty(strsueldo))
+        ////                {
+        ////                    errorMessage = "Debe ingresar el Sueldo del empleado";
+        ////                }
+        ////                break;
 
-                    case "cargoActual":
-                        if (cargoActual == null || String.IsNullOrEmpty(this.cargoActual.nombre))
-                        {
-                            errorMessage = "Debe seleccionar un Cargo";
-                        }
-                        break;
+        ////            case "cargoActual":
+        ////                if (cargoActual == null || String.IsNullOrEmpty(this.cargoActual.nombre))
+        ////                {
+        ////                    errorMessage = "Debe seleccionar un Cargo";
+        ////                }
+        ////                break;
 
-                    case "tiendaActual":
-                        if (tiendaActual == null || String.IsNullOrEmpty(this.tiendaActual.nombre))
-                        {
-                            errorMessage = "Debe seleccionar una Tienda";
-                        }
-                        break;
-                    case "GradoInstruccion":
-                        if (GradoInstruccion == null || String.IsNullOrEmpty(this.GradoInstruccion.nombre))
-                        {
-                            errorMessage = "Debe seleccionar un Grado de  Instruccion";
-                        }
-                        break;
-                    case "estado":
-                        if (String.IsNullOrEmpty(Convert.ToString(this.estado)))
-                        {
-                            errorMessage = "Debe seleccionar el estado";
-                        }
-                        break;
+        ////            case "tiendaActual":
+        ////                if (tiendaActual == null || String.IsNullOrEmpty(this.tiendaActual.nombre))
+        ////                {
+        ////                    errorMessage = "Debe seleccionar una Tienda";
+        ////                }
+        ////                break;
+        ////            case "GradoInstruccion":
+        ////                if (GradoInstruccion == null || String.IsNullOrEmpty(this.GradoInstruccion.nombre))
+        ////                {
+        ////                    errorMessage = "Debe seleccionar un Grado de  Instruccion";
+        ////                }
+        ////                break;
+        ////            case "estado":
+        ////                if (String.IsNullOrEmpty(Convert.ToString(this.estado)))
+        ////                {
+        ////                    errorMessage = "Debe seleccionar el estado";
+        ////                }
+        ////                break;
 
-                }
+        ////        }
 
-                if (!string.IsNullOrEmpty(errorMessage))
-                {
-                    this.Errors.Add(columnName, errorMessage);
-                }
+        ////        if (!string.IsNullOrEmpty(errorMessage))
+        ////        {
+        ////            this.Errors.Add(columnName, errorMessage);
+        ////        }
 
-                return errorMessage;
-            }
-        }
+        ////        return errorMessage;
+        ////    }
+        ////}
 
-        #endregion
+        ////#endregion
 
 
 
