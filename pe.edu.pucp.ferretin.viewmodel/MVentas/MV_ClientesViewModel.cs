@@ -1,4 +1,5 @@
 ﻿using Microsoft.Win32;
+using pe.edu.pucp.ferretin.controller;
 using pe.edu.pucp.ferretin.controller.MVentas;
 using pe.edu.pucp.ferretin.model;
 using pe.edu.pucp.ferretin.viewmodel.Helper;
@@ -105,8 +106,8 @@ namespace pe.edu.pucp.ferretin.viewmodel.MVentas
                     case Tab.BUSQUEDA:
                         {
                             //Borro si hubo algun cambio que no fue guardado
-                            ChangeSet changes = MV_ClienteService.db.GetChangeSet();
-                            MV_ClienteService.db.Refresh(RefreshMode.OverwriteCurrentValues, changes.Updates); 
+                            //ChangeSet changes = MV_ClienteService.db.GetChangeSet();
+                            //MV_ClienteService.db.Refresh(RefreshMode.OverwriteCurrentValues, changes.Updates); 
 
                             detallesTabHeader = soloSeleccionarCliente ? "Detalles" : "Agregar";
                             NotifyPropertyChanged("listaClientes");
@@ -387,6 +388,7 @@ namespace pe.edu.pucp.ferretin.viewmodel.MVentas
 
                 if (cliente.id > 0)//Si existe
                 {
+                    ComunService.idVentana(46);
                     if (!MV_ClienteService.enviarCambios())
                     {
                         MessageBox.Show("No se pudo actualizar el cliente");
@@ -400,6 +402,7 @@ namespace pe.edu.pucp.ferretin.viewmodel.MVentas
                 }
                 else
                 {
+                    ComunService.idVentana(45);
                     if (!MV_ClienteService.insertarCliente(cliente))
                     {
                         MessageBox.Show("No se pudo agregar el nuevo cliente");

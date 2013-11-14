@@ -1,4 +1,5 @@
-﻿using pe.edu.pucp.ferretin.controller.MAlmacen;
+﻿using pe.edu.pucp.ferretin.controller;
+using pe.edu.pucp.ferretin.controller.MAlmacen;
 using pe.edu.pucp.ferretin.controller.MVentas;
 using pe.edu.pucp.ferretin.model;
 using pe.edu.pucp.ferretin.viewmodel.Helper;
@@ -294,6 +295,7 @@ namespace pe.edu.pucp.ferretin.viewmodel.MVentas
 
                 if (promocion.id > 0)//Si existe
                 {
+                    ComunService.idVentana(48);
                     if (!MV_PromocionService.enviarCambios())
                     {
                         MessageBox.Show("No se pudo actualizar el promocion");
@@ -305,6 +307,7 @@ namespace pe.edu.pucp.ferretin.viewmodel.MVentas
                 }
                 else
                 {
+                    ComunService.idVentana(48);
                     if (!MV_PromocionService.insertarPromocion(promocion))
                     {
                         MessageBox.Show("No se pudo agregar el nuevo promocion");

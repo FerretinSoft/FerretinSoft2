@@ -1,4 +1,5 @@
-﻿using pe.edu.pucp.ferretin.controller.MAlmacen;
+﻿using pe.edu.pucp.ferretin.controller;
+using pe.edu.pucp.ferretin.controller.MAlmacen;
 using pe.edu.pucp.ferretin.controller.MSeguridad;
 using pe.edu.pucp.ferretin.controller.MVentas;
 using pe.edu.pucp.ferretin.model;
@@ -184,7 +185,7 @@ namespace pe.edu.pucp.ferretin.viewmodel.MVentas
                     }
                 }
                 catch { }
-
+                ComunService.idVentana(42);
                 result = MA_SharedService.registrarVenta(venta.Usuario.Empleado.tiendaActual, venta.VentaProducto);
                 if (result.Length <= 0)//si resulto bien
                 {
