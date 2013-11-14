@@ -106,6 +106,7 @@ namespace pe.edu.pucp.ferretin.view.MSeguridad
             IEnumerable<Usuario> listaUsuarios = MS_UsuarioService.obtenerListaUsuarios();
             existeUsuario = false;
 
+
             //Va a verificar cada usuario para encontrar el usuario que esta intentando loguear
             foreach(Usuario value in listaUsuarios){
 
@@ -115,13 +116,28 @@ namespace pe.edu.pucp.ferretin.view.MSeguridad
                     numIntentos.Content = "";
                     lbLoginError.Content = "";
 
+                    //Verificar si se ha vencido la contraseña
+
+                    if(verificarVencimientoContrasena(value))
+                    {
+
+                        usuarioLog = value;
+                        ComunService.usuarioLo(value);
+                        MS_CambiarContraseñaUsuario cc = new MS_CambiarContraseñaUsuario(usuarioLog, 1);
+                        MessageBox.Show("Inicio de sesión exitoso. Su contraseña ha caducado. A continuación actualice su contraseña para ingresar al sistema.");
+                        cc.Show();
+                        this.Close();
+                        break;
+
+                    }
+
                     //Verifica si la contraseña coincide con "ferretinSoft". Si coincide entonces es la primera vez que esta logueando.
                     if (MS_UsuarioService.encrypt(this.contrasena) == MS_UsuarioService.encrypt("ferretinSoft"))
                     {
 
                         usuarioLog = value;
                         ComunService.usuarioLo(value);
-                        MS_CambiarContraseñaUsuario cc = new MS_CambiarContraseñaUsuario(usuarioLog);
+                        MS_CambiarContraseñaUsuario cc = new MS_CambiarContraseñaUsuario(usuarioLog, 0);
                         MessageBox.Show("Inicio de sesión exitoso. A continuación cambie su contraseña.");
                         cc.Show();
                         this.Close();
@@ -280,5 +296,25 @@ namespace pe.edu.pucp.ferretin.view.MSeguridad
                 e.Handled = true;
         }
         #endregion
+
+        #region Verificar Fecha de Vencimiento
+        private bool verificarVencimientoContrasena(Usuario usuario)
+        {
+            Double diasVencimiento = Convert.ToDouble(listaParametros[2].valor);
+            DateTime fechaVencimiento = usuario.ultimoCambioContrasena.Value.AddDays(diasVencimiento);
+
+
+            if ((DateTime.Compare(fechaVencimiento, (DateTime)usuario.ultimoCambioContrasena) >= 0))
+            {
+                return false;
+            }
+            else
+            {
+                return true;
+            }
+
+        #endregion
+
+        }
     }
 }
