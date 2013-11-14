@@ -176,6 +176,7 @@ namespace pe.edu.pucp.ferretin.viewmodel.MAlmacen
 
         public void deleteCategoria(Object obj)
         {
+
             int valor=MA_CategoriaService.eliminarCategoria(CategoriaSeleccionada);
             if (valor.Equals(0))
             {

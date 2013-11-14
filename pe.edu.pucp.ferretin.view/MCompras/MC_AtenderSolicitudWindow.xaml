@@ -35,15 +35,31 @@
                             <DataGridTextColumn Width="3*" Binding="{Binding Path=producto.Tienda.nombre}" Header=" Almacén"/>
                             <DataGridTextColumn Width="1.5*" Binding="{Binding Path=producto.stock}"  Header="Stock"/>
                             <DataGridTextColumn Width="1.5*" Binding="{Binding Path=cantidad}"  Header="Cant. Compra"/>
-
-                            <DataGridTemplateColumn Width="3*" Header="Proveedor" >
+                      
+                                
+                                <DataGridTemplateColumn Width="3*" Header="Proveedor" >
                                 <DataGridTemplateColumn.CellTemplate>
                                     <DataTemplate>
-                                        <ComboBox Margin="2" ItemsSource="{Binding  posiProveedor}" DisplayMemberPath="razonSoc" SelectedItem="{Binding selectedProveedor}"/>
+                                        <ComboBox Margin="2" ItemsSource="{Binding  posiProveedor}" DisplayMemberPath="razonSoc" SelectedItem="{Binding Path=selectedProveedor, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, NotifyOnValidationError=True, ValidatesOnDataErrors=True, ValidatesOnExceptions=True}"/>
+                                        
                                         </DataTemplate>
                                     </DataGridTemplateColumn.CellTemplate>
                                 </DataGridTemplateColumn>
-                            
+                           <!-- <DataGridComboBoxColumn Header="Proveedor" DisplayMemberPath="razonSoc"  SelectedItemBinding= "{Binding Path=selectedProveedor, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, NotifyOnValidationError=True, ValidatesOnDataErrors=True, ValidatesOnExceptions=True}">
+                                <DataGridComboBoxColumn.ElementStyle>
+                                    <Style TargetType="{x:Type ComboBox}">
+                                        <Setter Property="ItemsSource" Value="{Binding posiProveedor}"/>
+                                        <Setter Property="VerticalAlignment" Value="Center"/>
+                                    </Style>
+                                </DataGridComboBoxColumn.ElementStyle>
+                                <DataGridComboBoxColumn.EditingElementStyle>
+                                    <Style TargetType="{x:Type ComboBox}">
+                                        <Setter Property="ItemsSource" Value="{Binding posiProveedor}"/>
+                                        <Setter Property="VerticalAlignment" Value="Center"/>
+                                    </Style>
+                                </DataGridComboBoxColumn.EditingElementStyle>
+                            </DataGridComboBoxColumn>-->
+
                             <DataGridTemplateColumn Header="Seleccionar">
                                 <DataGridTemplateColumn.CellTemplate>
                                     <DataTemplate>
