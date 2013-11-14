@@ -379,13 +379,30 @@ namespace pe.edu.pucp.ferretin.viewmodel.MSeguridad
                     MessageBox.Show("Ingrese nombre de usuario correcto, por favor");
                     return;
                 }
+                /********************* Validar cuando se ingresa estado null **********************/
+                if (usuario.estado == null)
+                {
+                    MessageBox.Show("Ingrese estado de usuario correcto, por favor");
+                    return;
+                }
+                /********************* Validar cuando no se ingresa nombre de usuario correcto **********************/
+                if (usuario.Perfil==null)
+                {
+                    MessageBox.Show("Ingrese perfil de usuario correcto, por favor");
+                    return;
+                }
+                /********************* Validar cuando se ingresa nombre de usuario y no se dio el boton de verificar **********************/
+                if (!MS_UsuarioService.validarUserName(usuario))
+                {
+                    MessageBox.Show("Verifique, el usuario ya existe");
+                    return;
+                }
                 /* Validar cuando no se ha realizado la busqueda de empleado o la verificacion de nombre de usuario mediante los botones */
                 if (this._busquedaExitosa < 2)
                 {
                     MessageBox.Show("Realize la busqueda de empleado o verifique el nombre de usuario");
                     return;
                 }
-
 
             }
             
