@@ -28,14 +28,29 @@
                             <ImageBrush ImageSource="../Resources/refresh2_48.png"/>
                         </Button.Background>
                     </Button>
-                    <DataGrid  ItemsSource="{Binding Path=listaProductosSol}" Margin="10,1.984,9.717,65.005" Grid.Row="1" AutoGenerateColumns="False">
+                    <DataGrid  ItemsSource="{Binding Path=listaProductosSol}" Margin="10,1.984,9.717,65.005" Grid.Row="1" AutoGenerateColumns="False" CanUserAddRows="False" CanUserDeleteRows="False">
                         <DataGrid.Columns>
                             <DataGridTextColumn Width="0.5*" Binding="{x:Null}" />
                             <DataGridTextColumn Width="3*" Binding="{Binding Path=producto.Producto.nombre}"  Header="Producto"/>
                             <DataGridTextColumn Width="3*" Binding="{Binding Path=producto.Tienda.nombre}" Header=" Almacén"/>
                             <DataGridTextColumn Width="1.5*" Binding="{Binding Path=producto.stock}"  Header="Stock"/>
                             <DataGridTextColumn Width="1.5*" Binding="{Binding Path=cantidad}"  Header="Cant. Compra"/>
-                            <DataGridTextColumn Width="3.5*" Binding="{Binding Path= posiProveedor.razonSoc}" Header="Proveedor"/>
+                            <DataGridTemplateColumn Width="3*" Header="Proveedor" >
+                                
+                                    <DataGridTemplateColumn.CellTemplate>
+                                        <DataTemplate>
+                                        <ComboBox Margin="2" ItemsSource="{Binding  posiProveedor}" DisplayMemberPath="razonSoc" />
+                                        </DataTemplate>
+                                    </DataGridTemplateColumn.CellTemplate>
+                                </DataGridTemplateColumn>
+                                <!--<DataGridComboBoxColumn.EditingElementStyle>
+                                    <Style TargetType="ComboBox">
+                                        <Setter Property="ItemsSource" Value="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type DataGrid}}, Path=DataContext.tiposTurnos}"/>
+                                        <Setter Property="SelectedIndex" Value="{Binding id_turno,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"/>
+                                        <Setter Property="IsEnabled" Value="{Binding turnoIsEnable,Mode=OneWay,UpdateSourceTrigger=PropertyChanged}"/>
+                                    </Style>
+                                </DataGridComboBoxColumn.EditingElementStyle>-->
+                            
                             <DataGridTemplateColumn Header="Seleccionar">
                                 <DataGridTemplateColumn.CellTemplate>
                                     <DataTemplate>

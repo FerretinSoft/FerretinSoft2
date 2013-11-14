@@ -148,7 +148,8 @@ namespace pe.edu.pucp.ferretin.controller.MCompras
                                                   select p);
 
             IEnumerable<Proveedor> proveedores = (from p in productos
-                                                  select p.Proveedor);
+                                                  select p.Proveedor).Take(4);
+
             return proveedores;
         }
 
