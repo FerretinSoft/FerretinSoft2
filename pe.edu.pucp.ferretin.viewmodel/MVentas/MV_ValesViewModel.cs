@@ -260,7 +260,7 @@ namespace pe.edu.pucp.ferretin.viewmodel.MVentas
 
         public void generarVales(object id)
         {
-            if (loteVale.cantidad != null && loteVale.cantidad > 0)
+            if (loteVale.cantidad != null && loteVale.cantidad > 0 && loteVale.monto != null && loteVale.monto > 0)
             {
                 string messageBoxText = "¿Desea generar " + loteVale.cantidad + " vales?";
                 string caption = "Mensaje de confirmación";
@@ -285,8 +285,8 @@ namespace pe.edu.pucp.ferretin.viewmodel.MVentas
             }
             else
             {
-                string messageBoxText = "Debe ingresar una cantidad de válida de vales";
-                string caption = "Mensaje de confirmación";
+                string messageBoxText = "Debe ingresar una cantidad válida de vales";
+                string caption = "Error";
                 MessageBoxButton button = MessageBoxButton.OK;
                 MessageBox.Show(messageBoxText, caption, button);
             }

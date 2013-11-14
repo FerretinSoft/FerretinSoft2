@@ -33,5 +33,13 @@ namespace pe.edu.pucp.ferretin.model
             }
         }
 
+        public string monedaString
+        {
+            get
+            {
+                return moneda == 0 ? "Soles" : "Dolares";
+            }
+        }
+
     }
 }

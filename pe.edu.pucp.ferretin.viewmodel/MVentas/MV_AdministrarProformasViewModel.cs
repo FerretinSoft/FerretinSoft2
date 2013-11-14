@@ -21,7 +21,8 @@ namespace pe.edu.pucp.ferretin.viewmodel.MVentas
     {
         #region Atributos del Buscador
         public string codProformaSearch { get; set; }
-        public Cliente clienteSearch { get; set; }
+        private Cliente _clienteSearch;
+        public Cliente clienteSearch { get { return _clienteSearch; } set { _clienteSearch = value; NotifyPropertyChanged("clienteSearch"); } }
 
         private DateTime _fechaDesdeSearch = DateTime.Today.AddDays(-30);
         public DateTime fechaDesdeSearch
@@ -402,7 +403,7 @@ namespace pe.edu.pucp.ferretin.viewmodel.MVentas
         {
             try
             {
-                this.proforma = listaProformas.Single(p => p.id == (int)id);
+                this.proforma = MV_ProformasService.db.Proforma.Single(p => p.id == (int)id);
 
                 
                 this.statusTab = Tab.DETALLES;

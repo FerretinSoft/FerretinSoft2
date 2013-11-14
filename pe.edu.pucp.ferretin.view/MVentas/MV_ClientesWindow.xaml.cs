@@ -92,9 +92,17 @@ namespace pe.edu.pucp.ferretin.view.MVentas
                     {
                         MV_AdministrarProformasWindow padre = this.Owner as MV_AdministrarProformasWindow;
                         MV_AdministrarProformasViewModel padre_DataContext = padre.DataContext as MV_AdministrarProformasViewModel;
-                        padre_DataContext.nroDocSeleccionado = my_DataContext.cliente.nroDoc;
+                        if (clienteSearch!=null && clienteSearch.Value==true)
+                        {
+                            padre_DataContext.clienteSearch = my_DataContext.cliente;
+                        }
+                        else
+                        {
+                            padre_DataContext.nroDocSeleccionado = my_DataContext.cliente.nroDoc;
+                        }
                         this.Close();
                     }
+
                     
                 }
                 catch
@@ -107,6 +115,8 @@ namespace pe.edu.pucp.ferretin.view.MVentas
         {
 
         }
+
+        public bool? clienteSearch { get; set; }
     }
 
 }
