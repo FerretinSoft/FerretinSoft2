@@ -79,9 +79,8 @@
                                 </DataGridTemplateColumn.CellTemplate>
                             </DataGridTemplateColumn>
                             <DataGridTextColumn Width="1.8*" Binding="{Binding Path=nombre}" Header="Nombre" IsReadOnly="True"/>
-                            <DataGridTextColumn Width="1.1*" Binding="{Binding Path=fechaDesde}" Header="Fecha Desde" IsReadOnly="True"/>
-                            <DataGridTextColumn Width="1.1*" Binding="{Binding Path=fechaHasta}" Header="Fecha Hasta" IsReadOnly="True"/>
-                            <DataGridTextColumn Width="0.8*" Binding="{Binding Path=stockActual}" Header="Stock Actual" IsReadOnly="True"/>
+                            <DataGridTextColumn Width="1.1*" Binding="{Binding Path=fechaDesde,StringFormat=\{0:dd/MM/yyyy hh:mm:ss\}}" Header="Fecha Desde" IsReadOnly="True"/>
+                            <DataGridTextColumn Width="1.1*" Binding="{Binding Path=fechaHasta,StringFormat=\{0:dd/MM/yyyy hh:mm:ss\}}" Header="Fecha Hasta" IsReadOnly="True"/>
                             <DataGridCheckBoxColumn Width="0.5*" Binding="{Binding Path=estadoBool}" Header="Activo" IsReadOnly="True"/>
                         </DataGrid.Columns>
                     </DataGrid>
