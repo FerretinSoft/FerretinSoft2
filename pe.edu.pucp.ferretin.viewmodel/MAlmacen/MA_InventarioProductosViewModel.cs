@@ -98,9 +98,9 @@ namespace pe.edu.pucp.ferretin.viewmodel.MAlmacen
                 //Si la pestaña es para agregar nuevo, limpio los input
                 switch (_statusTab)
                 {
-                    case Tab.BUSQUEDA: detallesTabHeader = "Busqueda"; break;
-                    case Tab.DETALLES: detallesTabHeader = "Detalles"; break;
-                    default: detallesTabHeader = "Busqueda"; break;
+                    case Tab.BUSQUEDA: detallesTabHeader = "Busqueda"; productoImagen = null; break;
+                    case Tab.DETALLES: detallesTabHeader = "Detalles"; productoImagen = null; break;
+                    default: detallesTabHeader = "Busqueda"; productoImagen = null; break;
                 }
                 NotifyPropertyChanged("statusTab");
                 //Cuando se cambia el status, tambien se tiene que actualizar el currentIndex del tab
@@ -261,24 +261,31 @@ namespace pe.edu.pucp.ferretin.viewmodel.MAlmacen
         {
             get
             {
-                if (this.producto.imagen != null)
+                try
                 {
-                    MemoryStream strm = new MemoryStream();
-                    strm.Write(producto.imagen.ToArray(), 0, producto.imagen.Length);
-                    strm.Position = 0;
-                    System.Drawing.Image img = System.Drawing.Image.FromStream(strm);
+                    if (this.producto.imagen != null)
+                    {
+                        MemoryStream strm = new MemoryStream();
+                        strm.Write(producto.imagen.ToArray(), 0, producto.imagen.Length);
+                        strm.Position = 0;
+                        System.Drawing.Image img = System.Drawing.Image.FromStream(strm);
 
-                    BitmapImage bitmapImage = new BitmapImage();
-                    bitmapImage.BeginInit();
-                    MemoryStream memoryStream = new MemoryStream();
-                    img.Save(memoryStream, System.Drawing.Imaging.ImageFormat.Bmp);
-                    memoryStream.Seek(0, SeekOrigin.Begin);
-                    bitmapImage.StreamSource = memoryStream;
-                    bitmapImage.EndInit();
+                        BitmapImage bitmapImage = new BitmapImage();
+                        bitmapImage.BeginInit();
+                        MemoryStream memoryStream = new MemoryStream();
+                        img.Save(memoryStream, System.Drawing.Imaging.ImageFormat.Bmp);
+                        memoryStream.Seek(0, SeekOrigin.Begin);
+                        bitmapImage.StreamSource = memoryStream;
+                        bitmapImage.EndInit();
 
-                    _productoImagen = bitmapImage;
+                        _productoImagen = bitmapImage;
+                    }
+                    return _productoImagen;
                 }
-                return _productoImagen;
+                catch (Exception e) {
+                    return _productoImagen;
+                }
+
             }
             set
             {

@@ -41,7 +41,7 @@
                     <Label Content="DNI:" HorizontalAlignment="Left" Height="26" VerticalAlignment="Top" Width="45" Margin="26,42,0,0"/>
                     <Label Content="Nombre:" HorizontalAlignment="Left" Height="26" VerticalAlignment="Top" Width="57" Margin="223,36,0,0"/>
                     <TextBox MaxLength="8" Text="{Binding searchDNI, Mode=TwoWay}" HorizontalAlignment="Left" Height="20" Margin="83,42,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" PreviewKeyDown="txtDNI_KeyDown"  PreviewTextInput="dni_PreviewTextInput" />
-                    <TextBox Text="{Binding searchNombre, Mode=TwoWay}" HorizontalAlignment="Left" Height="20" Margin="290,39,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="332"/>
+                    <TextBox MaxLength="30" Text="{Binding searchNombre, Mode=TwoWay}" HorizontalAlignment="Left" Height="20" Margin="290,39,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="332" PreviewKeyDown="txtNombre_KeyDown" PreviewTextInput="nombre_PreviewTextInput"/>
                     <Button Command="{Binding actualizarListaEmpleadosCommand}" HorizontalAlignment="Left" Margin="627,50,0,0" VerticalAlignment="Top" Width="31" Height="32" >
                         <Button.Background>
                             <ImageBrush ImageSource="../Resources/refresh2_48.png"/>
@@ -84,7 +84,7 @@
 
                     </ToolBar>
                     <Label Content="Código: " HorizontalAlignment="Left" Height="26" VerticalAlignment="Top" Width="107" Margin="26,67,0,0"/>
-                    <TextBox MaxLength="8" Text="{Binding searchCodigo, Mode=TwoWay}" HorizontalAlignment="Left" Height="20" Margin="83,73,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" PreviewKeyDown="txtDNI_KeyDown"  PreviewTextInput="dni_PreviewTextInput"/>
+                    <TextBox MaxLength="10" Text="{Binding searchCodigo, Mode=TwoWay}" HorizontalAlignment="Left" Height="20" Margin="83,73,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" PreviewKeyDown="txtDNI_KeyDown"  PreviewTextInput="dni_PreviewTextInput"/>
                     <Label Content="Tienda:" HorizontalAlignment="Left" Height="26" VerticalAlignment="Top" Width="45" Margin="438,74,0,0"/>
                     <ComboBox ItemsSource="{Binding listaCargos}"  SelectedItem="{Binding searchCargo,Mode=TwoWay}" SelectedIndex="0"  DisplayMemberPath="nombre" SelectedValuePath="id"  HorizontalAlignment="Left" Margin="290,74,0,0" VerticalAlignment="Top" Width="120"/>
                     <ComboBox ItemsSource="{Binding listaTiendas}"  SelectedItem="{Binding searchTienda,Mode=TwoWay}" SelectedIndex="0"  DisplayMemberPath="nombre" SelectedValuePath="id" HorizontalAlignment="Left" Margin="502,74,0,0" VerticalAlignment="Top" Width="120">
@@ -115,7 +115,7 @@
                     <Label Content="DNI:" HorizontalAlignment="Left" Margin="14,53,0,0" VerticalAlignment="Top" Grid.Column="4"/>
                     <TextBox  ContextMenu="{x:Null}" MaxLength="8" Text="{Binding Path=empleado.dni, Mode=TwoWay,  ValidatesOnExceptions=true, NotifyOnValidationError=true, ValidatesOnDataErrors=True}"  HorizontalAlignment="Left" Height="23" Margin="90,57,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="144" Grid.Column="4" PreviewKeyDown="txtDNI_KeyDown"  PreviewTextInput="dni_PreviewTextInput" />
                     <Label Content="Nombre:" HorizontalAlignment="Left" Margin="10,119,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.464,1.231" Grid.ColumnSpan="4"/>
-                    <TextBox MaxLength="30" Text="{Binding Path=empleado.nombre, Mode=TwoWay,  ValidatesOnExceptions=true, NotifyOnValidationError=true, ValidatesOnDataErrors=True}"  HorizontalAlignment="Left" Height="23" Margin="15,123,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="219" Grid.Column="4"  PreviewKeyDown="txtNombre_KeyDown" PreviewTextInput="nombre_PreviewTextInput"  />
+                    <TextBox ContextMenu="{x:Null}" MaxLength="30" Text="{Binding Path=empleado.nombre, Mode=TwoWay,  ValidatesOnExceptions=true, NotifyOnValidationError=true, ValidatesOnDataErrors=True}"  HorizontalAlignment="Left" Height="23" Margin="15,123,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="219" Grid.Column="4"  PreviewKeyDown="txtNombre_KeyDown" PreviewTextInput="nombre_PreviewTextInput"  />
                     <Label Content="Apellido Paterno:" HorizontalAlignment="Left" Margin="10,150,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.464,1.231" Grid.ColumnSpan="5"/>
                     <TextBox ContextMenu="{x:Null}"  MaxLength="30" Text="{Binding Path=empleado.apPaterno, Mode=TwoWay,  ValidatesOnExceptions=true, NotifyOnValidationError=true}"  HorizontalAlignment="Left" Height="23" Margin="15,154,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="219" Grid.Column="4" PreviewKeyDown="txtApPaterno_KeyDown" PreviewTextInput="apPaterno_PreviewTextInput" />
                     <Label Content=" Distrito:" HorizontalAlignment="Left" Margin="86,291,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.464,1.231" Grid.Column="4"/>
