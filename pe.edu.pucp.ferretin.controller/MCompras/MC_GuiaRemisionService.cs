@@ -7,6 +7,7 @@ using pe.edu.pucp.ferretin.controller.MAlmacen;
 
 namespace pe.edu.pucp.ferretin.controller.MCompras
 {
+
     public class MC_GuiaRemisionService : MC_ComunService
     {
 
