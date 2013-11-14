@@ -39,13 +39,14 @@ namespace pe.edu.pucp.ferretin.viewmodel.MSeguridad
         public int searchEstado { get { return _searchEstado; } set { _searchEstado = value; NotifyPropertyChanged("searchEstado"); } }
         #endregion
 
+        /************************************************/
         public String _dniEmpleado = "";
         public String dniEmpleado
         {
             get { return _dniEmpleado; }
             set { _dniEmpleado = value; NotifyPropertyChanged("dniEmpleado"); }
         }
-
+        /************************************************/
         public bool editEmpleadoEnabled
         {
             get
@@ -53,7 +54,15 @@ namespace pe.edu.pucp.ferretin.viewmodel.MSeguridad
                 return statusTab == tabs.AGREGAR ? true : false;
             }
         }
-
+        /************************************************/
+        public bool editEmpleadoEnabled2
+        {
+            get
+            {
+                return statusTab == tabs.AGREGAR ? false : true;
+            }
+        }
+        /************************************************/
         public int _busquedaExitosa = 0;
         public int busquedaExitosa
         {
@@ -97,6 +106,7 @@ namespace pe.edu.pucp.ferretin.viewmodel.MSeguridad
                 //Cuando se cambia el status, tambien se tiene que actualizar el currentIndex del tab
                 NotifyPropertyChanged("currentIndexTab"); //Hace que cambie el tab automaticamente
                 NotifyPropertyChanged("editEmpleadoEnabled");
+                NotifyPropertyChanged("editEmpleadoEnabled2");
             }
         }
         /************************************************/
@@ -379,13 +389,30 @@ namespace pe.edu.pucp.ferretin.viewmodel.MSeguridad
                     MessageBox.Show("Ingrese nombre de usuario correcto, por favor");
                     return;
                 }
+                /********************* Validar cuando se ingresa estado null **********************/
+                if (usuario.estado == null)
+                {
+                    MessageBox.Show("Ingrese estado de usuario correcto, por favor");
+                    return;
+                }
+                /********************* Validar cuando no se ingresa nombre de usuario correcto **********************/
+                if (usuario.Perfil==null)
+                {
+                    MessageBox.Show("Ingrese perfil de usuario correcto, por favor");
+                    return;
+                }
+                /********************* Validar cuando se ingresa nombre de usuario y no se dio el boton de verificar **********************/
+                if (!MS_UsuarioService.validarUserName(usuario))
+                {
+                    MessageBox.Show("Verifique, el usuario ya existe");
+                    return;
+                }
                 /* Validar cuando no se ha realizado la busqueda de empleado o la verificacion de nombre de usuario mediante los botones */
                 if (this._busquedaExitosa < 2)
                 {
                     MessageBox.Show("Realize la busqueda de empleado o verifique el nombre de usuario");
                     return;
                 }
-
 
             }
             
