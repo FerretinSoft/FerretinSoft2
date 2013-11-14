@@ -138,7 +138,7 @@ namespace pe.edu.pucp.ferretin.view.MRecursosHumanos
 
         private void direccion_PreviewTextInput(object sender, TextCompositionEventArgs e)
         {
-            if (Regex.IsMatch(e.Text, @"^[0-9]+(\s[a-zA-Z]+)+$")) 
+            if (Regex.IsMatch(e.Text, @"^(\s[a-zA-Z]+)+$")) 
             {
                 e.Handled = true;
             }
@@ -150,6 +150,10 @@ namespace pe.edu.pucp.ferretin.view.MRecursosHumanos
 
          private void txtDireccion_KeyDown(object sender, KeyEventArgs e)
          {
+             if (e.Key == Key.Back || e.Key == Key.Tab || (e.Key == Key.Space))
+                 e.Handled = false;
+             else
+                 e.Handled = true;
 
          }
 
@@ -246,6 +250,12 @@ namespace pe.edu.pucp.ferretin.view.MRecursosHumanos
                 e.Handled = false;
             else
                 e.Handled = true;
+
+
+            //if (((e.Key >= Key.D0 && e.Key <= Key.D9) || (e.Key >= Key.NumPad0 && e.Key <= Key.NumPad9) || e.Key == Key.Back || e.Key == Key.Tab))
+            //    e.Handled = false;
+            //else
+            //    e.Handled = true;
 
         }
 
