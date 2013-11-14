@@ -125,7 +125,7 @@
                     </Grid.ColumnDefinitions>
                     <!-- Labels -->
 
-                    <Label Content="DNI Empleado" HorizontalAlignment="Left" Margin="247,58,0,0" VerticalAlignment="Top" Grid.Column="1" Grid.ColumnSpan="2"/>
+                    <Label Content="DNI Empleado:" HorizontalAlignment="Left" Margin="247,58,0,0" VerticalAlignment="Top" Grid.Column="1" Grid.ColumnSpan="2"/>
                     <Label Content="*" HorizontalAlignment="Left" Margin="90,58,0,0" VerticalAlignment="Top" Foreground="Red" FontSize="14" Width="19" Height="22" RenderTransformOrigin="3.646,-0.402" Grid.Column="2"/>
                     <Label Content="Nombre de &#xD;&#xA;Usuario:" HorizontalAlignment="Left" Margin="246,88,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.464,1.231" Grid.Column="1" Height="43"/>
                     <Label Content="*" HorizontalAlignment="Left" Margin="177,88,0,0" VerticalAlignment="Top" Foreground="Red" FontSize="14" Width="19" Height="26" RenderTransformOrigin="3.646,-0.402" Grid.Column="2"/>
@@ -154,14 +154,9 @@
                     <Button IsEnabled="False" Width="111" Margin="114,34,0,0" HorizontalAlignment="Left" Height="100" VerticalAlignment="Top" Grid.Column="1">
                         <Image  IsEnabled="False" Source="{Binding usuarioImagen,Mode=OneWay,UpdateSourceTrigger=PropertyChanged}" Stretch="Fill" HorizontalAlignment="Left" Height="100" VerticalAlignment="Top" Width="101" Grid.Column="1"/>
                     </Button>
-                    <Button IsEnabled="{Binding editEmpleadoEnabled,Mode=OneWay}" Command="{Binding buscarClienteCommand}" Margin="136,54,176,331" VerticalAlignment="Center" Height="30"  BorderThickness="0" Grid.Column="2">
+                    <Button IsEnabled="{Binding editEmpleadoEnabled,Mode=OneWay}" Command="{Binding buscarClienteCommand}" Margin="114,54,202,0" VerticalAlignment="Top" Height="26"  BorderThickness="0" Grid.Column="2">
                         <Button.Background>
                             <ImageBrush ImageSource="../Resources/search1_20.png"/>
-                        </Button.Background>
-                    </Button>
-                    <Button Command="{Binding buscarNombreUsuarioCommand}" Margin="196,88,120,301" VerticalAlignment="Center" Height="26"  BorderThickness="0" Grid.Column="2">
-                        <Button.Background>
-                            <ImageBrush ImageSource="/pe.edu.pucp.ferretin.view;component/Resources/search1_20.png"/>
                         </Button.Background>
                     </Button>
                     <Button Name="buttonContrasena"  Command="{Binding restbContrasenaCommand}" Content="RESTABLECER CONTRASEÑA" Padding="5,0" Margin="232,286,245,98" Grid.Column="1" Grid.ColumnSpan="2"/>
@@ -169,6 +164,11 @@
                         <Button Command="{Binding saveUsuarioCommand}"  Content="GUARDAR" Padding="5,0" Margin="5,10,5,52"/>
                         <Button Command="{Binding cancelUsuarioCommand}" Content="CANCELAR" Padding="5,0" Margin="5,10,5,52"/>
                     </StackPanel>
+                    <Button Command="{Binding buscarNombreUsuarioCommand}" Margin="191,88,122,0" VerticalAlignment="Top" Height="26"  BorderThickness="0" Grid.Column="2">
+                        <Button.Background>
+                            <ImageBrush ImageSource="../Resources/verify.jpg"/>
+                        </Button.Background>
+                    </Button>
 
                 </Grid>
                 <!-- End Grid -->

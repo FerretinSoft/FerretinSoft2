@@ -177,6 +177,17 @@ namespace pe.edu.pucp.ferretin.controller.MCompras
                 return null;
         }
 
+        public static string generarCodigoDC(byte? tipoDC)
+        {
+            IEnumerable<DocumentoCompra> documentos = (from e in listaDocumentosCompra
+                                                       where e.codigo != null && e.tipo.Equals(tipoDC)
+                                                       select e);
+            if (tipoDC == 1)
+                return "COT" + documentos.Count().ToString();
+            else
+                return "ORD" + documentos.Count().ToString();
+        }
+
         public static bool insertarDocumentoCompra(DocumentoCompra documentoCompra)
         {
             DocumentoCompra doc;

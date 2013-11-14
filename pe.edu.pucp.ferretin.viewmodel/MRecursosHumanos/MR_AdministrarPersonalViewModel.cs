@@ -557,67 +557,85 @@ namespace pe.edu.pucp.ferretin.viewmodel.MRecursosHumanos
         }
         public void saveEmpleado(Object obj)
         {
-            if (soloSeleccionarVendedor)
+            string message = "Está seguro de guardar los cambios?";
+            string caption = "Confirmación";
+            MessageBoxButton buttons = MessageBoxButton.OKCancel;
+            MessageBoxImage icon = MessageBoxImage.Question;
+            if (MessageBox.Show(message, caption, buttons, icon) == MessageBoxResult.OK)
             {
+                // OK code here
 
-            }
-            else
-            {
-                /*Para actualizar un empleado existente*/
-                if ((empleado.id > 0) && VerificaCamposObligatorios(empleado))//Si existe
+                if (soloSeleccionarVendedor)
                 {
-                    ComunService.idVentana(2);    
-                    foreach (EmpleadoTurno et in empleado.EmpleadoTurno)
-                    {
-                        if (et.id_turno == 0) et.id_turno = null;
 
-                    }
-
-                    if (!MR_EmpleadoService.enviarCambios())
-                    {
-                        MessageBox.Show("No se pudo actualizar el empleado");
-                    }
-                    else
-                    {
-                        MessageBox.Show("Se actualizó el empleado con éxito");
-                        this.statusTab = Tab.BUSQUEDA;
-                        listaEmpleados = MR_EmpleadoService.listaEmpleados;
-                        NotifyPropertyChanged("listaEmpleadoTiendas");//Para el historial de empleos
-                    }
                 }
-                /*Para agregar un empleado nuevo*/
                 else
                 {
-                    //Validacion de Campos Obligatorios//
-
-                    ComunService.idVentana(1);
-             
-                    if ( VerificaCamposObligatorios(empleado) && VerificaDNIEmpleado(empleado))
+                    /*Para actualizar un empleado existente*/
+                    if ((empleado.id > 0) && VerificaCamposObligatorios(empleado))//Si existe
                     {
-                        if (empleado.dni != null && empleado.nombre != null && empleado.apPaterno != null && empleado.apMaterno != null)
+                        ComunService.idVentana(2);
+                        foreach (EmpleadoTurno et in empleado.EmpleadoTurno)
                         {
-                            empleado.empleadoT();
-                            empleado.codEmpleado = 100060 + listaEmpleados.Count();
+                            if (et.id_turno == 0) et.id_turno = null;
 
-                            if (!MR_EmpleadoService.insertarEmpleado(empleado))
-                            {
-                                MessageBox.Show("No se pudo agregar el nuevo empleado");
-                            }
-                            else
-                            {
+                        }
 
-                                MessageBox.Show("El empleado fue agregado con éxito");
-                                this.statusTab = Tab.BUSQUEDA;
-                                listaEmpleados = MR_EmpleadoService.listaEmpleados;
-                                //NotifyPropertyChanged("EmpleadoTienda");//Para el historial de empleos
+                        if (!MR_EmpleadoService.enviarCambios())
+                        {
+                            MessageBox.Show("No se pudo actualizar el empleado");
+                        }
+                        else
+                        {
+                            MessageBox.Show("Se actualizó el empleado con éxito");
+                            this.statusTab = Tab.BUSQUEDA;
+                            listaEmpleados = MR_EmpleadoService.listaEmpleados;
+                            NotifyPropertyChanged("listaEmpleadoTiendas");//Para el historial de empleos
+                        }
+                    }
+                    /*Para agregar un empleado nuevo*/
+                    else
+                    {
+                        //Validacion de Campos Obligatorios//
+
+                        ComunService.idVentana(1);
+
+                        if (VerificaCamposObligatorios(empleado) && VerificaDNIEmpleado(empleado))
+                        {
+                            if (empleado.dni != null && empleado.nombre != null && empleado.apPaterno != null && empleado.apMaterno != null)
+                            {
+                                empleado.empleadoT();
+                                empleado.codEmpleado = 100060 + listaEmpleados.Count();
+
+                                if (!MR_EmpleadoService.insertarEmpleado(empleado))
+                                {
+                                    MessageBox.Show("No se pudo agregar el nuevo empleado");
+                                }
+                                else
+                                {
+
+                                    MessageBox.Show("El empleado fue agregado con éxito");
+                                    this.statusTab = Tab.BUSQUEDA;
+                                    listaEmpleados = MR_EmpleadoService.listaEmpleados;
+                                    //NotifyPropertyChanged("EmpleadoTienda");//Para el historial de empleos
+                                }
                             }
                         }
                     }
                 }
+
             }
+            //else
+            //{
+            //    // Cancel code here
+            //} 
             NotifyPropertyChanged("listaEmpleados");
             NotifyPropertyChanged("empleado");
             NotifyPropertyChanged("listaEmpleadoTiendas");
+
+
+         
+            
         }
         public void cancelEmpleado(Object obj)
         {
