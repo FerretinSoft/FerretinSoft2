@@ -391,8 +391,13 @@ namespace pe.edu.pucp.ferretin.viewmodel.MAlmacen
 
         public void cancelSolicitud(Object obj)
         {
-            this.statusTab = Tab.BUSQUEDA;
-            listaSolicitudes = MA_SolicitudAbastecimientoService.listaSolicitudes;
+            MessageBoxResult result = MessageBox.Show("Al salir, perderá todos los datos ingresados. ¿Desea continuar?",
+            "ATENCIÓN", MessageBoxButton.OKCancel, MessageBoxImage.Warning);
+            if (result == MessageBoxResult.OK)
+            {
+                this.statusTab = Tab.BUSQUEDA;
+                listaSolicitudes = MA_SolicitudAbastecimientoService.listaSolicitudes;
+            }
         }
 
         public void agregarNuevoProducto(Object atr)
