@@ -53,7 +53,8 @@ namespace pe.edu.pucp.ferretin.view.MAlmacen
             MA_DocumentoMovimientoViewModel docVM = w.main.DataContext as MA_DocumentoMovimientoViewModel;
             docVM.movimiento = movVM.movimiento;
             w.Show();
-        }
+        }        
+
 
         
     }

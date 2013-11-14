@@ -541,7 +541,10 @@ namespace pe.edu.pucp.ferretin.viewmodel.MAlmacen
 
         public void cancelMovimiento(Object obj)
         {
-            this.statusTab = Tab.BUSQUEDA;
+            MessageBoxResult result = MessageBox.Show("Al salir, perderá todos los datos ingresados. ¿Desea continuar?",
+            "ATENCIÓN", MessageBoxButton.OKCancel, MessageBoxImage.Warning);
+            if (result == MessageBoxResult.OK)
+                this.statusTab = Tab.BUSQUEDA;
         }
 
         private bool canSaveTipoMovimientoExecute(object obj)
