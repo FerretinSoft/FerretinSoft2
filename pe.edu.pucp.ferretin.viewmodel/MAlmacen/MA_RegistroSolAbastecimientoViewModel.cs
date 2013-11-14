@@ -92,6 +92,7 @@ namespace pe.edu.pucp.ferretin.viewmodel.MAlmacen
                         solicitud.fecha = DateTime.Today; 
                         solicitud.Tienda = currentTienda;
                         solicitud.codigo = SolicitudAbastecimiento.generateCode();
+                        //solicitud.SolicitudAbastecimientoProducto.Clear();
                         break;//Si es agregar, creo un nuevo objeto Almacen
                     case Tab.DETALLES: 
                         detallesTabHeader = "Detalles"; 
@@ -185,7 +186,14 @@ namespace pe.edu.pucp.ferretin.viewmodel.MAlmacen
                 if (solicitud != null && solicitud.id > 0)
                     _productosPorSolicitud = MA_SolicitudAbastecimientoService.buscarProductosPorSolicitud(currentTienda, solicitud);
                 else
+                {
                     _productosPorSolicitud = MA_SolicitudAbastecimientoService.initProductosPorSolicitud(currentTienda, solicitud);
+                    for (int i = 0; i < _productosPorSolicitud.Count(); i++)
+                    {
+                        solicitud.SolicitudAbastecimientoProducto.Add(_productosPorSolicitud.ElementAt(i).productoPorSolicitud);
+                        NotifyPropertyChanged("solicitud");
+                    }
+                }
                 return _productosPorSolicitud;
             }
             set
@@ -357,11 +365,16 @@ namespace pe.edu.pucp.ferretin.viewmodel.MAlmacen
             else
             {
                 if (solicitud.codigo == null || solicitud.codigo == "") MessageBox.Show("Debe insertar el código de la solicitud");
-                else if (solicitud.SolicitudAbastecimientoProducto.Count <= 0) MessageBox.Show("Debe insertar al menos un producto en su solicitud");
+                //else if (solicitud.SolicitudAbastecimientoProducto.Count <= 0) MessageBox.Show("Debe insertar al menos un producto en su solicitud");
                 else
                 {
                     SolicitudAbastecimientoEstado estadoInicial = estadoSolicitud.FirstOrDefault(s => s.nombre == "Pendiente");
                     if (estadoInicial != null) solicitud.SolicitudAbastecimientoEstado = estadoInicial;
+                    for (int i = 0; i < solicitud.SolicitudAbastecimientoProducto.Count; i++)
+                    {
+                        solicitud.SolicitudAbastecimientoProducto[i].cantidadAtendida = 0;
+                        solicitud.SolicitudAbastecimientoProducto[i].cantidadRestante = solicitud.SolicitudAbastecimientoProducto[i].cantidad;
+                    }
                     MA_ComunService.idVentana(25);
                     if (!MA_SolicitudAbastecimientoService.insertarSolicitud(solicitud))
                     {
@@ -378,8 +391,13 @@ namespace pe.edu.pucp.ferretin.viewmodel.MAlmacen
 
         public void cancelSolicitud(Object obj)
         {
-            this.statusTab = Tab.BUSQUEDA;
-            listaSolicitudes = MA_SolicitudAbastecimientoService.listaSolicitudes;
+            MessageBoxResult result = MessageBox.Show("Al salir, perderá todos los datos ingresados. ¿Desea continuar?",
+            "ATENCIÓN", MessageBoxButton.OKCancel, MessageBoxImage.Warning);
+            if (result == MessageBoxResult.OK)
+            {
+                this.statusTab = Tab.BUSQUEDA;
+                listaSolicitudes = MA_SolicitudAbastecimientoService.listaSolicitudes;
+            }
         }
 
         public void agregarNuevoProducto(Object atr)

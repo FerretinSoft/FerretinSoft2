@@ -140,6 +140,19 @@ namespace pe.edu.pucp.ferretin.controller.MCompras
             }
         }
 
+        public static IEnumerable<Proveedor> obtenerPosiblesProveedores(ProductoAlmacen pa)
+        {
+            IEnumerable<ProveedorProducto> productos = (from p in listaProductos
+                                                  where
+                                                  (p.id_producto != null && p.Producto == pa.Producto)                                                
+                                                  select p);
+
+            IEnumerable<Proveedor> proveedores = (from p in productos
+                                                  select p.Proveedor).Take(4);
+
+            return proveedores;
+        }
+
         #endregion
     }
 }
