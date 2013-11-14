@@ -77,7 +77,9 @@ namespace pe.edu.pucp.ferretin.viewmodel.MAlmacen
         public void guardarStockBtn(Object obj)
         {
             MA_ProductoService.guardarStockProductoAlmacen();
-            MessageBox.Show("Stock guardado con éxito");            
+            Window w = (Window)obj;
+            MessageBox.Show("Stock guardado con éxito");
+            w.Close();
         }
         
     }

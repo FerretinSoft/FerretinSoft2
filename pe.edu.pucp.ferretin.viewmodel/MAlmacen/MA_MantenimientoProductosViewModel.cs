@@ -43,34 +43,8 @@ namespace pe.edu.pucp.ferretin.viewmodel.MAlmacen
             }
         }
 
-        //private Categoria _categoria = new Categoria();
-        //private Categoria categoria
-        //{
-        //    get
-        //    {
-        //        foreach (var pc in _categoria.ProductoCategoria)
-        //        {
 
-
-
-
-
-        //        }
-
-
-
-        //    }
-
-        //    set
-        //    {
-
-
-
-
-        //    }
-
-        //}
-
+        private IEnumerable<Categoria> _categoriaPrincipalInit { get; set; }
 
 
         private IEnumerable<Categoria> _categoriaPrincipal;
@@ -81,6 +55,7 @@ namespace pe.edu.pucp.ferretin.viewmodel.MAlmacen
                 //Devolver la categoría padre
                 //_categoriaPrincipal = MA_CategoriaService.categorias.Where(c => c.id_padre == null);
                 _categoriaPrincipal = MA_CategoriaService.obtenerCategoriasPadres();
+                
                 return _categoriaPrincipal;
             }
             set
@@ -341,10 +316,8 @@ namespace pe.edu.pucp.ferretin.viewmodel.MAlmacen
                 switch (value)
                 {
                     case (int)tabs.BUSQUEDA: detallesTabHeader = "Agregar Producto"; producto = new Producto(); break;//Si es agregar, creo un nuevo objeto Cliente
-                    case (int)tabs.AGREGAR: detallesTabHeader = "Agregar Producto"; producto = new Producto(); prodAlm = new ProductoAlmacen(); break;//Si es agregar, creo un nuevo objeto Cliente
+                    case (int)tabs.AGREGAR: detallesTabHeader = "Agregar Producto"; producto = new Producto(); prodAlm = new ProductoAlmacen(); cleanCategoriasTree(); break;//Si es agregar, creo un nuevo objeto Cliente
                     case (int)tabs.MODIFICAR: detallesTabHeader = "Edición de Producto"; break;
-
-
 
                     //case (int)tabs.DETALLES: detallesTabHeader = "Detalles"; break;
                     //default: detallesTabHeader = "Agregar"; cliente = new Cliente(); break;//Si es agregar, creo un nuevo objeto Cliente
@@ -398,18 +371,6 @@ namespace pe.edu.pucp.ferretin.viewmodel.MAlmacen
             }
         }
 
-        RelayCommand _guardarCommand;
-        public ICommand guardarCommand
-        {
-            get
-            {
-                if (_guardarCommand == null)
-                {
-                    _guardarCommand = new RelayCommand(guardarBtn);
-                }
-                return _guardarCommand;
-            }
-        }
 
         RelayCommand _editarCommand;
         public ICommand editarCommand
@@ -427,16 +388,47 @@ namespace pe.edu.pucp.ferretin.viewmodel.MAlmacen
 
         #endregion
 
+        //Utilizado en arbol
+
+        private void cleanCategoriasTree()
+        {
+            foreach (Categoria c in categoriaPrincipal)
+            {
+                c.isChecked = false;
+                foreach (Categoria c2 in c.Categoria2)
+                    c2.isChecked = false;
+            }
+
+            NotifyPropertyChanged("categoriaPrincipal");
+        }
+
         private void obtenerCategoriasDeProducto()
         {   
             IEnumerable<Categoria> catxProd = MA_CategoriaService.obtenerCategoriasxProducto(producto.id);
-            IEnumerable<Categoria> res = categoriaPrincipal.Intersect(catxProd);
+            //IEnumerable<Categoria> res=_categoriaPrincipal.Intersect(catxProd);
 
-            foreach (Categoria r in res)
+            foreach (Categoria c in _categoriaPrincipal)
             {
-                r.isChecked = true;
+                foreach (Categoria c2 in c.Categoria2)
+                    c2.isChecked = false;
+
+                c.isChecked = false;
+
             }
 
+            foreach (Categoria c in catxProd)
+            {
+                if (c.id_padre == null)
+                    _categoriaPrincipal.Single(categoria => categoria.id == c.id).isChecked = true;
+
+                else
+                {
+                    Categoria cPadre = _categoriaPrincipal.Single(categoria => categoria.id == c.id_padre);
+                    cPadre.Categoria2.Single(categoria => categoria.id == c.id).isChecked=true;
+                }
+            }
+
+            _categoriaPrincipalInit = _categoriaPrincipal;
             NotifyPropertyChanged("categoriaPrincipal");
             
         }
@@ -471,35 +463,45 @@ namespace pe.edu.pucp.ferretin.viewmodel.MAlmacen
         }
 
 
-        private void guardarBtn(object obj)
+        public void guardarCategoriasProducto()
         {
-            String header=(String)obj;
-            Console.WriteLine(imgProd);
-            if (header.Contains("Agregar"))
+            List<ProductoCategoria> prodCat=new List<ProductoCategoria>();
+
+            foreach (Categoria c in categoriaPrincipal)
             {
-
-                //Validaciones
-
-                if (MA_ProductoService.agregarNuevoProducto(producto))
+                if (c.isChecked == true)
                 {
-                    MessageBox.Show("El producto fue agregado con éxito");
-                    producto = new Producto();
-                }
-                else
-                {
-                    MessageBox.Show("No se pudo agregar el producto");
+                    ProductoCategoria p = new ProductoCategoria();
+                    p.id_producto = producto.id;
+                    p.id_categoria = c.id;
+                    prodCat.Add(p);
                 }
 
-                //*************
-                
-                
+                foreach (Categoria c2 in c.Categoria2)
+                {
+                    if (c2.isChecked == true)
+                    {
+                        ProductoCategoria p=new ProductoCategoria();
+                        p.id_producto = producto.id;
+                        p.id_categoria = c2.id;
+                        prodCat.Add(p);
+                    }
+                }
             }
-            else //Editar
+
+            MA_CategoriaService.agregarCategoriaProductos(prodCat);
+            IEnumerable<Categoria> p2= MA_CategoriaService.obtenerCategoriasxProducto(producto.id);
+            String cad = "";
+            foreach (Categoria pc in p2)
             {
-                MA_ProductoService.actualizarProducto();
+                if (cad != "") cad += ", ";
+                cad += pc.nombre;
             }
-            
-            //prodAlm = new ProductoAlmacen();
+
+            listaProductos.Single(prod => prod.id == producto.id).cadenaCategoria = cad;
+            NotifyPropertyChanged("listaProductos");
+
+
         }
 
         private void tabBúsqueda_Click(object sender, MouseButtonEventArgs e)

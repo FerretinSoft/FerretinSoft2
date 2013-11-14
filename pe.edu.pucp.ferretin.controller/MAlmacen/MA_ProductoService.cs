@@ -20,6 +20,16 @@ namespace pe.edu.pucp.ferretin.controller.MAlmacen
             return listaProd;
         }
 
+        public static String obtenerUltimoCodigo()
+        {
+            IEnumerable<Producto> listaProd = from p in db.Producto
+                                              orderby p.codigo descending
+                                              select p;
+
+            return listaProd.ElementAt(0).codigo;
+        }
+
+
         public static void crearStockProductoAlmacen(int idProd)
         {
             IEnumerable<Tienda> listaTiendas = MS_TiendaService.listaTiendas;
@@ -30,6 +40,9 @@ namespace pe.edu.pucp.ferretin.controller.MAlmacen
                 pa.id_producto = idProd;
                 pa.stock = 0;
                 pa.stockMin = 0;
+                pa.descuento = 0;
+                pa.puntos = 0;
+                pa.estado = 1;
                 db.ProductoAlmacen.InsertOnSubmit(pa);
                 db.SubmitChanges();
             }
@@ -151,6 +164,7 @@ namespace pe.edu.pucp.ferretin.controller.MAlmacen
             return t;
         }
 
+        
 
 
         public static bool agregarNuevoProducto(Producto prod)
@@ -158,6 +172,7 @@ namespace pe.edu.pucp.ferretin.controller.MAlmacen
             if (obtenerProductoxCodigo(prod.codigo)==null)
             {
                 db.Producto.InsertOnSubmit(prod);
+            
                 db.SubmitChanges();
                 return true;
             }
@@ -167,9 +182,71 @@ namespace pe.edu.pucp.ferretin.controller.MAlmacen
         }
 
 
-        public static void actualizarProducto()
+        public static void actualizarProducto(IEnumerable <Categoria> listaCategoriasMod,Producto prod)
         {
-                db.SubmitChanges();
+            //Comparamos categorias antes y despues
+            List<ProductoCategoria> tpc = (MA_CategoriaService.obtenerTablaCategoriaProducto(prod.id)).ToList<ProductoCategoria>();
+
+            foreach (Categoria c in listaCategoriasMod)
+            {
+                ProductoCategoria pc = new ProductoCategoria();
+                pc.id_producto = prod.id;
+                pc.id_categoria = c.id;
+
+                if (c.isChecked)
+                {
+                    //Si no existe, lo agregamos
+                    if (tpc.Where(t => (t.id_categoria == pc.id_categoria) && (t.id_producto == pc.id_producto)).Count() == 0)
+                    {
+                        //tpc.Add(pc);
+                        db.ProductoCategoria.InsertOnSubmit(pc);
+                    }
+                }
+                else
+                {  
+                    //Si existe, pero esta deseleccionado entonces lo eliminamos
+                    if (tpc.Where(t=> (t.id_categoria==pc.id_categoria) && (t.id_producto==pc.id_producto)).Count()==1)
+                    {
+                        //tpc.Remove(pc);
+                        ProductoCategoria pctemp = tpc.Single(t => (t.id_categoria == pc.id_categoria) &&
+                                                    (t.id_producto == pc.id_producto));
+                        db.ProductoCategoria.DeleteOnSubmit(pctemp);
+                    }
+                }
+
+                //Para cada subproducto
+
+                foreach (Categoria c2 in c.Categoria2)
+                {
+                    ProductoCategoria subpc = new ProductoCategoria();
+                    subpc.id_producto = prod.id;
+                    subpc.id_categoria = c2.id;
+
+                    if (c2.isChecked)
+                    {
+                        //Si no existe, lo agregamos
+                        if (tpc.Where(t => (t.id_categoria == subpc.id_categoria) &&
+                                (t.id_producto == subpc.id_producto)).Count() == 0)
+                        {
+                            //tpc.Add(pc);
+                            db.ProductoCategoria.InsertOnSubmit(subpc);
+                        }
+                    }
+                    else
+                    {
+                        //Si existe, pero esta deseleccionado entonces lo eliminamos
+                        if (tpc.Where(t => (t.id_categoria == subpc.id_categoria) &&
+                                (t.id_producto == subpc.id_producto)).Count() == 1)
+                        {
+                            //tpc.Remove(pc);
+                            ProductoCategoria pctemp = tpc.Single(t => (t.id_categoria == subpc.id_categoria) &&
+                                                        (t.id_producto == subpc.id_producto));
+                            db.ProductoCategoria.DeleteOnSubmit(pctemp);
+                        }
+                    }
+                }
+            }
+            db.SubmitChanges();
         }
 
 
