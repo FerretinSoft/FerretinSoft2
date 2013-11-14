@@ -40,19 +40,26 @@ namespace pe.edu.pucp.ferretin.viewmodel.MAlmacen
                 _categoriaPrincipal = value;
             }
         }
-        private Categoria _CategoriaSeleccionada;
+        private Categoria _CategoriaSeleccionada=null;
+        
         public Categoria CategoriaSeleccionada
         {
 
             get
             {
+
                 return _CategoriaSeleccionada;
             }
             set
             {
-                _CategoriaSeleccionada = value;
+                if (value == null) { _CategoriaSeleccionada.id = 0; _CategoriaSeleccionada.nombre = ""; _CategoriaSeleccionada.descripcion = ""; }
+                else
+                {
+                    _CategoriaSeleccionada = value;
+                
                 //Actualizo el combobox de categorias padre
                 categoriasPadre = MA_CategoriaService.categorias.Where(c => c.nivel == _CategoriaSeleccionada.Categoria1.nivel);
+                    }
                 OnPropertyChanged("CategoriaSeleccionada");
             }
         }
@@ -91,7 +98,7 @@ namespace pe.edu.pucp.ferretin.viewmodel.MAlmacen
             {
                 if (_actualizarArbolCategoriaCommand == null)
                 {
-                    _actualizarArbolCategoriaCommand = new RelayCommand(param => NotifyPropertyChanged("categoriaPrincipal"));
+                    _actualizarArbolCategoriaCommand = new RelayCommand(param => NotifyPropertyChanged("listaArbolCategoria"));
                 }
                 return _actualizarArbolCategoriaCommand;
             } 
@@ -113,6 +120,24 @@ namespace pe.edu.pucp.ferretin.viewmodel.MAlmacen
         }
 
         #endregion
+
+
+        private IEnumerable<Categoria> _listaArbolCategoria;
+        public IEnumerable<Categoria> listaArbolCategoria
+        {
+            get
+            {
+                _listaArbolCategoria =MA_CategoriaService.categorias;
+                return _listaArbolCategoria;
+            }
+            set
+            {
+                _listaArbolCategoria = value;
+                NotifyPropertyChanged("listaArbolCategoria");
+            
+            }
+        }
+
 
         #region Comandos
 
@@ -144,44 +169,52 @@ namespace pe.edu.pucp.ferretin.viewmodel.MAlmacen
 
         public void saveCategoria(Object obj)
         {
+            if (CategoriaSeleccionada != null)
+            {
 
-            if (CategoriaSeleccionada.id > 0)//Si existe
-            {
-                if (!MA_CategoriaService.enviarCambios())
+                if (CategoriaSeleccionada.id > 0)//Si existe
                 {
-                    MessageBox.Show("No se pudo actualizar la categoría");
-                }
-                else
-                {
-                    MessageBox.Show("La categoría fue guardado con éxito");
-                }
-            }
-            else
-            {
-                if (CategoriaSeleccionada.nombre == null)
-                {
-                    MessageBox.Show("Ingresar el nombre de la categoría");
-                }
-                else if(CategoriaSeleccionada.descripcion==null){
-                    MessageBox.Show("Ingresar la descripción de la categoría");
-                }
-                else if (CategoriaSeleccionada.nombre == null && CategoriaSeleccionada.descripcion == null) {
-                    MessageBox.Show("Ingresar todos los campos");
-                }
-                else
-                {
-                    if (!MA_CategoriaService.insertarCategoria(CategoriaSeleccionada))
+                    if (!MA_CategoriaService.enviarCambios())
                     {
-                        MessageBox.Show("No se pudo agregar la nuevo categoría");
+                        MessageBox.Show("No se pudo actualizar la categoría");
                     }
                     else
                     {
-                        MessageBox.Show("La categoría fue agregado con éxito");
-
+                        MessageBox.Show("La categoría fue guardado con éxito");
                     }
                 }
+                else
+                {
+                    if (CategoriaSeleccionada.nombre == null && CategoriaSeleccionada.descripcion!=null)
+                    {
+                        MessageBox.Show("Ingresar el nombre de la categoría");
+                    }
+                    else if (CategoriaSeleccionada.descripcion == null  && CategoriaSeleccionada.nombre!=null)
+                    {
+                        MessageBox.Show("Ingresar la descripción de la categoría");
+                    }
+                    else if (CategoriaSeleccionada.nombre == null && CategoriaSeleccionada.descripcion == null)
+                    {
+                        MessageBox.Show("Ingresar todos los campos");
+                    }
+                    else
+                    {
+                        if (!MA_CategoriaService.insertarCategoria(CategoriaSeleccionada))
+                        {
+                            MessageBox.Show("No se pudo agregar la nuevo categoría");
+                        }
+                        else
+                        {
+                            MessageBox.Show("La categoría fue agregado con éxito");
+
+                        }
+                    }
+                }
+                NotifyPropertyChanged("categoriaPrincipal");
+
             }
-            NotifyPropertyChanged("categoriaPrincipal");
+            else
+                MessageBox.Show("Seleccionar una Categoria e ingresar los campos");
         }
         
         #endregion

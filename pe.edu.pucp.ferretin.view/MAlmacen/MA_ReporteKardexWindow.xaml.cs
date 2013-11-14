@@ -11,25 +11,21 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using pe.edu.pucp.ferretin.controller.MAlmacen;
+using pe.edu.pucp.ferretin.model;
+using System.Collections.ObjectModel;
 
 namespace pe.edu.pucp.ferretin.view.MAlmacen
 {
     /// <summary>
-    /// Lógica de interacción para MA_MantenimientoCategoriasWindow.xaml
+    /// Lógica de interacción para MA_ReporteKardexWindow.xaml
     /// </summary>
-    public partial class MA_MantenimientoCategoriasWindow : Window
+    public partial class MA_ReporteKardexWindow : Window
     {
-        public MA_MantenimientoCategoriasWindow()
+        public MA_ReporteKardexWindow()
         {
             InitializeComponent();
         }
-
-        private void TextBox_PreviewKeyDown(object sender, KeyEventArgs e)
-        {
-            if (((e.Key >= Key.A && e.Key <= Key.Z) || e.Key == Key.Back || e.Key == Key.Tab || (e.Key == Key.Space)))
-                e.Handled = false;
-            else
-                e.Handled = true;
-        }
+        
     }
 }

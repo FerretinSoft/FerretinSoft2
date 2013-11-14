@@ -32,7 +32,7 @@ namespace pe.edu.pucp.ferretin.viewmodel.MAlmacen
         {
             get
             {
-                return _selectedTienda;
+                return (_selectedTienda != null) ? _selectedTienda : usuarioLogueado.Empleado.tiendaActual;
             }
 
             set
@@ -41,6 +41,38 @@ namespace pe.edu.pucp.ferretin.viewmodel.MAlmacen
                 NotifyPropertyChanged("selectedTienda");
             }
 
+        }
+
+        public DateTime _fechaDesde;
+        public DateTime fechaDesde
+        {
+            get
+            {
+                return _fechaDesde;
+            }
+            set
+            {
+                _fechaDesde = value;
+                NotifyPropertyChanged("fechaDesde");
+                NotifyPropertyChanged("entradas");
+                NotifyPropertyChanged("salidas");
+            }
+        }
+
+        public DateTime _fechaHasta;
+        public DateTime fechaHasta
+        {
+            get
+            {
+                return _fechaHasta;
+            }
+            set
+            {
+                _fechaHasta = value;
+                NotifyPropertyChanged("fechaHasta");
+                NotifyPropertyChanged("entradas");
+                NotifyPropertyChanged("salidas");
+            }
         }
 
 
