@@ -77,7 +77,7 @@
 
                     </ComboBox>
                     <Label Content="Nombre:" HorizontalAlignment="Left" Height="26" VerticalAlignment="Top" Width="64" Margin="22,80,0,0" Grid.ColumnSpan="2"/>
-                    <TextBox Text="{Binding searchNombre, Mode=TwoWay}" HorizontalAlignment="Left" Height="23" Margin="9,84,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="297" Grid.Column="1"/>
+                    <TextBox Text="{Binding searchNombre, Mode=TwoWay}" HorizontalAlignment="Left" Height="23" Margin="9,84,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="297" Grid.Column="1" PreviewKeyDown="TextBox_PreviewKeyDown"/>
                 </Grid>
             </TabItem>
             <TabItem Header="Detalle">
@@ -88,7 +88,11 @@
                         <ColumnDefinition Width="106*"/>
                         <ColumnDefinition Width="115*"></ColumnDefinition>
                     </Grid.ColumnDefinitions>
-                    <Image HorizontalAlignment="Left" Height="119" VerticalAlignment="Top" Width="100" Source="../Resources/sanitarios.png" Stretch="Fill" Margin="10,10,0,0" Grid.ColumnSpan="3"/>
+                    <Button  Width="100" Margin="10,10,0,0"  Grid.ColumnSpan="5"  HorizontalAlignment="Left" Height="100" VerticalAlignment="Top">
+                        <Image Source="{Binding productoImagen,Mode=OneWay,UpdateSourceTrigger=PropertyChanged}" Stretch="Fill">
+                        </Image>
+                    </Button>
+                    
                     <Label Content="Código:" HorizontalAlignment="Left" Margin="88,41,0,0" VerticalAlignment="Top" Grid.Column="2"/>
                     <Label Content="Categorías:" HorizontalAlignment="Left" Margin="88,72,0,0" VerticalAlignment="Top" Grid.Column="2"/>
                     <TextBox Text="{Binding Path=producto.codigo, Mode=TwoWay}" HorizontalAlignment="Left" Height="23" Margin="157,44,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="151" IsEnabled="False" Grid.Column="2"/>

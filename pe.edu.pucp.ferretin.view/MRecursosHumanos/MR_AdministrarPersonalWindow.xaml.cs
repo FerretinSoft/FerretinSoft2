@@ -52,7 +52,7 @@ namespace pe.edu.pucp.ferretin.view.MRecursosHumanos
         private void txtDNI_KeyDown(object sender, KeyEventArgs e)
         {
             //Validaciones para que acepte solo numeros
-            if (((e.Key >= Key.D0 && e.Key <= Key.D9) || (e.Key >= Key.NumPad0 && e.Key <= Key.NumPad9) || e.Key == Key.Back || e.Key == Key.Tab))
+            if (((e.Key >= Key.D0 && e.Key <= Key.D9) || (e.Key >= Key.NumPad0 && e.Key <= Key.NumPad9) || e.Key == Key.Back || e.Key == Key.Tab) && (Keyboard.Modifiers != ModifierKeys.Control))
                 e.Handled = false;
             else
                 e.Handled = true;     
@@ -83,7 +83,7 @@ namespace pe.edu.pucp.ferretin.view.MRecursosHumanos
             //    e.Handled = true;
 
 
-            if (((e.Key >= Key.A && e.Key <= Key.Z) || e.Key == Key.Back || e.Key == Key.Tab ||  (e.Key == Key.Space)))
+            if (((e.Key >= Key.A && e.Key <= Key.Z) || e.Key == Key.Back || e.Key == Key.Tab || (e.Key == Key.Space)) && (Keyboard.Modifiers != ModifierKeys.Control))
                 e.Handled = false;
             else
                 e.Handled = true;
@@ -103,9 +103,8 @@ namespace pe.edu.pucp.ferretin.view.MRecursosHumanos
 
          private void txtApPaterno_KeyDown(object sender, KeyEventArgs e)
          {
-             //Validaciones para textbox de solo letras
-            //if (!(e.Key >= Key.A && e.Key <= Key.Z)) e.Handled = true;
-             if (((e.Key >= Key.A && e.Key <= Key.Z) || e.Key == Key.Back || e.Key == Key.Tab || (e.Key == Key.Space)))
+             
+             if (((e.Key >= Key.A && e.Key <= Key.Z) || e.Key == Key.Back || e.Key == Key.Tab || (e.Key == Key.Space)) && (Keyboard.Modifiers != ModifierKeys.Control))
                  e.Handled = false;
              else
                  e.Handled = true;
@@ -127,8 +126,8 @@ namespace pe.edu.pucp.ferretin.view.MRecursosHumanos
 
          private void txtApMaterno_KeyDown(object sender, KeyEventArgs e)
          {
-         
-             if (((e.Key >= Key.A && e.Key <= Key.Z) || e.Key == Key.Back || e.Key == Key.Tab || (e.Key == Key.Space)))
+
+             if (((e.Key >= Key.A && e.Key <= Key.Z) || e.Key == Key.Back || e.Key == Key.Tab || (e.Key == Key.Space)) && (Keyboard.Modifiers != ModifierKeys.Control))
                  e.Handled = false;
              else
                  e.Handled = true;
@@ -138,18 +137,22 @@ namespace pe.edu.pucp.ferretin.view.MRecursosHumanos
 
         private void direccion_PreviewTextInput(object sender, TextCompositionEventArgs e)
         {
-            if (Regex.IsMatch(e.Text, @"^[0-9]+(\s[a-zA-Z]+)+$")) 
-            {
-                e.Handled = true;
-            }
-            else
-            {
-                e.Handled = false;
-            }
+            //if (Regex.IsMatch(e.Text, @"^[a-zA-Z\\s]+")) 
+            //{
+            //    e.Handled = true;
+            //}
+            //else
+            //{
+            //    e.Handled = false;
+            //}
         }
 
          private void txtDireccion_KeyDown(object sender, KeyEventArgs e)
          {
+             if ((e.Key == Key.Back || e.Key == Key.Tab || (e.Key == Key.Space) ||(e.Key >= Key.A && e.Key <= Key.Z)|| ((e.Key >= Key.D0 && e.Key <= Key.D9)))  && (Keyboard.Modifiers != ModifierKeys.Control) )
+                 e.Handled = false;
+             else
+                 e.Handled = true;
 
          }
 
@@ -168,7 +171,7 @@ namespace pe.edu.pucp.ferretin.view.MRecursosHumanos
 
         private void txtTelf1_KeyDown (object sender, KeyEventArgs e)
         {
-            if (((e.Key >= Key.D0 && e.Key <= Key.D9) || (e.Key >= Key.NumPad0 && e.Key <= Key.NumPad9) || e.Key == Key.Back || e.Key == Key.Tab))
+            if (((e.Key >= Key.D0 && e.Key <= Key.D9) || (e.Key >= Key.NumPad0 && e.Key <= Key.NumPad9) || e.Key == Key.Back || e.Key == Key.Tab) && (Keyboard.Modifiers != ModifierKeys.Control))
                 e.Handled = false;
             else
                 e.Handled = true;
@@ -188,45 +191,22 @@ namespace pe.edu.pucp.ferretin.view.MRecursosHumanos
         }
         private void txtTelf2_KeyDown(object sender, KeyEventArgs e)
         {
-            if (((e.Key >= Key.D0 && e.Key <= Key.D9) || (e.Key >= Key.NumPad0 && e.Key <= Key.NumPad9) || e.Key == Key.Back || e.Key == Key.Tab))
+            if (((e.Key >= Key.D0 && e.Key <= Key.D9) || (e.Key >= Key.NumPad0 && e.Key <= Key.NumPad9) || e.Key == Key.Back || e.Key == Key.Tab) && (Keyboard.Modifiers != ModifierKeys.Control))
                 e.Handled = false;
             else
                 e.Handled = true;
         }
         private void email_PreviewTextInput(object sender, TextCompositionEventArgs e)
         {
-            //Validaciones para textbox de solo letras
-
-            
-
-            //                      bool isLenientMatch = reLenient.IsMatch(emailAddress);
-            //                      return isLenientMatch;
-
-            //bool isStrictMatch = reStrict.IsMatch(correo.Text);
-            //return isStrictMatch;
-
-            if (Regex.IsMatch(correo.Text, @"^([0-9a-zA-Z]([-\.\w]*[0-9a-zA-Z])*@([0-9a-zA-Z][-\w]*[0-9a-zA-Z]\.)+[a-zA-Z]{4,15})$"))
-                e.Handled = true;
-            else 
-                e.Handled = false;
-            
-            
-            //if (Regex.IsMatch(e.Text, @"/[-0-9a-zA-Z.+_]+@[-0-9a-zA-Z.+_]+\.[a-zA-Z]{2,4}/"))
-            //{
-            //    e.Handled = true;
-            //}
-            //else
-            //{
-            //    e.Handled = false;
-            //}
-
-           // e.Handled = Regex.IsMatch(correo.Text, "/[-0-9a-zA-Z.+_]+@[-0-9a-zA-Z.+_]+\.[a-zA-Z]{2,4}/");
+           
+             //Regex regex = new Regex("^[a-zA-Z][.]*[a-zA-Z0-9]@[a-zA-Z0-9]*[a-zA-Z0-9](.)[a-zA-Z][a-zA-Z]*[a-zA-Z]$");
+             //e.Handled = !regex.IsMatch((sender as TextBox).Text.Insert((sender as TextBox).SelectionStart, e.Text));
 
         }
 
         private void txtEmail_KeyDown(object sender, KeyEventArgs e)
         {
-            if (e.Key != Key.Space)
+            if ((e.Key != Key.Space) && (Keyboard.Modifiers != ModifierKeys.Control))
                 e.Handled = false;
             else
                 e.Handled = true;
@@ -234,21 +214,18 @@ namespace pe.edu.pucp.ferretin.view.MRecursosHumanos
 
         private void sueldo_PreviewTextInput(object sender, TextCompositionEventArgs e)
         {
-            if ((Regex.IsMatch(sueldo.Text, @"^[0-9]+(\.{0}[0-9]+)?$")) && (e.Text != ",") || (Regex.IsMatch(e.Text, "[0-9]")))
-            {
-                e.Handled = false;
-            }
-            else
-            {
-                e.Handled = true;
-            }
+            
+
+
+            Regex regex = new Regex("^[.][0-9]+$|^[0-9]*[.]{0,1}[0-9]*$");
+            e.Handled = !regex.IsMatch((sender as TextBox).Text.Insert((sender as TextBox).SelectionStart, e.Text));
           
 
         }
         private void txtSueldo_KeyDown(object sender, KeyEventArgs e)
         {
 
-            if (e.Key != Key.Space)
+            if ((e.Key != Key.Space) && (Keyboard.Modifiers!=ModifierKeys.Control))
                 e.Handled = false;
             else
                 e.Handled = true;

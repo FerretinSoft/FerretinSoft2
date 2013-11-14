@@ -1,16 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Text.RegularExpressions;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 
 namespace pe.edu.pucp.ferretin.view.MCompras
 {
@@ -23,5 +13,29 @@ namespace pe.edu.pucp.ferretin.view.MCompras
         {
             InitializeComponent();
         }
+
+        #region validación de campos
+
+        private void cod_PreviewTextInput(object sender, TextCompositionEventArgs e)
+        {
+            if (Regex.IsMatch(e.Text, "[0-9]"))
+            {
+                e.Handled = false;
+            }
+            else
+            {
+                e.Handled = true;
+            }
+        }
+        private void cod_PreviewKeyDown(object sender, KeyEventArgs e)
+        {
+            //Validaciones para que acepte solo numeros
+            if (((e.Key >= Key.D0 && e.Key <= Key.D9) || (e.Key >= Key.NumPad0 && e.Key <= Key.NumPad9) || e.Key == Key.Back || e.Key == Key.Tab))
+                e.Handled = false;
+            else
+                e.Handled = true;
+        }
+        #endregion
+
     }
 }

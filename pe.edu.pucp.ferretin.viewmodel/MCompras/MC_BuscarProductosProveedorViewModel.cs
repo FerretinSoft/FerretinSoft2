@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
 using pe.edu.pucp.ferretin.controller.MCompras;
@@ -23,7 +21,18 @@ namespace pe.edu.pucp.ferretin.viewmodel.MCompras
         #region Valores para los controles de la ventana
 
         public string _searchProveedor = "";
-        public string searchProveedor { get { return _searchProveedor; } set { _searchProveedor = value; NotifyPropertyChanged("searchProveedor"); } }
+        public string searchProveedor 
+        { 
+            get 
+            { 
+                return _searchProveedor; 
+            } 
+            set 
+            { 
+                _searchProveedor = value; 
+                NotifyPropertyChanged("searchProveedor"); 
+            } 
+        }
 
         public string _searchProducto = "";
         public string searchProducto { get { return _searchProducto; } set { _searchProducto = value; NotifyPropertyChanged("searchProducto"); } }
@@ -72,6 +81,31 @@ namespace pe.edu.pucp.ferretin.viewmodel.MCompras
             }
         }
 
+        
+        public IEnumerable<ProveedorProducto> listaProductosProveedorFinal
+        {
+            get
+            {
+                var sequence = new List<ProveedorProducto>();
+                if (listaProductosProveedor != null)
+                {
+                    
+                    List<ProveedorProducto> listAux = listaProductosProveedor.ToList();
+                    for (int i = 0; i < listaProductosProveedor.Count(); i++)
+                    {
+                        ProveedorProducto linea;
+                        if (listAux[i].isSelected)
+                        {
+                            linea = new ProveedorProducto() { Producto = listAux[i].Producto, Proveedor = listAux[i].Proveedor, id = listAux[i].id, UnidadMedida = listAux[i].UnidadMedida, estado = listAux[i].estado, precio = listAux[i].precio, tiempoEntrega = listAux[i].tiempoEntrega, isSelected = listAux[i].isSelected };
+                            sequence.Add(linea);
+                        }
+                    }
+                    
+                }
+                return sequence;
+            }
+            
+        }
         #endregion
 
         #region Relay Commands
@@ -89,6 +123,46 @@ namespace pe.edu.pucp.ferretin.viewmodel.MCompras
             }
         }
 
+        //RelayCommand _agregarListaProductosProveedorCommand;
+        //public ICommand agregarListaProductosProveedorCommand
+        //{
+        //    get
+        //    {
+        //        if (_agregarListaProductosProveedorCommand == null)
+        //        {
+        //            _agregarListaProductosProveedorCommand = new RelayCommand(param => NotifyPropertyChanged("listaProductosProveedorFinal"));
+        //        }
+        //        return _agregarListaProductosProveedorCommand;
+        //    }
+        //}
+
+        RelayCommand _agregarListaProductosProveedorCommand;
+        public ICommand agregarListaProductosProveedorCommand
+        {
+            get
+            {
+                if (_agregarListaProductosProveedorCommand == null)
+                {
+                    _agregarListaProductosProveedorCommand = new RelayCommand(agregarListaProductosProveedor);
+                }
+                return _agregarListaProductosProveedorCommand;
+            }
+        }
+
         #endregion 
+
+        #region Commands
+
+        public void agregarListaProductosProveedor(Object id)
+        {
+            int i;
+            try
+            {
+                
+            }
+            catch { }
+        }
+
+        #endregion
     }
 }

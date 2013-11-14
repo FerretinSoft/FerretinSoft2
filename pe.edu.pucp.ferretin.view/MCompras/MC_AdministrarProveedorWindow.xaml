@@ -1,12 +1,31 @@
-﻿<Window x:Class="pe.edu.pucp.ferretin.view.MCompras.MC_AdministrarProveedorWindow"
+﻿<Window 
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:viewmodel="clr-namespace:pe.edu.pucp.ferretin.viewmodel.MCompras;assembly=pe.edu.pucp.ferretin.viewmodel"
+        xmlns:MCompras="clr-namespace:pe.edu.pucp.ferretin.viewmodel.MCompras;assembly=pe.edu.pucp.ferretin.viewmodel" x:Class="pe.edu.pucp.ferretin.view.MCompras.MC_AdministrarProveedorWindow"
        Title="Proveedores" Height="580" Width="900" Icon="/Resources/ferretin_ico.ico" ResizeMode="CanMinimize" WindowStartupLocation="CenterScreen">
     <Window.Resources>
-        <viewmodel:MC_ProveedoresViewModel x:Key="MC_ProveedoresViewModel"/>
+        <ControlTemplate x:Key="validationTemplate">
+            <DockPanel>
+                <Border BorderBrush="Red" BorderThickness="1">
+                    <AdornedElementPlaceholder x:Name="controlWithError"/>
+                </Border>
+                <TextBlock Margin="5,0,5,0" Foreground="Red" FontSize="16" VerticalAlignment="Center" Text="*" ToolTip="{Binding AdornedElement.(Validation.Errors)[0].ErrorContent, ElementName=errorAdorner}" Tag="{Binding AdornedElement.(Validation.Errors)[0].ErrorContent, ElementName=errorAdorner}" />
+                <AdornedElementPlaceholder x:Name="errorAdorner" />
+            </DockPanel>
+        </ControlTemplate>
+        <Style TargetType="{x:Type TextBox}">
+            <Setter Property="Validation.ErrorTemplate" Value="{DynamicResource validationTemplate}" />
+            <Setter Property="Margin" Value="0,0,10,0"/>
+        </Style>
+        <Style TargetType="{x:Type ComboBox}">
+            <Setter Property="Validation.ErrorTemplate" Value="{DynamicResource validationTemplate}" />
+        </Style>
+
     </Window.Resources>
-    <Grid x:Name="main" DataContext="{Binding Source={StaticResource MC_ProveedoresViewModel}}">
+    <Window.DataContext>
+        <MCompras:MC_ProveedoresViewModel/>
+    </Window.DataContext>
+    <Grid >
         <TabControl SelectedIndex="{Binding currentIndexTab}">
             <TabItem Header="Búsqueda">
                 <Grid Background="#FFE5E5E5">
@@ -14,13 +33,18 @@
                         <ColumnDefinition Width="45*"/>
                         <ColumnDefinition Width="397*"/>
                     </Grid.ColumnDefinitions>
-                    <GroupBox Header="Parámetros" Margin="10,8,10.105,0" BorderBrush="Black" Height="72" VerticalAlignment="Top" Grid.ColumnSpan="2"/>
-                    <Label Content="RUC:" Height="26" Width="45" Margin="21,35,0,0" VerticalAlignment="Top" HorizontalAlignment="Left"/>
-                    <Label Content="Razón Social:" Height="26"  Width="90" Margin="120.105,35,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" Grid.Column="1"/>
-                    <TextBox Text="{Binding searchRuc, Mode=TwoWay}" HorizontalAlignment="Left" Height="20" Margin="65,41,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Grid.ColumnSpan="2"/>
-                    <TextBox Text="{Binding searchRazonSoc, Mode=TwoWay}" HorizontalAlignment="Left" Height="20" Margin="210.105,41,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="250" Grid.Column="1"/>
-                    <Label Content="Rubro:" HorizontalAlignment="Left" Margin="477.105,35,0,0" VerticalAlignment="Top" Grid.Column="1"/>
-                    <ComboBox ItemsSource="{Binding listaRubros}" DisplayMemberPath="nombre"   SelectedIndex="0" SelectedItem="{Binding searchRubro,Mode=TwoWay}" HorizontalAlignment="Left" Margin="530.105,39,0,0" VerticalAlignment="Top" Height="20" Width="120" RenderTransformOrigin="1.625,5.182" Grid.Column="1">
+                    <GroupBox Header="Parámetros" Margin="10,10,10.105,0" BorderBrush="Black" Height="102" VerticalAlignment="Top" Grid.ColumnSpan="2"/>
+                    <Label Content="Código:" Height="26" Width="57" Margin="21,35,0,0" VerticalAlignment="Top" HorizontalAlignment="Left"/>
+                    <Label Content="Proveedor :" Height="26"  Width="90" Margin="21,70,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" Grid.ColumnSpan="2"/>
+                    <TextBox Text="{Binding searchRuc, Mode=TwoWay}" HorizontalAlignment="Left" Height="20" Margin="10.031,39,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Grid.Column="1"/>
+                    <TextBox Text="{Binding searchRazonSoc, Mode=TwoWay}" HorizontalAlignment="Left" Height="20" Margin="10.031,75,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="250" Grid.Column="1"/>
+                    <Label Content="Rubro:" HorizontalAlignment="Left" Margin="389.031,33,0,0" VerticalAlignment="Top" Grid.Column="1" RenderTransformOrigin="0.249,0.582"/>
+                    <ComboBox ItemsSource="{Binding listaRubros}" DisplayMemberPath="nombre"   SelectedIndex="0" SelectedItem="{Binding searchRubro,Mode=TwoWay}" HorizontalAlignment="Left" Margin="505.031,39,0,0" VerticalAlignment="Top" Height="20" Width="120" RenderTransformOrigin="1.625,5.182" Grid.Column="1">
+                    </ComboBox>
+                    <ComboBox SelectedIndex="{Binding searchTipoDocumento, Mode=TwoWay}"  HorizontalAlignment="Left" Margin="505.031,69,0,0" VerticalAlignment="Top" Height="20" Width="143" RenderTransformOrigin="1.625,5.182" Grid.Column="1">
+                        <ComboBoxItem  Content="Todos"></ComboBoxItem>
+                        <ComboBoxItem Content="EMPRESA"></ComboBoxItem>
+                        <ComboBoxItem Content="PERSONA NATURAL"></ComboBoxItem>
                     </ComboBox>
 
                     <Button Command="{Binding actualizarListaProveedoresCommand}"  HorizontalAlignment="Left" Margin="729.105,33,0,0" VerticalAlignment="Top" Width="32" Height="32" RenderTransformOrigin="0.3,-0.35" Grid.Column="1">
@@ -28,9 +52,9 @@
                             <ImageBrush ImageSource="../Resources/refresh2_48.png"/>
                         </Button.Background>
                     </Button>
-                    <DataGrid ItemsSource="{Binding Path=listaProveedores}" Margin="10,114,10.105,10.209" AutoGenerateColumns="False" CanUserAddRows="False" CanUserDeleteRows="False" IsReadOnly="True" Grid.ColumnSpan="2">
+                    <DataGrid ItemsSource="{Binding Path=listaProveedores}" Margin="10,156,10.105,-31.791" AutoGenerateColumns="False" CanUserAddRows="False" CanUserDeleteRows="False" IsReadOnly="True" Grid.ColumnSpan="2">
                         <DataGrid.Columns>
-                            <DataGridTemplateColumn Width="2.5*" Header="RUC">
+                            <DataGridTemplateColumn Width="2.5*" Header="Código">
                                 <DataGridTemplateColumn.CellTemplate>
                                     <DataTemplate>
                                         <TextBlock>
@@ -43,15 +67,16 @@
                                     </DataTemplate>
                                 </DataGridTemplateColumn.CellTemplate>
                             </DataGridTemplateColumn>
-                            <DataGridTextColumn Width="4.8*" Header="Razón Social" Binding="{Binding Path=razonSoc}"/>
+                            <DataGridTextColumn Width="4.8*" Header="Proveedor" Binding="{Binding Path=razonSoc}"/>
+                            <DataGridTextColumn Width="2.7*" Header="Tipo" Binding="{Binding Path=tipo}"/>
                             <DataGridTextColumn Width="2.5*" Header="Rubro" Binding="{Binding Path=Rubro.nombre}">
                             </DataGridTextColumn>
                             <DataGridTextColumn Width="3*" Header="Dirección" Binding="{Binding Path= direccion}"/>
-                            <DataGridTextColumn Width="2.7*" Header="Teléfono" Binding="{Binding Path=telefono}"/>
+
                             <DataGridCheckBoxColumn Width="1.28*" Binding="{x:Null}" ClipboardContentBinding="{x:Null}" Header="Seleccionar" />
                         </DataGrid.Columns>
                     </DataGrid>
-                    <ToolBar HorizontalAlignment="Left" Margin="10,85,0,0" VerticalAlignment="Top" Height="24">
+                    <ToolBar HorizontalAlignment="Left" Margin="10,127,0,0" VerticalAlignment="Top" Height="24">
                         <Button Command="{Binding agregarProveedorCommand}" Content="" VerticalAlignment="Stretch" Width="20" Margin="0,0,2,-1" >
                             <Button.Background>
                                 <ImageBrush ImageSource="../Resources/add_20.png" Stretch="None"/>
@@ -65,13 +90,14 @@
                         </Button>
 
                     </ToolBar>
+                    <Label Content="Tipo Proveedor" Grid.Column="1" HorizontalAlignment="Left" Margin="389.031,69,0,0" VerticalAlignment="Top"/>
                 </Grid>
             </TabItem>
             <TabItem >
                 <TabItem.Header>
                     <TextBlock Text="{Binding detallesTabHeader,Mode=OneWay,FallbackValue=Agregar}"/>
                 </TabItem.Header>
-                <Grid Background="#FFE5E5E5">
+                <Grid Background="#FFE5E5E5" IsEnabled="{Binding noSoloSeleccionarProveedor,Mode=OneWay}">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="13*"></ColumnDefinition>
                         <ColumnDefinition Width="Auto"/>
@@ -82,16 +108,17 @@
                     <Label Content="Código:" HorizontalAlignment="Left" Margin="10,16,0,0" VerticalAlignment="Top" RenderTransformOrigin="-1.412,0.385" Grid.ColumnSpan="4" Height="26" Width="51"/>
                     <Label Content="Tipo Proveedor:" HorizontalAlignment="Left" Margin="10,45,0,0" VerticalAlignment="Top" Grid.ColumnSpan="4" Height="26" Width="94"/>
                     <TextBox Text="{Binding Path=proveedor.id, Mode=TwoWay, UpdateSourceTrigger=LostFocus, NotifyOnValidationError=True, ValidatesOnDataErrors=True, ValidatesOnExceptions=True}" HorizontalAlignment="Left" Height="23" Margin="101,19,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="144" IsEnabled="False" Grid.Column="3"/>
-                    <ComboBox  SelectedIndex="{Binding Path=proveedor.tipo, Mode=TwoWay,  ValidatesOnExceptions=true, NotifyOnValidationError=true}" x:Name="tipoProvCbx" HorizontalAlignment="Left" Margin="101,48,0,0" VerticalAlignment="Top" Width="144" Grid.Column="3" Height="22">
-                        <ListBoxItem Content="Empresa"/>
-                        <ListBoxItem Content="Persona Natural"/>
+                    <ComboBox  SelectedIndex="{Binding Path=proveedor.tipoProv, Mode=TwoWay, UpdateSourceTrigger=LostFocus, NotifyOnValidationError=True, ValidatesOnDataErrors=True, ValidatesOnExceptions=True}" x:Name="tipoProvCbx" HorizontalAlignment="Left" Margin="101,48,0,0" VerticalAlignment="Top" Width="144" Grid.Column="3" Height="22">
+                        <ComboBoxItem  Content=""></ComboBoxItem>
+                        <ComboBoxItem Content="EMPRESA"></ComboBoxItem>
+                        <ComboBoxItem Content="PERSONA NARUTAL"></ComboBoxItem>
                     </ComboBox>
-                    <Label Content="DNI/RUC:" HorizontalAlignment="Left" Margin="10,75,0,0" VerticalAlignment="Top" Grid.ColumnSpan="4" Height="26" Width="61"/>
-                    <TextBox Text="{Binding Path=proveedor.ruc, Mode=TwoWay, UpdateSourceTrigger=LostFocus, NotifyOnValidationError=True, ValidatesOnDataErrors=True, ValidatesOnExceptions=True}" HorizontalAlignment="Left" Height="23" Margin="101,77,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="144" Grid.Column="3" />
-                    <Label Content="Razón Social:" HorizontalAlignment="Left" Margin="10,108,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.464,1.231" Grid.ColumnSpan="4" Height="26" Width="79"/>
+                    <Label  Content="{Binding labelCodigo}" HorizontalAlignment="Left" Margin="10,75,0,0" VerticalAlignment="Top" Grid.ColumnSpan="4" Height="26" Width="61"/>
+                    <TextBox MaxLength="11"  Text="{Binding Path=proveedor.ruc, Mode=TwoWay, UpdateSourceTrigger=LostFocus, NotifyOnValidationError=True, ValidatesOnDataErrors=True, ValidatesOnExceptions=True}" HorizontalAlignment="Left" Height="23" Margin="101,77,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="144" Grid.Column="3" PreviewTextInput="cod_PreviewTextInput" PreviewKeyDown="cod_PreviewKeyDown"/>
+                    <Label  Content="{Binding labelNombre}"  HorizontalAlignment="Left" Margin="10,108,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.464,1.231" Grid.ColumnSpan="4" Height="26" Width="119"/>
                     <TextBox Text="{Binding Path=proveedor.razonSoc, Mode=TwoWay, UpdateSourceTrigger=LostFocus, NotifyOnValidationError=True, ValidatesOnDataErrors=True, ValidatesOnExceptions=True}" HorizontalAlignment="Left" Height="23" Margin="101,110,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="214" Grid.Column="3"/>
                     <Label Content="Rubro:" HorizontalAlignment="Left" Margin="10,140,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.464,1.231" Grid.ColumnSpan="4" Height="26" Width="45"/>
-                    <ComboBox ItemsSource="{Binding listaRubros}" DisplayMemberPath="nombre" SelectedItem="{Binding Path=proveedor.Rubro, Mode=TwoWay, ValidatesOnExceptions=True, NotifyOnValidationError= True}"   x:Name="rubroCbx" HorizontalAlignment="Left" Margin="101,141,0,0" VerticalAlignment="Top" Width="144" Grid.Column="3" Height="22">
+                    <ComboBox ItemsSource="{Binding listaRubros}" SelectedIndex="0" DisplayMemberPath="nombre" SelectedItem="{Binding Path=proveedor.Rubro, Mode=TwoWay, UpdateSourceTrigger=LostFocus, NotifyOnValidationError=True, ValidatesOnDataErrors=True, ValidatesOnExceptions=True}"   x:Name="rubroCbx" HorizontalAlignment="Left" Margin="101,141,0,0" VerticalAlignment="Top" Width="144" Grid.Column="3" Height="22">
 
                     </ComboBox>
                     <Label Content="Departamento:" HorizontalAlignment="Left" Margin="10,206,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.464,1.231" Grid.ColumnSpan="4" Height="26" Width="89"/>
@@ -108,14 +135,14 @@
                     <ComboBox ItemsSource="{Binding Path=distritos}" SelectedItem="{Binding Path=proveedor.UbigeoDistrito}" DisplayMemberPath="nombre" HorizontalAlignment="Left" Margin="101,274,0,0" VerticalAlignment="Top" Width="144" Grid.Column="3" Height="22">
 
                     </ComboBox>
-                    <Label Content="CP:" HorizontalAlignment="Left" Margin="10,306,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.464,1.231" Grid.ColumnSpan="4" Height="26" Width="89"/>
+                    <Label Content="Código Postal:" HorizontalAlignment="Left" Margin="10,306,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.464,1.231" Grid.ColumnSpan="4" Height="26" Width="89"/>
 
                     <Label Content="Teléfono:" HorizontalAlignment="Left" Margin="10,335,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.464,1.231" Height="26" Width="59" Grid.ColumnSpan="4"/>
                     <Label Content="Página Web:" HorizontalAlignment="Left" Margin="10,364,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.464,1.231" Grid.ColumnSpan="4" Height="26" Width="76"/>
                     <TextBox Text="{Binding Path=proveedor.paginaWeb, Mode=TwoWay, UpdateSourceTrigger=LostFocus, NotifyOnValidationError=True, ValidatesOnDataErrors=True, ValidatesOnExceptions=True}" HorizontalAlignment="Left" Height="23" Margin="101,367,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="214" Grid.Column="3"/>
                     <Label Content="Nombre contacto:" HorizontalAlignment="Left" Margin="10,397,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.464,1.231" Grid.ColumnSpan="4" Height="26" Width="106"/>
                     <TextBox Text="{Binding Path=proveedor.contacto, Mode=TwoWay, UpdateSourceTrigger=LostFocus, NotifyOnValidationError=True, ValidatesOnDataErrors=True, ValidatesOnExceptions=True}" HorizontalAlignment="Left" Height="23" Margin="101,399,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="214" Grid.Column="3"/>
-                    <Button Command="{Binding saveProveedoresCommand}" Content="GUARDAR" Margin="295,474,1,0" VerticalAlignment="Top" RenderTransformOrigin="1.347,-0.05" Grid.Column="3" Height="28"/>
+                    <Button Command="{Binding saveProveedoresCommand}"  Content="{Binding nombreBotonGuardar,Mode=OneWay}" Margin="295,474,1,0" VerticalAlignment="Top" RenderTransformOrigin="1.347,-0.05" Grid.Column="3" Height="28" />
                     <Button Command="{Binding cancelProveedorCommand}" Content="CANCELAR" HorizontalAlignment="Left" Margin="30,474,0,0" VerticalAlignment="Top" Width="75" RenderTransformOrigin="1.347,-0.05" Grid.Column="4" Height="28" />
                     <Label Content="Teléfono contacto:" HorizontalAlignment="Left" Margin="10,428,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.464,1.231" Grid.ColumnSpan="4" Height="26" Width="108"/>
                     <TextBox Text="{Binding Path=proveedor.contactoTlf, Mode=TwoWay, UpdateSourceTrigger=LostFocus, NotifyOnValidationError=True, ValidatesOnDataErrors=True, ValidatesOnExceptions=True}" HorizontalAlignment="Left" Height="23" Margin="101,430,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="144" Grid.Column="3"/>
@@ -150,6 +177,9 @@
                     <TextBox Text="{Binding Path=proveedor.codigoPostal, Mode=TwoWay, UpdateSourceTrigger=LostFocus, NotifyOnValidationError=True, ValidatesOnDataErrors=True, ValidatesOnExceptions=True}" Grid.Column="3" HorizontalAlignment="Left" Height="23" Margin="101.33,306,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="120"/>
                     <TextBox  Text="{Binding codProdAgregar,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" Grid.Column="4" HorizontalAlignment="Left" Height="20" Margin="90.895,43,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="173"/>
                     <Label Content="Cod. Producto" Grid.Column="3" HorizontalAlignment="Left" Margin="361.33,41,0,0" VerticalAlignment="Top" Grid.ColumnSpan="2" Width="96" RenderTransformOrigin="0.505,0.217" Height="24"/>
+                    <!--<StackPanel Orientation="Horizontal" Margin="5" Grid.Row="1" HorizontalAlignment="Center">
+                        <TextBlock  Text="{Binding proveedor.Error}" TextWrapping="Wrap" Foreground="Red"  />
+                    </StackPanel>-->
                 </Grid>
             </TabItem>
         </TabControl>

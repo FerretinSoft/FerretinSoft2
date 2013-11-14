@@ -7,19 +7,26 @@
     <Window.Resources>
         <viewmodel:MC_BuscarProductosProveedorViewModel x:Key="MC_BuscarProductosProveedorViewModel"/>
     </Window.Resources>
-    <Grid DataContext="{Binding Source={StaticResource MC_BuscarProductosProveedorViewModel}}">
+    <Grid x:Name="main" DataContext="{Binding Source={StaticResource MC_BuscarProductosProveedorViewModel}}">
         <Grid Background="#FFE5E5E5">
-            <DataGrid ItemsSource="{Binding Path=listaProductosProveedor, UpdateSourceTrigger=PropertyChanged,NotifyOnSourceUpdated=True,NotifyOnTargetUpdated=True,Mode=TwoWay}" AutoGenerateColumns="False" CanUserAddRows="False" CanUserDeleteRows="False" Margin="10,47,12,59">
+            <DataGrid ItemsSource="{Binding Path=listaProductosProveedor, UpdateSourceTrigger=PropertyChanged,NotifyOnSourceUpdated=True,NotifyOnTargetUpdated=True,Mode=TwoWay}" AutoGenerateColumns="False" CanUserAddRows="False" CanUserDeleteRows="False" Margin="10,47,12,0" Height="200" VerticalAlignment="Top">
                 <DataGrid.Columns>
                     <DataGridTextColumn Width="1.5*" Binding="{Binding Path=Producto.codigo}" IsReadOnly="True" Header="Codigo"/>
                     <DataGridTextColumn Width="2.5*" Binding="{Binding Path=Producto.nombre}" IsReadOnly="True" Header="Producto"/>
                     <DataGridTextColumn Width="1.5*" Binding="{Binding Path=precio}" IsReadOnly="True" Header="Precio Unit."/>
                     <DataGridTextColumn Width="2.0*" Binding="{Binding Path=tiempoEntrega}" IsReadOnly="True" Header="Tiempo de Entrega"/>
-                    <DataGridCheckBoxColumn Width="0.8*" Binding="{Binding Path=isSelected}" IsReadOnly="False"/>
+
+                    <DataGridTemplateColumn Header="Seleccionar">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <CheckBox IsChecked="{Binding isSelected, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged,NotifyOnSourceUpdated=True,NotifyOnTargetUpdated=True}" />
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
                 </DataGrid.Columns>
             </DataGrid>
             <Label Content="Proveedor:" HorizontalAlignment="Left" Margin="231,15,0,0" VerticalAlignment="Top"/>
-            <TextBox Text="{Binding searchProveedor, Mode=TwoWay}" HorizontalAlignment="Left" Height="23" Margin="303,15,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="220"/>
+            <TextBox x:Name="proveedorTxt" Text="{Binding searchProveedor, Mode=TwoWay}" HorizontalAlignment="Left" Height="23" Margin="303,15,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="220"/>
             <Label Content="Producto:" HorizontalAlignment="Left" Margin="10,15,0,0" VerticalAlignment="Top"/>
             <TextBox Text="{Binding searchProducto, Mode=TwoWay}" HorizontalAlignment="Left" Height="23" Margin="76,15,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="136"/>
             <Button Command="{Binding actualizarListaProductosProveedorCommand}" Margin="537,10,0,0" RenderTransformOrigin="0.3,-0.35" Height="32" VerticalAlignment="Top" HorizontalAlignment="Left" Width="32">
@@ -27,8 +34,8 @@
                     <ImageBrush ImageSource="../Resources/refresh2_48.png"/>
                 </Button.Background>
             </Button>
-            <Button Content="AGREGAR" HorizontalAlignment="Left" Height="32" Margin="181,262,0,0" VerticalAlignment="Top" Width="100"/>
-            <Button Content="CANCELAR" HorizontalAlignment="Left" Height="32" Margin="303,262,0,0" VerticalAlignment="Top" Width="100"/>
+            <Button Content="AGREGAR" Command="{Binding agregarListaProductosProveedorCommand}" HorizontalAlignment="Left" Margin="181,252,0,12" Width="100" Click="Button_Click"/>
+            <Button Content="CANCELAR" HorizontalAlignment="Left" Margin="303,252,0,12" Width="100"/>
 
         </Grid>
     </Grid>

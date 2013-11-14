@@ -1,16 +1,9 @@
-﻿using System;
+﻿using pe.edu.pucp.ferretin.model;
+using pe.edu.pucp.ferretin.viewmodel.MCompras;
+using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
+using System.Linq;
 
 namespace pe.edu.pucp.ferretin.view.MCompras
 {
@@ -22,6 +15,45 @@ namespace pe.edu.pucp.ferretin.view.MCompras
         public MC_BuscarProductosProveedorWindow()
         {
             InitializeComponent();
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            if (this.Owner != null)
+            {
+                try
+                {
+                    MC_BuscarProductosProveedorViewModel miViewModel = this.main.DataContext as MC_BuscarProductosProveedorViewModel;
+                    MC_AdministrarOCCotizacionWindow padre = this.Owner as MC_AdministrarOCCotizacionWindow;
+                    MC_CotizacionesOCViewModel padreViewModel = padre.main.DataContext as MC_CotizacionesOCViewModel;
+                    IEnumerable<ProveedorProducto> listaPPFinal = miViewModel.listaProductosProveedorFinal;
+
+                    var sequence = new List<DocumentoCompraProducto>();
+                    if (listaPPFinal != null)
+                    {
+                        List<ProveedorProducto> listAux = listaPPFinal.ToList();
+                        for (int i = 0; i < listAux.Count(); i++)
+                        {
+                            if (listAux[i].isSelected)
+                            {
+                                var linea = new DocumentoCompraProducto() { 
+                                    Producto = listAux[i].Producto,
+                                    UnidadMedida = listAux[i].UnidadMedida,
+                                    precioUnit = listAux[i].precio,
+                                    id_unidad_medida = listAux[i].id_unidad
+                                };
+                                sequence.Add(linea);
+                            }
+                        }
+                        padreViewModel.listaProductosDC = sequence;
+                    }
+                    this.Close();
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message);
+                }
+            }
         }
     }
 }

@@ -80,7 +80,7 @@ namespace pe.edu.pucp.ferretin.controller.MVentas
                 return null;
         }
 
-        public static IEnumerable<Venta> buscarVentas(string nroDocumento, string nroDocCliente, DateTime fechaInicio, DateTime fechaFin, string searchVendedor)
+        public static IEnumerable<Venta> buscarVentas(string nroDocumento, long? nroDocCliente, DateTime fechaInicio, DateTime fechaFin, string searchVendedor)
         {
             return from c in listaVentas
                    where

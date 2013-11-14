@@ -64,9 +64,50 @@ namespace pe.edu.pucp.ferretin.viewmodel.MRecursosHumanos
                 return soloSeleccionarVendedor ? "SELECCIONAR" : "GUARDAR";
             }
         }
+
+        public UbigeoDepartamento searchDepartamento
+        {
+            get 
+            {
+                return ComunService.departamentos.Single(d => d.nombre.Equals("LIMA"));
+            }
+        }
         
+        private UbigeoProvincia _searchProvincia;
+        public UbigeoProvincia searchProvincia
+        {
+            get
+            {
+                return _searchProvincia;
+                //return ComunService.provincias.Single(d => d.id.Equals("1501"));//Es pronvincia de lima
+            }
+            set
+            {
+                _searchProvincia = value;
+                NotifyPropertyChanged("searchProvincia");
+                distritos = from d in ComunService.distritos where d.id_ubig_provincia == value.id select d;
+            }
+        }
+        
+        public UbigeoDistrito _searchDistrito;
+        public UbigeoDistrito searchDistrito
+        {
+            get
+            {
+                return _searchDistrito;
+                //return ComunService.distritos.Single(d => d.id_ubig_provincia.Equals("1501"));
+            }
+            set
+            {
+                _searchDistrito = value;
+                NotifyPropertyChanged("searchDistrito");
+                NotifyPropertyChanged("distritos");
+            }
+        }
+       
         
         #endregion
+
 
 
         public List<String> tiposTurnos
@@ -144,7 +185,7 @@ namespace pe.edu.pucp.ferretin.viewmodel.MRecursosHumanos
                 var sequence = Enumerable.Empty<GradoInstruccion>();
                 //Primero agrego un item de Todos para que salga al inicio
                 //Pongo el ID en 0 para que al buscar, no filtre nada cuando se selecciona todos
-                IEnumerable<GradoInstruccion> items = new GradoInstruccion[] { new GradoInstruccion { id = 0, nombre = "Todos" } };
+                IEnumerable<GradoInstruccion> items = new List<GradoInstruccion>();
                 //Luego concateno el itemcon los elementos del combobox
                 return items.Concat(MR_ComunService.gradosInstruccion);
                 
@@ -203,21 +244,22 @@ namespace pe.edu.pucp.ferretin.viewmodel.MRecursosHumanos
                 //Si la pestaña es para agregar nuevo, limpio los input
                 switch (_statusTab)
                 {
-                    case Tab.BUSQUEDA: detallesTabHeader = "Agregar"; empleado = new Empleado();  break;//Si es agregar, creo un nuevo objeto Empleado
+                    case Tab.BUSQUEDA: detallesTabHeader = "Agregar"; empleadoImagen = null; ; empleado = new Empleado(); break;//Si es agregar, creo un nuevo objeto Empleado
                     case Tab.AGREGAR: detallesTabHeader = "Agregar"; empleado = new Empleado();
-                        try { this.selectedDepartamento.id = "15"; empleado.EmpleadoTienda=null; }
+                        try { this.selectedDepartamento.id = "15"; empleado.EmpleadoTienda = null; empleadoImagen = null; }
                         catch(Exception e) { }
                             break;//Si es agregar, creo un nuevo objeto Empleado
-                    case Tab.MODIFICAR: detallesTabHeader = "Modificar"; break;
-                    case Tab.DETALLES: detallesTabHeader = "Detalles"; break;
+                    case Tab.MODIFICAR: detallesTabHeader = "Modificar"; empleadoImagen = null; break;
+                    case Tab.DETALLES: detallesTabHeader = "Detalles";  break;
                     default: detallesTabHeader = "Agregar"; empleado = new Empleado(); break;//Si es agregar, creo un nuevo objeto Empleado
                 }
                 NotifyPropertyChanged("statusTab");
                 //Cuando se cambia el status, tambien se tiene que actualizar el currentIndex del tab
                 NotifyPropertyChanged("currentIndexTab"); //Hace que cambie el tab automaticamente
                 NotifyPropertyChanged("isCreating"); //Para que se activen o desactiven los inputs
-                NotifyPropertyChanged("listaEmpleadoTurno");
-                NotifyPropertyChanged("listaEmpleadoTiendas");
+                ////////////NotifyPropertyChanged("listaEmpleadoTurno");
+                ////////////NotifyPropertyChanged("listaEmpleadoTiendas");
+                NotifyPropertyChanged("empleadoImagen");
 
             }
         }
@@ -260,7 +302,11 @@ namespace pe.edu.pucp.ferretin.viewmodel.MRecursosHumanos
                     String id_departamento = value.UbigeoDistrito.UbigeoProvincia.id_ubig_departamento;
                     distritos = MR_EmpleadoService.distritos.Where(distrito => distrito.id_ubig_provincia.Equals(id_provincia));
                 }
+
+             
+
                 NotifyPropertyChanged("empleado");
+                NotifyPropertyChanged("empleadoImagen");
             }
         }
         
@@ -285,56 +331,14 @@ namespace pe.edu.pucp.ferretin.viewmodel.MRecursosHumanos
             }
         }
 
-        private IEnumerable<EmpleadoTienda> _listaEmpleadoTiendas;
-        public IEnumerable<EmpleadoTienda> listaEmpleadoTiendas
-        {
-            get
-            {
-                if (empleado.EmpleadoTienda.Count() > 0)
 
-                    return this.empleado.EmpleadoTienda;
-
-                else
-                {
-                    return null;
-                
-                }
-            }
-            set
-            {
-                _listaEmpleadoTiendas = value;
-                NotifyPropertyChanged("listaEmpleadoTiendas");
-            }      
-        }
 
 
 
         #endregion
 
 
-        private IEnumerable<EmpleadoTurno> _listaEmpleadoTurno;
-        private List<EmpleadoTurno> _listaTemp = new List<EmpleadoTurno>();
-        public IEnumerable<EmpleadoTurno> listaEmpleadoTurno
-        {
-            get
-            {
-                if (empleado.EmpleadoTurno.Count() > 0)
-                    return empleado.EmpleadoTurno;
-                else
-                {
-                    empleado.empleadoT();
-                    _listaEmpleadoTurno = empleado.empleadoTurnos;
-                    return _listaEmpleadoTurno;
-                }
-          
-            }
-
-            set
-            {
-                _listaEmpleadoTurno = value;
-    
-            }
-        }
+     
 
         #region RelayCommand
         RelayCommand _actualizarListaEmpleadosCommand;
@@ -381,7 +385,7 @@ namespace pe.edu.pucp.ferretin.viewmodel.MRecursosHumanos
             {
                 if (_saveEmpleadoCommand == null)
                 {
-                    _saveEmpleadoCommand = new RelayCommand(saveEmpleado,canSaveExecute);
+                    _saveEmpleadoCommand = new RelayCommand(saveEmpleado);
                 }
                 return _saveEmpleadoCommand;
             }
@@ -477,7 +481,25 @@ namespace pe.edu.pucp.ferretin.viewmodel.MRecursosHumanos
         {
             try
             {
+
                 this.empleado = listaEmpleados.Single(empleado => empleado.codEmpleado == (int)codEmpleado);
+
+                //////if (this.empleado.EmpleadoTurno == null)
+                //////{
+                   
+                //////    this.empleado.empleadoT();
+ 
+                
+                //////}
+                    
+                //Muestra Null en turnos/
+
+                foreach (EmpleadoTurno et in this.empleado.EmpleadoTurno)
+                {
+                    if (et.estado == 0) et.id_turno = null;
+
+                }
+
                 if (this.empleado.id_ubigeo_distrito != null)
                 {
                     selectedProvincia = this.empleado.UbigeoDistrito.UbigeoProvincia;
@@ -492,86 +514,121 @@ namespace pe.edu.pucp.ferretin.viewmodel.MRecursosHumanos
         }
         public void saveEmpleado(Object obj)
         {
-            if (soloSeleccionarVendedor)
-            {
+            //////string message = "Está seguro de guardar los cambios?";
+            //////string caption = "Confirmación";
+            //////MessageBoxButton buttons = MessageBoxButton.OKCancel;
+            //////MessageBoxImage icon = MessageBoxImage.Question;
+            //////if (MessageBox.Show(message, caption, buttons, icon) == MessageBoxResult.OK)
+            //////{
+            //////    // OK code here
 
-            }
-            else
-            {
-                /*Para actualizar un empleado existente*/
-                if ((empleado.id > 0) && VerificaCamposObligatorios(empleado))//Si existe
+                if (soloSeleccionarVendedor)
                 {
-                    ComunService.idVentana(2);                    
-                    if (!MR_EmpleadoService.enviarCambios())
-                    {
-                        MessageBox.Show("No se pudo actualizar el empleado");
-                    }
-                    else
-                    {
-                        MessageBox.Show("Se actualizó el empleado con éxito");
-                        this.statusTab = Tab.BUSQUEDA;
-                        listaEmpleados = MR_EmpleadoService.listaEmpleados;
-                        NotifyPropertyChanged("listaEmpleadoTiendas");//Para el historial de empleos
-                    }
+
                 }
-                /*Para agregar un empleado nuevo*/
                 else
                 {
-                    //Validacion de Campos Obligatorios//
-
-                    ComunService.idVentana(1);
-
-                    
-
-                    if ( VerificaCamposObligatorios(empleado) && VerificaDNIEmpleado(empleado))
+                    /*Para actualizar un empleado existente*/
+                    if (empleado.id > 0)//Si existe
                     {
-                        if (empleado.dni != null && empleado.nombre != null && empleado.apPaterno != null && empleado.apMaterno != null)
+                        ComunService.idVentana(2);
+                        if (VerificaCamposObligatorios(empleado))
                         {
-                            empleado.codEmpleado = 100060 + listaEmpleados.Count();
-
-                            if (!MR_EmpleadoService.insertarEmpleado(empleado))
+                            foreach (EmpleadoTurno et in empleado.EmpleadoTurno)
                             {
-                                MessageBox.Show("No se pudo agregar el nuevo empleado");
+                                if (et.id_turno == 0) et.id_turno = null;
+
+                            }
+
+                            if (!MR_EmpleadoService.enviarCambios())
+                            {
+                                MessageBox.Show("No se pudo actualizar el empleado");
+                               
                             }
                             else
                             {
-
-                                MessageBox.Show("El empleado fue agregado con éxito");
+                                MessageBox.Show("Se actualizó el empleado con éxito");
                                 this.statusTab = Tab.BUSQUEDA;
                                 listaEmpleados = MR_EmpleadoService.listaEmpleados;
-                                //NotifyPropertyChanged("EmpleadoTienda");//Para el historial de empleos
+                                ////////////NotifyPropertyChanged("listaEmpleadoTiendas");//Para el historial de empleos
                             }
                         }
                     }
+                    /*Para agregar un empleado nuevo*/
+                    else
+                    {
+                        //Validacion de Campos Obligatorios//
+
+                        ComunService.idVentana(1);
+
+                        if (VerificaDNIEmpleado(empleado)&& VerificaCamposObligatorios(empleado)&& (empleado.id==0) )
+                        {
+                            
+                                empleado.empleadoT();
+                                empleado.codEmpleado = 100060 + listaEmpleados.Count();
+
+                                if (!MR_EmpleadoService.insertarEmpleado(empleado))
+                                {
+                                    MessageBox.Show("No se pudo agregar el nuevo empleado");
+                                }
+                                else
+                                {
+
+                                    MessageBox.Show("El empleado fue agregado con éxito");
+                                    this.statusTab = Tab.BUSQUEDA;
+                                    listaEmpleados = MR_EmpleadoService.listaEmpleados;
+                                    //NotifyPropertyChanged("EmpleadoTienda");//Para el historial de empleos
+                                }
+                        }
+                        //////}
+                    }
                 }
-            }
+
+            ////////}
+            ////////else
+            ////////{
+            ////////    // Cancel code here
+            ////////    this.statusTab = Tab.BUSQUEDA;
+            ////////} 
             NotifyPropertyChanged("listaEmpleados");
             NotifyPropertyChanged("empleado");
             NotifyPropertyChanged("listaEmpleadoTiendas");
+
+
+         
+            
         }
         public void cancelEmpleado(Object obj)
         {
-            this.statusTab = Tab.BUSQUEDA;
-            listaEmpleados = MR_EmpleadoService.listaEmpleados;
+            MessageBoxResult result = MessageBox.Show("Al salir perderá todos los datos ingresados. ¿Desea continuar?",
+            "ATENCIÓN", MessageBoxButton.OKCancel, MessageBoxImage.Warning);
+            if (result == MessageBoxResult.OK)
+            {
+                // Yes code here
+                this.statusTab = Tab.BUSQUEDA;
+                listaEmpleados = MR_EmpleadoService.listaEmpleados;
+            }
+      
         }
 
 
 
         private bool canSaveExecute(object obj)
         {
-            return base.UIValidationErrorCount == 0 && this.empleado.Errors.Count == 0;
+            //////////return base.UIValidationErrorCount == 0 && this.empleado.Errors.Count == 0;
+            return base.UIValidationErrorCount == 0;
         }
 
 
         public bool VerificaCamposObligatorios(Empleado empleado)
         {
-            
-            if (empleado.nombre == null || empleado.nombre == "" || empleado.apPaterno == null || empleado.nombre == "" ||
-                empleado.apMaterno == null || empleado.nombre == "" || empleado.direccion == null || empleado.direccion == "" ||
+
+            if (empleado.nombre == null || empleado.nombre == "" || empleado.apPaterno == null || empleado.apPaterno == "" ||
+                empleado.apMaterno == null || empleado.apMaterno == "" || empleado.direccion == null || empleado.direccion == "" ||
                 empleado.direccion == null || empleado.direccion == "" || selectedDepartamento == null || selectedProvincia == null ||
                 empleado.UbigeoDistrito == null || empleado.telefono1 == null || empleado.telefono1 == "" || empleado.telefono1 == "" ||
                 empleado.fecNacimiento == null || empleado.sexo ==null || empleado.cargoActual == null || empleado.tiendaActual == null ||
-                empleado.GradoInstruccion == null || empleado.ultimoSueldo <= 0  || empleado.estado == null)
+                empleado.GradoInstruccion == null || empleado.ultimoSueldo <= 0  || empleado.estado == 0)
 
             {
                 MessageBox.Show("Completar todos los datos obligatorios");

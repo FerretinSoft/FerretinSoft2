@@ -29,9 +29,7 @@ namespace pe.edu.pucp.ferretin.model
         partial void OncantidadChanged()
         {
             //Cantidad no puede ser negativa
-            if (cantidad < 0) cantidad = 0;
-
-            
+            if (cantidad <= 0) cantidad = 1;
 
             //Si supera el límite de puntos del usuario quito el canjeado
             if (canjeado.Value && this.Venta != null && this.Venta.Cliente != null && this.Venta.Cliente.puntosActual!=null && this.Venta.Cliente.puntosActual < (this.Venta.puntosCanjeados))
@@ -44,7 +42,7 @@ namespace pe.edu.pucp.ferretin.model
             {
                 if (cantidad >= PromocionActual.cantMulUnidades)
                 {
-                    descuentoPorcentaje = PromocionActual.descuento;
+                    descuentoPorcentaje = Decimal.Round(PromocionActual.descuento.Value,2);
                 }
                 else
                 {
@@ -68,11 +66,13 @@ namespace pe.edu.pucp.ferretin.model
                 int? prodSinDesc = cantidad - prodConDesc;
                 //Hallo el resultado de los productos con descuento y sin descuento
 
-                decimal? productoPrecioLista = Producto.precioLista * (Producto.moneda == 1 ? 1 : (tipoCambio != null && tipoCambio <= 0) ? 1 : tipoCambio);
+                decimal? productoPrecioLista = Producto.precioLista * (Producto.moneda == 0/*soles*/ ? 1 : (tipoCambio != null && tipoCambio <= 0) ? 1 : tipoCambio);
 
-                descuento = canjeado.Value ? 0 : (prodConDesc * productoPrecioLista * (1-desc) );
+                descuento = Decimal.Round(canjeado.Value ? 0 : (prodConDesc * productoPrecioLista * (1-desc) ).Value,2);
                 montoParcial = canjeado.Value ? 0 : Decimal.Round((prodConDesc*productoPrecioLista*desc + prodSinDesc*productoPrecioLista).Value,2) ;
+                montoParcial = Decimal.Round(montoParcial.Value);
                 montoReal = cantidad * productoPrecioLista;
+                montoReal = Decimal.Round(montoReal.Value, 2);
             }
         }
 

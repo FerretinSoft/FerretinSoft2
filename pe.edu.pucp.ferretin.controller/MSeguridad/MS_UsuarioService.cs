@@ -158,17 +158,25 @@ namespace pe.edu.pucp.ferretin.controller.MSeguridad
                     return false;
                 }
                 catch (Exception e)
-                {
-                    db.Usuario.InsertOnSubmit(usuario);
-                    Console.WriteLine("llego");
+                {                    
+                    //Obtiene el ultimo codigo del usuario del modulo y le suma 1 el codigo del modulo a agregar
+                    user = db.Usuario.OrderByDescending(t => t.id).First();
+                    String tempCadenaNumero = (Int32.Parse(user.codUsuario.Substring(user.codUsuario.Length - 3)) + 1).ToString();
+                    if (tempCadenaNumero.Length == 1)
+                        usuario.codUsuario = "USER00" + tempCadenaNumero;
+                    else if (tempCadenaNumero.Length == 2)
+                        usuario.codUsuario = "USER0" + tempCadenaNumero;
+                    else
+                        usuario.codUsuario = "USER" + tempCadenaNumero;
+                    //*************************************************//                    
+                    db.Usuario.InsertOnSubmit(usuario);                    
                     return enviarCambios();
                 }
             }
             catch (Exception e)
             {
                 return false;
-            }
-                   
+            }                   
         }
         /******************** VALIDACION PARA USUARIO YA EXISTENTE ***********************/
         public static bool validarUserName(Usuario usuario)

@@ -3,8 +3,6 @@ using System;
 using System.Collections.Generic;
 using System.Data.Linq;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace pe.edu.pucp.ferretin.controller.MCompras
 {
@@ -40,6 +38,48 @@ namespace pe.edu.pucp.ferretin.controller.MCompras
             set
             {
                 _listaDocumentosCompra = value;
+            }
+        }
+
+        private static IEnumerable<DocumentoCompraProducto> _listaProductosDC;
+        public static IEnumerable<DocumentoCompraProducto> listaProductosDC
+        {
+            get
+            {
+                if (_listaProductosDC == null)
+                {
+                    _listaProductosDC = db.DocumentoCompraProducto;
+                }
+                //Usando concurrencia pesimista:
+                ///La lista de documentos de compra se actualizara para ver los cambios
+                ///Si quisiera usar concurrencia optimista quito la siguiente linea
+                db.Refresh(RefreshMode.OverwriteCurrentValues, _listaProductosDC);
+                return _listaProductosDC;
+            }
+            set
+            {
+                _listaProductosDC = value;
+            }
+        }
+
+        private static IEnumerable<DocumentoCompraEstado> _listaEstadosDC;
+        public static IEnumerable<DocumentoCompraEstado> listaEstadosDC
+        {
+            get
+            {
+                if (_listaEstadosDC == null)
+                {
+                    _listaEstadosDC = db.DocumentoCompraEstado;
+                }
+                //Usando concurrencia pesimista:
+                ///La lista de documentos de compra se actualizara para ver los cambios
+                ///Si quisiera usar concurrencia optimista quito la siguiente linea
+                db.Refresh(RefreshMode.OverwriteCurrentValues, _listaEstadosDC);
+                return _listaEstadosDC;
+            }
+            set
+            {
+                _listaEstadosDC = value;
             }
         }
 
@@ -110,6 +150,16 @@ namespace pe.edu.pucp.ferretin.controller.MCompras
             
         }
 
+        public static IEnumerable<DocumentoCompraProducto> buscarProductosDC(DocumentoCompra doc)
+        {           
+            return from g in listaProductosDC
+                   where (
+                       //Cada fila es un filtro
+                          (g.id_documento_compra == doc.id))
+                   orderby g.id
+                   select g;
+        }
+
         public static IEnumerable<DocumentoCompra> buscarTodosDocumentosCompra()
         {
             return from d in listaDocumentosCompra
@@ -117,6 +167,19 @@ namespace pe.edu.pucp.ferretin.controller.MCompras
                    (d.codigo != null)
                    orderby d.codigo
                    select d;
+        }
+
+        //obtenerEstado
+        public static DocumentoCompraEstado obtenerEstado(int id)
+        {
+
+            IEnumerable<DocumentoCompraEstado> estados = (from e in listaEstadosDC
+                                                       where e.id == id
+                                                       select e);
+            if (estados.Count() > 0)
+                return estados.First();
+            else
+                return null;          
         }
 
         public static IEnumerable<DocumentoCompraEstado> obtenerEstadosPorTipoDC(int tipoDocumento)
@@ -148,6 +211,47 @@ namespace pe.edu.pucp.ferretin.controller.MCompras
                 return null;
         }
 
+        public static string generarCodigoDC(byte? tipoDC)
+        {
+            IEnumerable<DocumentoCompra> documentos = (from e in listaDocumentosCompra
+                                                       where e.codigo != null && e.tipo.Equals(tipoDC)
+                                                       select e);
+            if (tipoDC == 1)
+                return "COT" + documentos.Count().ToString();
+            else
+                return "ORD" + documentos.Count().ToString();
+        }
+
+        public static bool insertarDocumentoCompra(DocumentoCompra documentoCompra)
+        {
+            DocumentoCompra doc;
+            int i;
+            try
+            {
+                try
+                {
+                    doc = db.DocumentoCompra.Single(t => t.id == documentoCompra.id);
+                    return false;
+                }
+                catch (Exception e)
+                {
+                    //guiaRemision.estado = 1;
+                    //for (i = 0; i < guiaRemision.GuiaRemisionProducto.Count(); i++)
+                    //{
+                    //    guiaRemision.DocumentoCompra.DocumentoCompraProducto[i].cantidadRestante = guiaRemision.DocumentoCompra.DocumentoCompraProducto[i].cantidadRestante - guiaRemision.GuiaRemisionProducto[i].cantidadRecibida;
+                    //}
+                    db.DocumentoCompra.InsertOnSubmit(documentoCompra);
+                   // db.GuiaRemision.InsertOnSubmit(guiaRemision);
+                    //MA_SharedService.registrarCompra(guiaRemision.Tienda, guiaRemision.GuiaRemisionProducto);
+                    enviarCambios();
+                    return true;
+                }
+            }
+            catch (Exception e)
+            {
+                return false;
+            }
+        }
         #endregion
 
     }

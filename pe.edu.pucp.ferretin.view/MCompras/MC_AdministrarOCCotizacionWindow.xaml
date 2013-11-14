@@ -3,11 +3,11 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:viewmodel="clr-namespace:pe.edu.pucp.ferretin.viewmodel.MCompras;assembly=pe.edu.pucp.ferretin.viewmodel"
         xmlns:helper="clr-namespace:pe.edu.pucp.ferretin.viewmodel.Helper;assembly=pe.edu.pucp.ferretin.viewmodel"
-        Title="Cotizaciones y Órdenes de Compra" Height="580" Width="900" Icon="../Resources/ferretin_ico.ico" ResizeMode="NoResize" WindowStartupLocation="CenterScreen">
+        Title="Cotizaciones y Órdenes de Compra" Height="580" Width="900"   Icon="../Resources/ferretin_ico.ico" ResizeMode="NoResize" WindowStartupLocation="CenterScreen">
     <Window.Resources>
         <viewmodel:MC_CotizacionesOCViewModel x:Key="MC_CotizacionesOCViewModel"/>
     </Window.Resources>
-    <Grid DataContext="{Binding Source={StaticResource MC_CotizacionesOCViewModel}}">
+    <Grid x:Name="main" DataContext="{Binding Source={StaticResource MC_CotizacionesOCViewModel}}">
         <TabControl SelectedIndex="{Binding currentIndexTab}">
             <TabItem Header="Búsqueda">
                 <Grid Background="#FFE5E5E5" Margin="0,-3,0.115,-1.408" RenderTransformOrigin="0.49,0.513">
@@ -101,13 +101,17 @@
                     <Label x:Name="tipoDocLbl" Content="{Binding labelCodigo}" HorizontalAlignment="Left" Margin="15,30,0,0" VerticalAlignment="Top" Height="26" Width="105" Grid.ColumnSpan="2"/>
                     <TextBox Text="{Binding Path=documentoCompra.codigo, Mode=TwoWay, UpdateSourceTrigger=LostFocus, NotifyOnValidationError=True, ValidatesOnDataErrors=True, ValidatesOnExceptions=True}" HorizontalAlignment="Left" Height="20" Margin="110,33,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="130" IsEnabled="False" Grid.Column="1"/>
                     <Label x:Name="provedorLbl" Content="Proveedor:" HorizontalAlignment="Left" Margin="314,30,0,0" VerticalAlignment="Top" Height="26" Width="121" Grid.Column="1"/>
-                    <TextBox Text="{Binding Path=documentoCompra.Proveedor.razonSoc, Mode=TwoWay}" HorizontalAlignment="Left" Height="20" Margin="426,33,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="172" Grid.Column="1"/>
+                    <TextBox IsEnabled="{Binding isCreating}" x:Name="proveedorTxt" Text="{Binding proveedorNombre, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, NotifyOnValidationError=True, ValidatesOnDataErrors=True, ValidatesOnExceptions=True}" HorizontalAlignment="Left" Height="20" Margin="426,33,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="172" Grid.Column="1">
+                        <TextBox.InputBindings>
+                            <KeyBinding Key="Enter" Command="{Binding cargarProveedorCommand}" />
+                        </TextBox.InputBindings>
+                    </TextBox>
                     <Label x:Name="fecEmisioLbl" Content="{Binding labelFechaDC1}" Margin="15,61,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.183,0.438" Height="26" HorizontalAlignment="Left" Width="105" Grid.ColumnSpan="2"/>
-                    <DataGrid ItemsSource="{Binding Path=documentoCompra.DocumentoCompraProducto}" Margin="10,135,178.105,0" RenderTransformOrigin="0.5, 0.5" Height="232" VerticalAlignment="Top" Grid.ColumnSpan="3" AutoGenerateColumns="False" CanUserAddRows="False" CanUserDeleteRows="False" IsReadOnly="True">
+                    <DataGrid ItemsSource="{Binding Path=listaProductosDC, UpdateSourceTrigger=PropertyChanged,NotifyOnSourceUpdated=True,NotifyOnTargetUpdated=True,Mode=TwoWay}" Margin="10,135,178.105,0" RenderTransformOrigin="0.5, 0.5" Height="232" VerticalAlignment="Top" Grid.ColumnSpan="3" AutoGenerateColumns="False" CanUserAddRows="False" CanUserDeleteRows="False" IsEnabled="{Binding isCreating}">
                         <DataGrid.Columns>
-                            <DataGridTextColumn Width="3.8*" Header="Producto" Binding="{Binding Path=Producto.nombre}"/>
-                            <DataGridTextColumn Width="3.0*" Header="Descripción" Binding="{Binding Path=Producto.descripcion}"/>
-                            <DataGridTextColumn Width="1.7*" Header="Unidad" Binding="{Binding Path=Producto.UnidadMedida.abreviatura}"/>
+                            <DataGridTextColumn Width="3.8*" Header="Producto" Binding="{Binding Path=Producto.nombre}" IsReadOnly="True"/>
+                            <DataGridTextColumn Width="3.0*" Header="Descripción" Binding="{Binding Path=Producto.descripcion}" IsReadOnly="True"/>
+                            <DataGridTextColumn Width="1.7*" Header="Unidad" Binding="{Binding Path=Producto.UnidadMedida.abreviatura}" IsReadOnly="True"/>
                             <DataGridTextColumn Width="1.7*" Header="Precio Unit." Binding="{Binding Path=precioUnit}"/>
                             <DataGridTextColumn Width="1.7*" Header="Cantidad" Binding="{Binding Path=cantidad}"/>
                             <DataGridTextColumn Width="2.0*" Header="Total" Binding="{Binding Path=montoParcial}"/>
@@ -146,35 +150,36 @@
                         <TextBox x:Name="ultCompraTxtBox" HorizontalAlignment="Right" TextWrapping="Wrap" Text="04/01/2013" Width="69" Margin="0,31,14,-16" TextAlignment="Right" Grid.ColumnSpan="5"/>
                     </Grid>
                     <Label x:Name="fecValPagoLbl" Content="{Binding labelFechaDC2}" Margin="314,61,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.183,0.438" Height="26" HorizontalAlignment="Left" Width="116" Grid.Column="1"/>
-                    <DatePicker SelectedDate="{Binding Path=documentoCompra.fechaVencimiento, Mode=TwoWay}" Margin="426,61,0,0" Height="24" VerticalAlignment="Top" HorizontalAlignment="Left" Width="130" Grid.Column="1"/>
-                    <DatePicker SelectedDate="{Binding Path=documentoCompra.fechaEmision, Mode=TwoWay}" Height="24" VerticalAlignment="Top" Margin="110,63,0,0" HorizontalAlignment="Left" Width="130" Grid.Column="1"/>
+                    <DatePicker IsEnabled="{Binding isCreatingFechaPago}" SelectedDate="{Binding Path=documentoCompra.fechaVencimiento, Mode=TwoWay}" Margin="426,61,0,0" Height="24" VerticalAlignment="Top" HorizontalAlignment="Left" Width="130" Grid.Column="1"/>
+                    <DatePicker IsEnabled="{Binding isCreating}" SelectedDate="{Binding Path=documentoCompra.fechaEmision, Mode=TwoWay}" Height="24" VerticalAlignment="Top" Margin="110,63,0,0" HorizontalAlignment="Left" Width="130" Grid.Column="1"/>
                     <Label Content="Ingresado por:" HorizontalAlignment="Left" Margin="59,6,0,0" VerticalAlignment="Top" Grid.Column="2" Height="26" Width="98"/>
                     <Label Content="Aprobado por:" HorizontalAlignment="Left" Margin="59,52,0,0" VerticalAlignment="Top" Grid.Column="2" Height="26" Width="87"/>
-                    <TextBox Text="{Binding Path=documentoCompra.Usuario1.Empleado.nombre, Mode=TwoWay}" HorizontalAlignment="Left" Height="23" Margin="59,78,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="150" IsEnabled="False" Grid.Column="2"/>
-                    <TextBox Text="{Binding Path=documentoCompra.Usuario.Empleado.nombre, Mode=TwoWay}" HorizontalAlignment="Left" Height="23" Margin="59,32,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="150" IsEnabled="False" Grid.Column="2"/>
+                    <TextBox Text="{Binding Path=usuarioAprobacion.Empleado.nombreCompleto, Mode=OneWay}" HorizontalAlignment="Left" Height="23" Margin="59,78,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="150" IsEnabled="False" Grid.Column="2"/>
+                    <TextBox Text="{Binding Path=usuarioIngreso.Empleado.nombreCompleto, Mode=OneWay}" HorizontalAlignment="Left" Height="23" Margin="59,32,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="150" IsEnabled="False" Grid.Column="2"/>
                     <Button x:Name="buscarProveedorBtn2" HorizontalAlignment="Left" Margin="598,33,0,0" Width="18" RenderTransformOrigin="0.3,-0.35" Height="18" VerticalAlignment="Top" Grid.Column="1" Click="Button_Click_Proveedor">
                         <Button.Background>
                             <ImageBrush ImageSource="../Resources/search1_20.png"/>
                         </Button.Background>
                     </Button>
                     <ToolBar Margin="11,105,0,0" Width="67" HorizontalAlignment="Left" VerticalAlignment="Top" Grid.ColumnSpan="2">
-                        <Button x:Name="agregarProducto" VerticalAlignment="Top" Width="20" Margin="0,1,0,-0.895" Height="20" Click="agregarProducto_Click">
+                        <Button IsEnabled="{Binding isCreating}" x:Name="agregarProducto" VerticalAlignment="Top" Width="20" Margin="0,1,0,-0.895" Height="20" Click="agregarProducto_Click">
                             <Button.Background>
                                 <ImageBrush ImageSource="../Resources/add_20.png" Stretch="None"/>
                             </Button.Background>
                         </Button>
-                        <Button x:Name="eliminarProducto" Content="" Height="20" VerticalAlignment="Top" Width="20" RenderTransformOrigin="-0.624,-0.688">
+                        <Button IsEnabled="{Binding isCreating}" x:Name="eliminarProducto" Content="" Height="20" VerticalAlignment="Top" Width="20" RenderTransformOrigin="-0.624,-0.688">
                             <Button.Background>
                                 <ImageBrush ImageSource="../Resources/trash_20.png"/>
                             </Button.Background>
                         </Button>
                     </ToolBar>
-                    <Button x:Name="guardarBtn" Content="GUARDAR" Grid.Column="2" HorizontalAlignment="Left" Margin="96,423,0,0" VerticalAlignment="Top" Width="89" Height="39">
+                    <Button x:Name="guardarBtn" Command="{Binding saveDocumentoCompraCommand}" Content="GUARDAR" Grid.Column="2" HorizontalAlignment="Left" Margin="96,409,0,0" VerticalAlignment="Top" Width="89" Height="39">
                     </Button>
-                    <Button x:Name="cancelarBtn" Content="CANCELAR" Grid.Column="2" HorizontalAlignment="Left" Margin="96,469,0,0" VerticalAlignment="Top" Width="89" Height="39"/>
+                    <Button x:Name="cancelarBtn" Content="CANCELAR" Grid.Column="2" HorizontalAlignment="Left" Margin="96,453,0,0" VerticalAlignment="Top" Width="89" Height="39"/>
                     <Label x:Name="facturaLbl" Content="Numero de Factura:" Grid.Column="1" HorizontalAlignment="Left" Margin="415,401,0,0" VerticalAlignment="Top" FontSize="14" Height="26" Visibility="Hidden"/>
                     <GroupBox x:Name="facturaGbox" BorderBrush="Black" Grid.ColumnSpan="2" Grid.Column="1" Header="Factura" HorizontalAlignment="Left" Height="57" Margin="372,383,0,0" VerticalAlignment="Top" Width="313" Visibility="Hidden"/>
                     <TextBox x:Name="facturaTxtBox" Grid.Column="1" HorizontalAlignment="Left" Height="25" Margin="558,402,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="100" Grid.ColumnSpan="2" FontSize="16" Visibility="Hidden"/>
+                    <Button x:Name="aprobarBtn" Command="{Binding aprobarDocumentoCompraCommand}" Content="{Binding btnAprobarLabel}" Grid.Column="2" HorizontalAlignment="Left" Margin="96,365,0,0" VerticalAlignment="Top" Width="89" Height="39" Visibility="{Binding Path=generarAprobar, Mode=OneWay}"/>
                 </Grid>
             </TabItem>
         </TabControl>

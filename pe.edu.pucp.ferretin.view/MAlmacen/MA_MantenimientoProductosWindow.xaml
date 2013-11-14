@@ -48,7 +48,7 @@
                             <!--<DataGridCheckBoxColumn Header="Estado" Binding="{Binding Path=estado}" Width="1*"/>-->
                         </DataGrid.Columns>
                     </DataGrid>
-                    <ComboBox x:Name="categoriaCombo" ItemsSource="{Binding Path=listaCategorias}" DisplayMemberPath="nombre" SelectedValuePath="id"  SelectedValue="{Binding Path=searchIdCategoria}"  HorizontalAlignment="Left" Margin="317,43,0,0" VerticalAlignment="Top" Width="180" Height="22" Grid.Column="1">
+                    <ComboBox x:Name="categoriaCombo" ItemsSource="{Binding Path=listaCategorias}" DisplayMemberPath="nombre" SelectedValuePath="id"  SelectedItem="{Binding searchIdCategoria, Mode=TwoWay}"  HorizontalAlignment="Left" Margin="317,43,0,0" VerticalAlignment="Top" Width="180" Height="22" Grid.Column="1">
 
                     </ComboBox>
                     <Label Content="Nombre:" HorizontalAlignment="Left" Height="26" VerticalAlignment="Top" Width="64" Margin="15,43,0,0"/>
@@ -81,7 +81,12 @@
                         <ColumnDefinition/>
                         <ColumnDefinition/>
                     </Grid.ColumnDefinitions>
-                    <Image x:Name="imagenProducto" HorizontalAlignment="Left" Height="119" VerticalAlignment="Top" Width="100" Source="{Binding imgProd.Source}" Stretch="Fill" Margin="10,10,0,0"/>
+                    <Button Command="{Binding uploadImageCommand}" Width="100" Margin="10,10,0,0"  Grid.ColumnSpan="5"  HorizontalAlignment="Left" Height="100" VerticalAlignment="Top">
+                        <Image Source="{Binding productoImagen,Mode=OneWay,UpdateSourceTrigger=PropertyChanged}" Stretch="Fill">
+                        </Image>
+                    </Button>
+                    <Label Content="Código:" HorizontalAlignment="Left" Margin="115,10,0,0" VerticalAlignment="Top"/>
+                    <TextBox x:Name="txtCodigo" MaxLength="10" Text="{Binding Path=producto.codigo, Mode=TwoWay,  ValidatesOnExceptions=true, NotifyOnValidationError=true}" HorizontalAlignment="Left" Height="23" Margin="184,14,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="151" KeyDown="txtCodigo_KeyDown"/>
                     <Label Content="Nombre:" HorizontalAlignment="Left" Margin="115,41,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.464,1.231"/>
                     <TextBox x:Name="txtNombreDet"   Text="{Binding Path=producto.nombre, Mode=TwoWay,  ValidatesOnExceptions=true, NotifyOnValidationError=true}" HorizontalAlignment="Left" Height="23" Margin="115,72,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="220" />
                     <Label Content="Descripción:" HorizontalAlignment="Left" Margin="115,100,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.464,1.231"/>
@@ -118,7 +123,7 @@
                     <Button x:Name="btnCancelar" Content="CANCELAR" Grid.Column="1" HorizontalAlignment="Left" Margin="44,242,0,0" VerticalAlignment="Top" Width="75" Height="30" Grid.Row="1" Click="btnCancelar_Click"/>
                     <Label Content="Seleccione tienda:" HorizontalAlignment="Left" Margin="11,79,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.464,1.231" Grid.Row="1"/>
                     <ComboBox x:Name="cmbTienda" SelectedItem="{Binding selectedTienda}" ItemsSource="{Binding Path=listaTiendas}" DisplayMemberPath="nombre" SelectedValuePath="id" SelectedValue="{Binding Path=prodAlm.id_almacen}" HorizontalAlignment="Left" Margin="116,80,0,0" VerticalAlignment="Top" Width="220" Height="22" Grid.Row="1"/>
-                    <Button x:Name="btnCambiarImagen" Content="CAMBIAR IMG" HorizontalAlignment="Left" Margin="10,1,0,0" VerticalAlignment="Top" Width="100" Height="30" RenderTransformOrigin="0.48,-0.033" Grid.Row="1" Command="{Binding elegirImgCommand}"/>
+                   
                     <helper:MyTreeView x:Name="treeCheckBoxes" ItemsSource="{Binding Path=categoriaPrincipal,Mode=TwoWay}" Background="#FFF5F5F5" HorizontalAlignment="Left" Height="182" Margin="10,44,0,0" VerticalAlignment="Top" Width="325" Grid.Column="1" Grid.Row="1">
                         <TreeView.ItemContainerStyle>
                             <Style TargetType="{x:Type TreeViewItem}">
@@ -140,6 +145,7 @@
                     </helper:MyTreeView>
                     <Label Content="Categorías:" HorizontalAlignment="Left" Margin="10,5,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.464,1.231" Grid.Column="1" Grid.Row="1"/>
                     <TextBlock HorizontalAlignment="Left" Margin="111,46,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Foreground="#FFC17474"><Run Language="es-pe" Text="*"/></TextBlock>
+                    <TextBlock HorizontalAlignment="Left" Margin="111,16,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Foreground="#FFC17474"><Run Language="es-pe" Text="*"/></TextBlock>
                     <TextBlock HorizontalAlignment="Left" Margin="6,50,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Foreground="#FFC17474" Grid.Row="1"><Run Language="es-pe" Text="*"/></TextBlock>
                     <TextBlock HorizontalAlignment="Left" Margin="5,16,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Foreground="#FFC17474" Grid.Column="1"><Run Language="es-pe" Text="*"/></TextBlock>
                     <TextBlock HorizontalAlignment="Left" Margin="5,49,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Foreground="#FFC17474" Grid.Column="1"><Run Language="es-pe" Text="*"/></TextBlock>

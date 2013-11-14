@@ -12,6 +12,7 @@ namespace pe.edu.pucp.ferretin.controller.MAlmacen
     {
         
         private static IEnumerable<Categoria> _listaCategoria=null;
+        private static IEnumerable<ProductoCategoria> _listaProductoCategoria = null;
 
         public static IEnumerable<Categoria> categorias
         {
@@ -79,6 +80,39 @@ namespace pe.edu.pucp.ferretin.controller.MAlmacen
                               (c.id==pc.id_categoria)
                               select c;
             return _listaCategoria;
+        }
+
+
+        public static bool eliminarCategoria(Categoria categoria) 
+        {
+            //verificamos que la Categoria no este en uso
+            var deleteCategoria = from cat in db.Categoria
+                                  where cat.id.Equals(categoria.id)
+                                  select cat;
+
+            var estaEnUso = from catProducto in db.ProductoCategoria
+                            where catProducto.id_categoria.Equals(categoria.id)
+                            select catProducto;
+
+            if (estaEnUso == null)
+            {
+                foreach (var cat in deleteCategoria)
+                {
+                    db.Categoria.DeleteOnSubmit(categoria);
+                }
+                try
+                {
+                    db.SubmitChanges();
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine(e);
+                }
+                return true;
+            }
+            else {
+                return false;
+            }
         }
 
 

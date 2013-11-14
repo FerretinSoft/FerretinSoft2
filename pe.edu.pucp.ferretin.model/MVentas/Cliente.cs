@@ -11,7 +11,7 @@ namespace pe.edu.pucp.ferretin.model
     /// <summary>
     /// Clase extendida de la entidad Cliente, con la cual también se podrán hacer validaciones
     /// </summary>
-    public partial class Cliente : IDataErrorInfo
+    public partial class Cliente : INotifyPropertyChanged, IDataErrorInfo
     {
 
         #region Zona de atributos
@@ -44,6 +44,7 @@ namespace pe.edu.pucp.ferretin.model
                 else
                     tipoDocumento = "";
                 this.SendPropertyChanged("tipo");
+                this.SendPropertyChanged("isBoleta");
             }
         }
 
@@ -51,7 +52,7 @@ namespace pe.edu.pucp.ferretin.model
         {
             get
             {
-                return (tipoDocumento == "RUC" ? "FACTURA " : "BOLETA ") + tipoDocumento + " " + nroDoc.ToUpper(); 
+                return (tipoDocumento == "RUC" ? "FACTURA " : "BOLETA ") + tipoDocumento + " " + nroDoc.ToString(); 
             }
         }
 
@@ -72,7 +73,7 @@ namespace pe.edu.pucp.ferretin.model
         {
             get
             {
-                return String.Join(" ", nombre, apPaterno, apMaterno);
+                return String.Join(" ", nombre, apPaterno, apMaterno).ToUpper();
             }
         }
 
@@ -143,30 +144,22 @@ namespace pe.edu.pucp.ferretin.model
 
                         break;
                     case "nroDoc":
-                        if (String.IsNullOrEmpty(this.nroDoc))
+                        if (tipoDocumento == "DNI" || tipoDocumento == "RUC")
                         {
-                            errorMessage = "Debe ingresar un número de documento.";
+                            if (tipoDocumento=="DNI" && ( nroDoc < 10000000 || nroDoc > 99999999) )
+                            {
+                                errorMessage = "El DNI debe tener 8 números";
+                            }
+                            if (tipoDocumento == "RUC" && ( nroDoc < 10000000000 || nroDoc > 99999999999) )
+                            {
+                                errorMessage = "El RUC debe tener 11 números";
+                            }
                         }
                         else
                         {
-                            Int64 nro=0;
-                            Int64.TryParse(nroDoc, out nro);
-                            if (tipoDocumento == "DNI" || tipoDocumento == "RUC")
-                            {
-                                if (tipoDocumento=="DNI" && ( nro < 10000000 || nro > 99999999) )
-                                {
-                                    errorMessage = "El DNI debe tener 8 números";
-                                }
-                                if (tipoDocumento == "RUC" && ( nro < 10000000000 || nro > 99999999999) )
-                                {
-                                    errorMessage = "El RUC debe tener 11 números";
-                                }
-                            }
-                            else
-                            {
-                                errorMessage = "Debe seleccionar un tipo de documento";
-                            }
+                            errorMessage = "Debe seleccionar un tipo de documento";
                         }
+                        
                         break;
                     case "nombre":
                         if (String.IsNullOrEmpty(nombre))

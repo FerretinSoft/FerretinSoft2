@@ -2,7 +2,7 @@
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:viewmodel="clr-namespace:pe.edu.pucp.ferretin.viewmodel.MVentas;assembly=pe.edu.pucp.ferretin.viewmodel"
-        Title="Consultar Ventas" Icon="../Resources/ferretin_ico.ico" Width="1200" Height="600">
+        Title="Consultar Ventas" Icon="../Resources/ferretin_ico.ico" Width="1200" Height="600" WindowStartupLocation="CenterScreen">
     <Window.Resources>
         <viewmodel:MV_VentasViewModel x:Key="MV_VentasViewModel"/>
     </Window.Resources>
@@ -112,7 +112,7 @@
                             <DataGridTextColumn Width="3*" Binding="{Binding Path=nombreCompletoCliente}" ClipboardContentBinding="{x:Null}" Header="Nombre Cliente"/>
                             <DataGridTextColumn Width="3*" Binding="{Binding Path=nombreCompletoVendedor}" ClipboardContentBinding="{x:Null}" Header="Vendedor"/>
                             <DataGridTextColumn Width="2*" Binding="{Binding Path=fechaString}" ClipboardContentBinding="{x:Null}" Header="Fecha Venta"/>
-                            <DataGridTextColumn Width="2*" Binding="{Binding Path=total}" ClipboardContentBinding="{x:Null}" Header="Importe"/>
+                            <DataGridTextColumn Width="2*" Binding="{Binding Path=totalString}" ClipboardContentBinding="{x:Null}" Header="Importe"/>
                         </DataGrid.Columns>
                     </DataGrid>
                 </Grid>
@@ -158,7 +158,7 @@
                         <Label Content="Puntos Ganados:" Grid.Row="7"/>
                         <Label Content="Puntos Canjeados:" Grid.Row="8"/>
                         <TextBox IsEnabled="false" Text="{Binding Path=venta.nroDocumento, Mode=OneWay, ValidatesOnExceptions=true, NotifyOnValidationError=true}" VerticalAlignment="Center" Grid.Column="1" Height="22" Margin="0,2"/>
-                        <TextBox IsEnabled="false" Text="{Binding Path=venta.tipoDocumento, Mode=OneWay, ValidatesOnExceptions=true, NotifyOnValidationError=true}" VerticalAlignment="Center" Grid.Column="1" Grid.Row="1" Height="22" Margin="0,2"/>
+                        <TextBox IsEnabled="false" Text="{Binding Path=venta.tipoDocVentaString, Mode=OneWay, ValidatesOnExceptions=true, NotifyOnValidationError=true}" VerticalAlignment="Center" Grid.Column="1" Grid.Row="1" Height="22" Margin="0,2"/>
                         <TextBox IsEnabled="false" Text="{Binding Path=venta.fechaString, Mode=OneWay, ValidatesOnExceptions=true, NotifyOnValidationError=true}" VerticalAlignment="Center" Grid.Column="1" Grid.Row="2" Height="22" Margin="0,2"/>
                         <TextBox IsEnabled="false" Text="{Binding Path=venta.Cliente.nroDoc,Mode=OneWay, ValidatesOnExceptions=true, NotifyOnValidationError=true}" VerticalAlignment="Center" Grid.Column="1" Grid.Row="3" Height="22" Margin="0,2"/>
                         <TextBox IsEnabled="false" Text="{Binding Path=venta.nombreCompletoCliente, Mode=OneWay, ValidatesOnExceptions=true, NotifyOnValidationError=true}" Margin="0,3" VerticalAlignment="Center" Grid.Column="1" Grid.Row="4" Height="22"/>
@@ -185,9 +185,9 @@
                             <Label Content="%IGV:" VerticalAlignment="Center" Grid.Row="1"/>
                             <Label Content="Total a Pagar:" VerticalAlignment="Center" Grid.Row="2"/>
 
-                            <TextBox  Text="{Binding Path=venta.subTotal, Mode=OneWay, ValidatesOnExceptions=true, NotifyOnValidationError=true}" VerticalAlignment="Center" IsEnabled="False" TextAlignment="Right" Grid.Column="1"/>
-                            <TextBox   Text="{Binding Path=venta.igv, Mode=OneWay, ValidatesOnExceptions=true, NotifyOnValidationError=true}" VerticalAlignment="Center" IsEnabled="False" TextAlignment="Right" Grid.Column="1" Grid.Row="1"/>
-                            <TextBox   Text="{Binding Path=venta.total,Mode=OneWay, ValidatesOnExceptions=true, NotifyOnValidationError=true}" VerticalAlignment="Center" IsEnabled="False" TextAlignment="Right" Grid.Column="1" Grid.Row="2"/>
+                            <TextBox  Text="{Binding Path=venta.subTotalString, Mode=OneWay, ValidatesOnExceptions=true, NotifyOnValidationError=true}" VerticalAlignment="Center" IsEnabled="False" TextAlignment="Right" Grid.Column="1"/>
+                            <TextBox   Text="{Binding Path=venta.igvString, Mode=OneWay, ValidatesOnExceptions=true, NotifyOnValidationError=true}" VerticalAlignment="Center" IsEnabled="False" TextAlignment="Right" Grid.Column="1" Grid.Row="1"/>
+                            <TextBox   Text="{Binding Path=venta.totalString,Mode=OneWay, ValidatesOnExceptions=true, NotifyOnValidationError=true}" VerticalAlignment="Center" IsEnabled="False" TextAlignment="Right" Grid.Column="1" Grid.Row="2"/>
                         </Grid>
                     </GroupBox>
                     <DataGrid IsReadOnly="True"  ItemsSource="{Binding Path=listaProductos}"  AutoGenerateColumns="False" Margin="5" Grid.Column="1">
@@ -197,10 +197,10 @@
                             <DataGridTextColumn Width="0.9*"  Binding="{Binding Path=cantidad}" ClipboardContentBinding="{x:Null}" Header="Cantidad"/>
                             <DataGridTextColumn Width="1*"  Binding="{Binding Path=Producto.monedaString}" Header="Moneda"/>
                             <DataGridTextColumn Width="0.9*" Binding="{Binding Path=Producto.precioLista}" ClipboardContentBinding="{x:Null}" Header="Precio"/>
-                            <DataGridTextColumn Width="1*" Binding="{Binding Path=descuento}" ClipboardContentBinding="{x:Null}" Header="Dscto(%)"/>
-                            <DataGridTextColumn Width="1*"  Binding="{Binding Path=montoParcial}" ClipboardContentBinding="{x:Null}" Header="Importe"/>
-                            <DataGridTextColumn Width="1.2*" Binding="{Binding Path=precioPuntos}" ClipboardContentBinding="{x:Null}" Header="Precio Ptos"/>
-                            <DataGridTextColumn Width="0.9*" Binding="{Binding Path=canjeado}" Header="Canjeado"/>
+                            <DataGridTextColumn Width="1*" Binding="{Binding Path=descuento}" ClipboardContentBinding="{x:Null}" Header="Dscto (S/.)"/>
+                            <DataGridTextColumn Width="1.2*"  Binding="{Binding Path=montoParcial}" ClipboardContentBinding="{x:Null}" Header="Importe (S/.)"/>
+                            <DataGridTextColumn Width="1*" Binding="{Binding Path=precioPuntos}" ClipboardContentBinding="{x:Null}" Header="Precio Ptos"/>
+                            <DataGridCheckBoxColumn IsReadOnly="True" Width="0.9*" Binding="{Binding Path=canjeado}" Header="Canjeado"/>
                         </DataGrid.Columns>
                     </DataGrid>
                     <DataGrid ItemsSource="{Binding Path=listaMedioPago}" Grid.Row="1" Grid.Column="1" Margin="5" AutoGenerateColumns="False">
@@ -208,7 +208,7 @@
                             <DataGridTextColumn Width="1*" Binding="{Binding Path=MedioPago.nombre}" ClipboardContentBinding="{x:Null}" Header="Modo Pago"/>
                             <DataGridTextColumn Width="2*" Binding="{Binding Path=MedioPago.descripcion}" ClipboardContentBinding="{x:Null}" Header="Descripción"/>
                             <DataGridTextColumn Width="1*" ClipboardContentBinding="{x:Null}" Header="Cod. Vale"/>
-                            <DataGridTextColumn Width="1*" Header="Moneda"/>
+                            <DataGridTextColumn Width="1*" Binding="{Binding Path=monedaString}" Header="Moneda"/>
                             <DataGridTextColumn Width="1*" Binding="{Binding Path=monto}" ClipboardContentBinding="{x:Null}" Header="Importe"/>
                         </DataGrid.Columns>
                     </DataGrid>

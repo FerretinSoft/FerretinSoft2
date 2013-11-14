@@ -213,13 +213,13 @@ namespace pe.edu.pucp.ferretin.viewmodel.MAlmacen
                 {
                     case Tab.BUSQUEDA: 
                         detallesTabHeader = "Nuevo"; 
-                        movimiento = new Movimiento(); 
-                        movimiento.fecha = DateTime.Today;
-                        movimiento.codigo = Movimiento.generateCode();
+                        //movimiento = new Movimiento(); 
+                        //movimiento.fecha = DateTime.Today;
+                        //movimiento.codigo = Movimiento.generateCode();
                         break;//Si es agregar, creo un nuevo objeto Cliente
                     case Tab.NUEVO: 
                         detallesTabHeader = "Nuevo"; 
-                        movimiento = new Movimiento(); 
+                        if (movimiento == null || movimiento.id > 0) movimiento = new Movimiento(); 
                         movimiento.fecha = DateTime.Today;
                         movimiento.codigo = Movimiento.generateCode();
                         break;//Si es agregar, creo un nuevo objeto Cliente
@@ -228,9 +228,9 @@ namespace pe.edu.pucp.ferretin.viewmodel.MAlmacen
                         break;
                     default: 
                         detallesTabHeader = "Nuevo"; 
-                        movimiento = new Movimiento(); 
-                        movimiento.fecha = DateTime.Today;
-                        movimiento.codigo = Movimiento.generateCode();
+                        //movimiento = new Movimiento(); 
+                        //movimiento.fecha = DateTime.Today;
+                        //movimiento.codigo = Movimiento.generateCode();
                         break;//Si es agregar, creo un nuevo objeto Cliente
                 }
                 NotifyPropertyChanged("statusTab");
@@ -333,6 +333,18 @@ namespace pe.edu.pucp.ferretin.viewmodel.MAlmacen
                     _agregarNuevoProductoCommand = new RelayCommand(agregarNuevoProducto);
                 }
                 return _agregarNuevoProductoCommand;
+            }
+        }
+        RelayCommand _borrarProductoCommand;
+        public ICommand borrarProductoCommand
+        {
+            get
+            {
+                if (_borrarProductoCommand == null)
+                {
+                    _borrarProductoCommand = new RelayCommand(borrarProducto);
+                }
+                return _borrarProductoCommand;
             }
         }
         RelayCommand _saveTipoMovimientoCommand;
@@ -440,6 +452,26 @@ namespace pe.edu.pucp.ferretin.viewmodel.MAlmacen
             }
         }
 
+        public void borrarProducto(Object atr)
+        {
+            Producto producto = null;
+            try
+            { producto = MA_ProductoService.obtenerTodosProductos().First(p => !String.IsNullOrEmpty(p.codigo) && p.codigo.Equals(codigoNuevoProducto)); }
+            catch { }
+
+            if (producto != null && movimiento.MovimientoProducto.Count(mp => mp.Producto == producto) <= 0)
+            {
+                MovimientoProducto mproducto = new MovimientoProducto { cantidad = 1, Movimiento = movimiento, Producto = producto };
+                movimiento.MovimientoProducto.Add(mproducto);
+                NotifyPropertyChanged("movimiento");
+                NotifyPropertyChanged("productosPorMovimiento");
+            }
+            else
+            {
+                MessageBox.Show("No se encontro un producto con el código \"" + codigoNuevoProducto + "\".", "No se encontro el Producto", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+        }
+
         public void viewEditMovimiento(Object id)
         {
             try
@@ -509,7 +541,10 @@ namespace pe.edu.pucp.ferretin.viewmodel.MAlmacen
 
         public void cancelMovimiento(Object obj)
         {
-            this.statusTab = Tab.BUSQUEDA;
+            MessageBoxResult result = MessageBox.Show("Al salir, perderá todos los datos ingresados. ¿Desea continuar?",
+            "ATENCIÓN", MessageBoxButton.OKCancel, MessageBoxImage.Warning);
+            if (result == MessageBoxResult.OK)
+                this.statusTab = Tab.BUSQUEDA;
         }
 
         private bool canSaveTipoMovimientoExecute(object obj)

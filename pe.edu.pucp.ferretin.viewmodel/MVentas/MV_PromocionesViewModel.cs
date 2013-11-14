@@ -1,4 +1,5 @@
-﻿using pe.edu.pucp.ferretin.controller.MAlmacen;
+﻿using pe.edu.pucp.ferretin.controller;
+using pe.edu.pucp.ferretin.controller.MAlmacen;
 using pe.edu.pucp.ferretin.controller.MVentas;
 using pe.edu.pucp.ferretin.model;
 using pe.edu.pucp.ferretin.viewmodel.Helper;
@@ -294,6 +295,7 @@ namespace pe.edu.pucp.ferretin.viewmodel.MVentas
 
                 if (promocion.id > 0)//Si existe
                 {
+                    ComunService.idVentana(48);
                     if (!MV_PromocionService.enviarCambios())
                     {
                         MessageBox.Show("No se pudo actualizar el promocion");
@@ -305,6 +307,7 @@ namespace pe.edu.pucp.ferretin.viewmodel.MVentas
                 }
                 else
                 {
+                    ComunService.idVentana(48);
                     if (!MV_PromocionService.insertarPromocion(promocion))
                     {
                         MessageBox.Show("No se pudo agregar el nuevo promocion");
@@ -318,8 +321,13 @@ namespace pe.edu.pucp.ferretin.viewmodel.MVentas
         }
         public void cancelPromocion(Object obj)
         {
-            MV_PromocionService.db.Refresh(System.Data.Linq.RefreshMode.OverwriteCurrentValues, this.promocion);
-            this.statusTab = Tab.BUSQUEDA;
+            MessageBoxResult result =MessageBox.Show("Al salir, perderá todos los datos ingresados. ¿Desea continuar?",
+                                        "ATENCIÓN", MessageBoxButton.OKCancel, MessageBoxImage.Warning);
+            if (result == MessageBoxResult.OK)
+            {
+                MV_PromocionService.db.Refresh(System.Data.Linq.RefreshMode.OverwriteCurrentValues, this.promocion);
+                this.statusTab = Tab.BUSQUEDA;
+            }
         }
 
         private bool canSaveExecute(object obj)

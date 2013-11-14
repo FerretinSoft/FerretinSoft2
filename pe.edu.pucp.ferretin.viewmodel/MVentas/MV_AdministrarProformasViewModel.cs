@@ -1,4 +1,5 @@
-﻿using pe.edu.pucp.ferretin.controller.MAlmacen;
+﻿using pe.edu.pucp.ferretin.controller;
+using pe.edu.pucp.ferretin.controller.MAlmacen;
 using pe.edu.pucp.ferretin.controller.MSeguridad;
 using pe.edu.pucp.ferretin.controller.MVentas;
 using pe.edu.pucp.ferretin.model;
@@ -86,8 +87,8 @@ namespace pe.edu.pucp.ferretin.viewmodel.MVentas
         }
 
         public string codProdAgregar { get; set; }
-        private string _nroDocSeleccionado = "";
-        public string nroDocSeleccionado
+        private long? _nroDocSeleccionado = null;
+        public long? nroDocSeleccionado
         {
             get
             {
@@ -96,10 +97,7 @@ namespace pe.edu.pucp.ferretin.viewmodel.MVentas
             set
             {
                 _nroDocSeleccionado = value;
-                if (value.Length == 8 || value.Length == 11)
-                {
-                    cargarCliente(null);
-                }
+                cargarCliente(null);
                 NotifyPropertyChanged("nroDocSeleccionado");
             }
         }
@@ -268,7 +266,7 @@ namespace pe.edu.pucp.ferretin.viewmodel.MVentas
         {
             get
             {
-                return proforma==null && proforma.Cliente == null ? new GridLength(0) : GridLength.Auto;
+                return (proforma == null || proforma.Cliente == null) ? new GridLength(0) : GridLength.Auto;
             }
         }
 
@@ -431,6 +429,7 @@ namespace pe.edu.pucp.ferretin.viewmodel.MVentas
                 }
                 else
                 {
+                    ComunService.idVentana(48);
                     if (!MV_ProformasService.insertarProforma(proforma))
                     {
                         MessageBox.Show("No se pudo agregar la nueva Proforma");

@@ -24,5 +24,47 @@ namespace pe.edu.pucp.ferretin.model
             }
 
         }
+
+        public string totalString
+        {
+            get
+            {
+                if (total != null)
+                {
+                    return "S/. " + total;
+                }
+                else
+                    return null;
+            }
+
+        }
+
+        public string subTotalString
+        {
+            get
+            {
+                if (subTotal != null)
+                {
+                    return "S/. " + subTotal;
+                }
+                else
+                    return null;
+            }
+
+        }
+
+        public string igvString
+        {
+            get
+            {
+                if (igv != null)
+                {
+                    return "S/. " + igv;
+                }
+                else
+                    return null;
+            }
+
+        }
     }
 }

@@ -2,7 +2,7 @@
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:viewmodel="clr-namespace:pe.edu.pucp.ferretin.viewmodel.MVentas;assembly=pe.edu.pucp.ferretin.viewmodel"
-        Title="Administrar Nota de Crédito" Height="600" Width="1200" Icon="../Resources/ferretin_ico.ico">
+        Title="Administrar Nota de Crédito" Height="600" Width="1200" Icon="../Resources/ferretin_ico.ico" WindowStartupLocation="CenterScreen">
     <Window.Resources>
         <viewmodel:MV_NotaCreditoViewModel x:Key="MV_NotaCreditoViewModel"/>
     </Window.Resources>
@@ -109,7 +109,7 @@
                             <DataGridTextColumn Width="3*" Binding="{Binding Path=Devolucion.Venta.nombreCompletoVendedor}" ClipboardContentBinding="{x:Null}" Header="Vendedor"/>
                             <DataGridTextColumn Width="2*" Binding="{Binding Path=fechaEmisionString}" ClipboardContentBinding="{x:Null}" Header="Fecha Emisión"/>
                             <DataGridTextColumn Width="2*" Binding="{Binding Path=estadoString}" ClipboardContentBinding="{x:Null}" Header="Estado"/>
-                            <DataGridTextColumn Width="2*" Binding="{Binding Path=importe}" ClipboardContentBinding="{x:Null}" Header="Importe"/>
+                            <DataGridTextColumn Width="2*" Binding="{Binding Path=importeString}" ClipboardContentBinding="{x:Null}" Header="Importe"/>
                         </DataGrid.Columns>
                     </DataGrid>
                 </Grid>
@@ -145,11 +145,11 @@
                         </Grid.RowDefinitions>
                         <Label Content="N° Nota de Crédito:" />
                         <Label Content="Fecha Emisión:" Grid.Row="1" />
-                        <Label Content="Cliente:" Grid.Row="2" />
+                        <Label Content="RUC:" Grid.Row="2" />
+                        <Label Content="Razón Social:" Grid.Row="3" />
                         <Label Content="Fecha Vencimiento:" Grid.Row="4"/>
                         <Label Content="Vendedor:" Grid.Row="5"/>
                         <Label Content="Estado:" Grid.Row="7"/>
-                        <Label Content="Moneda:" Grid.Row="8"/>
                         <Label Content="Importe (inc IGV):" Grid.Row="9"/>
 
                         <TextBox IsEnabled="false" Text="{Binding Path=notaCredito.codigo, Mode=OneWay, ValidatesOnExceptions=true, NotifyOnValidationError=true}" VerticalAlignment="Center" Grid.Column="1"/>
@@ -159,9 +159,8 @@
                         <TextBox IsEnabled="false" Text="{Binding Path=notaCredito.fechaVencimientoString, Mode=OneWay, ValidatesOnExceptions=true, NotifyOnValidationError=true}" VerticalAlignment="Center" Grid.Column="1" Grid.Row="4"/>
                         <TextBox IsEnabled="false" Text="{Binding Path=notaCredito.Devolucion.Venta.nombreCompletoVendedor, Mode=OneWay, ValidatesOnExceptions=true, NotifyOnValidationError=true}" VerticalAlignment="Center" Grid.Column="1" Grid.Row="5"/>
                         <TextBox IsEnabled="false" Text="{Binding Path=notaCredito.estadoString, Mode=OneWay}" VerticalAlignment="Center" Grid.Column="1" Grid.Row="7"/>
-                        <TextBox IsEnabled="false" Text="Soles" VerticalAlignment="Center" Grid.Column="1" Grid.Row="8"/>
-                        <TextBox TextAlignment="Left" IsEnabled="false" Text="{Binding Path=notaCredito.importe, Mode=OneWay, ValidatesOnExceptions=true, NotifyOnValidationError=true}" VerticalAlignment="Center" HorizontalContentAlignment="Right" Grid.Column="1" Grid.Row="9"/>
-                        <Button Click="GenerarDoc_Click"  Grid.Row="11" Grid.Column="1" Padding="10,0" Height="30">IMPRIMIR</Button>
+                        <TextBox TextAlignment="Left" IsEnabled="false" Text="{Binding Path=notaCredito.importeString, Mode=OneWay, ValidatesOnExceptions=true, NotifyOnValidationError=true}" VerticalAlignment="Center" HorizontalContentAlignment="Right" Grid.Column="1" Grid.Row="9"/>
+                        <Button Click="GenerarDoc_Click"  Grid.Row="11" Grid.Column="1" Padding="10,0" Height="30">IMPRIMIR NOTA DE CRÉDITO</Button>
                     </Grid>
                     <DataGrid Margin="0,5,5,5" Grid.Column="1" ItemsSource="{Binding Path=listaProductos}" AutoGenerateColumns="False">
                         <DataGrid.Columns>
@@ -172,8 +171,8 @@
                             <DataGridTextColumn Width="1*" Binding="{Binding Path=motivo}" ClipboardContentBinding="{x:Null}" Header="Motivo"/>
                             <DataGridTextColumn Width="0.9*" Binding="{Binding Path=Producto.monedaString}" ClipboardContentBinding="{x:Null}" Header="Moneda"/>
                             <DataGridTextColumn Width="0.7*" Binding="{Binding Path=Producto.precioLista}" ClipboardContentBinding="{x:Null}" Header="Precio"/>
-                            <DataGridTextColumn Width="1*" Binding="{x:Null}" ClipboardContentBinding="{x:Null}" Header="Dscto. (%)"/>
-                            <DataGridTextColumn Width="1*" Binding="{Binding Path=monto}" ClipboardContentBinding="{x:Null}" Header="Importe"/>
+                            <DataGridTextColumn Width="1*" Binding="{x:Null}" ClipboardContentBinding="{x:Null}" Header="Dscto. (S/.)"/>
+                            <DataGridTextColumn Width="1*" Binding="{Binding Path=monto}" ClipboardContentBinding="{x:Null}" Header="Importe (S/.)"/>
                         </DataGrid.Columns>
                     </DataGrid>
 

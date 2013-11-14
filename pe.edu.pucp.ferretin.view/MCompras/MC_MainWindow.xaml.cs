@@ -1,17 +1,5 @@
 ﻿using pe.edu.pucp.ferretin.controller;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 
 namespace pe.edu.pucp.ferretin.view.MCompras
 {
@@ -42,11 +30,13 @@ namespace pe.edu.pucp.ferretin.view.MCompras
         {
             if (ComunService.usuarioLpermisos[16].estado == true)
             {
-                MAlmacen.MA_RegistroSolAbastecimientoWindow solabas = new MAlmacen.MA_RegistroSolAbastecimientoWindow();
-                solabas.consolidarBtn.Visibility = System.Windows.Visibility.Visible;
-                //solabas.atenderSolTab.Visibility = System.Windows.Visibility.Hidden;
-                solabas.generarSolTab.Visibility = System.Windows.Visibility.Hidden;
-                solabas.ShowDialog();
+                //MAlmacen.MA_RegistroSolAbastecimientoWindow solabas = new MAlmacen.MA_RegistroSolAbastecimientoWindow();
+                //solabas.consolidarBtn.Visibility = System.Windows.Visibility.Visible;
+                ////solabas.atenderSolTab.Visibility = System.Windows.Visibility.Hidden;
+                //solabas.generarSolTab.Visibility = System.Windows.Visibility.Hidden;
+                //solabas.ShowDialog();
+                MC_AtenderSolicitudWindow solabs = new MC_AtenderSolicitudWindow();
+                solabs.Show();
             }
             else
             {

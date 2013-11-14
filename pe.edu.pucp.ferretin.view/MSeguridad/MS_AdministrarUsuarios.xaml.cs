@@ -32,59 +32,15 @@ namespace pe.edu.pucp.ferretin.view.MSeguridad
     /// </summary>
     public partial class MS_AdministrarUsuarios : Window
     {
+        /****************************************************/
         public MS_AdministrarUsuarios()
         {
             InitializeComponent();
         }
-
-        private void Button_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
-
         #region Validaciones Campos de Texto
-        private void dniEmp_PreviewTextInput_1(object sender, TextCompositionEventArgs e)
-        {
-            if (Regex.IsMatch(e.Text, "[0-9]"))
-            {
-                e.Handled = false;
-            }
-            else
-            {
-                e.Handled = true;
-            }
-        }
-        
-        private void nombreUsuarioTxtBox_PreviewTextInput(object sender, TextCompositionEventArgs e)
-        {
-            if (Regex.IsMatch(e.Text, "[a-zA-Z0-9]"))
-            {
-                e.Handled = false;
-            }
-            else
-            {
-                e.Handled = true;
-            }
-        }
-
-        private void nombreUsuarioTxtBox_PreviewKeyDown(object sender, KeyEventArgs e)
-        {
-            if (e.Key != Key.Space)
-                e.Handled = false;
-            else
-                e.Handled = true;
-        }        
-        #endregion
-
-        private void dniEmp_KeyDown(object sender, KeyEventArgs e)
-        {
-            //Validaciones para que acepte solo numeros
-            if (((e.Key >= Key.D0 && e.Key <= Key.D9) || (e.Key >= Key.NumPad0 && e.Key <= Key.NumPad9) || e.Key == Key.Back || e.Key == Key.Tab))
-                e.Handled = false;
-            else
-                e.Handled = true;
-        }
-
+        /****************************************************
+         * Validacion para dni del usuario en la tabla empleado
+        ****************************************************/        
         private void dniEmp_PreviewKeyDown(object sender, KeyEventArgs e)
         {
             //Validaciones para que acepte solo numeros
@@ -93,11 +49,36 @@ namespace pe.edu.pucp.ferretin.view.MSeguridad
             else
                 e.Handled = true;
         }
-
-     
-
-
-
+        /****************************************************/
+        private void dniEmp_PreviewTextInput(object sender, TextCompositionEventArgs e)
+        {
+            //Validaciones para que acepte solo numeros
+            if (Regex.IsMatch(e.Text, "[0-9]"))            
+                e.Handled = false;            
+            else            
+                e.Handled = true;            
+        }
+        /****************************************************
+        * Validacion para nombre del usuario (username) a crear
+        ****************************************************/
+        private void nombreUsuarioTxtBox_PreviewTextInput(object sender, TextCompositionEventArgs e)
+        {
+            //Validaciones para que acepte solo alfanumericos
+            if (Regex.IsMatch(e.Text, "[a-zA-Z0-9]"))            
+                e.Handled = false;            
+            else            
+                e.Handled = true;            
+        }
+        /****************************************************/
+        private void nombreUsuarioTxtBox_PreviewKeyDown(object sender, KeyEventArgs e)
+        {
+            //Validaciones para que no acepte espacio en blanco
+            if (e.Key != Key.Space)
+                e.Handled = false;
+            else
+                e.Handled = true;
+        }        
+        #endregion
 
 
     }

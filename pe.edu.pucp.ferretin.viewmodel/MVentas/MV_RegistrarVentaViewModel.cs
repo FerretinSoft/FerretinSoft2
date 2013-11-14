@@ -33,8 +33,8 @@ namespace pe.edu.pucp.ferretin.viewmodel.MVentas
             venta.VentaProducto.ListChanged += actualizarMontosVenta;
         }
 
-        private string _nroDocSeleccionado = "";
-        public string nroDocSeleccionado
+        private long? _nroDocSeleccionado;
+        public long? nroDocSeleccionado
         {
             get
             {
@@ -43,9 +43,17 @@ namespace pe.edu.pucp.ferretin.viewmodel.MVentas
             set
             {
                 _nroDocSeleccionado = value;
-                if (value.Length == 8 || value.Length == 11)
+                if (value >= 10000000 && value <= 99999999999)
                 {
                     cargarCliente(null);
+                }else if(value==0)
+                {
+                    if (venta != null && venta.Cliente != null)
+                    {
+                        venta.Cliente = null;
+                        clienteImagen = null;
+                        NotifyPropertyChanged("widthClienteBar");
+                    }
                 }
                 NotifyPropertyChanged("nroDocSeleccionado");
             }
@@ -192,7 +200,7 @@ namespace pe.edu.pucp.ferretin.viewmodel.MVentas
                         VentaProducto ventaProducto = new VentaProducto();
                         ventaProducto.canjeado = false;
                         ventaProducto.tipoCambio = (decimal)(MS_SharedService.obtenerTipodeCambio());
-                        ventaProducto.montoParcial = producto.moneda==1?producto.precioLista:producto.precioLista.Value*(decimal)(MS_SharedService.obtenerTipodeCambio());
+                        //ventaProducto.montoParcial = producto.moneda==1?producto.precioLista:producto.precioLista.Value*(decimal)(MS_SharedService.obtenerTipodeCambio());
                         ventaProducto.Venta = venta;
                         ventaProducto.Producto = producto;
                         ventaProducto.cantidad = 1;
@@ -201,7 +209,7 @@ namespace pe.edu.pucp.ferretin.viewmodel.MVentas
                         
                         venta.VentaProducto.Add(ventaProducto);
 
-                        
+                        actualizarMontosVenta(null, null);
                     }
                     NotifyPropertyChanged("venta");
                 }
@@ -210,13 +218,6 @@ namespace pe.edu.pucp.ferretin.viewmodel.MVentas
 
         public void actualizarMontosVenta(object sender, object e)
         {
-            //elimino si algun producto tiene cantidad = 0
-            foreach(var vp in venta.VentaProducto){
-                if(vp.cantidad==0){
-                    venta.VentaProducto.Remove(vp);
-                }
-            }
-            
             //Actualizo el total
             venta.total = Decimal.Round(venta.VentaProducto.Sum(vp => vp.canjeado.Value ? 0 : vp.montoParcial).Value,2);
 
@@ -224,7 +225,8 @@ namespace pe.edu.pucp.ferretin.viewmodel.MVentas
             venta.puntosCanjeados = (venta.VentaProducto.Sum(vp => vp.canjeado.Value ? vp.cantidad*vp.Producto.precioPuntos : 0));        
 
             //Actualizo los puntos ganados
-            venta.puntosGanados = (venta.VentaProducto.Sum(vp => (vp.Producto!= null && vp.canjeado.Value == false) ? (vp.cantidad * vp.Producto.ganarPuntos) : 0));        
+            venta.puntosGanados = (venta.VentaProducto.Sum(vp => (vp.Producto!= null && vp.canjeado.Value == false) ? (vp.cantidad * vp.Producto.ganarPuntos) : 0));
+            
         }
 
         #endregion

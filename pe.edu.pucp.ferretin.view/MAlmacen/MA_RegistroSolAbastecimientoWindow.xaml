@@ -85,6 +85,8 @@
                             <DataGridTextColumn Width="2*" Binding="{Binding Path=productoPorSolicitud.Producto.codigo}"  IsReadOnly="True" Header="Cód. Producto"/>
                             <DataGridTextColumn Width="2*" Binding="{Binding Path=productoPorSolicitud.Producto.nombre}"  IsReadOnly="True"  Header="Nombre"/>
                             <DataGridTextColumn Width="2*" Binding="{Binding Path=productoPorSolicitud.cantidad}"  Header="Cantidad" IsReadOnly="{Binding isCreating}"/>
+                            <DataGridTextColumn Width="2*" Binding="{Binding Path=productoPorSolicitud.cantidadAtendida}" Header="Ctdad. Atendida" IsReadOnly="True" />
+                            <DataGridTextColumn Width="2*" Binding="{Binding Path=productoPorSolicitud.cantidadRestante}" Header="Ctdad. Restante" IsReadOnly="True" />
                             <DataGridTextColumn Width="2*" Binding="{Binding Path=productoPorAlmacen.stock}" Header="En Stock" IsReadOnly="True" />
                             <DataGridTextColumn Width="2*" Binding="{Binding Path=productoPorAlmacen.stockMin}" Header="Stock mínimo" IsReadOnly="True" />
                         </DataGrid.Columns>
@@ -97,7 +99,7 @@
                         </Button.Background>
                     </Button>
                     <Label Content="Código:" HorizontalAlignment="Left" Height="26" VerticalAlignment="Top" Width="65" Margin="22,43,0,0"/>
-                    <TextBox IsEnabled="{Binding isCreating}" Text="{Binding Path=solicitud.codigo, Mode=TwoWay, ValidatesOnExceptions=true, NotifyOnValidationError=true}" x:Name="idTxtBox" HorizontalAlignment="Left" Height="23" Margin="133,46,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="166"/>
+                    <TextBox IsEnabled="False" Text="{Binding Path=solicitud.codigo}" x:Name="idTxtBox" HorizontalAlignment="Left" Height="23" Margin="133,46,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="166"/>
                     <Button Command="{Binding saveSolicitudCommand}" Content="GUARDAR" HorizontalAlignment="Left" Margin="476,10,0,0" Grid.Row="2" VerticalAlignment="Top" Width="75" Height="30"/>
                     <Button Content="CANCELAR" Command="{Binding cancelSolicitudCommand}" HorizontalAlignment="Left" Margin="590,9,0,0" Grid.Row="2" VerticalAlignment="Top" Width="75" Height="30"/>
                     <TextBox Text="{Binding Path=currentTienda.nombre}" x:Name="estadoTxtBox1_Copy" HorizontalAlignment="Left" Height="23" Margin="433,46,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="208" IsEnabled="False"/>
