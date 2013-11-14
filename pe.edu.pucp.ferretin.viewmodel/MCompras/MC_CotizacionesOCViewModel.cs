@@ -727,7 +727,7 @@ namespace pe.edu.pucp.ferretin.viewmodel.MCompras
                     subTotal = subTotal + documentoCompra.DocumentoCompraProducto[i].montoParcial;
                 }
                 documentoCompra.subTotal = subTotal;
-                documentoCompra.igv = subTotal * (decimal)MS_SharedService.obtenerIGV();
+                documentoCompra.igv = subTotal * (decimal)MS_SharedService.obtenerIGV()/(100);
                 documentoCompra.total = documentoCompra.subTotal + documentoCompra.igv;
                 if (documentoCompra.tipo == 2 && documentoCompra.DocumentoCompraEstado.nombre.Equals("Emitida") && documentoCompra.nroFactura != null && documentoCompra.fechaVencimiento != null)
                     documentoCompra.DocumentoCompraEstado = MC_DocumentoCompraService.obtenerEstado(7);
@@ -760,7 +760,7 @@ namespace pe.edu.pucp.ferretin.viewmodel.MCompras
                     documentoCompra.DocumentoCompraProducto.Add(guiaDC);
                 }
                 documentoCompra.subTotal = subTotal;
-                documentoCompra.igv = subTotal * (decimal)MS_SharedService.obtenerIGV();
+                documentoCompra.igv = subTotal * (decimal)MS_SharedService.obtenerIGV()/(100);
                 documentoCompra.total = documentoCompra.subTotal + documentoCompra.igv;
                 documentoCompra.codigo = MC_DocumentoCompraService.generarCodigoDC(documentoCompra.tipo);
                 ComunService.idVentana(36);
