@@ -34,7 +34,7 @@
                             <DataGridCheckBoxColumn Width="1.28*" Binding="{x:Null}" ClipboardContentBinding="{x:Null}" Header="Selecciona" />
                         </DataGrid.Columns>
                     </DataGrid>
-                    <Button x:Name="consolidarBtn" Content="CONSOLIDAR" Margin="486,0,214.717,20.005" VerticalAlignment="Bottom" Height="30" RenderTransformOrigin="0.594,-0.567" Grid.Row="1" Click="consolidarBtn_Click"/>
+                    <Button x:Name="consolidarBtn" Content="GENERAR" Margin="486,0,214.717,20.005" VerticalAlignment="Bottom" Height="30" RenderTransformOrigin="0.594,-0.567" Grid.Row="1" Click="consolidarBtn_Click"/>
                     <Button x:Name="cancelarBtn" Content="CANCELAR " Margin="623,0,77.717,20.005" VerticalAlignment="Bottom" Height="30" RenderTransformOrigin="0.594,-0.567" Grid.Row="1"/>
                 </Grid>
             </TabItem>
