@@ -68,5 +68,25 @@ namespace pe.edu.pucp.ferretin.controller.MVentas
         }
 
 
+        public static bool insertarPrecio(ProductoPrecio prodPrecio)
+        {
+            if (!db.ProductoPrecio.Contains(prodPrecio))
+            {
+                db.ProductoPrecio.InsertOnSubmit(prodPrecio);
+                db.SubmitChanges();
+                return enviarCambios();
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        public static void actualizarPrecio(ProductoPrecio prodPrecio)
+        {
+
+            db.SubmitChanges();
+        }
+
     }
 }

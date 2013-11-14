@@ -700,7 +700,10 @@ namespace pe.edu.pucp.ferretin.viewmodel.MCompras
                 }
                 documentoCompra.subTotal = subTotal;
                 documentoCompra.igv = subTotal * (decimal)MS_SharedService.obtenerIGV();
-                documentoCompra.total = documentoCompra.subTotal + documentoCompra.igv;               
+                documentoCompra.total = documentoCompra.subTotal + documentoCompra.igv;
+                if (documentoCompra.tipo == 2 && documentoCompra.DocumentoCompraEstado.nombre.Equals("Emitida") && documentoCompra.nroFactura != null && documentoCompra.fechaVencimiento != null)
+                    documentoCompra.DocumentoCompraEstado = MC_DocumentoCompraService.obtenerEstado(7);
+
                 ComunService.idVentana(37);
                 if (!MC_DocumentoCompraService.enviarCambios())
                 {

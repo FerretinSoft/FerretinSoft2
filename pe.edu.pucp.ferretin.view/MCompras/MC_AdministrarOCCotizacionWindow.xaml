@@ -180,6 +180,9 @@
                     <GroupBox x:Name="facturaGbox" BorderBrush="Black" Grid.ColumnSpan="2" Grid.Column="1" Header="Factura" HorizontalAlignment="Left" Height="57" Margin="372,383,0,0" VerticalAlignment="Top" Width="313" Visibility="Hidden"/>
                     <TextBox x:Name="facturaTxtBox" Grid.Column="1" HorizontalAlignment="Left" Height="25" Margin="558,402,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="100" Grid.ColumnSpan="2" FontSize="16" Visibility="Hidden"/>
                     <Button x:Name="aprobarBtn" Command="{Binding aprobarDocumentoCompraCommand}" Content="{Binding btnAprobarLabel}" Grid.Column="2" HorizontalAlignment="Left" Margin="96,365,0,0" VerticalAlignment="Top" Width="89" Height="39" Visibility="{Binding Path=generarAprobar, Mode=OneWay}"/>
+                    <TextBox IsEnabled="{Binding isCreatingFechaPago}" Text="{Binding Path=documentoCompra.nroFactura, Mode=TwoWay,UpdateSourceTrigger=LostFocus}" Height="25" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="16" TextAlignment="Right" Margin="498,401,24,0" Grid.Column="1" RenderTransformOrigin="3.68,-1.086"/>
+                    <Label IsEnabled="{Binding isCreatingFechaPago}" Content="Codigo:" HorizontalAlignment="Left" Margin="415,401,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.64,1.423" Height="26" Width="64" Grid.Column="1" FontSize="14"/>
+                    <GroupBox IsEnabled="{Binding isCreatingFechaPago}" BorderBrush="Black" Grid.Column="1" Header="Factura" HorizontalAlignment="Left" Height="57" Margin="372,383,0,0" VerticalAlignment="Top" Width="286" Grid.ColumnSpan="2"/>
                 </Grid>
             </TabItem>
         </TabControl>
