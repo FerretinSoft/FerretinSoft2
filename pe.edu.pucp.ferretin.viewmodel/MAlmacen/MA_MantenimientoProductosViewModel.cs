@@ -317,7 +317,7 @@ namespace pe.edu.pucp.ferretin.viewmodel.MAlmacen
                 //Si la pestaña es para agregar nuevo, limpio los input
                 switch (value)
                 {
-                    case (int)tabs.BUSQUEDA: detallesTabHeader = "Agregar Producto"; producto = new Producto(); break;//Si es agregar, creo un nuevo objeto Cliente
+                    case (int)tabs.BUSQUEDA: detallesTabHeader = "Agregar Producto"; productoImagen = null; producto = new Producto(); break;//Si es agregar, creo un nuevo objeto Cliente
                     case (int)tabs.AGREGAR: detallesTabHeader = "Agregar Producto"; productoImagen = null; producto = new Producto(); prodAlm = new ProductoAlmacen(); break;//Si es agregar, creo un nuevo objeto Cliente
                     case (int)tabs.MODIFICAR: detallesTabHeader = "Edición de Producto"; break;
 
