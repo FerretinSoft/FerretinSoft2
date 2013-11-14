@@ -83,22 +83,41 @@ namespace pe.edu.pucp.ferretin.controller.MAlmacen
         }
 
 
-        public static bool eliminarCategoria(Categoria categoria) 
+        public static int eliminarCategoria(Categoria categoria) 
         {
             //verificamos que la Categoria no este en uso
-            var deleteCategoria = from cat in db.Categoria
+            Categoria Cat = (from cat in db.Categoria
                                   where cat.id.Equals(categoria.id)
-                                  select cat;
+                                  select cat).First();
 
-            var estaEnUso = from catProducto in db.ProductoCategoria
+            int pc=0;
+            pc= (from catProducto in db.ProductoCategoria
                             where catProducto.id_categoria.Equals(categoria.id)
-                            select catProducto;
+                            select catProducto).Count();
 
-            if (estaEnUso == null)
+            if (pc==0 && Cat != null)
             {
-                foreach (var cat in deleteCategoria)
+                db.Categoria.DeleteOnSubmit(Cat);
+                try
                 {
-                    db.Categoria.DeleteOnSubmit(categoria);
+                    db.SubmitChanges();
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine(e);
+                }
+                return 1;
+            }
+            else {
+                return 0;
+            }
+            /*
+
+            if (_listaProductoCategoria == null)
+            {
+                foreach (var cat in _listaCategoria)
+                {
+                    db.Categoria.DeleteOnSubmit(cat);
                 }
                 try
                 {
@@ -108,11 +127,12 @@ namespace pe.edu.pucp.ferretin.controller.MAlmacen
                 {
                     Console.WriteLine(e);
                 }
-                return true;
+                return 1;
             }
             else {
-                return false;
-            }
+                return 0;
+
+            }*/
         }
 
 
@@ -129,6 +149,21 @@ namespace pe.edu.pucp.ferretin.controller.MAlmacen
                 return false;
             }
         }
+
+
+        public static Categoria categoriaPadre
+        {
+            get
+            {
+                try
+                {
+                    return db.Categoria.Single(m => m.id_padre == null || m.id_padre <= 0);
+                }
+                catch (Exception){
+                    return null;
+                }
+            }
+        }    
 
     }
 }
