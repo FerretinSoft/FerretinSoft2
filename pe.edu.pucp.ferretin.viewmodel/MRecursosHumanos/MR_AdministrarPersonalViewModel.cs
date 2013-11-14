@@ -576,22 +576,16 @@ namespace pe.edu.pucp.ferretin.viewmodel.MRecursosHumanos
 
                                     MessageBox.Show("El empleado fue agregado con éxito");
                                     this.statusTab = Tab.BUSQUEDA;
-                                    listaEmpleados = MR_EmpleadoService.listaEmpleados;
-                                    //NotifyPropertyChanged("EmpleadoTienda");//Para el historial de empleos
+                           
                                 }
                         }
                         //////}
                     }
                 }
 
-            ////////}
-            ////////else
-            ////////{
-            ////////    // Cancel code here
-            ////////    this.statusTab = Tab.BUSQUEDA;
-            ////////} 
+        
             NotifyPropertyChanged("listaEmpleados");
-            NotifyPropertyChanged("empleado");
+            
             NotifyPropertyChanged("listaEmpleadoTiendas");
 
 
