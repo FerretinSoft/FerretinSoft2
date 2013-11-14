@@ -52,9 +52,9 @@ namespace pe.edu.pucp.ferretin.controller.MVentas
         ///<param name="nroDoc">
         ///El Número de Documento que se usará para la busqueda
         ///</param>
-        public static Cliente obtenerClienteByNroDoc(String nroDoc)
+        public static Cliente obtenerClienteByNroDoc(long? nroDoc)
         {
-            if (nroDoc != "")
+            if (nroDoc > 0)
             {
                 Cliente cliente = (from c in listaClientes
                                    where c.nroDoc != null && c.nroDoc.Equals(nroDoc)
@@ -97,11 +97,11 @@ namespace pe.edu.pucp.ferretin.controller.MVentas
             }
         }
 
-        public static IEnumerable<Cliente> buscarClientes(string nroDoc, string nombre, string apPaterno, string apMaterno, string tipoDocumento)
+        public static IEnumerable<Cliente> buscarClientes(long? nroDoc, string nombre, string apPaterno, string apMaterno, string tipoDocumento)
         {
-            return from c in db.Cliente
+            return from c in listaClientes
                    where
-                   (c.nroDoc != null && c.nroDoc.Contains(nroDoc)
+                   (c.nroDoc == null || nroDoc ==null || c.nroDoc.Equals(nroDoc)
                        && ( c.nombre == null || c.nombre.ToLower().Contains(nombre.ToLower().Trim()) )
                        && ( c.apPaterno == null || c.apPaterno.ToLower().Contains(apPaterno.ToLower().Trim()) )
                        && ( c.apMaterno == null || c.apMaterno.ToLower().Contains(apMaterno.ToLower().Trim()) )

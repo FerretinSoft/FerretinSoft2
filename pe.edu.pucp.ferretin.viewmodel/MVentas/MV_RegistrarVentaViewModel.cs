@@ -33,8 +33,8 @@ namespace pe.edu.pucp.ferretin.viewmodel.MVentas
             venta.VentaProducto.ListChanged += actualizarMontosVenta;
         }
 
-        private string _nroDocSeleccionado = "";
-        public string nroDocSeleccionado
+        private long? _nroDocSeleccionado;
+        public long? nroDocSeleccionado
         {
             get
             {
@@ -43,10 +43,10 @@ namespace pe.edu.pucp.ferretin.viewmodel.MVentas
             set
             {
                 _nroDocSeleccionado = value;
-                if (value.Length == 8 || value.Length == 11)
+                if (value >= 10000000 && value <= 99999999999)
                 {
                     cargarCliente(null);
-                }else if(value.Length==0)
+                }else if(value==0)
                 {
                     if (venta != null && venta.Cliente != null)
                     {
@@ -218,13 +218,6 @@ namespace pe.edu.pucp.ferretin.viewmodel.MVentas
 
         public void actualizarMontosVenta(object sender, object e)
         {
-            //elimino si algun producto tiene cantidad = 0
-            foreach(var vp in venta.VentaProducto){
-                if(vp.cantidad==0){
-                    venta.VentaProducto.Remove(vp);
-                }
-            }
-            
             //Actualizo el total
             venta.total = Decimal.Round(venta.VentaProducto.Sum(vp => vp.canjeado.Value ? 0 : vp.montoParcial).Value,2);
 

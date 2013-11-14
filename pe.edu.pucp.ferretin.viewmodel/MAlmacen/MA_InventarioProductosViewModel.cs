@@ -8,6 +8,9 @@ using System.Windows.Input;
 using pe.edu.pucp.ferretin.model;
 using System.Windows;
 using pe.edu.pucp.ferretin.controller.MAlmacen;
+using System.Windows.Media;
+using System.IO;
+using System.Windows.Media.Imaging;
 
 namespace pe.edu.pucp.ferretin.viewmodel.MAlmacen
 {
@@ -54,8 +57,8 @@ namespace pe.edu.pucp.ferretin.viewmodel.MAlmacen
 
 
 
-        public IEnumerable<Color> _listaColores;
-        public IEnumerable<Color> listaColores
+        public IEnumerable<pe.edu.pucp.ferretin.model.Color> _listaColores;
+        public IEnumerable<pe.edu.pucp.ferretin.model.Color> listaColores
         {
             set
             {
@@ -102,6 +105,7 @@ namespace pe.edu.pucp.ferretin.viewmodel.MAlmacen
                 NotifyPropertyChanged("statusTab");
                 //Cuando se cambia el status, tambien se tiene que actualizar el currentIndex del tab
                 NotifyPropertyChanged("currentIndexTab"); //Hace que cambie el tab automaticamente
+                NotifyPropertyChanged("productoImagen");
             }
         }
         //Usado para mover los tabs de acuerdo a las acciones realizadas
@@ -225,6 +229,7 @@ namespace pe.edu.pucp.ferretin.viewmodel.MAlmacen
             {   
                 _listaProductoAlmacen = value;
                 NotifyPropertyChanged("listaProductoAlmacen");
+                NotifyPropertyChanged("productoImagen");
             }
         }
 
@@ -248,6 +253,41 @@ namespace pe.edu.pucp.ferretin.viewmodel.MAlmacen
         }
         #endregion
 
+
+
+        #region mostrar la foto del producto
+        private ImageSource _productoImagen;
+        public ImageSource productoImagen
+        {
+            get
+            {
+                if (this.producto.imagen != null)
+                {
+                    MemoryStream strm = new MemoryStream();
+                    strm.Write(producto.imagen.ToArray(), 0, producto.imagen.Length);
+                    strm.Position = 0;
+                    System.Drawing.Image img = System.Drawing.Image.FromStream(strm);
+
+                    BitmapImage bitmapImage = new BitmapImage();
+                    bitmapImage.BeginInit();
+                    MemoryStream memoryStream = new MemoryStream();
+                    img.Save(memoryStream, System.Drawing.Imaging.ImageFormat.Bmp);
+                    memoryStream.Seek(0, SeekOrigin.Begin);
+                    bitmapImage.StreamSource = memoryStream;
+                    bitmapImage.EndInit();
+
+                    _productoImagen = bitmapImage;
+                }
+                return _productoImagen;
+            }
+            set
+            {
+                _productoImagen = value;
+                NotifyPropertyChanged("productoImagen");
+            }
+        }
+
+        #endregion
 
         #region RelayCommand
 

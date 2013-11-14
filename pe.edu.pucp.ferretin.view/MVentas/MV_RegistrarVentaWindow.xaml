@@ -105,7 +105,7 @@
                         </DataGridTextColumn.CellStyle>
                     </DataGridTextColumn>
                     <DataGridTextColumn Width="1.5*" Binding="{Binding Path=descuentoPorcentaje,UpdateSourceTrigger=PropertyChanged}" IsReadOnly="True" Header="Dscto. (%)"/>
-                    <DataGridTextColumn Width="1.2*" Binding="{Binding Path=montoParcial}" IsReadOnly="True" Header="Importe">
+                    <DataGridTextColumn Width="1.2*" Binding="{Binding Path=montoParcial, StringFormat=S/. {0}}" IsReadOnly="True" Header="Importe">
                         <DataGridTextColumn.CellStyle>
                             <Style>
                                 <Setter Property="FrameworkElement.HorizontalAlignment" Value="Right"/>

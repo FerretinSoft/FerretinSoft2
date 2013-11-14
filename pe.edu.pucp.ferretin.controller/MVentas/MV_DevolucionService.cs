@@ -68,7 +68,7 @@ namespace pe.edu.pucp.ferretin.controller.MVentas
             }
         }
 
-        public static IEnumerable<Devolucion> buscarDevoluciones(string nroDevolucion, string nroVenta, string nroDocCliente, DateTime fechaInicio, DateTime fechaFin, string searchVendedor)
+        public static IEnumerable<Devolucion> buscarDevoluciones(string nroDevolucion, string nroVenta, long? nroDocCliente, DateTime fechaInicio, DateTime fechaFin, string searchVendedor)
         {
             return from c in listaDevoluciones
                    where
@@ -77,7 +77,7 @@ namespace pe.edu.pucp.ferretin.controller.MVentas
                    && c.fecEmision != null && c.fecEmision >= fechaInicio
                    && c.fecEmision != null && c.fecEmision <= fechaFin
                    && c.Venta.Usuario.Empleado.dni != null && c.Venta.Usuario.Empleado.dni.Contains(searchVendedor)
-                   && c.Venta.Cliente.nroDoc != null && c.Venta.Cliente.nroDoc.Contains(nroDocCliente)
+                   && c.Venta.Cliente.nroDoc != null && c.Venta.Cliente.nroDoc.Equals(nroDocCliente)
                     )
                    orderby c.codigo
                    select c;

@@ -24,17 +24,19 @@ namespace pe.edu.pucp.ferretin.view.MSeguridad
     public partial class MS_CambiarContraseñaUsuario : Window
     {
         #region Variables
-
+        
         Usuario usuarioLog;                     //Usuario que inicio sesión.
         int primeraVez;                         //Indica si es la primera vez que el usuario ha iniciado sesión.
+        int renovar;
         Regex r = new Regex("^[a-zA-Z0-9]*$");
 
         #endregion
 
         #region Constructor
-        public MS_CambiarContraseñaUsuario(Usuario usuario)
+        public MS_CambiarContraseñaUsuario(Usuario usuario, int renovacion)
         {
             usuarioLog = usuario;
+            renovar = renovacion;
             //Verifica si es la primera vez que esta iniciando sesión.
             if (usuarioLog.contrasena == MS_UsuarioService.encrypt("ferretinSoft"))
             {
@@ -67,54 +69,69 @@ namespace pe.edu.pucp.ferretin.view.MSeguridad
         #region Cambiar Contraseña
         public void cambiarContraseña()
         {
-            if (usuarioLog.contrasena == MS_UsuarioService.encrypt(conActual.Password) && nuevaCon.Password == confirmarCon.Password && !String.IsNullOrEmpty(nuevaCon.Password) && nuevaCon.Password.Length >= 6 && r.IsMatch(nuevaCon.Password))
+
+            if (nuevaCon.Password == "ferretinSoft")
             {
-                usuarioLog.contrasena = MS_UsuarioService.encrypt(nuevaCon.Password);
-                MS_UsuarioService.actualizarUsuario(usuarioLog);
-
-
-                if (primeraVez == 1)
-                {
-                    MessageBox.Show("Contraseña Cambiada Correctamente. Bienvenido a FerretinSoft");
-                    MainWindow mw = new MainWindow(usuarioLog);
-                    mw.Show();
-                }
-                else
-                {
-                    MessageBox.Show("Contraseña Cambiada Correctamente");
-                }
-
-                this.Close();
+                MessageBox.Show("Por motivos de seguridad no puede usar está contraseña.");
             }
             else
             {
-
-                if (usuarioLog.contrasena != MS_UsuarioService.encrypt(conActual.Password))
+                if (usuarioLog.contrasena == MS_UsuarioService.encrypt(conActual.Password) && nuevaCon.Password == confirmarCon.Password && !String.IsNullOrEmpty(nuevaCon.Password) && nuevaCon.Password.Length >= 6 && r.IsMatch(nuevaCon.Password))
                 {
-                    MessageBox.Show("La contraseña actual no es correcta.");
+                    usuarioLog.contrasena = MS_UsuarioService.encrypt(nuevaCon.Password);
+                    usuarioLog.ultimoCambioContrasena = DateTime.Now;
+                    MS_UsuarioService.actualizarUsuario(usuarioLog);
+
+                    if (primeraVez == 1 || renovar == 1)
+                    {
+                        if (renovar == 0)
+                        {
+                            MessageBox.Show("Contraseña Cambiada Correctamente. Bienvenido a ferretinSoft.");
+                        }
+                        else
+                        {
+                            MessageBox.Show("Contraseña Cambiada Correctamente.");
+                        }
+                        MainWindow mw = new MainWindow(usuarioLog);
+                        mw.Show();
+                    }
+                    else
+                    {
+                        MessageBox.Show("Contraseña Cambiada Correctamente");
+                    }
+
+                    this.Close();
+                }
+                else
+                {
+
+                    if (usuarioLog.contrasena != MS_UsuarioService.encrypt(conActual.Password))
+                    {
+                        MessageBox.Show("La contraseña actual no es correcta.");
+
+                    }
+                    else if (!(nuevaCon.Password.Length >= 6))
+                    {
+
+                        MessageBox.Show("La contraseña debe tener como mínimo 6 caracteres");
+
+                    }
+                    else if (nuevaCon.Password != confirmarCon.Password)
+                    {
+                        MessageBox.Show("La contraseña nueva y la confirmación de contraseña no coinciden");
+
+                    }
+                    else if (!r.IsMatch(nuevaCon.Password))
+                    {
+                        MessageBox.Show("La contraseña tiene que ser alfanumerica.");
+                    }
+                    else if (!String.IsNullOrEmpty(nuevaCon.Password) || !String.IsNullOrEmpty(conActual.Password) || !String.IsNullOrEmpty(confirmarCon.Password))
+                    {
+                        MessageBox.Show("Verifique que se hayan llenado todos los campos.");
+                    }
+
 
                 }
-                else if (!(nuevaCon.Password.Length >= 6))
-                {
-
-                    MessageBox.Show("La contraseña debe tener como mínimo 6 caracteres");
-
-                }
-                else if (nuevaCon.Password != confirmarCon.Password)
-                {
-                    MessageBox.Show("La contraseña nueva y la confirmación de contraseña no coinciden");
-
-                }
-                else if (!r.IsMatch(nuevaCon.Password))
-                {
-                    MessageBox.Show("La contraseña tiene que ser alfanumerica.");
-                }
-                else if (!String.IsNullOrEmpty(nuevaCon.Password) || !String.IsNullOrEmpty(conActual.Password) || !String.IsNullOrEmpty(confirmarCon.Password))
-                {
-                    MessageBox.Show("Verifique que se hayan llenado todos los campos.");
-                }
-
-
             }
         }
         #endregion
