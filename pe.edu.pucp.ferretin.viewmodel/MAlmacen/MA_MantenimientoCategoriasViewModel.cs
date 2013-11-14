@@ -1,4 +1,5 @@
 ﻿using pe.edu.pucp.ferretin.controller.MAlmacen;
+using pe.edu.pucp.ferretin.controller;
 using pe.edu.pucp.ferretin.model;
 using pe.edu.pucp.ferretin.viewmodel.Helper;
 using System;
@@ -13,14 +14,29 @@ namespace pe.edu.pucp.ferretin.viewmodel.MAlmacen
 {
     public class MA_MantenimientoCategoriasViewModel : ViewModelBase
     {
-        
-        public MA_MantenimientoCategoriasViewModel()
+        public Categoria categoriaPadre
         {
-            
+            get
+            {
+                //Devolver la categoría padre
+                return MA_CategoriaService.categoriaPadre;
+            }
+
         }
-
-
-
+    
+  
+        /************************************************/
+        private void copiarCategoria(Categoria categoria)
+        {
+            //perfilMenu.Perfil = perfil;
+            for (int i = 0; i < categoria.Categoria2.Count; i++)
+            {
+                Categoria hijoCategoria = new Categoria();
+                categoriaPrincipal.ElementAt(i).Categoria2.Add(hijoCategoria);
+                copiarCategoria(categoria.Categoria2.ElementAt(i));
+            }
+        }
+        /************************************************/
         private IEnumerable<Categoria> _categoriasPadre;
         public IEnumerable<Categoria> categoriasPadre { get { return _categoriasPadre; } set { _categoriasPadre = value; OnPropertyChanged("categoriasPadre"); } }
 
@@ -145,16 +161,23 @@ namespace pe.edu.pucp.ferretin.viewmodel.MAlmacen
 
         public void nuevaCategoria(Object obj)
         {
-            Categoria categoria = new Categoria();
-            categoria.nivel = (byte)(CategoriaSeleccionada.nivel + 1);
-            categoria.Categoria1 = CategoriaSeleccionada;
-            CategoriaSeleccionada = categoria;
+            if (CategoriaSeleccionada != null)
+            {
+                Categoria categoria = new Categoria();
+                categoria.nivel = (byte)(CategoriaSeleccionada.nivel + 1);
+                categoria.Categoria1 = CategoriaSeleccionada;
+                CategoriaSeleccionada = categoria;
+            }
+            else 
+            {
+                MessageBox.Show("Seleccionar una categoria");
+            }
         }
 
         public void deleteCategoria(Object obj)
         {
-            bool valor=MA_CategoriaService.eliminarCategoria(CategoriaSeleccionada);
-            if (valor==false)
+            int valor=MA_CategoriaService.eliminarCategoria(CategoriaSeleccionada);
+            if (valor.Equals(0))
             {
                 MessageBox.Show("La Categoría esta asignada, no se pudo eliminar");
             }
@@ -171,8 +194,8 @@ namespace pe.edu.pucp.ferretin.viewmodel.MAlmacen
         {
             if (CategoriaSeleccionada != null)
             {
-
-                if (CategoriaSeleccionada.id > 0)//Si existe
+                ComunService.idVentana(20);
+                if (CategoriaSeleccionada.id > 0)//Actualizar categoria
                 {
                     if (!MA_CategoriaService.enviarCambios())
                     {
@@ -181,10 +204,13 @@ namespace pe.edu.pucp.ferretin.viewmodel.MAlmacen
                     else
                     {
                         MessageBox.Show("La categoría fue guardado con éxito");
+                        
                     }
                 }
                 else
                 {
+                    ComunService.idVentana(19);
+                    //insertar categoria nueva
                     if (CategoriaSeleccionada.nombre == null && CategoriaSeleccionada.descripcion!=null)
                     {
                         MessageBox.Show("Ingresar el nombre de la categoría");
@@ -207,6 +233,12 @@ namespace pe.edu.pucp.ferretin.viewmodel.MAlmacen
                         {
                             MessageBox.Show("La categoría fue agregado con éxito");
 
+                            ///**********************************************/              
+                            //    copiarCategoria(categoriaPadre);                         
+                            //NotifyPropertyChanged("categoriaPrincipal");
+                            ///**********************************************/
+                            ///
+                           
                         }
                     }
                 }
