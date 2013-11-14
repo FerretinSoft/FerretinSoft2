@@ -86,20 +86,18 @@ namespace pe.edu.pucp.ferretin.controller.MAlmacen
         public static int eliminarCategoria(Categoria categoria) 
         {
             //verificamos que la Categoria no este en uso
-            _listaCategoria = from cat in db.Categoria
+            Categoria Cat = (from cat in db.Categoria
                                   where cat.id.Equals(categoria.id)
-                                  select cat;
+                                  select cat).First();
 
-            _listaProductoCategoria = from catProducto in db.ProductoCategoria
+            int pc=0;
+            pc= (from catProducto in db.ProductoCategoria
                             where catProducto.id_categoria.Equals(categoria.id)
-                            select catProducto;
+                            select catProducto).Count();
 
-            if (_listaProductoCategoria == null)
+            if (pc==0 && Cat != null)
             {
-                foreach (var cat in _listaCategoria)
-                {
-                    db.Categoria.DeleteOnSubmit(categoria);
-                }
+                db.Categoria.DeleteOnSubmit(Cat);
                 try
                 {
                     db.SubmitChanges();
@@ -113,6 +111,28 @@ namespace pe.edu.pucp.ferretin.controller.MAlmacen
             else {
                 return 0;
             }
+            /*
+
+            if (_listaProductoCategoria == null)
+            {
+                foreach (var cat in _listaCategoria)
+                {
+                    db.Categoria.DeleteOnSubmit(cat);
+                }
+                try
+                {
+                    db.SubmitChanges();
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine(e);
+                }
+                return 1;
+            }
+            else {
+                return 0;
+
+            }*/
         }
 
 
