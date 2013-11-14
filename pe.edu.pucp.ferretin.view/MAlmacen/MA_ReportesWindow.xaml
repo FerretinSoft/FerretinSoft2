@@ -37,8 +37,8 @@
             <Label Content="Reporte de stocks" HorizontalAlignment="Center" Margin="0,10,0,0" VerticalAlignment="Top" FontSize="16"/>
             <Label Content="Fecha desde:" HorizontalAlignment="Left" Margin="10,123,0,0" VerticalAlignment="Top"/>
             <Label Content="Fecha hasta:" HorizontalAlignment="Left" Margin="243,123,0,0" VerticalAlignment="Top"/>
-            <DatePicker x:Name="fechaDesdePicker" HorizontalAlignment="Left" Margin="98,125,0,0" VerticalAlignment="Top" DisplayDate="2013-09-01" Text="01/09/2013" Width="138"/>
-            <DatePicker x:Name="fechaHastaPicker" HorizontalAlignment="Left" Margin="323,125,0,0" VerticalAlignment="Top" DisplayDate="2013-09-01" Text="01/09/2013" Width="148"/>
+            <DatePicker x:Name="fechaDesdePicker" SelectedDate="{Binding fechaDesde}" HorizontalAlignment="Left" Margin="98,125,0,0" VerticalAlignment="Top" DisplayDate="2013-09-01" Text="01/09/2013" Width="138"/>
+            <DatePicker x:Name="fechaHastaPicker" SelectedDate="{Binding fechaHasta}" HorizontalAlignment="Left" Margin="323,125,0,0" VerticalAlignment="Top" DisplayDate="2013-09-01" Text="01/09/2013" Width="148"/>
             <Label Content="Tienda:" HorizontalAlignment="Left" Margin="10,75,0,0" VerticalAlignment="Top"/>
             <ComboBox Name="cmbTienda" SelectedItem="{Binding selectedTienda}" ItemsSource="{Binding listaTiendas}" DisplayMemberPath="nombre" SelectedValuePath="id" HorizontalAlignment="Left" Margin="96,79,0,0" VerticalAlignment="Top" Width="140"/>
             <Label Content="Alias:" HorizontalAlignment="Left" Margin="10,181,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.441,2.999"/>
@@ -85,7 +85,7 @@
 
         </Grid>
         <Button x:Name="repSigBtn" Content="SIGUIENTE &gt;" HorizontalAlignment="Right" Margin="0,0,110,0" Grid.Row="1" Width="75" Click="repSigBtn_Click" Height="31"/>
-        <Button Content="CANCELAR" HorizontalAlignment="Right" Margin="0,0,20,0" Grid.Row="1" Width="75" IsCancel="True" Height="31"/>
+        <Button Content="CANCELAR" HorizontalAlignment="Right" Margin="0,0,20,0" Grid.Row="1" Width="75" IsCancel="True" Height="31" Click="Button_Click"/>
         <Button x:Name="repAntBtn" Content="&lt; ANTERIOR" HorizontalAlignment="Right" Margin="0,0,200,0" Grid.Row="1" Width="75" IsEnabled="False" Click="repAntBtn_Click" Height="31"/>
         <Separator Height="2" Margin="0" Grid.Row="1" VerticalAlignment="Top"/>
 

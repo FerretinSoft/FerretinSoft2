@@ -91,21 +91,44 @@ namespace pe.edu.pucp.ferretin.controller.MAlmacen
             return result;
         }
 
-        public static IEnumerable<Movimiento> buscarEntradasPorTiendaPeriodo(Tienda almacen, DateTime fechaDesde, DateTime fechaHasta)
+        public static List<MovimientoProducto> buscarEntradasPorTiendaPeriodo(Tienda almacen, DateTime fechaDesde, DateTime fechaHasta)
         {
-            return (from m in listaMovimientos
-                    where ((m.MovimientoTipo.categoriaEnum == MovimientoTipo.CategoriaMovimiento.ENTRADA || 
-                            m.MovimientoTipo.categoriaEnum == MovimientoTipo.CategoriaMovimiento.TRANSFERENCIA)
-                            && m.Tienda1 == almacen && m.fecha >= fechaDesde && m.fecha <= fechaHasta)
-                    select m);
+            var movimientos = (from m in listaMovimientos
+                               where ((m.MovimientoTipo.categoriaEnum == MovimientoTipo.CategoriaMovimiento.ENTRADA ||
+                                       m.MovimientoTipo.categoriaEnum == MovimientoTipo.CategoriaMovimiento.TRANSFERENCIA)
+                                       && m.Tienda1 == almacen && m.fecha >= fechaDesde && m.fecha <= fechaHasta)
+                               select m);
+
+            List<MovimientoProducto> result = new List<MovimientoProducto>();
+            foreach (var mov in movimientos)
+            {
+                foreach (var item in mov.MovimientoProducto)
+                {
+                    result.Add(item);
+                }
+            }
+
+            return result;
         }
 
-        public static IEnumerable<Movimiento> buscarSalidasPorTiendaPeriodo(Tienda almacen, DateTime fechaDesde, DateTime fechaHasta)
+        public static List<MovimientoProducto> buscarSalidasPorTiendaPeriodo(Tienda almacen, DateTime fechaDesde, DateTime fechaHasta)
         {
-            return (from m in listaMovimientos
-                    where ((m.MovimientoTipo.categoriaEnum == MovimientoTipo.CategoriaMovimiento.SALIDA)
-                            && m.Tienda == almacen && m.fecha >= fechaDesde && m.fecha <= fechaHasta)
-                    select m);
+            var movimientos = (from m in listaMovimientos
+                               where ((m.MovimientoTipo.categoriaEnum == MovimientoTipo.CategoriaMovimiento.SALIDA ||
+                                       m.MovimientoTipo.categoriaEnum == MovimientoTipo.CategoriaMovimiento.TRANSFERENCIA)
+                                       && m.Tienda == almacen && m.fecha >= fechaDesde && m.fecha <= fechaHasta)
+                               select m);
+
+            List<MovimientoProducto> result = new List<MovimientoProducto>();
+            foreach (var mov in movimientos)
+            {
+                foreach (var item in mov.MovimientoProducto)
+                {
+                    result.Add(item);
+                }
+            }
+
+            return result;
         }
 
         public static IEnumerable<Movimiento> buscarMovimientos(Tienda searchAlmacen, MovimientoEstado searchEstado, DateTime searchFechaDesde, DateTime searchFechaHasta)

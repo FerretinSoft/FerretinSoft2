@@ -13,6 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using pe.edu.pucp.ferretin.controller.MAlmacen;
 using pe.edu.pucp.ferretin.model;
+using System.Collections.ObjectModel;
 
 namespace pe.edu.pucp.ferretin.view.MAlmacen
 {
@@ -21,26 +22,10 @@ namespace pe.edu.pucp.ferretin.view.MAlmacen
     /// </summary>
     public partial class MA_ReporteKardexWindow : Window
     {
-        List<Movimiento> entradas;
-        List<Movimiento> salidas;
-
         public MA_ReporteKardexWindow()
         {
             InitializeComponent();
         }
-
-        public MA_ReporteKardexWindow(Tienda almacen, DateTime fechaDesde, DateTime fechaHasta)
-        {
-            fechaReporteLabel.Content = DateTime.Today.ToShortDateString();
-            almacenLabel.Content = almacen.nombre;
-            direccionLabel.Content = almacen.direccion;
-            telefonoLabel.Content = almacen.telefono1 + " / " + almacen.telefono2;
-            fechaDesdeLabel.Content = fechaDesde.ToShortDateString();
-            fechaHastaLabel.Content = fechaHasta.ToShortDateString();
-
-            entradas = MA_MovimientosService.buscarEntradasPorTiendaPeriodo(almacen, fechaDesde, fechaHasta).ToList();
-            salidas = MA_MovimientosService.buscarSalidasPorTiendaPeriodo(almacen, fechaDesde, fechaHasta).ToList();
-            InitializeComponent();
-        }
+        
     }
 }

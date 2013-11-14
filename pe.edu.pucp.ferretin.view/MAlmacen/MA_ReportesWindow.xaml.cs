@@ -54,13 +54,18 @@ namespace pe.edu.pucp.ferretin.view.MAlmacen
                         MessageBox.Show("Debe seleccionar algún reporte");
                     break;
                 case 1:
-                    repConfGrid.Visibility = System.Windows.Visibility.Collapsed;
-                    repFinalGrid.Visibility = System.Windows.Visibility.Visible;
-                    estado = 2;
-                    repSigBtn.IsEnabled = false;
+                    if (cmbTienda.SelectedItem == null)
+                        MessageBox.Show("Debe seleccionar una tienda / almacén para generar su reporte.");
+                    else if (fechaDesdePicker.SelectedDate == null || fechaHastaPicker.SelectedDate == null)
+                        MessageBox.Show("Debe seleccionar un período para generar su reporte.");
+                    else
+                    {
+                        repConfGrid.Visibility = System.Windows.Visibility.Collapsed;
+                        repFinalGrid.Visibility = System.Windows.Visibility.Visible;
+                        estado = 2;
+                        repSigBtn.IsEnabled = false;
+                    }
                     break;
-
-
             }
         }
 
@@ -124,13 +129,29 @@ namespace pe.edu.pucp.ferretin.view.MAlmacen
 
         private void btnViewReport_Click(object sender, RoutedEventArgs e)
         {
-            MA_ReportesStockPorTiendaWindow v = new MA_ReportesStockPorTiendaWindow();
-            v.Owner = this;
-            var viewModel = v.main.DataContext as MA_ReportesStockPorTiendaViewModel;
-            Tienda tiendaSelected = (Tienda)this.cmbTienda.SelectedItem;
+            if (reporte == 1)
+            {
+                MA_ReportesStockPorTiendaWindow v = new MA_ReportesStockPorTiendaWindow();
+                v.Owner = this;
+                var viewModel = v.main.DataContext as MA_ReportesStockPorTiendaViewModel;
+                Tienda tiendaSelected = (Tienda)this.cmbTienda.SelectedItem;
+
+                viewModel.tiendaSeleccionada = tiendaSelected;
+                v.Show();
+            }
+            else if (reporte >= 2 && reporte <= 4)
+            {
+                MA_ReporteKardexWindow kardexW = new MA_ReporteKardexWindow();
+                kardexW.Owner = this;
+                var viewModel = kardexW.main.DataContext as MA_ReporteKardexViewModel;
+                Tienda tiendaSelected = (Tienda)this.cmbTienda.SelectedItem;
+                viewModel.tiendaSeleccionada = tiendaSelected;
+                viewModel.fechaDesde = (DateTime)fechaDesdePicker.SelectedDate;
+                viewModel.fechaHasta = (DateTime)fechaHastaPicker.SelectedDate;
+                kardexW.Show();
+            }
             
-            viewModel.tiendaSeleccionada = tiendaSelected;
-            v.Show();
+            
         }
 
         private void reportesBaseListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -169,6 +190,11 @@ namespace pe.edu.pucp.ferretin.view.MAlmacen
                     reporte = 0;
                     break;
             }
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            this.Close();
         }
 
        
