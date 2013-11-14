@@ -61,6 +61,7 @@
     <Compile Include="MAlmacen\MA_MovimientosViewModel.cs" />
     <Compile Include="MAlmacen\MA_RegistroSolAbastecimientoViewModel.cs" />
     <Compile Include="MAlmacen\MA_AtencionSolAbastecimientoViewModel.cs" />
+    <Compile Include="MAlmacen\MA_ReporteKardexViewModel.cs" />
     <Compile Include="MAlmacen\MA_ReportesStockPorTiendaViewModel.cs" />
     <Compile Include="MAlmacen\MA_ReportesViewModel.cs" />
     <Compile Include="MCompras\MC_BuscarProductosProveedorViewModel.cs" />
