@@ -98,9 +98,9 @@ namespace pe.edu.pucp.ferretin.viewmodel.MAlmacen
                 //Si la pestaña es para agregar nuevo, limpio los input
                 switch (_statusTab)
                 {
-                    case Tab.BUSQUEDA: detallesTabHeader = "Busqueda"; break;
-                    case Tab.DETALLES: detallesTabHeader = "Detalles"; break;
-                    default: detallesTabHeader = "Busqueda"; break;
+                    case Tab.BUSQUEDA: detallesTabHeader = "Busqueda"; productoImagen = null; break;
+                    case Tab.DETALLES: detallesTabHeader = "Detalles"; productoImagen = null; break;
+                    default: detallesTabHeader = "Busqueda"; productoImagen = null; break;
                 }
                 NotifyPropertyChanged("statusTab");
                 //Cuando se cambia el status, tambien se tiene que actualizar el currentIndex del tab
