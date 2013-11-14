@@ -143,7 +143,8 @@ namespace pe.edu.pucp.ferretin.view.MAlmacen
             }
             var viewModelThis = this.main.DataContext as MA_MantenimientoProductosViewModel;
             //Edición
-            if (productoTabControl.SelectedValue.ToString().Equals("Edición de Productos"))
+            
+            if (productoTabControl.SelectedValue.ToString().Contains("Edición de Producto"))
             {
                 MA_ProductoService.actualizarProducto(viewModelThis.listaCategorias,viewModelThis.producto);
                 MessageBox.Show("El producto fue modificado con éxito");

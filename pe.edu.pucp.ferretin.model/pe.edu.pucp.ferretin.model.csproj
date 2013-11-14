@@ -67,6 +67,11 @@
     <Compile Include="Ferretin.cs">
       <DependentUpon>Ferretin.dbml</DependentUpon>
     </Compile>
+    <Compile Include="Ferretin.designer.cs">
+      <DependentUpon>Ferretin.dbml</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
     <Compile Include="MAlmacen\Categoria.cs" />
     <Compile Include="MAlmacen\Movimiento.cs" />
     <Compile Include="MAlmacen\MovimientoEstado.cs" />
@@ -84,11 +89,6 @@
     <Compile Include="MSeguridad\Perfil.cs" />
     <Compile Include="MSeguridad\Tienda.cs" />
     <Compile Include="MVentas\Cliente.cs" />
-    <Compile Include="Ferretin.designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Ferretin.dbml</DependentUpon>
-    </Compile>
     <Compile Include="MAlmacen\Producto.cs" />
     <Compile Include="MVentas\Devolucion.cs" />
     <Compile Include="MVentas\DevolucionProducto.cs" />
@@ -120,9 +120,6 @@
       <LastGenOutput>Ferretin.designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
     </None>
-    <None Include="Ferretin.dbml.layout">
-      <DependentUpon>Ferretin.dbml</DependentUpon>
-    </None>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -153,6 +150,11 @@
       <ProductName>SQL Server Compact 4.0 SP1</ProductName>
       <Install>true</Install>
     </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Ferretin.dbml.layout">
+      <DependentUpon>Ferretin.dbml</DependentUpon>
+    </None>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
