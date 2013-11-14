@@ -67,6 +67,11 @@
     <Compile Include="Ferretin.cs">
       <DependentUpon>Ferretin.dbml</DependentUpon>
     </Compile>
+    <Compile Include="Ferretin.designer.cs">
+      <DependentUpon>Ferretin.dbml</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
     <Compile Include="MAlmacen\Categoria.cs" />
     <Compile Include="MAlmacen\Movimiento.cs" />
     <Compile Include="MAlmacen\MovimientoEstado.cs" />
@@ -74,6 +79,7 @@
     <Compile Include="MAlmacen\SolicitudAbastecimiento.cs" />
     <Compile Include="MCompras\DocumentoCompra.cs" />
     <Compile Include="MCompras\GuiaRemision.cs" />
+    <Compile Include="MCompras\ProductoSol.cs" />
     <Compile Include="MCompras\Proveedor.cs" />
     <Compile Include="MCompras\ProveedorProducto.cs" />
     <Compile Include="MRecursosHumanos\Empleado.cs" />
@@ -83,17 +89,13 @@
     <Compile Include="MSeguridad\Perfil.cs" />
     <Compile Include="MSeguridad\Tienda.cs" />
     <Compile Include="MVentas\Cliente.cs" />
-    <Compile Include="Ferretin.designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Ferretin.dbml</DependentUpon>
-    </Compile>
     <Compile Include="MAlmacen\Producto.cs" />
     <Compile Include="MVentas\Devolucion.cs" />
     <Compile Include="MVentas\DevolucionProducto.cs" />
     <Compile Include="MVentas\LoteVale.cs" />
     <Compile Include="MVentas\MedioPago.cs" />
     <Compile Include="MVentas\NotaCredito.cs" />
+    <Compile Include="MVentas\ProductoPrecio.cs" />
     <Compile Include="MVentas\Proforma.cs" />
     <Compile Include="MVentas\ProformaProducto.cs" />
     <Compile Include="MVentas\Promocion.cs" />
@@ -117,9 +119,6 @@
       <Generator>MSLinqToSQLGenerator</Generator>
       <LastGenOutput>Ferretin.designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
-    </None>
-    <None Include="Ferretin.dbml.layout">
-      <DependentUpon>Ferretin.dbml</DependentUpon>
     </None>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -151,6 +150,11 @@
       <ProductName>SQL Server Compact 4.0 SP1</ProductName>
       <Install>true</Install>
     </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Ferretin.dbml.layout">
+      <DependentUpon>Ferretin.dbml</DependentUpon>
+    </None>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

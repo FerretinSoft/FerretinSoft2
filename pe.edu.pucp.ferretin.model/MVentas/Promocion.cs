@@ -10,7 +10,13 @@ namespace pe.edu.pucp.ferretin.model
     public partial class Promocion : IDataErrorInfo
     {
 
-
+        public bool esActivo
+        {
+            get
+            {
+                return fechaDesde <= DateTime.Today && fechaHasta >= DateTime.Today;
+            }
+        }
 
         #region Zona de Validaciones
 

@@ -491,12 +491,12 @@ namespace pe.edu.pucp.ferretin.viewmodel.MVentas
                     else
                     {
                         ProformaProducto proformaProducto = new ProformaProducto();
+                        proformaProducto.PromocionActual = MV_PromocionService.ultimaPromocionPorProducto(producto, MS_SharedService.usuarioL.Empleado.tiendaActual);
                         proformaProducto.tipoCambio = (decimal)MS_SharedService.obtenerTipodeCambio();
-                        proformaProducto.montoParcial = producto.precioLista;
                         proformaProducto.Proforma = proforma;
                         proformaProducto.Producto = producto;
                         proformaProducto.cantidad = 1;
-                        proformaProducto.PromocionActual = MV_PromocionService.ultimaPromocionPorProducto(producto);
+                        
                         proformaProducto.PropertyChanged += actualizarMontosProforma;
                         
                         proforma.ProformaProducto.Add(proformaProducto);

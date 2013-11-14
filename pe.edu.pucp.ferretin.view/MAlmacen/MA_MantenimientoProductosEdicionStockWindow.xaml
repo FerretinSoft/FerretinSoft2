@@ -3,11 +3,12 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:viewmodel="clr-namespace:pe.edu.pucp.ferretin.viewmodel.MAlmacen;assembly=pe.edu.pucp.ferretin.viewmodel"
         xmlns:helper="clr-namespace:pe.edu.pucp.ferretin.viewmodel.Helper;assembly=pe.edu.pucp.ferretin.viewmodel"
-        Title="Asignación de Stock" Height="293.583" Width="386">
+        x:Name="windowAsignacion" Icon="../Resources/ferretin_ico.ico" ResizeMode="NoResize"
+        Title="Asignación de Stock" Height="284.396" Width="386" Closing="Window_Closing">
     <Window.Resources>
         <viewmodel:MA_MantenimientoProductosEdicionStockViewModel x:Key="MA_MantenimientoProductosEdicionStockViewModel"/>
     </Window.Resources>
-    <Grid x:Name="main" DataContext="{Binding Source={StaticResource MA_MantenimientoProductosEdicionStockViewModel}}">
+    <Grid x:Name="main" DataContext="{Binding Source={StaticResource MA_MantenimientoProductosEdicionStockViewModel}}" Height="264" VerticalAlignment="Top">
         <DataGrid HorizontalAlignment="Left" Width="377" ItemsSource="{Binding productoAlmacen}" CanUserAddRows="false" AutoGenerateColumns="false" Margin="0,0,0,65">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Tienda" Width="3*" Binding="{Binding Path=Tienda.nombre}" IsReadOnly="True" CanUserReorder="False"/>
@@ -15,7 +16,7 @@
                 <DataGridTextColumn Header="Stock Mínimo" Width="2*" Binding="{Binding Path=stockMin}"/>
             </DataGrid.Columns>
         </DataGrid>
-        <Button Content="Guardar Stock" Command="{Binding guardarStockCommand}" HorizontalAlignment="Left" Margin="138,231,0,0" VerticalAlignment="Top" Width="101"/>
+        <Button Content="Guardar Stock" Command="{Binding guardarStockCommand}" CommandParameter="{Binding ElementName=windowAsignacion}" HorizontalAlignment="Left" Margin="138,220,0,0" VerticalAlignment="Top" Width="101"/>
 
     </Grid>
 </Window>

@@ -24,6 +24,33 @@ namespace pe.edu.pucp.ferretin.controller.MAlmacen
             }
         }
 
+        public static void agregarCategoriaProductos(IEnumerable<ProductoCategoria> pc)
+        {
+            foreach (ProductoCategoria prodcat in pc)
+                    db.ProductoCategoria.InsertOnSubmit(prodcat);
+
+        }
+
+
+        public static void actualizarCategoriasProductos(IEnumerable<Categoria> listaCategoriaProducto)
+        {
+
+
+
+            ProductoCategoria pc;
+
+            foreach (Categoria c in listaCategoriaProducto)
+            {
+                pc = new ProductoCategoria();
+
+
+
+
+            }
+
+
+
+        }
 
         public static IEnumerable<Categoria> obtenerCategoriasPadres()
         {
@@ -33,6 +60,17 @@ namespace pe.edu.pucp.ferretin.controller.MAlmacen
             return _listaCategoria;
         }
 
+
+        public static IEnumerable<ProductoCategoria> obtenerTablaCategoriaProducto(int idProd)
+        {
+            IEnumerable<ProductoCategoria> prodCat = from c in db.Categoria
+                                                from pc in db.ProductoCategoria
+                                                where (pc.id_producto == idProd) &&
+                                                (c.id == pc.id_categoria)
+                                                select pc;
+            return prodCat;
+
+        }
 
         public static IEnumerable<Categoria> obtenerCategoriasxProducto(int idProd)
         {

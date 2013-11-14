@@ -43,7 +43,7 @@ namespace pe.edu.pucp.ferretin.model
                 //Calculo la cantidad de productos sin descuento
                 int? prodSinDesc = cantidad - prodConDesc;
 
-                decimal? productoPrecioLista = Producto.precioLista * (Producto.moneda == 1 ? 1 : (tipoCambio != null && tipoCambio <= 0) ? 1 : tipoCambio);
+                decimal? productoPrecioLista = Producto.precioLista * (Producto.moneda == 0/*Soles*/ ? 1 : (tipoCambio != null && tipoCambio <= 0) ? 1 : tipoCambio);
 
                 //Hallo el resultado de los productos con descuento y sin descuento
                 descuento = (prodConDesc * productoPrecioLista * (1 - desc));

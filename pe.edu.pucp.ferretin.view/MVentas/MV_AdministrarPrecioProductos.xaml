@@ -1,8 +1,124 @@
 ﻿<Window x:Class="pe.edu.pucp.ferretin.view.MVentas.MV_AdministrarPrecioProductos"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Title="Administrar Precio de Productos" Height="300" Width="300">
-    <Grid>
-        
+        xmlns:viewmodel="clr-namespace:pe.edu.pucp.ferretin.viewmodel.MVentas;assembly=pe.edu.pucp.ferretin.viewmodel"
+        Title="Administración de Productos" Height="487" Width="704" Icon="../Resources/ferretin_ico.ico" ResizeMode="CanMinimize">
+    <Window.Resources>
+        <viewmodel:MV_AdministrarPrecioProdViewModel x:Key="MV_AdministrarPrecioProdViewModel"/>
+    </Window.Resources>
+    <Grid x:Name="main" DataContext="{Binding Source={StaticResource MV_AdministrarPrecioProdViewModel}}">
+        <TabControl x:Name="productoTabControl" SelectedIndex="{Binding selectedTab,Mode=TwoWay,FallbackValue=0}">
+            <TabItem Header="Búsqueda de Productos">
+                <Grid Background="#FFE5E5E5">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="85*"/>
+                        <ColumnDefinition Width="603*"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
+                    <GroupBox x:Name="nombreFilterTxt" Header="Parámetros" Margin="9,10,11,331" BorderBrush="Black" Grid.ColumnSpan="2"/>
+                    <Button x:Name="buscarClienteBtn" HorizontalAlignment="Left" Margin="542,43,0,0" VerticalAlignment="Top" Width="32" Height="32" RenderTransformOrigin="0.3,-0.35" Command="{Binding actualizarListaProductoPrecioCommand}" Grid.Column="1">
+                        <Button.Background>
+                            <ImageBrush ImageSource="../Resources/refresh2_48.png"/>
+                        </Button.Background>
+                    </Button>
+                    <DataGrid IsReadOnly="True" Name="gridProductos" CanUserAddRows="False" Margin="9,118,1,19" AutoGenerateColumns="False" ItemsSource="{Binding Path=listaProducto}" Grid.ColumnSpan="2">
+                        <DataGrid.Columns>
+                            <DataGridTemplateColumn Width="1.5*" Header="Cód. Prod.">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <TextBlock>
+                                        <Hyperlink 
+                                            Command="{Binding Path=DataContext.viewDetailHistorialProdCommand, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type DataGrid}}}" 
+                                            CommandParameter="{Binding codigo}">
+                                            <TextBlock Text="{Binding codigo}" />
+                                        </Hyperlink>
+                                        </TextBlock>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+                            <!--<DataGridHyperlinkColumn Width="1*" Binding="{Binding Path=codigo}" ContentBinding="{x:Null}" ClipboardContentBinding="{x:Null}" Header="Cód. Producto">
+                                
+                            </DataGridHyperlinkColumn>-->
+                            <DataGridTextColumn Width="4*" Binding="{Binding Path=nombre}" ClipboardContentBinding="{x:Null}" Header="Nombre"/>
+                            <DataGridTextColumn Width="2*" Binding="{Binding Path=monedaString}" ClipboardContentBinding="{x:Null}" Header="Moneda"/>
+                            <DataGridTextColumn Width="2*" Binding="{Binding Path=precioLista}" ClipboardContentBinding="{x:Null}" Header="Precio Lista"/>
+                            <DataGridTextColumn Width="2*" Binding="{Binding Path=precioPuntos}" ClipboardContentBinding="{x:Null}" Header="Precio Puntos"/>
+
+                        </DataGrid.Columns>
+                    </DataGrid>
+                    <Label Content="Nombre:" HorizontalAlignment="Left" Height="26" VerticalAlignment="Top" Width="64" Margin="15,43,0,0"/>
+                    <TextBox x:Name="txtNombre" Text="{Binding searchProducto, Mode=TwoWay}"  HorizontalAlignment="Left" Height="23" Margin="82,42,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="236" Grid.ColumnSpan="2"/>
+                </Grid>
+            </TabItem>
+            <TabItem IsEnabled="False" Header="Registro de Precio" x:Name="generarValesTab">
+                <Grid Background="#FFE5E5E5">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+                    <GroupBox Header="Parámetros" Margin="5,5" BorderBrush="Gray" Grid.Row="0">
+                        <Grid IsEnabled="{Binding noSoloDetallarLoteVale,Mode=OneWay}">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"></ColumnDefinition>
+                                <ColumnDefinition Width="100"></ColumnDefinition>
+                                <ColumnDefinition Width="Auto"></ColumnDefinition>
+                                <ColumnDefinition></ColumnDefinition>
+
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition/>
+                                <RowDefinition/>
+                                <RowDefinition Height="30"/>
+                            </Grid.RowDefinitions>
+                            <Label Content="Cód. Producto:" Grid.Column="0" VerticalContentAlignment="Center"/>
+                            <Label Content="Nombre Producto:" Grid.Column="0" Grid.Row="1" VerticalContentAlignment="Center"/>
+                            <TextBox Text="{Binding Path=productoPrecio.Producto.nombre}" VerticalAlignment="Center" Grid.Column="1" Grid.Row="1" Grid.ColumnSpan="1" BorderThickness="0" IsEnabled="False"/>
+                            <TextBox Text="{Binding Path=productoPrecio.Producto.codigo}" IsEnabled="False" VerticalAlignment="Center" Grid.Column="1" Margin="0,2" HorizontalAlignment="Left" Width="100"/>
+                            <Label Content="Fecha Registro:" Grid.Column="0" Grid.Row="2" VerticalContentAlignment="Center"/>
+                            <DatePicker SelectedDate="{Binding Path=productoPrecio.fechaRegistro, Mode=TwoWay}" IsEnabled="False" VerticalAlignment="Center" Grid.Column="1" Grid.Row="2" />
+                            <Grid Grid.Column="3">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="103"></ColumnDefinition>
+                                    <ColumnDefinition Width="Auto"></ColumnDefinition>
+                                    <ColumnDefinition></ColumnDefinition>
+                                </Grid.ColumnDefinitions>
+                            </Grid>
+                            <Label Grid.Row="1" Grid.Column="2">Precio Puntos:</Label>
+                            <StackPanel Orientation="Horizontal" Grid.Column="3" Grid.Row="1">
+                                <TextBox VerticalAlignment="Center"  Width="50" HorizontalAlignment="Left"/>
+                            </StackPanel>
+                            <Label Grid.Row="2" Grid.Column="2">Precio Lista:</Label>
+                            <StackPanel Orientation="Horizontal" Grid.Column="3" Grid.Row="2">
+                                <TextBox Text="{Binding Path=productoPrecio.precio, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Center"  Width="50" HorizontalAlignment="Left"/>
+                                <ComboBox VerticalAlignment="Center" Height="22" Width="70" Margin="5,4,0,4">
+                                    <ComboBoxItem></ComboBoxItem>
+                                    <ComboBoxItem Content="Soles (S/.)"></ComboBoxItem>
+                                    <ComboBoxItem Content="Dolares (US $)"></ComboBoxItem>
+                                </ComboBox>
+                            </StackPanel>
+                        </Grid>
+                    </GroupBox>
+                    <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Center">
+                        <Button Command="{Binding savePrecioProductoCommand}"  Content="Guardar" Height="30" Padding="5" Margin="5,0" FontSize="14"/>
+                        <Button Command="{Binding cancelPrecioProductoCommand}" Content="Cancelar" Height="30" Padding="5" Margin="5,0" FontSize="14"/>
+
+                    </StackPanel>
+                    <DataGrid IsReadOnly="True"  ItemsSource="{Binding Path=historialPrecios,UpdateSourceTrigger=PropertyChanged,NotifyOnSourceUpdated=True,NotifyOnTargetUpdated=True,Mode=TwoWay}" Margin="5,5" Grid.Row="2" AutoGenerateColumns="False">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Width="1*" Binding="{Binding Path=fechaRegistroString}" ClipboardContentBinding="{x:Null}" Header="Fecha Registro"/>
+                            <DataGridTextColumn Width="1*" ClipboardContentBinding="{x:Null}" Header="Moneda"/>
+                            <DataGridTextColumn Width="1*" Binding="{Binding Path=precio}" ClipboardContentBinding="{x:Null}" Header="Precio Lista"/>
+                            <DataGridTextColumn Width="1*" ClipboardContentBinding="{x:Null}" Header="Precio Puntos"/>
+                            <DataGridTextColumn Width="1*" Binding="{Binding Path=estadoString}" ClipboardContentBinding="{x:Null}" Header="Estado"/>  
+                        </DataGrid.Columns>
+                    </DataGrid>
+                    <StackPanel Grid.Row="3"></StackPanel>
+                </Grid>
+            </TabItem>
+        </TabControl>
     </Grid>
 </Window>

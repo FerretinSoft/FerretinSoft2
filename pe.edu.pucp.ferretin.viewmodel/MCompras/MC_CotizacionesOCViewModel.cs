@@ -353,19 +353,21 @@ namespace pe.edu.pucp.ferretin.viewmodel.MCompras
                         detallesTabHeader = "Agregar"; 
                         documentoCompra = new DocumentoCompra(); 
                         listaProductosDC = new List<DocumentoCompraProducto>(); 
-                        usuarioIngreso = MC_ComunService.usuarioL; 
+                        usuarioIngreso = MC_ComunService.usuarioL;
                         break;//Si es agregar, creo un nuevo objeto Cliente
 
                     case Tab.MODIFICAR: 
                         detallesTabHeader = "Modificar"; 
                         listaProductosDC = MC_DocumentoCompraService.buscarProductosDC(documentoCompra).ToList(); 
-                        usuarioIngreso = documentoCompra.Usuario; 
+                        usuarioIngreso = documentoCompra.Usuario1;
+                        usuarioAprobacion = documentoCompra.Usuario;
                         break;
 
                     case Tab.DETALLES: 
                         detallesTabHeader = "Detalles"; 
                         listaProductosDC = MC_DocumentoCompraService.buscarProductosDC(documentoCompra).ToList(); 
-                        usuarioIngreso = documentoCompra.Usuario;  
+                        usuarioIngreso = documentoCompra.Usuario1;
+                        usuarioAprobacion = documentoCompra.Usuario;
                         break;
 
                     default: 
@@ -380,7 +382,8 @@ namespace pe.edu.pucp.ferretin.viewmodel.MCompras
                 NotifyPropertyChanged("isCreating");
                 NotifyPropertyChanged("btnAprobarLabel");
                 NotifyPropertyChanged("generarAprobar");
-                NotifyPropertyChanged("isCreatingFechaPago");             
+                NotifyPropertyChanged("isCreatingFechaPago");
+                //NotifyPropertyChanged("usuarioIngreso");
             }
         }
         //Usado para mover los tabs de acuerdo a las acciones realizadas
@@ -462,6 +465,21 @@ namespace pe.edu.pucp.ferretin.viewmodel.MCompras
                     _agregarCotizacionCommand = new RelayCommand(agregarCotizacion);
                 }
                 return _agregarCotizacionCommand;
+
+            }
+        }
+
+        //aprobarDocumentoCompraCommand
+        RelayCommand _aprobarDocumentoCompraCommand;
+        public ICommand aprobarDocumentoCompraCommand
+        {
+            get
+            {
+                if (_aprobarDocumentoCompraCommand == null)
+                {
+                    _aprobarDocumentoCompraCommand = new RelayCommand(aprobarDocumento);
+                }
+                return _aprobarDocumentoCompraCommand;
 
             }
         }
@@ -588,9 +606,77 @@ namespace pe.edu.pucp.ferretin.viewmodel.MCompras
                 this.labelFechaDC2 = "Fecha Pago";
                 this.proveedorNombre = "";
                 this.documentoCompra.tipo = 2;
-                this.documentoCompra.id_estado = 1;
+                this.documentoCompra.id_estado = 5;
                 this.documentoCompra.Usuario1 = usuarioIngreso;
 
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show(e.Message);
+            }
+        }
+
+        public void aprobarDocumento(Object id)
+        {
+            try
+            {               
+                if (documentoCompra.tipo == 1)//ES COTIZACION
+                {                    
+                    int i;                    
+                    // CREO LA ORDEN DE COMPRA
+                    DocumentoCompra ocGenerada = new DocumentoCompra()
+                    {
+                        tipo = 2,
+                        codigo = MC_DocumentoCompraService.generarCodigoDC(2),
+                        fechaEmision = DateTime.Now,
+                        DocumentoCompra1 = this.documentoCompra,
+                        DocumentoCompraEstado = MC_DocumentoCompraService.obtenerEstado(1),
+                        Proveedor = this.documentoCompra.Proveedor,
+                        Usuario1 = MC_ComunService.usuarioL,
+                        igv = this.documentoCompra.igv,
+                        subTotal = this.documentoCompra.subTotal,
+                        total = this.documentoCompra.total,
+                        DocumentoCompraProducto = new System.Data.Linq.EntitySet<DocumentoCompraProducto>(),
+                    };
+                    for(i =0; i< this.documentoCompra.DocumentoCompraProducto.Count(); i++)
+                    {
+                        DocumentoCompraProducto producto = new DocumentoCompraProducto()
+                        {
+                            Producto = this.documentoCompra.DocumentoCompraProducto[i].Producto,
+                            UnidadMedida = this.documentoCompra.DocumentoCompraProducto[i].Producto.UnidadMedida,
+                            DocumentoCompra = ocGenerada,
+                            cantidad = this.documentoCompra.DocumentoCompraProducto[i].cantidad,
+                            cantidadRestante = this.documentoCompra.DocumentoCompraProducto[i].cantidadRestante,
+                            estado = this.documentoCompra.DocumentoCompraProducto[i].estado,
+                            montoParcial = this.documentoCompra.DocumentoCompraProducto[i].montoParcial,
+                            precioUnit = this.documentoCompra.DocumentoCompraProducto[i].precioUnit
+                        };
+                        ocGenerada.DocumentoCompraProducto.Add(producto);
+                    }
+                    usuarioAprobacion = MC_ComunService.usuarioL;
+                    this.documentoCompra.Usuario = usuarioAprobacion;
+                    documentoCompra.DocumentoCompraEstado = MC_DocumentoCompraService.obtenerEstado(3);
+                    ComunService.idVentana(36);
+                    MC_DocumentoCompraService.insertarDocumentoCompra(ocGenerada);
+                }
+                    
+                else //ES ORDEN DE COMPRA
+                    documentoCompra.DocumentoCompraEstado = MC_DocumentoCompraService.obtenerEstado(6); ;
+                ComunService.idVentana(37);
+                if (!MC_DocumentoCompraService.enviarCambios())
+                {
+                    if (documentoCompra.tipo == 1)//ES COTIZACION
+                        MessageBox.Show("La Cotizacion no se pudo aprobar");
+                    else
+                        MessageBox.Show("La Orden de Compra no se pudo aprobar");
+                }
+                else
+                {
+                    if (documentoCompra.tipo == 1)//ES COTIZACION
+                        MessageBox.Show("La Cotizacion se aprobo con exito");
+                    else
+                        MessageBox.Show("La Orden de Compra se aprobo con exito");
+                }
             }
             catch (Exception e)
             {

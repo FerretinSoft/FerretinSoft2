@@ -98,13 +98,13 @@ namespace pe.edu.pucp.ferretin.view.MVentas
                         foreach (var vp in miVM.proforma.ProformaProducto)
                         {
                             VentaProducto ventaProducto = new VentaProducto();
+                            ventaProducto.PromocionActual = MV_PromocionService.ultimaPromocionPorProducto(vp.Producto, MS_SharedService.usuarioL.Empleado.tiendaActual);
                             ventaProducto.canjeado = false;
                             ventaProducto.tipoCambio = (decimal)(MS_SharedService.obtenerTipodeCambio());
                             ventaProducto.montoParcial = vp.montoParcial;
                             ventaProducto.Venta = padreViewModel.venta;
                             ventaProducto.Producto = vp.Producto;
                             ventaProducto.cantidad = vp.cantidad;
-                            ventaProducto.PromocionActual = MV_PromocionService.ultimaPromocionPorProducto(vp.Producto);
                             ventaProducto.PropertyChanged += padreViewModel.actualizarMontosVenta;
 
                             padreViewModel.venta.Cliente = vp.Proforma.Cliente;
@@ -137,7 +137,7 @@ namespace pe.edu.pucp.ferretin.view.MVentas
                                 
                                 proformaProducto.Producto = vp.Producto;
                                 proformaProducto.cantidad = vp.cantidad;
-                                proformaProducto.PromocionActual = MV_PromocionService.ultimaPromocionPorProducto(vp.Producto);
+                                proformaProducto.PromocionActual = MV_PromocionService.ultimaPromocionPorProducto(vp.Producto, MS_SharedService.usuarioL.Empleado.tiendaActual);
                                 proformaProducto.PropertyChanged += padreViewModel.actualizarMontosProforma;
                                 padreViewModel.proforma.Cliente = vp.Proforma.Cliente;
                                 padreViewModel.proforma.ProformaProducto.Add(proformaProducto);
