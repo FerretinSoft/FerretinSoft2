@@ -1,21 +1,26 @@
 ﻿<Window x:Class="pe.edu.pucp.ferretin.view.MCompras.MC_AtenderSolicitudWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+		  xmlns:viewmodel="clr-namespace:pe.edu.pucp.ferretin.viewmodel.MCompras;assembly=pe.edu.pucp.ferretin.viewmodel"
+        xmlns:helper="clr-namespace:pe.edu.pucp.ferretin.viewmodel.Helper;assembly=pe.edu.pucp.ferretin.viewmodel"
         Title="Solicitudes de Abastecimiento" Height="540" Width="825" Icon="/Resources/ferretin_ico.ico">
-    <Grid>
+   <Window.Resources>
+        <viewmodel:MC_AtenderSolicitudViewModel x:Key="MC_AtenderSolicitudViewModel"/>
+    </Window.Resources>
+    <Grid DataContext="{Binding Source={StaticResource MC_AtenderSolicitudViewModel}}">
         <TabControl x:Name="solicitudesTab" Margin="0">
             <TabItem Header="Solicitudes Abastecimiento">
                 <Grid Background="#FFE5E5E5">
                     <Grid.RowDefinitions>
-                        <RowDefinition Height="111*"/>
-                        <RowDefinition Height="280*"/>
+                        <RowDefinition Height="99*"/>
+                        <RowDefinition Height="382*"/>
                     </Grid.RowDefinitions>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition/>
                     </Grid.ColumnDefinitions>
                     <GroupBox Header="Parámetros" Height="73" Margin="10,10,0,0" BorderBrush="Black" VerticalAlignment="Top" Width="790" HorizontalAlignment="Left"/>
                     <Label Content="Producto:" HorizontalAlignment="Left" Height="32" Margin="21,34,0,0" VerticalAlignment="Top" Width="67"/>
-                    
+
 
                     <TextBox HorizontalAlignment="Left" Height="22" Margin="111,37,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="223"/>
                     <Button x:Name="buscarSolicitudAbs" HorizontalAlignment="Left" Margin="700,34,0,0" Width="32" RenderTransformOrigin="0.3,-0.35" Height="32" VerticalAlignment="Top">
@@ -23,19 +28,26 @@
                             <ImageBrush ImageSource="../Resources/refresh2_48.png"/>
                         </Button.Background>
                     </Button>
-                    <DataGrid Margin="10,103,9.717,65.005" Grid.RowSpan="2">
+                    <DataGrid  ItemsSource="{Binding Path=listaProductosSol}" Margin="10,1.984,9.717,65.005" Grid.Row="1" AutoGenerateColumns="False">
                         <DataGrid.Columns>
-                            <DataGridCheckBoxColumn Width="0.5*" Binding="{x:Null}" CanUserSort="False" CanUserResize="False" ClipboardContentBinding="{x:Null}"/>
-                            <DataGridHyperlinkColumn Width="3*" Binding="{x:Null}" ContentBinding="{x:Null}" ClipboardContentBinding="{x:Null}" Header="Producto"/>
-                            <DataGridTextColumn Width="3*" Binding="{x:Null}" ClipboardContentBinding="{x:Null}" Header=" Almacén"/>
-                            <DataGridTextColumn Width="1.5*" Binding="{x:Null}" ClipboardContentBinding="{x:Null}" Header="Stock"/>
-                            <DataGridTextColumn Width="1.5*" Binding="{x:Null}" ClipboardContentBinding="{x:Null}" Header="Cant. Compra"/>
-                            <DataGridTextColumn Width="3.5*" Binding="{x:Null}" ClipboardContentBinding="{x:Null}" Header="Proveedor"/>
-                            <DataGridCheckBoxColumn Width="1.28*" Binding="{x:Null}" ClipboardContentBinding="{x:Null}" Header="Selecciona" />
+                            <DataGridTextColumn Width="0.5*" Binding="{x:Null}" />
+                            <DataGridTextColumn Width="3*" Binding="{Binding Path=producto.Producto.nombre}"  Header="Producto"/>
+                            <DataGridTextColumn Width="3*" Binding="{Binding Path=producto.Tienda.nombre}" Header=" Almacén"/>
+                            <DataGridTextColumn Width="1.5*" Binding="{Binding Path=producto.stock}"  Header="Stock"/>
+                            <DataGridTextColumn Width="1.5*" Binding="{Binding Path=cantidad}"  Header="Cant. Compra"/>
+                            <DataGridTextColumn Width="3.5*" Binding="{Binding Path= posiProveedor.razonSoc}" Header="Proveedor"/>
+                            <DataGridTemplateColumn Header="Seleccionar">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <CheckBox IsChecked="{Binding isSelected, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged,NotifyOnSourceUpdated=True,NotifyOnTargetUpdated=True}" />
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+
                         </DataGrid.Columns>
                     </DataGrid>
-                    <Button x:Name="consolidarBtn" Content="GENERAR" Margin="486,0,214.717,20.005" VerticalAlignment="Bottom" Height="30" RenderTransformOrigin="0.594,-0.567" Grid.Row="1" Click="consolidarBtn_Click"/>
-                    <Button x:Name="cancelarBtn" Content="CANCELAR " Margin="623,0,77.717,20.005" VerticalAlignment="Bottom" Height="30" RenderTransformOrigin="0.594,-0.567" Grid.Row="1"/>
+                    <Button x:Name="consolidarBtn" Content="GENERAR" Margin="255,0,445.717,20.005" VerticalAlignment="Bottom" Height="30" RenderTransformOrigin="0.594,-0.567" Grid.Row="1" Click="consolidarBtn_Click"/>
+                    <Button x:Name="cancelarBtn" Content="CANCELAR " Margin="494,0,206.717,20.005" VerticalAlignment="Bottom" Height="30" RenderTransformOrigin="0.594,-0.567" Grid.Row="1"/>
                 </Grid>
             </TabItem>
         </TabControl>
