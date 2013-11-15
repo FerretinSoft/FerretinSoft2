@@ -176,7 +176,7 @@ namespace pe.edu.pucp.ferretin.viewmodel.MRecursosHumanos
             }
         }
 
-        public IEnumerable<GradoInstruccion> gradosInstruccion
+        public IEnumerable<GradoInstruccion> listaGradosInstruccion 
         {
             get
             {
