@@ -145,7 +145,7 @@
                     </ComboBox>
                     <Label Content="Fecha Nac." HorizontalAlignment="Left" Margin="12,408,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.464,1.231" Grid.ColumnSpan="4"/>
                     <DatePicker Focusable="False"  SelectedDate="{Binding Path=empleado.fecNacimiento,Mode=TwoWay}"  HorizontalAlignment="Left" Margin="49,410,0,0" VerticalAlignment="Top" Grid.Column="3" Width="97" Grid.ColumnSpan="2"/>
-                    <Button Content="{Binding nombreBotonGuardar,Mode=OneWay}"  Command="{Binding saveEmpleadoCommand}" HorizontalAlignment="Left" Margin="102,0,0,12" VerticalAlignment="Bottom" Width="75" RenderTransformOrigin="1.347,-0.05" Grid.Column="5" Height="30"/>
+                    <Button Content="{Binding nombreBotonGuardar,Mode=OneWay}"  Click="Button_Click"  Command="{Binding saveEmpleadoCommand}" HorizontalAlignment="Left" Margin="102,0,0,12" VerticalAlignment="Bottom" Width="75" RenderTransformOrigin="1.347,-0.05" Grid.Column="5" Height="30"/>
                     <Label Content="Fecha ingreso:" HorizontalAlignment="Left" Margin="25,22,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.464,1.231" Grid.Column="5"/>
                     <DatePicker IsEnabled="False" SelectedDate="{Binding empleado.ultimafechaIngreso,Mode=OneWay}" HorizontalAlignment="Left" Margin="154,24,0,0" VerticalAlignment="Top" Grid.Column="5" Width="181"/>
                     <Button Command="{Binding cancelEmpleadoCommand}" Content="CANCELAR" HorizontalAlignment="Left" Margin="207,0,0,13" VerticalAlignment="Bottom" Width="75" RenderTransformOrigin="1.347,-0.05" Grid.Column="5" Height="30"/>
