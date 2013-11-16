@@ -72,16 +72,16 @@ namespace pe.edu.pucp.ferretin.model
                 this.SendPropertyChanged("estado");
             }
         }
-        public int estado1
+        public int? estado1
         {
             get
             {
                 
-                return (int)estado -1;
+                return estado -1;
             }
             set
             {
-               // estado = ()value + 1;   
+                estado = value + 1;   
             }
 
         }
