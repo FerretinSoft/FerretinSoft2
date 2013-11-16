@@ -149,9 +149,11 @@ namespace pe.edu.pucp.ferretin.controller.MSeguridad
         /******************** VALIDACION PARA USUARIO-EMPLEADO POR DNI YA EXISTENTE ***********************/
         public static bool insertarUsuario(Usuario usuario)
         {
+            
             Usuario user;
             try
             {
+                /*Validar si el empleado existe*/
                 try
                 {
                     user = db.Usuario.Single(u => u.Empleado.dni == usuario.Empleado.dni);
@@ -169,10 +171,42 @@ namespace pe.edu.pucp.ferretin.controller.MSeguridad
                     else
                         usuario.codUsuario = "USER" + tempCadenaNumero;
                     //*************************************************//                    
-                    db.Usuario.InsertOnSubmit(usuario);                    
-                    return enviarCambios();
+                    
+                    /*Debido a que ya no se ingresa el nombre usuario (username), se autogenerara y seguira este formato*/
+                    try
+                    {
+                        user = db.Usuario.Single( u => u.Empleado.nombre.ToLower().Equals(usuario.Empleado.nombre.ToLower())
+                                                    && u.Empleado.apPaterno.ToLower().Equals(usuario.Empleado.apPaterno.ToLower()) );                                              
+                        if (user!=null) {
+                            try {
+                                user = db.Usuario.Single(u => u.Empleado.nombre.ToLower().Equals(usuario.Empleado.nombre.ToLower())
+                                                                    && u.Empleado.apPaterno.ToLower().Equals(usuario.Empleado.apPaterno.ToLower())
+                                                                    && u.Empleado.apMaterno.ToLower().Equals(usuario.Empleado.apMaterno.ToLower()));
+                                if (user!=null)
+                                    usuario.nombre = (usuario.Empleado.nombre.ToLower())[0] + usuario.Empleado.apPaterno.ToLower() + (usuario.Empleado.apMaterno.ToLower())[0] + tempCadenaNumero;                                    
+                            }
+                            catch (Exception){
+                                //if (user == null)
+                                //    /*FORMATO USERNAME: rcuevam */
+                                //    usuario.nombre = (usuario.Empleado.nombre.ToLower())[0] + usuario.Empleado.apPaterno.ToLower() + (usuario.Empleado.apMaterno.ToLower())[0];
+                                //else
+                                    /*FORMATO USERNAME: rcuevam[nuevo numero de usuario(id)] */
+                                   //usuario.nombre = (usuario.Empleado.nombre.ToLower())[0] + usuario.Empleado.apPaterno.ToLower() + (usuario.Empleado.apMaterno.ToLower())[0] + tempCadenaNumero;
+                                usuario.nombre = (usuario.Empleado.nombre.ToLower())[0] + usuario.Empleado.apPaterno.ToLower() + (usuario.Empleado.apMaterno.ToLower())[0];                                
+                            }
+                        }
+                    }
+                    catch (Exception)
+                    {
+                        /*FORMATO USERNAME: rcueva */
+                        usuario.nombre = (usuario.Empleado.nombre.ToLower())[0] + usuario.Empleado.apPaterno.ToLower();                        
+                        
+                    }
+                    db.Usuario.InsertOnSubmit(usuario);
+                    return enviarCambios();                    
                 }
             }
+            /*usuario no existe*/
             catch (Exception e)
             {
                 return false;

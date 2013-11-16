@@ -86,7 +86,7 @@
                         </Image>
                     </Button>
                     <Label Content="Código:" HorizontalAlignment="Left" Margin="115,10,0,0" VerticalAlignment="Top"/>
-                    <TextBox x:Name="txtCodigo" MaxLength="10" Text="{Binding Path=producto.codigo, Mode=TwoWay,  ValidatesOnExceptions=true, NotifyOnValidationError=true}" HorizontalAlignment="Left" Height="23" Margin="184,14,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="151" KeyDown="txtCodigo_KeyDown"/>
+                    <TextBox x:Name="txtCodigo" IsEnabled="false" MaxLength="10" Text="{Binding Path=producto.codigo, Mode=TwoWay,  ValidatesOnExceptions=true, NotifyOnValidationError=true}" HorizontalAlignment="Left" Height="23" Margin="184,14,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="151" KeyDown="txtCodigo_KeyDown"/>
                     <Label Content="Nombre:" HorizontalAlignment="Left" Margin="115,41,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.464,1.231"/>
                     <TextBox x:Name="txtNombreDet"   Text="{Binding Path=producto.nombre, Mode=TwoWay,  ValidatesOnExceptions=true, NotifyOnValidationError=true}" HorizontalAlignment="Left" Height="23" Margin="115,72,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="220" />
                     <Label Content="Descripción:" HorizontalAlignment="Left" Margin="115,100,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.464,1.231"/>
@@ -102,16 +102,7 @@
                     <Label Content="Puntos:" HorizontalAlignment="Left" Margin="189,137,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.464,1.231" Grid.Row="1"/>
                     <TextBox x:Name="txtPuntos" Text="{Binding Path=prodAlm.puntos, Mode=TwoWay,  ValidatesOnExceptions=true, NotifyOnValidationError=true}" HorizontalAlignment="Left" Height="23" Margin="243,141,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="92" IsEnabled="False" Grid.Row="1"/>
                     <Label Content="Descuento:" HorizontalAlignment="Left" Margin="11,137,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.464,1.231" Grid.Row="1"/>
-                    <Label Content="Colores:" HorizontalAlignment="Left" Margin="10,104,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.464,1.231" Grid.Column="1"/>
-                    <Button Content="" HorizontalAlignment="Left" Margin="130,104,0,0" VerticalAlignment="Top" Width="32" Height="32" Background="White" Grid.Column="1"/>
-                    <Button  Name="btnAddColor"  Content="" HorizontalAlignment="Left" Margin="241,104,0,0" VerticalAlignment="Top" Width="32" Height="32" Grid.Column="1" Click="btnAddColor_Click">
-                        <Button.Background>
-                            <ImageBrush ImageSource="../Resources/add2_48.png"/>
-                        </Button.Background>
-                    </Button>
-                    <Button Content="" HorizontalAlignment="Left" Margin="204,104,0,0" VerticalAlignment="Top" Width="32" Height="32" Background="#FF815555" Grid.Column="1"/>
-                    <Button Content="" HorizontalAlignment="Left" Margin="167,104,0,0" VerticalAlignment="Top" Width="32" Height="32" Background="Black" Grid.Column="1"/>
-                    <TextBox x:Name="txtPrecio" MaxLength="5" Text="{Binding Path=producto.precioLista, Mode=TwoWay,  ValidatesOnExceptions=true, NotifyOnValidationError=true}" HorizontalAlignment="Left" Height="23" Margin="116,43,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="220" Grid.Row="1" KeyDown="txtPrecio_KeyDown"/>
+                    <TextBox x:Name="txtPrecio" Text="{Binding Path=producto.precioLista, Mode=TwoWay,  ValidatesOnExceptions=true, NotifyOnValidationError=true}" HorizontalAlignment="Left" Height="23" Margin="116,43,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="220" Grid.Row="1" KeyDown="txtPrecio_KeyDown"/>
                     <TextBox x:Name="txtDescuento" Text="{Binding Path=prodAlm.descuento, Mode=TwoWay,  ValidatesOnExceptions=true, NotifyOnValidationError=true}" HorizontalAlignment="Left" Height="23" Margin="115,140,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="69" IsEnabled="False" Grid.Row="1"/>
                     <Label Content="Stock Mínimo:" HorizontalAlignment="Left" Margin="11,199,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.464,1.231" Grid.Row="1"/>
                     <Label Content="Stock Actual:" HorizontalAlignment="Left" Margin="11,168,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.464,1.231" Grid.Row="1"/>
@@ -123,8 +114,8 @@
                     <Button x:Name="btnCancelar" Content="CANCELAR" Grid.Column="1" HorizontalAlignment="Left" Margin="44,242,0,0" VerticalAlignment="Top" Width="75" Height="30" Grid.Row="1" Click="btnCancelar_Click"/>
                     <Label Content="Seleccione tienda:" HorizontalAlignment="Left" Margin="11,79,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.464,1.231" Grid.Row="1"/>
                     <ComboBox x:Name="cmbTienda" SelectedItem="{Binding selectedTienda}" ItemsSource="{Binding Path=listaTiendas}" DisplayMemberPath="nombre" SelectedValuePath="id" SelectedValue="{Binding Path=prodAlm.id_almacen}" HorizontalAlignment="Left" Margin="116,80,0,0" VerticalAlignment="Top" Width="220" Height="22" Grid.Row="1"/>
-                   
-                    <helper:MyTreeView x:Name="treeCheckBoxes" ItemsSource="{Binding Path=categoriaPrincipal,Mode=TwoWay}" Background="#FFF5F5F5" HorizontalAlignment="Left" Height="182" Margin="10,44,0,0" VerticalAlignment="Top" Width="325" Grid.Column="1" Grid.Row="1">
+
+                    <helper:MyTreeView x:Name="treeCheckBoxes" ItemsSource="{Binding Path=categoriaPrincipal,Mode=TwoWay}" Background="#FFF5F5F5" HorizontalAlignment="Left" Height="230" Margin="10,131,0,0" VerticalAlignment="Top" Width="325" Grid.Column="1" Grid.RowSpan="2">
                         <TreeView.ItemContainerStyle>
                             <Style TargetType="{x:Type TreeViewItem}">
                                 <Setter Property="IsExpanded" Value="{Binding IsExpanded, FallbackValue=True}" />
@@ -143,9 +134,8 @@
                             </HierarchicalDataTemplate>
                         </TreeView.ItemTemplate>
                     </helper:MyTreeView>
-                    <Label Content="Categorías:" HorizontalAlignment="Left" Margin="10,5,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.464,1.231" Grid.Column="1" Grid.Row="1"/>
+                    <Label Content="Categorías:" HorizontalAlignment="Left" Margin="10,100,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.464,1.231" Grid.Column="1"/>
                     <TextBlock HorizontalAlignment="Left" Margin="111,46,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Foreground="#FFC17474"><Run Language="es-pe" Text="*"/></TextBlock>
-                    <TextBlock HorizontalAlignment="Left" Margin="111,16,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Foreground="#FFC17474"><Run Language="es-pe" Text="*"/></TextBlock>
                     <TextBlock HorizontalAlignment="Left" Margin="6,50,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Foreground="#FFC17474" Grid.Row="1"><Run Language="es-pe" Text="*"/></TextBlock>
                     <TextBlock HorizontalAlignment="Left" Margin="5,16,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Foreground="#FFC17474" Grid.Column="1"><Run Language="es-pe" Text="*"/></TextBlock>
                     <TextBlock HorizontalAlignment="Left" Margin="5,49,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Foreground="#FFC17474" Grid.Column="1"><Run Language="es-pe" Text="*"/></TextBlock>

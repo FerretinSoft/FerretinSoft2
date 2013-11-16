@@ -73,7 +73,6 @@ namespace pe.edu.pucp.ferretin.view.MAlmacen
             {
                 Console.WriteLine(txtPrecio.Text.Contains("."));
                 if (txtPrecio.Text.Contains(".") || txtPrecio.Text.Contains(",")) e.Handled = true;
-
             }
             else
             {
