@@ -52,7 +52,7 @@
                                     </DataTemplate>
                                 </DataGridTemplateColumn.CellTemplate>
                             </DataGridTemplateColumn>
-                            <DataGridTextColumn Width="2*" Binding="{Binding Path=nombre}" ClipboardContentBinding="{x:Null}" Header="Nombre Tienda"/>
+                            <DataGridTextColumn Width="1*" Binding="{Binding Path=nombre}" ClipboardContentBinding="{x:Null}" Header="Nombre de Tienda"/>
                             <DataGridTextColumn Width="2*" Binding="{Binding Path=direccion}" ClipboardContentBinding="{x:Null}" Header="Dirección"/>
 
                         </DataGrid.Columns>
