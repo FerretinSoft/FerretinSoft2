@@ -139,7 +139,7 @@
 
                     <!-- TextBoxes -->
                     <TextBox x:Name="dniEmp" IsEnabled="{Binding editEmpleadoEnabled,Mode=OneWay}" Text="{Binding dniEmpleado, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" HorizontalAlignment="Left" Height="25" Margin="28.6,55,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="71" Grid.Column="2" MaxLength="8" PreviewTextInput="dniEmp_PreviewTextInput" PreviewKeyDown="dniEmp_PreviewKeyDown"/>
-                    <TextBox Text="{Binding Path=usuario.nombre, Mode=TwoWay, ValidatesOnExceptions=true, NotifyOnValidationError=true}" MaxLength="20" HorizontalAlignment="Left" Height="25" Margin="28.6,88,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="158" x:Name="nombreUsuarioTxtBox" Grid.Column="2" PreviewTextInput="nombreUsuarioTxtBox_PreviewTextInput" PreviewKeyDown="nombreUsuarioTxtBox_PreviewKeyDown"/>
+                    <TextBox IsEnabled="{Binding editEmpleadoEnabled,Mode=OneWay}" Text="{Binding Path=usuario.nombre, Mode=TwoWay, ValidatesOnExceptions=true, NotifyOnValidationError=true}" MaxLength="20" HorizontalAlignment="Left" Height="25" Margin="28.6,88,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="158" x:Name="nombreUsuarioTxtBox" Grid.Column="2" PreviewTextInput="nombreUsuarioTxtBox_PreviewTextInput" PreviewKeyDown="nombreUsuarioTxtBox_PreviewKeyDown"/>
                     <TextBox Text="{Binding Path=usuario.Empleado.nombre, Mode=TwoWay, ValidatesOnExceptions=true, NotifyOnValidationError=true}" HorizontalAlignment="Left" Height="22" Margin="247,136,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="285" Grid.ColumnSpan="2" IsEnabled="False" Grid.Column="1" />
                     <TextBox Text="{Binding Path=usuario.Empleado.apPaterno, Mode=TwoWay, ValidatesOnExceptions=true, NotifyOnValidationError=true}" HorizontalAlignment="Left" Height="22" Margin="247,164,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="285" Grid.ColumnSpan="2" IsEnabled="False" Grid.Column="1" />
                     <TextBox Text="{Binding Path=usuario.Empleado.apMaterno, Mode=TwoWay, ValidatesOnExceptions=true, NotifyOnValidationError=true}" HorizontalAlignment="Left" Height="22" Margin="247,192,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="285" Grid.ColumnSpan="2" IsEnabled="False" Grid.Column="1" />
@@ -161,17 +161,17 @@
                             <ImageBrush ImageSource="../Resources/search1_20.png"/>
                         </Button.Background>
                     </Button>
+                    <Button IsEnabled="{Binding editEmpleadoEnabled,Mode=OneWay}" Command="{Binding buscarNombreUsuarioCommand}" Margin="191,88,122,0" VerticalAlignment="Top" Height="26"  BorderThickness="0" Grid.Column="2">
+                        <Button.Background>
+                            <ImageBrush ImageSource="../Resources/verify.jpg"/>
+                        </Button.Background>
+                    </Button>
                     <Button Name="buttonContrasena" IsEnabled="{Binding editEmpleadoEnabled2,Mode=OneWay}" Command="{Binding restbContrasenaCommand}" Content="RESTABLECER CONTRASEÑA" Padding="5,0" Margin="232,286,245,98" Grid.Column="1" Grid.ColumnSpan="2"/>
                     <StackPanel x:Name="guardarDetallePanel" Orientation="Horizontal" Margin="247,317,167,0" HorizontalAlignment="Center" Width="250" Grid.ColumnSpan="2" Grid.Column="1">
                         <Button Command="{Binding saveUsuarioCommand}"  Content="GUARDAR" Padding="5,0" Margin="5,10,5,52"/>
                         <Button Command="{Binding cancelUsuarioCommand}" Content="CANCELAR" Padding="5,0" Margin="5,10,5,52"/>
                     </StackPanel>
-                    <Button Command="{Binding buscarNombreUsuarioCommand}" Margin="191,88,122,0" VerticalAlignment="Top" Height="26"  BorderThickness="0" Grid.Column="2">
-                        <Button.Background>
-                            <ImageBrush ImageSource="../Resources/verify.jpg"/>
-                        </Button.Background>
-                    </Button>
-
+                    
                 </Grid>
                 <!-- End Grid -->
             </TabItem>
