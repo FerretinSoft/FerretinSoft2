@@ -111,6 +111,7 @@ namespace pe.edu.pucp.ferretin.view.MVentas
 
                             padreViewModel.venta.VentaProducto.Add(ventaProducto);
                             padreViewModel.NotifyPropertyChanged("venta");
+                            padreViewModel.actualizarMontosVenta(null, null);
                         }
                         
                        
