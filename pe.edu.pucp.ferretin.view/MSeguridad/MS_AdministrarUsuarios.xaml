@@ -126,7 +126,7 @@
                     <!-- Labels -->
 
                     <Label Content="DNI Empleado:" HorizontalAlignment="Left" Margin="247,58,0,0" VerticalAlignment="Top" Grid.Column="1" Grid.ColumnSpan="2"/>
-                    <Label Content="*" HorizontalAlignment="Left" Margin="16,54,0,0" VerticalAlignment="Top" Foreground="Red" FontSize="14" Width="19" Height="22" RenderTransformOrigin="3.646,-0.402" Grid.Column="2"/>
+                    <Label Content="*" HorizontalAlignment="Left" Margin="16,52,0,0" VerticalAlignment="Top" Foreground="Red" FontSize="14" Width="19" Height="22" RenderTransformOrigin="3.646,-0.402" Grid.Column="2"/>
                     <Label Content="Nombre de &#xD;&#xA;Usuario:" HorizontalAlignment="Left" Margin="246,88,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.464,1.231" Grid.Column="1" Height="43"/>
                     <Label Content="*" HorizontalAlignment="Left" Margin="15,84,0,0" VerticalAlignment="Top" Foreground="Red" FontSize="14" Width="19" Height="26" RenderTransformOrigin="3.646,-0.402" Grid.Column="2"/>
                     <Label Content="Nombre:" HorizontalAlignment="Left" Margin="114,134,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.464,1.231" Grid.Column="1"/>
