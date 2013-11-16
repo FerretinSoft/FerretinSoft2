@@ -1,7 +1,7 @@
 ﻿<Window x:Class="pe.edu.pucp.ferretin.view.MSeguridad.MS_ParametrosWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Title="Parametros del Sistema" WindowStartupLocation="CenterScreen" Height="430.649" Width="464.96" Icon="/Resources/ferretin_ico.ico" ResizeMode="CanMinimize">
+        Title="Parámetros del Sistema" WindowStartupLocation="CenterScreen" Height="430.649" Width="464.96" Icon="/Resources/ferretin_ico.ico" ResizeMode="CanMinimize">
     <Grid Background="#FFE5E5E5" Margin="0,1,0,2">
         <Grid.ColumnDefinitions>
             <ColumnDefinition/>
@@ -12,12 +12,12 @@
 
         <!-- Numero de intentos para ingresar contraseña-->
 
-        <Label Content="N° de intentos para ingresar contraseña:" HorizontalAlignment="Left" Margin="22,34,0,0" VerticalAlignment="Top" Height="42" Width="230"/>
+        <Label Content="N° de intentos para ingresar contraseña:" HorizontalAlignment="Left" Margin="22,34,0,0" VerticalAlignment="Top" Height="23" Width="230"/>
         <TextBox x:Name="intContrasena" HorizontalAlignment="Left" Height="23" Margin="267,34,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="86" TextChanged="intContrasena_TextChanged" PreviewTextInput="intContrasena_PreviewTextInput" MaxLength="2" PreviewKeyDown="intContrasena_PreviewKeyDown"/>
 
         <!-- Tiempo Maximo de sesion inactiva-->
 
-        <Label Content="Tiempo Máximo de Sesión Inactiva:" HorizontalAlignment="Left" Margin="22,61,0,0" VerticalAlignment="Top" Height="26" Width="203"/>
+        <Label Content="Tiempo Máximo de Sesión Inactiva:" HorizontalAlignment="Left" Margin="22,65,0,0" VerticalAlignment="Top" Height="26" Width="203"/>
         <TextBox x:Name="tMaxSesion" HorizontalAlignment="Left" Height="23" Margin="267,65,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="86" TextChanged="tMaxSesion_TextChanged" PreviewTextInput="tMaxSesion_PreviewTextInput" MaxLength="3" PreviewKeyDown="tMaxSesion_PreviewKeyDown"/>
 
 
