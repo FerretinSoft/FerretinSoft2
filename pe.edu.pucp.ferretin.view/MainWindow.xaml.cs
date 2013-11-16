@@ -41,7 +41,7 @@ namespace pe.edu.pucp.ferretin.view
 
             try
             {
-                usuarioMenu.Header = ComunService.usuarioL.Empleado.tiendaActual.nombre + ", " + ComunService.usuarioL.nombre;
+                usuarioMenu.Header = ComunService.usuarioL.Empleado.tiendaActual.nombre + ", " + ComunService.usuarioL.Empleado.nombre + " " + ComunService.usuarioL.Empleado.apPaterno;
             }
             catch(Exception e) 
             {
