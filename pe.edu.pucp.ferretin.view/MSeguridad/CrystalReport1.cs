@@ -16,14 +16,14 @@ namespace pe.edu.pucp.ferretin.view.MSeguridad {
     using CrystalDecisions.CrystalReports.Engine;
     
     
-    public class CrystalReport2 : ReportClass {
+    public class CrystalReport1 : ReportClass {
         
-        public CrystalReport2() {
+        public CrystalReport1() {
         }
         
         public override string ResourceName {
             get {
-                return "CrystalReport2.rpt";
+                return "CrystalReport1.rpt";
             }
             set {
                 // Do nothing
@@ -41,7 +41,7 @@ namespace pe.edu.pucp.ferretin.view.MSeguridad {
         
         public override string FullResourceName {
             get {
-                return "pe.edu.pucp.ferretin.view.MSeguridad.CrystalReport2.rpt";
+                return "pe.edu.pucp.ferretin.view.MSeguridad.CrystalReport1.rpt";
             }
             set {
                 // Do nothing
@@ -90,9 +90,9 @@ namespace pe.edu.pucp.ferretin.view.MSeguridad {
     }
     
     [System.Drawing.ToolboxBitmapAttribute(typeof(CrystalDecisions.Shared.ExportOptions), "report.bmp")]
-    public class CachedCrystalReport2 : Component, ICachedReport {
+    public class CachedCrystalReport1 : Component, ICachedReport {
         
-        public CachedCrystalReport2() {
+        public CachedCrystalReport1() {
         }
         
         [Browsable(false)]
@@ -129,7 +129,7 @@ namespace pe.edu.pucp.ferretin.view.MSeguridad {
         }
         
         public virtual CrystalDecisions.CrystalReports.Engine.ReportDocument CreateReport() {
-            CrystalReport2 rpt = new CrystalReport2();
+            CrystalReport1 rpt = new CrystalReport1();
             rpt.Site = this.Site;
             return rpt;
         }
