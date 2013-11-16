@@ -32,7 +32,12 @@ namespace pe.edu.pucp.ferretin.view.MSeguridad
         
         public MS_AdministrarTiendas()
         {
-            InitializeComponent();
+            try
+            {
+                InitializeComponent();
+            }catch(Exception){
+                InitializeComponent();
+            }
         }
 
         #region Validaciones Campos de Texto
@@ -108,10 +113,25 @@ namespace pe.edu.pucp.ferretin.view.MSeguridad
         #endregion
 
         
-
+        #region Evento para activar el asterico del combobox de almacen abastecedor
         
+        private void tipoCombo_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (almacenesAbast.IsEnabled == true)
+            {
+                almacenAbasAsterisco.Content = "*";
+            }
+            else
+            {
+                almacenAbasAsterisco.Content = "";
+            }
 
-       
+        }
+
+        #endregion
+
+
+
 
     }
 }

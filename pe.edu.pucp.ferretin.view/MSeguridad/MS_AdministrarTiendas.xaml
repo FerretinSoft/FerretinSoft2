@@ -52,7 +52,7 @@
                                     </DataTemplate>
                                 </DataGridTemplateColumn.CellTemplate>
                             </DataGridTemplateColumn>
-                            <DataGridTextColumn Width="2*" Binding="{Binding Path=nombre}" ClipboardContentBinding="{x:Null}" Header="Nombre Tienda"/>
+                            <DataGridTextColumn Width="1*" Binding="{Binding Path=nombre}" ClipboardContentBinding="{x:Null}" Header="Nombre de Tienda"/>
                             <DataGridTextColumn Width="2*" Binding="{Binding Path=direccion}" ClipboardContentBinding="{x:Null}" Header="Dirección"/>
 
                         </DataGrid.Columns>
@@ -70,8 +70,8 @@
                         </Button>
 
                     </ToolBar>
-                    <TextBox x:Name="codTiendaSearchTxtBox" Text="{Binding searchCodTienda, Mode=TwoWay}" HorizontalAlignment="Left" Height="24" TextWrapping="Wrap" VerticalAlignment="Top" Width="186" RenderTransformOrigin="0.799,0.3" Margin="4.832,41,0,0" Grid.Column="3" Grid.ColumnSpan="2"/>
-                    <TextBox x:Name="nombreTiendaSearchTxtBox" Text="{Binding searchNombre, Mode=TwoWay}" HorizontalAlignment="Left" Height="24" TextWrapping="Wrap" VerticalAlignment="Top" Width="186" Margin="4.832,84,0,0" Grid.Column="3" Grid.ColumnSpan="2"/>
+                    <TextBox x:Name="codTiendaSearchTxtBox" Text="{Binding searchCodTienda, Mode=TwoWay}" MaxLength="6" HorizontalAlignment="Left" Height="24" TextWrapping="Wrap" VerticalAlignment="Top" Width="186" RenderTransformOrigin="0.799,0.3" Margin="4.832,41,0,0" Grid.Column="3" Grid.ColumnSpan="2"/>
+                    <TextBox x:Name="nombreTiendaSearchTxtBox" Text="{Binding searchNombre, Mode=TwoWay}" MaxLength="35" HorizontalAlignment="Left" Height="24" TextWrapping="Wrap" VerticalAlignment="Top" Width="186" Margin="4.832,84,0,0" Grid.Column="3" Grid.ColumnSpan="2"/>
                     <Label Content="Tipo:" HorizontalAlignment="Left" Margin="205.832,82,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.464,1.231" Height="28" Grid.Column="3" Width="60" Grid.ColumnSpan="2"/>
                     <ComboBox SelectedIndex="{Binding searchTipo, Mode=TwoWay}" x:Name="tipCombo" HorizontalAlignment="Left" Margin="270.832,84,0,0" VerticalAlignment="Top" Width="102" Height="26" Grid.Column="3" Grid.ColumnSpan="2">
                         <ComboBoxItem Content="Todos"/>
@@ -121,7 +121,7 @@
                             </Button.Background>
                         </Button>
                     </GroupBox>
-                    <GroupBox Header="Horarios de Atencion" Margin="20,212,0,119" BorderBrush="Black" Grid.ColumnSpan="3" Grid.Column="5"/>
+                    <GroupBox Header="Horarios de Atención" Margin="20,212,0,119" BorderBrush="Black" Grid.ColumnSpan="3" Grid.Column="5"/>
                     <GroupBox Header="Tienda" Margin="10,0,0,181" BorderBrush="Black" Grid.ColumnSpan="4" Grid.Column="1"/>
                     <Button Command="{Binding uploadImageCommand}" Width="172" Margin="94,26,0,0"  HorizontalAlignment="Left" Height="173" VerticalAlignment="Top" Grid.Column="6" Grid.ColumnSpan="2">
                         <Image Source="{Binding tiendaImagen,Mode=OneWay,UpdateSourceTrigger=PropertyChanged}" Stretch="Fill">
@@ -129,12 +129,12 @@
                     </Button>
                     <Label Content="Código:" HorizontalAlignment="Left" Margin="1,26,0,0" VerticalAlignment="Top" Grid.Column="3" Height="26" Width="50"/>
                     <TextBox Text="{Binding Path=almacen.codigo, Mode=TwoWay}" x:Name="codigoTiendaTxtBox" HorizontalAlignment="Left" Height="23" Margin="10,28,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="84"  Grid.Column="4" SpellCheck.IsEnabled="True" IsEnabled="False"/>
-                    <Label Content="Nombre:" HorizontalAlignment="Left" Margin="1,62,0,0" VerticalAlignment="Top" Grid.ColumnSpan="2" Grid.Column="3" Height="26" Width="94"/>
-                    
+                    <Label Content="Nombre:" HorizontalAlignment="Left" Margin="1,62,0,0" VerticalAlignment="Top" Grid.Column="3" Height="26" Width="61"/>
+
                     <TextBox Text="{Binding Path=almacen.nombre, Mode=TwoWay, ValidatesOnExceptions=true, NotifyOnValidationError=true}" x:Name="nombreTiendaTxtBox" HorizontalAlignment="Left" Height="23" Margin="10,64,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="156" Grid.Column="4" MaxLength="35"/>
-                    
+
                     <!--<TextBox Text="{Binding Path=NameAlmacen, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" x:Name="nombreTiendaTxtBox" HorizontalAlignment="Left" Height="23" Margin="10,64,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="156" Grid.Column="4" MaxLength="35"/>-->
-                                        
+
                     <Label Content="Dirección:" HorizontalAlignment="Left" Margin="1,137,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.464,1.231" Grid.Column="3" Height="26" Width="62"/>
                     <TextBox Text="{Binding Path=almacen.direccion, Mode=TwoWay, ValidatesOnExceptions=true, NotifyOnValidationError=true}" x:Name="direccTiendaTxtBox" HorizontalAlignment="Left" Height="23" Margin="10,137,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="281" Grid.Column="4" MaxLength="60"/>
                     <Label Content="Departamento:" HorizontalAlignment="Left" Margin="1,177,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.464,1.231" Height="30" Grid.Column="3" Width="94" Grid.ColumnSpan="2"/>
@@ -152,10 +152,10 @@
                     <Label Content="Telf2:" HorizontalAlignment="Left" Margin="127,252,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.464,1.231" Grid.Column="4" Height="28" Width="38"/>
                     <TextBox Text="{Binding Path=almacen.telefono1, Mode=TwoWay, ValidatesOnExceptions=true, NotifyOnValidationError=true}" x:Name="telf1TiendaTxtBox" MaxLength="9" HorizontalAlignment="Left" Height="26" Margin="10,252,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="102" Grid.Column="4"  PreviewTextInput="telf1TiendaTxtBox_PreviewTextInput" PreviewKeyDown="telf1TiendaTxtBox_PreviewKeyDown" />
                     <TextBox Text="{Binding Path=almacen.telefono2, Mode=TwoWay, ValidatesOnExceptions=true, NotifyOnValidationError=true}" x:Name="telf2TiendaTxtBox" MaxLength="9" HorizontalAlignment="Left" Height="26" Margin="187,252,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="106" Grid.Column="4" PreviewTextInput="telf2TiendaTxtBox_PreviewTextInput" PreviewKeyDown="telf2TiendaTxtBox_PreviewKeyDown" />
-                    <Label Content="Fecha de &#xA;Creacion:" HorizontalAlignment="Left" Margin="2,282,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.464,1.231" Grid.ColumnSpan="2" Height="40" Grid.Column="2" Width="75"/>
+                    <Label Content="Fecha de &#xA;Creación:" HorizontalAlignment="Left" Margin="2,282,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.464,1.231" Grid.ColumnSpan="2" Height="40" Grid.Column="2" Width="75"/>
                     <DatePicker SelectedDate="{Binding Path=almacen.fecCreacion, Mode=TwoWay}" HorizontalAlignment="Left" Margin="10,295,0,0" VerticalAlignment="Top" Grid.Column="4" Height="27" Width="123"/>
-                    <TextBox Text="{Binding Path=almacen.descripcion, Mode=TwoWay, ValidatesOnExceptions=true, NotifyOnValidationError=true}" x:Name="descripTiendaTxtBox" HorizontalAlignment="Left" Height="75" Margin="10,375,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="283" Grid.Column="4"/>
-                    <Label Content="Descripcion:" HorizontalAlignment="Left" Margin="2,373,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.464,1.231" Height="26" Width="74" Grid.Column="3"/>
+                    <TextBox Text="{Binding Path=almacen.descripción, Mode=TwoWay, ValidatesOnExceptions=true, NotifyOnValidationError=true}" x:Name="descripTiendaTxtBox" HorizontalAlignment="Left" Height="75" Margin="10,375,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="283" Grid.Column="4"/>
+                    <Label Content="Descripción:" HorizontalAlignment="Left" Margin="2,373,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.464,1.231" Height="26" Width="74" Grid.Column="3"/>
                     <ComboBox SelectedIndex="{Binding Path=almacen.lunesHoraInicio, Mode=TwoWay}"  MaxDropDownHeight="60" Grid.Column="6" HorizontalAlignment="Left" Height="22" Margin="94,274,0,0" VerticalAlignment="Top" Width="59" IsSynchronizedWithCurrentItem="True" RenderTransformOrigin="0.423,1.538" ScrollViewer.HorizontalScrollBarVisibility="Disabled">
                         <ComboBoxItem Content="8:00"></ComboBoxItem>
                         <ComboBoxItem Content="8:30"></ComboBoxItem>
@@ -369,7 +369,7 @@
                         <ComboBoxItem Content="23:00"></ComboBoxItem>
                         <ComboBoxItem Content="23:30"></ComboBoxItem>
                     </ComboBox>
-                    <Label Content="Miercoles:" HorizontalAlignment="Left" Margin="2,341,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.464,1.231" Height="30" Grid.Column="6" Width="65"/>
+                    <Label Content="Miércoles:" HorizontalAlignment="Left" Margin="2,341,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.464,1.231" Height="30" Grid.Column="6" Width="65"/>
                     <ComboBox SelectedIndex="{Binding Path=almacen.juevesHoraInicio, Mode=TwoWay,  ValidatesOnExceptions=true, NotifyOnValidationError=true}" MaxDropDownHeight="60" Grid.Column="6" HorizontalAlignment="Left" Height="22" Margin="94,379,0,0" VerticalAlignment="Top" Width="59" IsSynchronizedWithCurrentItem="True" RenderTransformOrigin="0.423,1.538" ScrollViewer.HorizontalScrollBarVisibility="Disabled">
                         <ComboBoxItem Content="8:00"></ComboBoxItem>
                         <ComboBoxItem Content="8:30"></ComboBoxItem>
@@ -580,7 +580,7 @@
                         <ComboBoxItem Content="23:00"></ComboBoxItem>
                         <ComboBoxItem Content="23:30"></ComboBoxItem>
                     </ComboBox>
-                    <Label Content="Sabado:" HorizontalAlignment="Left" Margin="2,446,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.464,1.231" Height="30" Grid.Column="6" Width="53"/>
+                    <Label Content="Sábado:" HorizontalAlignment="Left" Margin="2,446,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.464,1.231" Height="30" Grid.Column="6" Width="53"/>
 
                     <ComboBox SelectedIndex="{Binding Path=almacen.domingoHoraInicio, Mode=TwoWay,  ValidatesOnExceptions=true, NotifyOnValidationError=true}" MaxDropDownHeight="60" Grid.Column="6" HorizontalAlignment="Left" Height="22" Margin="94,485,0,0" VerticalAlignment="Top" Width="59" IsSynchronizedWithCurrentItem="True" RenderTransformOrigin="0.423,1.538" ScrollViewer.HorizontalScrollBarVisibility="Disabled">
                         <ComboBoxItem Content="8:00"></ComboBoxItem>
@@ -658,7 +658,7 @@
                               IsEnabled="{Binding comboEnabledAlmacen}" SelectedIndex="{Binding defaultcomboIndex}">
                     </ComboBox>
                     <Label Content="Tipo:" HorizontalAlignment="Left" Margin="1,97,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.464,1.231" Grid.Column="3" Height="30" Width="36"/>
-                    <ComboBox SelectedIndex="{Binding selectedTipo, Mode=TwoWay, FallbackValue=-1}" x:Name="tipoCombo" HorizontalAlignment="Left" Margin="54,98,0,0" VerticalAlignment="Top" Width="108" Grid.Column="3" Height="25" Grid.ColumnSpan="2">
+                    <ComboBox SelectedIndex="{Binding selectedTipo, Mode=TwoWay, FallbackValue=-1}" x:Name="tipoCombo" HorizontalAlignment="Left" Margin="54,98,0,0" VerticalAlignment="Top" Width="108" Grid.Column="3" Height="25" Grid.ColumnSpan="2" SelectionChanged="tipoCombo_SelectionChanged">
                         <ComboBoxItem Content="Venta"></ComboBoxItem>
                         <ComboBoxItem Content="Venta/Compra"></ComboBoxItem>
                     </ComboBox>
@@ -673,11 +673,11 @@
                     </ComboBox>
                     <Button Command="{Binding saveAlmacenCommand}"  Content="GUARDAR" HorizontalAlignment="Left" Margin="186,602,0,0" VerticalAlignment="Top" Width="76" RenderTransformOrigin="1.347,-0.05" Grid.Column="4" Height="30"/>
                     <Button Command="{Binding cancelAlmacenCommand}" Content="CANCELAR" HorizontalAlignment="Left" Margin="0,602,0,0" VerticalAlignment="Top" Width="75" RenderTransformOrigin="1.347,-0.05" Grid.Column="6" Height="30" />
-                    <Label Content="*" HorizontalAlignment="Left" Margin="80,64,0,0" VerticalAlignment="Top" Foreground="Red" FontSize="14" Width="15" Height="22" RenderTransformOrigin="3.646,-0.402" Grid.Column="3" Grid.ColumnSpan="2"/>
+                    <Label Content="*" HorizontalAlignment="Left" Margin="81,64,0,0" VerticalAlignment="Top" Foreground="Red" FontSize="14" Width="15" Height="22" RenderTransformOrigin="3.646,-0.402" Grid.Column="3" Grid.ColumnSpan="2"/>
                     <Label Content="*" HorizontalAlignment="Left" Margin="39,98,0,0" VerticalAlignment="Top" Foreground="Red" FontSize="14" Width="15" Height="22" RenderTransformOrigin="3.646,-0.402" Grid.Column="3"/>
                     <Label Content="*" HorizontalAlignment="Left" Margin="80,138,0,0" VerticalAlignment="Top" Foreground="Red" FontSize="14" Width="15" Height="22" RenderTransformOrigin="3.646,-0.402" Grid.Column="3" Grid.ColumnSpan="2"/>
                     <Label Content="*" HorizontalAlignment="Left" Margin="80,252,0,0" VerticalAlignment="Top" Foreground="Red" FontSize="14" Width="15" Height="22" RenderTransformOrigin="3.646,-0.402" Grid.Column="3" Grid.ColumnSpan="2"/>
-                    <Label Content="*" HorizontalAlignment="Left" Margin="171,98,0,0" VerticalAlignment="Top" Foreground="Red" FontSize="14" Width="15" Height="22" RenderTransformOrigin="3.646,-0.402" Grid.Column="4"/>
+                    <Label x:Name="almacenAbasAsterisco"  Content="" Foreground="Red" HorizontalAlignment="Left" Margin="171,98,0,0" VerticalAlignment="Top" FontSize="14" Width="15" Height="22" RenderTransformOrigin="3.646,-0.402" Grid.Column="4" Grid.ColumnSpan="2"/>
                     <Label Content="*" HorizontalAlignment="Left" Margin="172,214,0,0" VerticalAlignment="Top" Foreground="Red" FontSize="14" Width="15" Height="22" RenderTransformOrigin="3.646,-0.402" Grid.Column="4"/>
                 </Grid>
             </TabItem>

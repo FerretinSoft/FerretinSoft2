@@ -154,8 +154,7 @@
                         <Label Content="Apellido Materno:" VerticalContentAlignment="Center" Grid.Column="0" Grid.Row="6"/>
 
                         <Label Content="Dirección:" VerticalContentAlignment="Center" Grid.Column="0" Grid.Row="7"/>
-                        <Label Content="País:" VerticalContentAlignment="Center" Grid.Column="0" Grid.Row="8"/>
-                        <Label Content="Departamento:" VerticalContentAlignment="Center" Grid.Column="2" Grid.Row="8"/>
+                        <Label Content="Departamento:" VerticalContentAlignment="Center" Grid.Column="0" Grid.Row="8"/>
                         <Label Content="Provincia:" VerticalContentAlignment="Center" Grid.Column="0" Grid.Row="9"/>
                         <Label Content="Distrito:" VerticalContentAlignment="Center" Grid.Column="2" Grid.Row="9"/>
                         <Label Content="Telf. 1:" VerticalContentAlignment="Center" Grid.Column="0" Grid.Row="10"/>
@@ -184,10 +183,8 @@
                         <TextBox Text="{Binding cliente.apMaterno, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" IsEnabled="{Binding cliente.isBoleta, NotifyOnValidationError=True, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True, ValidatesOnExceptions=True}" VerticalAlignment="Center" Grid.Column="1" Grid.Row="6" Grid.ColumnSpan="3" Height="22"/>
 
                         <TextBox Text="{Binding cliente.direccion, Mode=TwoWay}" VerticalAlignment="Center" Grid.Column="1" Grid.Row="7" Grid.ColumnSpan="3" Height="22" Margin="0,3,0,4"/>
-                        <ComboBox VerticalAlignment="Center" Grid.Column="1" Grid.Row="8" Grid.ColumnSpan="1" Height="22" SelectedIndex="0" IsEditable="False">
-                            <ComboBoxItem Content="PERÚ"/>
-                        </ComboBox>
-                        <ComboBox ItemsSource="{Binding departamentos}" DisplayMemberPath="nombre" SelectedItem="{Binding selectedDepartamento}" VerticalAlignment="Center" Grid.Column="3" Grid.Row="8" Grid.ColumnSpan="1" Height="22"/>
+
+                        <ComboBox ItemsSource="{Binding departamentos}" DisplayMemberPath="nombre" SelectedItem="{Binding selectedDepartamento}" VerticalAlignment="Center" Grid.Column="1" Grid.Row="8" Grid.ColumnSpan="1" Height="22"/>
                         <ComboBox ItemsSource="{Binding provincias}" DisplayMemberPath="nombre" SelectedItem="{Binding selectedProvincia}" VerticalAlignment="Center" Grid.Column="1" Grid.Row="9" Grid.ColumnSpan="1" Height="22"/>
                         <ComboBox ItemsSource="{Binding distritos}" DisplayMemberPath="nombre" SelectedItem="{Binding cliente.UbigeoDistrito, NotifyOnValidationError=True, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True, ValidatesOnExceptions=True}" VerticalAlignment="Center" Grid.Column="3" Grid.Row="9" Grid.ColumnSpan="1" Height="22"/>
                         <TextBox Text="{Binding cliente.telefono1, Mode=TwoWay, NotifyOnValidationError=True, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True, ValidatesOnExceptions=True}" VerticalAlignment="Center" Grid.Column="1" Grid.Row="10" Grid.ColumnSpan="1" Height="22" Margin="0,2,0,4"/>
@@ -209,7 +206,7 @@
                         <StackPanel Grid.Column="4" Grid.Row="12" Orientation="Horizontal" HorizontalAlignment="Right"/>
                     </Grid>
                     <StackPanel Orientation="Horizontal" Margin="5" Grid.Row="1" HorizontalAlignment="Center">
-                        <TextBlock Grid.Column="1" Grid.Row="3" Text="{Binding cliente.Error}" TextWrapping="Wrap" Foreground="Red"  />
+                        <TextBlock Grid.Column="1" Grid.Row="3" Text="{Binding AdornedElement.(Validation.Errors)[0].ErrorContent, ElementName=errorAdorner}" TextWrapping="Wrap" Foreground="Red"  />
                     </StackPanel>
                     <StackPanel Orientation="Horizontal" Margin="5" Grid.Row="2" HorizontalAlignment="Center">
                         <Button Command="{Binding saveClienteCommand}" Height="30" Content="{Binding nombreBotonGuardar, Mode=OneWay}" Padding="5,0" Margin="5,0" Click="Button_Click" />

@@ -1,0 +1,9 @@
+﻿<Window x:Class="pe.edu.pucp.ferretin.view.MSeguridad.Window2"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:my="clr-namespace:SAPBusinessObjects.WPF.Viewer;assembly=SAPBusinessObjects.WPF.Viewer"
+        Title="Window2" Height="487.007" Width="722.368">
+    <Grid>
+        <my:CrystalReportsViewer x:Name="VisorDelReporte" Refresh="VisorDelReporte_Refresh" />
+    </Grid>
+</Window>
