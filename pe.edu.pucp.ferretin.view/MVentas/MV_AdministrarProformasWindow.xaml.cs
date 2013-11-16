@@ -111,6 +111,7 @@ namespace pe.edu.pucp.ferretin.view.MVentas
 
                             padreViewModel.venta.VentaProducto.Add(ventaProducto);
                             padreViewModel.NotifyPropertyChanged("venta");
+                            padreViewModel.actualizarMontosVenta(null, null);
                         }
                         
                        
@@ -162,6 +163,17 @@ namespace pe.edu.pucp.ferretin.view.MVentas
             MV_AdministrarProformasViewModel prodViewModel = profWindow.DataContext as MV_AdministrarProformasViewModel;
             prodViewModel.soloSeleccionarProforma = true;
             profWindow.Show();
+        }
+
+        private void buscarClienteBtn_Click_1(object sender, RoutedEventArgs e)
+        {
+            //Buscar Cliente
+            MV_ClientesWindow v = new MV_ClientesWindow();
+            v.Owner = this;
+            v.clienteSearch = true;
+            var viewModel = v.DataContext as MV_ClientesViewModel;
+            viewModel.soloSeleccionarCliente = true;
+            v.Show();
         }
     }
 }

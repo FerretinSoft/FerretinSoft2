@@ -42,6 +42,7 @@ namespace pe.edu.pucp.ferretin.view.MCompras
                                     precioUnit = listAux[i].precio,
                                     id_unidad_medida = listAux[i].id_unidad
                                 };
+                                listAux[i].isSelected = false;
                                 sequence.Add(linea);
                             }
                         }

@@ -176,7 +176,7 @@ namespace pe.edu.pucp.ferretin.viewmodel.MRecursosHumanos
             }
         }
 
-        public IEnumerable<GradoInstruccion> gradosInstruccion
+        public IEnumerable<GradoInstruccion> listaGradosInstruccion 
         {
             get
             {
@@ -484,21 +484,15 @@ namespace pe.edu.pucp.ferretin.viewmodel.MRecursosHumanos
 
                 this.empleado = listaEmpleados.Single(empleado => empleado.codEmpleado == (int)codEmpleado);
 
-                //////if (this.empleado.EmpleadoTurno == null)
-                //////{
-                   
-                //////    this.empleado.empleadoT();
- 
-                
-                //////}
-                    
-                //Muestra Null en turnos/
-
                 foreach (EmpleadoTurno et in this.empleado.EmpleadoTurno)
                 {
+                    if (et.estado == 1 && et.id_turno == null) et.estado = 0;
                     if (et.estado == 0) et.id_turno = null;
+                    if (et.id_turno == 0) et.id_turno = null;
 
                 }
+
+              
 
                 if (this.empleado.id_ubigeo_distrito != null)
                 {
@@ -514,13 +508,7 @@ namespace pe.edu.pucp.ferretin.viewmodel.MRecursosHumanos
         }
         public void saveEmpleado(Object obj)
         {
-            //////string message = "Está seguro de guardar los cambios?";
-            //////string caption = "Confirmación";
-            //////MessageBoxButton buttons = MessageBoxButton.OKCancel;
-            //////MessageBoxImage icon = MessageBoxImage.Question;
-            //////if (MessageBox.Show(message, caption, buttons, icon) == MessageBoxResult.OK)
-            //////{
-            //////    // OK code here
+            
 
                 if (soloSeleccionarVendedor)
                 {
@@ -532,13 +520,16 @@ namespace pe.edu.pucp.ferretin.viewmodel.MRecursosHumanos
                     if (empleado.id > 0)//Si existe
                     {
                         ComunService.idVentana(2);
-                        if (VerificaCamposObligatorios(empleado))
+                        foreach (EmpleadoTurno et in empleado.EmpleadoTurno)
                         {
-                            foreach (EmpleadoTurno et in empleado.EmpleadoTurno)
-                            {
-                                if (et.id_turno == 0) et.id_turno = null;
+                            if (et.estado == 1 && et.id_turno == null) et.estado = 0;
+                            if (et.id_turno == 0) et.id_turno = null;
 
-                            }
+
+                        }
+                        if (VerificaCamposObligatorios(empleado) && VerificaTurnosEmpleado(empleado))
+                        {
+                            
 
                             if (!MR_EmpleadoService.enviarCambios())
                             {
@@ -576,22 +567,16 @@ namespace pe.edu.pucp.ferretin.viewmodel.MRecursosHumanos
 
                                     MessageBox.Show("El empleado fue agregado con éxito");
                                     this.statusTab = Tab.BUSQUEDA;
-                                    listaEmpleados = MR_EmpleadoService.listaEmpleados;
-                                    //NotifyPropertyChanged("EmpleadoTienda");//Para el historial de empleos
+                           
                                 }
                         }
                         //////}
                     }
                 }
 
-            ////////}
-            ////////else
-            ////////{
-            ////////    // Cancel code here
-            ////////    this.statusTab = Tab.BUSQUEDA;
-            ////////} 
+        
             NotifyPropertyChanged("listaEmpleados");
-            NotifyPropertyChanged("empleado");
+            
             NotifyPropertyChanged("listaEmpleadoTiendas");
 
 
@@ -647,6 +632,46 @@ namespace pe.edu.pucp.ferretin.viewmodel.MRecursosHumanos
             return true;
         }
 
+        public bool VerificaTurnosEmpleado(Empleado empleado)
+        {
+            int numTurnos = 0;
+            //et.id_turno == null && 
+            foreach (var empTu in empleado.EmpleadoTurno.Where(et => et.estado < 1))
+            {
+                numTurnos++;
+                if (empTu.id_turno > 0 && empTu.estado == 0)
+                {
+                    MessageBox.Show("Debe seleccionar un turno de trabajo");
+                    return false;      
+                }
+                
+                if (((empTu.id_turno != 1) && (empTu.id_turno != 2) && (empTu.id_turno != 3)) && empTu.estado == 1)
+                {
+                    MessageBox.Show("Debe seleccionar un turno de trabajo");
+                    return false;
+                }
+
+                if (empTu.id_turno == 0 && empTu.estado == 1)
+                {
+                    MessageBox.Show("Debe seleccionar un turno de trabajo");
+                    return false;
+                }
+
+
+
+            }
+
+            if (numTurnos == 7)
+            {
+                MessageBox.Show("Debe seleccionar los turnos de trabajo");
+                return false;
+            }
+            else
+                return true;
+        }
+
+
+   
         #endregion
 
 

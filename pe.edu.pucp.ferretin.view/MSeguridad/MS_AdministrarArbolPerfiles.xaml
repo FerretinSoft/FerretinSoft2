@@ -3,7 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:viewmodel="clr-namespace:pe.edu.pucp.ferretin.viewmodel.MSeguridad;assembly=pe.edu.pucp.ferretin.viewmodel"
         xmlns:helper="clr-namespace:pe.edu.pucp.ferretin.viewmodel.Helper;assembly=pe.edu.pucp.ferretin.viewmodel"
-        Title="Administracion del Arbol Perfiles" WindowStartupLocation="CenterScreen" Height="448" Width="650" Icon="/Resources/ferretin_ico.ico" ResizeMode="CanMinimize">
+        Title="Administrar Perfiles" WindowStartupLocation="CenterScreen" Height="448" Width="650" Icon="/Resources/ferretin_ico.ico" ResizeMode="CanMinimize">
     <Window.Resources>
         <viewmodel:MS_AdministrarArbolPerfilesViewModel x:Key="MS_AdministrarArbolPerfilesViewModel"/>
     </Window.Resources>

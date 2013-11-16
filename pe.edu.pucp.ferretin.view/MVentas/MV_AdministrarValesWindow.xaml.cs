@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -46,5 +47,46 @@ namespace pe.edu.pucp.ferretin.view.MVentas
             viewModel.soloSeleccionarCliente = true;
             v.Show();
         }
+
+
+
+        private void validarCantidad(object sender, TextCompositionEventArgs e)
+        {
+            if (Regex.IsMatch(e.Text, "[0-9]"))
+            {
+                e.Handled = false;
+            }else{
+                e.Handled = true;
+            }
+        }
+
+        private void validarCantidad_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key != Key.Space)
+                e.Handled = false;
+            else
+                e.Handled = true;
+        }
+
+        private void validarMonto(object sender, TextCompositionEventArgs e)
+        {
+            if (Regex.IsMatch(e.Text, "[0-9]"))
+            {
+                e.Handled = false;
+            }
+            else
+            {
+                e.Handled = true;
+            }
+        }
+
+        private void validarMonto_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key != Key.Space)
+                e.Handled = false;
+            else
+                e.Handled = true;
+        }
+
     }
 }

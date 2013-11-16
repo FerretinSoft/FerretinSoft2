@@ -14,7 +14,7 @@ namespace pe.edu.pucp.ferretin.controller.MVentas
             return from p in db.Promocion where
                 (p.codigo.ToUpper().Contains(codPromSearch.ToUpper()))
                 && (p.fechaDesde == null || p.fechaHasta == null || DateTime.Compare(p.fechaDesde.Value, fechaDesdeSearch) >= 0 || DateTime.Compare(p.fechaHasta.Value, fechaHastaSearch) <= 0)
-                && (estadoSearch <= 0 || p.esActivo == (estadoSearch==1)) select p;
+                && (estadoSearch <= 0 || (p.fechaDesde <= DateTime.Today && p.fechaHasta >= DateTime.Today) == (estadoSearch==1)) select p;
         }
 
         /// <summary>

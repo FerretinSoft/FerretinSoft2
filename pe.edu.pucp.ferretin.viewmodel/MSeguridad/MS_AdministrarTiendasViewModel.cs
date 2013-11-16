@@ -593,14 +593,21 @@ namespace pe.edu.pucp.ferretin.viewmodel.MSeguridad
         }
         /**************************************************/
         public bool VerificaHorario(Tienda tienda)
-        {
-            if (tienda.lunesHoraInicio > tienda.lunesHoraFin ||
-                tienda.martesHoraInicio > tienda.martesHoraFin ||
-                tienda.miercolesHoraInicio > tienda.miercolesHoraFin ||
-                tienda.juevesHoraInicio > tienda.juevesHoraFin ||
-                tienda.viernesHoraInicio > tienda.viernesHoraFin ||
-                tienda.sabadoHoraInicio > tienda.sabadoHoraFin ||
-                tienda.domingoHoraInicio > tienda.domingoHoraFin)
+        {            
+            if ((tienda.lunesHoraInicio!=-1 || tienda.lunesHoraFin!=-1)
+                && (tienda.lunesHoraInicio >= tienda.lunesHoraFin )||
+                (tienda.martesHoraInicio!=-1 || tienda.martesHoraFin!=-1)
+                && (tienda.martesHoraInicio >= tienda.martesHoraFin)||
+                (tienda.miercolesHoraInicio!=-1 || tienda.miercolesHoraFin!=-1)
+                && (tienda.miercolesHoraInicio >= tienda.miercolesHoraFin)||
+                (tienda.juevesHoraInicio!=-1 || tienda.juevesHoraFin!=-1)
+                && (tienda.juevesHoraInicio >= tienda.juevesHoraFin) ||
+                (tienda.viernesHoraInicio!=-1 || tienda.viernesHoraFin!=-1)
+                && (tienda.viernesHoraInicio >= tienda.viernesHoraFin) ||
+                (tienda.sabadoHoraInicio!=-1 || tienda.sabadoHoraFin!=-1)
+                && (tienda.sabadoHoraInicio >= tienda.sabadoHoraFin) ||
+                (tienda.domingoHoraInicio!=-1 || tienda.domingoHoraFin!=-1)
+                && (tienda.domingoHoraInicio >= tienda.domingoHoraFin))
             {
                 MessageBox.Show("La hora Fin debe ser mayor a la hora Inicio");
                 return false;

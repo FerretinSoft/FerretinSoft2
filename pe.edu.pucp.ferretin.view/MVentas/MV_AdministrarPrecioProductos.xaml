@@ -89,13 +89,12 @@
                             </Grid>
                             <Label Grid.Row="1" Grid.Column="2">Precio Puntos:</Label>
                             <StackPanel Orientation="Horizontal" Grid.Column="3" Grid.Row="1">
-                                <TextBox VerticalAlignment="Center"  Width="50" HorizontalAlignment="Left"/>
+                                <TextBox x:Name="precioPtos" PreviewKeyDown="validarPrecioPuntos_KeyDown" PreviewTextInput="validarPrecioPuntos" Text="{Binding Path=productoPrecio.precioPuntos, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Center"  Width="50" HorizontalAlignment="Left"/>
                             </StackPanel>
                             <Label Grid.Row="2" Grid.Column="2">Precio Lista:</Label>
-                            <StackPanel Orientation="Horizontal" Grid.Column="3" Grid.Row="2">
-                                <TextBox Text="{Binding Path=productoPrecio.precio, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Center"  Width="50" HorizontalAlignment="Left"/>
-                                <ComboBox VerticalAlignment="Center" Height="22" Width="70" Margin="5,4,0,4">
-                                    <ComboBoxItem></ComboBoxItem>
+                                <StackPanel Orientation="Horizontal" Grid.Column="3" Grid.Row="2">
+                                <TextBox PreviewKeyDown="validarPrecioLista_KeyDown" PreviewTextInput="validarPrecioLista" Text="{Binding Path=productoPrecio.precio, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Center"  Width="50" HorizontalAlignment="Left"/>
+                                <ComboBox SelectedIndex="{Binding Path=productoPrecio.moneda, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Center" Height="22" Width="70" Margin="5,4,0,4">
                                     <ComboBoxItem Content="Soles (S/.)"></ComboBoxItem>
                                     <ComboBoxItem Content="Dolares (US $)"></ComboBoxItem>
                                 </ComboBox>
@@ -110,9 +109,9 @@
                     <DataGrid IsReadOnly="True"  ItemsSource="{Binding Path=historialPrecios,UpdateSourceTrigger=PropertyChanged,NotifyOnSourceUpdated=True,NotifyOnTargetUpdated=True,Mode=TwoWay}" Margin="5,5" Grid.Row="2" AutoGenerateColumns="False">
                         <DataGrid.Columns>
                             <DataGridTextColumn Width="1*" Binding="{Binding Path=fechaRegistroString}" ClipboardContentBinding="{x:Null}" Header="Fecha Registro"/>
-                            <DataGridTextColumn Width="1*" ClipboardContentBinding="{x:Null}" Header="Moneda"/>
+                            <DataGridTextColumn Width="1*" Binding="{Binding Path=monedaString}" Header="Moneda"/>
                             <DataGridTextColumn Width="1*" Binding="{Binding Path=precio}" ClipboardContentBinding="{x:Null}" Header="Precio Lista"/>
-                            <DataGridTextColumn Width="1*" ClipboardContentBinding="{x:Null}" Header="Precio Puntos"/>
+                            <DataGridTextColumn Width="1*" Binding="{Binding Path=precioPuntos}" Header="Precio Puntos"/>
                             <DataGridTextColumn Width="1*" Binding="{Binding Path=estadoString}" ClipboardContentBinding="{x:Null}" Header="Estado"/>  
                         </DataGrid.Columns>
                     </DataGrid>

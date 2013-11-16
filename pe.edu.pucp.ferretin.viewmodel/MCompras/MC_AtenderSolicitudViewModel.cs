@@ -7,6 +7,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using pe.edu.pucp.ferretin.viewmodel.Helper;
+using System.Windows.Input;
 
 namespace pe.edu.pucp.ferretin.viewmodel.MCompras
 {
@@ -67,7 +69,8 @@ namespace pe.edu.pucp.ferretin.viewmodel.MCompras
                 Usuario usuario = ComunService.usuarioL;
                 Tienda tienda = usuario.Empleado.tiendaActual;
                 ProductoSol actual;
-                foreach (var entry in MA_SharedService.obtenerProductosPorAbastecer(tienda))
+                Dictionary<ProductoAlmacen,decimal> diccionario = MA_SharedService.obtenerProductosPorAbastecer(tienda);
+                foreach (var entry in diccionario)
                 {
                     actual = new ProductoSol();
                     actual.cantidad = entry.Value;
@@ -78,7 +81,8 @@ namespace pe.edu.pucp.ferretin.viewmodel.MCompras
                 int i;
                 for (i = 0; i < _listaProductosSol.Count(); i++)
                 {
-                    _listaProductosSol[i].posiProveedor = MC_ProveedorService.obtenerPosiblesProveedores(_listaProductosSol[i].producto); 
+                    
+                    _listaProductosSol[i].posiProveedor = MC_ProveedorService.obtenerPosiblesProveedores(_listaProductosSol[i].producto);
                 }
 
                 return _listaProductosSol;
@@ -88,11 +92,48 @@ namespace pe.edu.pucp.ferretin.viewmodel.MCompras
                 _listaProductosSol = value;
                 NotifyPropertyChanged("listaProductosSol");
             }
-
         }
 
         #endregion
 
+        RelayCommand _generarOCSCommand;
+        public ICommand generarOCSCommand
+        {
+            get
+            {
+                if (_generarOCSCommand == null)
+                {
+                    _generarOCSCommand = new RelayCommand(generarOCS);
+                    NotifyPropertyChanged("productoSol");
+                }
+                return _generarOCSCommand;
+
+            }
+        }
+
+        public void generarOCS(Object id)
+        {
+            int i;
+            for (i = 0; i < this.listaProductosSol.Count(); i++)
+            {
+                Proveedor p = listaProductosSol[i].selectedProveedor;
+            }
+            //this._productoSol;
+            //Proveedor buscado = null;
+            //int i;
+            //try
+            //{
+            //    buscado = MC_ProveedorService.buscarProveedorByName(this._proveedorNombre);
+            //    documentoCompra.Proveedor = buscado;
+            //    NotifyPropertyChanged("documentoCompra");
+            //}
+            //catch { }
+
+            //if (buscado == null)
+            //{
+            //    MessageBox.Show("No se encontro ninguna Proveedor", "No se encontro", MessageBoxButton.OK, MessageBoxImage.Question);
+            //}
+        }
 
     }
 } 

@@ -369,54 +369,6 @@ namespace pe.edu.pucp.ferretin.viewmodel.MSeguridad
         public void saveUsuario(Object obj)
         {
             
-            /********************** Validar cuando no se ingresa ningun dato obligatorio **********************************/
-            if ((this._dniEmpleado == ""  || this._dniEmpleado == null) && (usuario.nombre == null || usuario.nombre.Length <= 0))
-            {
-                MessageBox.Show("Ingrese datos en los campos obligatorios, por favor");
-                return;
-            }
-            else
-            {
-                /************************ Validar cuando no se ingresa dni correcto  ********************************/
-                if (this._dniEmpleado == "" )
-                {
-                    MessageBox.Show("Ingrese dni de usuario correcto, por favor");
-                    return;
-                }                
-                /********************* Validar cuando no se ingresa nombre de usuario correcto **********************/
-                if (usuario.nombre == null || usuario.nombre.Length <= 0)
-                {
-                    MessageBox.Show("Ingrese nombre de usuario correcto, por favor");
-                    return;
-                }
-                /********************* Validar cuando se ingresa estado null **********************/
-                if (usuario.estado == null)
-                {
-                    MessageBox.Show("Ingrese estado de usuario correcto, por favor");
-                    return;
-                }
-                /********************* Validar cuando no se ingresa nombre de usuario correcto **********************/
-                if (usuario.Perfil==null)
-                {
-                    MessageBox.Show("Ingrese perfil de usuario correcto, por favor");
-                    return;
-                }
-                /********************* Validar cuando se ingresa nombre de usuario y no se dio el boton de verificar **********************/
-                if (!MS_UsuarioService.validarUserName(usuario))
-                {
-                    MessageBox.Show("Verifique, el usuario ya existe");
-                    return;
-                }
-                /* Validar cuando no se ha realizado la busqueda de empleado o la verificacion de nombre de usuario mediante los botones */
-                if (this._busquedaExitosa < 2)
-                {
-                    MessageBox.Show("Realize la busqueda de empleado o verifique el nombre de usuario");
-                    return;
-                }
-
-            }
-            
-            
             /********************************************************/
             /*Para actualizar un usuario existente*/
             if (usuario.id > 0)//Si existe
@@ -440,17 +392,58 @@ namespace pe.edu.pucp.ferretin.viewmodel.MSeguridad
                     listaUsuarios = MS_UsuarioService.listaUsuarios;
                 }
             }
+            /********************************************************/
             /*Para agregar un usuario nuevo*/
             else
             {
                 ComunService.idVentana(4);
                 /***************************************/
-                if (this._dniEmpleado == "" || usuario.nombre == null || (this._busquedaExitosa < 2 ))
-                    MessageBox.Show("Ingrese dni de usuario, correcto, por favor");
-                /***************************************/
+                /********************** Validar cuando no se ingresa ningun dato obligatorio **********************************/
+                if ((this._dniEmpleado == "" || this._dniEmpleado == null))
+                {
+                    MessageBox.Show("Ingrese datos en los campos obligatorios, por favor");
+                    return;
+                }
                 else
                 {
+                    /************************ Validar cuando no se ingresa dni correcto  ********************************/
+                    if (this._dniEmpleado == "")
+                    {
+                        MessageBox.Show("Ingrese dni de usuario correcto, por favor");
+                        return;
+                    }
+                    /********************* Validar cuando se ingresa estado null **********************/
+                    if (usuario.estado == null)
+                    {
+                        MessageBox.Show("Ingrese estado de usuario correcto, por favor");
+                        return;
+                    }
+                    /********************* Validar cuando no se ingresa nombre de usuario correcto **********************/
+                    if (usuario.Perfil == null)
+                    {
+                        MessageBox.Show("Ingrese perfil de usuario correcto, por favor");
+                        return;
+                    }
+                    ///********************* Validar cuando se ingresa nombre de usuario y no se dio el boton de verificar **********************/
+                    //if (!MS_UsuarioService.validarUserName(usuario))
+                    //{
+                    //    MessageBox.Show("Verifique, el usuario ya existe");
+                    //    return;
+                    //}
+                    /* Validar cuando no se ha realizado la busqueda de empleado o la verificacion de nombre de usuario mediante los botones */
+                    if (this._busquedaExitosa < 1)
+                    {
+                        MessageBox.Show("Realize la busqueda de empleado, por favor");
+                        return;
+                    }
 
+                }
+                ///***************************************/
+                //if (this._dniEmpleado == "" || usuario.nombre == null || (this._busquedaExitosa < 2 ))
+                //    MessageBox.Show("Ingrese dni de usuario, correcto, por favor");
+                ///***************************************/
+                //else
+                //{
                     /*valores por defecto */
                     usuario.contrasena = MS_UsuarioService.encrypt("ferretinSoft");
                     List<Parametro> listaParametros;
@@ -470,9 +463,8 @@ namespace pe.edu.pucp.ferretin.viewmodel.MSeguridad
                         this.statusTab = tabs.BUSQUEDA;
                         listaUsuarios = MS_UsuarioService.listaUsuarios;
                     }
-                }
-            }
-                      
+                //}
+            }                      
             //NotifyPropertyChanged("listaUsuarios");
         }
         /**************************************************/

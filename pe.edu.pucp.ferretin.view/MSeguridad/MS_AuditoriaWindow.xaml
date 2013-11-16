@@ -5,7 +5,7 @@
         xmlns:System="clr-namespace:System;assembly=mscorlib"
         xmlns:viewmodel="clr-namespace:pe.edu.pucp.ferretin.viewmodel.MSeguridad;assembly=pe.edu.pucp.ferretin.viewmodel"
         
-        Title="Auditoría de Transacciones" WindowStartupLocation="CenterScreen"  Height="486" Width="980" Icon="/Resources/ferretin_ico.ico" ResizeMode="CanMinimize">
+        Title="Auditoría de Transacciones" WindowStartupLocation="CenterScreen"  Height="493.5" Width="1127" Icon="/Resources/ferretin_ico.ico" ResizeMode="CanMinimize">
     <Window.Resources>
         <viewmodel:MS_AuditoriaWindowViewModel x:Key="MS_AuditoriaWindowViewModel"/>
     </Window.Resources>
@@ -13,42 +13,41 @@
     <Grid DataContext="{Binding Source={StaticResource MS_AuditoriaWindowViewModel}}">
         <Grid Background="#FFE5E5E5">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="138*"/>
-                <ColumnDefinition Width="283*"/>
-                <ColumnDefinition Width="393*"/>
+                <ColumnDefinition Width="252*"/>
+                <ColumnDefinition Width="235*"/>
             </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
                 <RowDefinition Height="20*"/>
                 <RowDefinition Height="71*"/>
             </Grid.RowDefinitions>
-            <GroupBox Header="Parámetros" Margin="10,14,14,0" BorderBrush="Black" Grid.ColumnSpan="3"/>
+            <GroupBox Header="Parámetros" Margin="10,14,14,0" BorderBrush="Black" Grid.ColumnSpan="2"/>
 
-            <Label Content="Fecha Hasta:" HorizontalAlignment="Left" Height="26" VerticalAlignment="Top" Width="81" Margin="99,65,0,0" Grid.Column="2"/>
-            <Label Content="Nombre de Usuario:" HorizontalAlignment="Left" Height="26" VerticalAlignment="Top" Width="121" Margin="20,33,0,0" Grid.ColumnSpan="2"/>
-            <Label Content="Perfil:" HorizontalAlignment="Left" Height="26" VerticalAlignment="Top" Width="68" Margin="99,37,0,0" Grid.Column="2"/>
-            <TextBox Text="{Binding searchNombreUsuario, Mode=TwoWay}" HorizontalAlignment="Left" Height="20" TextWrapping="Wrap" VerticalAlignment="Top" Width="167" Margin="10,37,0,0" Grid.Column="1" />
+            <Label Content="Fecha Hasta:" HorizontalAlignment="Left" Height="26" VerticalAlignment="Top" Width="81" Margin="99,65,0,0" Grid.Column="1"/>
+            <Label Content="Nombre de Usuario:" HorizontalAlignment="Left" Height="26" VerticalAlignment="Top" Width="121" Margin="20,33,0,0"/>
+            <Label Content="Perfil:" HorizontalAlignment="Left" Height="26" VerticalAlignment="Top" Width="68" Margin="99,37,0,0" Grid.Column="1"/>
+            <TextBox Text="{Binding searchNombreUsuario, Mode=TwoWay}" HorizontalAlignment="Left" Height="20" TextWrapping="Wrap" VerticalAlignment="Top" Width="167" Margin="175,37,0,0" />
 
-            <Button Command="{Binding actualizarListaTransaccionesCommand}" x:Name="buscarTransaccionesBtn" HorizontalAlignment="Left" Margin="408,57,0,0" VerticalAlignment="Top" Width="32" Height="32" RenderTransformOrigin="0.3,-0.35" Grid.Column="2">
+            <Button Command="{Binding actualizarListaTransaccionesCommand}" x:Name="buscarTransaccionesBtn" HorizontalAlignment="Left" Margin="408,57,0,0" VerticalAlignment="Top" Width="32" Height="32" RenderTransformOrigin="0.3,-0.35" Grid.Column="1">
                 <Button.Background>
                     <ImageBrush ImageSource="../Resources/refresh2_48.png"/>
                 </Button.Background>
             </Button>
-            <DataGrid ItemsSource="{Binding Path=listaTransacciones,Mode=OneWay}" x:Name="auditoriasDg" Margin="10,20,10,10" Grid.Row="1" Grid.ColumnSpan="3" AutoGenerateColumns="False" CanUserResizeColumns="False" CanUserAddRows="False" CanUserDeleteRows="False" IsReadOnly="True">
+            <DataGrid ItemsSource="{Binding Path=listaTransacciones,Mode=OneWay}" x:Name="auditoriasDg" Margin="10,20,10,10" Grid.Row="1" Grid.ColumnSpan="2" AutoGenerateColumns="False" CanUserResizeColumns="False" CanUserAddRows="False" CanUserDeleteRows="False" IsReadOnly="True">
                 <DataGrid.Columns>
                     <!-- Otras columnas -->
                     <DataGridTextColumn Width="1.2*" Binding="{Binding Path=nroIP}" Header="IP"/>
                     <DataGridTextColumn Width="1.5*" Binding="{Binding Path=nroMAC}" Header="MAC Address"/>
                     <DataGridTextColumn Width="1.4*" Binding="{Binding Path=Usuario.nombre}" Header="Nombre Usuario"/>
                     <DataGridTextColumn Width="2*" Binding="{Binding Path=Usuario.Perfil.nombre}" Header="Perfil"/>
-                    <DataGridTextColumn Width="2*" Binding="{Binding Path=fecha, StringFormat=\{0:dd/MM/yy HH:mm:ss\}}" ClipboardContentBinding="{x:Null}" Header="Fecha y Hora"/>
+                    <DataGridTextColumn Width="1.5*" Binding="{Binding Path=fecha, StringFormat=\{0:dd/MM/yy HH:mm:ss\}}" ClipboardContentBinding="{x:Null}" Header="Fecha y Hora"/>
                     <DataGridTextColumn Width="5*" Binding="{Binding Path=TransaccionTipo.descripcion}" Header="Transacción"/>
 
                 </DataGrid.Columns>
             </DataGrid>
             <Label Content="Fecha Desde:" HorizontalAlignment="Left" Height="26" VerticalAlignment="Top" Width="81" Margin="20,64,0,0"/>
-            <DatePicker SelectedDate="{Binding searchFechaDesde, Mode=TwoWay}" HorizontalAlignment="Left" Margin="10,65,0,0" VerticalAlignment="Top" Width="167" Grid.Column="1" Height="24"/>
-            <DatePicker SelectedDate="{Binding searchFechaHasta, Mode=TwoWay}" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="185,67,0,0" Width="178" Grid.Column="2" Height="24"/>
-            <ComboBox ItemsSource="{Binding perfiles,Mode=OneWay}" DisplayMemberPath="nombre" SelectedIndex="0" SelectedItem="{Binding searchPerfil, Mode=TwoWay}" HorizontalAlignment="Left" Height="22" Margin="185,36,0,0" VerticalAlignment="Top" Width="178" Grid.Column="2">
+            <DatePicker SelectedDate="{Binding searchFechaDesde, Mode=TwoWay}" HorizontalAlignment="Left" Margin="175,65,0,0" VerticalAlignment="Top" Width="167" Height="24"/>
+            <DatePicker SelectedDate="{Binding searchFechaHasta, Mode=TwoWay}" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="185,67,0,0" Width="178" Grid.Column="1" Height="24"/>
+            <ComboBox ItemsSource="{Binding perfiles,Mode=OneWay}" DisplayMemberPath="nombre" SelectedIndex="0" SelectedItem="{Binding searchPerfil, Mode=TwoWay}" HorizontalAlignment="Left" Height="22" Margin="185,36,0,0" VerticalAlignment="Top" Width="178" Grid.Column="1">
 
             </ComboBox>
         </Grid>
