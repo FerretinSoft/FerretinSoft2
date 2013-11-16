@@ -15,37 +15,7 @@ namespace pe.edu.pucp.ferretin.viewmodel.MCompras
     public class MC_AtenderSolicitudViewModel : ViewModelBase
     {
         #region lista Productos de la  Solicitud
-        //private ProductoAlmacen _productoSol;
-        //public ProductoAlmacen productoSol
-        //{
-        //    get
-        //    {
-        //        return _productoSol;
-        //    }
-        //    set
-        //    {
-        //        _productoSol = value;
-        //        NotifyPropertyChanged("productoSol");
-        //    }
-        //}
-        //private Dictionary<ProductoAlmacen,decimal> _listaProductosSol;
-        //public Dictionary<ProductoAlmacen, decimal> listaProductosSol
-        //{
-        //    get
-        //    {   Usuario usuario = ComunService.usuarioL;
-        //        Tienda tienda = usuario.Empleado.tiendaActual;
-        //        _listaProductosSol = MA_SharedService.obtenerProductosPorAbastecer(tienda);
-        //        return _listaProductosSol;
-        //    }
-        //    set
-        //    {
-        //        _listaProductosSol = value;
-        //        NotifyPropertyChanged("listaProductosSol");
-                
 
-        //    }
-
-        //}
 
         private ProductoSol _productoSol;
         public ProductoSol productoSol
@@ -113,11 +83,7 @@ namespace pe.edu.pucp.ferretin.viewmodel.MCompras
 
         public void generarOCS(Object id)
         {
-            int i;
-            for (i = 0; i < this.listaProductosSol.Count(); i++)
-            {
-                Proveedor p = listaProductosSol[i].selectedProveedor;
-            }
+            
             //this._productoSol;
             //Proveedor buscado = null;
             //int i;
