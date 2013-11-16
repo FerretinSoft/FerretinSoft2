@@ -143,6 +143,7 @@ namespace pe.edu.pucp.ferretin.viewmodel.MAlmacen
                             radioNo = true;
                     }
                 }
+                NotifyPropertyChanged("selectedTienda");
             }
 
             get
@@ -222,8 +223,9 @@ namespace pe.edu.pucp.ferretin.viewmodel.MAlmacen
         {
             get
             {
-                _listaCategorias = MA_CategoriaService.categorias;
-                return _listaCategorias;
+                var sequence = Enumerable.Empty<Categoria>();
+                IEnumerable<Categoria> _listaCategorias = new Categoria[] { new Categoria { id = 0, nombre = "Todos" } };
+                return _listaCategorias.Concat(MA_CategoriaService.categorias);
             }
             set
             {
