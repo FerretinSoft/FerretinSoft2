@@ -556,7 +556,8 @@ namespace pe.edu.pucp.ferretin.viewmodel.MRecursosHumanos
                         {
                             
                                 empleado.empleadoT();
-                                empleado.codEmpleado = 100060 + listaEmpleados.Count();
+                                //Autogenerar codigo
+                                empleado.codEmpleado = 100070 + listaEmpleados.Count();
 
                                 if (!MR_EmpleadoService.insertarEmpleado(empleado))
                                 {
@@ -570,7 +571,7 @@ namespace pe.edu.pucp.ferretin.viewmodel.MRecursosHumanos
                            
                                 }
                         }
-                        //////}
+                   
                     }
                 }
 

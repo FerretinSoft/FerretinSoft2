@@ -34,9 +34,9 @@ namespace pe.edu.pucp.ferretin.view.MSeguridad
         {
             try
             {
-                InitializeComponent();
+                InitializeComponent();                
             }catch(Exception){
-                InitializeComponent();
+                InitializeComponent();                
             }
         }
 

@@ -116,7 +116,17 @@ namespace pe.edu.pucp.ferretin.controller.MAlmacen
         {
             int intActivo = chkActivo == true ? 1 : 0;
             int intInactivo = chkInactivo == true ? 0 : 1;
-            if ((idCategoria ==null && search =="") || (idCategoria.nombre=="Todos" && search=="")) {
+
+            if (idCategoria == null)
+            {
+                idCategoria = new Categoria();
+                idCategoria.id = 0;
+                idCategoria.nombre = "Todos";
+            }
+            
+
+            if ((idCategoria.nombre=="Todos" && search=="")) {
+            //if ((idCategoria ==null && search =="")) {
                 listaProductos = from p in db.Producto
                                  orderby p.id
                                  select p;

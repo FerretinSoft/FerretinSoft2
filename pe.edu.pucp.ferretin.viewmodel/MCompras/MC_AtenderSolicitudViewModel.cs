@@ -81,6 +81,7 @@ namespace pe.edu.pucp.ferretin.viewmodel.MCompras
                 int i;
                 for (i = 0; i < _listaProductosSol.Count(); i++)
                 {
+                    
                     _listaProductosSol[i].posiProveedor = MC_ProveedorService.obtenerPosiblesProveedores(_listaProductosSol[i].producto);
                 }
 
