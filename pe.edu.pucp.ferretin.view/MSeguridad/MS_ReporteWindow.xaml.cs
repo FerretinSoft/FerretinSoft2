@@ -15,23 +15,22 @@ using System.Windows.Shapes;
 namespace pe.edu.pucp.ferretin.view.MSeguridad
 {
     /// <summary>
-    /// Interaction logic for Window2.xaml
+    /// Interaction logic for MS_ReporteWindow.xaml
     /// </summary>
-    public partial class Window2 : Window
+    public partial class MS_ReporteWindow : Window
     {
-        CrystalReport2 cryrep;
+        ReporteDeTransacciones rep;
 
-        public Window2()
+        public MS_ReporteWindow()
         {
             InitializeComponent();
-            CrystalReport2 cr = new CrystalReport2();
-            cryrep = cr;
-            VisorDelReporte.ViewerCore.ReportSource = cryrep;
+            rep = new ReporteDeTransacciones();
+            VisorDelReporte.ViewerCore.ReportSource = rep;
         }
 
         private void VisorDelReporte_Refresh(object source, SAPBusinessObjects.WPF.Viewer.ViewerEventArgs e)
         {
-            cryrep.SetDatabaseLogon("inf245g2usr", "server", "inti.lab.inf.pucp.edu.pe", "inf245g2");
+            rep.SetDatabaseLogon("inf245g2usr", "server", "inti.lab.inf.pucp.edu.pe", "inf245g2");
         }
     }
 }
