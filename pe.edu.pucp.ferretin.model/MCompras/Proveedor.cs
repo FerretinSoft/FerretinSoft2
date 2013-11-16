@@ -42,6 +42,50 @@ namespace pe.edu.pucp.ferretin.model
             }
         }
 
+        public string stado 
+        {
+            get
+            {
+                if (estado == 1)
+                {
+                    return "Activo";
+                }
+                else if (estado == 2)
+                {
+                    return "Inactivo";
+                }
+                else
+                    return "NO jala";
+            }
+            set
+            {
+                if (value == "Activo")
+                {
+                    estado = 1;
+                }
+                else if (value == "Inactivo")
+                {
+                    estado = 2;
+                }
+                else
+                    estado = 0;
+                this.SendPropertyChanged("estado");
+            }
+        }
+        public int estado1
+        {
+            get
+            {
+                
+                return (int)estado -1;
+            }
+            set
+            {
+                estado = ()value + 1;   
+            }
+
+        }
+
         public string nombreNombre
         {
             get
