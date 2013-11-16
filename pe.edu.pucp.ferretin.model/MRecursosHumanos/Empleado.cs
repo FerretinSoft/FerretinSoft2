@@ -37,17 +37,16 @@ namespace pe.edu.pucp.ferretin.model
         {
             get
             {
-                if (this.estado == 1)
+                ///EStado INACTIVO es 0 y estado ACTIVO es 1
+                if (this.estado == 0)
                     return "Inactivo";
                 else
-                    if (this.estado == 2)
+                    if (this.estado == 1)
                         return "Activo";
                     else
                         if (this.estado == 0) 
                             return "";
                 return "";
-
-               // return this.estado == 1 ? "Inactivo" : "Activo";
             }
 
         }
@@ -89,9 +88,9 @@ namespace pe.edu.pucp.ferretin.model
         {
             get
             {
-                if (this.EmpleadoTienda.Count(et => et.estado == 2) > 0)
+                if (this.EmpleadoTienda.Count(et => et.estado == 1) > 0)
                 {
-                    return this.EmpleadoTienda.Last(et => et.estado == 2);
+                    return this.EmpleadoTienda.Last(et => et.estado == 1);
                 }
                 else
                 {
@@ -233,12 +232,12 @@ namespace pe.edu.pucp.ferretin.model
             set
             {
                 _nuevoEmpleoTienda = value;
-                _nuevoEmpleoTienda.estado = 2;
+                _nuevoEmpleoTienda.estado = 1;
                 _nuevoEmpleoTienda.fecInicio = DateTime.Today;
                 if (ultimoEmpleadoTienda != null)
                 {
                     ultimoEmpleadoTienda.fecFin = DateTime.Today;
-                    ultimoEmpleadoTienda.estado = 1; //inactivar
+                    ultimoEmpleadoTienda.estado = 0; //inactivar
                 }
             }
         }

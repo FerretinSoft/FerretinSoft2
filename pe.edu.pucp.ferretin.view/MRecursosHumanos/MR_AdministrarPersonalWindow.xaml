@@ -134,9 +134,7 @@
                     <ComboBox SelectedIndex="{Binding empleado.nombreSexo}"  HorizontalAlignment="Left" Margin="139,412,0,0" VerticalAlignment="Top" Width="97" Grid.Column="4">
 
                         <ListBoxItem Content="Masculino"/>
-                        <ListBoxItem Content="Femenino"/>
-                        <ListBoxItem Content=""/>
-
+                        <ListBoxItem Content="Femenino"/>                        
 
                     </ComboBox>
                     <Label Content="Fecha Nac." HorizontalAlignment="Left" Margin="12,408,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.464,1.231" Grid.ColumnSpan="4"/>
@@ -191,8 +189,7 @@
 
                     <Label Content="Turno de trabajo:" HorizontalAlignment="Left" Margin="27,283,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.464,1.231" Grid.Column="5" Width="106"/>
                     <Label Content="Tienda: " HorizontalAlignment="Left" Margin="177,54,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.464,1.231" Grid.Column="5" Width="55"/>
-                    <ComboBox SelectedIndex="{Binding empleado.estado}" x:Name="tiendaComboBox_Copy" HorizontalAlignment="Left" Margin="152,155,0,0" VerticalAlignment="Top" Width="181" Grid.Column="5">
-                        <ListBoxItem Content=""/>
+                    <ComboBox SelectedIndex="{Binding empleado.estado}" x:Name="tiendaComboBox_Copy" HorizontalAlignment="Left" Margin="152,156,0,0" VerticalAlignment="Top" Width="181" Grid.Column="5">    
                         <ListBoxItem Content="Inactivo"/>
                         <ListBoxItem Content="Activo"/>
                     </ComboBox>
