@@ -81,7 +81,7 @@ namespace pe.edu.pucp.ferretin.model
             }
             set
             {
-                estado = ()value + 1;   
+               // estado = ()value + 1;   
             }
 
         }
