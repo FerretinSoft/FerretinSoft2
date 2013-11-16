@@ -55,6 +55,16 @@ namespace pe.edu.pucp.ferretin.viewmodel.MAlmacen
                 //Devolver la categoría padre
                 //_categoriaPrincipal = MA_CategoriaService.categorias.Where(c => c.id_padre == null);
                 _categoriaPrincipal = MA_CategoriaService.obtenerCategoriasPadres();
+                if (detallesTabHeader.Equals("Agregar Producto"))
+                {
+                    foreach (Categoria c in _categoriaPrincipal)
+                    {
+                        c.isChecked = false;
+                        foreach (Categoria c2 in c.Categoria2)
+                            c2.isChecked = false;
+                    }
+                }
+                    
                 
                 return _categoriaPrincipal;
             }
@@ -323,7 +333,7 @@ namespace pe.edu.pucp.ferretin.viewmodel.MAlmacen
                 {
                     case (int)tabs.BUSQUEDA: detallesTabHeader = "Agregar Producto"; productoImagen = null; producto = new Producto(); break;//Si es agregar, creo un nuevo objeto Cliente
                     case (int)tabs.AGREGAR: detallesTabHeader = "Agregar Producto"; productoImagen = null; producto = new Producto(); prodAlm = new ProductoAlmacen(); break;//Si es agregar, creo un nuevo objeto Cliente
-                    case (int)tabs.MODIFICAR: detallesTabHeader = "Edición de Producto"; break;
+                    case (int)tabs.MODIFICAR: detallesTabHeader = "Edición de Producto";  break;
 
                     //case (int)tabs.DETALLES: detallesTabHeader = "Detalles"; break;
                     //default: detallesTabHeader = "Agregar"; cliente = new Cliente(); break;//Si es agregar, creo un nuevo objeto Cliente
@@ -332,6 +342,8 @@ namespace pe.edu.pucp.ferretin.viewmodel.MAlmacen
                 //currentIndexTab = _statusTab == 0 ? 0 : 1;
                 NotifyPropertyChanged("statusTab");
                 NotifyPropertyChanged("productoImagen");
+                NotifyPropertyChanged("listaTiendas");
+                NotifyPropertyChanged("categoriaPrincipal");
             }
         }
         #endregion

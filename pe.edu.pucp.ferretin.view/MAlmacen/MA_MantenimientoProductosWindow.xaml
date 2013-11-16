@@ -59,18 +59,13 @@
                                 <ImageBrush ImageSource="../Resources/add_20.png" Stretch="None"/>
                             </Button.Background>
                         </Button>
-                        <Button x:Name="editarProductoBtn" Content="" VerticalAlignment="Top" Width="20" Margin="0,0,2,-1" Command="{Binding editarCommand}" Height="20">
-                            <Button.Background>
-                                <ImageBrush ImageSource="../Resources/edit_20.png"/>
-                            </Button.Background>
-                        </Button>
 
                     </ToolBar>
                 </Grid>
             </TabItem>
-            <TabItem x:Name="detallesTab">
+            <TabItem x:Name="detallesTab" MouseUp="TextBlock_MouseUp">
                 <TabItem.Header>
-                    <TextBlock Text="{Binding detallesTabHeader,Mode=OneWay,FallbackValue=Detalles}" MouseUp="TextBlock_MouseUp"/>
+                    <TextBlock Text="{Binding detallesTabHeader,Mode=OneWay,FallbackValue=Detalles}" />
                 </TabItem.Header>
                 <Grid Background="#FFE5E5E5" Margin="0">
                     <Grid.RowDefinitions>
@@ -93,8 +88,8 @@
                     <TextBox Text="{Binding Path=producto.descripcion, Mode=TwoWay,  ValidatesOnExceptions=true, NotifyOnValidationError=true}" HorizontalAlignment="Left" Height="36" Margin="115,131,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="220" Grid.RowSpan="2"/>
                     <Label Content="Material Secundario:" HorizontalAlignment="Left" Margin="10,73,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.464,1.231" Grid.Column="1"/>
                     <Label Content="Material Base:" HorizontalAlignment="Left" Margin="10,42,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.464,1.231" Grid.Column="1"/>
-                    <ComboBox x:Name="cmbMatBase"   ItemsSource="{Binding Path=listaMatBase}" DisplayMemberPath="nombre" SelectedValuePath="id" SelectedValue="{Binding Path=producto.id_material_base}" HorizontalAlignment="Left" Margin="128,46,0,0" VerticalAlignment="Top" Width="207" Grid.Column="1"/>
-                    <ComboBox x:Name="cmbMatSec" ItemsSource="{Binding Path=listaMatSec}" DisplayMemberPath="nombre" SelectedValuePath="id" SelectedValue="{Binding Path=producto.id_material_sec}" HorizontalAlignment="Left" Margin="128,75,0,0" VerticalAlignment="Top" Width="207" Grid.Column="1"/>
+                    <ComboBox x:Name="cmbMatBase"   ItemsSource="{Binding Path=listaMatBase}" DisplayMemberPath="nombre" SelectedValuePath="id" SelectedValue="{Binding Path=producto.id_material_base}" HorizontalAlignment="Left" Margin="135,46,0,0" VerticalAlignment="Top" Width="200" Grid.Column="1"/>
+                    <ComboBox x:Name="cmbMatSec" ItemsSource="{Binding Path=listaMatSec}" DisplayMemberPath="nombre" SelectedValuePath="id" SelectedValue="{Binding Path=producto.id_material_sec}" HorizontalAlignment="Left" Margin="135,75,0,0" VerticalAlignment="Top" Width="200" Grid.Column="1"/>
                     <Label Content="Producto Activo:" HorizontalAlignment="Left" Margin="10,108,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.464,1.231" Grid.Row="1"/>
                     <RadioButton x:Name="rbtnActivo" Content="Sí" HorizontalAlignment="Left" Margin="128,112,0,0" VerticalAlignment="Top" IsChecked="{Binding radioYes}" GroupName="radioStatus" IsEnabled="False" Grid.Row="1"/>
                     <RadioButton x:Name="rbtnInactivo" Content="No" HorizontalAlignment="Left" Margin="220,111,0,0" VerticalAlignment="Top" IsChecked="{Binding radioNo}" GroupName="radioStatus" IsEnabled="False" Grid.Row="1"/>
@@ -109,7 +104,7 @@
                     <TextBox x:Name="txtStockAct" Text="{Binding Path=prodAlm.stock, Mode=TwoWay,  ValidatesOnExceptions=true, NotifyOnValidationError=true}" HorizontalAlignment="Left" Height="23" Margin="115,172,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="220" IsEnabled="False" Grid.Row="1"/>
                     <TextBox x:Name="txtStockMin" Text="{Binding Path=prodAlm.stockMin, Mode=TwoWay,  ValidatesOnExceptions=true, NotifyOnValidationError=true}" HorizontalAlignment="Left" Height="23" Margin="115,203,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="220" IsEnabled="False" Grid.Row="1"/>
                     <Label Content="Unidad de medida:" HorizontalAlignment="Left" Margin="10,11,0,0" VerticalAlignment="Top" Grid.Column="1"/>
-                    <ComboBox x:Name="cmbUnidadMed"  ItemsSource="{Binding Path=listaUMed}" DisplayMemberPath="abreviatura" SelectedValuePath="id" SelectedValue="{Binding Path=producto.id_unidad_medida}" HorizontalAlignment="Left" Margin="128,14,0,0" VerticalAlignment="Top" Width="207" Height="22" Grid.Column="1" />
+                    <ComboBox x:Name="cmbUnidadMed"  ItemsSource="{Binding Path=listaUMed}" DisplayMemberPath="abreviatura" SelectedValuePath="id" SelectedValue="{Binding Path=producto.id_unidad_medida}" HorizontalAlignment="Left" Margin="135,14,0,0" VerticalAlignment="Top" Width="200" Height="22" Grid.Column="1" />
                     <Button x:Name="btnGuardar" Content="GUARDAR" HorizontalAlignment="Left" Margin="230,242,0,0" VerticalAlignment="Top" Width="75" Height="30" Grid.Row="1" Click="btnGuardar_Click"/>
                     <Button x:Name="btnCancelar" Content="CANCELAR" Grid.Column="1" HorizontalAlignment="Left" Margin="44,242,0,0" VerticalAlignment="Top" Width="75" Height="30" Grid.Row="1" Click="btnCancelar_Click"/>
                     <Label Content="Seleccione tienda:" HorizontalAlignment="Left" Margin="11,79,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.464,1.231" Grid.Row="1"/>
@@ -135,11 +130,11 @@
                         </TreeView.ItemTemplate>
                     </helper:MyTreeView>
                     <Label Content="Categorías:" HorizontalAlignment="Left" Margin="10,100,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.464,1.231" Grid.Column="1"/>
-                    <TextBlock HorizontalAlignment="Left" Margin="111,46,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Foreground="#FFC17474"><Run Language="es-pe" Text="*"/></TextBlock>
-                    <TextBlock HorizontalAlignment="Left" Margin="6,50,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Foreground="#FFC17474" Grid.Row="1"><Run Language="es-pe" Text="*"/></TextBlock>
-                    <TextBlock HorizontalAlignment="Left" Margin="5,16,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Foreground="#FFC17474" Grid.Column="1"><Run Language="es-pe" Text="*"/></TextBlock>
-                    <TextBlock HorizontalAlignment="Left" Margin="5,49,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Foreground="#FFC17474" Grid.Column="1"><Run Language="es-pe" Text="*"/></TextBlock>
-                    <TextBlock HorizontalAlignment="Left" Margin="5,79,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Foreground="#FFC17474" Grid.Column="1"><Run Language="es-pe" Text="*"/></TextBlock>
+                    <TextBlock HorizontalAlignment="Left" Margin="170,48,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Foreground="Red"><Run Language="es-pe" Text="*"/></TextBlock>
+                    <TextBlock HorizontalAlignment="Left" Margin="83,50,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Foreground="Red" Grid.Row="1"><Run Language="es-pe" Text="*"/></TextBlock>
+                    <TextBlock HorizontalAlignment="Left" Margin="125,16,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Foreground="Red" Grid.Column="1"><Run Language="es-pe" Text="*"/></TextBlock>
+                    <TextBlock HorizontalAlignment="Left" Margin="125,49,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Foreground="Red" Grid.Column="1"><Run Language="es-pe" Text="*"/></TextBlock>
+                    <TextBlock HorizontalAlignment="Left" Margin="125,79,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Foreground="Red" Grid.Column="1"><Run Language="es-pe" Text="*"/></TextBlock>
                 </Grid>
             </TabItem>
 
