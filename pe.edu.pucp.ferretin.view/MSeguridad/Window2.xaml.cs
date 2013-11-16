@@ -15,13 +15,16 @@ using System.Windows.Shapes;
 namespace pe.edu.pucp.ferretin.view.MSeguridad
 {
     /// <summary>
-    /// Lógica de interacción para MS_GenerarContraseñaWindow.xaml
+    /// Interaction logic for Window2.xaml
     /// </summary>
-    public partial class MS_GenerarContraseñaWindow : Window
+    public partial class Window2 : Window
     {
-        public MS_GenerarContraseñaWindow()
+        public Window2()
         {
             InitializeComponent();
+            CrystalReport2 cr = new CrystalReport2();
+
+            VisorDelReporte.ViewerCore.ReportSource = cr;
         }
     }
 }
