@@ -25,13 +25,11 @@ namespace pe.edu.pucp.ferretin.tdd.MSeguridad
             var ventana = new MS_AdministrarTiendasViewModel();
             
             //Act - No hay nada que hacer, porque la accion fue la creacion misma
-            
+            int valor=MS_UsuarioService.db.Usuario.Count();
             
             //Assert - Verificar la condicion o criterio de aceptacion
-            
+            Assert.AreEqual(16, valor);
         }
-
-
     }
 
 }
