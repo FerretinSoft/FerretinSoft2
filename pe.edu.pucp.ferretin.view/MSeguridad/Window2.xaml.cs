@@ -19,12 +19,19 @@ namespace pe.edu.pucp.ferretin.view.MSeguridad
     /// </summary>
     public partial class Window2 : Window
     {
+        CrystalReport2 cryrep;
+
         public Window2()
         {
             InitializeComponent();
             CrystalReport2 cr = new CrystalReport2();
+            cryrep = cr;
+            VisorDelReporte.ViewerCore.ReportSource = cryrep;
+        }
 
-            VisorDelReporte.ViewerCore.ReportSource = cr;
+        private void VisorDelReporte_Refresh(object source, SAPBusinessObjects.WPF.Viewer.ViewerEventArgs e)
+        {
+            cryrep.SetDatabaseLogon("inf245g2usr", "server", "inti.lab.inf.pucp.edu.pe", "inf245g2");
         }
     }
 }
