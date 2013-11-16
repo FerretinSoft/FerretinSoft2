@@ -209,7 +209,7 @@
                         <StackPanel Grid.Column="4" Grid.Row="12" Orientation="Horizontal" HorizontalAlignment="Right"/>
                     </Grid>
                     <StackPanel Orientation="Horizontal" Margin="5" Grid.Row="1" HorizontalAlignment="Center">
-                        <TextBlock Grid.Column="1" Grid.Row="3" Text="{Binding cliente.Error}" TextWrapping="Wrap" Foreground="Red"  />
+                        <TextBlock Grid.Column="1" Grid.Row="3" Text="{Binding AdornedElement.(Validation.Errors)[0].ErrorContent, ElementName=errorAdorner}" TextWrapping="Wrap" Foreground="Red"  />
                     </StackPanel>
                     <StackPanel Orientation="Horizontal" Margin="5" Grid.Row="2" HorizontalAlignment="Center">
                         <Button Command="{Binding saveClienteCommand}" Height="30" Content="{Binding nombreBotonGuardar, Mode=OneWay}" Padding="5,0" Margin="5,0" Click="Button_Click" />
