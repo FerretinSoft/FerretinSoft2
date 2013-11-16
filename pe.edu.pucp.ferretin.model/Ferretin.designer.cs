@@ -144,9 +144,6 @@ namespace pe.edu.pucp.ferretin.model
     partial void InsertPromocionProducto(PromocionProducto instance);
     partial void UpdatePromocionProducto(PromocionProducto instance);
     partial void DeletePromocionProducto(PromocionProducto instance);
-    partial void InsertProveedor(Proveedor instance);
-    partial void UpdateProveedor(Proveedor instance);
-    partial void DeleteProveedor(Proveedor instance);
     partial void InsertProveedorCatalogo(ProveedorCatalogo instance);
     partial void UpdateProveedorCatalogo(ProveedorCatalogo instance);
     partial void DeleteProveedorCatalogo(ProveedorCatalogo instance);
@@ -210,6 +207,9 @@ namespace pe.edu.pucp.ferretin.model
     partial void InsertProductoPrecio(ProductoPrecio instance);
     partial void UpdateProductoPrecio(ProductoPrecio instance);
     partial void DeleteProductoPrecio(ProductoPrecio instance);
+    partial void InsertProveedor(Proveedor instance);
+    partial void UpdateProveedor(Proveedor instance);
+    partial void DeleteProveedor(Proveedor instance);
     #endregion
 		
 		public FerretinDataContext() : 
@@ -546,14 +546,6 @@ namespace pe.edu.pucp.ferretin.model
 			}
 		}
 		
-		public System.Data.Linq.Table<Proveedor> Proveedor
-		{
-			get
-			{
-				return this.GetTable<Proveedor>();
-			}
-		}
-		
 		public System.Data.Linq.Table<ProveedorCatalogo> ProveedorCatalogo
 		{
 			get
@@ -719,6 +711,14 @@ namespace pe.edu.pucp.ferretin.model
 			get
 			{
 				return this.GetTable<ProductoPrecio>();
+			}
+		}
+		
+		public System.Data.Linq.Table<Proveedor> Proveedor
+		{
+			get
+			{
+				return this.GetTable<Proveedor>();
 			}
 		}
 	}
@@ -2016,7 +2016,7 @@ namespace pe.edu.pucp.ferretin.model
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_imagen", DbType="Image", CanBeNull=true, UpdateCheck=UpdateCheck.Never)]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_imagen", DbType="Image", UpdateCheck=UpdateCheck.Never)]
 		public System.Data.Linq.Binary imagen
 		{
 			get
@@ -3280,11 +3280,11 @@ namespace pe.edu.pucp.ferretin.model
 		
 		private EntityRef<DocumentoCompraEstado> _DocumentoCompraEstado;
 		
-		private EntityRef<Proveedor> _Proveedor;
-		
 		private EntityRef<Usuario> _Usuario;
 		
 		private EntityRef<Usuario> _Usuario1;
+		
+		private EntityRef<Proveedor> _Proveedor;
 		
     #region Definiciones de métodos de extensibilidad
     partial void OnLoaded();
@@ -3327,9 +3327,9 @@ namespace pe.edu.pucp.ferretin.model
 			this._GuiaRemision = new EntitySet<GuiaRemision>(new Action<GuiaRemision>(this.attach_GuiaRemision), new Action<GuiaRemision>(this.detach_GuiaRemision));
 			this._DocumentoCompra1 = default(EntityRef<DocumentoCompra>);
 			this._DocumentoCompraEstado = default(EntityRef<DocumentoCompraEstado>);
-			this._Proveedor = default(EntityRef<Proveedor>);
 			this._Usuario = default(EntityRef<Usuario>);
 			this._Usuario1 = default(EntityRef<Usuario>);
+			this._Proveedor = default(EntityRef<Proveedor>);
 			OnCreated();
 		}
 		
@@ -3740,40 +3740,6 @@ namespace pe.edu.pucp.ferretin.model
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Proveedor_DocumentoCompra", Storage="_Proveedor", ThisKey="id_proveedor", OtherKey="id", IsForeignKey=true)]
-		public Proveedor Proveedor
-		{
-			get
-			{
-				return this._Proveedor.Entity;
-			}
-			set
-			{
-				Proveedor previousValue = this._Proveedor.Entity;
-				if (((previousValue != value) 
-							|| (this._Proveedor.HasLoadedOrAssignedValue == false)))
-				{
-					this.SendPropertyChanging();
-					if ((previousValue != null))
-					{
-						this._Proveedor.Entity = null;
-						previousValue.DocumentoCompra.Remove(this);
-					}
-					this._Proveedor.Entity = value;
-					if ((value != null))
-					{
-						value.DocumentoCompra.Add(this);
-						this._id_proveedor = value.id;
-					}
-					else
-					{
-						this._id_proveedor = default(Nullable<int>);
-					}
-					this.SendPropertyChanged("Proveedor");
-				}
-			}
-		}
-		
 		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Usuario_DocumentoCompra", Storage="_Usuario", ThisKey="id_usuario_aprobacion", OtherKey="id", IsForeignKey=true)]
 		public Usuario Usuario
 		{
@@ -3838,6 +3804,40 @@ namespace pe.edu.pucp.ferretin.model
 						this._id_usuario_registro = default(Nullable<int>);
 					}
 					this.SendPropertyChanged("Usuario1");
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Proveedor_DocumentoCompra", Storage="_Proveedor", ThisKey="id_proveedor", OtherKey="id", IsForeignKey=true)]
+		public Proveedor Proveedor
+		{
+			get
+			{
+				return this._Proveedor.Entity;
+			}
+			set
+			{
+				Proveedor previousValue = this._Proveedor.Entity;
+				if (((previousValue != value) 
+							|| (this._Proveedor.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._Proveedor.Entity = null;
+						previousValue.DocumentoCompra.Remove(this);
+					}
+					this._Proveedor.Entity = value;
+					if ((value != null))
+					{
+						value.DocumentoCompra.Add(this);
+						this._id_proveedor = value.id;
+					}
+					else
+					{
+						this._id_proveedor = default(Nullable<int>);
+					}
+					this.SendPropertyChanged("Proveedor");
 				}
 			}
 		}
@@ -4879,7 +4879,7 @@ namespace pe.edu.pucp.ferretin.model
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_foto", DbType="Image", CanBeNull=true, UpdateCheck=UpdateCheck.Never)]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_foto", DbType="Image", UpdateCheck=UpdateCheck.Never)]
 		public System.Data.Linq.Binary foto
 		{
 			get
@@ -9727,7 +9727,7 @@ namespace pe.edu.pucp.ferretin.model
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_imagen", DbType="Image", CanBeNull=true, UpdateCheck=UpdateCheck.Never)]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_imagen", DbType="Image", UpdateCheck=UpdateCheck.Never)]
 		public System.Data.Linq.Binary imagen
 		{
 			get
@@ -12269,522 +12269,6 @@ namespace pe.edu.pucp.ferretin.model
 		}
 	}
 	
-	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Proveedor")]
-	public partial class Proveedor : INotifyPropertyChanging, INotifyPropertyChanged
-	{
-		
-		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
-		
-		private int _id;
-		
-		private string _ruc;
-		
-		private string _razonSoc;
-		
-		private string _tipo;
-		
-		private string _direccion;
-		
-		private string _telefono;
-		
-		private string _paginaWeb;
-		
-		private string _contacto;
-		
-		private string _contactoTlf;
-		
-		private System.Nullable<short> _id_rubro;
-		
-		private System.Nullable<byte> _estado;
-		
-		private string _id_ubigeo;
-		
-		private string _codigoPostal;
-		
-		private EntitySet<DocumentoCompra> _DocumentoCompra;
-		
-		private EntitySet<ProveedorCatalogo> _ProveedorCatalogo;
-		
-		private EntitySet<ProveedorProducto> _ProveedorProducto;
-		
-		private EntityRef<Rubro> _Rubro;
-		
-		private EntityRef<UbigeoDistrito> _UbigeoDistrito;
-		
-    #region Definiciones de métodos de extensibilidad
-    partial void OnLoaded();
-    partial void OnValidate(System.Data.Linq.ChangeAction action);
-    partial void OnCreated();
-    partial void OnidChanging(int value);
-    partial void OnidChanged();
-    partial void OnrucChanging(string value);
-    partial void OnrucChanged();
-    partial void OnrazonSocChanging(string value);
-    partial void OnrazonSocChanged();
-    partial void OntipoChanging(string value);
-    partial void OntipoChanged();
-    partial void OndireccionChanging(string value);
-    partial void OndireccionChanged();
-    partial void OntelefonoChanging(string value);
-    partial void OntelefonoChanged();
-    partial void OnpaginaWebChanging(string value);
-    partial void OnpaginaWebChanged();
-    partial void OncontactoChanging(string value);
-    partial void OncontactoChanged();
-    partial void OncontactoTlfChanging(string value);
-    partial void OncontactoTlfChanged();
-    partial void Onid_rubroChanging(System.Nullable<short> value);
-    partial void Onid_rubroChanged();
-    partial void OnestadoChanging(System.Nullable<byte> value);
-    partial void OnestadoChanged();
-    partial void Onid_ubigeoChanging(string value);
-    partial void Onid_ubigeoChanged();
-    partial void OncodigoPostalChanging(string value);
-    partial void OncodigoPostalChanged();
-    #endregion
-		
-		public Proveedor()
-		{
-			this._DocumentoCompra = new EntitySet<DocumentoCompra>(new Action<DocumentoCompra>(this.attach_DocumentoCompra), new Action<DocumentoCompra>(this.detach_DocumentoCompra));
-			this._ProveedorCatalogo = new EntitySet<ProveedorCatalogo>(new Action<ProveedorCatalogo>(this.attach_ProveedorCatalogo), new Action<ProveedorCatalogo>(this.detach_ProveedorCatalogo));
-			this._ProveedorProducto = new EntitySet<ProveedorProducto>(new Action<ProveedorProducto>(this.attach_ProveedorProducto), new Action<ProveedorProducto>(this.detach_ProveedorProducto));
-			this._Rubro = default(EntityRef<Rubro>);
-			this._UbigeoDistrito = default(EntityRef<UbigeoDistrito>);
-			OnCreated();
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_id", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
-		public int id
-		{
-			get
-			{
-				return this._id;
-			}
-			set
-			{
-				if ((this._id != value))
-				{
-					this.OnidChanging(value);
-					this.SendPropertyChanging();
-					this._id = value;
-					this.SendPropertyChanged("id");
-					this.OnidChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ruc", DbType="VarChar(11)")]
-		public string ruc
-		{
-			get
-			{
-				return this._ruc;
-			}
-			set
-			{
-				if ((this._ruc != value))
-				{
-					this.OnrucChanging(value);
-					this.SendPropertyChanging();
-					this._ruc = value;
-					this.SendPropertyChanged("ruc");
-					this.OnrucChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_razonSoc", DbType="VarChar(200)")]
-		public string razonSoc
-		{
-			get
-			{
-				return this._razonSoc;
-			}
-			set
-			{
-				if ((this._razonSoc != value))
-				{
-					this.OnrazonSocChanging(value);
-					this.SendPropertyChanging();
-					this._razonSoc = value;
-					this.SendPropertyChanged("razonSoc");
-					this.OnrazonSocChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_tipo", DbType="VarChar(15)")]
-		public string tipo
-		{
-			get
-			{
-				return this._tipo;
-			}
-			set
-			{
-				if ((this._tipo != value))
-				{
-					this.OntipoChanging(value);
-					this.SendPropertyChanging();
-					this._tipo = value;
-					this.SendPropertyChanged("tipo");
-					this.OntipoChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_direccion", DbType="VarChar(200)")]
-		public string direccion
-		{
-			get
-			{
-				return this._direccion;
-			}
-			set
-			{
-				if ((this._direccion != value))
-				{
-					this.OndireccionChanging(value);
-					this.SendPropertyChanging();
-					this._direccion = value;
-					this.SendPropertyChanged("direccion");
-					this.OndireccionChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_telefono", DbType="VarChar(20)")]
-		public string telefono
-		{
-			get
-			{
-				return this._telefono;
-			}
-			set
-			{
-				if ((this._telefono != value))
-				{
-					this.OntelefonoChanging(value);
-					this.SendPropertyChanging();
-					this._telefono = value;
-					this.SendPropertyChanged("telefono");
-					this.OntelefonoChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_paginaWeb", DbType="VarChar(200)")]
-		public string paginaWeb
-		{
-			get
-			{
-				return this._paginaWeb;
-			}
-			set
-			{
-				if ((this._paginaWeb != value))
-				{
-					this.OnpaginaWebChanging(value);
-					this.SendPropertyChanging();
-					this._paginaWeb = value;
-					this.SendPropertyChanged("paginaWeb");
-					this.OnpaginaWebChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_contacto", DbType="VarChar(200)")]
-		public string contacto
-		{
-			get
-			{
-				return this._contacto;
-			}
-			set
-			{
-				if ((this._contacto != value))
-				{
-					this.OncontactoChanging(value);
-					this.SendPropertyChanging();
-					this._contacto = value;
-					this.SendPropertyChanged("contacto");
-					this.OncontactoChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_contactoTlf", DbType="VarChar(20)")]
-		public string contactoTlf
-		{
-			get
-			{
-				return this._contactoTlf;
-			}
-			set
-			{
-				if ((this._contactoTlf != value))
-				{
-					this.OncontactoTlfChanging(value);
-					this.SendPropertyChanging();
-					this._contactoTlf = value;
-					this.SendPropertyChanged("contactoTlf");
-					this.OncontactoTlfChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_id_rubro", DbType="SmallInt")]
-		public System.Nullable<short> id_rubro
-		{
-			get
-			{
-				return this._id_rubro;
-			}
-			set
-			{
-				if ((this._id_rubro != value))
-				{
-					if (this._Rubro.HasLoadedOrAssignedValue)
-					{
-						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
-					}
-					this.Onid_rubroChanging(value);
-					this.SendPropertyChanging();
-					this._id_rubro = value;
-					this.SendPropertyChanged("id_rubro");
-					this.Onid_rubroChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_estado", DbType="TinyInt")]
-		public System.Nullable<byte> estado
-		{
-			get
-			{
-				return this._estado;
-			}
-			set
-			{
-				if ((this._estado != value))
-				{
-					this.OnestadoChanging(value);
-					this.SendPropertyChanging();
-					this._estado = value;
-					this.SendPropertyChanged("estado");
-					this.OnestadoChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_id_ubigeo", DbType="Char(6)")]
-		public string id_ubigeo
-		{
-			get
-			{
-				return this._id_ubigeo;
-			}
-			set
-			{
-				if ((this._id_ubigeo != value))
-				{
-					if (this._UbigeoDistrito.HasLoadedOrAssignedValue)
-					{
-						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
-					}
-					this.Onid_ubigeoChanging(value);
-					this.SendPropertyChanging();
-					this._id_ubigeo = value;
-					this.SendPropertyChanged("id_ubigeo");
-					this.Onid_ubigeoChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_codigoPostal", DbType="VarChar(15)")]
-		public string codigoPostal
-		{
-			get
-			{
-				return this._codigoPostal;
-			}
-			set
-			{
-				if ((this._codigoPostal != value))
-				{
-					this.OncodigoPostalChanging(value);
-					this.SendPropertyChanging();
-					this._codigoPostal = value;
-					this.SendPropertyChanged("codigoPostal");
-					this.OncodigoPostalChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Proveedor_DocumentoCompra", Storage="_DocumentoCompra", ThisKey="id", OtherKey="id_proveedor")]
-		public EntitySet<DocumentoCompra> DocumentoCompra
-		{
-			get
-			{
-				return this._DocumentoCompra;
-			}
-			set
-			{
-				this._DocumentoCompra.Assign(value);
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Proveedor_ProveedorCatalogo", Storage="_ProveedorCatalogo", ThisKey="id", OtherKey="id_proveedor")]
-		public EntitySet<ProveedorCatalogo> ProveedorCatalogo
-		{
-			get
-			{
-				return this._ProveedorCatalogo;
-			}
-			set
-			{
-				this._ProveedorCatalogo.Assign(value);
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Proveedor_ProveedorProducto", Storage="_ProveedorProducto", ThisKey="id", OtherKey="id_proveedor")]
-		public EntitySet<ProveedorProducto> ProveedorProducto
-		{
-			get
-			{
-				return this._ProveedorProducto;
-			}
-			set
-			{
-				this._ProveedorProducto.Assign(value);
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Rubro_Proveedor", Storage="_Rubro", ThisKey="id_rubro", OtherKey="id", IsForeignKey=true)]
-		public Rubro Rubro
-		{
-			get
-			{
-				return this._Rubro.Entity;
-			}
-			set
-			{
-				Rubro previousValue = this._Rubro.Entity;
-				if (((previousValue != value) 
-							|| (this._Rubro.HasLoadedOrAssignedValue == false)))
-				{
-					this.SendPropertyChanging();
-					if ((previousValue != null))
-					{
-						this._Rubro.Entity = null;
-						previousValue.Proveedor.Remove(this);
-					}
-					this._Rubro.Entity = value;
-					if ((value != null))
-					{
-						value.Proveedor.Add(this);
-						this._id_rubro = value.id;
-					}
-					else
-					{
-						this._id_rubro = default(Nullable<short>);
-					}
-					this.SendPropertyChanged("Rubro");
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="UbigeoDistrito_Proveedor", Storage="_UbigeoDistrito", ThisKey="id_ubigeo", OtherKey="id", IsForeignKey=true)]
-		public UbigeoDistrito UbigeoDistrito
-		{
-			get
-			{
-				return this._UbigeoDistrito.Entity;
-			}
-			set
-			{
-				UbigeoDistrito previousValue = this._UbigeoDistrito.Entity;
-				if (((previousValue != value) 
-							|| (this._UbigeoDistrito.HasLoadedOrAssignedValue == false)))
-				{
-					this.SendPropertyChanging();
-					if ((previousValue != null))
-					{
-						this._UbigeoDistrito.Entity = null;
-						previousValue.Proveedor.Remove(this);
-					}
-					this._UbigeoDistrito.Entity = value;
-					if ((value != null))
-					{
-						value.Proveedor.Add(this);
-						this._id_ubigeo = value.id;
-					}
-					else
-					{
-						this._id_ubigeo = default(string);
-					}
-					this.SendPropertyChanged("UbigeoDistrito");
-				}
-			}
-		}
-		
-		public event PropertyChangingEventHandler PropertyChanging;
-		
-		public event PropertyChangedEventHandler PropertyChanged;
-		
-		protected virtual void SendPropertyChanging()
-		{
-			if ((this.PropertyChanging != null))
-			{
-				this.PropertyChanging(this, emptyChangingEventArgs);
-			}
-		}
-		
-		protected virtual void SendPropertyChanged(String propertyName)
-		{
-			if ((this.PropertyChanged != null))
-			{
-				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-			}
-		}
-		
-		private void attach_DocumentoCompra(DocumentoCompra entity)
-		{
-			this.SendPropertyChanging();
-			entity.Proveedor = this;
-		}
-		
-		private void detach_DocumentoCompra(DocumentoCompra entity)
-		{
-			this.SendPropertyChanging();
-			entity.Proveedor = null;
-		}
-		
-		private void attach_ProveedorCatalogo(ProveedorCatalogo entity)
-		{
-			this.SendPropertyChanging();
-			entity.Proveedor = this;
-		}
-		
-		private void detach_ProveedorCatalogo(ProveedorCatalogo entity)
-		{
-			this.SendPropertyChanging();
-			entity.Proveedor = null;
-		}
-		
-		private void attach_ProveedorProducto(ProveedorProducto entity)
-		{
-			this.SendPropertyChanging();
-			entity.Proveedor = this;
-		}
-		
-		private void detach_ProveedorProducto(ProveedorProducto entity)
-		{
-			this.SendPropertyChanging();
-			entity.Proveedor = null;
-		}
-	}
-	
 	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.ProveedorCatalogo")]
 	public partial class ProveedorCatalogo : INotifyPropertyChanging, INotifyPropertyChanged
 	{
@@ -13054,9 +12538,9 @@ namespace pe.edu.pucp.ferretin.model
 		
 		private EntityRef<Producto> _Producto;
 		
-		private EntityRef<Proveedor> _Proveedor;
-		
 		private EntityRef<UnidadMedida> _UnidadMedida;
+		
+		private EntityRef<Proveedor> _Proveedor;
 		
     #region Definiciones de métodos de extensibilidad
     partial void OnLoaded();
@@ -13081,8 +12565,8 @@ namespace pe.edu.pucp.ferretin.model
 		public ProveedorProducto()
 		{
 			this._Producto = default(EntityRef<Producto>);
-			this._Proveedor = default(EntityRef<Proveedor>);
 			this._UnidadMedida = default(EntityRef<UnidadMedida>);
+			this._Proveedor = default(EntityRef<Proveedor>);
 			OnCreated();
 		}
 		
@@ -13272,40 +12756,6 @@ namespace pe.edu.pucp.ferretin.model
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Proveedor_ProveedorProducto", Storage="_Proveedor", ThisKey="id_proveedor", OtherKey="id", IsForeignKey=true)]
-		public Proveedor Proveedor
-		{
-			get
-			{
-				return this._Proveedor.Entity;
-			}
-			set
-			{
-				Proveedor previousValue = this._Proveedor.Entity;
-				if (((previousValue != value) 
-							|| (this._Proveedor.HasLoadedOrAssignedValue == false)))
-				{
-					this.SendPropertyChanging();
-					if ((previousValue != null))
-					{
-						this._Proveedor.Entity = null;
-						previousValue.ProveedorProducto.Remove(this);
-					}
-					this._Proveedor.Entity = value;
-					if ((value != null))
-					{
-						value.ProveedorProducto.Add(this);
-						this._id_proveedor = value.id;
-					}
-					else
-					{
-						this._id_proveedor = default(Nullable<int>);
-					}
-					this.SendPropertyChanged("Proveedor");
-				}
-			}
-		}
-		
 		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="UnidadMedida_ProveedorProducto", Storage="_UnidadMedida", ThisKey="id_unidad", OtherKey="id", IsForeignKey=true)]
 		public UnidadMedida UnidadMedida
 		{
@@ -13336,6 +12786,40 @@ namespace pe.edu.pucp.ferretin.model
 						this._id_unidad = default(Nullable<short>);
 					}
 					this.SendPropertyChanged("UnidadMedida");
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Proveedor_ProveedorProducto", Storage="_Proveedor", ThisKey="id_proveedor", OtherKey="id", IsForeignKey=true)]
+		public Proveedor Proveedor
+		{
+			get
+			{
+				return this._Proveedor.Entity;
+			}
+			set
+			{
+				Proveedor previousValue = this._Proveedor.Entity;
+				if (((previousValue != value) 
+							|| (this._Proveedor.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._Proveedor.Entity = null;
+						previousValue.ProveedorProducto.Remove(this);
+					}
+					this._Proveedor.Entity = value;
+					if ((value != null))
+					{
+						value.ProveedorProducto.Add(this);
+						this._id_proveedor = value.id;
+					}
+					else
+					{
+						this._id_proveedor = default(Nullable<int>);
+					}
+					this.SendPropertyChanged("Proveedor");
 				}
 			}
 		}
@@ -14625,7 +14109,7 @@ namespace pe.edu.pucp.ferretin.model
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_foto", DbType="Image", CanBeNull=true, UpdateCheck=UpdateCheck.Never)]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_foto", DbType="Image", UpdateCheck=UpdateCheck.Never)]
 		public System.Data.Linq.Binary foto
 		{
 			get
@@ -15928,9 +15412,9 @@ namespace pe.edu.pucp.ferretin.model
 		
 		private EntitySet<Empleado> _Empleado;
 		
-		private EntitySet<Proveedor> _Proveedor;
-		
 		private EntitySet<Tienda> _Tienda;
+		
+		private EntitySet<Proveedor> _Proveedor;
 		
 		private EntityRef<UbigeoProvincia> _UbigeoProvincia;
 		
@@ -15950,8 +15434,8 @@ namespace pe.edu.pucp.ferretin.model
 		{
 			this._Cliente = new EntitySet<Cliente>(new Action<Cliente>(this.attach_Cliente), new Action<Cliente>(this.detach_Cliente));
 			this._Empleado = new EntitySet<Empleado>(new Action<Empleado>(this.attach_Empleado), new Action<Empleado>(this.detach_Empleado));
-			this._Proveedor = new EntitySet<Proveedor>(new Action<Proveedor>(this.attach_Proveedor), new Action<Proveedor>(this.detach_Proveedor));
 			this._Tienda = new EntitySet<Tienda>(new Action<Tienda>(this.attach_Tienda), new Action<Tienda>(this.detach_Tienda));
+			this._Proveedor = new EntitySet<Proveedor>(new Action<Proveedor>(this.attach_Proveedor), new Action<Proveedor>(this.detach_Proveedor));
 			this._UbigeoProvincia = default(EntityRef<UbigeoProvincia>);
 			OnCreated();
 		}
@@ -16046,19 +15530,6 @@ namespace pe.edu.pucp.ferretin.model
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="UbigeoDistrito_Proveedor", Storage="_Proveedor", ThisKey="id", OtherKey="id_ubigeo")]
-		public EntitySet<Proveedor> Proveedor
-		{
-			get
-			{
-				return this._Proveedor;
-			}
-			set
-			{
-				this._Proveedor.Assign(value);
-			}
-		}
-		
 		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="UbigeoDistrito_Tienda", Storage="_Tienda", ThisKey="id", OtherKey="id_ubigeo")]
 		public EntitySet<Tienda> Tienda
 		{
@@ -16069,6 +15540,19 @@ namespace pe.edu.pucp.ferretin.model
 			set
 			{
 				this._Tienda.Assign(value);
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="UbigeoDistrito_Proveedor", Storage="_Proveedor", ThisKey="id", OtherKey="id_ubigeo")]
+		public EntitySet<Proveedor> Proveedor
+		{
+			get
+			{
+				return this._Proveedor;
+			}
+			set
+			{
+				this._Proveedor.Assign(value);
 			}
 		}
 		
@@ -16150,18 +15634,6 @@ namespace pe.edu.pucp.ferretin.model
 			entity.UbigeoDistrito = null;
 		}
 		
-		private void attach_Proveedor(Proveedor entity)
-		{
-			this.SendPropertyChanging();
-			entity.UbigeoDistrito = this;
-		}
-		
-		private void detach_Proveedor(Proveedor entity)
-		{
-			this.SendPropertyChanging();
-			entity.UbigeoDistrito = null;
-		}
-		
 		private void attach_Tienda(Tienda entity)
 		{
 			this.SendPropertyChanging();
@@ -16169,6 +15641,18 @@ namespace pe.edu.pucp.ferretin.model
 		}
 		
 		private void detach_Tienda(Tienda entity)
+		{
+			this.SendPropertyChanging();
+			entity.UbigeoDistrito = null;
+		}
+		
+		private void attach_Proveedor(Proveedor entity)
+		{
+			this.SendPropertyChanging();
+			entity.UbigeoDistrito = this;
+		}
+		
+		private void detach_Proveedor(Proveedor entity)
 		{
 			this.SendPropertyChanging();
 			entity.UbigeoDistrito = null;
@@ -18645,6 +18129,522 @@ namespace pe.edu.pucp.ferretin.model
 			{
 				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
 			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Proveedor")]
+	public partial class Proveedor : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private int _id;
+		
+		private string _ruc;
+		
+		private string _razonSoc;
+		
+		private string _tipo;
+		
+		private string _direccion;
+		
+		private string _telefono;
+		
+		private string _paginaWeb;
+		
+		private string _contacto;
+		
+		private string _contactoTlf;
+		
+		private System.Nullable<short> _id_rubro;
+		
+		private System.Nullable<int> _estado;
+		
+		private string _id_ubigeo;
+		
+		private string _codigoPostal;
+		
+		private EntitySet<DocumentoCompra> _DocumentoCompra;
+		
+		private EntitySet<ProveedorCatalogo> _ProveedorCatalogo;
+		
+		private EntitySet<ProveedorProducto> _ProveedorProducto;
+		
+		private EntityRef<Rubro> _Rubro;
+		
+		private EntityRef<UbigeoDistrito> _UbigeoDistrito;
+		
+    #region Definiciones de métodos de extensibilidad
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnidChanging(int value);
+    partial void OnidChanged();
+    partial void OnrucChanging(string value);
+    partial void OnrucChanged();
+    partial void OnrazonSocChanging(string value);
+    partial void OnrazonSocChanged();
+    partial void OntipoChanging(string value);
+    partial void OntipoChanged();
+    partial void OndireccionChanging(string value);
+    partial void OndireccionChanged();
+    partial void OntelefonoChanging(string value);
+    partial void OntelefonoChanged();
+    partial void OnpaginaWebChanging(string value);
+    partial void OnpaginaWebChanged();
+    partial void OncontactoChanging(string value);
+    partial void OncontactoChanged();
+    partial void OncontactoTlfChanging(string value);
+    partial void OncontactoTlfChanged();
+    partial void Onid_rubroChanging(System.Nullable<short> value);
+    partial void Onid_rubroChanged();
+    partial void OnestadoChanging(System.Nullable<int> value);
+    partial void OnestadoChanged();
+    partial void Onid_ubigeoChanging(string value);
+    partial void Onid_ubigeoChanged();
+    partial void OncodigoPostalChanging(string value);
+    partial void OncodigoPostalChanged();
+    #endregion
+		
+		public Proveedor()
+		{
+			this._DocumentoCompra = new EntitySet<DocumentoCompra>(new Action<DocumentoCompra>(this.attach_DocumentoCompra), new Action<DocumentoCompra>(this.detach_DocumentoCompra));
+			this._ProveedorCatalogo = new EntitySet<ProveedorCatalogo>(new Action<ProveedorCatalogo>(this.attach_ProveedorCatalogo), new Action<ProveedorCatalogo>(this.detach_ProveedorCatalogo));
+			this._ProveedorProducto = new EntitySet<ProveedorProducto>(new Action<ProveedorProducto>(this.attach_ProveedorProducto), new Action<ProveedorProducto>(this.detach_ProveedorProducto));
+			this._Rubro = default(EntityRef<Rubro>);
+			this._UbigeoDistrito = default(EntityRef<UbigeoDistrito>);
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_id", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
+		public int id
+		{
+			get
+			{
+				return this._id;
+			}
+			set
+			{
+				if ((this._id != value))
+				{
+					this.OnidChanging(value);
+					this.SendPropertyChanging();
+					this._id = value;
+					this.SendPropertyChanged("id");
+					this.OnidChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ruc", DbType="VarChar(11)")]
+		public string ruc
+		{
+			get
+			{
+				return this._ruc;
+			}
+			set
+			{
+				if ((this._ruc != value))
+				{
+					this.OnrucChanging(value);
+					this.SendPropertyChanging();
+					this._ruc = value;
+					this.SendPropertyChanged("ruc");
+					this.OnrucChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_razonSoc", DbType="VarChar(200)")]
+		public string razonSoc
+		{
+			get
+			{
+				return this._razonSoc;
+			}
+			set
+			{
+				if ((this._razonSoc != value))
+				{
+					this.OnrazonSocChanging(value);
+					this.SendPropertyChanging();
+					this._razonSoc = value;
+					this.SendPropertyChanged("razonSoc");
+					this.OnrazonSocChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_tipo", DbType="VarChar(15)")]
+		public string tipo
+		{
+			get
+			{
+				return this._tipo;
+			}
+			set
+			{
+				if ((this._tipo != value))
+				{
+					this.OntipoChanging(value);
+					this.SendPropertyChanging();
+					this._tipo = value;
+					this.SendPropertyChanged("tipo");
+					this.OntipoChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_direccion", DbType="VarChar(200)")]
+		public string direccion
+		{
+			get
+			{
+				return this._direccion;
+			}
+			set
+			{
+				if ((this._direccion != value))
+				{
+					this.OndireccionChanging(value);
+					this.SendPropertyChanging();
+					this._direccion = value;
+					this.SendPropertyChanged("direccion");
+					this.OndireccionChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_telefono", DbType="VarChar(20)")]
+		public string telefono
+		{
+			get
+			{
+				return this._telefono;
+			}
+			set
+			{
+				if ((this._telefono != value))
+				{
+					this.OntelefonoChanging(value);
+					this.SendPropertyChanging();
+					this._telefono = value;
+					this.SendPropertyChanged("telefono");
+					this.OntelefonoChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_paginaWeb", DbType="VarChar(200)")]
+		public string paginaWeb
+		{
+			get
+			{
+				return this._paginaWeb;
+			}
+			set
+			{
+				if ((this._paginaWeb != value))
+				{
+					this.OnpaginaWebChanging(value);
+					this.SendPropertyChanging();
+					this._paginaWeb = value;
+					this.SendPropertyChanged("paginaWeb");
+					this.OnpaginaWebChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_contacto", DbType="VarChar(200)")]
+		public string contacto
+		{
+			get
+			{
+				return this._contacto;
+			}
+			set
+			{
+				if ((this._contacto != value))
+				{
+					this.OncontactoChanging(value);
+					this.SendPropertyChanging();
+					this._contacto = value;
+					this.SendPropertyChanged("contacto");
+					this.OncontactoChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_contactoTlf", DbType="VarChar(20)")]
+		public string contactoTlf
+		{
+			get
+			{
+				return this._contactoTlf;
+			}
+			set
+			{
+				if ((this._contactoTlf != value))
+				{
+					this.OncontactoTlfChanging(value);
+					this.SendPropertyChanging();
+					this._contactoTlf = value;
+					this.SendPropertyChanged("contactoTlf");
+					this.OncontactoTlfChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_id_rubro", DbType="SmallInt")]
+		public System.Nullable<short> id_rubro
+		{
+			get
+			{
+				return this._id_rubro;
+			}
+			set
+			{
+				if ((this._id_rubro != value))
+				{
+					if (this._Rubro.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.Onid_rubroChanging(value);
+					this.SendPropertyChanging();
+					this._id_rubro = value;
+					this.SendPropertyChanged("id_rubro");
+					this.Onid_rubroChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_estado", DbType="Int")]
+		public System.Nullable<int> estado
+		{
+			get
+			{
+				return this._estado;
+			}
+			set
+			{
+				if ((this._estado != value))
+				{
+					this.OnestadoChanging(value);
+					this.SendPropertyChanging();
+					this._estado = value;
+					this.SendPropertyChanged("estado");
+					this.OnestadoChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_id_ubigeo", DbType="Char(6)")]
+		public string id_ubigeo
+		{
+			get
+			{
+				return this._id_ubigeo;
+			}
+			set
+			{
+				if ((this._id_ubigeo != value))
+				{
+					if (this._UbigeoDistrito.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.Onid_ubigeoChanging(value);
+					this.SendPropertyChanging();
+					this._id_ubigeo = value;
+					this.SendPropertyChanged("id_ubigeo");
+					this.Onid_ubigeoChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_codigoPostal", DbType="VarChar(15)")]
+		public string codigoPostal
+		{
+			get
+			{
+				return this._codigoPostal;
+			}
+			set
+			{
+				if ((this._codigoPostal != value))
+				{
+					this.OncodigoPostalChanging(value);
+					this.SendPropertyChanging();
+					this._codigoPostal = value;
+					this.SendPropertyChanged("codigoPostal");
+					this.OncodigoPostalChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Proveedor_DocumentoCompra", Storage="_DocumentoCompra", ThisKey="id", OtherKey="id_proveedor")]
+		public EntitySet<DocumentoCompra> DocumentoCompra
+		{
+			get
+			{
+				return this._DocumentoCompra;
+			}
+			set
+			{
+				this._DocumentoCompra.Assign(value);
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Proveedor_ProveedorCatalogo", Storage="_ProveedorCatalogo", ThisKey="id", OtherKey="id_proveedor")]
+		public EntitySet<ProveedorCatalogo> ProveedorCatalogo
+		{
+			get
+			{
+				return this._ProveedorCatalogo;
+			}
+			set
+			{
+				this._ProveedorCatalogo.Assign(value);
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Proveedor_ProveedorProducto", Storage="_ProveedorProducto", ThisKey="id", OtherKey="id_proveedor")]
+		public EntitySet<ProveedorProducto> ProveedorProducto
+		{
+			get
+			{
+				return this._ProveedorProducto;
+			}
+			set
+			{
+				this._ProveedorProducto.Assign(value);
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Rubro_Proveedor", Storage="_Rubro", ThisKey="id_rubro", OtherKey="id", IsForeignKey=true)]
+		public Rubro Rubro
+		{
+			get
+			{
+				return this._Rubro.Entity;
+			}
+			set
+			{
+				Rubro previousValue = this._Rubro.Entity;
+				if (((previousValue != value) 
+							|| (this._Rubro.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._Rubro.Entity = null;
+						previousValue.Proveedor.Remove(this);
+					}
+					this._Rubro.Entity = value;
+					if ((value != null))
+					{
+						value.Proveedor.Add(this);
+						this._id_rubro = value.id;
+					}
+					else
+					{
+						this._id_rubro = default(Nullable<short>);
+					}
+					this.SendPropertyChanged("Rubro");
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="UbigeoDistrito_Proveedor", Storage="_UbigeoDistrito", ThisKey="id_ubigeo", OtherKey="id", IsForeignKey=true)]
+		public UbigeoDistrito UbigeoDistrito
+		{
+			get
+			{
+				return this._UbigeoDistrito.Entity;
+			}
+			set
+			{
+				UbigeoDistrito previousValue = this._UbigeoDistrito.Entity;
+				if (((previousValue != value) 
+							|| (this._UbigeoDistrito.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._UbigeoDistrito.Entity = null;
+						previousValue.Proveedor.Remove(this);
+					}
+					this._UbigeoDistrito.Entity = value;
+					if ((value != null))
+					{
+						value.Proveedor.Add(this);
+						this._id_ubigeo = value.id;
+					}
+					else
+					{
+						this._id_ubigeo = default(string);
+					}
+					this.SendPropertyChanged("UbigeoDistrito");
+				}
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+		
+		private void attach_DocumentoCompra(DocumentoCompra entity)
+		{
+			this.SendPropertyChanging();
+			entity.Proveedor = this;
+		}
+		
+		private void detach_DocumentoCompra(DocumentoCompra entity)
+		{
+			this.SendPropertyChanging();
+			entity.Proveedor = null;
+		}
+		
+		private void attach_ProveedorCatalogo(ProveedorCatalogo entity)
+		{
+			this.SendPropertyChanging();
+			entity.Proveedor = this;
+		}
+		
+		private void detach_ProveedorCatalogo(ProveedorCatalogo entity)
+		{
+			this.SendPropertyChanging();
+			entity.Proveedor = null;
+		}
+		
+		private void attach_ProveedorProducto(ProveedorProducto entity)
+		{
+			this.SendPropertyChanging();
+			entity.Proveedor = this;
+		}
+		
+		private void detach_ProveedorProducto(ProveedorProducto entity)
+		{
+			this.SendPropertyChanging();
+			entity.Proveedor = null;
 		}
 	}
 }

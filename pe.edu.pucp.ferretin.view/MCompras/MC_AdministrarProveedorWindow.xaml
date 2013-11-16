@@ -49,7 +49,7 @@
                             <ImageBrush ImageSource="../Resources/refresh2_48.png"/>
                         </Button.Background>
                     </Button>
-                    <DataGrid ItemsSource="{Binding Path=listaProveedores}" Margin="10,156,10.105,-31.791" AutoGenerateColumns="False" CanUserAddRows="False" CanUserDeleteRows="False" IsReadOnly="True" Grid.ColumnSpan="2">
+                    <DataGrid ItemsSource="{Binding Path=listaProveedores}" Margin="10,156,10.105,-31.791" AutoGenerateColumns="False" CanUserAddRows="False" CanUserDeleteRows="False" IsReadOnly="True" Grid.ColumnSpan="2" VerticalAlignment="Center" HorizontalAlignment="Center">
                         <DataGrid.Columns>
                             <DataGridTemplateColumn Width="2.5*" Header="Código">
                                 <DataGridTemplateColumn.CellTemplate>
@@ -70,7 +70,13 @@
                             </DataGridTextColumn>
                             <DataGridTextColumn Width="3*" Header="Dirección" Binding="{Binding Path= direccion}"/>
 
-                            <DataGridCheckBoxColumn Width="1.28*" Binding="{x:Null}" ClipboardContentBinding="{x:Null}" Header="Seleccionar" />
+                            <DataGridTemplateColumn Header="Seleccionar"  >
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <CheckBox IsChecked="{Binding isSelected, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged,NotifyOnSourceUpdated=True,NotifyOnTargetUpdated=True}"  HorizontalAlignment="Center"/>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
                         </DataGrid.Columns>
                     </DataGrid>
                     <ToolBar HorizontalAlignment="Left" Margin="10,127,0,0" VerticalAlignment="Top" Height="24">
@@ -171,12 +177,17 @@
                         </Button>
                     </ToolBar>
                     <Label Content="Catálogo de Productos:" Grid.Column="3" HorizontalAlignment="Left" Margin="355,15,0,0" VerticalAlignment="Top" Height="26" Width="131" Grid.ColumnSpan="2"/>
-                    <TextBox Text="{Binding Path=proveedor.codigoPostal, Mode=TwoWay, UpdateSourceTrigger=LostFocus, NotifyOnValidationError=True, ValidatesOnDataErrors=True, ValidatesOnExceptions=True}" Grid.Column="3" HorizontalAlignment="Left" Height="23" Margin="101.33,306,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="120"/>
+                    <TextBox Text="{Binding Path=proveedor.codigoPostal, Mode=TwoWay, UpdateSourceTrigger=LostFocus, NotifyOnValidationError=True, ValidatesOnDataErrors=True, ValidatesOnExceptions=True}" Grid.Column="3" HorizontalAlignment="Left" Height="23" Margin="101.33,306,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="66"/>
                     <TextBox  Text="{Binding codProdAgregar,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" Grid.Column="4" HorizontalAlignment="Left" Height="20" Margin="90.895,43,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="173"/>
                     <Label Content="Cod. Producto" Grid.Column="3" HorizontalAlignment="Left" Margin="361.33,41,0,0" VerticalAlignment="Top" Grid.ColumnSpan="2" Width="96" RenderTransformOrigin="0.505,0.217" Height="24"/>
                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
                         <TextBlock  Text="{Binding proveedor.Errors, Mode=OneWay}" TextWrapping="Wrap" Foreground="Red"  />
                     </StackPanel>
+                    <ComboBox SelectedIndex="{Binding Path=proveedor.estado1, Mode=TwoWay, UpdateSourceTrigger=LostFocus, NotifyOnValidationError=True, ValidatesOnDataErrors=True, ValidatesOnExceptions=True}" Grid.Column="3" HorizontalAlignment="Left" Margin="235.33,305,0,0" VerticalAlignment="Top" Width="92">
+                    <ComboBoxItem Content="Activo"></ComboBoxItem>
+                    <ComboBoxItem Content="Inactivo"></ComboBoxItem>
+                    </ComboBox>
+                    <Label Content="Estado:" Grid.Column="3" HorizontalAlignment="Left" Margin="179.33,304,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.062,0.614"/>
                 </Grid>
             </TabItem>
         </TabControl>
