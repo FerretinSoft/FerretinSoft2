@@ -123,9 +123,8 @@
                     </GroupBox>
                     <GroupBox Header="Horarios de Atención" Margin="20,212,0,119" BorderBrush="Black" Grid.ColumnSpan="3" Grid.Column="5"/>
                     <GroupBox Header="Tienda" Margin="10,0,0,181" BorderBrush="Black" Grid.ColumnSpan="4" Grid.Column="1"/>
-                    <Button Command="{Binding uploadImageCommand}" Width="172" Margin="94,26,0,0"  HorizontalAlignment="Left" Height="173" VerticalAlignment="Top" Grid.Column="6" Grid.ColumnSpan="2">
-                        <Image Source="{Binding tiendaImagen,Mode=OneWay,UpdateSourceTrigger=PropertyChanged}" Stretch="Fill">
-                        </Image>
+                    <Button x:Name="buttonNombre" Command="{Binding uploadImageCommand}" Width="172" Margin="94,26,0,0"  HorizontalAlignment="Left" Height="173" VerticalAlignment="Top" Grid.Column="6" Grid.ColumnSpan="2">                        
+                            <Image Source="{Binding tiendaImagen,Mode=OneWay,UpdateSourceTrigger=PropertyChanged}" Stretch="Fill"/>                                                
                     </Button>
                     <Label Content="Código:" HorizontalAlignment="Left" Margin="1,26,0,0" VerticalAlignment="Top" Grid.Column="3" Height="26" Width="50"/>
                     <TextBox Text="{Binding Path=almacen.codigo, Mode=TwoWay}" x:Name="codigoTiendaTxtBox" HorizontalAlignment="Left" Height="23" Margin="10,28,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="84"  Grid.Column="4" SpellCheck.IsEnabled="True" IsEnabled="False"/>
@@ -665,7 +664,7 @@
                     <Label Content="Email:" HorizontalAlignment="Left" Margin="11,554,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.464,1.231" Height="30" Width="41" Grid.Column="3"/>
                     <TextBox Text="{Binding Path=almacen.Empleado.email,Mode=OneWay}" HorizontalAlignment="Left" Height="26" Margin="10,554,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="275" Grid.Column="4" IsEnabled="False"/>
                     <Label Content="Fecha de &#xA;Cierre:" HorizontalAlignment="Left" Margin="2,321,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.464,1.231" Grid.ColumnSpan="2" Height="40" Grid.Column="2" Width="75"/>
-                    <DatePicker SelectedDate="{Binding Path=almacen.fecCierre, Mode=TwoWay, ValidatesOnExceptions=true, NotifyOnValidationError=true}" x:Name="fechCierreTiendaTxtBox" HorizontalAlignment="Left" Margin="10,334,0,0" VerticalAlignment="Top" Grid.Column="4" Height="27" Width="123"/>
+                    <DatePicker SelectedDate="{Binding Path=almacen.fecCierre, Mode=TwoWay, ValidatesOnExceptions=true, NotifyOnValidationError=true}"  x:Name="fechCierreTiendaTxtBox" HorizontalAlignment="Left" Margin="10,334,0,0" VerticalAlignment="Top" Grid.Column="4" Height="27" Width="123" IsEnabled="False"/>
                     <Label Content="Estado:" HorizontalAlignment="Left" Margin="121,26,0,0" VerticalAlignment="Top" Grid.Column="4" Height="26" Width="50"/>
                     <ComboBox SelectedIndex="{Binding Path=almacen.estado, Mode=TwoWay, FallbackValue=1 }"  x:Name="estadoCombo" HorizontalAlignment="Left" Margin="186,26,0,0" VerticalAlignment="Top" Width="105" Grid.Column="4" Height="26">
                         <ComboBoxItem Content="Inactivo"></ComboBoxItem>

@@ -139,7 +139,7 @@ namespace pe.edu.pucp.ferretin.viewmodel.MSeguridad
                         selectedTipo = -1;
                         almacen.fecCreacion = DateTime.Today;
                         almacen.estado = 1;
-                        tiendaImagen = null;
+                        tiendaImagen = null;                        
                         break;//Si es agregar, creo un nuevo objeto Almacen
                     case Tab.MODIFICAR: detallesTabHeader = "Modificar"; tiendaImagen = null; break;
                     case Tab.DETALLES: detallesTabHeader = "Detalles"; break;
@@ -379,7 +379,9 @@ namespace pe.edu.pucp.ferretin.viewmodel.MSeguridad
         }
         /**************************************************/
         public void saveAlmacen(Object obj)
-        {            
+        {
+            if (almacen.estado == 0) almacen.fecCierre = DateTime.Today; else { almacen.fecCierre = null; }
+
             if (almacen.id > 0)//Actualizar Tienda
             {
                 ComunService.idVentana(8);
@@ -498,7 +500,7 @@ namespace pe.edu.pucp.ferretin.viewmodel.MSeguridad
                         _tiendaImagen = bitmapImage;
                     }
                     return _tiendaImagen;
-                } catch(Exception e){
+                } catch(Exception ){
                     return _tiendaImagen;
                 }
              
@@ -526,7 +528,7 @@ namespace pe.edu.pucp.ferretin.viewmodel.MSeguridad
                 
                     }
                 }
-                catch (Exception e)
+                catch (Exception )
                 {
                     return _selectedTipo;
 
