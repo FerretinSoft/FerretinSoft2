@@ -1,8 +1,8 @@
-﻿<Window x:Class="pe.edu.pucp.ferretin.view.MSeguridad.Window2"
+﻿<Window x:Class="pe.edu.pucp.ferretin.view.MSeguridad.MS_ReporteWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:my="clr-namespace:SAPBusinessObjects.WPF.Viewer;assembly=SAPBusinessObjects.WPF.Viewer" 
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:my="clr-namespace:SAPBusinessObjects.WPF.Viewer;assembly=SAPBusinessObjects.WPF.Viewer"
-        Title="Window2" Height="487.007" Width="722.368">
+        Title="MS_ReporteWindow" Height="424.749" Width="714.474">
     <Grid>
         <my:CrystalReportsViewer x:Name="VisorDelReporte" Refresh="VisorDelReporte_Refresh" />
     </Grid>

@@ -88,9 +88,8 @@ namespace pe.edu.pucp.ferretin.view.MSeguridad
         private void auditTransaccionesBtn_Click(object sender, RoutedEventArgs e)
         {
 
-
-            Window2 reporte = new Window2();
-            reporte.Show();
+            MS_ReporteWindow rw = new MS_ReporteWindow();
+            rw.Show();
 
             /*
             if (ComunService.usuarioLpermisos[32].estado == true)

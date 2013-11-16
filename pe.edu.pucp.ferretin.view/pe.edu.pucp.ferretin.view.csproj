@@ -241,7 +241,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="MSeguridad\Window2.xaml">
+    <Page Include="MSeguridad\MS_ReporteWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -393,12 +393,6 @@
     <Compile Include="MRecursosHumanos\MR_MainWindow.xaml.cs">
       <DependentUpon>MR_MainWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="MSeguridad\CrystalReport2.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>CrystalReport2.rpt</DependentUpon>
-      <SubType>Component</SubType>
-    </Compile>
     <Compile Include="MSeguridad\MS_AdministrarArbolPerfiles.xaml.cs">
       <DependentUpon>MS_AdministrarArbolPerfiles.xaml</DependentUpon>
     </Compile>
@@ -426,8 +420,14 @@
     <Compile Include="MSeguridad\MS_ParametrosWindow.xaml.cs">
       <DependentUpon>MS_ParametrosWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="MSeguridad\Window2.xaml.cs">
-      <DependentUpon>Window2.xaml</DependentUpon>
+    <Compile Include="MSeguridad\MS_ReporteWindow.xaml.cs">
+      <DependentUpon>MS_ReporteWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="MSeguridad\ReporteDeTransacciones.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ReporteDeTransacciones.rpt</DependentUpon>
+      <SubType>Component</SubType>
     </Compile>
     <Compile Include="MVentas\MV_AdministrarNotaCreditoWindow.xaml.cs">
       <DependentUpon>MV_AdministrarNotaCreditoWindow.xaml</DependentUpon>
@@ -493,9 +493,9 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
-    <EmbeddedResource Include="MSeguridad\CrystalReport2.rpt">
+    <EmbeddedResource Include="MSeguridad\ReporteDeTransacciones.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
-      <LastGenOutput>CrystalReport2.cs</LastGenOutput>
+      <LastGenOutput>ReporteDeTransacciones.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
