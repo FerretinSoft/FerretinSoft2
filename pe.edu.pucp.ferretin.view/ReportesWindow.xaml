@@ -1,0 +1,73 @@
+﻿<Window x:Class="pe.edu.pucp.ferretin.view.ReportesWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Reportes" WindowStartupLocation="CenterScreen" Height="550" Width="525" Icon="/Resources/ferretin_ico.ico" ResizeMode="CanMinimize">
+    <Grid>
+        <Grid Margin="0">
+            <Grid.Background>
+                <ImageBrush ImageSource="Resources/texture_1_100.png" TileMode="FlipX" 
+    				Viewport="0,0,100,100" ViewportUnits="Absolute"/>
+            </Grid.Background>
+            <Grid.RowDefinitions>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+            <Button x:Name="homeBtn" Content="" HorizontalAlignment="Left" Margin="20,20,0,0" VerticalAlignment="Top" Width="32" Height="32" Click="homeBtn_Click">
+                <Button.Background>
+                    <ImageBrush ImageSource="Resources/home_32.png" Stretch="None"/>
+                </Button.Background>
+            </Button>
+            <Grid HorizontalAlignment="Center" VerticalAlignment="Center" Margin="84,29,85,57" Height="435" Width="350">
+                <Label Content="Reportes" HorizontalAlignment="Center" Margin="0,10,0,0" VerticalAlignment="Top" FontSize="24" FontWeight="Bold"/>
+                <Button x:Name="RepAlmBtn" Content="" HorizontalAlignment="Left" Margin="30,100,0,0" VerticalAlignment="Top" Width="32" Height="32" Click="RepAlmBtn_Click">
+                    <Button.Background>
+                        <ImageBrush ImageSource="Resources/forward_32.png"/>
+                    </Button.Background>
+                </Button>
+                <Button x:Name="RepVenBtn" Content="" HorizontalAlignment="Left" Margin="30,147,0,0" VerticalAlignment="Top" Width="32" Height="32" Click="RepVenBtn_Click">
+                    <Button.Background>
+                        <ImageBrush ImageSource="Resources/forward_32.png"/>
+                    </Button.Background>
+                </Button>
+                <Button x:Name="RepSegBtn" Content="" HorizontalAlignment="Left" Margin="30,241,0,0" VerticalAlignment="Top" Width="32" Height="32" Click="RepSegBtn_Click">
+                    <Button.Background>
+                        <ImageBrush ImageSource="Resources/forward_32.png"/>
+                    </Button.Background>
+                </Button>
+                <Label Content="Reportes de Almacen" HorizontalAlignment="Left" Margin="80,100,0,0" VerticalAlignment="Top" FontSize="16"/>
+                <Label Content="Reportes de Ventas" HorizontalAlignment="Left" Margin="80,147,0,0" VerticalAlignment="Top" FontSize="16"/>
+                <Label Content="Reportes de Seguridad" HorizontalAlignment="Left" Margin="80,241,0,0" VerticalAlignment="Top" FontSize="16"/>
+                <Button x:Name="RepComBtn" Content="" HorizontalAlignment="Left" Margin="30,194,0,0" VerticalAlignment="Top" Width="32" Height="32" Click="RepComBtn_Click">
+                    <Button.Background>
+                        <ImageBrush ImageSource="Resources/forward_32.png"/>
+                    </Button.Background>
+                </Button>
+                <Label Content="Reportes de Compras" HorizontalAlignment="Left" Margin="80,194,0,0" VerticalAlignment="Top" FontSize="16"/>
+            </Grid>
+            <StatusBar Height="35" VerticalAlignment="Bottom">
+                <StatusBar.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="*"/>
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition/>
+                                <ColumnDefinition/>
+                            </Grid.ColumnDefinitions>
+                        </Grid>
+                    </ItemsPanelTemplate>
+                </StatusBar.ItemsPanel>
+                <StatusBarItem>
+                    <Label Content="Jueves, 12/09/2013 02:24 p.m." HorizontalAlignment="Left" Margin="0" VerticalAlignment="Top" RenderTransformOrigin="0.474,-0.154" Width="171"/>
+                </StatusBarItem>
+                <StatusBarItem Grid.Column="1" HorizontalAlignment="Right">
+                    <Label Content="© 2013 Ferretin Corp" Width="134" Margin="0" HorizontalAlignment="Right"/>
+                </StatusBarItem>
+            </StatusBar>
+
+        </Grid>
+
+
+
+    </Grid>
+</Window>

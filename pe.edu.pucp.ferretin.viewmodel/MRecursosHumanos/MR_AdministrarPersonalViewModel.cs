@@ -247,7 +247,7 @@ namespace pe.edu.pucp.ferretin.viewmodel.MRecursosHumanos
                     case Tab.BUSQUEDA: detallesTabHeader = "Agregar"; empleadoImagen = null; ; empleado = new Empleado(); break;//Si es agregar, creo un nuevo objeto Empleado
                     case Tab.AGREGAR: detallesTabHeader = "Agregar"; empleado = new Empleado();
                         try { this.selectedDepartamento.id = "15"; empleado.EmpleadoTienda = null; empleadoImagen = null; }
-                        catch(Exception e) { }
+                        catch(Exception ) { }
                             break;//Si es agregar, creo un nuevo objeto Empleado
                     case Tab.MODIFICAR: detallesTabHeader = "Modificar"; empleadoImagen = null; break;
                     case Tab.DETALLES: detallesTabHeader = "Detalles";  break;
@@ -260,6 +260,7 @@ namespace pe.edu.pucp.ferretin.viewmodel.MRecursosHumanos
                 ////////////NotifyPropertyChanged("listaEmpleadoTurno");
                 ////////////NotifyPropertyChanged("listaEmpleadoTiendas");
                 NotifyPropertyChanged("empleadoImagen");
+                NotifyPropertyChanged("selectedEmpleadoEstado");
 
             }
         }
@@ -307,6 +308,7 @@ namespace pe.edu.pucp.ferretin.viewmodel.MRecursosHumanos
 
                 NotifyPropertyChanged("empleado");
                 NotifyPropertyChanged("empleadoImagen");
+                NotifyPropertyChanged("selectedEmpleadoEstado");
             }
         }
         
@@ -484,13 +486,13 @@ namespace pe.edu.pucp.ferretin.viewmodel.MRecursosHumanos
 
                 this.empleado = listaEmpleados.Single(empleado => empleado.codEmpleado == (int)codEmpleado);
 
-                foreach (EmpleadoTurno et in this.empleado.EmpleadoTurno)
-                {
-                    if (et.estado == 1 && et.id_turno == null) et.estado = 0;
-                    if (et.estado == 0) et.id_turno = null;
-                    if (et.id_turno == 0) et.id_turno = null;
+                //foreach (EmpleadoTurno et in this.empleado.EmpleadoTurno)
+                //{
+                //    if (et.estado == 1 && et.id_turno == null) et.estado = 0;
+                //    if (et.estado == 0) et.id_turno = null;
+                //    if (et.id_turno == 0) et.id_turno = null;
 
-                }
+                //}
 
               
 
@@ -520,14 +522,21 @@ namespace pe.edu.pucp.ferretin.viewmodel.MRecursosHumanos
                     if (empleado.id > 0)//Si existe
                     {
                         ComunService.idVentana(2);
+
                         foreach (EmpleadoTurno et in empleado.EmpleadoTurno)
                         {
-                            if (et.estado == 1 && et.id_turno == null) et.estado = 0;
-                            if (et.id_turno == 0) et.id_turno = null;
-
-
+                            if (et.id_turno==0 )
+                                et.id_turno = null;
+                        
                         }
-                        if (VerificaCamposObligatorios(empleado) && VerificaTurnosEmpleado(empleado))
+                        //foreach (EmpleadoTurno et in empleado.EmpleadoTurno)
+                        //{
+                        //    if (et.estado == 1 && et.id_turno == null) et.estado = 0;
+                        //    if (et.id_turno == 0) et.id_turno = null;
+
+
+                        //}
+                        if (VerificaCamposObligatorios(empleado))
                         {
                             
 
@@ -597,6 +606,26 @@ namespace pe.edu.pucp.ferretin.viewmodel.MRecursosHumanos
       
         }
 
+        private int _selectedEmpleadoEstado = 1;
+        public int selectedEmpleadoEstado {
+            get {
+                if (empleado.estado != null)
+                    return (Int32)empleado.estado;
+                else
+                    return _selectedEmpleadoEstado;
+ 
+            }
+            set { 
+                _selectedEmpleadoEstado = value;
+                if (_selectedEmpleadoEstado == 1) empleado.estado = (byte)1;
+                else
+                {
+                    empleado.estado = (byte)0;
+                }
+            NotifyPropertyChanged("selectedEmpleadoEstado");
+            }
+
+        }
 
 
         private bool canSaveExecute(object obj)
@@ -612,9 +641,9 @@ namespace pe.edu.pucp.ferretin.viewmodel.MRecursosHumanos
             if (empleado.nombre == null || empleado.nombre == "" || empleado.apPaterno == null || empleado.apPaterno == "" ||
                 empleado.apMaterno == null || empleado.apMaterno == "" || empleado.direccion == null || empleado.direccion == "" ||
                 empleado.direccion == null || empleado.direccion == "" || selectedDepartamento == null || selectedProvincia == null ||
-                empleado.UbigeoDistrito == null || empleado.telefono1 == null || empleado.telefono1 == "" || empleado.telefono1 == "" ||
+                empleado.UbigeoDistrito == null || empleado.telefono1 == null || empleado.telefono1 == "" || 
                 empleado.fecNacimiento == null || empleado.sexo ==null || empleado.cargoActual == null || empleado.tiendaActual == null ||
-                empleado.GradoInstruccion == null || empleado.ultimoSueldo <= 0  || empleado.estado == 0)
+                empleado.GradoInstruccion == null || empleado.ultimoSueldo <= 0 )
 
             {
                 MessageBox.Show("Completar todos los datos obligatorios");

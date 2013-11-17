@@ -20,6 +20,7 @@ using pe.edu.pucp.ferretin.model;
 using pe.edu.pucp.ferretin.controller.MSeguridad;
 using pe.edu.pucp.ferretin.viewmodel.MSeguridad;
 using System.Diagnostics;
+using System.Text.RegularExpressions;
 
 namespace pe.edu.pucp.ferretin.view.MSeguridad
 {
@@ -72,6 +73,20 @@ namespace pe.edu.pucp.ferretin.view.MSeguridad
             
             perW.Show();           
         }
+        #region Validaciones
+        private void descripcionTxtBox_PreviewTextInput(object sender, TextCompositionEventArgs e)
+        {
+            if (Regex.IsMatch(e.Text, "[a-zA-Z0-9]"))
+            {
+                e.Handled = false;
+            }
+            else
+            {
+                e.Handled = true;
+            }
+        }
+        #endregion
+
 
 
     }
