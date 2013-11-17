@@ -16,6 +16,7 @@ namespace pe.edu.pucp.ferretin.viewmodel.MSeguridad
 {
     public class MS_AuditoriaWindowViewModel : ViewModelBase
     {
+        /***********************************/
         #region Valores para el cuadro de Búsqueda        
         private String _searchNombreUsuario = null;
         public String searchNombreUsuario { get { return _searchNombreUsuario; } set { _searchNombreUsuario = value; } }
@@ -29,7 +30,7 @@ namespace pe.edu.pucp.ferretin.viewmodel.MSeguridad
         public DateTime? _searchFechaHasta = null;
         public DateTime? searchFechaHasta { get { return _searchFechaHasta; } set { _searchFechaHasta = value; NotifyPropertyChanged("searchFechaHasta"); } }
         #endregion
-
+        /***********************************/
         #region Manejo de los Tabs
         /************************************************/
         public enum tabs
@@ -91,7 +92,7 @@ namespace pe.edu.pucp.ferretin.viewmodel.MSeguridad
         }
         /************************************************/
         #endregion
-
+        /***********************************/
         #region Lista de Transacciones y Edición de Transacciones
         /**************************************************/
         private Transaccion _transaccion = new Transaccion();
@@ -138,7 +139,7 @@ namespace pe.edu.pucp.ferretin.viewmodel.MSeguridad
         }
         /**************************************************/
         #endregion
-
+        /***********************************/
         #region RalayCommand
         RelayCommand _actualizarListaTransaccionesCommand;
         public ICommand actualizarListaTransaccionesCommand
@@ -153,6 +154,5 @@ namespace pe.edu.pucp.ferretin.viewmodel.MSeguridad
             }
         }
         #endregion
-
     }
 }

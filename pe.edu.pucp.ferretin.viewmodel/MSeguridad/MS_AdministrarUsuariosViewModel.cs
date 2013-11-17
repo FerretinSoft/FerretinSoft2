@@ -38,39 +38,7 @@ namespace pe.edu.pucp.ferretin.viewmodel.MSeguridad
         private int _searchEstado = 0;
         public int searchEstado { get { return _searchEstado; } set { _searchEstado = value; NotifyPropertyChanged("searchEstado"); } }
         #endregion
-
-        /************************************************/
-        public String _dniEmpleado = "";
-        public String dniEmpleado
-        {
-            get { return _dniEmpleado; }
-            set { _dniEmpleado = value; NotifyPropertyChanged("dniEmpleado"); }
-        }
-        /************************************************/
-        public bool editEmpleadoEnabled
-        {
-            get
-            {
-                return statusTab == tabs.AGREGAR ? true : false;
-            }
-        }
-        /************************************************/
-        public bool editEmpleadoEnabled2
-        {
-            get
-            {
-                return statusTab == tabs.AGREGAR ? false : true;
-            }
-        }
-        /************************************************/
-        public int _busquedaExitosa = 0;
-        public int busquedaExitosa
-        {
-            get { return _busquedaExitosa; }
-            set { _busquedaExitosa = value; NotifyPropertyChanged("busquedaExitosa"); }
-        }
-        
-
+        /*************************************************/
         #region Manejo de los Tabs
         /************************************************/
         public enum tabs
@@ -133,7 +101,7 @@ namespace pe.edu.pucp.ferretin.viewmodel.MSeguridad
         }
         /************************************************/
         #endregion
-
+        /*************************************************/
         #region Lista de Usuarios y Edición de Usuarios
         /**************************************************/
         private Usuario _usuario = new Usuario();
@@ -167,7 +135,7 @@ namespace pe.edu.pucp.ferretin.viewmodel.MSeguridad
                 var sequence = Enumerable.Empty<Perfil>();
                 //Primero agrego un item de Todos para que salga al inicio
                 //Pongo el ID en 0 para que al buscar, no filtre nada cuando se selecciona todos
-                IEnumerable<Perfil> items = new Perfil[] { new Perfil{id=0,nombre="Todos"} };
+                IEnumerable<Perfil> items = new Perfil[] { new Perfil { id = 0, nombre = "Todos" } };
                 //Luego concateno el itemcon los elementos del combobox
                 return items.Concat(MS_UsuarioService.obtenerPerfiles());
             }
@@ -177,7 +145,7 @@ namespace pe.edu.pucp.ferretin.viewmodel.MSeguridad
         public IEnumerable<Perfil> perfilesSinTodos
         {
             get
-            {            
+            {
                 return MS_UsuarioService.obtenerPerfiles();
             }
         }
@@ -198,7 +166,7 @@ namespace pe.edu.pucp.ferretin.viewmodel.MSeguridad
         }
         /**************************************************/
         #endregion
-        
+        /*************************************************/
         #region RalayCommand
         /**************************************************/
         RelayCommand _actualizarListaUsuariosCommand;
@@ -305,47 +273,8 @@ namespace pe.edu.pucp.ferretin.viewmodel.MSeguridad
             }
         }
 
-
         #endregion
-
-        private ImageSource _usuarioImagen;
-        public ImageSource usuarioImagen
-        {
-            get
-            {
-                try
-                {
-                    if (this.usuario.Empleado.foto != null)
-                    {
-                        MemoryStream strm = new MemoryStream();
-                        strm.Write(usuario.Empleado.foto.ToArray(), 0, usuario.Empleado.foto.Length);
-                        strm.Position = 0;
-                        System.Drawing.Image img = System.Drawing.Image.FromStream(strm);
-
-                        BitmapImage bitmapImage = new BitmapImage();
-                        bitmapImage.BeginInit();
-                        MemoryStream memoryStream = new MemoryStream();
-                        img.Save(memoryStream, System.Drawing.Imaging.ImageFormat.Bmp);
-                        memoryStream.Seek(0, SeekOrigin.Begin);
-                        bitmapImage.StreamSource = memoryStream;
-                        bitmapImage.EndInit();
-
-                        _usuarioImagen = bitmapImage;                        
-                    }
-                }
-                catch (Exception )
-                {
-                    
-                }
-                return _usuarioImagen;                
-            }
-            set
-            {
-                _usuarioImagen = value;
-                NotifyPropertyChanged("usuarioImagen");
-            }
-        }
-
+        /*************************************************/
         #region Comandos
         /**************************************************/
         public void viewEditUsuario(Object id)
@@ -368,7 +297,7 @@ namespace pe.edu.pucp.ferretin.viewmodel.MSeguridad
         /**************************************************/
         public void saveUsuario(Object obj)
         {
-            
+
             /********************************************************/
             /*Para actualizar un usuario existente*/
             if (usuario.id > 0)//Si existe
@@ -444,27 +373,27 @@ namespace pe.edu.pucp.ferretin.viewmodel.MSeguridad
                 ///***************************************/
                 //else
                 //{
-                    /*valores por defecto */
-                    usuario.contrasena = MS_UsuarioService.encrypt("ferretinSoft");
-                    List<Parametro> listaParametros;
-                    listaParametros = MS_ParametroService.obtenerListaParametros().ToList();
-                    usuario.intentosCon = Convert.ToInt16(listaParametros[0].valor);
-                    usuario.ultimoCambioContrasena = DateTime.Now;
-                    /**********************/
+                /*valores por defecto */
+                usuario.contrasena = MS_UsuarioService.encrypt("ferretinSoft");
+                List<Parametro> listaParametros;
+                listaParametros = MS_ParametroService.obtenerListaParametros().ToList();
+                usuario.intentosCon = Convert.ToInt16(listaParametros[0].valor);
+                usuario.ultimoCambioContrasena = DateTime.Now;
+                /**********************/
 
-                    if (!MS_UsuarioService.insertarUsuario(usuario))
-                    {                        
-                        MessageBox.Show("No se pudo agregar, el usuario ya existe");
-                    }
-                    else
-                    {
-                        //ComunService.idVentana(4);
-                        MessageBox.Show("El usuario fue agregado con éxito");
-                        this.statusTab = tabs.BUSQUEDA;
-                        listaUsuarios = MS_UsuarioService.listaUsuarios;
-                    }
+                if (!MS_UsuarioService.insertarUsuario(usuario))
+                {
+                    MessageBox.Show("No se pudo agregar, el usuario ya existe");
+                }
+                else
+                {
+                    //ComunService.idVentana(4);
+                    MessageBox.Show("El usuario fue agregado con éxito");
+                    this.statusTab = tabs.BUSQUEDA;
+                    listaUsuarios = MS_UsuarioService.listaUsuarios;
+                }
                 //}
-            }                      
+            }
             //NotifyPropertyChanged("listaUsuarios");
         }
         /**************************************************/
@@ -490,7 +419,7 @@ namespace pe.edu.pucp.ferretin.viewmodel.MSeguridad
             {
                 if (!MS_UsuarioService.validarUserName(usuario))
                 {
-                    MessageBox.Show("Usuario Existente");                    
+                    MessageBox.Show("Usuario Existente");
                 }
                 else
                 {
@@ -498,7 +427,7 @@ namespace pe.edu.pucp.ferretin.viewmodel.MSeguridad
                     busquedaExitosa = busquedaExitosa + 1;
                 }
             }
-            
+
             //NotifyPropertyChanged("listaUsuarios");       
         }
         /**************************************************/
@@ -523,10 +452,78 @@ namespace pe.edu.pucp.ferretin.viewmodel.MSeguridad
                 {
                     MessageBox.Show("La contraseña se restablecio con éxito");
                 }
-            }           
+            }
         }
         #endregion
-        
+        /*************************************************/      
+        public String _dniEmpleado = "";
+        public String dniEmpleado
+        {
+            get { return _dniEmpleado; }
+            set { _dniEmpleado = value; NotifyPropertyChanged("dniEmpleado"); }
+        }
+        /************************************************/
+        public bool editEmpleadoEnabled
+        {
+            get
+            {
+                return statusTab == tabs.AGREGAR ? true : false;
+            }
+        }
+        /************************************************/
+        public bool editEmpleadoEnabled2
+        {
+            get
+            {
+                return statusTab == tabs.AGREGAR ? false : true;
+            }
+        }
+        /************************************************/
+        public int _busquedaExitosa = 0;
+        public int busquedaExitosa
+        {
+            get { return _busquedaExitosa; }
+            set { _busquedaExitosa = value; NotifyPropertyChanged("busquedaExitosa"); }
+        }
+        /*************************************************/        
+        private ImageSource _usuarioImagen;
+        public ImageSource usuarioImagen
+        {
+            get
+            {
+                try
+                {
+                    if (this.usuario.Empleado.foto != null)
+                    {
+                        MemoryStream strm = new MemoryStream();
+                        strm.Write(usuario.Empleado.foto.ToArray(), 0, usuario.Empleado.foto.Length);
+                        strm.Position = 0;
+                        System.Drawing.Image img = System.Drawing.Image.FromStream(strm);
+
+                        BitmapImage bitmapImage = new BitmapImage();
+                        bitmapImage.BeginInit();
+                        MemoryStream memoryStream = new MemoryStream();
+                        img.Save(memoryStream, System.Drawing.Imaging.ImageFormat.Bmp);
+                        memoryStream.Seek(0, SeekOrigin.Begin);
+                        bitmapImage.StreamSource = memoryStream;
+                        bitmapImage.EndInit();
+
+                        _usuarioImagen = bitmapImage;
+                    }
+                }
+                catch (Exception)
+                {
+
+                }
+                return _usuarioImagen;
+            }
+            set
+            {
+                _usuarioImagen = value;
+                NotifyPropertyChanged("usuarioImagen");
+            }
+        }
+        /*************************************************/
         void buscarCliente(object var)
         {
             if (dniEmpleado.Trim().Length > 0)
@@ -539,14 +536,15 @@ namespace pe.edu.pucp.ferretin.viewmodel.MSeguridad
                 }
                 else
                 {
-                    MessageBox.Show("No se encontro un cliente con el DNI ingresado");                    
+                    MessageBox.Show("No se encontro un cliente con el DNI ingresado");
                 }
             }
             else
             {
-                MessageBox.Show("Debe ingresar el DNI de algún empleado");                
+                MessageBox.Show("Debe ingresar el DNI de algún empleado");
             }
         }
+        
 
     }
 }
