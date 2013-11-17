@@ -144,9 +144,25 @@ namespace pe.edu.pucp.ferretin.view
 
         private void cerrarSesionMenuItem_Click(object sender, RoutedEventArgs e)
         {
+            for (int i = App.Current.Windows.Count - 1; i >= 0; i--)
+            {
+                if (App.Current.Windows[i] != this)
+                {
+                    App.Current.Windows[i].Close();
+                }
+            }
+
             MSeguridad.MS_LoginWindow lw = new MSeguridad.MS_LoginWindow();
             lw.Show();
             this.Close();
+        }
+        #endregion
+        
+        #region Boton Reportes
+        private void reportesBtn_Click(object sender, RoutedEventArgs e)
+        {
+            ReportesWindow RPWindow = new ReportesWindow();
+            RPWindow.Show();
         }
         #endregion
     }
