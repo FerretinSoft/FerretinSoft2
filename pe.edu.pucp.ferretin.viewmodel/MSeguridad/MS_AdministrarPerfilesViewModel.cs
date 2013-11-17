@@ -321,8 +321,13 @@ namespace pe.edu.pucp.ferretin.viewmodel.MSeguridad
         /**************************************************/
         public void cancelPerfil(Object obj)
         {
-            this.statusTab = tabs.BUSQUEDA;
-            listaPerfiles = MS_PerfilService.listaPerfiles;
+             MessageBoxResult result =MessageBox.Show("Al salir, perderá todos los datos ingresados. ¿Desea continuar?",
+            "ATENCIÓN", MessageBoxButton.OKCancel, MessageBoxImage.Warning, MessageBoxResult.Cancel);
+             if (result == MessageBoxResult.OK)
+             {
+                 this.statusTab = tabs.BUSQUEDA;
+                 listaPerfiles = MS_PerfilService.listaPerfiles;
+             }
         }
         /**************************************************/
         #endregion

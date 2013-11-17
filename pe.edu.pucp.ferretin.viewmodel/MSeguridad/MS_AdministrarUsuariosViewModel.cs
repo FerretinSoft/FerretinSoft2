@@ -470,8 +470,13 @@ namespace pe.edu.pucp.ferretin.viewmodel.MSeguridad
         /**************************************************/
         public void cancelUsuario(Object obj)
         {
-            this.statusTab = tabs.BUSQUEDA;
-            listaUsuarios = MS_UsuarioService.listaUsuarios;
+             MessageBoxResult result =MessageBox.Show("Al salir, perderá todos los datos ingresados. ¿Desea continuar?",
+            "ATENCIÓN", MessageBoxButton.OKCancel, MessageBoxImage.Warning, MessageBoxResult.Cancel);
+             if (result == MessageBoxResult.OK)
+             {
+                 this.statusTab = tabs.BUSQUEDA;
+                 listaUsuarios = MS_UsuarioService.listaUsuarios;
+             }
         }
         /**************************************************/
         public void buscarNombreUsuario(Object obj)
