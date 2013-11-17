@@ -89,6 +89,12 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="MSeguridad\MS_ReportesWindow.xaml.cs">
+      <DependentUpon>MS_ReportesWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="MSeguridad\MS_ReporteTrasaccionesParametrosWindow.xaml.cs">
+      <DependentUpon>MS_ReporteTrasaccionesParametrosWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="ReportesWindow.xaml.cs">
       <DependentUpon>ReportesWindow.xaml</DependentUpon>
     </Compile>
@@ -208,10 +214,6 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="MSeguridad\MS_AdministrarArbolPerfiles.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="MSeguridad\MS_AdministrarPerfiles.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -244,7 +246,15 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="MSeguridad\MS_ReporteWindow.xaml">
+    <Page Include="MSeguridad\MS_ReportesWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="MSeguridad\MS_ReporteTrasaccionesParametrosWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="MSeguridad\MS_VisorDeReporte.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -400,9 +410,6 @@
     <Compile Include="MRecursosHumanos\MR_MainWindow.xaml.cs">
       <DependentUpon>MR_MainWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="MSeguridad\MS_AdministrarArbolPerfiles.xaml.cs">
-      <DependentUpon>MS_AdministrarArbolPerfiles.xaml</DependentUpon>
-    </Compile>
     <Compile Include="MSeguridad\MS_AdministrarPerfiles.xaml.cs">
       <DependentUpon>MS_AdministrarPerfiles.xaml</DependentUpon>
     </Compile>
@@ -427,8 +434,8 @@
     <Compile Include="MSeguridad\MS_ParametrosWindow.xaml.cs">
       <DependentUpon>MS_ParametrosWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="MSeguridad\MS_ReporteWindow.xaml.cs">
-      <DependentUpon>MS_ReporteWindow.xaml</DependentUpon>
+    <Compile Include="MSeguridad\MS_VisorDeReporte.xaml.cs">
+      <DependentUpon>MS_VisorDeReporte.xaml</DependentUpon>
     </Compile>
     <Compile Include="MSeguridad\ReporteDeTransacciones.cs">
       <AutoGen>True</AutoGen>
