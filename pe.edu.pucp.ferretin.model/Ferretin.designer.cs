@@ -54,6 +54,9 @@ namespace pe.edu.pucp.ferretin.model
     partial void InsertDia(Dia instance);
     partial void UpdateDia(Dia instance);
     partial void DeleteDia(Dia instance);
+    partial void InsertDocumentoCompra(DocumentoCompra instance);
+    partial void UpdateDocumentoCompra(DocumentoCompra instance);
+    partial void DeleteDocumentoCompra(DocumentoCompra instance);
     partial void InsertDocumentoCompraEstado(DocumentoCompraEstado instance);
     partial void UpdateDocumentoCompraEstado(DocumentoCompraEstado instance);
     partial void DeleteDocumentoCompraEstado(DocumentoCompraEstado instance);
@@ -210,9 +213,6 @@ namespace pe.edu.pucp.ferretin.model
     partial void InsertVentaMedioPago(VentaMedioPago instance);
     partial void UpdateVentaMedioPago(VentaMedioPago instance);
     partial void DeleteVentaMedioPago(VentaMedioPago instance);
-    partial void InsertDocumentoCompra(DocumentoCompra instance);
-    partial void UpdateDocumentoCompra(DocumentoCompra instance);
-    partial void DeleteDocumentoCompra(DocumentoCompra instance);
     #endregion
 		
 		public FerretinDataContext() : 
@@ -306,6 +306,14 @@ namespace pe.edu.pucp.ferretin.model
 			get
 			{
 				return this.GetTable<Dia>();
+			}
+		}
+		
+		public System.Data.Linq.Table<DocumentoCompra> DocumentoCompra
+		{
+			get
+			{
+				return this.GetTable<DocumentoCompra>();
 			}
 		}
 		
@@ -724,14 +732,6 @@ namespace pe.edu.pucp.ferretin.model
 				return this.GetTable<VentaMedioPago>();
 			}
 		}
-		
-		public System.Data.Linq.Table<DocumentoCompra> DocumentoCompra
-		{
-			get
-			{
-				return this.GetTable<DocumentoCompra>();
-			}
-		}
 	}
 	
 	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Cargo")]
@@ -944,6 +944,12 @@ namespace pe.edu.pucp.ferretin.model
 		
 		private System.Nullable<decimal> _descuentoPorcentaje;
 		
+		private System.Nullable<decimal> _precioUnitario;
+		
+		private System.Nullable<int> _puntosCanejado;
+		
+		private System.Nullable<int> _puntosGanado;
+		
 		private EntityRef<Producto> _Producto;
 		
 		private EntityRef<Venta> _Venta;
@@ -970,6 +976,12 @@ namespace pe.edu.pucp.ferretin.model
     partial void OndescuentoChanged();
     partial void OndescuentoPorcentajeChanging(System.Nullable<decimal> value);
     partial void OndescuentoPorcentajeChanged();
+    partial void OnprecioUnitarioChanging(System.Nullable<decimal> value);
+    partial void OnprecioUnitarioChanged();
+    partial void OnpuntosCanejadoChanging(System.Nullable<int> value);
+    partial void OnpuntosCanejadoChanged();
+    partial void OnpuntosGanadoChanging(System.Nullable<int> value);
+    partial void OnpuntosGanadoChanged();
     #endregion
 		
 		public VentaProducto()
@@ -1163,6 +1175,66 @@ namespace pe.edu.pucp.ferretin.model
 					this._descuentoPorcentaje = value;
 					this.SendPropertyChanged("descuentoPorcentaje");
 					this.OndescuentoPorcentajeChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_precioUnitario", DbType="Decimal(18,2)")]
+		public System.Nullable<decimal> precioUnitario
+		{
+			get
+			{
+				return this._precioUnitario;
+			}
+			set
+			{
+				if ((this._precioUnitario != value))
+				{
+					this.OnprecioUnitarioChanging(value);
+					this.SendPropertyChanging();
+					this._precioUnitario = value;
+					this.SendPropertyChanged("precioUnitario");
+					this.OnprecioUnitarioChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_puntosCanejado", DbType="Int")]
+		public System.Nullable<int> puntosCanejado
+		{
+			get
+			{
+				return this._puntosCanejado;
+			}
+			set
+			{
+				if ((this._puntosCanejado != value))
+				{
+					this.OnpuntosCanejadoChanging(value);
+					this.SendPropertyChanging();
+					this._puntosCanejado = value;
+					this.SendPropertyChanged("puntosCanejado");
+					this.OnpuntosCanejadoChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_puntosGanado", DbType="Int")]
+		public System.Nullable<int> puntosGanado
+		{
+			get
+			{
+				return this._puntosGanado;
+			}
+			set
+			{
+				if ((this._puntosGanado != value))
+				{
+					this.OnpuntosGanadoChanging(value);
+					this.SendPropertyChanging();
+					this._puntosGanado = value;
+					this.SendPropertyChanged("puntosGanado");
+					this.OnpuntosGanadoChanged();
 				}
 			}
 		}
@@ -3247,6 +3319,734 @@ namespace pe.edu.pucp.ferretin.model
 		}
 	}
 	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.DocumentoCompra")]
+	public partial class DocumentoCompra : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private long _id;
+		
+		private System.Nullable<long> _id_cotizacion;
+		
+		private string _codigo;
+		
+		private System.Nullable<System.DateTime> _fechaEmision;
+		
+		private System.Nullable<System.DateTime> _fechaVencimiento;
+		
+		private System.Nullable<decimal> _subTotal;
+		
+		private System.Nullable<decimal> _igv;
+		
+		private System.Nullable<decimal> _total;
+		
+		private string _nroFactura;
+		
+		private System.Nullable<int> _id_proveedor;
+		
+		private System.Nullable<byte> _tipo;
+		
+		private System.Nullable<short> _id_estado;
+		
+		private System.Nullable<int> _id_usuario_aprobacion;
+		
+		private System.Nullable<int> _id_usuario_registro;
+		
+		private System.Nullable<int> _id_solicitud_compra;
+		
+		private EntitySet<DocumentoCompra> _DocumentoCompra2;
+		
+		private EntitySet<DocumentoCompraProducto> _DocumentoCompraProducto;
+		
+		private EntitySet<GuiaRemision> _GuiaRemision;
+		
+		private EntityRef<DocumentoCompra> _DocumentoCompra1;
+		
+		private EntityRef<DocumentoCompraEstado> _DocumentoCompraEstado;
+		
+		private EntityRef<Proveedor> _Proveedor;
+		
+		private EntityRef<SolicitudCompra> _SolicitudCompra;
+		
+		private EntityRef<Usuario> _Usuario;
+		
+		private EntityRef<Usuario> _Usuario1;
+		
+    #region Definiciones de métodos de extensibilidad
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnidChanging(long value);
+    partial void OnidChanged();
+    partial void Onid_cotizacionChanging(System.Nullable<long> value);
+    partial void Onid_cotizacionChanged();
+    partial void OncodigoChanging(string value);
+    partial void OncodigoChanged();
+    partial void OnfechaEmisionChanging(System.Nullable<System.DateTime> value);
+    partial void OnfechaEmisionChanged();
+    partial void OnfechaVencimientoChanging(System.Nullable<System.DateTime> value);
+    partial void OnfechaVencimientoChanged();
+    partial void OnsubTotalChanging(System.Nullable<decimal> value);
+    partial void OnsubTotalChanged();
+    partial void OnigvChanging(System.Nullable<decimal> value);
+    partial void OnigvChanged();
+    partial void OntotalChanging(System.Nullable<decimal> value);
+    partial void OntotalChanged();
+    partial void OnnroFacturaChanging(string value);
+    partial void OnnroFacturaChanged();
+    partial void Onid_proveedorChanging(System.Nullable<int> value);
+    partial void Onid_proveedorChanged();
+    partial void OntipoChanging(System.Nullable<byte> value);
+    partial void OntipoChanged();
+    partial void Onid_estadoChanging(System.Nullable<short> value);
+    partial void Onid_estadoChanged();
+    partial void Onid_usuario_aprobacionChanging(System.Nullable<int> value);
+    partial void Onid_usuario_aprobacionChanged();
+    partial void Onid_usuario_registroChanging(System.Nullable<int> value);
+    partial void Onid_usuario_registroChanged();
+    partial void Onid_solicitud_compraChanging(System.Nullable<int> value);
+    partial void Onid_solicitud_compraChanged();
+    #endregion
+		
+		public DocumentoCompra()
+		{
+			this._DocumentoCompra2 = new EntitySet<DocumentoCompra>(new Action<DocumentoCompra>(this.attach_DocumentoCompra2), new Action<DocumentoCompra>(this.detach_DocumentoCompra2));
+			this._DocumentoCompraProducto = new EntitySet<DocumentoCompraProducto>(new Action<DocumentoCompraProducto>(this.attach_DocumentoCompraProducto), new Action<DocumentoCompraProducto>(this.detach_DocumentoCompraProducto));
+			this._GuiaRemision = new EntitySet<GuiaRemision>(new Action<GuiaRemision>(this.attach_GuiaRemision), new Action<GuiaRemision>(this.detach_GuiaRemision));
+			this._DocumentoCompra1 = default(EntityRef<DocumentoCompra>);
+			this._DocumentoCompraEstado = default(EntityRef<DocumentoCompraEstado>);
+			this._Proveedor = default(EntityRef<Proveedor>);
+			this._SolicitudCompra = default(EntityRef<SolicitudCompra>);
+			this._Usuario = default(EntityRef<Usuario>);
+			this._Usuario1 = default(EntityRef<Usuario>);
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_id", AutoSync=AutoSync.OnInsert, DbType="BigInt NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
+		public long id
+		{
+			get
+			{
+				return this._id;
+			}
+			set
+			{
+				if ((this._id != value))
+				{
+					this.OnidChanging(value);
+					this.SendPropertyChanging();
+					this._id = value;
+					this.SendPropertyChanged("id");
+					this.OnidChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_id_cotizacion", DbType="BigInt")]
+		public System.Nullable<long> id_cotizacion
+		{
+			get
+			{
+				return this._id_cotizacion;
+			}
+			set
+			{
+				if ((this._id_cotizacion != value))
+				{
+					if (this._DocumentoCompra1.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.Onid_cotizacionChanging(value);
+					this.SendPropertyChanging();
+					this._id_cotizacion = value;
+					this.SendPropertyChanged("id_cotizacion");
+					this.Onid_cotizacionChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_codigo", DbType="VarChar(15)")]
+		public string codigo
+		{
+			get
+			{
+				return this._codigo;
+			}
+			set
+			{
+				if ((this._codigo != value))
+				{
+					this.OncodigoChanging(value);
+					this.SendPropertyChanging();
+					this._codigo = value;
+					this.SendPropertyChanged("codigo");
+					this.OncodigoChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_fechaEmision", DbType="DateTime")]
+		public System.Nullable<System.DateTime> fechaEmision
+		{
+			get
+			{
+				return this._fechaEmision;
+			}
+			set
+			{
+				if ((this._fechaEmision != value))
+				{
+					this.OnfechaEmisionChanging(value);
+					this.SendPropertyChanging();
+					this._fechaEmision = value;
+					this.SendPropertyChanged("fechaEmision");
+					this.OnfechaEmisionChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_fechaVencimiento", DbType="DateTime")]
+		public System.Nullable<System.DateTime> fechaVencimiento
+		{
+			get
+			{
+				return this._fechaVencimiento;
+			}
+			set
+			{
+				if ((this._fechaVencimiento != value))
+				{
+					this.OnfechaVencimientoChanging(value);
+					this.SendPropertyChanging();
+					this._fechaVencimiento = value;
+					this.SendPropertyChanged("fechaVencimiento");
+					this.OnfechaVencimientoChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_subTotal", DbType="Decimal(10,2)")]
+		public System.Nullable<decimal> subTotal
+		{
+			get
+			{
+				return this._subTotal;
+			}
+			set
+			{
+				if ((this._subTotal != value))
+				{
+					this.OnsubTotalChanging(value);
+					this.SendPropertyChanging();
+					this._subTotal = value;
+					this.SendPropertyChanged("subTotal");
+					this.OnsubTotalChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_igv", DbType="Decimal(10,2)")]
+		public System.Nullable<decimal> igv
+		{
+			get
+			{
+				return this._igv;
+			}
+			set
+			{
+				if ((this._igv != value))
+				{
+					this.OnigvChanging(value);
+					this.SendPropertyChanging();
+					this._igv = value;
+					this.SendPropertyChanged("igv");
+					this.OnigvChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_total", DbType="Decimal(10,2)")]
+		public System.Nullable<decimal> total
+		{
+			get
+			{
+				return this._total;
+			}
+			set
+			{
+				if ((this._total != value))
+				{
+					this.OntotalChanging(value);
+					this.SendPropertyChanging();
+					this._total = value;
+					this.SendPropertyChanged("total");
+					this.OntotalChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_nroFactura", DbType="VarChar(15)")]
+		public string nroFactura
+		{
+			get
+			{
+				return this._nroFactura;
+			}
+			set
+			{
+				if ((this._nroFactura != value))
+				{
+					this.OnnroFacturaChanging(value);
+					this.SendPropertyChanging();
+					this._nroFactura = value;
+					this.SendPropertyChanged("nroFactura");
+					this.OnnroFacturaChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_id_proveedor", DbType="Int")]
+		public System.Nullable<int> id_proveedor
+		{
+			get
+			{
+				return this._id_proveedor;
+			}
+			set
+			{
+				if ((this._id_proveedor != value))
+				{
+					if (this._Proveedor.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.Onid_proveedorChanging(value);
+					this.SendPropertyChanging();
+					this._id_proveedor = value;
+					this.SendPropertyChanged("id_proveedor");
+					this.Onid_proveedorChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_tipo", DbType="TinyInt")]
+		public System.Nullable<byte> tipo
+		{
+			get
+			{
+				return this._tipo;
+			}
+			set
+			{
+				if ((this._tipo != value))
+				{
+					this.OntipoChanging(value);
+					this.SendPropertyChanging();
+					this._tipo = value;
+					this.SendPropertyChanged("tipo");
+					this.OntipoChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_id_estado", DbType="SmallInt")]
+		public System.Nullable<short> id_estado
+		{
+			get
+			{
+				return this._id_estado;
+			}
+			set
+			{
+				if ((this._id_estado != value))
+				{
+					if (this._DocumentoCompraEstado.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.Onid_estadoChanging(value);
+					this.SendPropertyChanging();
+					this._id_estado = value;
+					this.SendPropertyChanged("id_estado");
+					this.Onid_estadoChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_id_usuario_aprobacion", DbType="Int")]
+		public System.Nullable<int> id_usuario_aprobacion
+		{
+			get
+			{
+				return this._id_usuario_aprobacion;
+			}
+			set
+			{
+				if ((this._id_usuario_aprobacion != value))
+				{
+					if (this._Usuario.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.Onid_usuario_aprobacionChanging(value);
+					this.SendPropertyChanging();
+					this._id_usuario_aprobacion = value;
+					this.SendPropertyChanged("id_usuario_aprobacion");
+					this.Onid_usuario_aprobacionChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_id_usuario_registro", DbType="Int")]
+		public System.Nullable<int> id_usuario_registro
+		{
+			get
+			{
+				return this._id_usuario_registro;
+			}
+			set
+			{
+				if ((this._id_usuario_registro != value))
+				{
+					if (this._Usuario1.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.Onid_usuario_registroChanging(value);
+					this.SendPropertyChanging();
+					this._id_usuario_registro = value;
+					this.SendPropertyChanged("id_usuario_registro");
+					this.Onid_usuario_registroChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_id_solicitud_compra", DbType="Int")]
+		public System.Nullable<int> id_solicitud_compra
+		{
+			get
+			{
+				return this._id_solicitud_compra;
+			}
+			set
+			{
+				if ((this._id_solicitud_compra != value))
+				{
+					if (this._SolicitudCompra.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.Onid_solicitud_compraChanging(value);
+					this.SendPropertyChanging();
+					this._id_solicitud_compra = value;
+					this.SendPropertyChanged("id_solicitud_compra");
+					this.Onid_solicitud_compraChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="DocumentoCompra_DocumentoCompra", Storage="_DocumentoCompra2", ThisKey="id", OtherKey="id_cotizacion")]
+		public EntitySet<DocumentoCompra> DocumentoCompra2
+		{
+			get
+			{
+				return this._DocumentoCompra2;
+			}
+			set
+			{
+				this._DocumentoCompra2.Assign(value);
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="DocumentoCompra_DocumentoCompraProducto", Storage="_DocumentoCompraProducto", ThisKey="id", OtherKey="id_documento_compra")]
+		public EntitySet<DocumentoCompraProducto> DocumentoCompraProducto
+		{
+			get
+			{
+				return this._DocumentoCompraProducto;
+			}
+			set
+			{
+				this._DocumentoCompraProducto.Assign(value);
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="DocumentoCompra_GuiaRemision", Storage="_GuiaRemision", ThisKey="id", OtherKey="id_orden_compra")]
+		public EntitySet<GuiaRemision> GuiaRemision
+		{
+			get
+			{
+				return this._GuiaRemision;
+			}
+			set
+			{
+				this._GuiaRemision.Assign(value);
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="DocumentoCompra_DocumentoCompra", Storage="_DocumentoCompra1", ThisKey="id_cotizacion", OtherKey="id", IsForeignKey=true)]
+		public DocumentoCompra DocumentoCompra1
+		{
+			get
+			{
+				return this._DocumentoCompra1.Entity;
+			}
+			set
+			{
+				DocumentoCompra previousValue = this._DocumentoCompra1.Entity;
+				if (((previousValue != value) 
+							|| (this._DocumentoCompra1.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._DocumentoCompra1.Entity = null;
+						previousValue.DocumentoCompra2.Remove(this);
+					}
+					this._DocumentoCompra1.Entity = value;
+					if ((value != null))
+					{
+						value.DocumentoCompra2.Add(this);
+						this._id_cotizacion = value.id;
+					}
+					else
+					{
+						this._id_cotizacion = default(Nullable<long>);
+					}
+					this.SendPropertyChanged("DocumentoCompra1");
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="DocumentoCompraEstado_DocumentoCompra", Storage="_DocumentoCompraEstado", ThisKey="id_estado", OtherKey="id", IsForeignKey=true)]
+		public DocumentoCompraEstado DocumentoCompraEstado
+		{
+			get
+			{
+				return this._DocumentoCompraEstado.Entity;
+			}
+			set
+			{
+				DocumentoCompraEstado previousValue = this._DocumentoCompraEstado.Entity;
+				if (((previousValue != value) 
+							|| (this._DocumentoCompraEstado.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._DocumentoCompraEstado.Entity = null;
+						previousValue.DocumentoCompra.Remove(this);
+					}
+					this._DocumentoCompraEstado.Entity = value;
+					if ((value != null))
+					{
+						value.DocumentoCompra.Add(this);
+						this._id_estado = value.id;
+					}
+					else
+					{
+						this._id_estado = default(Nullable<short>);
+					}
+					this.SendPropertyChanged("DocumentoCompraEstado");
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Proveedor_DocumentoCompra", Storage="_Proveedor", ThisKey="id_proveedor", OtherKey="id", IsForeignKey=true)]
+		public Proveedor Proveedor
+		{
+			get
+			{
+				return this._Proveedor.Entity;
+			}
+			set
+			{
+				Proveedor previousValue = this._Proveedor.Entity;
+				if (((previousValue != value) 
+							|| (this._Proveedor.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._Proveedor.Entity = null;
+						previousValue.DocumentoCompra.Remove(this);
+					}
+					this._Proveedor.Entity = value;
+					if ((value != null))
+					{
+						value.DocumentoCompra.Add(this);
+						this._id_proveedor = value.id;
+					}
+					else
+					{
+						this._id_proveedor = default(Nullable<int>);
+					}
+					this.SendPropertyChanged("Proveedor");
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="SolicitudCompra_DocumentoCompra", Storage="_SolicitudCompra", ThisKey="id_solicitud_compra", OtherKey="id", IsForeignKey=true)]
+		public SolicitudCompra SolicitudCompra
+		{
+			get
+			{
+				return this._SolicitudCompra.Entity;
+			}
+			set
+			{
+				SolicitudCompra previousValue = this._SolicitudCompra.Entity;
+				if (((previousValue != value) 
+							|| (this._SolicitudCompra.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._SolicitudCompra.Entity = null;
+						previousValue.DocumentoCompra.Remove(this);
+					}
+					this._SolicitudCompra.Entity = value;
+					if ((value != null))
+					{
+						value.DocumentoCompra.Add(this);
+						this._id_solicitud_compra = value.id;
+					}
+					else
+					{
+						this._id_solicitud_compra = default(Nullable<int>);
+					}
+					this.SendPropertyChanged("SolicitudCompra");
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Usuario_DocumentoCompra", Storage="_Usuario", ThisKey="id_usuario_aprobacion", OtherKey="id", IsForeignKey=true)]
+		public Usuario Usuario
+		{
+			get
+			{
+				return this._Usuario.Entity;
+			}
+			set
+			{
+				Usuario previousValue = this._Usuario.Entity;
+				if (((previousValue != value) 
+							|| (this._Usuario.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._Usuario.Entity = null;
+						previousValue.DocumentoCompra.Remove(this);
+					}
+					this._Usuario.Entity = value;
+					if ((value != null))
+					{
+						value.DocumentoCompra.Add(this);
+						this._id_usuario_aprobacion = value.id;
+					}
+					else
+					{
+						this._id_usuario_aprobacion = default(Nullable<int>);
+					}
+					this.SendPropertyChanged("Usuario");
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Usuario_DocumentoCompra1", Storage="_Usuario1", ThisKey="id_usuario_registro", OtherKey="id", IsForeignKey=true)]
+		public Usuario Usuario1
+		{
+			get
+			{
+				return this._Usuario1.Entity;
+			}
+			set
+			{
+				Usuario previousValue = this._Usuario1.Entity;
+				if (((previousValue != value) 
+							|| (this._Usuario1.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._Usuario1.Entity = null;
+						previousValue.DocumentoCompra1.Remove(this);
+					}
+					this._Usuario1.Entity = value;
+					if ((value != null))
+					{
+						value.DocumentoCompra1.Add(this);
+						this._id_usuario_registro = value.id;
+					}
+					else
+					{
+						this._id_usuario_registro = default(Nullable<int>);
+					}
+					this.SendPropertyChanged("Usuario1");
+				}
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+		
+		private void attach_DocumentoCompra2(DocumentoCompra entity)
+		{
+			this.SendPropertyChanging();
+			entity.DocumentoCompra1 = this;
+		}
+		
+		private void detach_DocumentoCompra2(DocumentoCompra entity)
+		{
+			this.SendPropertyChanging();
+			entity.DocumentoCompra1 = null;
+		}
+		
+		private void attach_DocumentoCompraProducto(DocumentoCompraProducto entity)
+		{
+			this.SendPropertyChanging();
+			entity.DocumentoCompra = this;
+		}
+		
+		private void detach_DocumentoCompraProducto(DocumentoCompraProducto entity)
+		{
+			this.SendPropertyChanging();
+			entity.DocumentoCompra = null;
+		}
+		
+		private void attach_GuiaRemision(GuiaRemision entity)
+		{
+			this.SendPropertyChanging();
+			entity.DocumentoCompra = this;
+		}
+		
+		private void detach_GuiaRemision(GuiaRemision entity)
+		{
+			this.SendPropertyChanging();
+			entity.DocumentoCompra = null;
+		}
+	}
+	
 	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.DocumentoCompraEstado")]
 	public partial class DocumentoCompraEstado : INotifyPropertyChanging, INotifyPropertyChanged
 	{
@@ -3435,11 +4235,11 @@ namespace pe.edu.pucp.ferretin.model
 		
 		private EntitySet<GuiaRemisionProducto> _GuiaRemisionProducto;
 		
+		private EntityRef<DocumentoCompra> _DocumentoCompra;
+		
 		private EntityRef<Producto> _Producto;
 		
 		private EntityRef<UnidadMedida> _UnidadMedida;
-		
-		private EntityRef<DocumentoCompra> _DocumentoCompra;
 		
     #region Definiciones de métodos de extensibilidad
     partial void OnLoaded();
@@ -3468,9 +4268,9 @@ namespace pe.edu.pucp.ferretin.model
 		public DocumentoCompraProducto()
 		{
 			this._GuiaRemisionProducto = new EntitySet<GuiaRemisionProducto>(new Action<GuiaRemisionProducto>(this.attach_GuiaRemisionProducto), new Action<GuiaRemisionProducto>(this.detach_GuiaRemisionProducto));
+			this._DocumentoCompra = default(EntityRef<DocumentoCompra>);
 			this._Producto = default(EntityRef<Producto>);
 			this._UnidadMedida = default(EntityRef<UnidadMedida>);
-			this._DocumentoCompra = default(EntityRef<DocumentoCompra>);
 			OnCreated();
 		}
 		
@@ -3679,6 +4479,40 @@ namespace pe.edu.pucp.ferretin.model
 			}
 		}
 		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="DocumentoCompra_DocumentoCompraProducto", Storage="_DocumentoCompra", ThisKey="id_documento_compra", OtherKey="id", IsForeignKey=true)]
+		public DocumentoCompra DocumentoCompra
+		{
+			get
+			{
+				return this._DocumentoCompra.Entity;
+			}
+			set
+			{
+				DocumentoCompra previousValue = this._DocumentoCompra.Entity;
+				if (((previousValue != value) 
+							|| (this._DocumentoCompra.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._DocumentoCompra.Entity = null;
+						previousValue.DocumentoCompraProducto.Remove(this);
+					}
+					this._DocumentoCompra.Entity = value;
+					if ((value != null))
+					{
+						value.DocumentoCompraProducto.Add(this);
+						this._id_documento_compra = value.id;
+					}
+					else
+					{
+						this._id_documento_compra = default(Nullable<long>);
+					}
+					this.SendPropertyChanged("DocumentoCompra");
+				}
+			}
+		}
+		
 		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Producto_DocumentoCompraProducto", Storage="_Producto", ThisKey="id_producto", OtherKey="id", IsForeignKey=true)]
 		public Producto Producto
 		{
@@ -3743,40 +4577,6 @@ namespace pe.edu.pucp.ferretin.model
 						this._id_unidad_medida = default(Nullable<short>);
 					}
 					this.SendPropertyChanged("UnidadMedida");
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="DocumentoCompra_DocumentoCompraProducto", Storage="_DocumentoCompra", ThisKey="id_documento_compra", OtherKey="id", IsForeignKey=true)]
-		public DocumentoCompra DocumentoCompra
-		{
-			get
-			{
-				return this._DocumentoCompra.Entity;
-			}
-			set
-			{
-				DocumentoCompra previousValue = this._DocumentoCompra.Entity;
-				if (((previousValue != value) 
-							|| (this._DocumentoCompra.HasLoadedOrAssignedValue == false)))
-				{
-					this.SendPropertyChanging();
-					if ((previousValue != null))
-					{
-						this._DocumentoCompra.Entity = null;
-						previousValue.DocumentoCompraProducto.Remove(this);
-					}
-					this._DocumentoCompra.Entity = value;
-					if ((value != null))
-					{
-						value.DocumentoCompraProducto.Add(this);
-						this._id_documento_compra = value.id;
-					}
-					else
-					{
-						this._id_documento_compra = default(Nullable<long>);
-					}
-					this.SendPropertyChanged("DocumentoCompra");
 				}
 			}
 		}
@@ -5256,9 +6056,9 @@ namespace pe.edu.pucp.ferretin.model
 		
 		private EntitySet<GuiaRemisionProducto> _GuiaRemisionProducto;
 		
-		private EntityRef<Tienda> _Tienda;
-		
 		private EntityRef<DocumentoCompra> _DocumentoCompra;
+		
+		private EntityRef<Tienda> _Tienda;
 		
     #region Definiciones de métodos de extensibilidad
     partial void OnLoaded();
@@ -5283,8 +6083,8 @@ namespace pe.edu.pucp.ferretin.model
 		public GuiaRemision()
 		{
 			this._GuiaRemisionProducto = new EntitySet<GuiaRemisionProducto>(new Action<GuiaRemisionProducto>(this.attach_GuiaRemisionProducto), new Action<GuiaRemisionProducto>(this.detach_GuiaRemisionProducto));
-			this._Tienda = default(EntityRef<Tienda>);
 			this._DocumentoCompra = default(EntityRef<DocumentoCompra>);
+			this._Tienda = default(EntityRef<Tienda>);
 			OnCreated();
 		}
 		
@@ -5449,40 +6249,6 @@ namespace pe.edu.pucp.ferretin.model
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Tienda_GuiaRemision", Storage="_Tienda", ThisKey="id_almacen", OtherKey="id", IsForeignKey=true)]
-		public Tienda Tienda
-		{
-			get
-			{
-				return this._Tienda.Entity;
-			}
-			set
-			{
-				Tienda previousValue = this._Tienda.Entity;
-				if (((previousValue != value) 
-							|| (this._Tienda.HasLoadedOrAssignedValue == false)))
-				{
-					this.SendPropertyChanging();
-					if ((previousValue != null))
-					{
-						this._Tienda.Entity = null;
-						previousValue.GuiaRemision.Remove(this);
-					}
-					this._Tienda.Entity = value;
-					if ((value != null))
-					{
-						value.GuiaRemision.Add(this);
-						this._id_almacen = value.id;
-					}
-					else
-					{
-						this._id_almacen = default(Nullable<int>);
-					}
-					this.SendPropertyChanged("Tienda");
-				}
-			}
-		}
-		
 		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="DocumentoCompra_GuiaRemision", Storage="_DocumentoCompra", ThisKey="id_orden_compra", OtherKey="id", IsForeignKey=true)]
 		public DocumentoCompra DocumentoCompra
 		{
@@ -5513,6 +6279,40 @@ namespace pe.edu.pucp.ferretin.model
 						this._id_orden_compra = default(Nullable<long>);
 					}
 					this.SendPropertyChanged("DocumentoCompra");
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Tienda_GuiaRemision", Storage="_Tienda", ThisKey="id_almacen", OtherKey="id", IsForeignKey=true)]
+		public Tienda Tienda
+		{
+			get
+			{
+				return this._Tienda.Entity;
+			}
+			set
+			{
+				Tienda previousValue = this._Tienda.Entity;
+				if (((previousValue != value) 
+							|| (this._Tienda.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._Tienda.Entity = null;
+						previousValue.GuiaRemision.Remove(this);
+					}
+					this._Tienda.Entity = value;
+					if ((value != null))
+					{
+						value.GuiaRemision.Add(this);
+						this._id_almacen = value.id;
+					}
+					else
+					{
+						this._id_almacen = default(Nullable<int>);
+					}
+					this.SendPropertyChanged("Tienda");
 				}
 			}
 		}
@@ -11028,6 +11828,8 @@ namespace pe.edu.pucp.ferretin.model
 		
 		private long _id;
 		
+		private System.Nullable<decimal> _preciounitario;
+		
 		private EntityRef<Producto> _Producto;
 		
 		private EntityRef<Proforma> _Proforma;
@@ -11052,6 +11854,8 @@ namespace pe.edu.pucp.ferretin.model
     partial void OndescuentoPorcentajeChanged();
     partial void OnidChanging(long value);
     partial void OnidChanged();
+    partial void OnpreciounitarioChanging(System.Nullable<decimal> value);
+    partial void OnpreciounitarioChanged();
     #endregion
 		
 		public ProformaProducto()
@@ -11225,6 +12029,26 @@ namespace pe.edu.pucp.ferretin.model
 					this._id = value;
 					this.SendPropertyChanged("id");
 					this.OnidChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_preciounitario", DbType="Decimal(8,2)")]
+		public System.Nullable<decimal> preciounitario
+		{
+			get
+			{
+				return this._preciounitario;
+			}
+			set
+			{
+				if ((this._preciounitario != value))
+				{
+					this.OnpreciounitarioChanging(value);
+					this.SendPropertyChanging();
+					this._preciounitario = value;
+					this.SendPropertyChanged("preciounitario");
+					this.OnpreciounitarioChanged();
 				}
 			}
 		}
@@ -12140,13 +12964,13 @@ namespace pe.edu.pucp.ferretin.model
 		
 		private string _codigoPostal;
 		
+		private EntitySet<DocumentoCompra> _DocumentoCompra;
+		
 		private EntitySet<ProveedorCatalogo> _ProveedorCatalogo;
 		
 		private EntitySet<ProveedorProducto> _ProveedorProducto;
 		
 		private EntitySet<SolicitudCompra> _SolicitudCompra;
-		
-		private EntitySet<DocumentoCompra> _DocumentoCompra;
 		
 		private EntityRef<Rubro> _Rubro;
 		
@@ -12186,10 +13010,10 @@ namespace pe.edu.pucp.ferretin.model
 		
 		public Proveedor()
 		{
+			this._DocumentoCompra = new EntitySet<DocumentoCompra>(new Action<DocumentoCompra>(this.attach_DocumentoCompra), new Action<DocumentoCompra>(this.detach_DocumentoCompra));
 			this._ProveedorCatalogo = new EntitySet<ProveedorCatalogo>(new Action<ProveedorCatalogo>(this.attach_ProveedorCatalogo), new Action<ProveedorCatalogo>(this.detach_ProveedorCatalogo));
 			this._ProveedorProducto = new EntitySet<ProveedorProducto>(new Action<ProveedorProducto>(this.attach_ProveedorProducto), new Action<ProveedorProducto>(this.detach_ProveedorProducto));
 			this._SolicitudCompra = new EntitySet<SolicitudCompra>(new Action<SolicitudCompra>(this.attach_SolicitudCompra), new Action<SolicitudCompra>(this.detach_SolicitudCompra));
-			this._DocumentoCompra = new EntitySet<DocumentoCompra>(new Action<DocumentoCompra>(this.attach_DocumentoCompra), new Action<DocumentoCompra>(this.detach_DocumentoCompra));
 			this._Rubro = default(EntityRef<Rubro>);
 			this._UbigeoDistrito = default(EntityRef<UbigeoDistrito>);
 			OnCreated();
@@ -12463,6 +13287,19 @@ namespace pe.edu.pucp.ferretin.model
 			}
 		}
 		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Proveedor_DocumentoCompra", Storage="_DocumentoCompra", ThisKey="id", OtherKey="id_proveedor")]
+		public EntitySet<DocumentoCompra> DocumentoCompra
+		{
+			get
+			{
+				return this._DocumentoCompra;
+			}
+			set
+			{
+				this._DocumentoCompra.Assign(value);
+			}
+		}
+		
 		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Proveedor_ProveedorCatalogo", Storage="_ProveedorCatalogo", ThisKey="id", OtherKey="id_proveedor")]
 		public EntitySet<ProveedorCatalogo> ProveedorCatalogo
 		{
@@ -12499,19 +13336,6 @@ namespace pe.edu.pucp.ferretin.model
 			set
 			{
 				this._SolicitudCompra.Assign(value);
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Proveedor_DocumentoCompra", Storage="_DocumentoCompra", ThisKey="id", OtherKey="id_proveedor")]
-		public EntitySet<DocumentoCompra> DocumentoCompra
-		{
-			get
-			{
-				return this._DocumentoCompra;
-			}
-			set
-			{
-				this._DocumentoCompra.Assign(value);
 			}
 		}
 		
@@ -12603,6 +13427,18 @@ namespace pe.edu.pucp.ferretin.model
 			}
 		}
 		
+		private void attach_DocumentoCompra(DocumentoCompra entity)
+		{
+			this.SendPropertyChanging();
+			entity.Proveedor = this;
+		}
+		
+		private void detach_DocumentoCompra(DocumentoCompra entity)
+		{
+			this.SendPropertyChanging();
+			entity.Proveedor = null;
+		}
+		
 		private void attach_ProveedorCatalogo(ProveedorCatalogo entity)
 		{
 			this.SendPropertyChanging();
@@ -12634,18 +13470,6 @@ namespace pe.edu.pucp.ferretin.model
 		}
 		
 		private void detach_SolicitudCompra(SolicitudCompra entity)
-		{
-			this.SendPropertyChanging();
-			entity.Proveedor = null;
-		}
-		
-		private void attach_DocumentoCompra(DocumentoCompra entity)
-		{
-			this.SendPropertyChanging();
-			entity.Proveedor = this;
-		}
-		
-		private void detach_DocumentoCompra(DocumentoCompra entity)
 		{
 			this.SendPropertyChanging();
 			entity.Proveedor = null;
@@ -16802,15 +17626,15 @@ namespace pe.edu.pucp.ferretin.model
 		
 		private System.Nullable<System.DateTime> _ultimoCambioContrasena;
 		
+		private EntitySet<DocumentoCompra> _DocumentoCompra;
+		
+		private EntitySet<DocumentoCompra> _DocumentoCompra1;
+		
 		private EntitySet<Proforma> _Proforma;
 		
 		private EntitySet<Transaccion> _Transaccion;
 		
 		private EntitySet<Venta> _Venta;
-		
-		private EntitySet<DocumentoCompra> _DocumentoCompra;
-		
-		private EntitySet<DocumentoCompra> _DocumentoCompra1;
 		
 		private EntityRef<Empleado> _Empleado;
 		
@@ -16844,11 +17668,11 @@ namespace pe.edu.pucp.ferretin.model
 		
 		public Usuario()
 		{
+			this._DocumentoCompra = new EntitySet<DocumentoCompra>(new Action<DocumentoCompra>(this.attach_DocumentoCompra), new Action<DocumentoCompra>(this.detach_DocumentoCompra));
+			this._DocumentoCompra1 = new EntitySet<DocumentoCompra>(new Action<DocumentoCompra>(this.attach_DocumentoCompra1), new Action<DocumentoCompra>(this.detach_DocumentoCompra1));
 			this._Proforma = new EntitySet<Proforma>(new Action<Proforma>(this.attach_Proforma), new Action<Proforma>(this.detach_Proforma));
 			this._Transaccion = new EntitySet<Transaccion>(new Action<Transaccion>(this.attach_Transaccion), new Action<Transaccion>(this.detach_Transaccion));
 			this._Venta = new EntitySet<Venta>(new Action<Venta>(this.attach_Venta), new Action<Venta>(this.detach_Venta));
-			this._DocumentoCompra = new EntitySet<DocumentoCompra>(new Action<DocumentoCompra>(this.attach_DocumentoCompra), new Action<DocumentoCompra>(this.detach_DocumentoCompra));
-			this._DocumentoCompra1 = new EntitySet<DocumentoCompra>(new Action<DocumentoCompra>(this.attach_DocumentoCompra1), new Action<DocumentoCompra>(this.detach_DocumentoCompra1));
 			this._Empleado = default(EntityRef<Empleado>);
 			this._Perfil = default(EntityRef<Perfil>);
 			OnCreated();
@@ -17062,6 +17886,32 @@ namespace pe.edu.pucp.ferretin.model
 			}
 		}
 		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Usuario_DocumentoCompra", Storage="_DocumentoCompra", ThisKey="id", OtherKey="id_usuario_aprobacion")]
+		public EntitySet<DocumentoCompra> DocumentoCompra
+		{
+			get
+			{
+				return this._DocumentoCompra;
+			}
+			set
+			{
+				this._DocumentoCompra.Assign(value);
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Usuario_DocumentoCompra1", Storage="_DocumentoCompra1", ThisKey="id", OtherKey="id_usuario_registro")]
+		public EntitySet<DocumentoCompra> DocumentoCompra1
+		{
+			get
+			{
+				return this._DocumentoCompra1;
+			}
+			set
+			{
+				this._DocumentoCompra1.Assign(value);
+			}
+		}
+		
 		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Usuario_Proforma", Storage="_Proforma", ThisKey="id", OtherKey="id_usuario")]
 		public EntitySet<Proforma> Proforma
 		{
@@ -17098,32 +17948,6 @@ namespace pe.edu.pucp.ferretin.model
 			set
 			{
 				this._Venta.Assign(value);
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Usuario_DocumentoCompra", Storage="_DocumentoCompra", ThisKey="id", OtherKey="id_usuario_aprobacion")]
-		public EntitySet<DocumentoCompra> DocumentoCompra
-		{
-			get
-			{
-				return this._DocumentoCompra;
-			}
-			set
-			{
-				this._DocumentoCompra.Assign(value);
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Usuario_DocumentoCompra1", Storage="_DocumentoCompra1", ThisKey="id", OtherKey="id_usuario_registro")]
-		public EntitySet<DocumentoCompra> DocumentoCompra1
-		{
-			get
-			{
-				return this._DocumentoCompra1;
-			}
-			set
-			{
-				this._DocumentoCompra1.Assign(value);
 			}
 		}
 		
@@ -17215,6 +18039,30 @@ namespace pe.edu.pucp.ferretin.model
 			}
 		}
 		
+		private void attach_DocumentoCompra(DocumentoCompra entity)
+		{
+			this.SendPropertyChanging();
+			entity.Usuario = this;
+		}
+		
+		private void detach_DocumentoCompra(DocumentoCompra entity)
+		{
+			this.SendPropertyChanging();
+			entity.Usuario = null;
+		}
+		
+		private void attach_DocumentoCompra1(DocumentoCompra entity)
+		{
+			this.SendPropertyChanging();
+			entity.Usuario1 = this;
+		}
+		
+		private void detach_DocumentoCompra1(DocumentoCompra entity)
+		{
+			this.SendPropertyChanging();
+			entity.Usuario1 = null;
+		}
+		
 		private void attach_Proforma(Proforma entity)
 		{
 			this.SendPropertyChanging();
@@ -17249,30 +18097,6 @@ namespace pe.edu.pucp.ferretin.model
 		{
 			this.SendPropertyChanging();
 			entity.Usuario = null;
-		}
-		
-		private void attach_DocumentoCompra(DocumentoCompra entity)
-		{
-			this.SendPropertyChanging();
-			entity.Usuario = this;
-		}
-		
-		private void detach_DocumentoCompra(DocumentoCompra entity)
-		{
-			this.SendPropertyChanging();
-			entity.Usuario = null;
-		}
-		
-		private void attach_DocumentoCompra1(DocumentoCompra entity)
-		{
-			this.SendPropertyChanging();
-			entity.Usuario1 = this;
-		}
-		
-		private void detach_DocumentoCompra1(DocumentoCompra entity)
-		{
-			this.SendPropertyChanging();
-			entity.Usuario1 = null;
 		}
 	}
 	
@@ -17513,6 +18337,12 @@ namespace pe.edu.pucp.ferretin.model
 		
 		private System.Nullable<decimal> _diferencia;
 		
+		private System.Nullable<decimal> _igvPorcentaje;
+		
+		private System.Nullable<decimal> _tipoCambio;
+		
+		private System.Nullable<int> _tipoMoneda;
+		
 		private EntitySet<VentaProducto> _VentaProducto;
 		
 		private EntitySet<Devolucion> _Devolucion;
@@ -17555,6 +18385,12 @@ namespace pe.edu.pucp.ferretin.model
     partial void OncobradoChanged();
     partial void OndiferenciaChanging(System.Nullable<decimal> value);
     partial void OndiferenciaChanged();
+    partial void OnigvPorcentajeChanging(System.Nullable<decimal> value);
+    partial void OnigvPorcentajeChanged();
+    partial void OntipoCambioChanging(System.Nullable<decimal> value);
+    partial void OntipoCambioChanged();
+    partial void OntipoMonedaChanging(System.Nullable<int> value);
+    partial void OntipoMonedaChanged();
     #endregion
 		
 		public Venta()
@@ -17851,6 +18687,66 @@ namespace pe.edu.pucp.ferretin.model
 					this._diferencia = value;
 					this.SendPropertyChanged("diferencia");
 					this.OndiferenciaChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_igvPorcentaje", DbType="Decimal(18,2)")]
+		public System.Nullable<decimal> igvPorcentaje
+		{
+			get
+			{
+				return this._igvPorcentaje;
+			}
+			set
+			{
+				if ((this._igvPorcentaje != value))
+				{
+					this.OnigvPorcentajeChanging(value);
+					this.SendPropertyChanging();
+					this._igvPorcentaje = value;
+					this.SendPropertyChanged("igvPorcentaje");
+					this.OnigvPorcentajeChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_tipoCambio", DbType="Decimal(18,2)")]
+		public System.Nullable<decimal> tipoCambio
+		{
+			get
+			{
+				return this._tipoCambio;
+			}
+			set
+			{
+				if ((this._tipoCambio != value))
+				{
+					this.OntipoCambioChanging(value);
+					this.SendPropertyChanging();
+					this._tipoCambio = value;
+					this.SendPropertyChanged("tipoCambio");
+					this.OntipoCambioChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_tipoMoneda", DbType="Int")]
+		public System.Nullable<int> tipoMoneda
+		{
+			get
+			{
+				return this._tipoMoneda;
+			}
+			set
+			{
+				if ((this._tipoMoneda != value))
+				{
+					this.OntipoMonedaChanging(value);
+					this.SendPropertyChanging();
+					this._tipoMoneda = value;
+					this.SendPropertyChanged("tipoMoneda");
+					this.OntipoMonedaChanged();
 				}
 			}
 		}
@@ -18410,734 +19306,6 @@ namespace pe.edu.pucp.ferretin.model
 			{
 				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
 			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.DocumentoCompra")]
-	public partial class DocumentoCompra : INotifyPropertyChanging, INotifyPropertyChanged
-	{
-		
-		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
-		
-		private long _id;
-		
-		private System.Nullable<long> _id_cotizacion;
-		
-		private string _codigo;
-		
-		private System.Nullable<System.DateTime> _fechaEmision;
-		
-		private System.Nullable<System.DateTime> _fechaVencimiento;
-		
-		private System.Nullable<decimal> _subTotal;
-		
-		private System.Nullable<decimal> _igv;
-		
-		private System.Nullable<decimal> _total;
-		
-		private string _nroFactura;
-		
-		private System.Nullable<int> _id_proveedor;
-		
-		private System.Nullable<byte> _tipo;
-		
-		private System.Nullable<short> _id_estado;
-		
-		private System.Nullable<int> _id_usuario_aprobacion;
-		
-		private System.Nullable<int> _id_usuario_registro;
-		
-		private System.Nullable<int> _id_solicitud_compra;
-		
-		private EntitySet<DocumentoCompraProducto> _DocumentoCompraProducto;
-		
-		private EntitySet<GuiaRemision> _GuiaRemision;
-		
-		private EntitySet<DocumentoCompra> _DocumentoCompra2;
-		
-		private EntityRef<SolicitudCompra> _SolicitudCompra;
-		
-		private EntityRef<DocumentoCompra> _DocumentoCompra1;
-		
-		private EntityRef<DocumentoCompraEstado> _DocumentoCompraEstado;
-		
-		private EntityRef<Proveedor> _Proveedor;
-		
-		private EntityRef<Usuario> _Usuario;
-		
-		private EntityRef<Usuario> _Usuario1;
-		
-    #region Definiciones de métodos de extensibilidad
-    partial void OnLoaded();
-    partial void OnValidate(System.Data.Linq.ChangeAction action);
-    partial void OnCreated();
-    partial void OnidChanging(long value);
-    partial void OnidChanged();
-    partial void Onid_cotizacionChanging(System.Nullable<long> value);
-    partial void Onid_cotizacionChanged();
-    partial void OncodigoChanging(string value);
-    partial void OncodigoChanged();
-    partial void OnfechaEmisionChanging(System.Nullable<System.DateTime> value);
-    partial void OnfechaEmisionChanged();
-    partial void OnfechaVencimientoChanging(System.Nullable<System.DateTime> value);
-    partial void OnfechaVencimientoChanged();
-    partial void OnsubTotalChanging(System.Nullable<decimal> value);
-    partial void OnsubTotalChanged();
-    partial void OnigvChanging(System.Nullable<decimal> value);
-    partial void OnigvChanged();
-    partial void OntotalChanging(System.Nullable<decimal> value);
-    partial void OntotalChanged();
-    partial void OnnroFacturaChanging(string value);
-    partial void OnnroFacturaChanged();
-    partial void Onid_proveedorChanging(System.Nullable<int> value);
-    partial void Onid_proveedorChanged();
-    partial void OntipoChanging(System.Nullable<byte> value);
-    partial void OntipoChanged();
-    partial void Onid_estadoChanging(System.Nullable<short> value);
-    partial void Onid_estadoChanged();
-    partial void Onid_usuario_aprobacionChanging(System.Nullable<int> value);
-    partial void Onid_usuario_aprobacionChanged();
-    partial void Onid_usuario_registroChanging(System.Nullable<int> value);
-    partial void Onid_usuario_registroChanged();
-    partial void Onid_solicitud_compraChanging(System.Nullable<int> value);
-    partial void Onid_solicitud_compraChanged();
-    #endregion
-		
-		public DocumentoCompra()
-		{
-			this._DocumentoCompraProducto = new EntitySet<DocumentoCompraProducto>(new Action<DocumentoCompraProducto>(this.attach_DocumentoCompraProducto), new Action<DocumentoCompraProducto>(this.detach_DocumentoCompraProducto));
-			this._GuiaRemision = new EntitySet<GuiaRemision>(new Action<GuiaRemision>(this.attach_GuiaRemision), new Action<GuiaRemision>(this.detach_GuiaRemision));
-			this._DocumentoCompra2 = new EntitySet<DocumentoCompra>(new Action<DocumentoCompra>(this.attach_DocumentoCompra2), new Action<DocumentoCompra>(this.detach_DocumentoCompra2));
-			this._SolicitudCompra = default(EntityRef<SolicitudCompra>);
-			this._DocumentoCompra1 = default(EntityRef<DocumentoCompra>);
-			this._DocumentoCompraEstado = default(EntityRef<DocumentoCompraEstado>);
-			this._Proveedor = default(EntityRef<Proveedor>);
-			this._Usuario = default(EntityRef<Usuario>);
-			this._Usuario1 = default(EntityRef<Usuario>);
-			OnCreated();
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_id", AutoSync=AutoSync.OnInsert, DbType="BigInt NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
-		public long id
-		{
-			get
-			{
-				return this._id;
-			}
-			set
-			{
-				if ((this._id != value))
-				{
-					this.OnidChanging(value);
-					this.SendPropertyChanging();
-					this._id = value;
-					this.SendPropertyChanged("id");
-					this.OnidChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_id_cotizacion", DbType="BigInt")]
-		public System.Nullable<long> id_cotizacion
-		{
-			get
-			{
-				return this._id_cotizacion;
-			}
-			set
-			{
-				if ((this._id_cotizacion != value))
-				{
-					if (this._DocumentoCompra1.HasLoadedOrAssignedValue)
-					{
-						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
-					}
-					this.Onid_cotizacionChanging(value);
-					this.SendPropertyChanging();
-					this._id_cotizacion = value;
-					this.SendPropertyChanged("id_cotizacion");
-					this.Onid_cotizacionChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_codigo", DbType="VarChar(15)")]
-		public string codigo
-		{
-			get
-			{
-				return this._codigo;
-			}
-			set
-			{
-				if ((this._codigo != value))
-				{
-					this.OncodigoChanging(value);
-					this.SendPropertyChanging();
-					this._codigo = value;
-					this.SendPropertyChanged("codigo");
-					this.OncodigoChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_fechaEmision", DbType="DateTime")]
-		public System.Nullable<System.DateTime> fechaEmision
-		{
-			get
-			{
-				return this._fechaEmision;
-			}
-			set
-			{
-				if ((this._fechaEmision != value))
-				{
-					this.OnfechaEmisionChanging(value);
-					this.SendPropertyChanging();
-					this._fechaEmision = value;
-					this.SendPropertyChanged("fechaEmision");
-					this.OnfechaEmisionChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_fechaVencimiento", DbType="DateTime")]
-		public System.Nullable<System.DateTime> fechaVencimiento
-		{
-			get
-			{
-				return this._fechaVencimiento;
-			}
-			set
-			{
-				if ((this._fechaVencimiento != value))
-				{
-					this.OnfechaVencimientoChanging(value);
-					this.SendPropertyChanging();
-					this._fechaVencimiento = value;
-					this.SendPropertyChanged("fechaVencimiento");
-					this.OnfechaVencimientoChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_subTotal", DbType="Decimal(10,2)")]
-		public System.Nullable<decimal> subTotal
-		{
-			get
-			{
-				return this._subTotal;
-			}
-			set
-			{
-				if ((this._subTotal != value))
-				{
-					this.OnsubTotalChanging(value);
-					this.SendPropertyChanging();
-					this._subTotal = value;
-					this.SendPropertyChanged("subTotal");
-					this.OnsubTotalChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_igv", DbType="Decimal(10,2)")]
-		public System.Nullable<decimal> igv
-		{
-			get
-			{
-				return this._igv;
-			}
-			set
-			{
-				if ((this._igv != value))
-				{
-					this.OnigvChanging(value);
-					this.SendPropertyChanging();
-					this._igv = value;
-					this.SendPropertyChanged("igv");
-					this.OnigvChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_total", DbType="Decimal(10,2)")]
-		public System.Nullable<decimal> total
-		{
-			get
-			{
-				return this._total;
-			}
-			set
-			{
-				if ((this._total != value))
-				{
-					this.OntotalChanging(value);
-					this.SendPropertyChanging();
-					this._total = value;
-					this.SendPropertyChanged("total");
-					this.OntotalChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_nroFactura", DbType="VarChar(15)")]
-		public string nroFactura
-		{
-			get
-			{
-				return this._nroFactura;
-			}
-			set
-			{
-				if ((this._nroFactura != value))
-				{
-					this.OnnroFacturaChanging(value);
-					this.SendPropertyChanging();
-					this._nroFactura = value;
-					this.SendPropertyChanged("nroFactura");
-					this.OnnroFacturaChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_id_proveedor", DbType="Int")]
-		public System.Nullable<int> id_proveedor
-		{
-			get
-			{
-				return this._id_proveedor;
-			}
-			set
-			{
-				if ((this._id_proveedor != value))
-				{
-					if (this._Proveedor.HasLoadedOrAssignedValue)
-					{
-						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
-					}
-					this.Onid_proveedorChanging(value);
-					this.SendPropertyChanging();
-					this._id_proveedor = value;
-					this.SendPropertyChanged("id_proveedor");
-					this.Onid_proveedorChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_tipo", DbType="TinyInt")]
-		public System.Nullable<byte> tipo
-		{
-			get
-			{
-				return this._tipo;
-			}
-			set
-			{
-				if ((this._tipo != value))
-				{
-					this.OntipoChanging(value);
-					this.SendPropertyChanging();
-					this._tipo = value;
-					this.SendPropertyChanged("tipo");
-					this.OntipoChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_id_estado", DbType="SmallInt")]
-		public System.Nullable<short> id_estado
-		{
-			get
-			{
-				return this._id_estado;
-			}
-			set
-			{
-				if ((this._id_estado != value))
-				{
-					if (this._DocumentoCompraEstado.HasLoadedOrAssignedValue)
-					{
-						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
-					}
-					this.Onid_estadoChanging(value);
-					this.SendPropertyChanging();
-					this._id_estado = value;
-					this.SendPropertyChanged("id_estado");
-					this.Onid_estadoChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_id_usuario_aprobacion", DbType="Int")]
-		public System.Nullable<int> id_usuario_aprobacion
-		{
-			get
-			{
-				return this._id_usuario_aprobacion;
-			}
-			set
-			{
-				if ((this._id_usuario_aprobacion != value))
-				{
-					if (this._Usuario.HasLoadedOrAssignedValue)
-					{
-						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
-					}
-					this.Onid_usuario_aprobacionChanging(value);
-					this.SendPropertyChanging();
-					this._id_usuario_aprobacion = value;
-					this.SendPropertyChanged("id_usuario_aprobacion");
-					this.Onid_usuario_aprobacionChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_id_usuario_registro", DbType="Int")]
-		public System.Nullable<int> id_usuario_registro
-		{
-			get
-			{
-				return this._id_usuario_registro;
-			}
-			set
-			{
-				if ((this._id_usuario_registro != value))
-				{
-					if (this._Usuario1.HasLoadedOrAssignedValue)
-					{
-						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
-					}
-					this.Onid_usuario_registroChanging(value);
-					this.SendPropertyChanging();
-					this._id_usuario_registro = value;
-					this.SendPropertyChanged("id_usuario_registro");
-					this.Onid_usuario_registroChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_id_solicitud_compra", DbType="Int")]
-		public System.Nullable<int> id_solicitud_compra
-		{
-			get
-			{
-				return this._id_solicitud_compra;
-			}
-			set
-			{
-				if ((this._id_solicitud_compra != value))
-				{
-					if (this._SolicitudCompra.HasLoadedOrAssignedValue)
-					{
-						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
-					}
-					this.Onid_solicitud_compraChanging(value);
-					this.SendPropertyChanging();
-					this._id_solicitud_compra = value;
-					this.SendPropertyChanged("id_solicitud_compra");
-					this.Onid_solicitud_compraChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="DocumentoCompra_DocumentoCompraProducto", Storage="_DocumentoCompraProducto", ThisKey="id", OtherKey="id_documento_compra")]
-		public EntitySet<DocumentoCompraProducto> DocumentoCompraProducto
-		{
-			get
-			{
-				return this._DocumentoCompraProducto;
-			}
-			set
-			{
-				this._DocumentoCompraProducto.Assign(value);
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="DocumentoCompra_GuiaRemision", Storage="_GuiaRemision", ThisKey="id", OtherKey="id_orden_compra")]
-		public EntitySet<GuiaRemision> GuiaRemision
-		{
-			get
-			{
-				return this._GuiaRemision;
-			}
-			set
-			{
-				this._GuiaRemision.Assign(value);
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="DocumentoCompra_DocumentoCompra", Storage="_DocumentoCompra2", ThisKey="id", OtherKey="id_cotizacion")]
-		public EntitySet<DocumentoCompra> DocumentoCompra2
-		{
-			get
-			{
-				return this._DocumentoCompra2;
-			}
-			set
-			{
-				this._DocumentoCompra2.Assign(value);
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="SolicitudCompra_DocumentoCompra", Storage="_SolicitudCompra", ThisKey="id_solicitud_compra", OtherKey="id", IsForeignKey=true)]
-		public SolicitudCompra SolicitudCompra
-		{
-			get
-			{
-				return this._SolicitudCompra.Entity;
-			}
-			set
-			{
-				SolicitudCompra previousValue = this._SolicitudCompra.Entity;
-				if (((previousValue != value) 
-							|| (this._SolicitudCompra.HasLoadedOrAssignedValue == false)))
-				{
-					this.SendPropertyChanging();
-					if ((previousValue != null))
-					{
-						this._SolicitudCompra.Entity = null;
-						previousValue.DocumentoCompra.Remove(this);
-					}
-					this._SolicitudCompra.Entity = value;
-					if ((value != null))
-					{
-						value.DocumentoCompra.Add(this);
-						this._id_solicitud_compra = value.id;
-					}
-					else
-					{
-						this._id_solicitud_compra = default(Nullable<int>);
-					}
-					this.SendPropertyChanged("SolicitudCompra");
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="DocumentoCompra_DocumentoCompra", Storage="_DocumentoCompra1", ThisKey="id_cotizacion", OtherKey="id", IsForeignKey=true)]
-		public DocumentoCompra DocumentoCompra1
-		{
-			get
-			{
-				return this._DocumentoCompra1.Entity;
-			}
-			set
-			{
-				DocumentoCompra previousValue = this._DocumentoCompra1.Entity;
-				if (((previousValue != value) 
-							|| (this._DocumentoCompra1.HasLoadedOrAssignedValue == false)))
-				{
-					this.SendPropertyChanging();
-					if ((previousValue != null))
-					{
-						this._DocumentoCompra1.Entity = null;
-						previousValue.DocumentoCompra2.Remove(this);
-					}
-					this._DocumentoCompra1.Entity = value;
-					if ((value != null))
-					{
-						value.DocumentoCompra2.Add(this);
-						this._id_cotizacion = value.id;
-					}
-					else
-					{
-						this._id_cotizacion = default(Nullable<long>);
-					}
-					this.SendPropertyChanged("DocumentoCompra1");
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="DocumentoCompraEstado_DocumentoCompra", Storage="_DocumentoCompraEstado", ThisKey="id_estado", OtherKey="id", IsForeignKey=true)]
-		public DocumentoCompraEstado DocumentoCompraEstado
-		{
-			get
-			{
-				return this._DocumentoCompraEstado.Entity;
-			}
-			set
-			{
-				DocumentoCompraEstado previousValue = this._DocumentoCompraEstado.Entity;
-				if (((previousValue != value) 
-							|| (this._DocumentoCompraEstado.HasLoadedOrAssignedValue == false)))
-				{
-					this.SendPropertyChanging();
-					if ((previousValue != null))
-					{
-						this._DocumentoCompraEstado.Entity = null;
-						previousValue.DocumentoCompra.Remove(this);
-					}
-					this._DocumentoCompraEstado.Entity = value;
-					if ((value != null))
-					{
-						value.DocumentoCompra.Add(this);
-						this._id_estado = value.id;
-					}
-					else
-					{
-						this._id_estado = default(Nullable<short>);
-					}
-					this.SendPropertyChanged("DocumentoCompraEstado");
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Proveedor_DocumentoCompra", Storage="_Proveedor", ThisKey="id_proveedor", OtherKey="id", IsForeignKey=true)]
-		public Proveedor Proveedor
-		{
-			get
-			{
-				return this._Proveedor.Entity;
-			}
-			set
-			{
-				Proveedor previousValue = this._Proveedor.Entity;
-				if (((previousValue != value) 
-							|| (this._Proveedor.HasLoadedOrAssignedValue == false)))
-				{
-					this.SendPropertyChanging();
-					if ((previousValue != null))
-					{
-						this._Proveedor.Entity = null;
-						previousValue.DocumentoCompra.Remove(this);
-					}
-					this._Proveedor.Entity = value;
-					if ((value != null))
-					{
-						value.DocumentoCompra.Add(this);
-						this._id_proveedor = value.id;
-					}
-					else
-					{
-						this._id_proveedor = default(Nullable<int>);
-					}
-					this.SendPropertyChanged("Proveedor");
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Usuario_DocumentoCompra", Storage="_Usuario", ThisKey="id_usuario_aprobacion", OtherKey="id", IsForeignKey=true)]
-		public Usuario Usuario
-		{
-			get
-			{
-				return this._Usuario.Entity;
-			}
-			set
-			{
-				Usuario previousValue = this._Usuario.Entity;
-				if (((previousValue != value) 
-							|| (this._Usuario.HasLoadedOrAssignedValue == false)))
-				{
-					this.SendPropertyChanging();
-					if ((previousValue != null))
-					{
-						this._Usuario.Entity = null;
-						previousValue.DocumentoCompra.Remove(this);
-					}
-					this._Usuario.Entity = value;
-					if ((value != null))
-					{
-						value.DocumentoCompra.Add(this);
-						this._id_usuario_aprobacion = value.id;
-					}
-					else
-					{
-						this._id_usuario_aprobacion = default(Nullable<int>);
-					}
-					this.SendPropertyChanged("Usuario");
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Usuario_DocumentoCompra1", Storage="_Usuario1", ThisKey="id_usuario_registro", OtherKey="id", IsForeignKey=true)]
-		public Usuario Usuario1
-		{
-			get
-			{
-				return this._Usuario1.Entity;
-			}
-			set
-			{
-				Usuario previousValue = this._Usuario1.Entity;
-				if (((previousValue != value) 
-							|| (this._Usuario1.HasLoadedOrAssignedValue == false)))
-				{
-					this.SendPropertyChanging();
-					if ((previousValue != null))
-					{
-						this._Usuario1.Entity = null;
-						previousValue.DocumentoCompra1.Remove(this);
-					}
-					this._Usuario1.Entity = value;
-					if ((value != null))
-					{
-						value.DocumentoCompra1.Add(this);
-						this._id_usuario_registro = value.id;
-					}
-					else
-					{
-						this._id_usuario_registro = default(Nullable<int>);
-					}
-					this.SendPropertyChanged("Usuario1");
-				}
-			}
-		}
-		
-		public event PropertyChangingEventHandler PropertyChanging;
-		
-		public event PropertyChangedEventHandler PropertyChanged;
-		
-		protected virtual void SendPropertyChanging()
-		{
-			if ((this.PropertyChanging != null))
-			{
-				this.PropertyChanging(this, emptyChangingEventArgs);
-			}
-		}
-		
-		protected virtual void SendPropertyChanged(String propertyName)
-		{
-			if ((this.PropertyChanged != null))
-			{
-				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-			}
-		}
-		
-		private void attach_DocumentoCompraProducto(DocumentoCompraProducto entity)
-		{
-			this.SendPropertyChanging();
-			entity.DocumentoCompra = this;
-		}
-		
-		private void detach_DocumentoCompraProducto(DocumentoCompraProducto entity)
-		{
-			this.SendPropertyChanging();
-			entity.DocumentoCompra = null;
-		}
-		
-		private void attach_GuiaRemision(GuiaRemision entity)
-		{
-			this.SendPropertyChanging();
-			entity.DocumentoCompra = this;
-		}
-		
-		private void detach_GuiaRemision(GuiaRemision entity)
-		{
-			this.SendPropertyChanging();
-			entity.DocumentoCompra = null;
-		}
-		
-		private void attach_DocumentoCompra2(DocumentoCompra entity)
-		{
-			this.SendPropertyChanging();
-			entity.DocumentoCompra1 = this;
-		}
-		
-		private void detach_DocumentoCompra2(DocumentoCompra entity)
-		{
-			this.SendPropertyChanging();
-			entity.DocumentoCompra1 = null;
 		}
 	}
 }
