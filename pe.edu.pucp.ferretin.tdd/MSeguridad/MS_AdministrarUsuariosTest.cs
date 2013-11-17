@@ -15,20 +15,20 @@ using pe.edu.pucp.ferretin.controller.MSeguridad;
 namespace pe.edu.pucp.ferretin.tdd.MSeguridad
 {
     [TestFixture]
-    public class MS_AdministrarTiendasTest
+    public class MS_AdministrarUsuariosTest
     {
-        /******************* Test Nombre de Tienda *************************/
+        /******************** Test Cantidad de Usuarios *************************/
         [TestCase]
-        public void cantidad_de_tiendas_igual_a_16()
+        public void cantidad_de_usuarios_igual_a_16()
         {
             //Arrange = Creo el entorno            
             //var ventana = new MS_AdministrarTiendasViewModel();
-            
+
             //Act - No hay nada que hacer, porque la accion fue la creacion misma
-            int cantTiendas = MS_TiendaService.db.Tienda.Count();
-            
+            int cantUsuarios = MS_UsuarioService.db.Usuario.Count();
+
             //Assert - Verificar la condicion o criterio de aceptacion
-            Assert.AreEqual(16, cantTiendas);
-        }
+            Assert.AreEqual(16, cantUsuarios);
+        } 
     }
 }

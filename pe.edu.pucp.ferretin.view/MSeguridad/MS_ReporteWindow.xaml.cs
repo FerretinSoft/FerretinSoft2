@@ -25,6 +25,8 @@ namespace pe.edu.pucp.ferretin.view.MSeguridad
         {
             InitializeComponent();
             rep = new ReporteDeTransacciones();
+            rep.SetDatabaseLogon("inf245g2usr", "server", "inti.lab.inf.pucp.edu.pe", "inf245g2");
+            rep.Refresh();
             VisorDelReporte.ViewerCore.ReportSource = rep;
         }
 

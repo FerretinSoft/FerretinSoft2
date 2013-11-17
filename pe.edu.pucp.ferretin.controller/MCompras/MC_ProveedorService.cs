@@ -141,11 +141,11 @@ namespace pe.edu.pucp.ferretin.controller.MCompras
             }
         }
 
-        public static IEnumerable<Proveedor> obtenerPosiblesProveedores(ProductoAlmacen pa)
+        public static IEnumerable<Proveedor> obtenerPosiblesProveedores(Producto producto)
         {
             IEnumerable<ProveedorProducto> productos = (from p in listaProductos
                                                   where
-                                                  (p.id_producto != null && p.Producto == pa.Producto)                                                
+                                                  (p.Producto != null && p.Producto.id == producto.id)                                                
                                                   select p);
 
             IEnumerable<Proveedor> proveedores = (from p in productos

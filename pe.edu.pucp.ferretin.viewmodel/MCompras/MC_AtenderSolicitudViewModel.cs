@@ -9,82 +9,58 @@ using System.Text;
 using System.Threading.Tasks;
 using pe.edu.pucp.ferretin.viewmodel.Helper;
 using System.Windows.Input;
+using pe.edu.pucp.ferretin.controller.MSeguridad;
+using System.Windows;
 
 namespace pe.edu.pucp.ferretin.viewmodel.MCompras
 {
     public class MC_AtenderSolicitudViewModel : ViewModelBase
     {
         #region lista Productos de la  Solicitud
-        //private ProductoAlmacen _productoSol;
-        //public ProductoAlmacen productoSol
-        //{
-        //    get
-        //    {
-        //        return _productoSol;
-        //    }
-        //    set
-        //    {
-        //        _productoSol = value;
-        //        NotifyPropertyChanged("productoSol");
-        //    }
-        //}
-        //private Dictionary<ProductoAlmacen,decimal> _listaProductosSol;
-        //public Dictionary<ProductoAlmacen, decimal> listaProductosSol
-        //{
-        //    get
-        //    {   Usuario usuario = ComunService.usuarioL;
-        //        Tienda tienda = usuario.Empleado.tiendaActual;
-        //        _listaProductosSol = MA_SharedService.obtenerProductosPorAbastecer(tienda);
-        //        return _listaProductosSol;
-        //    }
-        //    set
-        //    {
-        //        _listaProductosSol = value;
-        //        NotifyPropertyChanged("listaProductosSol");
+
+
+        private IEnumerable<SolicitudCompra> _listaProductosSol;
+        public IEnumerable<SolicitudCompra> listaProductosSol
+        {
+            get
+            {
                 
-
-        //    }
-
-        //}
-
-        private ProductoSol _productoSol;
-        public ProductoSol productoSol
-        {
-            get
-            {
-                return _productoSol;
-            }
-            set
-            {
-                _productoSol = value;
-                NotifyPropertyChanged("productoSol");
-            }
-        }
-        private List<ProductoSol> _listaProductosSol;
-        public List<ProductoSol> listaProductosSol
-        {
-            get
-            {
-                _listaProductosSol = new List<ProductoSol>();
-                Usuario usuario = ComunService.usuarioL;
-                Tienda tienda = usuario.Empleado.tiendaActual;
-                ProductoSol actual;
+                var usuario = ComunService.usuarioL;
+                var tienda = usuario.Empleado.tiendaActual;
                 Dictionary<ProductoAlmacen,decimal> diccionario = MA_SharedService.obtenerProductosPorAbastecer(tienda);
+
+                //Productos atentidos pendientes
+                var _listaProductosPendientes = from sc in MC_ComunService.db.SolicitudCompra where sc.estado == 1 select sc;
+
+                //Productos vistos pero no atendidos
+                _listaProductosSol = from sc in MC_ComunService.db.SolicitudCompra where sc.estado == 0 select sc;
+
+                bool huboCambio = false;
                 foreach (var entry in diccionario)
                 {
-                    actual = new ProductoSol();
-                    actual.cantidad = entry.Value;
-                    actual.producto = entry.Key;
-                    _listaProductosSol.Add(actual);
-                    // do something with entry.Value or entry.Key                   
+                    if (!_listaProductosSol.Any(p => (p.Producto.id == entry.Key.Producto.id) ) && 
+                        !_listaProductosPendientes.Any(p => (p.Producto.id == entry.Key.Producto.id) ) )
+                    {
+                        var nuevo = new SolicitudCompra()
+                        {
+                            cantidad = (int)entry.Value,
+                            estado = 0,
+                            Producto = entry.Key.Producto,
+                            Tienda = entry.Key.Tienda,
+                        };
+                        MC_ComunService.db.SolicitudCompra.InsertOnSubmit(nuevo);
+                        huboCambio = true;
+                    }
                 }
+                if(huboCambio)
+                    MC_ComunService.db.SubmitChanges(System.Data.Linq.ConflictMode.ContinueOnConflict);
+
                 int i;
                 for (i = 0; i < _listaProductosSol.Count(); i++)
                 {
-                    
-                    _listaProductosSol[i].posiProveedor = MC_ProveedorService.obtenerPosiblesProveedores(_listaProductosSol[i].producto);
+                    _listaProductosSol.ElementAt(i).posiProveedor = MC_ProveedorService.obtenerPosiblesProveedores(_listaProductosSol.ElementAt(i).Producto);
                 }
-
+                
                 return _listaProductosSol;
             }
             set
@@ -110,13 +86,69 @@ namespace pe.edu.pucp.ferretin.viewmodel.MCompras
 
             }
         }
-
+        
         public void generarOCS(Object id)
         {
-            int i;
-            for (i = 0; i < this.listaProductosSol.Count(); i++)
+
+            var seleccionados = _listaProductosSol.Where(l => l.isSelected!=null && l.isSelected==true);
+            List<DocumentoCompra> documentosCompra = new List<DocumentoCompra>();
+
+            if (seleccionados.Count() > 0)
             {
-                Proveedor p = listaProductosSol[i].selectedProveedor;
+                var dce = MC_ComunService.db.DocumentoCompraEstado.First(i => i.nombre.ToLower().Contains("ingresada") && i.tipo.Value == true);
+
+                foreach (var seleccionado in seleccionados)
+                {
+                    seleccionado.estado = 1;
+                    DocumentoCompra dc;
+                    if (documentosCompra.Any(d => d.Proveedor.id == seleccionado.id))
+                    {
+                        dc = documentosCompra.First(d => d.Proveedor.id == seleccionado.id);
+                    }
+                    else
+                    {
+                        dc = new DocumentoCompra()
+                        {
+                            codigo = MC_DocumentoCompraService.generarCodigoDC(2),
+                            DocumentoCompraEstado = dce,
+                            fechaEmision = DateTime.Now,
+                            Usuario1 = MS_SharedService.usuarioL,
+                            Proveedor = seleccionado.Proveedor,
+                            total = 0,
+                            subTotal = 0
+                        };
+                    }
+                    var dcp = new DocumentoCompraProducto()
+                        {
+                            cantidad = seleccionado.cantidad,
+                            DocumentoCompra = dc,
+                            Producto = seleccionado.Producto,
+                            precioUnit = seleccionado.Producto.precioLista,
+                            montoParcial = seleccionado.cantidad * seleccionado.Producto.precioLista,
+                            estado = 1,
+                            UnidadMedida = seleccionado.Producto.UnidadMedida
+                        };
+                    dc.total += Decimal.Round(dcp.montoParcial.Value,2);
+                    dc.subTotal = Decimal.Round((dc.total / (1 + (decimal)MS_SharedService.obtenerIGV() / 100)).Value,2);
+                    dc.igv = Decimal.Round((dc.total - dc.subTotal).Value, 2);
+                    
+                    dc.DocumentoCompraProducto.Add(dcp);
+                    if (!documentosCompra.Contains(dc))
+                    {
+                        documentosCompra.Add(dc);
+                    }
+                }//end for
+
+                if (documentosCompra.Count() > 0)
+                {
+                    MC_ComunService.db.DocumentoCompra.InsertAllOnSubmit(documentosCompra);
+                    MC_ComunService.db.SubmitChanges();
+                    MessageBox.Show("La orden se agrego correctamente");
+                }
+            }
+            else
+            {
+                MessageBox.Show("Seleccione algún elemento");
             }
             //this._productoSol;
             //Proveedor buscado = null;
@@ -134,6 +166,7 @@ namespace pe.edu.pucp.ferretin.viewmodel.MCompras
             //    MessageBox.Show("No se encontro ninguna Proveedor", "No se encontro", MessageBoxButton.OK, MessageBoxImage.Question);
             //}
         }
+
 
     }
 } 

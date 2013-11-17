@@ -17,7 +17,7 @@
                     <ImageBrush ImageSource="Resources/settings_64.png"/>
                 </Button.Background>
             </Button>
-            <Button x:Name="reportesBtn" Content="" HorizontalAlignment="Left" Margin="226,117,0,0" VerticalAlignment="Top" Width="75" Height="75">
+            <Button x:Name="reportesBtn" Content="" HorizontalAlignment="Left" Margin="226,117,0,0" VerticalAlignment="Top" Width="75" Height="75" Click="reportesBtn_Click">
                 <Button.Background>
                     <ImageBrush ImageSource="Resources/opened_folder_64.png"/>
                 </Button.Background>

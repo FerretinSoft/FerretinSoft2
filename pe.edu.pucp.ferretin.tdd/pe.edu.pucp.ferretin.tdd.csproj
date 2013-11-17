@@ -41,7 +41,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="MAlmacen\MA_MovimientosTest.cs" />
+    <Compile Include="MRecursosHumanos\MR_AdministrarEmpleadosTest.cs" />
+    <Compile Include="MSeguridad\MS_AdministrarPerfilesTest.cs" />
     <Compile Include="MSeguridad\MS_AdministrarTiendasTest.cs" />
+    <Compile Include="MSeguridad\MS_AdministrarUsuariosTest.cs" />
+    <Compile Include="MSeguridad\MS_ParametrosTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -57,6 +62,10 @@
       <Project>{fbf7538a-f51a-4f45-84d1-b90fd464c71a}</Project>
       <Name>pe.edu.pucp.ferretin.viewmodel</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="MCompras\" />
+    <Folder Include="MVentas\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
