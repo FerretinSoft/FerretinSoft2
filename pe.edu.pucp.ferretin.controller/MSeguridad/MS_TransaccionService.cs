@@ -17,7 +17,7 @@ namespace pe.edu.pucp.ferretin.controller.MSeguridad
             {
                 if (_listaTransacciones == null)
                 {
-                    _listaTransacciones = db.Transaccion;
+                    _listaTransacciones = db.Transaccion.OrderByDescending(t => t.fecha);
                 }
                 //Usando concurrencia pesimista:
                 ///La lista de clientes se actualizara para ver los cambios
