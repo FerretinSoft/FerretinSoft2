@@ -1,10 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
+using System.Windows.Media;
+using System.Windows.Media.Imaging;
 
 namespace pe.edu.pucp.ferretin.model
 {
@@ -15,6 +18,31 @@ namespace pe.edu.pucp.ferretin.model
     {
 
         #region Zona de atributos
+
+        private ImageSource _imagenMostrar;
+        public ImageSource imagenMostrar
+        {
+            get
+            {
+                if (imagen != null)
+                {
+                    MemoryStream strm = new MemoryStream();
+                    strm.Write(imagen.ToArray(), 0, imagen.Length);
+                    strm.Position = 0;
+                    System.Drawing.Image img = System.Drawing.Image.FromStream(strm);
+
+                    BitmapImage bitmapImage = new BitmapImage();
+                    bitmapImage.BeginInit();
+                    MemoryStream memoryStream = new MemoryStream();
+                    img.Save(memoryStream, System.Drawing.Imaging.ImageFormat.Bmp);
+                    memoryStream.Seek(0, SeekOrigin.Begin);
+                    bitmapImage.StreamSource = memoryStream;
+                    bitmapImage.EndInit();
+                    _imagenMostrar = bitmapImage;
+                }
+                return _imagenMostrar;
+            }
+        }
 
         public int tipo
         {
@@ -136,21 +164,18 @@ namespace pe.edu.pucp.ferretin.model
 
                 switch (columnName)
                 {
-                    case "telefono1":
-                        if (String.IsNullOrEmpty(this.telefono1))
-                        {
-                            errorMessage = "El Teléfono 1 no debe estar vacio.";
-                        }
-
-                        break;
                     case "nroDoc":
                         if (tipoDocumento == "DNI" || tipoDocumento == "RUC")
                         {
-                            if (tipoDocumento=="DNI" && ( nroDoc < 10000000 || nroDoc > 99999999) )
+                            if (nroDoc == null)
+                            {
+                                errorMessage = "Debe ingresar un número de documento";
+                            }
+                            if (tipoDocumento=="DNI" && (nroDoc < 10000000 || nroDoc > 99999999) )
                             {
                                 errorMessage = "El DNI debe tener 8 números";
                             }
-                            if (tipoDocumento == "RUC" && ( nroDoc < 10000000000 || nroDoc > 99999999999) )
+                            if (tipoDocumento == "RUC" && (nroDoc == null || nroDoc < 10000000000 || nroDoc > 99999999999) )
                             {
                                 errorMessage = "El RUC debe tener 11 números";
                             }
@@ -187,7 +212,7 @@ namespace pe.edu.pucp.ferretin.model
                     case "UbigeoDistrito":
                         if (UbigeoDistrito == null || String.IsNullOrEmpty(UbigeoDistrito.id))
                         {
-                            errorMessage = "Debe seleccionar un Pais, Provincia, Ciudad y Distrito";
+                            errorMessage = "Debe seleccionar una Provincia, Ciudad y un Distrito";
                         }
                         break;
                 }
@@ -203,5 +228,21 @@ namespace pe.edu.pucp.ferretin.model
 
         #endregion
 
+        private string _mensajeError;
+        public string mensajeError
+        {
+            get
+            {
+                return _mensajeError;
+            }
+            set
+            {
+                if (!value.Equals(_mensajeError))
+                {
+                    _mensajeError = value;
+                    SendPropertyChanged("mensajeError");
+                }
+            }
+        }
     }
 }

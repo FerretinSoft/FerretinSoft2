@@ -20,17 +20,22 @@ namespace pe.edu.pucp.ferretin.viewmodel.MVentas
 {
     public class MV_RegistrarVentaViewModel : ViewModelBase
     {
-
         public MV_RegistrarVentaViewModel()
         {
-            venta = new Venta()
-            {
-                fecha = DateTime.Now,
-                igvActual = MS_SharedService.obtenerIGV(),
-                Usuario = MS_SharedService.usuarioL,
-                estado = 0
-            };
-            venta.VentaProducto.ListChanged += actualizarMontosVenta;
+            
+                venta = new Venta()
+                {
+                    fecha = DateTime.Now,
+                    igvPorcentaje = (decimal)MS_SharedService.obtenerIGV(),
+                    tipoCambio = (decimal)MS_SharedService.obtenerTipodeCambio(),
+                    tipoMoneda = 0,//Soles
+                    //Si agrego la siguiente linea ya lo estoy relacionando a la BD mejor lo hago al ultimo
+                    Usuario = MS_SharedService.usuarioL,
+                    estado = 0
+                };
+
+                venta.VentaProducto.ListChanged += actualizarMontosVenta;
+            
         }
 
         private long? _nroDocSeleccionado;
@@ -43,15 +48,14 @@ namespace pe.edu.pucp.ferretin.viewmodel.MVentas
             set
             {
                 _nroDocSeleccionado = value;
-                if (value >= 10000000 && value <= 99999999999)
+                if ( (value <= 99999999 && value >= 10000000) || ( value >= 10000000000 && value <= 99999999999) )
                 {
                     cargarCliente(null);
-                }else if(value==0)
+                }else if(value==null || value==0)
                 {
                     if (venta != null && venta.Cliente != null)
                     {
                         venta.Cliente = null;
-                        clienteImagen = null;
                         NotifyPropertyChanged("widthClienteBar");
                     }
                 }
@@ -81,36 +85,7 @@ namespace pe.edu.pucp.ferretin.viewmodel.MVentas
             }
         }
 
-        private ImageSource _clienteImagen;
-        public ImageSource clienteImagen
-        {
-            get
-            {
-                if (venta!=null && venta.Cliente != null && venta.Cliente.imagen != null)
-                {
-                    MemoryStream strm = new MemoryStream();
-                    strm.Write(venta.Cliente.imagen.ToArray(), 0, venta.Cliente.imagen.Length);
-                    strm.Position = 0;
-                    System.Drawing.Image img = System.Drawing.Image.FromStream(strm);
-
-                    BitmapImage bitmapImage = new BitmapImage();
-                    bitmapImage.BeginInit();
-                    MemoryStream memoryStream = new MemoryStream();
-                    img.Save(memoryStream, System.Drawing.Imaging.ImageFormat.Bmp);
-                    memoryStream.Seek(0, SeekOrigin.Begin);
-                    bitmapImage.StreamSource = memoryStream;
-                    bitmapImage.EndInit();
-
-                    _clienteImagen = bitmapImage;
-                }
-                return _clienteImagen;
-            }
-            set
-            {
-                _clienteImagen = value;
-                NotifyPropertyChanged("clienteImagen");
-            }
-        }
+        
 
         #region RalayCommand
         RelayCommand _cargarClienteCommand;
@@ -200,11 +175,15 @@ namespace pe.edu.pucp.ferretin.viewmodel.MVentas
                         VentaProducto ventaProducto = new VentaProducto();
                         ventaProducto.PromocionActual = MV_PromocionService.ultimaPromocionPorProducto(producto, MS_SharedService.usuarioL.Empleado.tiendaActual);
                         ventaProducto.canjeado = false;
-                        ventaProducto.tipoCambio = (decimal)(MS_SharedService.obtenerTipodeCambio());
-                        //ventaProducto.montoParcial = producto.moneda==1?producto.precioLista:producto.precioLista.Value*(decimal)(MS_SharedService.obtenerTipodeCambio());
+                        ventaProducto.tipoCambio = venta.tipoCambio.Value;
+                        ventaProducto.puntosCanejado = 0;
+                        ventaProducto.puntosGanado = producto.ganarPuntos;
+                        ventaProducto.precioUnitario = producto.precioLista;
                         ventaProducto.Venta = venta;
                         ventaProducto.Producto = producto;
                         ventaProducto.cantidad = 1;
+                        
+
                         
                         ventaProducto.PropertyChanged += actualizarMontosVenta;
                         
@@ -221,7 +200,7 @@ namespace pe.edu.pucp.ferretin.viewmodel.MVentas
         {
             //Actualizo el total
             venta.total = Decimal.Round(venta.VentaProducto.Sum(vp => vp.canjeado.Value ? 0 : vp.montoParcial).Value,2);
-
+            
             //Actualizo los puntos canjeados
             venta.puntosCanjeados = (venta.VentaProducto.Sum(vp => vp.canjeado.Value ? vp.cantidad*vp.Producto.precioPuntos : 0));        
 

@@ -42,12 +42,11 @@ namespace pe.edu.pucp.ferretin.model
             }
         }
 
-        public double igvActual = 0;
-
         partial void OntotalChanged()
         {
-            this.igv = Decimal.Round((this.total * (decimal)igvActual/100).Value,2);
-            this.subTotal = Decimal.Round(this.total.Value - this.igv.Value,2);
+            this.subTotal = Decimal.Round(this.total.Value/(1+((decimal)igvPorcentaje/100)), 2);
+            this.igv = Decimal.Round(this.total.Value - this.subTotal.Value, 2);
+            
             this.cobrado = 0;
             this.diferencia = Decimal.Round(this.total.Value - this.cobrado.Value,2);
         }
