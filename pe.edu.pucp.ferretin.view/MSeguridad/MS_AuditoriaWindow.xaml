@@ -25,7 +25,7 @@
             <Label Content="Fecha Hasta:" HorizontalAlignment="Left" Height="26" VerticalAlignment="Top" Width="81" Margin="99,65,0,0" Grid.Column="1"/>
             <Label Content="Nombre de Usuario:" HorizontalAlignment="Left" Height="26" VerticalAlignment="Top" Width="121" Margin="20,33,0,0"/>
             <Label Content="Perfil:" HorizontalAlignment="Left" Height="26" VerticalAlignment="Top" Width="68" Margin="99,37,0,0" Grid.Column="1"/>
-            <TextBox Text="{Binding searchNombreUsuario, Mode=TwoWay}" HorizontalAlignment="Left" Height="20" TextWrapping="Wrap" VerticalAlignment="Top" Width="167" Margin="175,37,0,0" />
+            <TextBox Text="{Binding searchNombreUsuario, Mode=TwoWay}" MaxLength="26" HorizontalAlignment="Left" Height="20" TextWrapping="Wrap" VerticalAlignment="Top" Width="191" Margin="175,37,0,0" PreviewTextInput="TextBox_PreviewTextInput"  />
 
             <Button Command="{Binding actualizarListaTransaccionesCommand}" x:Name="buscarTransaccionesBtn" HorizontalAlignment="Left" Margin="408,57,0,0" VerticalAlignment="Top" Width="32" Height="32" RenderTransformOrigin="0.3,-0.35" Grid.Column="1">
                 <Button.Background>
@@ -45,7 +45,7 @@
                 </DataGrid.Columns>
             </DataGrid>
             <Label Content="Fecha Desde:" HorizontalAlignment="Left" Height="26" VerticalAlignment="Top" Width="81" Margin="20,64,0,0"/>
-            <DatePicker SelectedDate="{Binding searchFechaDesde, Mode=TwoWay}" HorizontalAlignment="Left" Margin="175,65,0,0" VerticalAlignment="Top" Width="167" Height="24"/>
+            <DatePicker SelectedDate="{Binding searchFechaDesde, Mode=TwoWay}" HorizontalAlignment="Left" Margin="175,65,0,0" VerticalAlignment="Top" Width="191" Height="24"/>
             <DatePicker SelectedDate="{Binding searchFechaHasta, Mode=TwoWay}" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="185,67,0,0" Width="178" Grid.Column="1" Height="24"/>
             <ComboBox ItemsSource="{Binding perfiles,Mode=OneWay}" DisplayMemberPath="nombre" SelectedIndex="0" SelectedItem="{Binding searchPerfil, Mode=TwoWay}" HorizontalAlignment="Left" Height="22" Margin="185,36,0,0" VerticalAlignment="Top" Width="178" Grid.Column="1">
 

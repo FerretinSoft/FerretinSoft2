@@ -15,13 +15,19 @@ using System.Windows.Shapes;
 namespace pe.edu.pucp.ferretin.view.MSeguridad
 {
     /// <summary>
-    /// Interaction logic for MS_AdministrarArbolPerfiles.xaml
+    /// Interaction logic for MS_ReportesWindow.xaml
     /// </summary>
-    public partial class MS_AdministrarArbolPerfiles : Window
+    public partial class MS_ReportesWindow : Window
     {
-        public MS_AdministrarArbolPerfiles()
+        public MS_ReportesWindow()
         {
             InitializeComponent();
+        }
+
+        private void repSigBtn_Click(object sender, RoutedEventArgs e)
+        {
+            MS_ReporteTrasaccionesParametrosWindow RTW = new MS_ReporteTrasaccionesParametrosWindow();
+            RTW.Show();
         }
     }
 }

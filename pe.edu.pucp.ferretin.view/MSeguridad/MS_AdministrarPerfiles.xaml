@@ -127,7 +127,7 @@
                     <Label Content="Descripción:" HorizontalAlignment="Left" Margin="22,99,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.464,1.231" Height="26" Width="74"/>
 
                     <!-- TexBoxes -->
-                    <TextBox MaxLength="25" Text="{Binding Path=perfil.nombre, Mode=TwoWay, ValidatesOnExceptions=true, NotifyOnValidationError=true}" x:Name="nombreTxtBox" HorizontalAlignment="Left" Height="26" Margin="80,23,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="207"/>
+                    <TextBox MaxLength="25" Text="{Binding Path=perfil.nombre, Mode=TwoWay, ValidatesOnExceptions=true, NotifyOnValidationError=true}" x:Name="nombreTxtBox" HorizontalAlignment="Left" Height="26" Margin="80,23,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="207" PreviewTextInput="nombreTxtBox_PreviewTextInput"  />
                     <TextBox Text="{Binding Path=perfil.descripcion, Mode=TwoWay, ValidatesOnExceptions=true, NotifyOnValidationError=true}" x:Name="descripcionTxtBox" HorizontalAlignment="Left" Height="163" Margin="22,130,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="265"/>
 
                     <!-- ComboBox -->

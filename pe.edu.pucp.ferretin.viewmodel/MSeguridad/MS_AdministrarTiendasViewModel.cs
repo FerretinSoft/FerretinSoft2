@@ -293,18 +293,7 @@ namespace pe.edu.pucp.ferretin.viewmodel.MSeguridad
                 return _saveAlmacenCommand;
             }
         }
-        RelayCommand _cancelAlmacenCommand;
-        public ICommand cancelAlmacenCommand
-        {
-            get
-            {
-                if (_cancelAlmacenCommand == null)
-                {
-                    _cancelAlmacenCommand = new RelayCommand(cancelAlmacen);
-                }
-                return _cancelAlmacenCommand;
-            }
-        }
+      
         /**************************************************/
         RelayCommand _buscarJefeCommand;
         public ICommand buscarJefeCommand
@@ -425,7 +414,7 @@ namespace pe.edu.pucp.ferretin.viewmodel.MSeguridad
         public void cancelAlmacen(Object obj)
         {
             MessageBoxResult result =MessageBox.Show("Al salir, perderá todos los datos ingresados. ¿Desea continuar?",
-            "ATENCIÓN", MessageBoxButton.OKCancel, MessageBoxImage.Warning);
+            "ATENCIÓN", MessageBoxButton.OKCancel, MessageBoxImage.Warning, MessageBoxResult.Cancel);
             if (result == MessageBoxResult.OK)
             {
                 this.statusTab = Tab.BUSQUEDA;

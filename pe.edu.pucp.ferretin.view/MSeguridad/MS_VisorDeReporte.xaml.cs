@@ -21,12 +21,23 @@ namespace pe.edu.pucp.ferretin.view.MSeguridad
     {
         ReporteDeTransacciones rep;
 
-        public MS_ReporteWindow()
+        public MS_ReporteWindow(DateTime finicial, DateTime ffinal)
         {
             InitializeComponent();
             rep = new ReporteDeTransacciones();
+
+            System.Diagnostics.Debug.WriteLine(Convert.ToString(finicial));
+            System.Diagnostics.Debug.WriteLine(Convert.ToString(ffinal));
+
+            rep.SetParameterValue("FechaIni", finicial);
+            rep.SetParameterValue("FechaFin", ffinal);
+
             rep.SetDatabaseLogon("inf245g2usr", "server", "inti.lab.inf.pucp.edu.pe", "inf245g2");
             rep.Refresh();
+
+            rep.SetParameterValue("FechaIni", finicial);
+            rep.SetParameterValue("FechaFin", ffinal);
+
             VisorDelReporte.ViewerCore.ReportSource = rep;
         }
 
