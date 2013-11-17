@@ -20,21 +20,22 @@ namespace pe.edu.pucp.ferretin.viewmodel.MVentas
 {
     public class MV_RegistrarVentaViewModel : ViewModelBase
     {
+        ~MV_RegistrarVentaViewModel()
+        {
+        }
         public MV_RegistrarVentaViewModel()
         {
-            
-                venta = new Venta()
-                {
-                    fecha = DateTime.Now,
-                    igvPorcentaje = (decimal)MS_SharedService.obtenerIGV(),
-                    tipoCambio = (decimal)MS_SharedService.obtenerTipodeCambio(),
-                    tipoMoneda = 0,//Soles
-                    //Si agrego la siguiente linea ya lo estoy relacionando a la BD mejor lo hago al ultimo
-                    Usuario = MS_SharedService.usuarioL,
-                    estado = 0
-                };
+            venta = new Venta()
+            {
+                fecha = DateTime.Now,
+                igvPorcentaje = (decimal)MS_SharedService.obtenerIGV(),
+                tipoCambio = (decimal)MS_SharedService.obtenerTipodeCambio(),
+                tipoMoneda = 0,//Soles
+                //Si agrego la siguiente linea ya lo estoy relacionando a la BD mejor lo hago al ultimo
+                estado = 0
+            };
 
-                venta.VentaProducto.ListChanged += actualizarMontosVenta;
+            venta.VentaProducto.ListChanged += actualizarMontosVenta;
             
         }
 
@@ -172,6 +173,8 @@ namespace pe.edu.pucp.ferretin.viewmodel.MVentas
                     }
                     else
                     {
+                        if (venta.Usuario == null) venta.Usuario = MS_SharedService.usuarioL;
+
                         VentaProducto ventaProducto = new VentaProducto();
                         ventaProducto.PromocionActual = MV_PromocionService.ultimaPromocionPorProducto(producto, venta.Usuario.Empleado.tiendaActual);
                         ventaProducto.canjeado = false;

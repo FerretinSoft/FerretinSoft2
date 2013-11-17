@@ -16,12 +16,13 @@ namespace pe.edu.pucp.ferretin.viewmodel.MVentas
 {
     public class MV_PagoWindowViewModel : ViewModelBase
     {
-
+        private IEnumerable<MedioPago> _mediosPago=null;
         public IEnumerable<MedioPago> mediosPago
         {
             get
             {
-                return MV_ComunService.db.MedioPago;
+                if(_mediosPago==null)_mediosPago=MV_VentaService.dbVenta.MedioPago;
+                return _mediosPago;
             }
         }
 
@@ -188,9 +189,12 @@ namespace pe.edu.pucp.ferretin.viewmodel.MVentas
                                 vp.PromocionActual.stockActual--;
                             }
                         }
+                        //Ya que almacen esta utilizando db
                         MV_VentaService.db.SubmitChanges();
                     }
-                    catch { }
+                    catch (Exception ex) {
+                        MessageBox.Show("Error en ventas:" + ex.Message);
+                    }
                     finally
                     {
                         
