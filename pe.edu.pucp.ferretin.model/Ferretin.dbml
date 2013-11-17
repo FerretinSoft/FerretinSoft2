@@ -116,32 +116,6 @@
       <Association Name="Dia_EmpleadoTurno" Member="EmpleadoTurno" ThisKey="id" OtherKey="id_dia" Type="EmpleadoTurno" />
     </Type>
   </Table>
-  <Table Name="dbo.DocumentoCompra" Member="DocumentoCompra">
-    <Type Name="DocumentoCompra">
-      <Column Name="id" Type="System.Int64" DbType="BigInt NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
-      <Column Name="id_cotizacion" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
-      <Column Name="codigo" Type="System.String" DbType="VarChar(15)" CanBeNull="true" />
-      <Column Name="fechaEmision" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
-      <Column Name="fechaVencimiento" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
-      <Column Name="subTotal" Type="System.Decimal" DbType="Decimal(10,2)" CanBeNull="true" />
-      <Column Name="igv" Type="System.Decimal" DbType="Decimal(10,2)" CanBeNull="true" />
-      <Column Name="total" Type="System.Decimal" DbType="Decimal(10,2)" CanBeNull="true" />
-      <Column Name="nroFactura" Type="System.String" DbType="VarChar(15)" CanBeNull="true" />
-      <Column Name="id_proveedor" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="tipo" Type="System.Byte" DbType="TinyInt" CanBeNull="true" />
-      <Column Name="id_estado" Type="System.Int16" DbType="SmallInt" CanBeNull="true" />
-      <Column Name="id_usuario_aprobacion" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="id_usuario_registro" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Association Name="DocumentoCompra_DocumentoCompra" Member="DocumentoCompra2" ThisKey="id" OtherKey="id_cotizacion" Type="DocumentoCompra" />
-      <Association Name="DocumentoCompra_DocumentoCompraProducto" Member="DocumentoCompraProducto" ThisKey="id" OtherKey="id_documento_compra" Type="DocumentoCompraProducto" />
-      <Association Name="DocumentoCompra_GuiaRemision" Member="GuiaRemision" ThisKey="id" OtherKey="id_orden_compra" Type="GuiaRemision" />
-      <Association Name="DocumentoCompra_DocumentoCompra" Member="DocumentoCompra1" ThisKey="id_cotizacion" OtherKey="id" Type="DocumentoCompra" IsForeignKey="true" />
-      <Association Name="DocumentoCompraEstado_DocumentoCompra" Member="DocumentoCompraEstado" ThisKey="id_estado" OtherKey="id" Type="DocumentoCompraEstado" IsForeignKey="true" />
-      <Association Name="Proveedor_DocumentoCompra" Member="Proveedor" ThisKey="id_proveedor" OtherKey="id" Type="Proveedor" IsForeignKey="true" />
-      <Association Name="Usuario_DocumentoCompra" Member="Usuario" ThisKey="id_usuario_aprobacion" OtherKey="id" Type="Usuario" IsForeignKey="true" />
-      <Association Name="Usuario_DocumentoCompra1" Member="Usuario1" ThisKey="id_usuario_registro" OtherKey="id" Type="Usuario" IsForeignKey="true" />
-    </Type>
-  </Table>
   <Table Name="dbo.DocumentoCompraEstado" Member="DocumentoCompraEstado">
     <Type Name="DocumentoCompraEstado">
       <Column Name="id" Type="System.Int16" DbType="SmallInt NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
@@ -163,9 +137,9 @@
       <Column Name="estado" Type="System.Byte" DbType="TinyInt" CanBeNull="true" />
       <Column Name="cantidadRestante" Type="System.Decimal" DbType="Decimal(10,2)" CanBeNull="true" />
       <Association Name="DocumentoCompraProducto_GuiaRemisionProducto" Member="GuiaRemisionProducto" ThisKey="id" OtherKey="id_guia_detalle" Type="GuiaRemisionProducto" />
-      <Association Name="DocumentoCompra_DocumentoCompraProducto" Member="DocumentoCompra" ThisKey="id_documento_compra" OtherKey="id" Type="DocumentoCompra" IsForeignKey="true" />
       <Association Name="Producto_DocumentoCompraProducto" Member="Producto" ThisKey="id_producto" OtherKey="id" Type="Producto" IsForeignKey="true" />
       <Association Name="UnidadMedida_DocumentoCompraProducto" Member="UnidadMedida" ThisKey="id_unidad_medida" OtherKey="id" Type="UnidadMedida" IsForeignKey="true" />
+      <Association Name="DocumentoCompra_DocumentoCompraProducto" Member="DocumentoCompra" ThisKey="id_documento_compra" OtherKey="id" Type="DocumentoCompra" IsForeignKey="true" />
     </Type>
   </Table>
   <Table Name="dbo.Empleado" Member="Empleado">
@@ -240,8 +214,8 @@
       <Column Name="id_orden_compra" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
       <Column Name="id_almacen" Type="System.Int32" DbType="Int" CanBeNull="true" />
       <Association Name="GuiaRemision_GuiaRemisionProducto" Member="GuiaRemisionProducto" ThisKey="id" OtherKey="id_guia" Type="GuiaRemisionProducto" />
-      <Association Name="DocumentoCompra_GuiaRemision" Member="DocumentoCompra" ThisKey="id_orden_compra" OtherKey="id" Type="DocumentoCompra" IsForeignKey="true" />
       <Association Name="Tienda_GuiaRemision" Member="Tienda" ThisKey="id_almacen" OtherKey="id" Type="Tienda" IsForeignKey="true" />
+      <Association Name="DocumentoCompra_GuiaRemision" Member="DocumentoCompra" ThisKey="id_orden_compra" OtherKey="id" Type="DocumentoCompra" IsForeignKey="true" />
     </Type>
   </Table>
   <Table Name="dbo.GuiaRemisionProducto" Member="GuiaRemisionProducto">
@@ -561,10 +535,10 @@
       <Column Name="estado" Type="System.Int32" DbType="Int" CanBeNull="true" />
       <Column Name="id_ubigeo" Type="System.String" DbType="Char(6)" CanBeNull="true" />
       <Column Name="codigoPostal" Type="System.String" DbType="VarChar(15)" CanBeNull="true" />
-      <Association Name="Proveedor_DocumentoCompra" Member="DocumentoCompra" ThisKey="id" OtherKey="id_proveedor" Type="DocumentoCompra" />
       <Association Name="Proveedor_ProveedorCatalogo" Member="ProveedorCatalogo" ThisKey="id" OtherKey="id_proveedor" Type="ProveedorCatalogo" />
       <Association Name="Proveedor_ProveedorProducto" Member="ProveedorProducto" ThisKey="id" OtherKey="id_proveedor" Type="ProveedorProducto" />
       <Association Name="Proveedor_SolicitudCompra" Member="SolicitudCompra" ThisKey="id" OtherKey="proveedor_id" Type="SolicitudCompra" />
+      <Association Name="Proveedor_DocumentoCompra" Member="DocumentoCompra" ThisKey="id" OtherKey="id_proveedor" Type="DocumentoCompra" />
       <Association Name="Rubro_Proveedor" Member="Rubro" ThisKey="id_rubro" OtherKey="id" Type="Rubro" IsForeignKey="true" />
       <Association Name="UbigeoDistrito_Proveedor" Member="UbigeoDistrito" ThisKey="id_ubigeo" OtherKey="id" Type="UbigeoDistrito" IsForeignKey="true" />
     </Type>
@@ -644,6 +618,7 @@
       <Column Name="estado" Type="System.Int32" DbType="Int" CanBeNull="true" />
       <Column Name="proveedor_id" Type="System.Int32" DbType="Int" CanBeNull="true" />
       <Column Name="id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Association Name="SolicitudCompra_DocumentoCompra" Member="DocumentoCompra" ThisKey="id" OtherKey="id_solicitud_compra" Type="DocumentoCompra" />
       <Association Name="Producto_SolicitudCompra" Member="Producto" ThisKey="producto_id" OtherKey="id" Type="Producto" IsForeignKey="true" />
       <Association Name="Proveedor_SolicitudCompra" Member="Proveedor" ThisKey="proveedor_id" OtherKey="id" Type="Proveedor" IsForeignKey="true" />
       <Association Name="Tienda_SolicitudCompra" Member="Tienda" ThisKey="almacen_id" OtherKey="id" Type="Tienda" IsForeignKey="true" />
@@ -772,11 +747,11 @@
       <Column Name="id_perfil" Type="System.Int16" DbType="SmallInt" CanBeNull="true" />
       <Column Name="logueado" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
       <Column Name="ultimoCambioContrasena" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
-      <Association Name="Usuario_DocumentoCompra" Member="DocumentoCompra" ThisKey="id" OtherKey="id_usuario_aprobacion" Type="DocumentoCompra" />
-      <Association Name="Usuario_DocumentoCompra1" Member="DocumentoCompra1" ThisKey="id" OtherKey="id_usuario_registro" Type="DocumentoCompra" />
       <Association Name="Usuario_Proforma" Member="Proforma" ThisKey="id" OtherKey="id_usuario" Type="Proforma" />
       <Association Name="Usuario_Transaccion" Member="Transaccion" ThisKey="id" OtherKey="id_usuario" Type="Transaccion" />
       <Association Name="Usuario_Venta" Member="Venta" ThisKey="id" OtherKey="id_usuario" Type="Venta" />
+      <Association Name="Usuario_DocumentoCompra" Member="DocumentoCompra" ThisKey="id" OtherKey="id_usuario_aprobacion" Type="DocumentoCompra" />
+      <Association Name="Usuario_DocumentoCompra1" Member="DocumentoCompra1" ThisKey="id" OtherKey="id_usuario_registro" Type="DocumentoCompra" />
       <Association Name="Empleado_Usuario" Member="Empleado" ThisKey="id_empleado" OtherKey="id" Type="Empleado" IsForeignKey="true" />
       <Association Name="Perfil_Usuario" Member="Perfil" ThisKey="id_perfil" OtherKey="id" Type="Perfil" IsForeignKey="true" />
     </Type>
@@ -828,6 +803,34 @@
       <Association Name="Vale_VentaMedioPago" Member="Vale" ThisKey="vale_id" OtherKey="id" Type="Vale" IsForeignKey="true" />
       <Association Name="MedioPago_VentaMedioPago" Member="MedioPago" ThisKey="id_medio_pago" OtherKey="id" Type="MedioPago" IsForeignKey="true" />
       <Association Name="Venta_VentaMedioPago" Member="Venta" ThisKey="id_venta" OtherKey="id" Type="Venta" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.DocumentoCompra" Member="DocumentoCompra">
+    <Type Name="DocumentoCompra">
+      <Column Name="id" Type="System.Int64" DbType="BigInt NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="id_cotizacion" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="codigo" Type="System.String" DbType="VarChar(15)" CanBeNull="true" />
+      <Column Name="fechaEmision" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="fechaVencimiento" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="subTotal" Type="System.Decimal" DbType="Decimal(10,2)" CanBeNull="true" />
+      <Column Name="igv" Type="System.Decimal" DbType="Decimal(10,2)" CanBeNull="true" />
+      <Column Name="total" Type="System.Decimal" DbType="Decimal(10,2)" CanBeNull="true" />
+      <Column Name="nroFactura" Type="System.String" DbType="VarChar(15)" CanBeNull="true" />
+      <Column Name="id_proveedor" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="tipo" Type="System.Byte" DbType="TinyInt" CanBeNull="true" />
+      <Column Name="id_estado" Type="System.Int16" DbType="SmallInt" CanBeNull="true" />
+      <Column Name="id_usuario_aprobacion" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="id_usuario_registro" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="id_solicitud_compra" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Association Name="DocumentoCompra_DocumentoCompraProducto" Member="DocumentoCompraProducto" ThisKey="id" OtherKey="id_documento_compra" Type="DocumentoCompraProducto" />
+      <Association Name="DocumentoCompra_GuiaRemision" Member="GuiaRemision" ThisKey="id" OtherKey="id_orden_compra" Type="GuiaRemision" />
+      <Association Name="DocumentoCompra_DocumentoCompra" Member="DocumentoCompra2" ThisKey="id" OtherKey="id_cotizacion" Type="DocumentoCompra" />
+      <Association Name="SolicitudCompra_DocumentoCompra" Member="SolicitudCompra" ThisKey="id_solicitud_compra" OtherKey="id" Type="SolicitudCompra" IsForeignKey="true" />
+      <Association Name="DocumentoCompra_DocumentoCompra" Member="DocumentoCompra1" ThisKey="id_cotizacion" OtherKey="id" Type="DocumentoCompra" IsForeignKey="true" />
+      <Association Name="DocumentoCompraEstado_DocumentoCompra" Member="DocumentoCompraEstado" ThisKey="id_estado" OtherKey="id" Type="DocumentoCompraEstado" IsForeignKey="true" />
+      <Association Name="Proveedor_DocumentoCompra" Member="Proveedor" ThisKey="id_proveedor" OtherKey="id" Type="Proveedor" IsForeignKey="true" />
+      <Association Name="Usuario_DocumentoCompra" Member="Usuario" ThisKey="id_usuario_aprobacion" OtherKey="id" Type="Usuario" IsForeignKey="true" />
+      <Association Name="Usuario_DocumentoCompra1" Member="Usuario1" ThisKey="id_usuario_registro" OtherKey="id" Type="Usuario" IsForeignKey="true" />
     </Type>
   </Table>
 </Database>
