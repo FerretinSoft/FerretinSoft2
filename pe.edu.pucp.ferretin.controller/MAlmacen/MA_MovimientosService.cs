@@ -142,13 +142,12 @@ namespace pe.edu.pucp.ferretin.controller.MAlmacen
 
         public static bool ActualizarMovimiento(Movimiento movimiento)
         {
-            /*
             if (movimiento.MovimientoEstado.nombre == "Finalizado")
             {
                 if (!finalizarMovimiento(movimiento)) return false;
 
-            }*/
-            return true;
+            }
+            return enviarCambios();
         }
 
         private static bool validarMovimiento(Movimiento movimiento)
@@ -174,23 +173,22 @@ namespace pe.edu.pucp.ferretin.controller.MAlmacen
                     (decimal)(movimiento.MovimientoProducto[i].cantidad != null ? movimiento.MovimientoProducto[i].cantidad : 0));
             }
             //actualizar stock
-            bool errors = true;
+            bool errors = false;
             switch (movimiento.MovimientoTipo.categoriaEnum)
             {
                 case MovimientoTipo.CategoriaMovimiento.ENTRADA:
-                    errors = errors && actualizarStockMovimiento(movimiento.Tienda1, 'E', productos);
+                    errors = errors || actualizarStockMovimiento(movimiento.Tienda1, 'E', productos);
                     break;
                 case MovimientoTipo.CategoriaMovimiento.SALIDA:
-                    errors = errors && actualizarStockMovimiento(movimiento.Tienda, 'S', productos);
+                    errors = errors || actualizarStockMovimiento(movimiento.Tienda, 'S', productos);
                     break;
                 case MovimientoTipo.CategoriaMovimiento.TRANSFERENCIA:
-                    errors = errors && actualizarStockMovimiento(movimiento.Tienda, 'S', productos);
-                    errors = errors && actualizarStockMovimiento(movimiento.Tienda1, 'E', productos);
+                    errors = errors || actualizarStockMovimiento(movimiento.Tienda, 'S', productos);
+                    errors = errors || actualizarStockMovimiento(movimiento.Tienda1, 'E', productos);
                     break;
                 default:
                     return false; // categoria de movimiento no valida
             }
-
             return errors; 
         }
 
@@ -212,34 +210,9 @@ namespace pe.edu.pucp.ferretin.controller.MAlmacen
                 else // cadena vacia
                     movimiento.codigo = baseCodigo + "01";
                     
-                if (true)//(movimiento.MovimientoEstado.nombre == "Finalizado")
+                if (movimiento.MovimientoEstado.nombre == "Finalizado")
                 {
-                    Dictionary<Producto, decimal> productos = new Dictionary<Producto, decimal>();
-                    for (int i = 0; i < movimiento.MovimientoProducto.Count; i++)
-                    {
-                        productos.Add(movimiento.MovimientoProducto[i].Producto,
-                            (decimal)(movimiento.MovimientoProducto[i].cantidad != null ? movimiento.MovimientoProducto[i].cantidad : 0));
-                    }
-                    //actualizar stock
-                    bool errors = true;
-                    switch (movimiento.MovimientoTipo.categoriaEnum)
-                    {
-                        case MovimientoTipo.CategoriaMovimiento.ENTRADA:
-                            errors = errors && actualizarStockMovimiento(movimiento.Tienda1, 'E', productos);
-                            break;
-                        case MovimientoTipo.CategoriaMovimiento.SALIDA:
-                            errors = errors && actualizarStockMovimiento(movimiento.Tienda, 'S', productos);
-                            break;
-                        case MovimientoTipo.CategoriaMovimiento.TRANSFERENCIA:
-                            errors = errors && actualizarStockMovimiento(movimiento.Tienda, 'S', productos);
-                            errors = errors && actualizarStockMovimiento(movimiento.Tienda1, 'E', productos);
-                            break;
-                        default:
-                            return false; // categoria de movimiento no valida
-                    }
-                    if (!errors)
-                        return false; //error actualizando los stocks de movimiento
-                    //return true;
+                    if (!finalizarMovimiento(movimiento)) return false;
                 }
                 
                 if (movimiento.id <= 0) db.Movimiento.InsertOnSubmit(movimiento);

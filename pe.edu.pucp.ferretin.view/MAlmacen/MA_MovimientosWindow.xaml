@@ -97,7 +97,7 @@
                     <ComboBox ItemsSource="{Binding Path=estadosMovimiento}" IsEnabled="{Binding estadoEditable}" SelectedItem="{Binding Path=movimiento.MovimientoEstado}" DisplayMemberPath="nombre" HorizontalAlignment="Left" Margin="121,304,0,0" VerticalAlignment="Top" Width="148" Height="22">
 
                     </ComboBox>
-                    <Button x:Name="guardarMovimientoBtn" Command="{Binding saveMovimientoCommand}" Content="GUARDAR" Grid.Column="1" HorizontalAlignment="Left" Margin="85,379,0,0" VerticalAlignment="Top" Width="75" Height="30" />
+                    <Button x:Name="guardarMovimientoBtn" IsEnabled="{Binding estadoEditable}" Command="{Binding saveMovimientoCommand}" Content="GUARDAR" Grid.Column="1" HorizontalAlignment="Left" Margin="85,379,0,0" VerticalAlignment="Top" Width="75" Height="30" />
                     <Button x:Name="cancelarMovimientoBtn" Command="{Binding cancelMovimientoCommand}" Content="CANCELAR" Grid.Column="1" HorizontalAlignment="Left" Margin="227,379,0,0" VerticalAlignment="Top" Width="75" RenderTransformOrigin="2.495,0.446" Height="30"/>
                     <Button x:Name="visualizarDocumentoBtn" Content="VISUALIZAR DOCUMENTO" HorizontalAlignment="Left" Margin="18,241,0,0" VerticalAlignment="Top" Width="251" Height="30" Click="visualizarDocumentoBtn_Click"/>
                     <Label Content="Código del Producto a Agregar:" Grid.Column="1" HorizontalAlignment="Left" Margin="44,15,0,0" VerticalAlignment="Top"/>

@@ -273,6 +273,7 @@ namespace pe.edu.pucp.ferretin.viewmodel.MAlmacen
                         detallesTabHeader = "Nuevo"; 
                         if (movimiento == null || movimiento.id > 0) movimiento = new Movimiento(); 
                         movimiento.fecha = DateTime.Today;
+                        movimiento.Tienda = usuarioLogueado.Empleado.tiendaActual;
                         isCreating = true;
                         break;//Si es agregar, creo un nuevo objeto Cliente
                     case Tab.DETALLES:
@@ -503,11 +504,11 @@ namespace pe.edu.pucp.ferretin.viewmodel.MAlmacen
                     NotifyPropertyChanged("movimiento");
                     NotifyPropertyChanged("productosPorMovimiento");
                 }
-            }
-            else
-            {
-                MessageBox.Show("No se encontro un producto con el código \"" + codigoNuevoProducto + "\".","No se encontro el Producto",MessageBoxButton.OK,MessageBoxImage.Error);
-            }
+                else
+                {
+                    MessageBox.Show("No se encontro un producto con el código \"" + codigoNuevoProducto + "\".", "No se encontro el Producto", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
+            }            
         }
 
         public void borrarProductos(Object atr)
@@ -547,12 +548,13 @@ namespace pe.edu.pucp.ferretin.viewmodel.MAlmacen
             if (movimiento.id > 0)//Si existe
             {
                 MA_ComunService.idVentana(23);
-                if (!MA_MovimientosService.enviarCambios())
+                if (!MA_MovimientosService.ActualizarMovimiento(movimiento))
                 {
                     MessageBox.Show("No se pudo actualizar el movimiento");
                 }
                 else
                 {
+                    NotifyPropertyChanged("estadoEditable");
                     MessageBox.Show("El movimiento fue guardado con éxito");                    
                 }
             }
@@ -578,6 +580,7 @@ namespace pe.edu.pucp.ferretin.viewmodel.MAlmacen
                     {
                         isCreating = false;
                         NotifyPropertyChanged("isCreating");
+                        NotifyPropertyChanged("estadoEditable");
                         MessageBox.Show("El movimiento fue agregado con éxito");
                     }
                 }
