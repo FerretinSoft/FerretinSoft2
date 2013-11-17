@@ -434,8 +434,14 @@ namespace pe.edu.pucp.ferretin.viewmodel.MCompras
 
         public void cancelProveedor(Object obj)
         {
-            this.statusTab = Tab.BUSQUEDA;
-            listaProveedores = MC_ProveedorService.listaProveedores;
+            MessageBoxResult result = MessageBox.Show("Al salir, perderá todos los datos ingresados. ¿Desea continuar?",
+          "ATENCIÓN", MessageBoxButton.OKCancel, MessageBoxImage.Warning, MessageBoxResult.Cancel);
+            if (result == MessageBoxResult.OK)
+            {
+                this.statusTab = Tab.BUSQUEDA;
+                listaProveedores = MC_ProveedorService.listaProveedores;
+            }
+            
         }
 
         public void agregarProducto(Object obj)

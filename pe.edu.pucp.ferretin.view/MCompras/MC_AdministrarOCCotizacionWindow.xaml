@@ -175,7 +175,7 @@
                     </ToolBar>
                     <Button x:Name="guardarBtn" Command="{Binding saveDocumentoCompraCommand}" Content="GUARDAR" Grid.Column="2" HorizontalAlignment="Left" Margin="96,409,0,0" VerticalAlignment="Top" Width="89" Height="39">
                     </Button>
-                    <Button x:Name="cancelarBtn" Content="CANCELAR" Grid.Column="2" HorizontalAlignment="Left" Margin="96,453,0,0" VerticalAlignment="Top" Width="89" Height="39"/>
+                    <Button Command ="{ Binding  cancelDocumentoCompraCommand}"  x:Name="cancelarBtn" Content="CANCELAR" Grid.Column="2" HorizontalAlignment="Left" Margin="96,453,0,0" VerticalAlignment="Top" Width="89" Height="39"/>
                     <Label x:Name="facturaLbl" Content="Numero de Factura:" Grid.Column="1" HorizontalAlignment="Left" Margin="415,401,0,0" VerticalAlignment="Top" FontSize="14" Height="26" Visibility="Hidden"/>
                     <GroupBox x:Name="facturaGbox" BorderBrush="Black" Grid.ColumnSpan="2" Grid.Column="1" Header="Factura" HorizontalAlignment="Left" Height="57" Margin="372,383,0,0" VerticalAlignment="Top" Width="313" Visibility="Hidden"/>
                     <TextBox x:Name="facturaTxtBox" Grid.Column="1" HorizontalAlignment="Left" Height="25" Margin="558,402,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="100" Grid.ColumnSpan="2" FontSize="16" Visibility="Hidden"/>

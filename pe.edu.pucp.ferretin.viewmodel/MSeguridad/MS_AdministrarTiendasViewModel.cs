@@ -293,18 +293,7 @@ namespace pe.edu.pucp.ferretin.viewmodel.MSeguridad
                 return _saveAlmacenCommand;
             }
         }
-        RelayCommand _cancelAlmacenCommand;
-        public ICommand cancelAlmacenCommand
-        {
-            get
-            {
-                if (_cancelAlmacenCommand == null)
-                {
-                    _cancelAlmacenCommand = new RelayCommand(cancelAlmacen);
-                }
-                return _cancelAlmacenCommand;
-            }
-        }
+      
         /**************************************************/
         RelayCommand _buscarJefeCommand;
         public ICommand buscarJefeCommand
