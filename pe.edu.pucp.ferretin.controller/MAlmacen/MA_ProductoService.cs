@@ -112,44 +112,57 @@ namespace pe.edu.pucp.ferretin.controller.MAlmacen
         }
 
 
-        public static IEnumerable<Producto> obtenerProductosPorNombre(String search, bool chkActivo, bool chkInactivo, Categoria idCategoria)
+        public static IEnumerable<Producto> obtenerProductosPorNombre(String search, bool chkActivo, bool chkInactivo, Categoria idCategoria,String searchCod)
         {
             int intActivo = chkActivo == true ? 1 : 0;
             int intInactivo = chkInactivo == true ? 0 : 1;
 
-            if (idCategoria == null)
+            if (searchCod != "") //se da prioridad a búsqueda por codigo
             {
-                idCategoria = new Categoria();
-                idCategoria.id = 0;
-                idCategoria.nombre = "Todos";
-            }
-            
-
-            if ((idCategoria.nombre=="Todos" && search=="")) {
-            //if ((idCategoria ==null && search =="")) {
                 listaProductos = from p in db.Producto
-                                 orderby p.id
+                                 where p.codigo==searchCod
                                  select p;
-                       
-            }
-            else if (idCategoria.id == 0)
-            {
-                listaProductos =
-                    from p in db.Producto
-                    where
-                    p.nombre.Contains(search)
-                    select p;
+
             }
             else
             {
-                listaProductos =
-                    from p in db.Producto
-                    from pc in db.ProductoCategoria
-                    where
-                    p.nombre.Contains(search) &&
-                    (pc.id_categoria == idCategoria.id) &&
-                    pc.id_producto == p.id
-                    select p;
+
+
+                if (idCategoria == null)
+                {
+                    idCategoria = new Categoria();
+                    idCategoria.id = 0;
+                    idCategoria.nombre = "Todos";
+                }
+
+
+                if ((idCategoria.nombre == "Todos" && search == ""))
+                {
+                    //if ((idCategoria ==null && search =="")) {
+                    listaProductos = from p in db.Producto
+                                     orderby p.id
+                                     select p;
+
+                }
+                else if (idCategoria.id == 0)
+                {
+                    listaProductos =
+                        from p in db.Producto
+                        where
+                        p.nombre.Contains(search)
+                        select p;
+                }
+                else
+                {
+                    listaProductos =
+                        from p in db.Producto
+                        from pc in db.ProductoCategoria
+                        where
+                        p.nombre.Contains(search) &&
+                        (pc.id_categoria == idCategoria.id) &&
+                        pc.id_producto == p.id
+                        select p;
+                }
             }
 
 
@@ -200,7 +213,8 @@ namespace pe.edu.pucp.ferretin.controller.MAlmacen
         public static void actualizarProducto(IEnumerable <Categoria> listaCategoriasMod,Producto prod)
         {
             //Comparamos categorias antes y despues
-            List<ProductoCategoria> tpc = (MA_CategoriaService.obtenerTablaCategoriaProducto(prod.id)).ToList<ProductoCategoria>();
+            List<ProductoCategoria> tpc = (MA_CategoriaService.obtenerTablaCategoriaProducto  
+                                    (prod.id)).ToList<ProductoCategoria>();
 
             foreach (Categoria c in listaCategoriasMod)
             {

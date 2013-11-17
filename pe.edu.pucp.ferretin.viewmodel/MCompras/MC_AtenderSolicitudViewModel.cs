@@ -101,9 +101,9 @@ namespace pe.edu.pucp.ferretin.viewmodel.MCompras
                 {
                     seleccionado.estado = 1;
                     DocumentoCompra dc;
-                    if (documentosCompra.Any(d => d.Proveedor.id == seleccionado.id))
+                    if (documentosCompra.Any(d => d.Proveedor.id == seleccionado.Proveedor.id))
                     {
-                        dc = documentosCompra.First(d => d.Proveedor.id == seleccionado.id);
+                        dc = documentosCompra.First(d => d.Proveedor.id == seleccionado.Proveedor.id);
                     }
                     else
                     {
@@ -115,6 +115,8 @@ namespace pe.edu.pucp.ferretin.viewmodel.MCompras
                             Usuario1 = MS_SharedService.usuarioL,
                             Proveedor = seleccionado.Proveedor,
                             total = 0,
+                            SolicitudCompra = seleccionado,
+                            tipo = 2,
                             subTotal = 0
                         };
                     }
@@ -124,7 +126,7 @@ namespace pe.edu.pucp.ferretin.viewmodel.MCompras
                             DocumentoCompra = dc,
                             Producto = seleccionado.Producto,
                             precioUnit = seleccionado.Producto.precioLista,
-                            montoParcial = seleccionado.cantidad * seleccionado.Producto.precioLista,
+                            montoParcial = seleccionado.cantidad * seleccionado.Proveedor.ProveedorProducto.First(l=>l.Producto.id == seleccionado.Producto.id).precio,
                             estado = 1,
                             UnidadMedida = seleccionado.Producto.UnidadMedida
                         };
