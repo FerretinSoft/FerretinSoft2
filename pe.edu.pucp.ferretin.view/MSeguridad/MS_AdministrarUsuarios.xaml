@@ -34,27 +34,27 @@
                     <Label Content="Nombre de Usuario:" HorizontalAlignment="Left" Height="26" VerticalAlignment="Top" Width="116" Margin="16,30,0,0" />
                     <Label Content="Nombres:" HorizontalAlignment="Left" Height="26" VerticalAlignment="Top" Width="68" Margin="16,56,0,0"/>
                     <Label Content="Perfil:" HorizontalAlignment="Left" Height="26" VerticalAlignment="Top" Width="116" Margin="16,83,0,0" Grid.RowSpan="2" />
-                    <Label Content="Apellido Paterno:" HorizontalAlignment="Left" Height="26" VerticalAlignment="Top" Width="107" Margin="331,30,0,0"/>
+                    <Label Content="Apellido Paterno:" HorizontalAlignment="Left" Height="26" VerticalAlignment="Top" Width="101" Margin="331,30,0,0"/>
                     <Label Content="Apellido Materno:" HorizontalAlignment="Left" Height="26" VerticalAlignment="Top" Width="107" Margin="331,56,0,0"/>
                     <Label Content="Estado:" HorizontalAlignment="Left" Height="26" VerticalAlignment="Top" Width="68" Margin="331,83,0,0" Grid.RowSpan="2" />
 
                     <!-- TextBoxes -->
-                    <TextBox HorizontalAlignment="Left" x:Name="nombreUsuarioSearchTxtBox" MaxLength="20" Text="{Binding searchNombreUsuario, Mode=TwoWay}" Height="20" TextWrapping="Wrap" VerticalAlignment="Top" Width="147" Margin="143,32,0,0"/>
-                    <TextBox HorizontalAlignment="Left" x:Name="nombresTxtBox" MaxLength="20" Text="{Binding searchNombres, Mode=TwoWay}" Height="20" Margin="143,57,0,19" TextWrapping="Wrap" Width="146"/>
-                    <TextBox HorizontalAlignment="Left" x:Name="apellidosTxtBox" MaxLength="20" Text="{Binding searchApellidos, Mode=TwoWay}" Height="20" TextWrapping="Wrap" VerticalAlignment="Top" Width="145" Margin="447,32,0,0" />
-                    <TextBox HorizontalAlignment="Left" x:Name="codigoSearchTxtBox"  MaxLength="20" Text="{Binding searchApellidosMat, Mode=TwoWay}" Height="20" Margin="447,58,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="145"/>
+                    <TextBox HorizontalAlignment="Left" x:Name="nombreUsuarioSearchTxtBox" MaxLength="20" Text="{Binding searchNombreUsuario, Mode=TwoWay}" Height="20" TextWrapping="Wrap" VerticalAlignment="Top" Width="153" Margin="137,32,0,0" PreviewTextInput="nombreUsuarioSearchTxtBox_PreviewTextInput"  />
+                    <TextBox HorizontalAlignment="Left" x:Name="nombresTxtBox" MaxLength="20" Text="{Binding searchNombres, Mode=TwoWay}" Height="20" Margin="136,58,0,19" TextWrapping="Wrap" Width="153" PreviewTextInput="nombresTxtBox_PreviewTextInput"  />
+                    <TextBox HorizontalAlignment="Left" x:Name="apellidoPatTxtBox" MaxLength="20" Text="{Binding searchApellidos, Mode=TwoWay}" Height="20" TextWrapping="Wrap" VerticalAlignment="Top" Width="174" Margin="437,32,0,0" PreviewTextInput="apellidoPatTxtBox_PreviewTextInput"  />
+                    <TextBox HorizontalAlignment="Left" x:Name="apellidoMatTxtBox"  MaxLength="20" Text="{Binding searchApellidosMat, Mode=TwoWay}" Height="20" Margin="438,58,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="173" PreviewTextInput="apellidoMatTxtBox_PreviewTextInput"  />
 
                     <!-- ComboBoxes -->
-                    <ComboBox ItemsSource="{Binding perfiles,Mode=OneWay}" SelectedIndex="0" SelectedItem="{Binding searchPerfil, Mode=TwoWay}" DisplayMemberPath="nombre" x:Name="perfilCombo" HorizontalAlignment="Left" Margin="143,85,0,0" VerticalAlignment="Top" Width="147" Height="22" Grid.RowSpan="2">
+                    <ComboBox ItemsSource="{Binding perfiles,Mode=OneWay}" SelectedIndex="0" SelectedItem="{Binding searchPerfil, Mode=TwoWay}" DisplayMemberPath="nombre" x:Name="perfilCombo" HorizontalAlignment="Left" Margin="137,85,0,0" VerticalAlignment="Top" Width="153" Height="22" Grid.RowSpan="2">
                     </ComboBox>
-                    <ComboBox SelectedIndex="{Binding searchEstado, Mode=TwoWay}" x:Name="estadoCombo" HorizontalAlignment="Left" Margin="447,86,0,0" VerticalAlignment="Top" Width="145" Height="22" Grid.RowSpan="2">
+                    <ComboBox SelectedIndex="{Binding searchEstado, Mode=TwoWay}" x:Name="estadoCombo" HorizontalAlignment="Left" Margin="438,86,0,0" VerticalAlignment="Top" Width="173" Height="22" Grid.RowSpan="2">
                         <ComboBoxItem Content="Todos"/>
                         <ComboBoxItem Content="Inactivo"/>
                         <ComboBoxItem Content="Activo"/>
                     </ComboBox>
 
                     <!-- Buttons -->
-                    <Button Command="{Binding actualizarListaUsuariosCommand}" x:Name="buscarUsuariosBtn" HorizontalAlignment="Left" Margin="617,52,0,0" VerticalAlignment="Top" Width="32" Height="32" RenderTransformOrigin="0.3,-0.35">
+                    <Button Command="{Binding actualizarListaUsuariosCommand}" x:Name="buscarUsuariosBtn" HorizontalAlignment="Left" Margin="629,50,0,0" VerticalAlignment="Top" Width="32" Height="32" RenderTransformOrigin="0.3,-0.35">
                         <Button.Background>
                             <ImageBrush ImageSource="/Resources/refresh2_48.png"/>
                         </Button.Background>
@@ -106,7 +106,7 @@
                             <DataGridTextColumn Width="5*" Binding="{Binding Path=Perfil.nombre}" ClipboardContentBinding="{x:Null}" Header="Perfil"/>
                             <DataGridTextColumn Width="1.5*" Binding="{Binding Path=estadoAux}" ClipboardContentBinding="{x:Null}" Header="Estado"/>
                         </DataGrid.Columns>
-                    </DataGrid>                    
+                    </DataGrid>
                 </Grid>
             </TabItem>
 
@@ -125,10 +125,10 @@
                     </Grid.ColumnDefinitions>
                     <!-- Labels -->
 
-                    <Label Content="DNI Empleado:" HorizontalAlignment="Left" Margin="247,58,0,0" VerticalAlignment="Top" Grid.Column="1" Grid.ColumnSpan="2"/>
+                    <Label Content="DNI Empleado:" HorizontalAlignment="Left" Margin="247,54,0,0" VerticalAlignment="Top" Grid.Column="1" Grid.ColumnSpan="2"/>
                     <Label Content="*" HorizontalAlignment="Left" Margin="16,52,0,0" VerticalAlignment="Top" Foreground="Red" FontSize="14" Width="19" Height="22" RenderTransformOrigin="3.646,-0.402" Grid.Column="2"/>
-                    <Label Content="Nombre de &#xD;&#xA;Usuario:" HorizontalAlignment="Left" Margin="246,88,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.464,1.231" Grid.Column="1" Height="43"/>
-                    <Label Content="*" HorizontalAlignment="Left" Margin="15,84,0,0" VerticalAlignment="Top" Foreground="Red" FontSize="14" Width="19" Height="26" RenderTransformOrigin="3.646,-0.402" Grid.Column="2"/>
+                    <Label Content="Nombre de &#xD;&#xA;Usuario:" HorizontalAlignment="Left" Margin="247,85,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.464,1.231" Grid.Column="1" Height="43" Grid.ColumnSpan="2"/>
+                    <Label Content="*" HorizontalAlignment="Left" Margin="15,98,0,0" VerticalAlignment="Top" Foreground="Red" FontSize="14" Width="19" Height="26" RenderTransformOrigin="3.646,-0.402" Grid.Column="2"/>
                     <Label Content="Nombre:" HorizontalAlignment="Left" Margin="114,134,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.464,1.231" Grid.Column="1"/>
                     <Label Content="Apellido Paterno:" HorizontalAlignment="Left" Margin="114,160,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.464,1.231" Grid.Column="1"/>
                     <Label Content="Apellido Materno:" HorizontalAlignment="Left" Margin="114,188,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.464,1.231" Grid.Column="1"/>
@@ -139,7 +139,7 @@
 
                     <!-- TextBoxes -->
                     <TextBox x:Name="dniEmp" IsEnabled="{Binding editEmpleadoEnabled,Mode=OneWay}" Text="{Binding dniEmpleado, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" HorizontalAlignment="Left" Height="25" Margin="34,55,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="127" Grid.Column="2" MaxLength="8" PreviewTextInput="dniEmp_PreviewTextInput" PreviewKeyDown="dniEmp_PreviewKeyDown"/>
-                    <TextBox IsEnabled="False" Text="{Binding Path=usuario.nombre, Mode=TwoWay, ValidatesOnExceptions=true, NotifyOnValidationError=true}" MaxLength="20" HorizontalAlignment="Left" Height="25" Margin="34,88,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="178" x:Name="nombreUsuarioTxtBox" Grid.Column="2" PreviewTextInput="nombreUsuarioTxtBox_PreviewTextInput" PreviewKeyDown="nombreUsuarioTxtBox_PreviewKeyDown"/>
+                    <TextBox IsEnabled="False" Text="{Binding Path=usuario.nombre, Mode=TwoWay, ValidatesOnExceptions=true, NotifyOnValidationError=true}" MaxLength="20" HorizontalAlignment="Left" Height="25" Margin="34,98,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="178" x:Name="nombreUsuarioTxtBox" Grid.Column="2" PreviewTextInput="nombreUsuarioTxtBox_PreviewTextInput" PreviewKeyDown="nombreUsuarioTxtBox_PreviewKeyDown"/>
                     <TextBox Text="{Binding Path=usuario.Empleado.nombre, Mode=TwoWay, ValidatesOnExceptions=true, NotifyOnValidationError=true}" HorizontalAlignment="Left" Height="22" Margin="247,136,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="285" Grid.ColumnSpan="2" IsEnabled="False" Grid.Column="1" />
                     <TextBox Text="{Binding Path=usuario.Empleado.apPaterno, Mode=TwoWay, ValidatesOnExceptions=true, NotifyOnValidationError=true}" HorizontalAlignment="Left" Height="22" Margin="247,164,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="285" Grid.ColumnSpan="2" IsEnabled="False" Grid.Column="1" />
                     <TextBox Text="{Binding Path=usuario.Empleado.apMaterno, Mode=TwoWay, ValidatesOnExceptions=true, NotifyOnValidationError=true}" HorizontalAlignment="Left" Height="22" Margin="247,192,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="285" Grid.ColumnSpan="2" IsEnabled="False" Grid.Column="1" />
@@ -168,7 +168,7 @@
                         </Button.Background>
                     </Button>
                     -->
-                    <Button Name="buttonContrasena" IsEnabled="{Binding editEmpleadoEnabled2,Mode=OneWay}" Command="{Binding restbContrasenaCommand}" Content="RESTABLECER CONTRASEÑA" Padding="5,0" Margin="232,286,245,98" Grid.Column="1" Grid.ColumnSpan="2"/>
+                    <Button Name="buttonContrasena" IsEnabled="{Binding editEmpleadoEnabled2,Mode=OneWay}" Command="{Binding restbContrasenaCommand}" Content="RESTABLECER CONTRASEÑA" Padding="5,0" Margin="232,286,234,98" Grid.Column="1" Grid.ColumnSpan="2"/>
                     <StackPanel x:Name="guardarDetallePanel" Orientation="Horizontal" Margin="247,317,167,0" HorizontalAlignment="Center" Width="250" Grid.ColumnSpan="2" Grid.Column="1">
                         <Button Command="{Binding saveUsuarioCommand}"  Content="GUARDAR" Padding="5,0" Margin="5,10,5,52"/>
                         <Button Command="{Binding cancelUsuarioCommand}" Content="CANCELAR" Padding="5,0" Margin="5,10,5,52"/>
