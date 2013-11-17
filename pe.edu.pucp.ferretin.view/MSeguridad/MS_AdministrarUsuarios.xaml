@@ -31,23 +31,23 @@
                     <GroupBox Header="Parámetros" Margin="10,10,10,14" BorderBrush="Black" Grid.RowSpan="2"/>
 
                     <!-- Labels -->
-                    <Label Content="Nombre de Usuario:" HorizontalAlignment="Left" Height="26" VerticalAlignment="Top" Width="133" Margin="16,32,0,0" />
+                    <Label Content="Nombre de Usuario:" HorizontalAlignment="Left" Height="26" VerticalAlignment="Top" Width="116" Margin="16,30,0,0" />
                     <Label Content="Nombres:" HorizontalAlignment="Left" Height="26" VerticalAlignment="Top" Width="68" Margin="16,56,0,0"/>
-                    <Label Content="Perfil:" HorizontalAlignment="Left" Height="26" VerticalAlignment="Top" Width="116" Margin="16,82,0,0" Grid.RowSpan="2" />
-                    <Label Content="Apellido Paterno:" HorizontalAlignment="Left" Height="26" VerticalAlignment="Top" Width="107" Margin="331,32,0,0"/>
+                    <Label Content="Perfil:" HorizontalAlignment="Left" Height="26" VerticalAlignment="Top" Width="116" Margin="16,83,0,0" Grid.RowSpan="2" />
+                    <Label Content="Apellido Paterno:" HorizontalAlignment="Left" Height="26" VerticalAlignment="Top" Width="107" Margin="331,30,0,0"/>
                     <Label Content="Apellido Materno:" HorizontalAlignment="Left" Height="26" VerticalAlignment="Top" Width="107" Margin="331,56,0,0"/>
                     <Label Content="Estado:" HorizontalAlignment="Left" Height="26" VerticalAlignment="Top" Width="68" Margin="331,83,0,0" Grid.RowSpan="2" />
 
                     <!-- TextBoxes -->
-                    <TextBox HorizontalAlignment="Left" x:Name="nombreUsuarioSearchTxtBox" Text="{Binding searchNombreUsuario, Mode=TwoWay}" Height="20" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Margin="154,28,0,0"/>
-                    <TextBox HorizontalAlignment="Left" x:Name="nombresTxtBox" Text="{Binding searchNombres, Mode=TwoWay}" Height="20" Margin="154,58,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
-                    <TextBox HorizontalAlignment="Left" x:Name="apellidosTxtBox" Text="{Binding searchApellidos, Mode=TwoWay}" Height="20" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Margin="447,32,0,0" />
-                    <TextBox HorizontalAlignment="Left" x:Name="codigoSearchTxtBox" Text="{Binding searchApellidosMat, Mode=TwoWay}" Height="20" Margin="447,58,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
+                    <TextBox HorizontalAlignment="Left" x:Name="nombreUsuarioSearchTxtBox" MaxLength="20" Text="{Binding searchNombreUsuario, Mode=TwoWay}" Height="20" TextWrapping="Wrap" VerticalAlignment="Top" Width="147" Margin="143,32,0,0"/>
+                    <TextBox HorizontalAlignment="Left" x:Name="nombresTxtBox" MaxLength="20" Text="{Binding searchNombres, Mode=TwoWay}" Height="20" Margin="143,57,0,19" TextWrapping="Wrap" Width="146"/>
+                    <TextBox HorizontalAlignment="Left" x:Name="apellidosTxtBox" MaxLength="20" Text="{Binding searchApellidos, Mode=TwoWay}" Height="20" TextWrapping="Wrap" VerticalAlignment="Top" Width="145" Margin="447,32,0,0" />
+                    <TextBox HorizontalAlignment="Left" x:Name="codigoSearchTxtBox"  MaxLength="20" Text="{Binding searchApellidosMat, Mode=TwoWay}" Height="20" Margin="447,58,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="145"/>
 
                     <!-- ComboBoxes -->
-                    <ComboBox ItemsSource="{Binding perfiles,Mode=OneWay}" SelectedIndex="0" SelectedItem="{Binding searchPerfil, Mode=TwoWay}" DisplayMemberPath="nombre" x:Name="perfilCombo" HorizontalAlignment="Left" Margin="154,85,0,0" VerticalAlignment="Top" Width="116" Height="22" Grid.RowSpan="2">
+                    <ComboBox ItemsSource="{Binding perfiles,Mode=OneWay}" SelectedIndex="0" SelectedItem="{Binding searchPerfil, Mode=TwoWay}" DisplayMemberPath="nombre" x:Name="perfilCombo" HorizontalAlignment="Left" Margin="143,85,0,0" VerticalAlignment="Top" Width="147" Height="22" Grid.RowSpan="2">
                     </ComboBox>
-                    <ComboBox SelectedIndex="{Binding searchEstado, Mode=TwoWay}" x:Name="estadoCombo" HorizontalAlignment="Left" Margin="447,86,0,0" VerticalAlignment="Top" Width="120" Height="22" Grid.RowSpan="2">
+                    <ComboBox SelectedIndex="{Binding searchEstado, Mode=TwoWay}" x:Name="estadoCombo" HorizontalAlignment="Left" Margin="447,86,0,0" VerticalAlignment="Top" Width="145" Height="22" Grid.RowSpan="2">
                         <ComboBoxItem Content="Todos"/>
                         <ComboBoxItem Content="Inactivo"/>
                         <ComboBoxItem Content="Activo"/>
@@ -106,7 +106,7 @@
                             <DataGridTextColumn Width="5*" Binding="{Binding Path=Perfil.nombre}" ClipboardContentBinding="{x:Null}" Header="Perfil"/>
                             <DataGridTextColumn Width="1.5*" Binding="{Binding Path=estadoAux}" ClipboardContentBinding="{x:Null}" Header="Estado"/>
                         </DataGrid.Columns>
-                    </DataGrid>
+                    </DataGrid>                    
                 </Grid>
             </TabItem>
 

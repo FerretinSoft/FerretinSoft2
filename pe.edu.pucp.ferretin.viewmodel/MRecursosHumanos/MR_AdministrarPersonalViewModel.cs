@@ -486,13 +486,13 @@ namespace pe.edu.pucp.ferretin.viewmodel.MRecursosHumanos
 
                 this.empleado = listaEmpleados.Single(empleado => empleado.codEmpleado == (int)codEmpleado);
 
-                foreach (EmpleadoTurno et in this.empleado.EmpleadoTurno)
-                {
-                    if (et.estado == 1 && et.id_turno == null) et.estado = 0;
-                    if (et.estado == 0) et.id_turno = null;
-                    if (et.id_turno == 0) et.id_turno = null;
+                //foreach (EmpleadoTurno et in this.empleado.EmpleadoTurno)
+                //{
+                //    if (et.estado == 1 && et.id_turno == null) et.estado = 0;
+                //    if (et.estado == 0) et.id_turno = null;
+                //    if (et.id_turno == 0) et.id_turno = null;
 
-                }
+                //}
 
               
 
@@ -522,13 +522,20 @@ namespace pe.edu.pucp.ferretin.viewmodel.MRecursosHumanos
                     if (empleado.id > 0)//Si existe
                     {
                         ComunService.idVentana(2);
+
                         foreach (EmpleadoTurno et in empleado.EmpleadoTurno)
                         {
-                            if (et.estado == 1 && et.id_turno == null) et.estado = 0;
-                            if (et.id_turno == 0) et.id_turno = null;
-
-
+                            if (et.id_turno==0 )
+                                et.id_turno = null;
+                        
                         }
+                        //foreach (EmpleadoTurno et in empleado.EmpleadoTurno)
+                        //{
+                        //    if (et.estado == 1 && et.id_turno == null) et.estado = 0;
+                        //    if (et.id_turno == 0) et.id_turno = null;
+
+
+                        //}
                         if (VerificaCamposObligatorios(empleado))
                         {
                             

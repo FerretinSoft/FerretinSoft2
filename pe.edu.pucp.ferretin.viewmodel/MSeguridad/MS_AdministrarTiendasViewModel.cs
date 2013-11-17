@@ -425,7 +425,7 @@ namespace pe.edu.pucp.ferretin.viewmodel.MSeguridad
         public void cancelAlmacen(Object obj)
         {
             MessageBoxResult result =MessageBox.Show("Al salir, perderá todos los datos ingresados. ¿Desea continuar?",
-            "ATENCIÓN", MessageBoxButton.OKCancel, MessageBoxImage.Warning);
+            "ATENCIÓN", MessageBoxButton.OKCancel, MessageBoxImage.Warning, MessageBoxResult.Cancel);
             if (result == MessageBoxResult.OK)
             {
                 this.statusTab = Tab.BUSQUEDA;

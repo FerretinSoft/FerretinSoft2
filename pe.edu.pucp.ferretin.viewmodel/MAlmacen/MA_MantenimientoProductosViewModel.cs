@@ -28,6 +28,8 @@ namespace pe.edu.pucp.ferretin.viewmodel.MAlmacen
         public String searchNombre { get; set; }
         public Categoria searchIdCategoria { get; set; }
 
+        public String searchCod { get; set; }
+
         public Image _imgProd { get; set; }
         public Image imgProd
         {
@@ -252,7 +254,10 @@ namespace pe.edu.pucp.ferretin.viewmodel.MAlmacen
             get
             {
                 searchNombre = searchNombre == null ? "" : searchNombre;
-                _listaProductos=MA_ProductoService.obtenerProductosPorNombre(searchNombre,chkActivo,chkInactivo,searchIdCategoria);
+                searchCod = searchCod == null ? "" : searchCod;
+                //if (searchCod!="") searchNombre = "";
+
+                _listaProductos=MA_ProductoService.obtenerProductosPorNombre(searchNombre,chkActivo,chkInactivo,searchIdCategoria,searchCod);
                 
                 return _listaProductos;
             }

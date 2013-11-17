@@ -178,7 +178,7 @@ namespace pe.edu.pucp.ferretin.model
 
                 nuevoEmpleoTienda.Cargo = cargoActual;
                 //modificacion
-                nuevoEmpleoTienda.Tienda= tiendaActual;
+                nuevoEmpleoTienda.Tienda = tiendaActual;
                 nuevoEmpleoTienda.sueldo = ultimoSueldo;
 
                 //Finmodificacion

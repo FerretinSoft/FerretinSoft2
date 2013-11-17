@@ -171,7 +171,7 @@
                                     </Style>
                                 </DataGridComboBoxColumn.EditingElementStyle>
                             </DataGridComboBoxColumn>
-                            <DataGridCheckBoxColumn Width="2*" Binding="{Binding Path=estado}" Header="Seleccionar"  />
+                           
 
 
                         </DataGrid.Columns>
