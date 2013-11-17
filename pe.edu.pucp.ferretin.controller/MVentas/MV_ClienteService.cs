@@ -10,6 +10,15 @@ namespace pe.edu.pucp.ferretin.controller.MVentas
 {
     public class MV_ClienteService : MV_ComunService
     {
+        private static FerretinDataContext _dbCliente = null;
+        public static FerretinDataContext dbCliente
+        {
+            get
+            {
+                if (_dbCliente == null) _dbCliente = new FerretinDataContext();
+                return _dbCliente;
+            }
+        }
 
         #region Private Zone
         #endregion
@@ -29,7 +38,7 @@ namespace pe.edu.pucp.ferretin.controller.MVentas
             {
                 if (_listaClientes == null)
                 {
-                    _listaClientes = from c in db.Cliente select c;
+                    _listaClientes = from c in dbCliente.Cliente select c;
                 }
                 return _listaClientes;
             }
@@ -84,10 +93,10 @@ namespace pe.edu.pucp.ferretin.controller.MVentas
         /// <param name="cliente">el Cliente a guardar</param>
         public static bool insertarCliente(Cliente cliente)
         {
-            if (!db.Cliente.Contains(cliente))
+            if (!dbCliente.Cliente.Contains(cliente))
             {
-                db.Cliente.InsertOnSubmit(cliente);
-                return enviarCambios();
+                dbCliente.Cliente.InsertOnSubmit(cliente);
+                return enviarCambios(dbCliente);
             }else{
                 return false;
             }

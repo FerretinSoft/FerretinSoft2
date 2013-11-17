@@ -351,7 +351,7 @@ namespace pe.edu.pucp.ferretin.viewmodel.MVentas
                 if (cliente.id > 0)//Si existe
                 {
                     ComunService.idVentana(46);
-                    if (!MV_ClienteService.enviarCambios())
+                    if (!MV_ClienteService.enviarCambios(MV_ClienteService.dbCliente))
                     {
                         MessageBox.Show("No se pudo actualizar el cliente");
                     }
@@ -384,13 +384,13 @@ namespace pe.edu.pucp.ferretin.viewmodel.MVentas
         }
         public void cancelCliente(Object obj)
         {
-            ChangeSet changes = MV_ClienteService.db.GetChangeSet();
+            ChangeSet changes = MV_ClienteService.dbCliente.GetChangeSet();
             if (statusTab==Tab.AGREGAR || changes.Updates.Count > 0)
             {
                 var result = MessageBox.Show("Al salir, perderá todos los datos ingresados. ¿Desea continuar?",
                                                 "ATENCIÓN", MessageBoxButton.OKCancel, MessageBoxImage.Warning);
                 if (result == MessageBoxResult.OK)//Borro si hubo algun cambio que no fue guardado
-                    MV_ClienteService.db.Refresh(RefreshMode.OverwriteCurrentValues, changes.Updates);
+                    MV_ClienteService.dbCliente.Refresh(RefreshMode.OverwriteCurrentValues, changes.Updates);
             }
             this.statusTab = Tab.BUSQUEDA;
         }

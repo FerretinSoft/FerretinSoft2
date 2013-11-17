@@ -173,7 +173,7 @@ namespace pe.edu.pucp.ferretin.viewmodel.MVentas
                     else
                     {
                         VentaProducto ventaProducto = new VentaProducto();
-                        ventaProducto.PromocionActual = MV_PromocionService.ultimaPromocionPorProducto(producto, MS_SharedService.usuarioL.Empleado.tiendaActual);
+                        ventaProducto.PromocionActual = MV_PromocionService.ultimaPromocionPorProducto(producto, venta.Usuario.Empleado.tiendaActual);
                         ventaProducto.canjeado = false;
                         ventaProducto.tipoCambio = venta.tipoCambio.Value;
                         ventaProducto.puntosCanejado = 0;
@@ -182,9 +182,7 @@ namespace pe.edu.pucp.ferretin.viewmodel.MVentas
                         ventaProducto.Venta = venta;
                         ventaProducto.Producto = producto;
                         ventaProducto.cantidad = 1;
-                        
 
-                        
                         ventaProducto.PropertyChanged += actualizarMontosVenta;
                         
                         venta.VentaProducto.Add(ventaProducto);

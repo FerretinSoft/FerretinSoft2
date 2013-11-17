@@ -46,6 +46,10 @@ namespace pe.edu.pucp.ferretin.controller
 
         public static void refresh()
         {
+            refresh(db);
+        }
+        public static void refresh(FerretinDataContext db)
+        {
             db.Refresh(RefreshMode.OverwriteCurrentValues);
         }
 
@@ -54,6 +58,10 @@ namespace pe.edu.pucp.ferretin.controller
         /// </summary>
         /// <returns>True si se guardo correctamente, False en caso hubo algun error</returns>
         public static bool enviarCambios()
+        {
+            return enviarCambios(db);
+        }
+        public static bool enviarCambios(FerretinDataContext db)
         {
             try
             {
@@ -97,7 +105,7 @@ namespace pe.edu.pucp.ferretin.controller
         }        
 
         /**********************************************************************/
-        public static string obtenerIp()
+        private static string obtenerIp()
         {
             IPAddress[] a = Dns.GetHostByName(Dns.GetHostName()).AddressList;
             string ip = a[0].ToString();
@@ -105,7 +113,7 @@ namespace pe.edu.pucp.ferretin.controller
             return ip;
         }
         /**********************************************************************/
-        public static string obtenerMac()
+        private static string obtenerMac()
         {
             NetworkInterface[] nics = NetworkInterface.GetAllNetworkInterfaces();
             String sMacAddress = string.Empty;

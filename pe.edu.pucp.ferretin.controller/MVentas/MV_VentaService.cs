@@ -10,6 +10,15 @@ namespace pe.edu.pucp.ferretin.controller.MVentas
 {
     public class MV_VentaService : MV_ComunService
     {
+        private static FerretinDataContext _dbVenta = null;
+        public static FerretinDataContext dbVenta
+        {
+            get
+            {
+                if (_dbVenta == null) _dbVenta = new FerretinDataContext();
+                return _dbVenta;
+            }
+        }
 
         #region Private Zone
         #endregion
@@ -22,9 +31,9 @@ namespace pe.edu.pucp.ferretin.controller.MVentas
             {
                 if (_listaVentas == null)
                 {
-                    _listaVentas = db.Venta;
+                    _listaVentas = dbVenta.Venta;
                 }
-                db.Refresh(RefreshMode.OverwriteCurrentValues, _listaVentas);
+                dbVenta.Refresh(RefreshMode.OverwriteCurrentValues, _listaVentas);
                 return _listaVentas;
             }
             set
@@ -40,9 +49,9 @@ namespace pe.edu.pucp.ferretin.controller.MVentas
             {
                 if (_listaProductos == null)
                 {
-                    _listaProductos = db.VentaProducto;
+                    _listaProductos = dbVenta.VentaProducto;
                 }
-                db.Refresh(RefreshMode.OverwriteCurrentValues, _listaProductos);
+                dbVenta.Refresh(RefreshMode.OverwriteCurrentValues, _listaProductos);
                 return _listaProductos;
             }
             set
@@ -57,8 +66,8 @@ namespace pe.edu.pucp.ferretin.controller.MVentas
             get
             {
                 if (_listaMedioPago == null)
-                    _listaMedioPago = db.VentaMedioPago;
-                db.Refresh(RefreshMode.OverwriteCurrentValues, _listaMedioPago);
+                    _listaMedioPago = dbVenta.VentaMedioPago;
+                dbVenta.Refresh(RefreshMode.OverwriteCurrentValues, _listaMedioPago);
                 return _listaMedioPago;
             }
             set
