@@ -1,4 +1,6 @@
-﻿using System;
+﻿using pe.edu.pucp.ferretin.controller.MAlmacen;
+using pe.edu.pucp.ferretin.viewmodel.MAlmacen;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -39,6 +41,23 @@ namespace pe.edu.pucp.ferretin.view.MAlmacen
         {
             MCompras.MC_ConsolidarSolicitudesWindow consoli = new MCompras.MC_ConsolidarSolicitudesWindow();
             consoli.Show();
+        }
+
+        private void borrarProductosBtn_Click(object sender, RoutedEventArgs e)
+        {
+            MA_RegistroSolAbastecimientoViewModel vm  = (MA_RegistroSolAbastecimientoViewModel)this.main.DataContext;
+                
+            for (int i = 0; i < productosGrid.SelectedItems.Count; i++)
+			{
+                MA_SolicitudAbastecimientoService.ProductoPorSolicitudTienda current =
+                        (MA_SolicitudAbastecimientoService.ProductoPorSolicitudTienda)productosGrid.SelectedItems[i];
+                vm.solicitud.SolicitudAbastecimientoProducto.Remove(current.productoPorSolicitud);
+                vm.productosPorSolicitud.Remove(current);
+			}
+
+            vm.NotifyPropertyChanged("productosPorSolicitud");
+            vm.NotifyPropertyChanged("current");
+        
         }
 
         
