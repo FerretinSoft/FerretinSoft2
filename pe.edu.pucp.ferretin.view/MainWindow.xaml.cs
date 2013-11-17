@@ -157,5 +157,13 @@ namespace pe.edu.pucp.ferretin.view
             this.Close();
         }
         #endregion
+        
+        #region Boton Reportes
+        private void reportesBtn_Click(object sender, RoutedEventArgs e)
+        {
+            ReportesWindow RPWindow = new ReportesWindow();
+            RPWindow.Show();
+        }
+        #endregion
     }
 }

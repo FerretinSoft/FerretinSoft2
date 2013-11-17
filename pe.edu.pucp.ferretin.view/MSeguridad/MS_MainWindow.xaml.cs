@@ -88,10 +88,7 @@ namespace pe.edu.pucp.ferretin.view.MSeguridad
         private void auditTransaccionesBtn_Click(object sender, RoutedEventArgs e)
         {
 
-            MS_ReporteWindow rw = new MS_ReporteWindow();
-            rw.Show();
-
-            /*
+            
             if (ComunService.usuarioLpermisos[32].estado == true)
             {
                 MSeguridad.MS_AuditoriaWindow tw = new MSeguridad.MS_AuditoriaWindow();
@@ -102,7 +99,7 @@ namespace pe.edu.pucp.ferretin.view.MSeguridad
                 MessageBox.Show("Usted no cuenta con el permiso necesario.");
             }
               
-            */
+            
         }
     }
 }
