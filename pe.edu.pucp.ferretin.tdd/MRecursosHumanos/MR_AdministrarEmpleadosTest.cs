@@ -8,27 +8,27 @@ using System.Threading.Tasks;
 
 using NUnit.Framework;
 using pe.edu.pucp.ferretin.model;
-using pe.edu.pucp.ferretin.viewmodel.MSeguridad;
+using pe.edu.pucp.ferretin.viewmodel.MRecursosHumanos;
 using pe.edu.pucp.ferretin.controller;
-using pe.edu.pucp.ferretin.controller.MSeguridad;
+using pe.edu.pucp.ferretin.controller.MRecursosHumanos;
 
-namespace pe.edu.pucp.ferretin.tdd.MSeguridad
-{
+namespace pe.edu.pucp.ferretin.tdd.MRecursosHumanos
+{ 
     [TestFixture]
-    public class MS_AdministrarTiendasTest
+    public class MR_AdministrarEmpleadosTest
     {
-        /******************* Test Nombre de Tienda *************************/
+        /******************** Test Cantidad de Usuarios *************************/
         [TestCase]
-        public void cantidad_de_tiendas_igual_a_16()
+        public void cantidad_de_empleados_igual_a_22()
         {
             //Arrange = Creo el entorno            
             //var ventana = new MS_AdministrarTiendasViewModel();
-            
+
             //Act - No hay nada que hacer, porque la accion fue la creacion misma
-            int cantTiendas = MS_TiendaService.db.Tienda.Count();
-            
+            int cantEmpleados = MR_EmpleadoService.db.Empleado.Count();
+
             //Assert - Verificar la condicion o criterio de aceptacion
-            Assert.AreEqual(16, cantTiendas);
+            Assert.AreEqual(22, cantEmpleados);
         }
     }
 }
