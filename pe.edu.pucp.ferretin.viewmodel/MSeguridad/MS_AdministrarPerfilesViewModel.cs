@@ -16,6 +16,7 @@ namespace pe.edu.pucp.ferretin.viewmodel.MSeguridad
 {
     public class MS_AdministrarPerfilesViewModel : ViewModelBase
     {
+        /***********************************/
         #region Valores para el cuadro de Búsqueda
         private int _searchModulo = 0;
         public int searchModulo { get { return _searchModulo; } set { _searchModulo = value; NotifyPropertyChanged("searchModulo"); } }
@@ -23,19 +24,7 @@ namespace pe.edu.pucp.ferretin.viewmodel.MSeguridad
         private string _searchDescripcion = "";
         public string searchDescripcion { get { return _searchDescripcion; } set { _searchDescripcion = value; NotifyPropertyChanged("searchPerfil"); } }
         #endregion
-
-        public Menu CategoriaSeleccionada { get; set; }
-
-        public Menu menuPadre
-        {
-            get
-            {
-                //Devolver la categoría padre
-                return MS_PerfilService.menuPadre;
-            }           
-            
-        }
-
+        /***********************************/
         #region Manejo de los Tabs
         /************************************************/
         public enum tabs
@@ -124,7 +113,7 @@ namespace pe.edu.pucp.ferretin.viewmodel.MSeguridad
         }
 
         #endregion
-
+        /***********************************/
         #region Lista de Perfiles y Edición de Perfiles
 
         private IEnumerable<Menu> _menus;
@@ -193,7 +182,7 @@ namespace pe.edu.pucp.ferretin.viewmodel.MSeguridad
         }    
         /**************************************************/
         #endregion
-
+        /***********************************/
         #region RalayCommand
         /**************************************************/
         RelayCommand _actualizarListaPerfilesCommand;
@@ -262,7 +251,7 @@ namespace pe.edu.pucp.ferretin.viewmodel.MSeguridad
         }
         /**************************************************/
         #endregion
-
+        /***********************************/
         #region Comandos
         /**************************************************/
         public void viewEditPerfil(Object id)
@@ -326,7 +315,16 @@ namespace pe.edu.pucp.ferretin.viewmodel.MSeguridad
         }
         /**************************************************/
         #endregion
-
-        
+        /***********************************/
+        public Menu CategoriaSeleccionada { get; set; }
+        /***********************************/
+        public Menu menuPadre
+        {
+            get
+            {
+                //Devolver la categoría padre
+                return MS_PerfilService.menuPadre;
+            }
+        }        
     }
 }

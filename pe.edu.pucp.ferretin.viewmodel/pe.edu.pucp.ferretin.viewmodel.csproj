@@ -70,7 +70,6 @@
     <Compile Include="MCompras\MC_GuiaRemisionViewModel.cs" />
     <Compile Include="MCompras\MC_ProveedoresViewModel.cs" />
     <Compile Include="MRecursosHumanos\MR_AdministrarPersonalViewModel.cs" />
-    <Compile Include="MSeguridad\MS_AdministrarArbolPerfilesViewModel.cs" />
     <Compile Include="MSeguridad\MS_AdministrarPerfilesViewModel.cs" />
     <Compile Include="MSeguridad\MS_AdministrarTiendasViewModel.cs" />
     <Compile Include="MSeguridad\MS_AdministrarUsuariosViewModel.cs" />

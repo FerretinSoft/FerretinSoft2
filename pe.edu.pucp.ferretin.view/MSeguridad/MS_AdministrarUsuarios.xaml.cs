@@ -37,6 +37,7 @@ namespace pe.edu.pucp.ferretin.view.MSeguridad
         {
             InitializeComponent();
         }
+        /************************************************/
         #region Validaciones Campos de Texto
         /****************************************************
          * Validacion para dni del usuario en la tabla empleado
