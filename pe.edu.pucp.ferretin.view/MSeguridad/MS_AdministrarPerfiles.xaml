@@ -3,7 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:viewmodel="clr-namespace:pe.edu.pucp.ferretin.viewmodel.MSeguridad;assembly=pe.edu.pucp.ferretin.viewmodel"
         xmlns:helper="clr-namespace:pe.edu.pucp.ferretin.viewmodel.Helper;assembly=pe.edu.pucp.ferretin.viewmodel"
-        Title="Administracion de Perfiles" WindowStartupLocation="CenterScreen" Height="448" Width="650" Icon="/Resources/ferretin_ico.ico" ResizeMode="CanMinimize">
+        Title="Administración de Perfiles" WindowStartupLocation="CenterScreen" Height="448" Width="650" Icon="/Resources/ferretin_ico.ico" ResizeMode="CanMinimize">
     <Window.Resources>
         <viewmodel:MS_AdministrarPerfilesViewModel x:Key="MS_AdministrarPerfilesViewModel"/>
     </Window.Resources>
@@ -29,13 +29,13 @@
                         <RowDefinition Height="125*"/>
                     </Grid.RowDefinitions>
                     <GroupBox Header="Parámetros" Margin="5,2,5,4" BorderBrush="Black" Grid.ColumnSpan="2"/>
-                    
+
                     <!-- Labels -->
                     <Label Content="Módulo:" HorizontalAlignment="Left" Height="26" VerticalAlignment="Top" Width="54" Margin="21,21,0,0"/>
-                    <Label Content="Descripción:" HorizontalAlignment="Left" Height="26" VerticalAlignment="Top" Width="80" Margin="222,25,0,0" Grid.Column="1" RenderTransformOrigin="0.781,0.538"/>
-                    
+                    <Label Content="Descripción:" HorizontalAlignment="Left" Height="26" VerticalAlignment="Top" Width="80" Margin="204,21,0,0" Grid.Column="1" RenderTransformOrigin="0.781,0.538"/>
+
                     <!-- TextBox -->
-                    <TextBox Text="{Binding searchDescripcion}" HorizontalAlignment="Left" Margin="305,27,0,0" VerticalAlignment="Top" Width="182" Height="22" Grid.Column="1"/>
+                    <TextBox MaxLength="30" Text="{Binding searchDescripcion}" HorizontalAlignment="Left" Margin="289,25,0,0" VerticalAlignment="Top" Width="198" Height="22" Grid.Column="1" PreviewTextInput="descripcionTxtBox_PreviewTextInput" />
 
                     <!--
                     <ComboBox SelectedIndex="{Binding searchPerfil, Mode=TwoWay}" x:Name="perfilCombo" HorizontalAlignment="Left" Margin="10,25,0,0" VerticalAlignment="Top" Width="133" Height="22" Grid.Column="1">
@@ -47,8 +47,8 @@
                         <CheckBox Content="Vendedor" IsChecked="True"/>
                     </ComboBox>
                     -->
-                    
-                    <!--CheckBox -->                    
+
+                    <!--CheckBox -->
                     <ComboBox SelectedIndex="{Binding searchModulo, Mode=TwoWay}" HorizontalAlignment="Left" Margin="80,25,0,0" VerticalAlignment="Top" Width="133" Height="22" Grid.ColumnSpan="2">
                         <ComboBoxItem Content="Todos"/>
                         <ComboBoxItem Content="Almacen"/>
@@ -122,13 +122,12 @@
 
                     <!-- Labels -->
                     <Label Content="Perfil:" HorizontalAlignment="Left" Margin="22,23,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.464,1.231" Height="26" Width="39"/>
-                    <Label Content="*" HorizontalAlignment="Left" Margin="287,23,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.464,1.231" Height="26" Width="39" Grid.ColumnSpan="2" Foreground="Red"/>
                     <Label Content="Permisos por Módulo:" HorizontalAlignment="Left" Margin="0,23,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.464,1.231" Height="26" Width="139" Grid.Column="1"/>
                     <Label Content="Estado:" HorizontalAlignment="Left" Margin="22,62,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.464,1.231" Height="26" Width="48"/>
                     <Label Content="Descripción:" HorizontalAlignment="Left" Margin="22,99,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.464,1.231" Height="26" Width="74"/>
 
                     <!-- TexBoxes -->
-                    <TextBox Text="{Binding Path=perfil.nombre, Mode=TwoWay, ValidatesOnExceptions=true, NotifyOnValidationError=true}" x:Name="nombreTxtBox" HorizontalAlignment="Left" Height="26" Margin="80,23,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="207"/>
+                    <TextBox MaxLength="25" Text="{Binding Path=perfil.nombre, Mode=TwoWay, ValidatesOnExceptions=true, NotifyOnValidationError=true}" x:Name="nombreTxtBox" HorizontalAlignment="Left" Height="26" Margin="80,23,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="207"/>
                     <TextBox Text="{Binding Path=perfil.descripcion, Mode=TwoWay, ValidatesOnExceptions=true, NotifyOnValidationError=true}" x:Name="descripcionTxtBox" HorizontalAlignment="Left" Height="163" Margin="22,130,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="265"/>
 
                     <!-- ComboBox -->
@@ -136,7 +135,7 @@
                         <ComboBoxItem Content="Inactivo"/>
                         <ComboBoxItem Content="Activo"/>
                     </ComboBox>
-                    
+
                     <!-- Tree -->
                     <helper:MyTreeView ItemsSource="{Binding Path=perfil.PerfilMenuPadre,Mode=OneWay}" SelectedItem_="{Binding Path=CategoriaSeleccionada, Mode=TwoWay}" Background="#FFF5F5F5" HorizontalAlignment="Left" Height="239" Margin="0,54,0,0" VerticalAlignment="Top" Width="309" Grid.Column="1">
                         <TreeView.ItemContainerStyle>
@@ -159,12 +158,13 @@
                             </HierarchicalDataTemplate>
                         </TreeView.ItemTemplate>
                     </helper:MyTreeView>
-                    <Button  Command="{Binding cancelPerfilCommand}" Content="CANCELAR" Padding="5,0" Margin="10,298,224,55" Grid.Column="1"/>
-                    <Button Command="{Binding savePerfilCommand}" Content="GUARDAR" Padding="5,0" Margin="236,298,0,55"/>
-                    
+                    <Button  Command="{Binding cancelPerfilCommand}" Content="CANCELAR" Padding="5,0" Margin="39,319,195,34" Grid.Column="1"/>
+                    <Button Command="{Binding savePerfilCommand}" Content="GUARDAR" Padding="5,0" Margin="193,319,43,34"/>
+                    <Label Content="*" HorizontalAlignment="Left" VerticalAlignment="Top" Foreground="Red" FontSize="14" Width="15" Height="22" RenderTransformOrigin="3.646,-0.402" Margin="65,23,0,0"/>
+
                 </Grid>
             </TabItem>
-            
+
         </TabControl>
     </Grid>
 </Window>

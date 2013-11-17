@@ -131,11 +131,9 @@
                     <Label Content="Email:" HorizontalAlignment="Left" Margin="12,374,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.464,1.231" Grid.ColumnSpan="4"/>
                     <TextBox ContextMenu="{x:Null}"  MaxLength="35" x:Name="correo" Text="{Binding Path=empleado.email, Mode=TwoWay,  ValidatesOnExceptions=true, NotifyOnValidationError=true, ValidatesOnDataErrors=True}"  HorizontalAlignment="Left" Height="23" Margin="47,374,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="246" Grid.Column="3" Grid.ColumnSpan="2" PreviewKeyDown="txtEmail_KeyDown" PreviewTextInput="email_PreviewTextInput"/>
                     <Label Content=" Sexo:" HorizontalAlignment="Left" Margin="92,408,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.464,1.231" Grid.Column="4"/>
-                    <ComboBox SelectedIndex="{Binding empleado.nombreSexo}"  HorizontalAlignment="Left" Margin="139,412,0,0" VerticalAlignment="Top" Width="97" Grid.Column="4">
-
-                        <ListBoxItem Content="Masculino"/>
-                        <ListBoxItem Content="Femenino"/>                        
-
+                    <ComboBox SelectedIndex="{Binding Path=empleado.nombreSexo}"  HorizontalAlignment="Left" Margin="139,412,0,0" VerticalAlignment="Top" Width="97" Grid.Column="4">
+                        <ComboBoxItem Content="Masculino"></ComboBoxItem>
+                        <ComboBoxItem Content="Femenino"></ComboBoxItem>                                         
                     </ComboBox>
                     <Label Content="Fecha Nac." HorizontalAlignment="Left" Margin="12,408,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.464,1.231" Grid.ColumnSpan="4"/>
                     <DatePicker Focusable="False"  SelectedDate="{Binding Path=empleado.fecNacimiento,Mode=TwoWay}"  HorizontalAlignment="Left" Margin="49,410,0,0" VerticalAlignment="Top" Grid.Column="3" Width="97" Grid.ColumnSpan="2"/>
@@ -173,7 +171,7 @@
                                     </Style>
                                 </DataGridComboBoxColumn.EditingElementStyle>
                             </DataGridComboBoxColumn>
-                            <DataGridCheckBoxColumn Width="2*" Binding="{Binding Path=estado}" Header="Seleccionar"  />
+                           
 
 
                         </DataGrid.Columns>
@@ -189,9 +187,9 @@
 
                     <Label Content="Turno de trabajo:" HorizontalAlignment="Left" Margin="27,283,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.464,1.231" Grid.Column="5" Width="106"/>
                     <Label Content="Tienda: " HorizontalAlignment="Left" Margin="177,54,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.464,1.231" Grid.Column="5" Width="55"/>
-                    <ComboBox SelectedIndex="{Binding empleado.estado}" x:Name="tiendaComboBox_Copy" HorizontalAlignment="Left" Margin="152,156,0,0" VerticalAlignment="Top" Width="181" Grid.Column="5">    
-                        <ListBoxItem Content="Inactivo"/>
-                        <ListBoxItem Content="Activo"/>
+                    <ComboBox SelectedIndex="{Binding selectedEmpleadoEstado,UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"  x:Name="tiendaComboBox_Copy" HorizontalAlignment="Left" Margin="152,156,0,0" VerticalAlignment="Top" Width="181" Grid.Column="5">
+                        <ComboBoxItem Content="Inactivo"></ComboBoxItem>
+                        <ComboBoxItem Content="Activo"></ComboBoxItem>
                     </ComboBox>
                     <Label Content="    Provincia:" HorizontalAlignment="Left" Margin="70,256,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.464,1.231" Grid.Column="4" Width="74"/>
                     <ComboBox ItemsSource="{Binding Path=provincias}" DisplayMemberPath="nombre" SelectedItem="{Binding Path=selectedProvincia}" SelectedValuePath="id" HorizontalAlignment="Left" Margin="144,260,0,0" VerticalAlignment="Top" Width="90" Grid.Column="4"/>
@@ -212,7 +210,6 @@
                     <Label Content="*" HorizontalAlignment="Left" Margin="64,57,0,0"  VerticalAlignment="Top" Foreground="Red" FontSize="14" Width="15" Height="22" Grid.Column="5"/>
                     <Label Content="*" HorizontalAlignment="Left" Margin="137,91,0,0"  VerticalAlignment="Top" Foreground="Red" FontSize="14" Width="15" Height="22" Grid.Column="5"/>
                     <Label Content="*" HorizontalAlignment="Left" Margin="137,122,0,0"  VerticalAlignment="Top" Foreground="Red" FontSize="14" Width="15" Height="22" Grid.Column="5"/>
-                    <Label Content="*" HorizontalAlignment="Left" Margin="137,155,0,0"  VerticalAlignment="Top" Foreground="Red" FontSize="14" Width="15" Height="22" Grid.Column="5"/>
 
                 </Grid>
             </TabItem>

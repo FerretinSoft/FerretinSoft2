@@ -23,16 +23,7 @@ namespace pe.edu.pucp.ferretin.model
                     return "";
             }
         }
-        public String nombreCargo
-        {
-            get
-            {
-                if (ultimoEmpleadoTienda != null)
-                    return ultimoEmpleadoTienda.Cargo.nombre;
-                else
-                    return "";
-            }
-        }
+
         public String nombreEstado
         {
             get
@@ -44,11 +35,24 @@ namespace pe.edu.pucp.ferretin.model
                     if (this.estado == 1)
                         return "Activo";
                     else
-                        if (this.estado == 0) 
-                            return "";
+                        
                 return "";
             }
 
+        }
+
+
+
+
+        public String nombreCargo
+        {
+            get
+            {
+                if (ultimoEmpleadoTienda != null)
+                    return ultimoEmpleadoTienda.Cargo.nombre;
+                else
+                    return "";
+            }
         }
 
         public int nombreSexo
@@ -58,12 +62,12 @@ namespace pe.edu.pucp.ferretin.model
                 if (this.sexo == 'M')
                     return 0;
                 else
-                    if (this.sexo == 'F')
+                   if (this.sexo == 'F')
                     return 1;
-                 else
-                        if (this.sexo==null)
-                    return 2;
-                return 2;
+                else
+               
+                   return -1;
+             
                 
             }
 
@@ -72,13 +76,9 @@ namespace pe.edu.pucp.ferretin.model
                 if (value == 0)
                     this.sexo = 'M';
                 else
-                    if (value == 1)
+              
                         this.sexo = 'F';
-                    else
-                        if (value == 2)
-                        this.sexo = null;
-               
-            
+                       
             }
         
         
