@@ -4,6 +4,7 @@ using pe.edu.pucp.ferretin.viewmodel.Helper;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Collections.Specialized;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -43,18 +44,31 @@ namespace pe.edu.pucp.ferretin.viewmodel.MAlmacen
             }
         }*/
 
+
+        private bool _isCreating;
         public bool isCreating
         {
             get
             {
-                if (statusTab == Tab.NUEVO)
-                {
-                    return true; //Se Activaran
-                }
-                else
-                {
-                    return false; //Se bloquearan par que no sean editables
-                }
+                return _isCreating;
+            }
+            set
+            {
+                _isCreating = value;
+            }
+        }
+
+        public Tienda tiendaOrigen
+        {
+            get
+            {
+                return movimiento.Tienda;                
+            }
+            set
+            {
+                movimiento.Tienda = value;
+                NotifyPropertyChanged("movimiento");
+                NotifyPropertyChanged("productosPorMovimiento");
             }
         }
 
@@ -120,20 +134,40 @@ namespace pe.edu.pucp.ferretin.viewmodel.MAlmacen
             }
         }
 
-        private IEnumerable<MA_MovimientosService.MovimientoProductoTienda> _productosPorMovimiento;
-        public IEnumerable<MA_MovimientosService.MovimientoProductoTienda> productosPorMovimiento
+        private ObservableCollection<MA_MovimientosService.MovimientoProductoTienda> _productosPorMovimiento;
+        public ObservableCollection<MA_MovimientosService.MovimientoProductoTienda> productosPorMovimiento
         {
             get
             {
-                _productosPorMovimiento = MA_MovimientosService.buscarProductosPorMovimientoTienda(movimiento);
+                _productosPorMovimiento = new ObservableCollection<MA_MovimientosService.MovimientoProductoTienda>(
+                                                    MA_MovimientosService.buscarProductosPorMovimientoTienda(movimiento));
                 return _productosPorMovimiento;
             }
             set
             {
                 _productosPorMovimiento = value;
                 NotifyPropertyChanged("productosPorMovimiento");
+                NotifyPropertyChanged("movimiento");
             }
         }
+
+        void productosPorMovimiento_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
+        {
+            //Get the sender observable collection
+            ObservableCollection<MA_MovimientosService.MovimientoProductoTienda> obsSender = sender as ObservableCollection<MA_MovimientosService.MovimientoProductoTienda>;
+
+            if (e.Action == NotifyCollectionChangedAction.Remove)
+            {
+                foreach (MA_MovimientosService.MovimientoProductoTienda removedItem in e.OldItems)
+                {
+                    movimiento.MovimientoProducto.Remove(removedItem.movimientoProducto);
+                }
+            }
+
+            NotifyPropertyChanged("movimiento");            
+        }
+
+        
 
         private IEnumerable<MovimientoTipo> _tiposMovimiento;
         public IEnumerable<MovimientoTipo> tiposMovimiento
@@ -164,20 +198,40 @@ namespace pe.edu.pucp.ferretin.viewmodel.MAlmacen
                 _selectedMovimiento = value;
             }
         }
+
+        private MA_MovimientosService.MovimientoProductoTienda _productoSeleccionado;
+        public MA_MovimientosService.MovimientoProductoTienda productoSeleccionado
+        {
+            get
+            {
+                return _productoSeleccionado;
+            }
+            set
+            {
+                _productoSeleccionado = value;
+            }
+        }
         #endregion
 
         #region Constructor
         public MA_MovimientosViewModel()
         {
             _movimiento = new Movimiento();
-            //_movimiento.fecha = DateTime.Today;
-            //_movimiento.codigo = Movimiento.generateCode();
+            productosPorMovimiento.CollectionChanged += productosPorMovimiento_CollectionChanged;
+            
         }
         #endregion
 
         #region Valores para el cuadro de Búsqueda
         public Tienda _searchAlmacen;
-        public Tienda searchAlmacen { get { return _searchAlmacen; } set { _searchAlmacen = value; NotifyPropertyChanged("searchAlmacen"); } }
+        public Tienda searchAlmacen
+        {
+            get
+            {
+                return (_searchAlmacen == null) ? usuarioLogueado.Empleado.tiendaActual : _searchAlmacen;
+            }
+            set { _searchAlmacen = value; NotifyPropertyChanged("searchAlmacen"); }
+        }
 
         public MovimientoEstado _searchEstado;
         public MovimientoEstado searchEstado { get { return _searchEstado; } set { _searchEstado = value; NotifyPropertyChanged("searchEstado"); } }
@@ -212,25 +266,22 @@ namespace pe.edu.pucp.ferretin.viewmodel.MAlmacen
                 switch (_statusTab)
                 {
                     case Tab.BUSQUEDA: 
-                        detallesTabHeader = "Nuevo"; 
-                        //movimiento = new Movimiento(); 
-                        //movimiento.fecha = DateTime.Today;
-                        //movimiento.codigo = Movimiento.generateCode();
+                        detallesTabHeader = "Nuevo";
+                        isCreating = false;
                         break;//Si es agregar, creo un nuevo objeto Cliente
                     case Tab.NUEVO: 
                         detallesTabHeader = "Nuevo"; 
                         if (movimiento == null || movimiento.id > 0) movimiento = new Movimiento(); 
                         movimiento.fecha = DateTime.Today;
-                        movimiento.codigo = Movimiento.generateCode();
+                        isCreating = true;
                         break;//Si es agregar, creo un nuevo objeto Cliente
-                    case Tab.DETALLES: 
+                    case Tab.DETALLES:
+                        isCreating = false;
                         detallesTabHeader = "Detalles"; 
                         break;
                     default: 
-                        detallesTabHeader = "Nuevo"; 
-                        //movimiento = new Movimiento(); 
-                        //movimiento.fecha = DateTime.Today;
-                        //movimiento.codigo = Movimiento.generateCode();
+                        detallesTabHeader = "Nuevo";
+                        isCreating = false;
                         break;//Si es agregar, creo un nuevo objeto Cliente
                 }
                 NotifyPropertyChanged("statusTab");
@@ -238,6 +289,7 @@ namespace pe.edu.pucp.ferretin.viewmodel.MAlmacen
                 NotifyPropertyChanged("currentIndexTab"); //Hace que cambie el tab automaticamente
                 NotifyPropertyChanged("isCreating"); //Para que se activen o desactiven los inputs
                 NotifyPropertyChanged("estadoEditable");
+                NotifyPropertyChanged("tiendaOrigen");
             }
         }
         //Usado para mover los tabs de acuerdo a las acciones realizadas
@@ -335,18 +387,7 @@ namespace pe.edu.pucp.ferretin.viewmodel.MAlmacen
                 return _agregarNuevoProductoCommand;
             }
         }
-        RelayCommand _borrarProductoCommand;
-        public ICommand borrarProductoCommand
-        {
-            get
-            {
-                if (_borrarProductoCommand == null)
-                {
-                    _borrarProductoCommand = new RelayCommand(borrarProducto);
-                }
-                return _borrarProductoCommand;
-            }
-        }
+
         RelayCommand _saveTipoMovimientoCommand;
         public ICommand saveTipoMovimientoCommand
         {
@@ -433,18 +474,35 @@ namespace pe.edu.pucp.ferretin.viewmodel.MAlmacen
         }
 
         public void agregarNuevoProducto(Object atr)
-        {
-            Producto producto = null;
-            try
-            { producto = MA_ProductoService.obtenerTodosProductos().First(p => !String.IsNullOrEmpty(p.codigo) && p.codigo.Equals(codigoNuevoProducto)); }
-            catch { }
-
-            if (producto != null && movimiento.MovimientoProducto.Count(mp => mp.Producto == producto) <= 0)
+         {
+            if (codigoNuevoProducto != null && codigoNuevoProducto.Length > 0)
             {
-                MovimientoProducto mproducto = new MovimientoProducto { cantidad = 1, Movimiento = movimiento, Producto = producto };
-                movimiento.MovimientoProducto.Add(mproducto);
-                NotifyPropertyChanged("movimiento");
-                NotifyPropertyChanged("productosPorMovimiento");
+                Producto producto = null;
+                try
+                {
+                    producto = MA_SharedService.obtenerProductoxCodigo(codigoNuevoProducto);
+                }
+                catch { }
+
+                if (producto != null)
+                {
+                    if (movimiento.MovimientoProducto.Count(mp => mp.Producto.id == producto.id) == 1) // el producto ya fue incluido
+                    {
+                        movimiento.MovimientoProducto.Single(mp => mp.Producto.id == producto.id).cantidad++;
+                    }
+                    else
+                    {
+                        MovimientoProducto movProducto = new MovimientoProducto();
+                        movProducto.Movimiento = movimiento;
+                        movProducto.Producto = producto;
+                        movProducto.cantidad = 1;
+
+                        movimiento.MovimientoProducto.Add(movProducto);
+
+                    }
+                    NotifyPropertyChanged("movimiento");
+                    NotifyPropertyChanged("productosPorMovimiento");
+                }
             }
             else
             {
@@ -452,24 +510,9 @@ namespace pe.edu.pucp.ferretin.viewmodel.MAlmacen
             }
         }
 
-        public void borrarProducto(Object atr)
+        public void borrarProductos(Object atr)
         {
-            Producto producto = null;
-            try
-            { producto = MA_ProductoService.obtenerTodosProductos().First(p => !String.IsNullOrEmpty(p.codigo) && p.codigo.Equals(codigoNuevoProducto)); }
-            catch { }
-
-            if (producto != null && movimiento.MovimientoProducto.Count(mp => mp.Producto == producto) <= 0)
-            {
-                MovimientoProducto mproducto = new MovimientoProducto { cantidad = 1, Movimiento = movimiento, Producto = producto };
-                movimiento.MovimientoProducto.Add(mproducto);
-                NotifyPropertyChanged("movimiento");
-                NotifyPropertyChanged("productosPorMovimiento");
-            }
-            else
-            {
-                MessageBox.Show("No se encontro un producto con el código \"" + codigoNuevoProducto + "\".", "No se encontro el Producto", MessageBoxButton.OK, MessageBoxImage.Error);
-            }
+                       
         }
 
         public void viewEditMovimiento(Object id)
@@ -516,11 +559,12 @@ namespace pe.edu.pucp.ferretin.viewmodel.MAlmacen
             else
             {
                 //validación
-                if (movimiento.codigo == null || movimiento.codigo == "") MessageBox.Show("Debe llenar el campo código.");
-                else if (movimiento.MovimientoTipo == null) MessageBox.Show("Debe seleccionar un tipo de movimiento");
+                //if (movimiento.codigo == null || movimiento.codigo == "") MessageBox.Show("Debe llenar el campo código.");
+                if (movimiento.MovimientoTipo == null) MessageBox.Show("Debe seleccionar un tipo de movimiento");
                 else if (movimiento.Tienda == null && movimiento.MovimientoTipo.categoriaEnum == MovimientoTipo.CategoriaMovimiento.SALIDA) MessageBox.Show("Debe seleccionar un almacén de salida de mercancía");
                 else if (movimiento.Tienda1 == null && movimiento.MovimientoTipo.categoriaEnum == MovimientoTipo.CategoriaMovimiento.ENTRADA) MessageBox.Show("Debe seleccionar un almacén destino para la entrada de mercancía");
                 else if ((movimiento.Tienda == null || movimiento.Tienda1 == null) && movimiento.MovimientoTipo.categoriaEnum == MovimientoTipo.CategoriaMovimiento.TRANSFERENCIA) MessageBox.Show("Debe seleccionar un almacén de salida de mercancía y un almacén de entrada");
+                else if (movimiento.Tienda == movimiento.Tienda1) MessageBox.Show("Las tiendas origen y destino deben ser diferentes");
                 else if (movimiento.MovimientoEstado == null) MessageBox.Show("Debe seleccionar un estado para el movimiento");
                 else if (movimiento.MovimientoProducto.Count <= 0) MessageBox.Show("Debe registrar al menos un Producto en su movimiento");
                 else
@@ -532,7 +576,9 @@ namespace pe.edu.pucp.ferretin.viewmodel.MAlmacen
                     }
                     else
                     {
-                        MessageBox.Show("El movimiento fue agregado con éxito");                        
+                        isCreating = false;
+                        NotifyPropertyChanged("isCreating");
+                        MessageBox.Show("El movimiento fue agregado con éxito");
                     }
                 }
             }

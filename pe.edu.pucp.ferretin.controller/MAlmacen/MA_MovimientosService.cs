@@ -199,7 +199,19 @@ namespace pe.edu.pucp.ferretin.controller.MAlmacen
             if (!db.Movimiento.Contains(movimiento))
             {
                 if (!validarMovimiento(movimiento)) return false; //movimiento no válido
-
+                
+                //Obtiene el ultimo codigo de la tienda y le suma 1 para que se el codigo de la tienda a agregar
+                String baseCodigo = DateTime.Now.ToString("yyyyMMddHHmmss");
+                IOrderedQueryable<Movimiento> anteriores = db.Movimiento.Where(t => t.codigo.StartsWith(baseCodigo)).OrderBy(t => t.id);
+                String ultimoCodigo = anteriores.Count() <= 0 ? "" : anteriores.Last().codigo;
+                String proxCodigo = (ultimoCodigo.Length > 0)?(Int32.Parse(ultimoCodigo.Substring(ultimoCodigo.Length - 2)) + 1).ToString() : "";
+                if (proxCodigo.Length == 2)
+                    movimiento.codigo = baseCodigo + proxCodigo;
+                else if (proxCodigo.Length == 1)
+                    movimiento.codigo = baseCodigo + "0" + proxCodigo;
+                else // cadena vacia
+                    movimiento.codigo = baseCodigo + "01";
+                    
                 if (true)//(movimiento.MovimientoEstado.nombre == "Finalizado")
                 {
                     Dictionary<Producto, decimal> productos = new Dictionary<Producto, decimal>();
