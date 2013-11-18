@@ -124,6 +124,7 @@ namespace pe.edu.pucp.ferretin.controller.MVentas
             {
                 db.Devolucion.InsertOnSubmit(devolucion);
                 return enviarCambios();
+                
             }
             else
             {

@@ -24,6 +24,7 @@
       <Column Name="precioUnitario" Type="System.Decimal" DbType="Decimal(18,2)" CanBeNull="true" />
       <Column Name="puntosCanejado" Type="System.Int32" DbType="Int" CanBeNull="true" />
       <Column Name="puntosGanado" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="moneda" Type="System.Int32" DbType="Int" CanBeNull="true" />
       <Association Name="Producto_VentaProducto" Member="Producto" ThisKey="id_producto" OtherKey="id" Type="Producto" IsForeignKey="true" />
       <Association Name="Venta_VentaProducto" Member="Venta" ThisKey="id_venta" OtherKey="id" Type="Venta" IsForeignKey="true" />
     </Type>
@@ -67,6 +68,7 @@
       <Column Name="apPaterno" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
       <Column Name="apMaterno" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
       <Column Name="id_empleado_registro" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="esInactivo" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
       <Association Name="Cliente_LoteVale" Member="LoteVale" ThisKey="id" OtherKey="id_cliente" Type="LoteVale" />
       <Association Name="Cliente_Proforma" Member="Proforma" ThisKey="id" OtherKey="id_cliente" Type="Proforma" />
       <Association Name="Cliente_Venta" Member="Venta" ThisKey="id" OtherKey="id_cliente" Type="Venta" />
@@ -108,6 +110,10 @@
       <Column Name="id_producto" Type="System.Int32" DbType="Int" CanBeNull="true" />
       <Column Name="motivo" Type="System.String" DbType="Text" CanBeNull="true" UpdateCheck="Never" />
       <Column Name="dardebaja" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="precioUnitario" Type="System.Decimal" DbType="Decimal(18,2)" CanBeNull="true" />
+      <Column Name="moneda" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="descuento" Type="System.Decimal" DbType="Decimal(18,2)" CanBeNull="true" />
+      <Column Name="descuentoPorcentaje" Type="System.Decimal" DbType="Decimal(18,2)" CanBeNull="true" />
       <Association Name="Devolucion_DevolucionProducto" Member="Devolucion" ThisKey="id_devolucion" OtherKey="id" Type="Devolucion" IsForeignKey="true" />
       <Association Name="Producto_DevolucionProducto" Member="Producto" ThisKey="id_producto" OtherKey="id" Type="Producto" IsForeignKey="true" />
     </Type>

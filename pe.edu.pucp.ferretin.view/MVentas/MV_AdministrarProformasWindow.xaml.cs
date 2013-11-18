@@ -88,7 +88,7 @@ namespace pe.edu.pucp.ferretin.view.MVentas
                 try
                 {
                     MV_RegistrarVentaWindow padre = this.Owner as MV_RegistrarVentaWindow;
-                    MV_RegistrarVentaViewModel padreViewModel = padre.main.DataContext as MV_RegistrarVentaViewModel;
+                    MV_RegistrarVentaViewModel padreViewModel = padre.DataContext as MV_RegistrarVentaViewModel;
 
                     MV_AdministrarProformasViewModel miVM = this.DataContext as MV_AdministrarProformasViewModel;
 

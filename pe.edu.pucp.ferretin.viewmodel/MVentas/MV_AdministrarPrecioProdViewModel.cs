@@ -219,10 +219,10 @@ namespace pe.edu.pucp.ferretin.viewmodel.MVentas
         public void cancelPrecioProducto(Object obj)
         {
             string messageBoxText;
-            messageBoxText = "¿Desea cancelar la transacción? Usted perderá la información ingresada";
-            string caption = "Mensaje de confirmación";
+            messageBoxText = "Al salir, perderá todos los datos ingresados. ¿Desea continuar?";
+            string caption = "ATENCIÓN";
             MessageBoxButton button = MessageBoxButton.OKCancel;
-            MessageBoxResult result = MessageBox.Show(messageBoxText, caption, button);
+            MessageBoxResult result = MessageBox.Show(messageBoxText, caption, button, MessageBoxImage.Warning);
             switch (result)
             {
                 case MessageBoxResult.OK:

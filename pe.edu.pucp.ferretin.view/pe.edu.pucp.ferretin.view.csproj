@@ -89,6 +89,9 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="MAlmacen\MA_AtencionSolAuxWindow.xaml.cs">
+      <DependentUpon>MA_AtencionSolAuxWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="MSeguridad\MS_ReportesWindow.xaml.cs">
       <DependentUpon>MS_ReportesWindow.xaml</DependentUpon>
     </Compile>
@@ -111,6 +114,10 @@
       <SubType>Code</SubType>
     </Compile>
     <Page Include="MAlmacen\MA_AtencionSolAbastecimientoWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="MAlmacen\MA_AtencionSolAuxWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

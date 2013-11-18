@@ -34,8 +34,8 @@ namespace pe.edu.pucp.ferretin.view.MVentas
             try
             {
                 MV_RegistrarVentaWindow regVen = this.Owner as MV_RegistrarVentaWindow;
-                MV_RegistrarVentaViewModel regVen_DC = regVen.main.DataContext as MV_RegistrarVentaViewModel;
-                MV_PagoWindowViewModel my_DC = main.DataContext as MV_PagoWindowViewModel;
+                MV_RegistrarVentaViewModel regVen_DC = regVen.DataContext as MV_RegistrarVentaViewModel;
+                MV_PagoWindowViewModel my_DC = DataContext as MV_PagoWindowViewModel;
                 my_DC.venta = regVen_DC.venta;
             }
             catch (Exception e)
@@ -51,7 +51,7 @@ namespace pe.edu.pucp.ferretin.view.MVentas
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            MV_PagoWindowViewModel p = main.DataContext as MV_PagoWindowViewModel;
+            MV_PagoWindowViewModel p = DataContext as MV_PagoWindowViewModel;
             MV_AgregarValeWindow vale = new MV_AgregarValeWindow()
             {
                 pagoviewmodel = p,
@@ -62,7 +62,7 @@ namespace pe.edu.pucp.ferretin.view.MVentas
 
         private void Button_Click_2(object sender, RoutedEventArgs e)
         {
-            MV_PagoWindowViewModel p = main.DataContext as MV_PagoWindowViewModel;
+            MV_PagoWindowViewModel p = DataContext as MV_PagoWindowViewModel;
             MV_AgregarNotaCreditoWindow notaCredito = new MV_AgregarNotaCreditoWindow()
             {
                 pagoviewmodel = p,
@@ -73,7 +73,7 @@ namespace pe.edu.pucp.ferretin.view.MVentas
 
         private void Button_Click_3(object sender, RoutedEventArgs e)
         {
-            MV_PagoWindowViewModel pagoViewModel = this.main.DataContext as MV_PagoWindowViewModel;
+            MV_PagoWindowViewModel pagoViewModel = this.DataContext as MV_PagoWindowViewModel;
             new prueba(pagoViewModel).Owner = this ;
             
         }

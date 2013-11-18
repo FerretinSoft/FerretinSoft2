@@ -108,6 +108,7 @@ namespace pe.edu.pucp.ferretin.view.MVentas
         {
             ventasMenu.Visibility = System.Windows.Visibility.Visible;
             postVentaMenu.Visibility = System.Windows.Visibility.Hidden;
+            preVentaMenu.Visibility = System.Windows.Visibility.Hidden;
         }
         private void anularVentaBtn_Click(object sender, RoutedEventArgs e)
         {
@@ -155,6 +156,19 @@ namespace pe.edu.pucp.ferretin.view.MVentas
             {
                 ventasMenu.Visibility = System.Windows.Visibility.Hidden;
                 postVentaMenu.Visibility = System.Windows.Visibility.Visible;
+            }
+            else
+            {
+                MessageBox.Show("Usted no cuenta con el permiso necesario");
+            }
+        }
+
+        private void preVentaBtn_Click(object sender, RoutedEventArgs e)
+        {
+            if (ComunService.usuarioLpermisos[8].estado == true)
+            {
+                ventasMenu.Visibility = System.Windows.Visibility.Hidden;
+                preVentaMenu.Visibility = System.Windows.Visibility.Visible;
             }
             else
             {

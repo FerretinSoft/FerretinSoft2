@@ -69,5 +69,10 @@ namespace pe.edu.pucp.ferretin.view.MVentas
             viewModel.soloSeleccionarCliente = true;
             v.Show();
         }
+
+        private void Window_Closed(object sender, EventArgs e)
+        {
+           
+        }
     }
 }

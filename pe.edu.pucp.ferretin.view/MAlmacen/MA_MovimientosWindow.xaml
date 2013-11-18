@@ -2,7 +2,7 @@
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:viewmodel="clr-namespace:pe.edu.pucp.ferretin.viewmodel.MAlmacen;assembly=pe.edu.pucp.ferretin.viewmodel"
-        Title="Movimientos de Almacén" Height="487" Width="704" Icon="../Resources/ferretin_ico.ico" ResizeMode="CanMinimize">
+        Title="Movimientos de Almacén" Height="487" Width="704" Icon="../Resources/ferretin_ico.ico" ResizeMode="CanMinimize" KeyDown="Window_KeyDown">
     <Window.Resources>
         <viewmodel:MA_MovimientosViewModel x:Key="MA_MovimientosViewModel"/>
     </Window.Resources>
@@ -70,10 +70,10 @@
                     <Label Content="Código Mov.:" HorizontalAlignment="Left" Margin="15,17,0,0" VerticalAlignment="Top" Height="26" Width="79"/>
                     <Label Content="Tipo Movimiento:" HorizontalAlignment="Left" Margin="15,57,0,0" VerticalAlignment="Top" Height="26" Width="102"/>
                     <TextBox Text="{Binding Path=movimiento.codigo}" IsEnabled="False" Height="23" Margin="123,22,0,0" TextWrapping="Wrap" VerticalAlignment="Top" HorizontalAlignment="Left" Width="146"/>
-                    <Label Content="Desde:" HorizontalAlignment="Left" Margin="15,138,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.464,1.231" Height="26" Width="56"/>
-                    <Label Content="Hasta:" HorizontalAlignment="Left" Margin="15,182,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.464,1.231" Height="26" Width="74"/>
+                    <Label Content="Origen:" HorizontalAlignment="Left" Margin="15,138,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.464,1.231" Height="26" Width="56"/>
+                    <Label Content="Destino:" HorizontalAlignment="Left" Margin="15,182,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.464,1.231" Height="26" Width="74"/>
                     <TextBox x:Name="comentarioTxt" Text="{Binding Path=movimiento.comentario, Mode=TwoWay}" IsEnabled="{Binding isCreating}" HorizontalAlignment="Left" Margin="18,368,0,0" TextWrapping="Wrap" Width="252" Height="41" VerticalAlignment="Top"/>
-                    <ComboBox x:Name="tiendaDesdeCombo" ItemsSource="{Binding Path=tiendas}"  IsEnabled="{Binding isCreating}" SelectedItem="{Binding Path=movimiento.Tienda}" DisplayMemberPath="nombre" HorizontalAlignment="Left" Margin="123,142,0,0" VerticalAlignment="Top" Width="146" Height="22">
+                    <ComboBox x:Name="tiendaDesdeCombo" ItemsSource="{Binding Path=tiendas}"  IsEnabled="{Binding isCreating}" SelectedItem="{Binding Path=tiendaOrigen, Mode=TwoWay}" DisplayMemberPath="nombre" HorizontalAlignment="Left" Margin="123,142,0,0" VerticalAlignment="Top" Width="146" Height="22">
 
                     </ComboBox>
                     <ComboBox x:Name="tiendaHastaCombo" ItemsSource="{Binding Path=tiendas}" IsEnabled="{Binding isCreating}" SelectedItem="{Binding Path=movimiento.Tienda1}" DisplayMemberPath="nombre"  HorizontalAlignment="Left" Margin="121,186,0,0" VerticalAlignment="Top" Width="148" Height="22">
@@ -82,12 +82,12 @@
 
                     </ComboBox>
                     <Label Content="Comentario:" HorizontalAlignment="Left" Margin="15,337,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.464,1.231" Height="26" Width="84"/>
-                    <DataGrid x:Name="productosGrid" ItemsSource="{Binding productosPorMovimiento,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged,NotifyOnSourceUpdated=True,NotifyOnTargetUpdated=True}" Grid.Column="1" Margin="10,0,10,84" IsManipulationEnabled="True" CanUserAddRows="False"  IsEnabled="{Binding isCreating}" VerticalAlignment="Bottom" Height="261"  AutoGenerateColumns="False" >
+                    <DataGrid x:Name="productosGrid" CanUserDeleteRows="False" ItemsSource="{Binding productosPorMovimiento,UpdateSourceTrigger=PropertyChanged,NotifyOnSourceUpdated=True,NotifyOnTargetUpdated=True,Mode=TwoWay}" Grid.Column="1" Margin="10,0,10,84" IsManipulationEnabled="True" CanUserAddRows="False"  IsEnabled="{Binding isCreating}" VerticalAlignment="Bottom" Height="247"  AutoGenerateColumns="False" >
                         <DataGrid.Columns>
-                            <DataGridTextColumn Width="0.75*" Binding="{Binding Path=movimientoProducto.Producto.codigo}" IsReadOnly="True" Header="Cód."/>
+                            <DataGridTextColumn Width="1*" Binding="{Binding Path=movimientoProducto.Producto.codigo}" IsReadOnly="True" Header="Cód."/>
                             <DataGridTextColumn Width="2*" Binding="{Binding Path=movimientoProducto.Producto.nombre}" IsReadOnly="True" Header="Nombre"/>
                             <DataGridTextColumn Width="0.5*" Binding="{Binding Path=movimientoProducto.Producto.UnidadMedida.abreviatura}" Header="UM" IsReadOnly="True"/>
-                            <DataGridTextColumn Width="0.75*" Binding="{Binding Path=movimientoProducto.cantidad}" Header="Cantidad"/>
+                            <DataGridTextColumn Width="0.75*" Binding="{Binding Path=movimientoProducto.cantidad,UpdateSourceTrigger=PropertyChanged}" Header="Cantidad"/>
                             <DataGridTextColumn Width="0.75*" Header="Stock" IsReadOnly="True" Binding="{Binding Path=productoAlmacen.stock}"/>
                         </DataGrid.Columns>
                     </DataGrid>
@@ -97,11 +97,11 @@
                     <ComboBox ItemsSource="{Binding Path=estadosMovimiento}" IsEnabled="{Binding estadoEditable}" SelectedItem="{Binding Path=movimiento.MovimientoEstado}" DisplayMemberPath="nombre" HorizontalAlignment="Left" Margin="121,304,0,0" VerticalAlignment="Top" Width="148" Height="22">
 
                     </ComboBox>
-                    <Button x:Name="guardarMovimientoBtn" Command="{Binding saveMovimientoCommand}" Content="GUARDAR" Grid.Column="1" HorizontalAlignment="Left" Margin="85,379,0,0" VerticalAlignment="Top" Width="75" Height="30" />
+                    <Button x:Name="guardarMovimientoBtn" IsEnabled="{Binding estadoEditable}" Command="{Binding saveMovimientoCommand}" Content="GUARDAR" Grid.Column="1" HorizontalAlignment="Left" Margin="85,379,0,0" VerticalAlignment="Top" Width="75" Height="30" />
                     <Button x:Name="cancelarMovimientoBtn" Command="{Binding cancelMovimientoCommand}" Content="CANCELAR" Grid.Column="1" HorizontalAlignment="Left" Margin="227,379,0,0" VerticalAlignment="Top" Width="75" RenderTransformOrigin="2.495,0.446" Height="30"/>
                     <Button x:Name="visualizarDocumentoBtn" Content="VISUALIZAR DOCUMENTO" HorizontalAlignment="Left" Margin="18,241,0,0" VerticalAlignment="Top" Width="251" Height="30" Click="visualizarDocumentoBtn_Click"/>
                     <Label Content="Código del Producto a Agregar:" Grid.Column="1" HorizontalAlignment="Left" Margin="44,15,0,0" VerticalAlignment="Top"/>
-                    <TextBox Text="{Binding codigoNuevoProducto,Mode=TwoWay}" VerticalContentAlignment="Center" IsEnabled="{Binding isCreating}" Grid.Column="1" HorizontalAlignment="Left" Height="24" Margin="227,17,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
+                    <TextBox x:Name="codProductoAgregar" Text="{Binding codigoNuevoProducto,Mode=TwoWay}" VerticalContentAlignment="Center" IsEnabled="{Binding isCreating}" Grid.Column="1" HorizontalAlignment="Left" Height="24" Margin="227,17,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
                     <Button IsEnabled="{Binding isCreating}" ToolTip="Agregar Producto" Command="{Binding agregarNuevoProductoCommand}" Content="" VerticalAlignment="Top"  Height="24" Grid.Column="1" Margin="352,17,20,0">
                         <Button.Background>
                             <ImageBrush ImageSource="../Resources/add_20.png" Stretch="None"/>
@@ -111,9 +111,9 @@
                     <Label Content="*" HorizontalAlignment="Left" Margin="269,300,0,0" VerticalAlignment="Top" Foreground="Red" FontSize="14" Width="24" Height="23" Grid.ColumnSpan="2"/>
                     <Label Content="*" HorizontalAlignment="Left" Margin="269,101,0,0" VerticalAlignment="Top" Foreground="Red" FontSize="14" Width="24" Height="23" Grid.ColumnSpan="2"/>
                     <Label Content="*" HorizontalAlignment="Left" Margin="269,61,0,0" VerticalAlignment="Top" Foreground="Red" FontSize="14" Width="24" Height="23" Grid.ColumnSpan="2"/>
-                    <Button IsEnabled="{Binding isCreating}" Command="{Binding borrarProductoCommand}" Content="" Grid.Column="1" HorizontalAlignment="Left" Margin="10,57,0,0" VerticalAlignment="Top" Width="20">
+                    <Button x:Name="borrarProductosBtn" IsEnabled="{Binding isCreating}" ToolTip="Borrar Productos" Content="" VerticalAlignment="Top"  Height="24" Grid.Column="1" Margin="10,61,362,0" Click="borrarProductosBtn_Click">
                         <Button.Background>
-                            <ImageBrush ImageSource="/pe.edu.pucp.ferretin.view;component/Resources/trash_20.png"/>
+                            <ImageBrush ImageSource="/pe.edu.pucp.ferretin.view;component/Resources/trash_20.png" Stretch="None"/>
                         </Button.Background>
                     </Button>
                 </Grid>

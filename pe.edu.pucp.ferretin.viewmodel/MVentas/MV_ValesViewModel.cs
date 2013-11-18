@@ -210,16 +210,47 @@ namespace pe.edu.pucp.ferretin.viewmodel.MVentas
                 return _cancelarLoteValeCommand;
             }
         }
+
+        RelayCommand _cargarClienteCommand;
+        public ICommand cargarClienteCommand
+        {
+            get
+            {
+                if (_cargarClienteCommand == null)
+                {
+                    _cargarClienteCommand = new RelayCommand(cargarCliente);
+                }
+                return _cargarClienteCommand;
+            }
+        }
         #endregion
 
         #region commands
 
+        public void cargarCliente(Object id)
+        {
+            Cliente buscado = null;
+            try
+            {
+                buscado = MV_ClienteService.obtenerClienteByNroDoc(searchNroDocCliente);
+                loteVale.Cliente = buscado;
+            }
+            catch { }
+
+            if (buscado == null)
+            {
+                MessageBox.Show("No se encontro ningún cliente con el número de documento proporcionado", "Error", MessageBoxButton.OK, MessageBoxImage.Question);
+                loteVale.Cliente = buscado;
+            }
+
+        }
+
         public void cancelarLoteVale(object id)
         {
-            string messageBoxText = "¿Desea cancelar la transacción? Usted perderá la información ingresada";
-            string caption = "Mensaje de confirmación";
+            string messageBoxText = "Al salir, perderá todos los datos ingresados. ¿Desea continuar?";
+            string caption = "ATENCIÓN";
             MessageBoxButton button = MessageBoxButton.OKCancel;
-            MessageBoxResult result = MessageBox.Show(messageBoxText, caption, button);
+            MessageBoxResult result = MessageBox.Show(messageBoxText, caption, button, MessageBoxImage.Warning);
             switch (result)
             {
                 case MessageBoxResult.OK:
@@ -245,11 +276,11 @@ namespace pe.edu.pucp.ferretin.viewmodel.MVentas
             ComunService.idVentana(50);
             if (!MV_ValeService.insertarLoteVale(loteVale))
             {
-                MessageBox.Show("No se pudo agregar el nuevo lote de vales");
+                MessageBox.Show("No se pudo agregar el nuevo lote de vales", "Error");
             }
             else
             {
-                MessageBox.Show("El lote de vales fue agregado con éxito");
+                MessageBox.Show("El lote de vales fue agregado con éxito", "Mensaje de confirmación");
             }
             this.selectedTab = 0;
                 break;
@@ -260,7 +291,7 @@ namespace pe.edu.pucp.ferretin.viewmodel.MVentas
 
         public void generarVales(object id)
         {
-            if (loteVale.cantidad != null && loteVale.cantidad > 0 && loteVale.monto != null && loteVale.monto > 0)
+            if (loteVale.cantidad != null && loteVale.cantidad > 0 && loteVale.monto != null && loteVale.monto > 0 && loteVale.Cliente != null && loteVale.moneda != null)
             {
                 string messageBoxText = "¿Desea generar " + loteVale.cantidad + " vales?";
                 string caption = "Mensaje de confirmación";
@@ -285,7 +316,7 @@ namespace pe.edu.pucp.ferretin.viewmodel.MVentas
             }
             else
             {
-                string messageBoxText = "Debe ingresar una cantidad válida de vales";
+                string messageBoxText = "Ingrese los campos obligatorios";
                 string caption = "Error";
                 MessageBoxButton button = MessageBoxButton.OK;
                 MessageBox.Show(messageBoxText, caption, button);

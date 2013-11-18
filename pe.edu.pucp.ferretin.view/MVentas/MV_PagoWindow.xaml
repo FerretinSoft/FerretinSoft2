@@ -1,47 +1,47 @@
-﻿<Window x:Class="pe.edu.pucp.ferretin.view.MVentas.MV_PagoWindow"
+﻿<Window
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:viewmodel="clr-namespace:pe.edu.pucp.ferretin.viewmodel.MVentas;assembly=pe.edu.pucp.ferretin.viewmodel"
+        xmlns:MVentas="clr-namespace:pe.edu.pucp.ferretin.viewmodel.MVentas;assembly=pe.edu.pucp.ferretin.viewmodel" x:Class="pe.edu.pucp.ferretin.view.MVentas.MV_PagoWindow"
         Title="Registro de Pago" Height="399.82" Width="587.657" Icon="../Resources/ferretin_ico.ico" WindowStartupLocation="CenterScreen">
-    <Window.Resources>
-        <viewmodel:MV_PagoWindowViewModel x:Key="MV_PagoWindowViewModel"/>
-    </Window.Resources>
-    <Grid x:Name="main" DataContext="{Binding Source={StaticResource MV_PagoWindowViewModel}}" Margin="0">
+    <Window.DataContext>
+        <MVentas:MV_PagoWindowViewModel/>
+    </Window.DataContext>
+    <Grid Margin="0">
         <Grid.Background>
             <ImageBrush ImageSource="../Resources/texture_3_100.png" TileMode="FlipX" 
-            Viewport="0,0,100,100" ViewportUnits="Absolute"/>
+				Viewport="0,0,100,100" ViewportUnits="Absolute"/>
         </Grid.Background>
         <Grid.RowDefinitions>
-            <RowDefinition Height="Auto"></RowDefinition>
-            <RowDefinition Height="Auto"></RowDefinition>
-            <RowDefinition Height="Auto"></RowDefinition>
-            <RowDefinition></RowDefinition>
-            <RowDefinition Height="Auto"></RowDefinition>
-            <RowDefinition Height="Auto"></RowDefinition>
-            
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+
         </Grid.RowDefinitions>
         <GroupBox IsEnabled="False" Header="Detalles" Margin="5,5" BorderBrush="Gray">
             <Grid>
                 <Grid.RowDefinitions>
-                    <RowDefinition></RowDefinition>
-                    <RowDefinition></RowDefinition>
+                    <RowDefinition/>
+                    <RowDefinition/>
                 </Grid.RowDefinitions>
                 <StackPanel Orientation="Horizontal" Grid.Row="0" Margin="5,0">
                     <Label Content="Tipo de documento:" HorizontalAlignment="Left" VerticalAlignment="Center"/>
-                    <RadioButton IsChecked="{Binding venta.Cliente.isBoleta,Mode=OneWay}" Content="Boleta" HorizontalAlignment="Left"  VerticalAlignment="Center" Margin="15,0,0,0"/>
-                    <RadioButton IsChecked="{Binding venta.Cliente.isFactura,Mode=OneWay}" Content="Factura" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="15,0,0,0"/>
+                    <RadioButton IsChecked="{Binding venta.Cliente.isBoleta, Mode=OneWay}" Content="Boleta" HorizontalAlignment="Left"  VerticalAlignment="Center" Margin="15,0,0,0"/>
+                    <RadioButton IsChecked="{Binding venta.Cliente.isFactura, Mode=OneWay}" Content="Factura" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="15,0,0,0"/>
                 </StackPanel>
                 <Grid Grid.Row="1"  Margin="5,0">
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="Auto"></ColumnDefinition>
-                        <ColumnDefinition Width="100"></ColumnDefinition>
-                        <ColumnDefinition Width="Auto"></ColumnDefinition>
-                        <ColumnDefinition ></ColumnDefinition>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="100"/>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition />
                     </Grid.ColumnDefinitions>
-                    <Label Content="{Binding venta.Cliente.nombreDoc,Mode=OneWay}" HorizontalAlignment="Left"  VerticalAlignment="Center"/>
-                    <TextBox Grid.Column="1" Text ="{Binding venta.Cliente.nroDoc,Mode=OneWay}" VerticalAlignment="Center"/>
-                    <Label Grid.Column="2" Content="{Binding venta.Cliente.nombreNombre,Mode=OneWay}" HorizontalAlignment="Left" VerticalAlignment="Center"/>
-                    <TextBox Grid.Column="3" Text ="{Binding venta.Cliente.nombreCompleto,Mode=OneWay}"  VerticalAlignment="Center"/>
+                    <Label Content="{Binding venta.Cliente.nombreDoc, Mode=OneWay}" HorizontalAlignment="Left"  VerticalAlignment="Center"/>
+                    <TextBox Grid.Column="1" Text ="{Binding venta.Cliente.nroDoc, Mode=OneWay}" VerticalAlignment="Center"/>
+                    <Label Grid.Column="2" Content="{Binding venta.Cliente.nombreNombre, Mode=OneWay}" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                    <TextBox Grid.Column="3" Text ="{Binding venta.Cliente.nombreCompleto, Mode=OneWay}"  VerticalAlignment="Center"/>
                 </Grid>
             </Grid>
         </GroupBox>
@@ -49,59 +49,59 @@
             <Button Command="{Binding agregarPagoCommand}" CommandParameter="1" Margin="0,0,5,0">
                 <StackPanel Orientation="Horizontal">
                     <Image Source="../Resources/add_20.png" Height="15" Width="15"/>
-                    <Label Padding="5,0">EFECTIVO</Label>
+                    <Label Padding="5,0" Content="EFECTIVO"/>
                 </StackPanel>
             </Button>
             <Button Command="{Binding agregarPagoCommand}" CommandParameter="2" Margin="5,0">
                 <StackPanel Orientation="Horizontal">
                     <Image Source="../Resources/add_20.png" Height="15" Width="15"/>
-                    <Label Padding="5,0">TARJETA</Label>
+                    <Label Padding="5,0" Content="TARJETA"/>
                 </StackPanel>
             </Button>
             <Button Command="{Binding agregarPagoCommand}" CommandParameter="3" Margin="5,0" Click="Button_Click">
                 <StackPanel Orientation="Horizontal">
                     <Image Source="../Resources/add_20.png" Height="15" Width="15"/>
-                    <Label Padding="5,0">VALE</Label>
+                    <Label Padding="5,0" Content="VALE"/>
                 </StackPanel>
             </Button>
             <Button Command="{Binding agregarPagoCommand}" CommandParameter="4" Margin="5,0" Click="Button_Click_2" >
                 <StackPanel Orientation="Horizontal">
                     <Image Source="../Resources/add_20.png" Height="15" Width="15"/>
-                    <Label Padding="5,0">NOTA DE CRÉDITO</Label>
+                    <Label Padding="5,0" Content="NOTA DE CRÉDITO"/>
                 </StackPanel>
             </Button>
         </ToolBar>
-        <DataGrid ItemsSource="{Binding Path=venta.VentaMedioPago,UpdateSourceTrigger=PropertyChanged,NotifyOnSourceUpdated=True,NotifyOnTargetUpdated=True,Mode=TwoWay}" Grid.Row="3" Margin="5,0" VerticalAlignment="Stretch" CanUserAddRows="False" CanUserDeleteRows="True" CanUserReorderColumns="False" CanUserResizeColumns="True" CanUserResizeRows="False" CanUserSortColumns="True" IsManipulationEnabled="True" IsReadOnly="False" AutoGenerateColumns="False">
+        <DataGrid ItemsSource="{Binding venta.VentaMedioPago, Mode=TwoWay, NotifyOnTargetUpdated=True, NotifyOnSourceUpdated=True, UpdateSourceTrigger=PropertyChanged}" Grid.Row="3" Margin="5,0" VerticalAlignment="Stretch" CanUserAddRows="False" CanUserDeleteRows="True" CanUserReorderColumns="False" CanUserResizeColumns="True" CanUserResizeRows="False" CanUserSortColumns="True" IsManipulationEnabled="True" IsReadOnly="False" AutoGenerateColumns="False">
             <DataGrid.Columns>
                 <DataGridTextColumn Binding="{Binding MedioPago.nombre}"  Width="1*" Header="Modo de pago" IsReadOnly="True"/>
                 <DataGridTextColumn Binding="{Binding detalle}" Width="2*" Header="Detalles" IsReadOnly="True"/>
                 <DataGridComboBoxColumn Width="0.6*" Header="Moneda">
                     <DataGridComboBoxColumn.ElementStyle>
-                        <Style TargetType="ComboBox">
-                            <Setter Property="ItemsSource" Value="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type DataGrid}}, Path=DataContext.tiposMoneda}"/>
-                            <Setter Property="SelectedIndex" Value="{Binding moneda,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"/>
-                            <Setter Property="IsEnabled" Value="{Binding monedaIsEnable,Mode=OneWay,UpdateSourceTrigger=PropertyChanged}"/>
+                        <Style TargetType="{x:Type ComboBox}">
+                            <Setter Property="ItemsSource" Value="{Binding DataContext.tiposMoneda, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type DataGrid}}}"/>
+                            <Setter Property="SelectedIndex" Value="{Binding moneda, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                            <Setter Property="IsEnabled" Value="{Binding monedaIsEnable, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"/>
                         </Style>
                     </DataGridComboBoxColumn.ElementStyle>
                     <DataGridComboBoxColumn.EditingElementStyle>
-                        <Style TargetType="ComboBox">
-                            <Setter Property="ItemsSource" Value="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type DataGrid}}, Path=DataContext.tiposMoneda}"/>
-                            <Setter Property="SelectedIndex" Value="{Binding moneda,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"/>
-                            <Setter Property="IsEnabled" Value="{Binding monedaIsEnable,Mode=OneWay,UpdateSourceTrigger=PropertyChanged}"/>
+                        <Style TargetType="{x:Type ComboBox}">
+                            <Setter Property="ItemsSource" Value="{Binding DataContext.tiposMoneda, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type DataGrid}}}"/>
+                            <Setter Property="SelectedIndex" Value="{Binding moneda, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                            <Setter Property="IsEnabled" Value="{Binding monedaIsEnable, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"/>
                         </Style>
                     </DataGridComboBoxColumn.EditingElementStyle>
                 </DataGridComboBoxColumn>
                 <DataGridTextColumn Width="0.6*" Header="Importe">
                     <DataGridTextColumn.ElementStyle>
-                        <Style TargetType="TextBlock">
-                            <Setter Property="Text" Value="{Binding monto,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"/>
-                            <Setter Property="IsEnabled" Value="{Binding montoReadOnly,Mode=OneWay,UpdateSourceTrigger=PropertyChanged}"/>
+                        <Style TargetType="{x:Type TextBlock}">
+                            <Setter Property="Text" Value="{Binding monto, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                            <Setter Property="IsEnabled" Value="{Binding montoReadOnly, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"/>
                         </Style>
                     </DataGridTextColumn.ElementStyle>
                     <DataGridTextColumn.EditingElementStyle>
-                        <Style TargetType="TextBox">
-                            <Setter Property="Text" Value="{Binding monto,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"/>
-                            <Setter Property="IsReadOnly" Value="{Binding montoReadOnly,Mode=OneWay,UpdateSourceTrigger=PropertyChanged}"/>
+                        <Style TargetType="{x:Type TextBox}">
+                            <Setter Property="Text" Value="{Binding monto, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                            <Setter Property="IsReadOnly" Value="{Binding montoReadOnly, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"/>
                         </Style>
                     </DataGridTextColumn.EditingElementStyle>
                 </DataGridTextColumn>
@@ -109,18 +109,18 @@
         </DataGrid>
         <Grid Grid.Row="4" Margin="10,5">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="Auto"></ColumnDefinition>
-                <ColumnDefinition Width="80"></ColumnDefinition>
-                <ColumnDefinition Width="Auto"></ColumnDefinition>
-                <ColumnDefinition Width="60"></ColumnDefinition>
-                <ColumnDefinition></ColumnDefinition>
-                <ColumnDefinition Width="Auto"></ColumnDefinition>
-                <ColumnDefinition Width="80"></ColumnDefinition>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="80"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="60"/>
+                <ColumnDefinition/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="80"/>
             </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
-                <RowDefinition></RowDefinition>
-                <RowDefinition></RowDefinition>
-                <RowDefinition></RowDefinition>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
             </Grid.RowDefinitions>
 
             <Label Grid.Row="0" Grid.Column="5" Content="Sub Total:" />

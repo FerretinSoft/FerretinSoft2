@@ -31,7 +31,7 @@ namespace pe.edu.pucp.ferretin.view.MAlmacen
         
         public MA_MovimientosWindow()
         {
-            InitializeComponent();
+            InitializeComponent();            
         }
 
         private void DataGrid_BeginningEdit(object sender, DataGridBeginningEditEventArgs e)
@@ -53,6 +53,47 @@ namespace pe.edu.pucp.ferretin.view.MAlmacen
             MA_DocumentoMovimientoViewModel docVM = w.main.DataContext as MA_DocumentoMovimientoViewModel;
             docVM.movimiento = movVM.movimiento;
             w.Show();
+        }
+
+        
+
+        private void productosGrid_KeyDown(object sender, KeyEventArgs e)
+        {
+            /*MA_MovimientosViewModel vm = (MA_MovimientosViewModel)this.DataContext;
+            var grid = (DataGrid)sender;
+            if (e.Key == Key.Delete)
+            {
+                foreach (var row in grid.SelectedItems)
+                {
+                    MA_MovimientosService.MovimientoProductoTienda current = row as MA_MovimientosService.MovimientoProductoTienda;
+                    vm.movimiento.MovimientoProducto.Remove(current.movimientoProducto);
+                    vm.NotifyPropertyChanged("movimiento");
+
+                }
+            }*/
+        }
+
+        private void Window_KeyDown(object sender, KeyEventArgs e)
+        {
+            //productosGrid_KeyDown(productosGrid, e);
+        }
+
+        private void borrarProductosBtn_Click(object sender, RoutedEventArgs e)
+        {
+            MA_MovimientosViewModel vm = (MA_MovimientosViewModel)this.main.DataContext;
+                
+            for (int i = 0; i < productosGrid.SelectedItems.Count; i++)
+			{
+                MA_MovimientosService.MovimientoProductoTienda current = 
+                        (MA_MovimientosService.MovimientoProductoTienda)productosGrid.SelectedItems[i];
+                vm.movimiento.MovimientoProducto.Remove(current.movimientoProducto);
+                vm.productosPorMovimiento.Remove(current);
+                
+			 
+			}
+
+            vm.NotifyPropertyChanged("productosPorMovimiento");
+            vm.NotifyPropertyChanged("movimiento");
         }        
 
 
