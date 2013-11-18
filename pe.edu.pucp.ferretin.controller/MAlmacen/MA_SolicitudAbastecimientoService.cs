@@ -22,6 +22,20 @@ namespace pe.edu.pucp.ferretin.controller.MAlmacen
             public SolicitudAbastecimientoProducto productoPorSolicitud { get; set; }
             public ProductoAlmacen productoPorAlmacen { get; set; }
         }
+
+        public class AtencionSolicitudProducto
+        {
+            public AtencionSolicitudProducto(ProductoPorSolicitudTienda ppst)
+            {
+                producto = ppst.productoPorSolicitud;
+                cantidad = 0;
+                stockActual = (decimal)((ppst.productoPorAlmacen.stock == null) ? 0 : ppst.productoPorAlmacen.stock);
+            }
+
+            public SolicitudAbastecimientoProducto producto { get; set; }
+            public decimal cantidad { get; set; }
+            public decimal stockActual { get; set; }
+        }
         
         public static IEnumerable<SolicitudAbastecimiento> _listaSolicitudes;
         public static IEnumerable<SolicitudAbastecimiento> listaSolicitudes
@@ -171,25 +185,46 @@ namespace pe.edu.pucp.ferretin.controller.MAlmacen
             }
         }
 
-        public static bool validarAtencionSolicitud(Tienda proveedor, SolicitudAbastecimiento solicitud)
+        public static bool validarAtencionSolicitud(Tienda proveedor, List<AtencionSolicitudProducto> atencion)
         {
             var productos = (from prodAlmacen in db.ProductoAlmacen
                              where prodAlmacen.Tienda == proveedor
                              select prodAlmacen);
-            for (int i = 0; i < solicitud.SolicitudAbastecimientoProducto.Count; i++)
+            for (int i = 0; i < atencion.Count; i++)
             {
                 var stock = (from prod in productos
-                             where prod.Producto == solicitud.SolicitudAbastecimientoProducto[i].Producto
+                             where prod.Producto == atencion[i].producto.Producto
                              select prod.stock).First();
-                if ((decimal)stock < solicitud.SolicitudAbastecimientoProducto[i].cantidad) return false;
+                if ((decimal)stock < atencion[i].cantidad || atencion[i].cantidad > atencion[i].producto.cantidadRestante) return false;
             }
             return true;
         }
 
-        public static bool atenderSolicitud(Tienda proveedor, SolicitudAbastecimiento solicitud)
+        public static bool atenderSolicitud(Tienda proveedor, Tienda tienda, List<AtencionSolicitudProducto> atencion)
         {
-            String errores = registrarTransferenciaAbastecimiento(proveedor, solicitud.Tienda, solicitud.SolicitudAbastecimientoProducto);
-            return (errores == "") ? true : false;
+            //if (!validarAtencionSolicitud(proveedor, atencion)) return 1; // no hay stock disponible
+            
+            String errores = registrarTransferenciaAbastecimiento(proveedor, tienda, atencion);
+            if (errores.Length > 0) return false; // problema registrando el movimiento
+            
+            return true; // todo OK
+        }
+
+        public static SolicitudAbastecimientoEstado obtenerEstadoSolicitud(SolicitudAbastecimiento solicitud)
+        {
+            bool pendiente = false;
+            foreach (var item in solicitud.SolicitudAbastecimientoProducto)
+            {
+                if (item.cantidadRestante > 0)
+                {
+                    pendiente = true;
+                    break;
+                }
+            }
+            if (pendiente)
+                return MA_SharedService.estadosSolicitud.FirstOrDefault(e => e.nombre == "Pendiente");
+            else
+                return MA_SharedService.estadosSolicitud.FirstOrDefault(e => e.nombre == "Atendida");
         }
     
     }

@@ -173,23 +173,23 @@ namespace pe.edu.pucp.ferretin.controller.MAlmacen
                     (decimal)(movimiento.MovimientoProducto[i].cantidad != null ? movimiento.MovimientoProducto[i].cantidad : 0));
             }
             //actualizar stock
-            bool errors = false;
+            bool noErrors = true;
             switch (movimiento.MovimientoTipo.categoriaEnum)
             {
                 case MovimientoTipo.CategoriaMovimiento.ENTRADA:
-                    errors = errors || actualizarStockMovimiento(movimiento.Tienda1, 'E', productos);
+                    noErrors = noErrors && actualizarStockMovimiento(movimiento.Tienda1, 'E', productos);
                     break;
                 case MovimientoTipo.CategoriaMovimiento.SALIDA:
-                    errors = errors || actualizarStockMovimiento(movimiento.Tienda, 'S', productos);
+                    noErrors = noErrors && actualizarStockMovimiento(movimiento.Tienda, 'S', productos);
                     break;
                 case MovimientoTipo.CategoriaMovimiento.TRANSFERENCIA:
-                    errors = errors || actualizarStockMovimiento(movimiento.Tienda, 'S', productos);
-                    errors = errors || actualizarStockMovimiento(movimiento.Tienda1, 'E', productos);
+                    noErrors = noErrors && actualizarStockMovimiento(movimiento.Tienda, 'S', productos);
+                    noErrors = noErrors && actualizarStockMovimiento(movimiento.Tienda1, 'E', productos);
                     break;
                 default:
                     return false; // categoria de movimiento no valida
             }
-            return errors; 
+            return noErrors; 
         }
 
         public static bool InsertarMovimiento(Movimiento movimiento)

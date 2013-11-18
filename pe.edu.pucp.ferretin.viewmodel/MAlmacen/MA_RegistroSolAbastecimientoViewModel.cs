@@ -94,7 +94,6 @@ namespace pe.edu.pucp.ferretin.viewmodel.MAlmacen
                         if(solicitud == null || solicitud.id > 0) solicitud = new SolicitudAbastecimiento(); 
                         solicitud.fecha = DateTime.Today; 
                         solicitud.Tienda = currentTienda;
-                        //solicitud.codigo = SolicitudAbastecimiento.generateCode();
                         solicitud.SolicitudAbastecimientoProducto = 
                                     MA_SolicitudAbastecimientoService.initProductosPorSolicitud(usuarioLogueado.Empleado.tiendaActual, solicitud);
                         isCreating = true;

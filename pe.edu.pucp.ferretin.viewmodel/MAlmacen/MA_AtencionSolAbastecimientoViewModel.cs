@@ -167,6 +167,12 @@ namespace pe.edu.pucp.ferretin.viewmodel.MAlmacen
             }
         }
 
+        public List<MA_SolicitudAbastecimientoService.AtencionSolicitudProducto> listaAtencion
+        {
+            get;
+            set;
+        }
+
         public IEnumerable<Tienda> tiendasHijas
         {
             get
@@ -302,27 +308,27 @@ namespace pe.edu.pucp.ferretin.viewmodel.MAlmacen
         public void atenderSolicitud(Object obj)
         {
 
-            if (solicitud.id > 0)//Si existe
+            if (solicitud.id > 0 && listaAtencion != null)//Si existe
             {
-                if (!MA_SolicitudAbastecimientoService.validarAtencionSolicitud(currentAlmacen, solicitud))
+                if (!MA_SolicitudAbastecimientoService.validarAtencionSolicitud(currentAlmacen, listaAtencion))
                 {
-                    MessageBox.Show("El almacén no cuenta con suficiente stock para atender la solicitud.");
+                    MessageBox.Show("Es imposible atender la solicitud para las cantidades especificadas");
 
                 }
                 else
                 {
                     MA_ComunService.idVentana(26);
-                        
-                    if (!MA_SolicitudAbastecimientoService.atenderSolicitud(currentAlmacen, solicitud))
+
+                    if (!MA_SolicitudAbastecimientoService.atenderSolicitud(currentAlmacen, solicitud.Tienda, listaAtencion))
                     {
                         MessageBox.Show("No se pudo atender la solicitud de abastecimiento");
                     }
                     else
                     {
-                        solicitud.SolicitudAbastecimientoEstado = estadoSolicitud.FirstOrDefault(e => e.nombre == "Atendida");
-                    
+                        solicitud.SolicitudAbastecimientoEstado = MA_SolicitudAbastecimientoService.obtenerEstadoSolicitud(solicitud);
+
                         MessageBox.Show("La solicitud de abastecimiento fue atendida con éxito");
-                        MA_ComunService.enviarCambios();                        
+                        MA_ComunService.enviarCambios();
                     }
                     NotifyPropertyChanged("solicitud");
                     NotifyPropertyChanged("listaSolicitudes");
