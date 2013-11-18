@@ -88,7 +88,6 @@
                                 </Grid.ColumnDefinitions>
                             </Grid>
                             <Label Grid.Row="1" Grid.Column="2">Precio Puntos:</Label>
-                            <Label Grid.Row="1" Grid.Column="2" Content="*" HorizontalAlignment="Right"  VerticalAlignment="Top" Foreground="Red" FontSize="14" Width="15" Height="22"/>
 
                             <StackPanel Orientation="Horizontal" Grid.Column="3" Grid.Row="1">
                                 <TextBox x:Name="precioPtos" PreviewKeyDown="validarPrecioPuntos_KeyDown" PreviewTextInput="validarPrecioPuntos" Text="{Binding Path=productoPrecio.precioPuntos, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Center"  Width="50" HorizontalAlignment="Left"/>
