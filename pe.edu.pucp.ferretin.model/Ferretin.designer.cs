@@ -1685,6 +1685,8 @@ namespace pe.edu.pucp.ferretin.model
 		
 		private System.Nullable<int> _id_empleado_registro;
 		
+		private System.Nullable<bool> _esInactivo;
+		
 		private EntitySet<LoteVale> _LoteVale;
 		
 		private EntitySet<Proforma> _Proforma;
@@ -1747,6 +1749,8 @@ namespace pe.edu.pucp.ferretin.model
     partial void OnapMaternoChanged();
     partial void Onid_empleado_registroChanging(System.Nullable<int> value);
     partial void Onid_empleado_registroChanged();
+    partial void OnesInactivoChanging(System.Nullable<bool> value);
+    partial void OnesInactivoChanged();
     #endregion
 		
 		public Cliente()
@@ -2243,6 +2247,26 @@ namespace pe.edu.pucp.ferretin.model
 					this._id_empleado_registro = value;
 					this.SendPropertyChanged("id_empleado_registro");
 					this.Onid_empleado_registroChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_esInactivo", DbType="Bit")]
+		public System.Nullable<bool> esInactivo
+		{
+			get
+			{
+				return this._esInactivo;
+			}
+			set
+			{
+				if ((this._esInactivo != value))
+				{
+					this.OnesInactivoChanging(value);
+					this.SendPropertyChanging();
+					this._esInactivo = value;
+					this.SendPropertyChanged("esInactivo");
+					this.OnesInactivoChanged();
 				}
 			}
 		}

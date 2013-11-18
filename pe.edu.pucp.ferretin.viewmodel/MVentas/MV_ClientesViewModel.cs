@@ -1,5 +1,6 @@
 ﻿using Microsoft.Win32;
 using pe.edu.pucp.ferretin.controller;
+using pe.edu.pucp.ferretin.controller.MSeguridad;
 using pe.edu.pucp.ferretin.controller.MVentas;
 using pe.edu.pucp.ferretin.model;
 using pe.edu.pucp.ferretin.viewmodel.Helper;
@@ -109,15 +110,21 @@ namespace pe.edu.pucp.ferretin.viewmodel.MVentas
                             cambiarSoloSeleccionarCliente = true;
 
                             detallesTabHeader = "Agregar";
-                            cliente = new Cliente()
+                            if (cliente == null || cliente.id>0 )
                             {
-                                tipo = 1,
-                                nombre = "",
-                                apMaterno = "",
-                                apPaterno = "",
-                                telefono1 = "",
-                                direccion = ""
-                            };
+                                cliente = new Cliente()
+                                {
+                                    tipo = 1,
+                                    nombre = "",
+                                    apMaterno = "",
+                                    apPaterno = "",
+                                    telefono1 = "",
+                                    direccion = "",
+                                    esInactivo = false,
+                                    fecAfiliacion = DateTime.Now,
+                                    Empleado = MS_SharedService.usuarioL.Empleado
+                                };
+                            }
                             selectedDepartamento = null;
                             selectedProvincia = null;
                             break;//Si es agregar, creo un nuevo objeto Cliente

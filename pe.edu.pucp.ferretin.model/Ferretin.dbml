@@ -68,6 +68,7 @@
       <Column Name="apPaterno" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
       <Column Name="apMaterno" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
       <Column Name="id_empleado_registro" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="esInactivo" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
       <Association Name="Cliente_LoteVale" Member="LoteVale" ThisKey="id" OtherKey="id_cliente" Type="LoteVale" />
       <Association Name="Cliente_Proforma" Member="Proforma" ThisKey="id" OtherKey="id_cliente" Type="Proforma" />
       <Association Name="Cliente_Venta" Member="Venta" ThisKey="id" OtherKey="id_cliente" Type="Venta" />
