@@ -42,8 +42,8 @@ namespace pe.edu.pucp.ferretin.view.MAlmacen
         private void TabItem_MouseUp(object sender, MouseButtonEventArgs e)
         {
             //Editar producto
-            //this.txtCodigo.IsEnabled = false;
-            this.cmbTienda.IsEnabled = false;
+            txtStockMin.IsEnabled = true;
+            this.cmbTienda.IsEnabled = true;
         }
 
         private void txtCodigo_KeyDown(object sender, KeyEventArgs e)
