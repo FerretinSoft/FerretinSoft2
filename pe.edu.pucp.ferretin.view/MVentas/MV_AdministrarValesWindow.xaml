@@ -138,7 +138,12 @@
                                     <ColumnDefinition Width="Auto"></ColumnDefinition>
                                     <ColumnDefinition></ColumnDefinition>
                                 </Grid.ColumnDefinitions>
-                                <TextBox Text="{Binding Path=loteVale.Cliente.nroDoc, Mode=TwoWay}" VerticalAlignment="Center" HorizontalAlignment="Stretch"/>
+                                <TextBox Text="{Binding Path=loteVale.Cliente.nroDoc, Mode=TwoWay}" VerticalAlignment="Center" HorizontalAlignment="Stretch"
+                                         >
+                                <TextBox.InputBindings>
+                                    <KeyBinding Key="Enter" Command="{Binding cargarClienteCommand}" />
+                                </TextBox.InputBindings>
+                                </TextBox>
                                 <Button Click="Button_LoadEmpresa" Visibility="{Binding Path=detallarVale}" Margin="0,0,5,0" x:Name="buscarEmpresaBtn" VerticalAlignment="Center" Width="18" Height="18" BorderThickness="0" Grid.Column="1">
                                     <Button.Background>
                                         <ImageBrush ImageSource="../Resources/search1_20.png"/>

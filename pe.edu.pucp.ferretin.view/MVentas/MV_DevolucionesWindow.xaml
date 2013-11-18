@@ -254,7 +254,7 @@
                 </Grid>
             </TabItem>
             <TabItem Header="Registrar Devolución" IsEnabled="False">
-                <Grid Background="#FFE5E5E5" Margin="0">
+                <Grid Background="#FFE5E5E5" Margin="0" HorizontalAlignment="Left" Width="1182">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto"></RowDefinition>
                         <RowDefinition Height="Auto"></RowDefinition>
@@ -340,7 +340,7 @@
                             <DataGridTextColumn Width="0.98*" Binding="{Binding Path=cantidad}" ClipboardContentBinding="{x:Null}" Header="Cant. Comp."/>
                             <DataGridTextColumn Width="0.7*" Binding="{Binding Path=Producto.monedaString}" ClipboardContentBinding="{x:Null}" Header="Moneda"/>
                             <DataGridTextColumn Width="0.7*" Binding="{Binding Path=precioUnitario}" ClipboardContentBinding="{x:Null}" Header="Precio"/>
-                            <DataGridTextColumn Width="0.7*" Binding="{Binding Path=descuento}" ClipboardContentBinding="{x:Null}" Header="Dscto. (%)"/>
+                            <DataGridTextColumn Width="0.7*" Binding="{Binding Path=descuento}" ClipboardContentBinding="{x:Null}" Header="Dscto. (S/.)"/>
                             <DataGridTextColumn Width="1*" Binding="{Binding Path=montoParcial}" ClipboardContentBinding="{x:Null}" Header="Importe"/>
                         </DataGrid.Columns>
                     </DataGrid>
@@ -348,17 +348,31 @@
                         <Label Content="Total Comprado (inc IGV):"  VerticalAlignment="Center"/>
                         <TextBox Text="{Binding Path=devolucion.Venta.total}" x:Name="totalComprado" VerticalAlignment="Center" Width="100" IsEnabled="False" TextAlignment="Right" />
                     </StackPanel>
-                    <TextBlock Grid.Row="4" Margin="5,5" VerticalAlignment="Center">Productos a Devolver:</TextBlock>
-                    <DataGrid CanUserAddRows="False" ItemsSource="{Binding Path=devolucion.DevolucionProducto,UpdateSourceTrigger=PropertyChanged,NotifyOnSourceUpdated=True,NotifyOnTargetUpdated=True,Mode=TwoWay}" AutoGenerateColumns="False"  Grid.Row="5" Margin="0,0,5,0">
+                    <Label Grid.Row="4" Margin="5,5,1015,5" VerticalAlignment="Center">Productos a Devolver:</Label>
+                    <Label Grid.Row="4" Margin="5,5,1040,5" Content="*" HorizontalAlignment="Right"  VerticalAlignment="Top" Foreground="Red" FontSize="14" Width="15" Height="22" RenderTransformOrigin="-68.151,0.995"/>
+
+                    <DataGrid x:Name="prodDevGrid" CanUserAddRows="False" ItemsSource="{Binding Path=devolucion.DevolucionProducto,UpdateSourceTrigger=PropertyChanged,NotifyOnSourceUpdated=True,NotifyOnTargetUpdated=True,Mode=TwoWay}" AutoGenerateColumns="False"  Grid.Row="5" Margin="0,0,5,0">
                         <DataGrid.Columns>
-                            <DataGridTextColumn  IsReadOnly="True"  Width="1*" Binding="{Binding Path= Producto.codigo}" ClipboardContentBinding="{x:Null}" Header="Cód Prod."/>
+                            <DataGridTemplateColumn Width="1*" Header="Cód. Producto">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <TextBlock>
+                                        <Hyperlink 
+                                            Command="{Binding Path=DataContext.deleteProductDevCommand, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type DataGrid}}}" 
+                                            CommandParameter="{Binding ElementName=prodDevGrid, Path=SelectedIndex}">
+                                            <TextBlock Text="{Binding Producto.codigo}" />
+                                        </Hyperlink>
+                                        </TextBlock>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
                             <DataGridTextColumn IsReadOnly="True"  Width="2*" Binding="{Binding Path= Producto.nombre}" ClipboardContentBinding="{x:Null}" Header="Descripción"/>
                             <DataGridTextColumn IsReadOnly="False" Width="0.98*" Binding="{Binding Path= cantidad, Mode=TwoWay}" ClipboardContentBinding="{x:Null}" Header="Cant. Dev."/>
                             <DataGridCheckBoxColumn Binding="{Binding Path=dardebaja,UpdateSourceTrigger=PropertyChanged}" IsReadOnly="False" Width="0.8*" ClipboardContentBinding="{x:Null}" Header="Dar de baja"/>
                             <DataGridTextColumn IsReadOnly="False"  Width="1*" Binding="{Binding Path= motivo, Mode=TwoWay}" ClipboardContentBinding="{x:Null}" Header="Motivo"/>
                             <DataGridTextColumn IsReadOnly="True" Width="0.7*" Binding="{Binding Path=Producto.monedaString}" ClipboardContentBinding="{x:Null}" Header="Moneda"/>
                             <DataGridTextColumn IsReadOnly="True" Width="0.7*" Binding="{Binding Path= Devolucion.Venta.VentaProducto.precioUnitario}" ClipboardContentBinding="{x:Null}" Header="Precio"/>
-                            <DataGridTextColumn IsReadOnly="True" Width="0.7*" Binding="{x:Null}" ClipboardContentBinding="{x:Null}" Header="Dscto. (%)"/>
+                            <DataGridTextColumn IsReadOnly="True" Width="0.7*" Binding="{x:Null}" ClipboardContentBinding="{x:Null}" Header="Dscto. (S/.)"/>
                             <DataGridTextColumn  IsReadOnly="True" Width="1*" x:Name="montoDev" Binding="{Binding Path= monto, Mode=TwoWay}" ClipboardContentBinding="{x:Null}" Header="Importe"/>
                         </DataGrid.Columns>
                     </DataGrid>

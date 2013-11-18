@@ -210,9 +210,40 @@ namespace pe.edu.pucp.ferretin.viewmodel.MVentas
                 return _cancelarLoteValeCommand;
             }
         }
+
+        RelayCommand _cargarClienteCommand;
+        public ICommand cargarClienteCommand
+        {
+            get
+            {
+                if (_cargarClienteCommand == null)
+                {
+                    _cargarClienteCommand = new RelayCommand(cargarCliente);
+                }
+                return _cargarClienteCommand;
+            }
+        }
         #endregion
 
         #region commands
+
+        public void cargarCliente(Object id)
+        {
+            Cliente buscado = null;
+            try
+            {
+                buscado = MV_ClienteService.obtenerClienteByNroDoc(searchNroDocCliente);
+                loteVale.Cliente = buscado;
+            }
+            catch { }
+
+            if (buscado == null)
+            {
+                MessageBox.Show("No se encontro ningún cliente con el número de documento proporcionado", "Error", MessageBoxButton.OK, MessageBoxImage.Question);
+                loteVale.Cliente = buscado;
+            }
+
+        }
 
         public void cancelarLoteVale(object id)
         {
@@ -238,7 +269,7 @@ namespace pe.edu.pucp.ferretin.viewmodel.MVentas
             string messageBoxText = "¿Desea confirmar la transacción? Se procederá a almacenar la información ingresada";
             string caption = "Mensaje de confirmación";
             MessageBoxButton button = MessageBoxButton.OKCancel;
-            MessageBoxResult result = MessageBox.Show(messageBoxText, caption, button, MessageBoxImage.Warning);
+            MessageBoxResult result = MessageBox.Show(messageBoxText, caption, button);
             switch (result)
             {
                 case MessageBoxResult.OK:
@@ -260,7 +291,7 @@ namespace pe.edu.pucp.ferretin.viewmodel.MVentas
 
         public void generarVales(object id)
         {
-            if (loteVale.cantidad != null && loteVale.cantidad > 0 && loteVale.monto != null && loteVale.monto > 0)
+            if (loteVale.cantidad != null && loteVale.cantidad > 0 && loteVale.monto != null && loteVale.monto > 0 && loteVale.Cliente != null && loteVale.moneda != null)
             {
                 string messageBoxText = "¿Desea generar " + loteVale.cantidad + " vales?";
                 string caption = "Mensaje de confirmación";
@@ -285,7 +316,7 @@ namespace pe.edu.pucp.ferretin.viewmodel.MVentas
             }
             else
             {
-                string messageBoxText = "Debe ingresar una cantidad válida de vales";
+                string messageBoxText = "Ingrese los campos obligatorios";
                 string caption = "Error";
                 MessageBoxButton button = MessageBoxButton.OK;
                 MessageBox.Show(messageBoxText, caption, button);
