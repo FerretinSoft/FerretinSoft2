@@ -339,7 +339,7 @@ namespace pe.edu.pucp.ferretin.viewmodel.MVentas
 
         public void nuevaDevolucion(Object id)
         {
-
+           this.loadNroDocumento = "";
            this.listaProductosComprados = null;           
            devolucion.id_empleado = usuarioLogueado.Empleado.id;
            this.selectedTab = 2;
@@ -469,6 +469,7 @@ namespace pe.edu.pucp.ferretin.viewmodel.MVentas
                 {
                     VentaProducto prodComprado = devolucion.Venta.VentaProducto[i];
                     int cantDev = 0;
+                    cantCero = false;
                     for (int k = 0; k < devolucion.DevolucionProducto.Count(); k++)
                     {
                         if (devolucion.DevolucionProducto[k].Producto.codigo == prodComprado.Producto.codigo)
@@ -489,7 +490,7 @@ namespace pe.edu.pucp.ferretin.viewmodel.MVentas
                     string messageBoxText = "Verificar las cantidades ingresadas para los siguiente productos: " + Environment.NewLine + prodErrados;
                     string caption = "ALERTA";
                     MessageBoxButton button = MessageBoxButton.OK;
-                    MessageBoxResult result = MessageBox.Show(messageBoxText, caption, button);
+                    MessageBoxResult result = MessageBox.Show(messageBoxText, caption, button, MessageBoxImage.Warning);
                 }
                 else
                 {
@@ -580,8 +581,8 @@ namespace pe.edu.pucp.ferretin.viewmodel.MVentas
                  prodDev.Producto = prodSelec.Producto;
                  prodDev.cantidad = 0;                
                  prodDev.id_producto = prodSelec.id_producto;
-                 //prodDev.precioUnitario = prodSelec.precioUnitario;
-                 //prodDev.moneda = prodSelec.moneda;
+                 prodDev.precioUnitario = prodSelec.precioUnitario;
+                 prodDev.moneda = prodSelec.moneda;
                  prodDev.monto = prodDev.cantidad * prodDev.Producto.precioLista;
                  devolucion.total = 0;
                  devolucion.id_venta = prodSelec.Venta.id;                 

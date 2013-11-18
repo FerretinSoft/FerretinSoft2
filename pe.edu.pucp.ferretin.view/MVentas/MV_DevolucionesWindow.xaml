@@ -370,8 +370,8 @@
                             <DataGridTextColumn IsReadOnly="False" Width="0.98*" Binding="{Binding Path= cantidad, Mode=TwoWay}" ClipboardContentBinding="{x:Null}" Header="Cant. Dev."/>
                             <DataGridCheckBoxColumn Binding="{Binding Path=dardebaja,UpdateSourceTrigger=PropertyChanged}" IsReadOnly="False" Width="0.8*" ClipboardContentBinding="{x:Null}" Header="Dar de baja"/>
                             <DataGridTextColumn IsReadOnly="False"  Width="1*" Binding="{Binding Path= motivo, Mode=TwoWay}" ClipboardContentBinding="{x:Null}" Header="Motivo"/>
-                            <DataGridTextColumn IsReadOnly="True" Width="0.7*" Binding="{Binding Path=Producto.monedaString}" ClipboardContentBinding="{x:Null}" Header="Moneda"/>
-                            <DataGridTextColumn IsReadOnly="True" Width="0.7*" Binding="{Binding Path= Devolucion.Venta.VentaProducto.precioUnitario}" ClipboardContentBinding="{x:Null}" Header="Precio"/>
+                            <DataGridTextColumn IsReadOnly="True" Width="0.7*" Binding="{Binding Path=monedaString}" ClipboardContentBinding="{x:Null}" Header="Moneda"/>
+                            <DataGridTextColumn IsReadOnly="True" Width="0.7*" Binding="{Binding Path= precioUnitario}" ClipboardContentBinding="{x:Null}" Header="Precio"/>
                             <DataGridTextColumn IsReadOnly="True" Width="0.7*" Binding="{x:Null}" ClipboardContentBinding="{x:Null}" Header="Dscto. (S/.)"/>
                             <DataGridTextColumn  IsReadOnly="True" Width="1*" x:Name="montoDev" Binding="{Binding Path= monto, Mode=TwoWay}" ClipboardContentBinding="{x:Null}" Header="Importe"/>
                         </DataGrid.Columns>

@@ -151,7 +151,7 @@
                                 </Button>
                                 <TextBox Text="{Binding Path=loteVale.Cliente.nombreCompleto, Mode=OneWay}" VerticalAlignment="Center" Grid.Column="3" IsEnabled="False" />
                             </Grid>
-                            <Label Grid.Row="1" Grid.Column="2">Cantidad Lote:</Label>
+                            <Label Grid.Row="1" Grid.Column="2">Cantidad Vales:</Label>
                             <Label Grid.Row="1" Grid.Column="2" Content="*" HorizontalAlignment="Right"  VerticalAlignment="Top" Foreground="Red" FontSize="14" Width="15" Height="22"/>
 
                             <StackPanel Orientation="Horizontal" Grid.Column="3" Grid.Row="1">
