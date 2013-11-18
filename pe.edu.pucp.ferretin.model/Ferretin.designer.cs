@@ -2971,7 +2971,7 @@ namespace pe.edu.pucp.ferretin.model
 		
 		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
 		
-		private System.Nullable<decimal> _cantidad;
+		private System.Nullable<int> _cantidad;
 		
 		private System.Nullable<decimal> _monto;
 		
@@ -3001,7 +3001,7 @@ namespace pe.edu.pucp.ferretin.model
     partial void OnLoaded();
     partial void OnValidate(System.Data.Linq.ChangeAction action);
     partial void OnCreated();
-    partial void OncantidadChanging(System.Nullable<decimal> value);
+    partial void OncantidadChanging(System.Nullable<int> value);
     partial void OncantidadChanged();
     partial void OnmontoChanging(System.Nullable<decimal> value);
     partial void OnmontoChanged();
@@ -3032,8 +3032,8 @@ namespace pe.edu.pucp.ferretin.model
 			OnCreated();
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_cantidad", DbType="Decimal(10,2)")]
-		public System.Nullable<decimal> cantidad
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_cantidad", DbType="Int")]
+		public System.Nullable<int> cantidad
 		{
 			get
 			{
