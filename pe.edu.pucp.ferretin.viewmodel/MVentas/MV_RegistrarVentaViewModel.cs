@@ -182,6 +182,7 @@ namespace pe.edu.pucp.ferretin.viewmodel.MVentas
                         ventaProducto.puntosCanejado = 0;
                         ventaProducto.puntosGanado = producto.ganarPuntos;
                         ventaProducto.precioUnitario = producto.precioLista;
+                        ventaProducto.moneda = producto.moneda;
                         ventaProducto.Venta = venta;
                         ventaProducto.Producto = producto;
                         ventaProducto.cantidad = 1;
