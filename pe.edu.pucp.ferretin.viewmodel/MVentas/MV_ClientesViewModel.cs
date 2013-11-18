@@ -21,11 +21,6 @@ namespace pe.edu.pucp.ferretin.viewmodel.MVentas
     public class MV_ClientesViewModel : ViewModelBase
     {
 
-        public MV_ClientesViewModel()
-        {
-            //MV_ComunService.db = new FerretinDataContext();
-        }
-
         private bool _soloSeleccionarCliente = false;
         public bool soloSeleccionarCliente
         {
@@ -120,7 +115,8 @@ namespace pe.edu.pucp.ferretin.viewmodel.MVentas
                                 nombre = "",
                                 apMaterno = "",
                                 apPaterno = "",
-                                telefono1 = ""
+                                telefono1 = "",
+                                direccion = ""
                             };
                             selectedDepartamento = null;
                             selectedProvincia = null;
@@ -359,7 +355,7 @@ namespace pe.edu.pucp.ferretin.viewmodel.MVentas
                     {
                         MessageBox.Show("El cliente fue guardado con éxito");
                         this.statusTab = Tab.BUSQUEDA;
-
+                        NotifyPropertyChanged("listaClientes");
                     }
                 }
                 else

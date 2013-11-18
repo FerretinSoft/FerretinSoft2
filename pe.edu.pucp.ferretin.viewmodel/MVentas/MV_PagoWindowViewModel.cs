@@ -158,6 +158,7 @@ namespace pe.edu.pucp.ferretin.viewmodel.MVentas
                 result = MA_SharedService.registrarVenta(venta.Usuario.Empleado.tiendaActual, venta.VentaProducto);
                 if (result.Length <= 0)//si resulto bien
                 {
+                    venta.fecha = DateTime.Now;
                     try
                     {
                         venta.nroDocumento = MV_VentaService.generarNroDoc((venta.Cliente == null ? false : (venta.Cliente.tipo == 2)));

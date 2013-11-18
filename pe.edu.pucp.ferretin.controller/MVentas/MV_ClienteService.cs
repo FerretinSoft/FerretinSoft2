@@ -10,13 +10,11 @@ namespace pe.edu.pucp.ferretin.controller.MVentas
 {
     public class MV_ClienteService : MV_ComunService
     {
-        private static FerretinDataContext _dbCliente = null;
         public static FerretinDataContext dbCliente
         {
             get
-            {
-                if (_dbCliente == null) _dbCliente = new FerretinDataContext();
-                return _dbCliente;
+            {                
+                return db;
             }
         }
 
@@ -95,7 +93,7 @@ namespace pe.edu.pucp.ferretin.controller.MVentas
         {
             if (!dbCliente.Cliente.Contains(cliente))
             {
-                dbCliente.Cliente.InsertOnSubmit(cliente);
+                //dbCliente.Cliente.InsertOnSubmit(cliente);
                 return enviarCambios(dbCliente);
             }else{
                 return false;

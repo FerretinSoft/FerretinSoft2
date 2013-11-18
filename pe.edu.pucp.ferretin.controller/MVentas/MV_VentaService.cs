@@ -10,13 +10,11 @@ namespace pe.edu.pucp.ferretin.controller.MVentas
 {
     public class MV_VentaService : MV_ComunService
     {
-        private static FerretinDataContext _dbVenta = null;
         public static FerretinDataContext dbVenta
         {
             get
             {
-                if (_dbVenta == null) _dbVenta = new FerretinDataContext();
-                return _dbVenta;
+                return db;
             }
         }
 

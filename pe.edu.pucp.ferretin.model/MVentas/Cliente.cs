@@ -139,9 +139,23 @@ namespace pe.edu.pucp.ferretin.model
 
         
         #endregion
-        
+
+        #region Zona de Eventos
+        partial void OntipoDocumentoChanged()
+        {
+            if (tipo == 2)
+            {
+                apPaterno = "";
+                apMaterno = "";
+            }
+            SendPropertyChanged("nroDoc");
+            SendPropertyChanged("apPaterno");
+            SendPropertyChanged("apMaterno");
+        }
+        #endregion
+
         #region Zona de Validaciones
-        
+
         #region Código por default de la interfaz heredada
         public string Error
         {
