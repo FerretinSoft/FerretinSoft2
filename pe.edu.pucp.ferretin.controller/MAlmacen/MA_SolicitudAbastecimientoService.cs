@@ -105,10 +105,9 @@ namespace pe.edu.pucp.ferretin.controller.MAlmacen
             return result;
         }
 
-        public static IEnumerable<ProductoPorSolicitudTienda> initProductosPorSolicitud(Tienda almacen, SolicitudAbastecimiento solicitud)
+        public static EntitySet<SolicitudAbastecimientoProducto> initProductosPorSolicitud(Tienda almacen, SolicitudAbastecimiento solicitud)
         {
-            List<ProductoPorSolicitudTienda> result = new List<ProductoPorSolicitudTienda>();
-            if (solicitud == null) return result;
+            EntitySet<SolicitudAbastecimientoProducto> result = new EntitySet<SolicitudAbastecimientoProducto>();
             decimal diferencia;
             for (int i = 0; i < almacen.ProductoAlmacen.Count; i++)
             {
@@ -119,8 +118,8 @@ namespace pe.edu.pucp.ferretin.controller.MAlmacen
                     SolicitudAbastecimientoProducto sap = new SolicitudAbastecimientoProducto();
                     sap.cantidad = diferencia * -1;
                     sap.Producto = pa.Producto;
-                    solicitud.SolicitudAbastecimientoProducto.Add(sap);
-                    result.Add(new ProductoPorSolicitudTienda(sap, pa));
+                    sap.SolicitudAbastecimiento = solicitud;
+                    result.Add(sap);
                 }                
             }
             return result;
@@ -145,8 +144,23 @@ namespace pe.edu.pucp.ferretin.controller.MAlmacen
         {
             if (!db.SolicitudAbastecimiento.Contains(solicitud))
             {
-                //if (!db.TiendaHorario.Equals(almacen.TiendaHorario))
-                //    db.TiendaHorario.InsertAllOnSubmit(almacen.tiendasH);
+                //asignar código a la solicitud
+
+                String baseCodigo = DateTime.Now.ToString("yyyyMMdd");
+                IOrderedQueryable<SolicitudAbastecimiento> anteriores = db.SolicitudAbastecimiento.Where(t => t.codigo.StartsWith(baseCodigo)).OrderByDescending(t => t.id);
+                String ultimoCodigo = anteriores.Count() <= 0 ? "" : anteriores.First().codigo;
+                String proxCodigo = (ultimoCodigo.Length > 0) ? (Int32.Parse(ultimoCodigo.Substring(ultimoCodigo.Length - 4)) + 1).ToString() : "";
+                if (proxCodigo.Length == 4)
+                    solicitud.codigo = baseCodigo + proxCodigo;
+                else if (proxCodigo.Length == 3)
+                    solicitud.codigo = baseCodigo + "0" + proxCodigo;
+                else if (proxCodigo.Length == 2)
+                    solicitud.codigo = baseCodigo + "00" + proxCodigo;
+                else if (proxCodigo.Length == 1)
+                    solicitud.codigo = baseCodigo + "000" + proxCodigo;
+                else // cadena vacia
+                    solicitud.codigo = baseCodigo + "0001";
+                
 
                 if (solicitud.id <= 0) db.SolicitudAbastecimiento.InsertOnSubmit(solicitud);
                 return enviarCambios();

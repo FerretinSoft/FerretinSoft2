@@ -8,6 +8,8 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
+using System.Data.Linq;
+using System.Collections.ObjectModel;
 
 namespace pe.edu.pucp.ferretin.viewmodel.MAlmacen
 {
@@ -81,7 +83,8 @@ namespace pe.edu.pucp.ferretin.viewmodel.MAlmacen
                 switch (_statusTab)
                 {
                     case Tab.BUSQUEDA: 
-                        detallesTabHeader = "Nueva Solicitud"; 
+                        detallesTabHeader = "Nueva Solicitud";
+                        isCreating = false;
                         //if (solicitud == null) solicitud = new SolicitudAbastecimiento();
                         //solicitud.fecha = DateTime.Today; 
                         //solicitud.Tienda = currentTienda; 
@@ -91,23 +94,26 @@ namespace pe.edu.pucp.ferretin.viewmodel.MAlmacen
                         if(solicitud == null || solicitud.id > 0) solicitud = new SolicitudAbastecimiento(); 
                         solicitud.fecha = DateTime.Today; 
                         solicitud.Tienda = currentTienda;
-                        solicitud.codigo = SolicitudAbastecimiento.generateCode();
-                        //solicitud.SolicitudAbastecimientoProducto.Clear();
+                        //solicitud.codigo = SolicitudAbastecimiento.generateCode();
+                        solicitud.SolicitudAbastecimientoProducto = 
+                                    MA_SolicitudAbastecimientoService.initProductosPorSolicitud(usuarioLogueado.Empleado.tiendaActual, solicitud);
+                        isCreating = true;
                         break;//Si es agregar, creo un nuevo objeto Almacen
                     case Tab.DETALLES: 
-                        detallesTabHeader = "Detalles"; 
+                        detallesTabHeader = "Detalles";
+                        isCreating = false;
                         break;
                     default: 
-                        detallesTabHeader = "Nueva Solicitud"; 
-                        //solicitud = new SolicitudAbastecimiento(); 
-                        //solicitud.fecha = DateTime.Today; 
-                        //solicitud.Tienda = currentTienda; 
+                        detallesTabHeader = "Nueva Solicitud";
+                        isCreating = false;
                         break;//Si es agregar, creo un nuevo objeto Almacen
                 }
                 NotifyPropertyChanged("statusTab");
                 //Cuando se cambia el status, tambien se tiene que actualizar el currentIndex del tab
                 NotifyPropertyChanged("currentIndexTab"); //Hace que cambie el tab automaticamente
                 NotifyPropertyChanged("isCreating");
+                NotifyPropertyChanged("solicitud");
+                NotifyPropertyChanged("productosPorSolicitud");
             }
         }
         //Usado para mover los tabs de acuerdo a las acciones realizadas
@@ -138,14 +144,6 @@ namespace pe.edu.pucp.ferretin.viewmodel.MAlmacen
         {
             get
             {
-                if (statusTab == Tab.AGREGAR)
-                {
-                    _isCreating = true; //Se Activaran
-                }
-                else
-                {
-                    _isCreating = false; //Se bloquearan par que no sean editables
-                }
                 return _isCreating;
             }
 
@@ -178,28 +176,20 @@ namespace pe.edu.pucp.ferretin.viewmodel.MAlmacen
             }
         }
 
-        private IEnumerable<MA_SolicitudAbastecimientoService.ProductoPorSolicitudTienda> _productosPorSolicitud;
-        public IEnumerable<MA_SolicitudAbastecimientoService.ProductoPorSolicitudTienda> productosPorSolicitud
+        private ObservableCollection<MA_SolicitudAbastecimientoService.ProductoPorSolicitudTienda> _productosPorSolicitud;
+        public ObservableCollection<MA_SolicitudAbastecimientoService.ProductoPorSolicitudTienda> productosPorSolicitud
         {
             get
             {
-                if (solicitud != null && solicitud.id > 0)
-                    _productosPorSolicitud = MA_SolicitudAbastecimientoService.buscarProductosPorSolicitud(currentTienda, solicitud);
-                else
-                {
-                    _productosPorSolicitud = MA_SolicitudAbastecimientoService.initProductosPorSolicitud(currentTienda, solicitud);
-                    for (int i = 0; i < _productosPorSolicitud.Count(); i++)
-                    {
-                        solicitud.SolicitudAbastecimientoProducto.Add(_productosPorSolicitud.ElementAt(i).productoPorSolicitud);
-                        NotifyPropertyChanged("solicitud");
-                    }
-                }
+                _productosPorSolicitud = new ObservableCollection<MA_SolicitudAbastecimientoService.ProductoPorSolicitudTienda>(
+                                                    MA_SolicitudAbastecimientoService.buscarProductosPorSolicitud(currentTienda, solicitud));
                 return _productosPorSolicitud;
             }
             set
             {
                 _productosPorSolicitud = value;
                 NotifyPropertyChanged("productosPorSolicitud");
+                NotifyPropertyChanged("solicitud");
             }
         }
 
@@ -364,8 +354,8 @@ namespace pe.edu.pucp.ferretin.viewmodel.MAlmacen
             }
             else
             {
-                if (solicitud.codigo == null || solicitud.codigo == "") MessageBox.Show("Debe insertar el código de la solicitud");
-                //else if (solicitud.SolicitudAbastecimientoProducto.Count <= 0) MessageBox.Show("Debe insertar al menos un producto en su solicitud");
+                //if (solicitud.codigo == null || solicitud.codigo == "") MessageBox.Show("Debe insertar el código de la solicitud");
+                if (solicitud.SolicitudAbastecimientoProducto.Count <= 0) MessageBox.Show("Debe insertar al menos un producto en su solicitud");
                 else
                 {
                     SolicitudAbastecimientoEstado estadoInicial = estadoSolicitud.FirstOrDefault(s => s.nombre == "Pendiente");
@@ -382,6 +372,8 @@ namespace pe.edu.pucp.ferretin.viewmodel.MAlmacen
                     }
                     else
                     {
+                        isCreating = false;
+                        NotifyPropertyChanged("isCreating");
                         MessageBox.Show("La solicitud fue agregada con éxito");
                     }
                 }
@@ -402,27 +394,39 @@ namespace pe.edu.pucp.ferretin.viewmodel.MAlmacen
 
         public void agregarNuevoProducto(Object atr)
         {
-            Producto producto = null;
-            try
-            { 
-                producto = MA_ProductoService.obtenerTodosProductos()
-                    .First(p => !String.IsNullOrEmpty(p.codigo) && p.codigo.Equals(codigoNuevoProducto)); 
-            }
-            catch { }
+            if (codigoNuevoProducto != null && codigoNuevoProducto.Length > 0)
+            {
+                Producto producto = null;
+                try
+                {
+                    producto = MA_SharedService.obtenerProductoxCodigo(codigoNuevoProducto);
+                }
+                catch { }
 
-            if (producto != null && solicitud.SolicitudAbastecimientoProducto.Count(mp => mp.Producto == producto) <= 0)
-            {
-                SolicitudAbastecimientoProducto sProducto = new SolicitudAbastecimientoProducto 
-                                            { cantidad = 1, SolicitudAbastecimiento = solicitud, Producto = producto };
-                solicitud.SolicitudAbastecimientoProducto.Add(sProducto);
-                NotifyPropertyChanged("solicitud");
-                NotifyPropertyChanged("productosPorSolicitud");
-            }
-            else
-            {
-                MessageBox.Show("No se encontró un producto con el código \"" + codigoNuevoProducto + "\".", 
-                    "No se encontró el Producto", MessageBoxButton.OK, MessageBoxImage.Error);
-            }
+                if (producto != null)
+                {
+                    if (solicitud.SolicitudAbastecimientoProducto.Count(sap => sap.Producto.id == producto.id) == 1) // el producto ya fue incluido
+                    {
+                        solicitud.SolicitudAbastecimientoProducto.Single(sap => sap.Producto.id == producto.id).cantidad++;
+                    }
+                    else
+                    {
+                        SolicitudAbastecimientoProducto solProducto = new SolicitudAbastecimientoProducto();
+                        solProducto.SolicitudAbastecimiento = solicitud;
+                        solProducto.Producto = producto;
+                        solProducto.cantidad = 1;
+
+                        solicitud.SolicitudAbastecimientoProducto.Add(solProducto);
+
+                    }
+                    NotifyPropertyChanged("solicitud");
+                    NotifyPropertyChanged("productosPorSolicitud");
+                }
+                else
+                {
+                    MessageBox.Show("No se encontro un producto con el código \"" + codigoNuevoProducto + "\".", "No se encontro el Producto", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
+            }    
         }
         #endregion
 

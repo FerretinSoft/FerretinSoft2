@@ -83,7 +83,7 @@ namespace pe.edu.pucp.ferretin.controller.MAlmacen
             if (items.Count <= 0) return "Debe haber al menos un producto para realizar el movimiento.";
             
             Movimiento movimiento = new Movimiento();
-            movimiento.codigo = Movimiento.generateCode();
+            //movimiento.codigo = Movimiento.generateCode();
             movimiento.fecha = DateTime.Today;
             movimiento.MovimientoEstado = MA_EstadoMovimientoService.getMovimientoEstadoByName("Finalizado");
             movimiento.MovimientoTipo = MA_TipoMovimientoService.getMovimientoTipoByName("Venta");
@@ -114,7 +114,7 @@ namespace pe.edu.pucp.ferretin.controller.MAlmacen
             
             Movimiento movimiento = new Movimiento();
             DateTime today = DateTime.Today;
-            movimiento.codigo = Movimiento.generateCode();
+            //movimiento.codigo = Movimiento.generateCode();
             movimiento.fecha = today;
             movimiento.MovimientoEstado = MA_EstadoMovimientoService.getMovimientoEstadoByName("Finalizado");
             movimiento.MovimientoTipo = MA_TipoMovimientoService.getMovimientoTipoByName("Devolución");
@@ -147,7 +147,7 @@ namespace pe.edu.pucp.ferretin.controller.MAlmacen
             
             Movimiento movimiento = new Movimiento();
             DateTime today = DateTime.Today;
-            movimiento.codigo = Movimiento.generateCode();
+            //movimiento.codigo = Movimiento.generateCode();
             movimiento.fecha = today;
             movimiento.MovimientoEstado = MA_EstadoMovimientoService.getMovimientoEstadoByName("Finalizado");
             movimiento.MovimientoTipo = MA_TipoMovimientoService.getMovimientoTipoByName("Compra");
@@ -178,7 +178,7 @@ namespace pe.edu.pucp.ferretin.controller.MAlmacen
             if (items.Count <= 0) return "Debe haber al menos un producto para realizar el movimiento.";
             Movimiento movimiento = new Movimiento();
             DateTime today = DateTime.Today;
-            movimiento.codigo = Movimiento.generateCode();
+            //movimiento.codigo = Movimiento.generateCode();
             movimiento.fecha = today;
             movimiento.MovimientoEstado = MA_EstadoMovimientoService.getMovimientoEstadoByName("Finalizado");
             movimiento.MovimientoTipo = MA_TipoMovimientoService.getMovimientoTipoByName("Transferencia");
