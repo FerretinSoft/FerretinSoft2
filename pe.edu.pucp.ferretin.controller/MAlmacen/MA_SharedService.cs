@@ -173,7 +173,7 @@ namespace pe.edu.pucp.ferretin.controller.MAlmacen
         /// <param name="destino">Tienda destino (abastecida)</param>
         /// <param name="items">Productos abastecidos</param>
         /// <returns></returns>
-        public static String registrarTransferenciaAbastecimiento(Tienda origen, Tienda destino, EntitySet<SolicitudAbastecimientoProducto> items)
+        public static String registrarTransferenciaAbastecimiento(Tienda origen, Tienda destino, List<MA_SolicitudAbastecimientoService.AtencionSolicitudProducto> items)
         {
             if (items.Count <= 0) return "Debe haber al menos un producto para realizar el movimiento.";
             Movimiento movimiento = new Movimiento();
@@ -191,10 +191,10 @@ namespace pe.edu.pucp.ferretin.controller.MAlmacen
                 current = new MovimientoProducto();
                 current.cantidad = items[i].cantidad;
                 current.Movimiento = movimiento;
-                current.Producto = items[i].Producto;
+                current.Producto = items[i].producto.Producto;
                 movimiento.MovimientoProducto.Add(current);
-                items[i].cantidadAtendida = items[i].cantidadAtendida;
-                items[i].cantidadRestante = 0;
+                items[i].producto.cantidadAtendida += items[i].cantidad;
+                items[i].producto.cantidadRestante -= items[i].cantidad;
             }
             bool ok = MA_MovimientosService.InsertarMovimiento(movimiento);
             return (ok) ? "" : "Error al registrar el movimiento";
