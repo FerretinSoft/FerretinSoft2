@@ -348,7 +348,7 @@ namespace pe.edu.pucp.ferretin.viewmodel.MVentas
             if (buscado == null)
             {
                 nombreVendedor = "";
-                MessageBox.Show("No se encontro ningún vendedor con el número de documento proporcionado", "No se encontro", MessageBoxButton.OK, MessageBoxImage.Question);
+                MessageBox.Show("No se encontro ningún vendedor con el número de documento proporcionado", "Error", MessageBoxButton.OK, MessageBoxImage.Question);
             }
            
         }
@@ -372,7 +372,7 @@ namespace pe.edu.pucp.ferretin.viewmodel.MVentas
             {
                 this.listaProductosComprados = null;
                 this.devolucion = new Devolucion();
-                MessageBox.Show("No se encontro ninguna Venta con el número de documento proporcionado", "No se encontro", MessageBoxButton.OK, MessageBoxImage.Question);
+                MessageBox.Show("No se encontro ninguna venta con el número de documento proporcionado", "Error", MessageBoxButton.OK, MessageBoxImage.Question);
             }
            
         }
@@ -388,7 +388,7 @@ namespace pe.edu.pucp.ferretin.viewmodel.MVentas
 
             if (buscado == null)
             {
-                MessageBox.Show("No se encontro ninguna venta con el número de documento proporcionado", "No se encontro", MessageBoxButton.OK, MessageBoxImage.Question);
+                MessageBox.Show("No se encontro ninguna venta con el número de documento proporcionado", "Error", MessageBoxButton.OK, MessageBoxImage.Question);
             }
             NotifyPropertyChanged("searchnombreCliente");
             NotifyPropertyChanged("searchNroDocCliente");
@@ -408,7 +408,7 @@ namespace pe.edu.pucp.ferretin.viewmodel.MVentas
 
             if (buscado == null)
             {
-                MessageBox.Show("No se encontro ningún cliente con el número de documento proporcionado", "No se encontro", MessageBoxButton.OK, MessageBoxImage.Question);
+                MessageBox.Show("No se encontro ningún cliente con el número de documento proporcionado", "Error", MessageBoxButton.OK, MessageBoxImage.Question);
                 searchnombreCliente = "";
                 searchNroDocCliente = null;
             }
@@ -423,12 +423,12 @@ namespace pe.edu.pucp.ferretin.viewmodel.MVentas
         {
             string messageBoxText;
             if (devolucionRegistrada == false)
-                messageBoxText = "¿Desea cancelar la transacción? Usted perderá la información ingresada";
+                messageBoxText = "Al salir, perderá todos los datos ingresados. ¿Desea continuar?";
             else
                 messageBoxText = "¿Desea regresar al búscador? Usted aún no ha impreso la nota de crédito generada";
-            string caption = "Mensaje de confirmación";
+            string caption = "ATENCIÓN";
             MessageBoxButton button = MessageBoxButton.OKCancel;
-            MessageBoxResult result = MessageBox.Show(messageBoxText, caption, button);
+            MessageBoxResult result = MessageBox.Show(messageBoxText, caption, button, MessageBoxImage.Warning);
             switch (result)
             {
                 case MessageBoxResult.OK:
@@ -444,60 +444,67 @@ namespace pe.edu.pucp.ferretin.viewmodel.MVentas
 
         public void saveDevolucion(Object obj)
         {
-            string messageBoxText = "¿Desea confirmar la transacción? Se procederá a almacenar la información ingresada";
-            string caption = "Mensaje de confirmación";
-            MessageBoxButton button = MessageBoxButton.OKCancel;
-            MessageBoxResult result = MessageBox.Show(messageBoxText, caption, button);
-            switch (result)
+            if (loadNroDocumento != "")
             {
-                case MessageBoxResult.OK:
-            devolucion.id_empleado = usuarioLogueado.Empleado.id;
-            devolucion.codigo = MV_DevolucionService.obtenerCodDevolucion();
-            notaCredito.fechaEmision = DateTime.Now;
-            devolucion.igv = devolucion.subTotal * (decimal)MS_ParametroService.obtenerIGV()/100;
-            devolucion.total = devolucion.igv + devolucion.subTotal;
-            notaCredito.importe = devolucion.total;
-            notaCredito.estado = 0;
-            notaCredito.codigo = "NC-" + devolucion.codigo + DateTime.Today.Year;
-            notaCredito.fechaVencimiento = DateTime.Now.AddDays(Convert.ToInt32(MS_ParametroService.obtenerParametro("vigencia de notas de credito")));
-            ComunService.idVentana(40);
-                    if (!MV_DevolucionService.insertarDevolucion(devolucion))
-                    {
-                        MessageBox.Show("No se pudo agregar la nuevo devolución");
-                    }
-                    else
-                    {
-                        MessageBox.Show("La devolución fue agregado con éxito con el siguiente código: " + devolucion.codigo);
-                    }
-            notaCredito.id_devolucion = devolucion.id;
-            ComunService.idVentana(44);
-                    if (!MV_NotaCreditoService.insertarNotaCredito(notaCredito))
-                    {
-                        MessageBox.Show("No se pudo agregar la nueva Nota de Crédito");
-                    }
-                    else
-                    {
-                        MessageBox.Show("La Nota de Crédito fue agregado con éxito con el siguiente código: " + notaCredito.codigo);
-                        NotifyPropertyChanged("selectedTab");
-                    }
-                    try
-                    {
-                        string resp = MA_SharedService.registrarDevolucion(devolucion.Empleado.tiendaActual, devolucion.DevolucionProducto);
-                    }
-                    catch
-                    {
+                string messageBoxText = "¿Desea confirmar la transacción? Se procederá a almacenar la información ingresada";
+                string caption = "Mensaje de confirmación";
+                MessageBoxButton button = MessageBoxButton.OKCancel;
+                MessageBoxResult result = MessageBox.Show(messageBoxText, caption, button);
+                switch (result)
+                {
+                    case MessageBoxResult.OK:
+                        devolucion.id_empleado = usuarioLogueado.Empleado.id;
+                        devolucion.codigo = MV_DevolucionService.obtenerCodDevolucion();
+                        notaCredito.fechaEmision = DateTime.Now;
+                        devolucion.igv = devolucion.subTotal * (decimal)MS_ParametroService.obtenerIGV() / 100;
+                        devolucion.total = devolucion.igv + devolucion.subTotal;
+                        notaCredito.importe = devolucion.total;
+                        notaCredito.estado = 0;
+                        notaCredito.codigo = "NC-" + devolucion.codigo + DateTime.Today.Year;
+                        notaCredito.fechaVencimiento = DateTime.Now.AddDays(Convert.ToInt32(MS_ParametroService.obtenerParametro("vigencia de notas de credito")));
+                        ComunService.idVentana(40);
+                        if (!MV_DevolucionService.insertarDevolucion(devolucion))
+                        {
+                            MessageBox.Show("No se pudo agregar la nuevo devolución", "Error");
+                        }
+                        else
+                        {
+                            MessageBox.Show("La devolución fue agregado con éxito con el siguiente código: " + devolucion.codigo, "Mensaje de confirmación");
+                        }
+                        notaCredito.id_devolucion = devolucion.id;
+                        ComunService.idVentana(44);
+                        if (!MV_NotaCreditoService.insertarNotaCredito(notaCredito))
+                        {
+                            MessageBox.Show("No se pudo agregar la nueva Nota de Crédito", "Error");
+                        }
+                        else
+                        {
+                            MessageBox.Show("La Nota de Crédito fue agregado con éxito con el siguiente código: " + notaCredito.codigo, "Mensaje de confirmación");
+                            NotifyPropertyChanged("selectedTab");
+                        }
                         try
                         {
-                            MessageBox.Show("Error en registrar movimiento en almácen");
+                            string resp = MA_SharedService.registrarDevolucion(devolucion.Empleado.tiendaActual, devolucion.DevolucionProducto);
                         }
+                        catch
+                        {
+                            try
+                            {
+                                MessageBox.Show("Error en registrar movimiento en almácen", "Error");
+                            }
 
-                        catch { }
-                    }
-                    this.devolucionRegistrada = true;
-                    this.noDevolucionRegistrada = false;
-                    break;
-                case MessageBoxResult.Cancel:
-                    break;
+                            catch { }
+                        }
+                        this.devolucionRegistrada = true;
+                        this.noDevolucionRegistrada = false;
+                        break;
+                    case MessageBoxResult.Cancel:
+                        break;
+                }
+            }
+            else
+            {
+                MessageBox.Show("Ingrese los campos obligatorios", "Error");
             }
         }
 

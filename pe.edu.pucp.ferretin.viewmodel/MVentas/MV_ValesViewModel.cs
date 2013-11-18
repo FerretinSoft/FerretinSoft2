@@ -216,10 +216,10 @@ namespace pe.edu.pucp.ferretin.viewmodel.MVentas
 
         public void cancelarLoteVale(object id)
         {
-            string messageBoxText = "¿Desea cancelar la transacción? Usted perderá la información ingresada";
-            string caption = "Mensaje de confirmación";
+            string messageBoxText = "Al salir, perderá todos los datos ingresados. ¿Desea continuar?";
+            string caption = "ATENCIÓN";
             MessageBoxButton button = MessageBoxButton.OKCancel;
-            MessageBoxResult result = MessageBox.Show(messageBoxText, caption, button);
+            MessageBoxResult result = MessageBox.Show(messageBoxText, caption, button, MessageBoxImage.Warning);
             switch (result)
             {
                 case MessageBoxResult.OK:
@@ -238,18 +238,18 @@ namespace pe.edu.pucp.ferretin.viewmodel.MVentas
             string messageBoxText = "¿Desea confirmar la transacción? Se procederá a almacenar la información ingresada";
             string caption = "Mensaje de confirmación";
             MessageBoxButton button = MessageBoxButton.OKCancel;
-            MessageBoxResult result = MessageBox.Show(messageBoxText, caption, button);
+            MessageBoxResult result = MessageBox.Show(messageBoxText, caption, button, MessageBoxImage.Warning);
             switch (result)
             {
                 case MessageBoxResult.OK:
             ComunService.idVentana(50);
             if (!MV_ValeService.insertarLoteVale(loteVale))
             {
-                MessageBox.Show("No se pudo agregar el nuevo lote de vales");
+                MessageBox.Show("No se pudo agregar el nuevo lote de vales", "Error");
             }
             else
             {
-                MessageBox.Show("El lote de vales fue agregado con éxito");
+                MessageBox.Show("El lote de vales fue agregado con éxito", "Mensaje de confirmación");
             }
             this.selectedTab = 0;
                 break;
