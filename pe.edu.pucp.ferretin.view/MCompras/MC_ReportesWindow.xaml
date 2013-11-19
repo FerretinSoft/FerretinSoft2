@@ -9,7 +9,7 @@
             <RowDefinition Height="40px"></RowDefinition>
 
         </Grid.RowDefinitions>
-        <Grid x:Name="repIntroGrid" Margin="0" Visibility="Hidden">
+        <Grid x:Name="repIntroGrid" Margin="0" Visibility="Visible">
             <Grid.RowDefinitions>
                 <RowDefinition/>
             </Grid.RowDefinitions>
@@ -20,7 +20,7 @@
             <Label Content="Reportes disponibles" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" FontSize="16" FontStyle="Italic"/>
             <ListBox x:Name="reportesBaseListBox" HorizontalAlignment="Left" Height="186" Margin="10,50,0,0" VerticalAlignment="Top" Width="219" SelectionChanged="reportesBaseListBox_SelectionChanged">
                 <ListBoxItem Content="Reporte de estado de OC"/>
-                <ListBoxItem Content="Reporte de OC por Proveedor"/>
+                <ListBoxItem Content="Reporte productos Comprados"/>
             </ListBox>
             <Label Content="Reportes favoritos" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" FontSize="16" FontStyle="Italic" Grid.Column="1"/>
             <ListBox x:Name="reportesFavoritosListBox" HorizontalAlignment="Left" Height="186" Margin="10,50,0,0" VerticalAlignment="Top" Width="222" Grid.Column="1" SelectionChanged="reportesFavoritosListBox_SelectionChanged">
@@ -29,7 +29,7 @@
             </ListBox>
             <Label Content="Seleccione un reporte y presione Siguiente." HorizontalAlignment="Left" Margin="10,246,0,0" VerticalAlignment="Top" Width="308" Grid.ColumnSpan="2"/>
         </Grid>
-        <Grid x:Name="repConfGrid" Margin="0" Visibility="Hidden">
+        <Grid x:Name="repConfGrid" Margin="0" Visibility="Collapsed">
             <Label Content="Configure los parámetros del reporte." HorizontalAlignment="Left" Margin="35,253,0,0" VerticalAlignment="Top" Width="308"/>
             <Label Content="Reporte de compras" HorizontalAlignment="Center" Margin="202,6,183,0" VerticalAlignment="Top" FontSize="16"/>
             <Label Content="Fecha desde:" HorizontalAlignment="Left" Margin="26,46,0,0" VerticalAlignment="Top"/>
@@ -46,7 +46,7 @@
             <Label Content="RAZON SOCIAL" HorizontalAlignment="Left" Height="30" Margin="35,144,0,0" VerticalAlignment="Top" Width="192"/>
             <GroupBox Header="Proveedor" HorizontalAlignment="Left" Height="74" Margin="27,103,0,0" VerticalAlignment="Top" Width="489" BorderBrush="Black"/>
         </Grid>
-        <Grid x:Name="repFinalGrid" Margin="0" Visibility="Visible">
+        <Grid x:Name="repFinalGrid" Margin="0" Visibility="Collapsed">
             <Label Content="Reporte 10 productos TOP" HorizontalAlignment="Center" Margin="146,10,111,0" VerticalAlignment="Top" FontSize="16"/>
             <Grid Height="48" Margin="20,0" VerticalAlignment="Center">
                 <Grid.ColumnDefinitions>

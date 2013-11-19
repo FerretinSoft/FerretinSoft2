@@ -12,15 +12,15 @@ namespace pe.edu.pucp.ferretin.view.MCompras
 
         int reporte = 0;
         /*
-         * 1 - Reporte de Stock
-         * 2 - Reporte Kardex
-         * 3 - Reporte Kardex diario
-         * 4 - Reporte Kardex mensual
+         * 1 - Reporte de estado de OC
+         * 2 - Reporte de Productos Comprados
          * */
 
         public MC_ReportesWindow()
         {
             InitializeComponent();
+            dpFechaDesde.SelectedDate = null;
+            dpFechaHasta.SelectedDate = null;
         }
 
         private void repSigBtn_Click(object sender, RoutedEventArgs e)
@@ -40,17 +40,15 @@ namespace pe.edu.pucp.ferretin.view.MCompras
                         MessageBox.Show("Debe seleccionar algún reporte");
                     break;
                 case 1:
-                    //if (cmbTienda.SelectedItem == null)
-                    //    MessageBox.Show("Debe seleccionar una tienda / almacén para generar su reporte.");
-                    //else if (fechaDesdePicker.SelectedDate == null || fechaHastaPicker.SelectedDate == null)
-                    //    MessageBox.Show("Debe seleccionar un período para generar su reporte.");
-                    //else
-                    //{
-                    //    repConfGrid.Visibility = System.Windows.Visibility.Collapsed;
-                    //    repFinalGrid.Visibility = System.Windows.Visibility.Visible;
-                    //    estado = 2;
-                    //    repSigBtn.IsEnabled = false;
-                    //}
+                    if (dpFechaDesde.SelectedDate == null || dpFechaHasta.SelectedDate == null)
+                        MessageBox.Show("Debe seleccionar un período para generar su reporte.");
+                    else
+                    {
+                        repConfGrid.Visibility = System.Windows.Visibility.Collapsed;
+                        repFinalGrid.Visibility = System.Windows.Visibility.Visible;
+                        estado = 2;
+                        repSigBtn.IsEnabled = false;
+                    }
                     break;
             }
         }
@@ -60,11 +58,10 @@ namespace pe.edu.pucp.ferretin.view.MCompras
             reportesFavoritosListBox.SelectedIndex = -1;
             switch (reportesBaseListBox.SelectedIndex)
             {
-                case 0://reporte de stock de productos
+                case 0://Reporte de estado de OC
                     reporte = 1;
-                    //MessageBox.Show("Stock de productos");
                     break;
-                case 1://reporte kardex
+                case 1://Reporte de Productos Comprados
                     reporte = 2;
                     //MessageBox.Show("Kardex");
                     break;
@@ -79,17 +76,17 @@ namespace pe.edu.pucp.ferretin.view.MCompras
             reportesBaseListBox.SelectedIndex = -1;
             switch (reportesFavoritosListBox.SelectedIndex)
             {
-                case 0: // kardex diario
-                    reporte = 3;
-                    //MessageBox.Show("kardex diario");
-                    break;
-                case 1: // kardex mensual
-                    reporte = 4;
-                    //MessageBox.Show("Kardex mensual");
-                    break;
-                default:
-                    reporte = 0;
-                    break;
+                //case 0: // kardex diario
+                //    reporte = 3;
+                //    //MessageBox.Show("kardex diario");
+                //    break;
+                //case 1: // kardex mensual
+                //    reporte = 4;
+                //    //MessageBox.Show("Kardex mensual");
+                //    break;
+                //default:
+                //    reporte = 0;
+                //    break;
             }
         }
 
