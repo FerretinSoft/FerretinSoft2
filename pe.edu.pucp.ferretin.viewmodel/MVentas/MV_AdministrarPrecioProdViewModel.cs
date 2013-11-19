@@ -166,7 +166,9 @@ namespace pe.edu.pucp.ferretin.viewmodel.MVentas
                 switch (result)
                 {
                     case MessageBoxResult.OK:
+                        
                         ComunService.idVentana(40);
+                       // productoPrecio.precio = Convert.ToDecimal(productoPrecio.precioString);
                         productoPrecio.Producto.precioLista = productoPrecio.precio;
                         productoPrecio.Producto.precioPuntos = productoPrecio.precioPuntos;
                         productoPrecio.Producto.moneda = productoPrecio.moneda;

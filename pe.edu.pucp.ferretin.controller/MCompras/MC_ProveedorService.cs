@@ -115,7 +115,7 @@ namespace pe.edu.pucp.ferretin.controller.MCompras
                    orderby c.id_proveedor
                    select c;
         }
-
+       
         public static IEnumerable<ProveedorProducto> obtenerProductosProveedor(string proveedor, string producto)
         {
             return from c in listaProductos
