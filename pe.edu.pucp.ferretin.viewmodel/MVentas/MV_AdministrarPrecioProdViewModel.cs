@@ -155,7 +155,7 @@ namespace pe.edu.pucp.ferretin.viewmodel.MVentas
 
         public void savePrecioProducto(Object obj)
         {
-            if (productoPrecio.moneda == null || productoPrecio.precio == null)
+            if (productoPrecio.moneda == null || productoPrecio.precioString == null || productoPrecio.precioString == "")
                 MessageBox.Show("Ingrese los campos obligatorios", "Error");
             else
             {
@@ -168,7 +168,7 @@ namespace pe.edu.pucp.ferretin.viewmodel.MVentas
                     case MessageBoxResult.OK:
                         
                         ComunService.idVentana(40);
-                       // productoPrecio.precio = Convert.ToDecimal(productoPrecio.precioString);
+                        productoPrecio.precio = Convert.ToDecimal(productoPrecio.precioString);
                         productoPrecio.Producto.precioLista = productoPrecio.precio;
                         productoPrecio.Producto.precioPuntos = productoPrecio.precioPuntos;
                         productoPrecio.Producto.moneda = productoPrecio.moneda;
