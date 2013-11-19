@@ -192,6 +192,8 @@ namespace pe.edu.pucp.ferretin.viewmodel.MVentas
                         else
                         {
                             MessageBox.Show("El nuevo precio fue agregado con éxito");
+                            this.listaProducto = MV_ProductoPrecioService.buscarProductos(searchProducto);
+                            NotifyPropertyChanged("listaProducto");
                             selectedTab = 0;
                         }
                         break;

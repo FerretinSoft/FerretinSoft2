@@ -286,6 +286,8 @@ namespace pe.edu.pucp.ferretin.viewmodel.MVentas
             {
                 MessageBox.Show("El lote de vales fue agregado con éxito", "Mensaje de confirmación");
             }
+            this.listaLoteVale = MV_ValeService.buscarLotesVale(searchCodLote, searchNroDocCliente, searchFechaInicio, searchFechaFin);
+            NotifyPropertyChanged("listaLoteVale");
             this.selectedTab = 0;
                 break;
                 case MessageBoxResult.Cancel:

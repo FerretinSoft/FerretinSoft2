@@ -546,6 +546,8 @@ namespace pe.edu.pucp.ferretin.viewmodel.MVentas
                             }
                             this.devolucionRegistrada = true;
                             this.noDevolucionRegistrada = false;
+                            listaDevoluciones = MV_DevolucionService.buscarDevoluciones(searchNroDevolucion, searchNroDocumento, searchNroDocCliente, searchFechaInicio, searchFechaFin, searchVendedor);
+                            NotifyPropertyChanged("listaDevoluciones");
                             break;
                         case MessageBoxResult.Cancel:
                             break;
