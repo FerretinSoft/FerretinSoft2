@@ -23,5 +23,10 @@ namespace pe.edu.pucp.ferretin.model
                 return moneda == 0 ? "Soles" : "Dolares";
             }
         }
+
+        partial void OnmotivoChanged()
+        {
+            Console.WriteLine("puto");
+        }
     }
 }
