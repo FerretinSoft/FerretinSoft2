@@ -169,7 +169,10 @@ namespace pe.edu.pucp.ferretin.viewmodel.MVentas
                         ComunService.idVentana(40);
                         productoPrecio.Producto.precioLista = productoPrecio.precio;
                         productoPrecio.Producto.precioPuntos = productoPrecio.precioPuntos;
+                        productoPrecio.Producto.moneda = productoPrecio.moneda;
+                        
                         productoPrecio.estado = true;
+                        NotifyPropertyChanged("productoPrecio");
                         if (historialPrecios.Count() != 0)
                         {
 
