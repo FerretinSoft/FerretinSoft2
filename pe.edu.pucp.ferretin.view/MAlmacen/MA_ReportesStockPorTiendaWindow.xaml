@@ -4,7 +4,7 @@
         xmlns:helper="clr-namespace:pe.edu.pucp.ferretin.viewmodel.Helper;assembly=pe.edu.pucp.ferretin.viewmodel"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" mc:Ignorable="d"
         x:Class="pe.edu.pucp.ferretin.view.MAlmacen.MA_ReportesStockPorTiendaWindow"
-        Title="Reporte Stocks" Height="382.875" Width="536.792" Icon="/pe.edu.pucp.ferretin.view;component/Resources/ferretin_ico.ico">
+        Title="Reporte Stocks" Height="382.875" Width="536.792" ResizeMode="CanMinimize" WindowStartupLocation="CenterScreen" Icon="/pe.edu.pucp.ferretin.view;component/Resources/ferretin_ico.ico">
     <Window.Resources>
         <viewmodel:MA_ReportesStockPorTiendaViewModel x:Key="MA_ReportesStockPorTiendaViewModel"/>
     </Window.Resources>

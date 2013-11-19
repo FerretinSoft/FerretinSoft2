@@ -5,7 +5,7 @@
         xmlns:helper="clr-namespace:pe.edu.pucp.ferretin.viewmodel.Helper;assembly=pe.edu.pucp.ferretin.viewmodel"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" mc:Ignorable="d"
         x:Class="pe.edu.pucp.ferretin.view.MAlmacen.MA_ReportesWindow"
-        Title="Reportes Almacén" Height="375" Width="525" Icon="../Resources/ferretin_ico.ico" ResizeMode="CanMinimize">
+        Title="Reportes Almacén" Height="375" Width="525" Icon="../Resources/ferretin_ico.ico" ResizeMode="CanMinimize" WindowStartupLocation="CenterScreen">
     <Window.Resources>
         <viewmodel:MA_ReportesViewModel x:Key="MA_ReportesViewModel"/>
     </Window.Resources>
