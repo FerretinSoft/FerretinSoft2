@@ -336,8 +336,8 @@ namespace pe.edu.pucp.ferretin.viewmodel.MAlmacen
                 //Si la pestaña es para agregar nuevo, limpio los input
                 switch (value)
                 {
-                    case (int)tabs.BUSQUEDA: detallesTabHeader = "Agregar Producto"; productoImagen = null; producto = new Producto(); break;//Si es agregar, creo un nuevo objeto Cliente
-                    case (int)tabs.AGREGAR: detallesTabHeader = "Agregar Producto"; productoImagen = null; producto = new Producto(); prodAlm = new ProductoAlmacen(); break;//Si es agregar, creo un nuevo objeto Cliente
+                    case (int)tabs.BUSQUEDA: detallesTabHeader = "Agregar Producto"; producto = new Producto(); break;//Si es agregar, creo un nuevo objeto Cliente
+                    case (int)tabs.AGREGAR: detallesTabHeader = "Agregar Producto"; producto = new Producto(); prodAlm = new ProductoAlmacen(); break;//Si es agregar, creo un nuevo objeto Cliente
                     case (int)tabs.MODIFICAR: detallesTabHeader = "Edición de Producto";  break;
 
                     //case (int)tabs.DETALLES: detallesTabHeader = "Detalles"; break;
@@ -345,6 +345,8 @@ namespace pe.edu.pucp.ferretin.viewmodel.MAlmacen
                 }
                 //Cuando se cambia el status, tambien se tiene que cambiar el currentIndex del tab
                 //currentIndexTab = _statusTab == 0 ? 0 : 1;
+
+                productoImagen = null;
                 NotifyPropertyChanged("statusTab");
                 NotifyPropertyChanged("productoImagen");
                 NotifyPropertyChanged("listaTiendas");

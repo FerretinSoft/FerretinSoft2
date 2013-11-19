@@ -34,7 +34,7 @@ namespace pe.edu.pucp.ferretin.view.MAlmacen
             //Click en icono +
             //this.txtCodigo.IsEnabled = true;
             this.cmbTienda.IsEnabled = false;
-            this.txtStockMin.IsEnabled = false;
+            //this.txtStockMin.IsEnabled = false;
             productoTabControl.SelectedIndex = 1;
 
         }
@@ -42,7 +42,7 @@ namespace pe.edu.pucp.ferretin.view.MAlmacen
         private void TabItem_MouseUp(object sender, MouseButtonEventArgs e)
         {
             //Editar producto
-            txtStockMin.IsEnabled = true;
+            this.txtStockMin.IsEnabled = false;
             this.cmbTienda.IsEnabled = true;
         }
 
@@ -186,9 +186,15 @@ namespace pe.edu.pucp.ferretin.view.MAlmacen
             else
             {
                 this.cmbTienda.IsEnabled = true;
-                txtStockMin.IsEnabled = true;
+                //txtStockMin.IsEnabled = true;
             }
 
+        }
+
+        private void cmbTienda_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (cmbTienda.SelectedIndex!=-1)
+            this.txtStockMin.IsEnabled = true;
         }
     }
 }
