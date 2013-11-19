@@ -507,7 +507,7 @@ namespace pe.edu.pucp.ferretin.viewmodel.MAlmacen
         {
             List<ProductoCategoria> prodCat=new List<ProductoCategoria>();
 
-            foreach (Categoria c in categoriaPrincipal)
+            foreach (Categoria c in _categoriaPrincipal)
         {
                 if (c.isChecked == true)
             {
