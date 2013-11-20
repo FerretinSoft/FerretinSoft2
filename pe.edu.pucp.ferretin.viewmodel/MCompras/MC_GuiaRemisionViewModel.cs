@@ -333,38 +333,44 @@ namespace pe.edu.pucp.ferretin.viewmodel.MCompras
 
         public void cargarOC(Object id)
         {
-            DocumentoCompra buscado = null;
-            int i;
+            DocumentoCompra buscado = null;          
             try
             {
                 buscado = MC_DocumentoCompraService.obtenerDCByCodigo(this._ordenCompraCod);
-                documentoCompra = buscado;
-
-                this.guiaRemision.DocumentoCompra = documentoCompra;
-
-                var sequence = new List<GuiaRemisionProducto>();
-
-                for (i = 0; i < documentoCompra.DocumentoCompraProducto.Count(); i++)
+                
+                if (buscado.id_estado != 7)
                 {
-                    GuiaRemisionProducto guiaLinea = new GuiaRemisionProducto() { id_guia_detalle = documentoCompra.DocumentoCompraProducto[i].id, cantidadRecibida = 0, DocumentoCompraProducto = documentoCompra.DocumentoCompraProducto[i], GuiaRemision = guiaRemision};
-                    sequence.Add(guiaLinea);
-                    guiaRemision.GuiaRemisionProducto.Add(guiaLinea);
-                    //GuiaRemisionProducto guiaLinea = new GuiaRemisionProducto();
-                    //guiaLinea.id_guia_detalle = documentoCompra.DocumentoCompraProducto[i].id;
-                    //guiaLinea.cantidadRecibida = 0;
-                    //guiaLinea.DocumentoCompraProducto = documentoCompra.DocumentoCompraProducto[i];
-                    //guiaRemision.GuiaRemisionProducto.Add(guiaLinea);
+                    MessageBox.Show("La Orden de Compra no se encuentra Facturada", "Orden de Compra", MessageBoxButton.OK, MessageBoxImage.Question);
                 }
-                listaGuiaRemisionProducto = sequence;
-                NotifyPropertyChanged("listaGuiaRemisionProducto");
-                }
-            catch { }
+                else
+                {
+                    int i;
+                    documentoCompra = buscado;
+                    this.guiaRemision.DocumentoCompra = documentoCompra;
 
-            if (buscado == null)
-            {
-                documentoCompra = null;
-                MessageBox.Show("No se encontro ninguna Orden de Compra con el número de documento proporcionado", "No se encontro", MessageBoxButton.OK, MessageBoxImage.Question);
+                    var sequence = new List<GuiaRemisionProducto>();
+                    int cont = documentoCompra.DocumentoCompraProducto.Count();
+
+                    for (i = 0; i < cont; i++)
+                    {
+                        GuiaRemisionProducto guiaLinea = new GuiaRemisionProducto() { id_guia_detalle = documentoCompra.DocumentoCompraProducto[i].id, cantidadRecibida = 0, DocumentoCompraProducto = documentoCompra.DocumentoCompraProducto[i], GuiaRemision = guiaRemision };
+                        sequence.Add(guiaLinea);
+                        guiaRemision.GuiaRemisionProducto.Add(guiaLinea);
+                    }
+                    listaGuiaRemisionProducto = sequence;
+                    NotifyPropertyChanged("listaGuiaRemisionProducto");
+                }
+
+                if (buscado == null)
+                {
+                    documentoCompra = null;
+                    MessageBox.Show("No se encontro ninguna Orden de Compra con el número de documento proporcionado", "No se encontro", MessageBoxButton.OK, MessageBoxImage.Question);
+                }
             }
+            catch (Exception e) 
+            {
+                MessageBox.Show(e.Message);
+            }  
         }
         #endregion
     }
