@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
@@ -12,6 +13,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using pe.edu.pucp.ferretin.controller.MVentas;
 using pe.edu.pucp.ferretin.model;
 
 namespace pe.edu.pucp.ferretin.view.MVentas
@@ -69,5 +71,13 @@ namespace pe.edu.pucp.ferretin.view.MVentas
             else
                 e.Handled = true;
         }
+
+        private void Window_Closing(object sender, CancelEventArgs e)
+        {
+            MV_ComunService.Clean();
+
+        }
+
+
     }
 }

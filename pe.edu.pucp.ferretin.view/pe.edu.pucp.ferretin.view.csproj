@@ -274,6 +274,7 @@
     <Page Include="MVentas\MV_AdministrarNotaCreditoWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Page>
     <Page Include="MVentas\MV_AdministrarPrecioProductos.xaml">
       <SubType>Designer</SubType>
@@ -458,6 +459,7 @@
     </Compile>
     <Compile Include="MVentas\MV_AdministrarNotaCreditoWindow.xaml.cs">
       <DependentUpon>MV_AdministrarNotaCreditoWindow.xaml</DependentUpon>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
     <Compile Include="MVentas\MV_AdministrarPrecioProductos.xaml.cs">
       <DependentUpon>MV_AdministrarPrecioProductos.xaml</DependentUpon>
