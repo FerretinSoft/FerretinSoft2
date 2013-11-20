@@ -31,7 +31,7 @@ namespace pe.edu.pucp.ferretin.viewmodel.MAlmacen
             }
         }
 
-        public DateTime _searchFechaDesde = new DateTime(2000, 1, 1);
+        public DateTime _searchFechaDesde = new DateTime(DateTime.Today.Year, DateTime.Today.Month, 1);
         public DateTime searchFechaDesde
         {
             get

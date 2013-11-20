@@ -4,7 +4,7 @@
         xmlns:viewmodel="clr-namespace:pe.edu.pucp.ferretin.viewmodel.MAlmacen;assembly=pe.edu.pucp.ferretin.viewmodel"
         xmlns:helper="clr-namespace:pe.edu.pucp.ferretin.viewmodel.Helper;assembly=pe.edu.pucp.ferretin.viewmodel"
         x:Name="windowAsignacion" Icon="../Resources/ferretin_ico.ico" ResizeMode="NoResize"
-        Title="Asignación de Stock" Height="284.396" Width="386" Closing="Window_Closing">
+        Title="Asignación de Stock" Height="284.396" Width="386" Closing="Window_Closing" WindowStartupLocation="CenterScreen">
     <Window.Resources>
         <viewmodel:MA_MantenimientoProductosEdicionStockViewModel x:Key="MA_MantenimientoProductosEdicionStockViewModel"/>
     </Window.Resources>

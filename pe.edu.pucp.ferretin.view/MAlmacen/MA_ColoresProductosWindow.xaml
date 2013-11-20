@@ -3,7 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:viewmodel="clr-namespace:pe.edu.pucp.ferretin.viewmodel.MAlmacen;assembly=pe.edu.pucp.ferretin.viewmodel"
         xmlns:helper="clr-namespace:pe.edu.pucp.ferretin.viewmodel.Helper;assembly=pe.edu.pucp.ferretin.viewmodel"
-        Title="Selección de color" Height="153.125" Width="300">
+        Title="Selección de color" Height="153.125" Width="300" ResizeMode="CanMinimize" WindowStartupLocation="CenterScreen">
     <Window.Resources>
         <viewmodel:MA_MantenimientoProductos_SeleccionColorViewModel x:Key="MA_MantenimientoProductos_SeleccionColorViewModel"/>
     </Window.Resources>
