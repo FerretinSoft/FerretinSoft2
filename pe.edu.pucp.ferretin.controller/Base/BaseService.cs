@@ -70,6 +70,7 @@ namespace pe.edu.pucp.ferretin.controller
         /// <returns>True si se guardo correctamente, False en caso hubo algun error</returns>
         public static bool enviarCambios()
         {
+            var changes = db.GetChangeSet();
             return enviarCambios(db);
         }
         public static bool enviarCambios(FerretinDataContext db)

@@ -18,7 +18,7 @@ namespace pe.edu.pucp.ferretin.model
                 monto = Decimal.Round(montoParcial.Value, 2);
             }
             if (Devolucion != null){
-                Devolucion.subTotal = (from dp in Devolucion.DevolucionProducto select dp.monto).Sum();
+                Devolucion.total = (from dp in Devolucion.DevolucionProducto select dp.monto).Sum();
             }
         }
 
