@@ -46,7 +46,7 @@ namespace pe.edu.pucp.ferretin.view.MVentas
             if (printDialog.ShowDialog() == true)
             {
                 printDialog.PrintVisual(printZone, "Boleta de venta");
-                this.parent();
+                //this.parent();
             }
         }
     }
