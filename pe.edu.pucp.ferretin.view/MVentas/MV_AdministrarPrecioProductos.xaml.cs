@@ -5,7 +5,6 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows;
-
 using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Documents;
@@ -32,7 +31,7 @@ namespace pe.edu.pucp.ferretin.view.MVentas
 
         private void validarPrecioLista(object sender, TextCompositionEventArgs e)
         {
-            if ((Regex.IsMatch(precioLista_Text.Text, @"^[0-9]+(\.{0}[0-9]+)?$")) && (e.Text != ",") || (Regex.IsMatch(e.Text, "[0-9]")))
+            if ((Regex.IsMatch(PrecioListaText.Text, @"^[0-9]+(\.{0}[0-9]+)?$")) && (e.Text != ",") || (Regex.IsMatch(e.Text, "[0-9]")))
             {
                 e.Handled = false;
             }
@@ -49,6 +48,7 @@ namespace pe.edu.pucp.ferretin.view.MVentas
             else
                 e.Handled = true;
         }
+
 
         private void validarPrecioPuntos(object sender, TextCompositionEventArgs e)
         {

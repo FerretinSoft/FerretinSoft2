@@ -83,22 +83,20 @@ namespace pe.edu.pucp.ferretin.controller.MVentas
                    select c;
         }
 
-        public static Vale generarVale(int cantidad, int offset)
+        public static Vale generarVale(int cantidad, int offset, string codLote)
         {
-            string codVale = (from c in listaVales
-                               select c.codigo).Max();;
-            
+
                 Vale vale = new Vale();
-            
-                vale.codigo =  Convert.ToString(Convert.ToInt32(codVale) + offset);
+
+                vale.codigo = Convert.ToString(offset);
                 while (true)
                 {
-                    if (vale.codigo.Length == 6)
+                    if (vale.codigo.Length == 2)
                         break;
                     else
                         vale.codigo = "0" + vale.codigo;
                 }
-                vale.codigo = "V" + vale.codigo + "-" + DateTime.Now.Year.ToString();
+                vale.codigo = "V" + vale.codigo + "-" + DateTime.Now.Year.ToString() + "-L" + codLote;
                 vale.estado = 0;
             return vale;
         }
@@ -113,7 +111,7 @@ namespace pe.edu.pucp.ferretin.controller.MVentas
             loteVale.fechaVencimiento = DateTime.Today.AddDays(MS_SharedService.obtenerVigenciaVale());
             while (true)
             {
-                if (codLote.Length == 8)
+                if (codLote.Length == 5)
                     break;
                 else
                     codLote = "0" + codLote;

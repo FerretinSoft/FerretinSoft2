@@ -338,10 +338,10 @@
                             </DataGridTemplateColumn>
                             <DataGridTextColumn Width="2*" Binding="{Binding Path=Producto.nombre}" Header="Descripción"/>
                             <DataGridTextColumn Width="0.98*" Binding="{Binding Path=cantidad}" ClipboardContentBinding="{x:Null}" Header="Cant. Comp."/>
-                            <DataGridTextColumn Width="0.7*" Binding="{Binding Path=Producto.monedaString}" ClipboardContentBinding="{x:Null}" Header="Moneda"/>
+                            <DataGridTextColumn Width="0.7*" Binding="{Binding Path=monedaString}" ClipboardContentBinding="{x:Null}" Header="Moneda"/>
                             <DataGridTextColumn Width="0.7*" Binding="{Binding Path=precioUnitario}" ClipboardContentBinding="{x:Null}" Header="Precio"/>
                             <DataGridTextColumn Width="0.7*" Binding="{Binding Path=descuento}" ClipboardContentBinding="{x:Null}" Header="Dscto. (S/.)"/>
-                            <DataGridTextColumn Width="1*" Binding="{Binding Path=montoParcial}" ClipboardContentBinding="{x:Null}" Header="Importe"/>
+                            <DataGridTextColumn Width="1*" Binding="{Binding Path=montoParcial, StringFormat=S/. \{0\}}" ClipboardContentBinding="{x:Null}" Header="Importe"/>
                         </DataGrid.Columns>
                     </DataGrid>
                     <StackPanel HorizontalAlignment="Right" Orientation="Horizontal" VerticalAlignment="Center" Grid.Row="3" Margin="5,0">
@@ -367,13 +367,13 @@
                                 </DataGridTemplateColumn.CellTemplate>
                             </DataGridTemplateColumn>
                             <DataGridTextColumn IsReadOnly="True"  Width="2*" Binding="{Binding Path= Producto.nombre}" ClipboardContentBinding="{x:Null}" Header="Descripción"/>
-                            <DataGridTextColumn IsReadOnly="False" Width="0.98*" Binding="{Binding Path= cantidad, Mode=TwoWay}" ClipboardContentBinding="{x:Null}" Header="Cant. Dev."/>
+                            <DataGridTextColumn IsReadOnly="False" Width="0.98*" Binding="{Binding Path= cantidad, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" ClipboardContentBinding="{x:Null}" Header="Cant. Dev."/>
                             <DataGridCheckBoxColumn Binding="{Binding Path=dardebaja,UpdateSourceTrigger=PropertyChanged}" IsReadOnly="False" Width="0.8*" ClipboardContentBinding="{x:Null}" Header="Dar de baja"/>
-                            <DataGridTextColumn IsReadOnly="False"  Width="1*" Binding="{Binding Path= motivo, Mode=TwoWay}" ClipboardContentBinding="{x:Null}" Header="Motivo"/>
+                            <DataGridTextColumn x:Name="motivoGrid" IsReadOnly="False"  Width="1*" Binding="{Binding Path= motivo, Mode=TwoWay}" ClipboardContentBinding="{x:Null}" Header="Motivo"/>
                             <DataGridTextColumn IsReadOnly="True" Width="0.7*" Binding="{Binding Path=monedaString}" ClipboardContentBinding="{x:Null}" Header="Moneda"/>
                             <DataGridTextColumn IsReadOnly="True" Width="0.7*" Binding="{Binding Path= precioUnitario}" ClipboardContentBinding="{x:Null}" Header="Precio"/>
                             <DataGridTextColumn IsReadOnly="True" Width="0.7*" Binding="{x:Null}" ClipboardContentBinding="{x:Null}" Header="Dscto. (S/.)"/>
-                            <DataGridTextColumn  IsReadOnly="True" Width="1*" x:Name="montoDev" Binding="{Binding Path= monto, Mode=TwoWay}" ClipboardContentBinding="{x:Null}" Header="Importe"/>
+                            <DataGridTextColumn  IsReadOnly="True" Width="1*" x:Name="montoDev" Binding="{Binding Path= monto, Mode=TwoWay, StringFormat=S/. \{0\}}" ClipboardContentBinding="{x:Null}" Header="Importe"/>
                         </DataGrid.Columns>
                     </DataGrid>
                     <StackPanel HorizontalAlignment="Right" VerticalAlignment="Center" Orientation="Horizontal" Grid.Row="6" Margin="5,5">

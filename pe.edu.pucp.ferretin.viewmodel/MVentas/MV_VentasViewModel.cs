@@ -235,7 +235,7 @@ namespace pe.edu.pucp.ferretin.viewmodel.MVentas
 
             if (buscado == null)
             {
-                nombreVendedor = "";
+                searchVendedor = "";
                 MessageBox.Show("No se encontro ningún vendedor con el número de documento proporcionado", "No se encontro", MessageBoxButton.OK, MessageBoxImage.Question);
             }
 
@@ -245,6 +245,11 @@ namespace pe.edu.pucp.ferretin.viewmodel.MVentas
         {
             try
             {
+                this.searchVendedor = "";
+                this.searchNroDocumento = "";
+                this.searchNroDocCliente = null;
+                this.nombreCliente = "";
+                this.nombreVendedor = "";
                 this.venta = listaVentas.Single(venta => venta.id == (long)id);
                 this.listaProductos = MV_VentaService.obtenerProductosbyIdVenta((long)id);
                 this.listaMedioPago = MV_VentaService.obtenerMedioDePagobyIdVenta((long)id);

@@ -363,6 +363,7 @@ namespace pe.edu.pucp.ferretin.viewmodel.MVentas
             if (buscado == null)
             {
                 nombreVendedor = "";
+                searchVendedor = "";
                 MessageBox.Show("No se encontro ningún vendedor con el número de documento proporcionado", "Error", MessageBoxButton.OK, MessageBoxImage.Question);
             }
            
@@ -377,6 +378,7 @@ namespace pe.edu.pucp.ferretin.viewmodel.MVentas
                 this.listaProductosComprados = MV_VentaService.obtenerProductosSinPuntosbyIdVenta(buscado.id);
                 this.devolucion.Venta = buscado;
                 this.devolucion.fecEmision = DateTime.Now;
+                this.devolucion.DevolucionProducto = new System.Data.Linq.EntitySet<DevolucionProducto>();
                 devolucion.codigo = MV_DevolucionService.obtenerCodDevolucion();
                 devolucion.id_empleado = usuarioLogueado.Empleado.id;
                 NotifyPropertyChanged("devolucion");
@@ -447,6 +449,12 @@ namespace pe.edu.pucp.ferretin.viewmodel.MVentas
             switch (result)
             {
                 case MessageBoxResult.OK:
+                        this.searchNroDevolucion = "";
+                        this.searchnombreCliente = "";
+                        this.searchNroDocCliente = null;
+                        this.searchNroDocumento = null;
+                        this.searchVendedor = "";
+                        this.nombreVendedor = "";
                         selectedTab = 0;
                         this.listaDevoluciones = MV_DevolucionService.listaDevoluciones;
                     break;
@@ -545,6 +553,8 @@ namespace pe.edu.pucp.ferretin.viewmodel.MVentas
                             }
                             this.devolucionRegistrada = true;
                             this.noDevolucionRegistrada = false;
+                            listaDevoluciones = MV_DevolucionService.buscarDevoluciones(searchNroDevolucion, searchNroDocumento, searchNroDocCliente, searchFechaInicio, searchFechaFin, searchVendedor);
+                            NotifyPropertyChanged("listaDevoluciones");
                             break;
                         case MessageBoxResult.Cancel:
                             break;
@@ -561,8 +571,14 @@ namespace pe.edu.pucp.ferretin.viewmodel.MVentas
         {
             try
             {
+                this.searchNroDevolucion = "";
+                this.searchnombreCliente = "";
+                this.searchNroDocCliente = null;
+                this.searchNroDocumento = null;
+                this.searchVendedor = "";
+                this.nombreVendedor = "";
                 this.devolucion = new Devolucion();
-                this.devolucion = listaDevoluciones.Single(devolucion => devolucion.id == (long)id);
+                this.devolucion = MV_DevolucionService.obtenerDevolucionbyId((long)id);
                 this.listaProductos = MV_DevolucionService.obtenerProductosbyIdDevolucion((long)id);
                 this.notaCredito = MV_DevolucionService.obtenerNotaCredbyIdDevolucion((long)id);
                 selectedTab = 1;

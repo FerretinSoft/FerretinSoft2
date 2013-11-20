@@ -12,6 +12,7 @@ namespace pe.edu.pucp.ferretin.controller.MAlmacen
         public static bool updateStock(Tienda tienda, Producto producto, decimal cantidad, bool plus)
         {
             ProductoAlmacen pa = ObtenerProductoAlmacenPorTiendaProducto(tienda, producto);
+            if (pa == null) return false;
             if (plus) pa.stock += cantidad;
             else
             {

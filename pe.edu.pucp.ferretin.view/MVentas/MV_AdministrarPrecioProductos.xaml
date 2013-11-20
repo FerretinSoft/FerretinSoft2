@@ -96,7 +96,7 @@
                             <Label Grid.Row="2" Grid.Column="2" Content="*" HorizontalAlignment="Right"  VerticalAlignment="Top" Foreground="Red" FontSize="14" Width="15" Height="22"/>
 
                             <StackPanel Orientation="Horizontal" Grid.Column="3" Grid.Row="2">
-                                <TextBox TextWrapping="Wrap" x:Name="precioLista_Text" PreviewTextInput="validarPrecioLista" PreviewKeyDown="validarPrecioLista_KeyDown" Text="{Binding Path=productoPrecio.precio, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Center"  Width="50" HorizontalAlignment="Left"/>
+                                <TextBox x:Name="PrecioListaText" PreviewTextInput="validarPrecioLista" PreviewKeyDown="validarPrecioLista_KeyDown" Text="{Binding Path=productoPrecio.precioString, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True, ValidatesOnNotifyDataErrors=True}" VerticalAlignment="Center"  Width="50" HorizontalAlignment="Left"/>
                                 <ComboBox SelectedIndex="{Binding Path=productoPrecio.moneda, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Center" Height="22" Width="70" Margin="5,4,0,4">
                                     <ComboBoxItem Content="Soles (S/.)"></ComboBoxItem>
                                     <ComboBoxItem Content="Dolares (US $)"></ComboBoxItem>

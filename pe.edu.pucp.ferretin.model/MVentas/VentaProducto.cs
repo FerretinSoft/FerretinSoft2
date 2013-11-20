@@ -70,7 +70,7 @@ namespace pe.edu.pucp.ferretin.model
 
                 descuento = Decimal.Round(canjeado.Value ? 0 : (prodConDesc * productoPrecioLista * (1-desc) ).Value,2);
                 montoParcial = canjeado.Value ? 0 : Decimal.Round((prodConDesc*productoPrecioLista*desc + prodSinDesc*productoPrecioLista).Value,2) ;
-                montoParcial = Decimal.Round(montoParcial.Value);
+                montoParcial = Decimal.Round(montoParcial.Value, 2);
                 montoReal = cantidad * productoPrecioLista;
                 montoReal = Decimal.Round(montoReal.Value, 2);
             }
@@ -95,5 +95,13 @@ namespace pe.edu.pucp.ferretin.model
         public PromocionProducto PromocionActual { get; set; }
 
         public decimal tipoCambio { get; set; }
+
+        public string monedaString
+        {
+            get
+            {
+                return moneda == 0 ? "Soles" : "Dolares";
+            }
+        }
     }
 }

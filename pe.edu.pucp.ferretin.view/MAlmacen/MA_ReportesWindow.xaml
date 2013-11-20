@@ -5,7 +5,7 @@
         xmlns:helper="clr-namespace:pe.edu.pucp.ferretin.viewmodel.Helper;assembly=pe.edu.pucp.ferretin.viewmodel"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" mc:Ignorable="d"
         x:Class="pe.edu.pucp.ferretin.view.MAlmacen.MA_ReportesWindow"
-        Title="Reportes Almacén" Height="375" Width="525" Icon="../Resources/ferretin_ico.ico" ResizeMode="CanMinimize">
+        Title="Reportes Almacén" Height="375" Width="525" Icon="../Resources/ferretin_ico.ico" ResizeMode="CanMinimize" WindowStartupLocation="CenterScreen">
     <Window.Resources>
         <viewmodel:MA_ReportesViewModel x:Key="MA_ReportesViewModel"/>
     </Window.Resources>
@@ -47,7 +47,6 @@
             <TextBox x:Name="comentarioText" HorizontalAlignment="Left" Height="49" Margin="96,216,0,0" TextWrapping="Wrap" Text="Muestra TODOS los movimientos del día" VerticalAlignment="Top" Width="375"/>
         </Grid>
         <Grid x:Name="repFinalGrid" Margin="0" Visibility="Collapsed">
-            <Label Content="Reporte 10 productos TOP" HorizontalAlignment="Center" Margin="0,10,0,0" VerticalAlignment="Top" FontSize="16"/>
             <Grid Height="48" Margin="20,0" VerticalAlignment="Center">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition/>

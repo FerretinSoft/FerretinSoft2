@@ -25,6 +25,10 @@ namespace pe.edu.pucp.ferretin.viewmodel.MVentas
         public String _searchCodLote = "";
         public String searchCodLote { get { return _searchCodLote; } set { _searchCodLote = value; NotifyPropertyChanged("searchCodLote"); } }
 
+        public String _codLote = "";
+        public String codLote { get { return _codLote; } set { _codLote = value; NotifyPropertyChanged("codLote"); } }
+
+
         public DateTime _searchFechaInicio = DateTime.Parse("10/09/2013");
         public DateTime searchFechaInicio { get { return _searchFechaInicio; } set { _searchFechaInicio = value; NotifyPropertyChanged("searchFechaInicio"); } }
 
@@ -239,6 +243,8 @@ namespace pe.edu.pucp.ferretin.viewmodel.MVentas
 
             if (buscado == null)
             {
+                searchNroDocCliente = null;
+                nombreCliente = "";
                 MessageBox.Show("No se encontro ningún cliente con el número de documento proporcionado", "Error", MessageBoxButton.OK, MessageBoxImage.Question);
                 loteVale.Cliente = buscado;
             }
@@ -254,6 +260,9 @@ namespace pe.edu.pucp.ferretin.viewmodel.MVentas
             switch (result)
             {
                 case MessageBoxResult.OK:
+                    this.searchCodLote = "";
+                    this.searchNroDocCliente = null;
+                    this.nombreCliente = "";
                     loteVale.Vale = new System.Data.Linq.EntitySet<Vale>();
                     this.loteVale = new LoteVale();
                     this.selectedTab = 0;
@@ -282,6 +291,8 @@ namespace pe.edu.pucp.ferretin.viewmodel.MVentas
             {
                 MessageBox.Show("El lote de vales fue agregado con éxito", "Mensaje de confirmación");
             }
+            this.listaLoteVale = MV_ValeService.buscarLotesVale(searchCodLote, searchNroDocCliente, searchFechaInicio, searchFechaFin);
+            NotifyPropertyChanged("listaLoteVale");
             this.selectedTab = 0;
                 break;
                 case MessageBoxResult.Cancel:
@@ -303,7 +314,7 @@ namespace pe.edu.pucp.ferretin.viewmodel.MVentas
                         loteVale.Vale = new System.Data.Linq.EntitySet<Vale>();
                         for (int i = 1; i <= (int)loteVale.cantidad; i++)
                         {
-                            Vale vale = MV_ValeService.generarVale((int)loteVale.cantidad, i);
+                            Vale vale = MV_ValeService.generarVale((int)loteVale.cantidad, i, loteVale.codigo);
 
                             loteVale.Vale.Add(vale);
                             NotifyPropertyChanged("loteVale");
@@ -329,8 +340,10 @@ namespace pe.edu.pucp.ferretin.viewmodel.MVentas
             this.loteVale = MV_ValeService.obtenerLoteValebyId((int)id);
             this.selectedTab = 1;
             detallarVale = System.Windows.Visibility.Hidden;
+            this.codLote = loteVale.codigo;
             this.detallesTabHeader = "Detalle";
             this.listaVales = MV_ValeService.obtenerValesValebyIdLote((int)id);
+            
             this.noSoloDetallarLoteVale = false;
            
         }
@@ -339,10 +352,15 @@ namespace pe.edu.pucp.ferretin.viewmodel.MVentas
         {
             this.loteVale = new LoteVale();
             this.selectedTab = 1;
+            this.searchCodLote = "";
+            this.searchNroDocCliente = null;
+            this.nombreCliente = "";
             detallarVale = System.Windows.Visibility.Visible;
             this.noSoloDetallarLoteVale = true;
             this.listaVales = null;
             this.loteVale = MV_ValeService.obtenerNuevoLote();
+            this.codLote = "";
+            this.valesGenerados = false;
             this.detallesTabHeader = "Generar";
 
         }
