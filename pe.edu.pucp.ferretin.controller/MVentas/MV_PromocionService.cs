@@ -9,9 +9,19 @@ namespace pe.edu.pucp.ferretin.controller.MVentas
 {
     public class MV_PromocionService : MV_ComunService
     {
+        private static FerretinDataContext _dbPromocion = null;
+        public static FerretinDataContext dbPromocion
+        {
+            get
+            {
+                if (_dbPromocion == null) _dbPromocion = new FerretinDataContext();
+                return _dbPromocion;
+            }
+        }
+
         public static IEnumerable<Promocion> buscarPromociones(string codPromSearch, DateTime fechaDesdeSearch, DateTime fechaHastaSearch, int estadoSearch)
         {
-            return from p in db.Promocion where
+            return from p in dbPromocion.Promocion where
                 (p.codigo.ToUpper().Contains(codPromSearch.ToUpper()))
                 && (p.fechaDesde == null || p.fechaHasta == null || DateTime.Compare(p.fechaDesde.Value, fechaDesdeSearch) >= 0 || DateTime.Compare(p.fechaHasta.Value, fechaHastaSearch) <= 0)
                 && (estadoSearch <= 0 || (p.fechaDesde <= DateTime.Today && p.fechaHasta >= DateTime.Today) == (estadoSearch==1)) select p;
@@ -23,14 +33,14 @@ namespace pe.edu.pucp.ferretin.controller.MVentas
         /// <param name="promocion">La Promocion a guardar</param>
         public static bool insertarPromocion(Promocion promocion)
         {
-            if (!db.Promocion.Contains(promocion))
+            if (!dbPromocion.Promocion.Contains(promocion))
             {
                 foreach (var pp in promocion.PromocionProducto)
                     pp.stockActual = pp.stockTotal;
                 promocion.estado = 1;
                 promocion.codigo = newCodPromocion;
-                db.Promocion.InsertOnSubmit(promocion);
-                return enviarCambios();
+                dbPromocion.Promocion.InsertOnSubmit(promocion);
+                return enviarCambios(dbPromocion);
             }
             else
             {
@@ -43,7 +53,7 @@ namespace pe.edu.pucp.ferretin.controller.MVentas
             try
             {
                 //Todas las promociones con stock del producto
-                var promociones = db.Promocion.Where(p => (p.PromocionTienda.Count(pt => pt.Tienda.id.Equals(tienda.id)) > 0) && p.estado == 1 && p.fechaDesde <= DateTime.Today && p.fechaHasta >= DateTime.Today);
+                var promociones = dbPromocion.Promocion.Where(p => (p.PromocionTienda.Count(pt => pt.Tienda.id.Equals(tienda.id)) > 0) && p.estado == 1 && p.fechaDesde <= DateTime.Today && p.fechaHasta >= DateTime.Today);
                 foreach (var promocion in promociones)
                 {
                     foreach(var promocionProducto in promocion.PromocionProducto.Where(pp=>pp.Producto.id.Equals(producto.id) && pp.stockActual>0 ) )
@@ -64,7 +74,7 @@ namespace pe.edu.pucp.ferretin.controller.MVentas
         {
             get
             {
-                Int64 numCodProm = db.Promocion.Max(p => p.id) + 1;
+                Int64 numCodProm = dbPromocion.Promocion.Max(p => p.id) + 1;
                 string codProm = Convert.ToString(numCodProm);
                 while (true)
                 {

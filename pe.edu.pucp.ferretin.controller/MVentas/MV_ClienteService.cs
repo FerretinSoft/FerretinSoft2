@@ -10,6 +10,13 @@ namespace pe.edu.pucp.ferretin.controller.MVentas
 {
     public class MV_ClienteService : MV_ComunService
     {
+        public static FerretinDataContext dbCliente
+        {
+            get
+            {                
+                return db;
+            }
+        }
 
         #region Private Zone
         #endregion
@@ -29,12 +36,8 @@ namespace pe.edu.pucp.ferretin.controller.MVentas
             {
                 if (_listaClientes == null)
                 {
-                    _listaClientes = db.Cliente;
+                    _listaClientes = from c in dbCliente.Cliente select c;
                 }
-                //Usando concurrencia pesimista:
-                ///La lista de clientes se actualizara para ver los cambios
-                ///Si quisiera usar concurrencia optimista quito la siguiente linea
-                //db.Refresh(RefreshMode.OverwriteCurrentValues, _listaClientes);
                 return _listaClientes;
             }
             set
@@ -88,10 +91,10 @@ namespace pe.edu.pucp.ferretin.controller.MVentas
         /// <param name="cliente">el Cliente a guardar</param>
         public static bool insertarCliente(Cliente cliente)
         {
-            if (!db.Cliente.Contains(cliente))
+            if (!dbCliente.Cliente.Contains(cliente))
             {
-                db.Cliente.InsertOnSubmit(cliente);
-                return enviarCambios();
+                //dbCliente.Cliente.InsertOnSubmit(cliente);
+                return enviarCambios(dbCliente);
             }else{
                 return false;
             }

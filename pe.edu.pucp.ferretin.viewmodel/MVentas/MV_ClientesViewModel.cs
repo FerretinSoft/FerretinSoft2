@@ -1,5 +1,6 @@
 ﻿using Microsoft.Win32;
 using pe.edu.pucp.ferretin.controller;
+using pe.edu.pucp.ferretin.controller.MSeguridad;
 using pe.edu.pucp.ferretin.controller.MVentas;
 using pe.edu.pucp.ferretin.model;
 using pe.edu.pucp.ferretin.viewmodel.Helper;
@@ -20,12 +21,6 @@ namespace pe.edu.pucp.ferretin.viewmodel.MVentas
 {
     public class MV_ClientesViewModel : ViewModelBase
     {
-        #region Constructor
-        public MV_ClientesViewModel()
-        {
-            _cliente = new Cliente();
-        }
-        #endregion
 
         private bool _soloSeleccionarCliente = false;
         public bool soloSeleccionarCliente
@@ -94,24 +89,20 @@ namespace pe.edu.pucp.ferretin.viewmodel.MVentas
             }
             set
             {
+                
                 if (value == Tab.DETALLES && cliente == null)
                 {
 
                 }
-                _statusTab = value;
+                
                 //Si cambió el estado de las pestañas también cambio los Header
                 //Si la pestaña es para agregar nuevo, limpio los input
-                switch (_statusTab)
+                switch (value)
                 {
                     case Tab.BUSQUEDA:
                         {
-                            //Borro si hubo algun cambio que no fue guardado
-                            ChangeSet changes = MV_ClienteService.db.GetChangeSet();
-                            MV_ClienteService.db.Refresh(RefreshMode.OverwriteCurrentValues, changes.Updates); 
-
                             detallesTabHeader = soloSeleccionarCliente ? "Detalles" : "Agregar";
-                            NotifyPropertyChanged("listaClientes");
-                            break;//Si es agregar, creo un nuevo objeto Cliente
+                            break;
                         }
                     case Tab.AGREGAR:
                         {
@@ -119,15 +110,21 @@ namespace pe.edu.pucp.ferretin.viewmodel.MVentas
                             cambiarSoloSeleccionarCliente = true;
 
                             detallesTabHeader = "Agregar";
-                            cliente = new Cliente()
+                            if (cliente == null || cliente.id>0 )
                             {
-                                tipo = 1,
-                                nombre = "",
-                                apMaterno = "",
-                                apPaterno = "",
-                                telefono1 = ""
-                            };
-                            clienteImagen = null;
+                                cliente = new Cliente()
+                                {
+                                    tipo = 1,
+                                    nombre = "",
+                                    apMaterno = "",
+                                    apPaterno = "",
+                                    telefono1 = "",
+                                    direccion = "",
+                                    esInactivo = false,
+                                    fecAfiliacion = DateTime.Now,
+                                    Empleado = MS_SharedService.usuarioL.Empleado
+                                };
+                            }
                             selectedDepartamento = null;
                             selectedProvincia = null;
                             break;//Si es agregar, creo un nuevo objeto Cliente
@@ -135,9 +132,13 @@ namespace pe.edu.pucp.ferretin.viewmodel.MVentas
                     case Tab.MODIFICAR: detallesTabHeader = "Modificar"; break;
                     case Tab.DETALLES: detallesTabHeader = "Detalles"; break;
                 }
-                NotifyPropertyChanged("statusTab");
-                //Cuando se cambia el status, tambien se tiene que actualizar el currentIndex del tab
-                NotifyPropertyChanged("currentIndexTab"); //Hace que cambie el tab automaticamente
+                if (_statusTab != value)
+                {
+                    _statusTab = value;
+                    NotifyPropertyChanged("statusTab");
+                    //Cuando se cambia el status, tambien se tiene que actualizar el currentIndex del tab
+                    NotifyPropertyChanged("currentIndexTab");
+                }
             }
         }
         //Usado para mover los tabs de acuerdo a las acciones realizadas
@@ -192,7 +193,6 @@ namespace pe.edu.pucp.ferretin.viewmodel.MVentas
                     distritos = MV_ClienteService.distritos.Where(distrito => distrito.id_ubig_provincia.Equals(id_provincia)) ;
                 }
                 NotifyPropertyChanged("cliente");
-                NotifyPropertyChanged("clienteImagen");
             }
         }
 
@@ -291,41 +291,6 @@ namespace pe.edu.pucp.ferretin.viewmodel.MVentas
         }
         #endregion
 
-        private ImageSource _clienteImagen;
-        public ImageSource clienteImagen
-        {
-            get
-            {
-                if (this.cliente.imagen != null)
-                {
-                    MemoryStream strm = new MemoryStream();
-                    strm.Write(cliente.imagen.ToArray(), 0, cliente.imagen.Length);
-                    strm.Position = 0;
-                    System.Drawing.Image img = System.Drawing.Image.FromStream(strm);
-
-                    BitmapImage bitmapImage = new BitmapImage();
-                    bitmapImage.BeginInit();
-                    MemoryStream memoryStream = new MemoryStream();
-                    img.Save(memoryStream, System.Drawing.Imaging.ImageFormat.Bmp);
-                    memoryStream.Seek(0, SeekOrigin.Begin);
-                    bitmapImage.StreamSource = memoryStream;
-                    bitmapImage.EndInit();
-
-                    _clienteImagen = bitmapImage;
-                }
-                else
-                {
-                    _clienteImagen = null;
-                }
-                return _clienteImagen;
-            }
-            set
-            {
-                _clienteImagen = value;
-                NotifyPropertyChanged("clienteImagen");
-            }
-        }
-
         #region Comandos
         public void uploadImage(Object id)
         {
@@ -347,7 +312,7 @@ namespace pe.edu.pucp.ferretin.viewmodel.MVentas
                 }
                 System.Data.Linq.Binary file_binary = new System.Data.Linq.Binary(file_byte);
                 cliente.imagen = file_binary;
-                NotifyPropertyChanged("clienteImagen");
+                NotifyPropertyChanged("cliente");
             }
         }
         public void viewEditCliente(Object id)
@@ -389,7 +354,7 @@ namespace pe.edu.pucp.ferretin.viewmodel.MVentas
                 if (cliente.id > 0)//Si existe
                 {
                     ComunService.idVentana(46);
-                    if (!MV_ClienteService.enviarCambios())
+                    if (!MV_ClienteService.enviarCambios(MV_ClienteService.dbCliente))
                     {
                         MessageBox.Show("No se pudo actualizar el cliente");
                     }
@@ -397,7 +362,7 @@ namespace pe.edu.pucp.ferretin.viewmodel.MVentas
                     {
                         MessageBox.Show("El cliente fue guardado con éxito");
                         this.statusTab = Tab.BUSQUEDA;
-
+                        NotifyPropertyChanged("listaClientes");
                     }
                 }
                 else
@@ -422,12 +387,15 @@ namespace pe.edu.pucp.ferretin.viewmodel.MVentas
         }
         public void cancelCliente(Object obj)
         {
-            MessageBoxResult result =MessageBox.Show("Al salir, perderá todos los datos ingresados. ¿Desea continuar?",
-                                        "ATENCIÓN", MessageBoxButton.OKCancel, MessageBoxImage.Warning);
-            if (result == MessageBoxResult.OK)
+            ChangeSet changes = MV_ClienteService.dbCliente.GetChangeSet();
+            if (statusTab==Tab.AGREGAR || changes.Updates.Count > 0)
             {
-                this.statusTab = Tab.BUSQUEDA;
+                var result = MessageBox.Show("Al salir, perderá todos los datos ingresados. ¿Desea continuar?",
+                                                "ATENCIÓN", MessageBoxButton.OKCancel, MessageBoxImage.Warning);
+                if (result == MessageBoxResult.OK)//Borro si hubo algun cambio que no fue guardado
+                    MV_ClienteService.dbCliente.Refresh(RefreshMode.OverwriteCurrentValues, changes.Updates);
             }
+            this.statusTab = Tab.BUSQUEDA;
         }
 
         private bool canSaveExecute(object obj)
@@ -436,7 +404,10 @@ namespace pe.edu.pucp.ferretin.viewmodel.MVentas
             {
                 return cliente!=null;
             }
-            return base.UIValidationErrorCount == 0 && this.cliente.Errors.Count == 0;
+            if(cliente!=null)
+                cliente.mensajeError = (cliente != null && cliente.Errors.Count > 0)?cliente.Errors.First().Value:"";
+            
+            return base.UIValidationErrorCount == 0 && this.cliente != null && this.cliente.Errors.Count == 0;
         }
         #endregion
 

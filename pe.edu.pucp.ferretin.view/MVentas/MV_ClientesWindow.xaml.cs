@@ -46,7 +46,7 @@ namespace pe.edu.pucp.ferretin.view.MVentas
                         MV_RegistrarVentaWindow padre = Owner as MV_RegistrarVentaWindow;
                         if (my_DataContext.soloSeleccionarCliente)
                         {
-                            MV_RegistrarVentaViewModel padre_DataContext = padre.main.DataContext as MV_RegistrarVentaViewModel;
+                            MV_RegistrarVentaViewModel padre_DataContext = padre.DataContext as MV_RegistrarVentaViewModel;
                             padre_DataContext.nroDocSeleccionado = my_DataContext.cliente.nroDoc;
                             this.Close();
                         }

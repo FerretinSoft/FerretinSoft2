@@ -8,6 +8,8 @@ namespace pe.edu.pucp.ferretin.model
 {
     public partial class ProductoPrecio
     {
+
+
         public string fechaRegistroString
         {
             get

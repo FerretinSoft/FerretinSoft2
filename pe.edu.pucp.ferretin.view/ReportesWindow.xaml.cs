@@ -52,7 +52,7 @@ namespace pe.edu.pucp.ferretin.view
 
         private void RepSegBtn_Click(object sender, RoutedEventArgs e)
         {
-            MSeguridad.MS_ReporteWindow RSW= new MSeguridad.MS_ReporteWindow();
+            MSeguridad.MS_ReportesWindow RSW = new MSeguridad.MS_ReportesWindow();
             RSW.Show();
         }
 

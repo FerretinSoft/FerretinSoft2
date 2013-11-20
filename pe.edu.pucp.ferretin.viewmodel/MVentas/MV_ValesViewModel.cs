@@ -25,6 +25,10 @@ namespace pe.edu.pucp.ferretin.viewmodel.MVentas
         public String _searchCodLote = "";
         public String searchCodLote { get { return _searchCodLote; } set { _searchCodLote = value; NotifyPropertyChanged("searchCodLote"); } }
 
+        public String _codLote = "";
+        public String codLote { get { return _codLote; } set { _codLote = value; NotifyPropertyChanged("codLote"); } }
+
+
         public DateTime _searchFechaInicio = DateTime.Parse("10/09/2013");
         public DateTime searchFechaInicio { get { return _searchFechaInicio; } set { _searchFechaInicio = value; NotifyPropertyChanged("searchFechaInicio"); } }
 
@@ -210,19 +214,55 @@ namespace pe.edu.pucp.ferretin.viewmodel.MVentas
                 return _cancelarLoteValeCommand;
             }
         }
+
+        RelayCommand _cargarClienteCommand;
+        public ICommand cargarClienteCommand
+        {
+            get
+            {
+                if (_cargarClienteCommand == null)
+                {
+                    _cargarClienteCommand = new RelayCommand(cargarCliente);
+                }
+                return _cargarClienteCommand;
+            }
+        }
         #endregion
 
         #region commands
 
+        public void cargarCliente(Object id)
+        {
+            Cliente buscado = null;
+            try
+            {
+                buscado = MV_ClienteService.obtenerClienteByNroDoc(searchNroDocCliente);
+                loteVale.Cliente = buscado;
+            }
+            catch { }
+
+            if (buscado == null)
+            {
+                searchNroDocCliente = null;
+                nombreCliente = "";
+                MessageBox.Show("No se encontro ningún cliente con el número de documento proporcionado", "Error", MessageBoxButton.OK, MessageBoxImage.Question);
+                loteVale.Cliente = buscado;
+            }
+
+        }
+
         public void cancelarLoteVale(object id)
         {
-            string messageBoxText = "¿Desea cancelar la transacción? Usted perderá la información ingresada";
-            string caption = "Mensaje de confirmación";
+            string messageBoxText = "Al salir, perderá todos los datos ingresados. ¿Desea continuar?";
+            string caption = "ATENCIÓN";
             MessageBoxButton button = MessageBoxButton.OKCancel;
-            MessageBoxResult result = MessageBox.Show(messageBoxText, caption, button);
+            MessageBoxResult result = MessageBox.Show(messageBoxText, caption, button, MessageBoxImage.Warning);
             switch (result)
             {
                 case MessageBoxResult.OK:
+                    this.searchCodLote = "";
+                    this.searchNroDocCliente = null;
+                    this.nombreCliente = "";
                     loteVale.Vale = new System.Data.Linq.EntitySet<Vale>();
                     this.loteVale = new LoteVale();
                     this.selectedTab = 0;
@@ -245,12 +285,14 @@ namespace pe.edu.pucp.ferretin.viewmodel.MVentas
             ComunService.idVentana(50);
             if (!MV_ValeService.insertarLoteVale(loteVale))
             {
-                MessageBox.Show("No se pudo agregar el nuevo lote de vales");
+                MessageBox.Show("No se pudo agregar el nuevo lote de vales", "Error");
             }
             else
             {
-                MessageBox.Show("El lote de vales fue agregado con éxito");
+                MessageBox.Show("El lote de vales fue agregado con éxito", "Mensaje de confirmación");
             }
+            this.listaLoteVale = MV_ValeService.buscarLotesVale(searchCodLote, searchNroDocCliente, searchFechaInicio, searchFechaFin);
+            NotifyPropertyChanged("listaLoteVale");
             this.selectedTab = 0;
                 break;
                 case MessageBoxResult.Cancel:
@@ -260,7 +302,7 @@ namespace pe.edu.pucp.ferretin.viewmodel.MVentas
 
         public void generarVales(object id)
         {
-            if (loteVale.cantidad != null && loteVale.cantidad > 0 && loteVale.monto != null && loteVale.monto > 0)
+            if (loteVale.cantidad != null && loteVale.cantidad > 0 && loteVale.monto != null && loteVale.monto > 0 && loteVale.Cliente != null && loteVale.moneda != null)
             {
                 string messageBoxText = "¿Desea generar " + loteVale.cantidad + " vales?";
                 string caption = "Mensaje de confirmación";
@@ -272,7 +314,7 @@ namespace pe.edu.pucp.ferretin.viewmodel.MVentas
                         loteVale.Vale = new System.Data.Linq.EntitySet<Vale>();
                         for (int i = 1; i <= (int)loteVale.cantidad; i++)
                         {
-                            Vale vale = MV_ValeService.generarVale((int)loteVale.cantidad, i);
+                            Vale vale = MV_ValeService.generarVale((int)loteVale.cantidad, i, loteVale.codigo);
 
                             loteVale.Vale.Add(vale);
                             NotifyPropertyChanged("loteVale");
@@ -285,7 +327,7 @@ namespace pe.edu.pucp.ferretin.viewmodel.MVentas
             }
             else
             {
-                string messageBoxText = "Debe ingresar una cantidad válida de vales";
+                string messageBoxText = "Ingrese los campos obligatorios";
                 string caption = "Error";
                 MessageBoxButton button = MessageBoxButton.OK;
                 MessageBox.Show(messageBoxText, caption, button);
@@ -298,8 +340,10 @@ namespace pe.edu.pucp.ferretin.viewmodel.MVentas
             this.loteVale = MV_ValeService.obtenerLoteValebyId((int)id);
             this.selectedTab = 1;
             detallarVale = System.Windows.Visibility.Hidden;
+            this.codLote = loteVale.codigo;
             this.detallesTabHeader = "Detalle";
             this.listaVales = MV_ValeService.obtenerValesValebyIdLote((int)id);
+            
             this.noSoloDetallarLoteVale = false;
            
         }
@@ -308,10 +352,15 @@ namespace pe.edu.pucp.ferretin.viewmodel.MVentas
         {
             this.loteVale = new LoteVale();
             this.selectedTab = 1;
+            this.searchCodLote = "";
+            this.searchNroDocCliente = null;
+            this.nombreCliente = "";
             detallarVale = System.Windows.Visibility.Visible;
             this.noSoloDetallarLoteVale = true;
             this.listaVales = null;
             this.loteVale = MV_ValeService.obtenerNuevoLote();
+            this.codLote = "";
+            this.valesGenerados = false;
             this.detallesTabHeader = "Generar";
 
         }

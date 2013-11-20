@@ -86,7 +86,36 @@ namespace pe.edu.pucp.ferretin.viewmodel.MCompras
 
             }
         }
-        
+
+        //cancelarOCSCommand
+        RelayCommand _cancelarOCSCommand;
+        public ICommand cancelarOCSCommand
+        {
+            get
+            {
+                if (_cancelarOCSCommand == null)
+                {
+                    _cancelarOCSCommand = new RelayCommand(cancelSolAbas);
+                }
+                return _cancelarOCSCommand;
+            }
+        }
+
+        public void cancelSolAbas(Object obj)
+        {
+            MessageBoxResult result = MessageBox.Show("Al salir, perderá todos los datos ingresados. ¿Desea continuar?",
+       "ATENCIÓN", MessageBoxButton.OKCancel, MessageBoxImage.Warning, MessageBoxResult.Cancel);
+            if (result == MessageBoxResult.OK)
+            {
+               // this.statusTab = Tab.BUSQUEDA;
+                //listaGuiasRemision = MC_GuiaRemisionService.listaGuiasRemision;
+                var ventana = Application.Current.Windows.OfType<Window>().Where(w => w.Name == "solAbs").SingleOrDefault<Window>();
+
+                ventana.Close();
+
+            }
+        }
+
         public void generarOCS(Object id)
         {
 

@@ -246,8 +246,12 @@ namespace pe.edu.pucp.ferretin.view.MSeguridad
         #region Boton Cancelar
         private void Button_Click_1(object sender, RoutedEventArgs e)
         {
-            if (MessageBox.Show("¿Está seguro que desea cerrar esta ventana?", "Confirmación",
-                                MessageBoxButton.YesNo) == MessageBoxResult.Yes) this.Close();
+             MessageBoxResult result =MessageBox.Show("Al salir, perderá todos los datos ingresados. ¿Desea continuar?",
+            "ATENCIÓN", MessageBoxButton.OKCancel, MessageBoxImage.Warning, MessageBoxResult.Cancel);
+             if (result == MessageBoxResult.OK)
+             {
+                 this.Close();
+             }
             
         }
         #endregion

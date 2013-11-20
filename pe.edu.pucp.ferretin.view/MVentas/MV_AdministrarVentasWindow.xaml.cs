@@ -56,10 +56,12 @@ namespace pe.edu.pucp.ferretin.view.MVentas
                     else
                     {
                         padre_DataContext.devolucion.fecEmision = DateTime.Today;
+                        padre_DataContext.devolucion.DevolucionProducto = new System.Data.Linq.EntitySet<DevolucionProducto>();
                         padre_DataContext.devolucion.codigo = MV_DevolucionService.obtenerCodDevolucion();
                         padre_DataContext.loadNroDocumento = my_DataContext.venta.nroDocumento;
                         padre_DataContext.devolucion.Venta = my_DataContext.venta;
                         padre_DataContext.listaProductosComprados = MV_VentaService.obtenerProductosbyIdVenta(my_DataContext.venta.id);
+                        padre_DataContext.NotifyPropertyChanged("devolucion");
                     }
 
                     this.Close();

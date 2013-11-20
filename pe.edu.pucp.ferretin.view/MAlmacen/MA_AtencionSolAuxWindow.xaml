@@ -1,0 +1,25 @@
+﻿<Window x:Class="pe.edu.pucp.ferretin.view.MAlmacen.MA_AtencionSolAuxWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:viewmodel="clr-namespace:pe.edu.pucp.ferretin.viewmodel.MAlmacen;assembly=pe.edu.pucp.ferretin.viewmodel" 
+        Title="Atención de Solicitud" Height="400" Width="550" Icon="/pe.edu.pucp.ferretin.view;component/Resources/ferretin_ico.ico" ResizeMode="CanMinimize"  WindowStartupLocation="CenterScreen">
+    <Window.Resources>
+        <viewmodel:MA_AtencionSolAuxViewModel x:Key="MA_AtencionSolAuxViewModel"/>
+    </Window.Resources>
+    <Grid x:Name="main" DataContext="{Binding Source={StaticResource MA_AtencionSolAuxViewModel}}">
+        <DataGrid BorderBrush="Transparent" IsManipulationEnabled="False" AutoGenerateColumns="False" CanUserAddRows="False" Background="Transparent"  Margin="10,10,10,64" ItemsSource="{Binding Path=listadoProductos}">
+            <DataGrid.Columns>
+                <DataGridTextColumn Width="1*" Binding="{Binding Path=producto.Producto.codigo}" ClipboardContentBinding="{x:Null}" Header="Cód. Producto" IsReadOnly="True"/>
+                <DataGridTextColumn Width="2*"  Binding="{Binding Path=producto.Producto.nombre}" ClipboardContentBinding="{x:Null}" Header="Nombre" IsReadOnly="True"/>
+                <DataGridTextColumn Width="1*" Binding="{Binding Path=producto.cantidadRestante}" ClipboardContentBinding="{x:Null}" Header="Pendiente" IsReadOnly="True"/>
+                <DataGridTextColumn Width="1*" Binding="{Binding Path=cantidad}" ClipboardContentBinding="{x:Null}" Header="Cantidad"/>
+                <DataGridTextColumn Width="1*" Binding="{Binding Path=stockActual}" ClipboardContentBinding="{x:Null}" Header="Stock" IsReadOnly="True"/>
+
+            </DataGrid.Columns>
+        </DataGrid>
+        <Button x:Name="cancelarBtn" Content="CANCELAR" HorizontalAlignment="Left" Margin="350,329,0,0" VerticalAlignment="Top" Width="75" Height="30" IsCancel="True" />
+        <Button x:Name="aceptarBtn" Content="ACEPTAR" HorizontalAlignment="Left" Margin="134,329,0,0" VerticalAlignment="Top" Width="75" Height="30" Click="aceptarBtn_Click" />
+
+
+    </Grid>
+</Window>

@@ -16,12 +16,13 @@ namespace pe.edu.pucp.ferretin.viewmodel.MVentas
 {
     public class MV_PagoWindowViewModel : ViewModelBase
     {
-
+        private IEnumerable<MedioPago> _mediosPago=null;
         public IEnumerable<MedioPago> mediosPago
         {
             get
             {
-                return MV_ComunService.db.MedioPago;
+                if(_mediosPago==null)_mediosPago=MV_VentaService.dbVenta.MedioPago;
+                return _mediosPago;
             }
         }
 
@@ -152,44 +153,53 @@ namespace pe.edu.pucp.ferretin.viewmodel.MVentas
             string result = String.Empty;
             try
             {
-                try
-                {
-                    venta.nroDocumento = MV_VentaService.generarNroDoc((venta.Cliente==null?false:(venta.Cliente.tipo==2)));
-                    venta.tipoDocumento = ((venta.Cliente == null ? 0 : (venta.Cliente.tipo == 2?1:0)));
-                    if (venta.Cliente != null)
-                    {
-                        venta.Cliente.puntosActual -= venta.Cliente.puntosActual == null ? 0 : venta.Cliente.puntosActual - venta.puntosCanjeados;
-                        venta.Cliente.puntosUsados += venta.Cliente.puntosUsados == null ? venta.puntosCanjeados : venta.Cliente.puntosUsados + venta.puntosCanjeados;
-                        venta.Cliente.puntosActual += venta.Cliente.puntosActual == null ? venta.puntosGanados : venta.Cliente.puntosActual + venta.puntosGanados;
-                        venta.Cliente.puntosGanados += venta.Cliente.puntosGanados == null ? venta.puntosGanados : venta.Cliente.puntosGanados + venta.puntosGanados;
-                        venta.Cliente.ultimaCompra = venta.fecha;
-                        venta.Cliente.totalCompras = venta.Cliente.totalCompras == null ? 1 : venta.Cliente.totalCompras + 1;
-                    }
-                    foreach (var vmp in venta.VentaMedioPago)
-                    {
-                        if (vmp.Vale != null)
-                        {
-                            vmp.Vale.estado = 1;
-                        }
-                        if (vmp.NotaCredito != null)
-                        {
-                            vmp.NotaCredito.estado = 1;
-                        }
-                    }
-                    foreach (var vp in venta.VentaProducto)
-                    {
-                        if (vp.PromocionActual != null)
-                        {
-                            vp.PromocionActual.stockActual--;
-                        }
-                    }
-                }
-                catch { }
+                
                 ComunService.idVentana(42);
                 result = MA_SharedService.registrarVenta(venta.Usuario.Empleado.tiendaActual, venta.VentaProducto);
                 if (result.Length <= 0)//si resulto bien
                 {
-                    
+                    venta.fecha = DateTime.Now;
+                    try
+                    {
+                        venta.nroDocumento = MV_VentaService.generarNroDoc((venta.Cliente == null ? false : (venta.Cliente.tipo == 2)));
+                        venta.tipoDocumento = ((venta.Cliente == null ? 0 : (venta.Cliente.tipo == 2 ? 1 : 0)));
+                        if (venta.Cliente != null)
+                        {
+                            venta.Cliente.puntosActual -= venta.Cliente.puntosActual == null ? 0 : venta.Cliente.puntosActual - venta.puntosCanjeados;
+                            venta.Cliente.puntosUsados += venta.Cliente.puntosUsados == null ? venta.puntosCanjeados : venta.Cliente.puntosUsados + venta.puntosCanjeados;
+                            venta.Cliente.puntosActual += venta.Cliente.puntosActual == null ? venta.puntosGanados : venta.Cliente.puntosActual + venta.puntosGanados;
+                            venta.Cliente.puntosGanados += venta.Cliente.puntosGanados == null ? venta.puntosGanados : venta.Cliente.puntosGanados + venta.puntosGanados;
+                            venta.Cliente.ultimaCompra = venta.fecha;
+                            venta.Cliente.totalCompras = venta.Cliente.totalCompras == null ? 1 : venta.Cliente.totalCompras + 1;
+                        }
+                        foreach (var vmp in venta.VentaMedioPago)
+                        {
+                            if (vmp.Vale != null)
+                            {
+                                vmp.Vale.estado = 1;
+                            }
+                            if (vmp.NotaCredito != null)
+                            {
+                                vmp.NotaCredito.estado = 1;
+                            }
+                        }
+                        foreach (var vp in venta.VentaProducto)
+                        {
+                            if (vp.PromocionActual != null)
+                            {
+                                vp.PromocionActual.stockActual--;
+                            }
+                        }
+                        //Ya que almacen esta utilizando db
+                        MV_VentaService.db.SubmitChanges();
+                    }
+                    catch (Exception ex) {
+                        MessageBox.Show("Error en ventas:" + ex.Message);
+                    }
+                    finally
+                    {
+                        
+                    }
                 }
             }
             catch (Exception e)

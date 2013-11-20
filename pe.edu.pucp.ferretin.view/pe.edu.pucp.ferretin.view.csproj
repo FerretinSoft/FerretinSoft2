@@ -89,6 +89,21 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="MAlmacen\MA_AtencionSolAuxWindow.xaml.cs">
+      <DependentUpon>MA_AtencionSolAuxWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="MSeguridad\MS_ReportesWindow.xaml.cs">
+      <DependentUpon>MS_ReportesWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="MSeguridad\MS_ReporteTrasaccionesParametrosWindow.xaml.cs">
+      <DependentUpon>MS_ReporteTrasaccionesParametrosWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="MVentas\ReporteDeDevoluciones.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ReporteDeDevoluciones.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="ReportesWindow.xaml.cs">
       <DependentUpon>ReportesWindow.xaml</DependentUpon>
     </Compile>
@@ -105,6 +120,10 @@
       <SubType>Code</SubType>
     </Compile>
     <Page Include="MAlmacen\MA_AtencionSolAbastecimientoWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="MAlmacen\MA_AtencionSolAuxWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -208,10 +227,6 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="MSeguridad\MS_AdministrarArbolPerfiles.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="MSeguridad\MS_AdministrarPerfiles.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -244,7 +259,15 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="MSeguridad\MS_ReporteWindow.xaml">
+    <Page Include="MSeguridad\MS_ReportesWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="MSeguridad\MS_ReporteTrasaccionesParametrosWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="MSeguridad\MS_VisorDeReporte.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -400,9 +423,6 @@
     <Compile Include="MRecursosHumanos\MR_MainWindow.xaml.cs">
       <DependentUpon>MR_MainWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="MSeguridad\MS_AdministrarArbolPerfiles.xaml.cs">
-      <DependentUpon>MS_AdministrarArbolPerfiles.xaml</DependentUpon>
-    </Compile>
     <Compile Include="MSeguridad\MS_AdministrarPerfiles.xaml.cs">
       <DependentUpon>MS_AdministrarPerfiles.xaml</DependentUpon>
     </Compile>
@@ -427,8 +447,8 @@
     <Compile Include="MSeguridad\MS_ParametrosWindow.xaml.cs">
       <DependentUpon>MS_ParametrosWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="MSeguridad\MS_ReporteWindow.xaml.cs">
-      <DependentUpon>MS_ReporteWindow.xaml</DependentUpon>
+    <Compile Include="MSeguridad\MS_VisorDeReporte.xaml.cs">
+      <DependentUpon>MS_VisorDeReporte.xaml</DependentUpon>
     </Compile>
     <Compile Include="MSeguridad\ReporteDeTransacciones.cs">
       <AutoGen>True</AutoGen>
@@ -503,6 +523,10 @@
     <EmbeddedResource Include="MSeguridad\ReporteDeTransacciones.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
       <LastGenOutput>ReporteDeTransacciones.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MVentas\ReporteDeDevoluciones.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>ReporteDeDevoluciones.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

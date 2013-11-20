@@ -139,7 +139,7 @@
                         </Grid.RowDefinitions>
 
                         <Button Command="{Binding uploadImageCommand}" Width="100" Margin="5" Grid.RowSpan="3" Grid.Row="1" HorizontalAlignment="Left" Height="100" VerticalAlignment="Top">
-                            <Image Source="{Binding clienteImagen, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" Stretch="Fill"/>
+                            <Image Source="{Binding cliente.imagenMostrar, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" Stretch="Fill"/>
                         </Button>
                         <Label Content="Núm. Doc:" VerticalContentAlignment="Center" Grid.Column="1" Grid.Row="2"/>
                         <Label Content="Tipo Doc:" Grid.Column="1" Grid.Row="1" VerticalContentAlignment="Center"/>
@@ -179,8 +179,8 @@
                             <ListBoxItem Content="Persona Jurídica"/>
                         </ComboBox>
                         <TextBox Text="{Binding cliente.nombre, Mode=TwoWay, NotifyOnValidationError=True, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True, ValidatesOnExceptions=True}" VerticalAlignment="Center" Grid.Column="1" Grid.Row="4" Grid.ColumnSpan="3" Height="22"/>
-                        <TextBox Text="{Binding cliente.apPaterno, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" IsEnabled="{Binding cliente.isBoleta, NotifyOnValidationError=True, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True, ValidatesOnExceptions=True}" VerticalAlignment="Center" Grid.Column="1" Grid.Row="5" Grid.ColumnSpan="3" Height="22"/>
-                        <TextBox Text="{Binding cliente.apMaterno, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" IsEnabled="{Binding cliente.isBoleta, NotifyOnValidationError=True, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True, ValidatesOnExceptions=True}" VerticalAlignment="Center" Grid.Column="1" Grid.Row="6" Grid.ColumnSpan="3" Height="22"/>
+                        <TextBox Text="{Binding cliente.apPaterno, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True, ValidatesOnExceptions=True}" IsEnabled="{Binding cliente.isBoleta, NotifyOnValidationError=True, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True, ValidatesOnExceptions=True}" VerticalAlignment="Center" Grid.Column="1" Grid.Row="5" Grid.ColumnSpan="3" Height="22"/>
+                        <TextBox Text="{Binding cliente.apMaterno, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True, ValidatesOnExceptions=True}" IsEnabled="{Binding cliente.isBoleta, NotifyOnValidationError=True, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True, ValidatesOnExceptions=True}" VerticalAlignment="Center" Grid.Column="1" Grid.Row="6" Grid.ColumnSpan="3" Height="22"/>
 
                         <TextBox Text="{Binding cliente.direccion, Mode=TwoWay}" VerticalAlignment="Center" Grid.Column="1" Grid.Row="7" Grid.ColumnSpan="3" Height="22" Margin="0,3,0,4"/>
 
@@ -189,10 +189,10 @@
                         <ComboBox ItemsSource="{Binding distritos}" DisplayMemberPath="nombre" SelectedItem="{Binding cliente.UbigeoDistrito, NotifyOnValidationError=True, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True, ValidatesOnExceptions=True}" VerticalAlignment="Center" Grid.Column="3" Grid.Row="9" Grid.ColumnSpan="1" Height="22"/>
                         <TextBox Text="{Binding cliente.telefono1, Mode=TwoWay, NotifyOnValidationError=True, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True, ValidatesOnExceptions=True}" VerticalAlignment="Center" Grid.Column="1" Grid.Row="10" Grid.ColumnSpan="1" Height="22" Margin="0,2,0,4"/>
                         <TextBox Text="{Binding cliente.telefono2, Mode=TwoWay}" VerticalAlignment="Center" Grid.Column="3" Grid.Row="10" Grid.ColumnSpan="1" Height="22" Margin="0,2,0,4"/>
-                        <TextBox Text="{Binding cliente.email, Mode=TwoWay}" VerticalAlignment="Center" Grid.Column="1" Grid.Row="11" Grid.ColumnSpan="3" Height="22" Margin="0,4,0,2"/>
+                        <TextBox Text="{Binding cliente.email, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True, ValidatesOnExceptions=True}" VerticalAlignment="Center" Grid.Column="1" Grid.Row="11" Grid.ColumnSpan="3" Height="22" Margin="0,4,0,2"/>
                         <DatePicker SelectedDate="{Binding cliente.fecNacimiento, Mode=TwoWay}" IsEnabled="{Binding cliente.isBoleta}" VerticalAlignment="Center" Grid.Column="1" Grid.Row="12" Grid.ColumnSpan="2" BorderThickness="0" Margin="0,4,0,3" Height="22"/>
 
-                        <TextBox Text="{Binding cliente.Empleado.nombreCompleto}"  VerticalAlignment="Center" Grid.Column="5" Grid.Row="1" IsEnabled="False" Height="22" Margin="0,10,28,9"/>
+                        <TextBox Text="{Binding Path=usuarioLogueado.Empleado.nombreCompleto,Mode=OneWay}"  VerticalAlignment="Center" Grid.Column="5" Grid.Row="1" IsEnabled="False" Height="22" Margin="0,10,28,9"/>
                         <DatePicker SelectedDate="{Binding cliente.fecAfiliacion}" IsEnabled="False" VerticalAlignment="Center" Grid.Column="5" Grid.Row="2" BorderThickness="0" Height="22"/>
                         <TextBox Text="{Binding cliente.puntosGanados, Mode=OneWay}" VerticalAlignment="Center" Grid.Column="5" Grid.Row="4" IsEnabled="False" Margin="0,4,28,5" Height="22"/>
                         <TextBox Text="{Binding cliente.contacto, Mode=TwoWay}" VerticalAlignment="Center" Grid.Column="5" Grid.Row="3" IsEnabled="true" Margin="0,4,28,5" Height="22"/>
@@ -206,7 +206,7 @@
                         <StackPanel Grid.Column="4" Grid.Row="12" Orientation="Horizontal" HorizontalAlignment="Right"/>
                     </Grid>
                     <StackPanel Orientation="Horizontal" Margin="5" Grid.Row="1" HorizontalAlignment="Center">
-                        <TextBlock Grid.Column="1" Grid.Row="3" Text="{Binding AdornedElement.(Validation.Errors)[0].ErrorContent, ElementName=errorAdorner}" TextWrapping="Wrap" Foreground="Red"  />
+                        <TextBlock Grid.Column="1" Grid.Row="3" Text="{Binding cliente.mensajeError,UpdateSourceTrigger=PropertyChanged,Mode=OneWay}" TextWrapping="Wrap" Foreground="Red"  />
                     </StackPanel>
                     <StackPanel Orientation="Horizontal" Margin="5" Grid.Row="2" HorizontalAlignment="Center">
                         <Button Command="{Binding saveClienteCommand}" Height="30" Content="{Binding nombreBotonGuardar, Mode=OneWay}" Padding="5,0" Margin="5,0" Click="Button_Click" />

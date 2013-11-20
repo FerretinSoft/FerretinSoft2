@@ -1,5 +1,6 @@
 ﻿<Window x:Class="pe.edu.pucp.ferretin.view.MCompras.MC_AtenderSolicitudWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        Name="solAbs"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
 		  xmlns:viewmodel="clr-namespace:pe.edu.pucp.ferretin.viewmodel.MCompras;assembly=pe.edu.pucp.ferretin.viewmodel"
         xmlns:helper="clr-namespace:pe.edu.pucp.ferretin.viewmodel.Helper;assembly=pe.edu.pucp.ferretin.viewmodel"
@@ -53,7 +54,7 @@
                         </DataGrid.Columns>
                     </DataGrid>
                     <Button Command="{Binding generarOCSCommand}" x:Name="consolidarBtn" Content="GENERAR" Margin="255,0,445.717,20.005" VerticalAlignment="Bottom" Height="30" RenderTransformOrigin="0.594,-0.567" Grid.Row="1" Click="consolidarBtn_Click"/>
-                    <Button x:Name="cancelarBtn" Content="CANCELAR " Margin="494,0,206.717,20.005" VerticalAlignment="Bottom" Height="30" RenderTransformOrigin="0.594,-0.567" Grid.Row="1"/>
+                    <Button Command="{Binding cancelarOCSCommand}" x:Name="cancelarBtn" Content="CANCELAR " Margin="494,0,206.717,20.005" VerticalAlignment="Bottom" Height="30" RenderTransformOrigin="0.594,-0.567" Grid.Row="1"/>
                 </Grid>
             </TabItem>
         </TabControl>

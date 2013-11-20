@@ -34,21 +34,15 @@ namespace pe.edu.pucp.ferretin.view.MAlmacen
             //Click en icono +
             //this.txtCodigo.IsEnabled = true;
             this.cmbTienda.IsEnabled = false;
+            //this.txtStockMin.IsEnabled = false;
             productoTabControl.SelectedIndex = 1;
 
-        }
-
-        private void TextBlock_MouseUp(object sender, MouseButtonEventArgs e)
-        {
-            //Click directo en agregar producto
-            //this.txtCodigo.IsEnabled = true;
-            this.cmbTienda.IsEnabled = false;
         }
 
         private void TabItem_MouseUp(object sender, MouseButtonEventArgs e)
         {
             //Editar producto
-            //this.txtCodigo.IsEnabled = false;
+            this.txtStockMin.IsEnabled = false;
             this.cmbTienda.IsEnabled = true;
         }
 
@@ -145,7 +139,8 @@ namespace pe.edu.pucp.ferretin.view.MAlmacen
             
             if (productoTabControl.SelectedValue.ToString().Contains("Edición de Producto"))
             {
-                MA_ProductoService.actualizarProducto(viewModelThis.listaCategorias,viewModelThis.producto);
+                MA_ProductoService.actualizarProducto
+                    (viewModelThis.listaCategorias,viewModelThis.producto);
                 MessageBox.Show("El producto fue modificado con éxito");
                 productoTabControl.SelectedIndex = 0;
             }
@@ -161,6 +156,45 @@ namespace pe.edu.pucp.ferretin.view.MAlmacen
                 productoTabControl.SelectedIndex = 0;
                 v.Show();
             }
+        }
+
+        private void txtCodigoProd_KeyUp(object sender, KeyEventArgs e)
+        {
+            if (txtCodigoProd.Text == "")
+            {
+                this.categoriaCombo.IsEnabled = true;
+                this.txtNombre.IsEnabled = true;
+            }
+            else
+            {
+                this.categoriaCombo.IsEnabled = false;
+                this.txtNombre.IsEnabled = false;
+            }
+        }
+
+        private void detallesTab_MouseUp(object sender, MouseButtonEventArgs e)
+        {
+            //Click directo en agregar producto
+            //this.txtCodigo.IsEnabled = true;
+            //this.cmbTienda.IsEnabled = false;
+            //if (this.cmbTienda.IsEnabled) this.txtStockMin.IsEnabled = true;
+            if (productoTabControl.SelectedValue.ToString().Contains("Agregar Producto"))
+            {
+                this.cmbTienda.IsEnabled = false;
+                txtStockMin.IsEnabled = false;
+            }
+            else
+            {
+                this.cmbTienda.IsEnabled = true;
+                //txtStockMin.IsEnabled = true;
+            }
+
+        }
+
+        private void cmbTienda_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (cmbTienda.SelectedIndex!=-1)
+            this.txtStockMin.IsEnabled = true;
         }
     }
 }

@@ -52,6 +52,7 @@
     <Compile Include="Helper\DatetimeToDateConverter.cs" />
     <Compile Include="Helper\RelayCommand.cs" />
     <Compile Include="Helper\TreeViewHelper.cs" />
+    <Compile Include="MAlmacen\MA_AtencionSolAuxViewModel.cs" />
     <Compile Include="MAlmacen\MA_DocumentoMovimientoViewModel.cs" />
     <Compile Include="MAlmacen\MA_InventarioProductosViewModel.cs" />
     <Compile Include="MAlmacen\MA_MantenimientoCategoriasViewModel.cs" />
@@ -70,7 +71,6 @@
     <Compile Include="MCompras\MC_GuiaRemisionViewModel.cs" />
     <Compile Include="MCompras\MC_ProveedoresViewModel.cs" />
     <Compile Include="MRecursosHumanos\MR_AdministrarPersonalViewModel.cs" />
-    <Compile Include="MSeguridad\MS_AdministrarArbolPerfilesViewModel.cs" />
     <Compile Include="MSeguridad\MS_AdministrarPerfilesViewModel.cs" />
     <Compile Include="MSeguridad\MS_AdministrarTiendasViewModel.cs" />
     <Compile Include="MSeguridad\MS_AdministrarUsuariosViewModel.cs" />
