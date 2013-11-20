@@ -363,6 +363,7 @@ namespace pe.edu.pucp.ferretin.viewmodel.MVentas
             if (buscado == null)
             {
                 nombreVendedor = "";
+                searchVendedor = "";
                 MessageBox.Show("No se encontro ningún vendedor con el número de documento proporcionado", "Error", MessageBoxButton.OK, MessageBoxImage.Question);
             }
            
@@ -448,6 +449,12 @@ namespace pe.edu.pucp.ferretin.viewmodel.MVentas
             switch (result)
             {
                 case MessageBoxResult.OK:
+                        this.searchNroDevolucion = "";
+                        this.searchnombreCliente = "";
+                        this.searchNroDocCliente = null;
+                        this.searchNroDocumento = null;
+                        this.searchVendedor = "";
+                        this.nombreVendedor = "";
                         selectedTab = 0;
                         this.listaDevoluciones = MV_DevolucionService.listaDevoluciones;
                     break;
@@ -564,8 +571,14 @@ namespace pe.edu.pucp.ferretin.viewmodel.MVentas
         {
             try
             {
+                this.searchNroDevolucion = "";
+                this.searchnombreCliente = "";
+                this.searchNroDocCliente = null;
+                this.searchNroDocumento = null;
+                this.searchVendedor = "";
+                this.nombreVendedor = "";
                 this.devolucion = new Devolucion();
-                this.devolucion = listaDevoluciones.Single(devolucion => devolucion.id == (long)id);
+                this.devolucion = MV_DevolucionService.obtenerDevolucionbyId((long)id);
                 this.listaProductos = MV_DevolucionService.obtenerProductosbyIdDevolucion((long)id);
                 this.notaCredito = MV_DevolucionService.obtenerNotaCredbyIdDevolucion((long)id);
                 selectedTab = 1;

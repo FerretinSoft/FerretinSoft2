@@ -208,6 +208,7 @@ namespace pe.edu.pucp.ferretin.viewmodel.MVentas
             try
             {
                 this.productoPrecio = new ProductoPrecio();
+                this.searchProducto = "";
                 Producto prodSelected = MA_ProductoService.obtenerProductoxCodigo(Convert.ToString(id));
                 this.historialPrecios = MV_ProductoPrecioService.obtenerHistorialbyProd(prodSelected);
                 NotifyPropertyChanged("historialPrecios");
@@ -233,6 +234,7 @@ namespace pe.edu.pucp.ferretin.viewmodel.MVentas
             switch (result)
             {
                 case MessageBoxResult.OK:
+                    this.searchProducto = "";
                     selectedTab = 0;
                     this.listaProducto = MV_ProductoPrecioService.listaproductos;
                     break;
