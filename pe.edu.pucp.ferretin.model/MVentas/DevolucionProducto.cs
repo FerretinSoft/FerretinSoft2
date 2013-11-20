@@ -8,9 +8,15 @@ namespace pe.edu.pucp.ferretin.model
 {
     public partial class DevolucionProducto
     {
+   
         partial void OncantidadChanged()
         {
-            monto = cantidad * precioUnitario;
+            if (moneda != null)
+            {
+                decimal? productoPrecioLista = precioUnitario * (moneda == 0? 1 : (Devolucion.Venta.tipoCambio != null && Devolucion.Venta.tipoCambio <= 0) ? 1 : Devolucion.Venta.tipoCambio);
+                decimal?  montoParcial = cantidad * productoPrecioLista;
+                monto = Decimal.Round(montoParcial.Value, 2);
+            }
             if (Devolucion != null){
                 Devolucion.subTotal = (from dp in Devolucion.DevolucionProducto select dp.monto).Sum();
             }
@@ -26,7 +32,7 @@ namespace pe.edu.pucp.ferretin.model
 
         partial void OnmotivoChanged()
         {
-            Console.WriteLine("puto");
+            
         }
     }
 }

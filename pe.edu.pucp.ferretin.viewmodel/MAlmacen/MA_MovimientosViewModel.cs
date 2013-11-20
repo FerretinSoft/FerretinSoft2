@@ -236,7 +236,7 @@ namespace pe.edu.pucp.ferretin.viewmodel.MAlmacen
         public MovimientoEstado _searchEstado;
         public MovimientoEstado searchEstado { get { return _searchEstado; } set { _searchEstado = value; NotifyPropertyChanged("searchEstado"); } }
         
-        public DateTime _searchFechaDesde = DateTime.Today.AddDays(-30);
+        public DateTime _searchFechaDesde = DateTime.Today.AddDays(-DateTime.Today.Day + 1);
         public DateTime searchFechaDesde { get { return _searchFechaDesde; } set { _searchFechaDesde= value; NotifyPropertyChanged("searchFechaDesde"); } }
 
         public DateTime _searchFechaHasta = DateTime.Today;

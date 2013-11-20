@@ -377,6 +377,7 @@ namespace pe.edu.pucp.ferretin.viewmodel.MVentas
                 this.listaProductosComprados = MV_VentaService.obtenerProductosSinPuntosbyIdVenta(buscado.id);
                 this.devolucion.Venta = buscado;
                 this.devolucion.fecEmision = DateTime.Now;
+                this.devolucion.DevolucionProducto = new System.Data.Linq.EntitySet<DevolucionProducto>();
                 devolucion.codigo = MV_DevolucionService.obtenerCodDevolucion();
                 devolucion.id_empleado = usuarioLogueado.Empleado.id;
                 NotifyPropertyChanged("devolucion");
@@ -545,6 +546,8 @@ namespace pe.edu.pucp.ferretin.viewmodel.MVentas
                             }
                             this.devolucionRegistrada = true;
                             this.noDevolucionRegistrada = false;
+                            listaDevoluciones = MV_DevolucionService.buscarDevoluciones(searchNroDevolucion, searchNroDocumento, searchNroDocCliente, searchFechaInicio, searchFechaFin, searchVendedor);
+                            NotifyPropertyChanged("listaDevoluciones");
                             break;
                         case MessageBoxResult.Cancel:
                             break;
