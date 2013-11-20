@@ -333,8 +333,7 @@ namespace pe.edu.pucp.ferretin.viewmodel.MCompras
 
         public void cargarOC(Object id)
         {
-            DocumentoCompra buscado = null;
-            int i;
+            DocumentoCompra buscado = null;          
             try
             {
                 buscado = MC_DocumentoCompraService.obtenerDCByCodigo(this._ordenCompraCod);
@@ -345,6 +344,7 @@ namespace pe.edu.pucp.ferretin.viewmodel.MCompras
                 }
                 else
                 {
+                    int i;
                     documentoCompra = buscado;
                     this.guiaRemision.DocumentoCompra = documentoCompra;
 
