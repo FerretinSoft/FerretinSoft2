@@ -2,7 +2,7 @@
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:viewmode="clr-namespace:pe.edu.pucp.ferretin.viewmodel.MRecursosHumanos;assembly=pe.edu.pucp.ferretin.viewmodel"
-        Title="Administración de Personal"  WindowStartupLocation="CenterScreen" Height="516.362" Width="710" Icon="/Resources/ferretin_ico.ico" ResizeMode="CanMinimize">
+        Title="Administración de Personal"  WindowStartupLocation="CenterScreen" Height="516.362" Width="710" Icon="/Resources/ferretin_ico.ico" ResizeMode="CanMinimize" Closing="Window_Closing">
     <Window.Resources>
         <viewmode:MR_AdministrarPersonalViewModel x:Key="MR_AdministrarPersonalViewModel" />
         <ControlTemplate x:Key="validationTemplate">
@@ -56,8 +56,8 @@
                                         <TextBlock>
                                         <Hyperlink 
                                             Command="{Binding Path=DataContext.viewEditEmpleadoCommand, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type DataGrid}}}" 
-                                            CommandParameter="{Binding codEmpleado}">
-                                            <TextBlock Text="{Binding codEmpleado}" />
+                                            CommandParameter="{Binding Path=codEmpleado}">
+                                            <TextBlock Text="{Binding Path=codEmpleado}" />
                                         </Hyperlink>
                                         </TextBlock>
                                     </DataTemplate>
