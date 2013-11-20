@@ -117,6 +117,15 @@ namespace pe.edu.pucp.ferretin.view.MVentas
         }
 
         public bool? clienteSearch { get; set; }
+
+        private void Window_Closing(object sender, CancelEventArgs e)
+        {
+            MV_ClientesViewModel my_DataContext = this.DataContext as MV_ClientesViewModel;
+            if (!my_DataContext.soloSeleccionarCliente)
+            {
+                MV_ComunService.Clean();
+            }
+        }
     }
 
 }

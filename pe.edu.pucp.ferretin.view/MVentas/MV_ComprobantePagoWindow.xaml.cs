@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Data.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -18,16 +19,16 @@ namespace pe.edu.pucp.ferretin.view.MVentas
     /// <summary>
     /// Lógica de interacción para prueba.xaml
     /// </summary>
-    public partial class prueba : Window
+    public partial class MV_ComprobantePagoWindow : Window
     {
         private viewmodel.MVentas.MV_PagoWindowViewModel pagoViewModel;
 
-        public prueba()
+        public MV_ComprobantePagoWindow()
         {
             InitializeComponent();
         }
 
-        public prueba(viewmodel.MVentas.MV_PagoWindowViewModel pagoViewModel)
+        public MV_ComprobantePagoWindow(viewmodel.MVentas.MV_PagoWindowViewModel pagoViewModel)
         {
             InitializeComponent();
 
@@ -35,7 +36,7 @@ namespace pe.edu.pucp.ferretin.view.MVentas
 
             var myDC = this.main.DataContext as pruebaViewModel;
             myDC.venta = pagoViewModel.venta;
-
+            var n = pagoViewModel.venta.id;
             this.Show();
         }
 
@@ -45,7 +46,7 @@ namespace pe.edu.pucp.ferretin.view.MVentas
             if (printDialog.ShowDialog() == true)
             {
                 printDialog.PrintVisual(printZone, "Boleta de venta");
-                this.Close();
+                this.parent();
             }
         }
     }
