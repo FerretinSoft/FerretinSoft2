@@ -31,8 +31,9 @@ namespace pe.edu.pucp.ferretin.viewmodel.MVentas
                 igvPorcentaje = (decimal)MS_SharedService.obtenerIGV(),
                 tipoCambio = (decimal)MS_SharedService.obtenerTipodeCambio(),
                 tipoMoneda = 0,//Soles
-                //Si agrego la siguiente linea ya lo estoy relacionando a la BD mejor lo hago al ultimo
-                estado = 0
+                estado = 0,
+                Usuario = MS_SharedService.usuarioL,
+                Tienda = MS_SharedService.usuarioL.Empleado.tiendaActual
             };
 
             venta.VentaProducto.ListChanged += actualizarMontosVenta;
@@ -164,36 +165,63 @@ namespace pe.edu.pucp.ferretin.viewmodel.MVentas
                 Producto producto = null;
                 try{
                     producto = MA_SharedService.obtenerProductoxCodigo(codProdAgregar);
+                    
                 }catch{}
 
-                if(producto !=null){
+                if (producto != null)
+                {
+                    var stockDisponible = (int)producto.ProductoAlmacen.First(pa => pa.Tienda.Equals(venta.Tienda)).stock;
+
                     if (venta.VentaProducto.Count(vp => vp.Producto.id == producto.id) == 1)
                     {
-                        venta.VentaProducto.Single(vp => vp.Producto.id == producto.id).cantidad++;
+                        var prod = venta.VentaProducto.Single(vp => vp.Producto.id == producto.id);
+                        if (prod.cantidad + 1 > prod.stockDisponible)
+                        {
+                            MessageBox.Show("No se tiene más stock de este producto", "Mensaje", MessageBoxButton.OK, MessageBoxImage.Exclamation);
+                        }
+                        else
+                        {
+                            prod.cantidad++;
+                        }
                     }
                     else
                     {
-                        if (venta.Usuario == null) venta.Usuario = MS_SharedService.usuarioL;
 
-                        VentaProducto ventaProducto = new VentaProducto();
-                        ventaProducto.PromocionActual = MV_PromocionService.ultimaPromocionPorProducto(producto, venta.Usuario.Empleado.tiendaActual);
-                        ventaProducto.canjeado = false;
-                        ventaProducto.tipoCambio = venta.tipoCambio.Value;
-                        ventaProducto.puntosCanejado = 0;
-                        ventaProducto.puntosGanado = producto.ganarPuntos;
-                        ventaProducto.precioUnitario = producto.precioLista;
-                        ventaProducto.moneda = producto.moneda;
-                        ventaProducto.Venta = venta;
-                        ventaProducto.Producto = producto;
-                        ventaProducto.cantidad = 1;
+                        if (stockDisponible > 0)
+                        {
 
-                        ventaProducto.PropertyChanged += actualizarMontosVenta;
-                        
-                        venta.VentaProducto.Add(ventaProducto);
+                            VentaProducto ventaProducto = new VentaProducto();
+                            ventaProducto.PromocionActual = MV_PromocionService.ultimaPromocionPorProducto(producto, venta.Usuario.Empleado.tiendaActual);
+                            ventaProducto.canjeado = false;
+                            ventaProducto.tipoCambio = venta.tipoCambio.Value;
+                            ventaProducto.puntosCanejado = 0;
+                            ventaProducto.Producto = producto;
+                            ventaProducto.puntosGanado = producto.ganarPuntos;
+                            ventaProducto.precioUnitario = producto.precioLista;
+                            ventaProducto.moneda = producto.moneda;
+                            ventaProducto.precioPuntos = producto.precioPuntos;
+                            ventaProducto.Venta = venta;
+                            
+                            ventaProducto.cantidad = 1;
+                            ventaProducto.stockDisponible = stockDisponible;
 
-                        actualizarMontosVenta(null, null);
+                            ventaProducto.PropertyChanged += actualizarMontosVenta;
+
+                            venta.VentaProducto.Add(ventaProducto);
+
+                            actualizarMontosVenta(null, null);
+                        }
+                        else
+                        {
+                            MessageBox.Show("No hay stock de este producto", "Mensaje", MessageBoxButton.OK, MessageBoxImage.Exclamation);
+                        }
+
                     }
                     NotifyPropertyChanged("venta");
+                }
+                else
+                {
+                    MessageBox.Show("Este producto no existe o no esta disponible para su venta", "Mensaje", MessageBoxButton.OK, MessageBoxImage.Exclamation);
                 }
             }
         }

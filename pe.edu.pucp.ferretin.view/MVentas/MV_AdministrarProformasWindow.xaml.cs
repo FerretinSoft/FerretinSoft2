@@ -1,4 +1,5 @@
-﻿using pe.edu.pucp.ferretin.controller.MSeguridad;
+﻿using pe.edu.pucp.ferretin.controller;
+using pe.edu.pucp.ferretin.controller.MSeguridad;
 using pe.edu.pucp.ferretin.controller.MVentas;
 using pe.edu.pucp.ferretin.model;
 using pe.edu.pucp.ferretin.viewmodel.MVentas;
@@ -175,5 +176,11 @@ namespace pe.edu.pucp.ferretin.view.MVentas
             viewModel.soloSeleccionarCliente = true;
             v.Show();
         }
+
+        private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            ComunService.Clean();
+        }
+
     }
 }
