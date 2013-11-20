@@ -40,7 +40,7 @@
                                     </DataTemplate>
                                 </DataGridTemplateColumn.CellTemplate>
                             </DataGridTemplateColumn>
-                            <DataGridTextColumn Width="1*" Binding="{Binding Path=fecha}" ClipboardContentBinding="{x:Null}" Header="Fecha"/>
+                            <DataGridTextColumn Width="1*" Binding="{Binding Path=fecha, StringFormat=dd/MM/yyyy}" ClipboardContentBinding="{x:Null}" Header="Fecha"/>
                             <DataGridTextColumn Width="1*" Binding="{Binding Path=MovimientoTipo.nombre}" ClipboardContentBinding="{x:Null}" Header="Tipo Mov."/>
                             <DataGridTextColumn Width="2*" Binding="{Binding Path=Tienda.nombre}" ClipboardContentBinding="{x:Null}" Header="Desde"/>
                             <DataGridTextColumn Width="2*" Binding="{Binding Path=Tienda1.nombre}" ClipboardContentBinding="{x:Null}" Header="Hasta"/>

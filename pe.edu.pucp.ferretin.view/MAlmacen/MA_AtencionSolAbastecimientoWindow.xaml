@@ -49,7 +49,7 @@
                                     </DataTemplate>
                                 </DataGridTemplateColumn.CellTemplate>
                             </DataGridTemplateColumn>
-                            <DataGridTextColumn Width="2*" Binding="{Binding Path=fecha}"  Header="Fecha"/>
+                            <DataGridTextColumn Width="2*" Binding="{Binding Path=fecha, StringFormat=dd/MM/yyyy}"  Header="Fecha"/>
                             <DataGridTextColumn Width="3*" Binding="{Binding Path=Tienda.nombre}"  Header="Tienda"/>
                             <DataGridTextColumn Width="2*" Binding="{Binding Path=SolicitudAbastecimientoEstado.nombre}"  Header="Estado"/>
                         </DataGrid.Columns>
