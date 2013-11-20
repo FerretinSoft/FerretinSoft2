@@ -131,6 +131,15 @@ namespace pe.edu.pucp.ferretin.controller.MVentas
                 return false;
             }
         }
+
+        public static Devolucion obtenerDevolucionbyId(long id)
+        {
+             Devolucion devolucion = (from c in listaDevoluciones
+                               where c.id.Equals(id)
+                               select c).Single();
+            
+            return devolucion;
+        }
         
         #endregion
 

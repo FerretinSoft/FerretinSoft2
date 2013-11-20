@@ -21,11 +21,11 @@
         <Label x:Name="fechaHastaLabel" Content="{Binding Path=fechaHasta}" HorizontalAlignment="Left" Margin="384,137,0,0" VerticalAlignment="Top" Width="160"/>
         <Label Content="Hasta:" HorizontalAlignment="Left" Margin="297,138,0,0" VerticalAlignment="Top" Width="87"/>
         <GroupBox Header="Datos Generales" Margin="0,55,0,474"/>
-        <DataGrid ItemsSource="{Binding entradas}" BorderBrush="Transparent" IsReadOnly="True" HorizontalScrollBarVisibility="Hidden" IsManipulationEnabled="False" AutoGenerateColumns="False" CanUserAddRows="False" CanUserDeleteRows="False" CanUserReorderColumns="False" CanUserResizeColumns="False" CanUserResizeRows="False" Background="Transparent" Margin="0,198,5,255" >
+        <DataGrid ItemsSource="{Binding entradas}" BorderBrush="Transparent" IsReadOnly="True" HorizontalScrollBarVisibility="Hidden" IsManipulationEnabled="False" AutoGenerateColumns="False" CanUserAddRows="False" CanUserDeleteRows="False" CanUserReorderColumns="False" CanUserResizeColumns="False" CanUserResizeRows="False" Background="Transparent" Margin="10,198,10,255" Height="182" >
             <DataGrid.Columns>
                 <DataGridTextColumn Width="1*" Binding="{Binding Path=Movimiento.codigo}" ClipboardContentBinding="{x:Null}" Header="Cód. Mov."/>
                 <DataGridTextColumn Width="1.5*" Binding="{Binding Path=Movimiento.MovimientoTipo.nombre}" ClipboardContentBinding="{x:Null}" Header="Tipo"/>
-                <DataGridTextColumn Width="1*"  Binding="{Binding Path=Movimiento.fecha}" ClipboardContentBinding="{x:Null}" Header="Fecha"/>
+                <DataGridTextColumn Width="1*"  Binding="{Binding Path=Movimiento.fecha, StringFormat=dd/MM/yyyy}" ClipboardContentBinding="{x:Null}" Header="Fecha"/>
                 <DataGridTextColumn Width="1*" Binding="{Binding Path=Producto.codigo}" ClipboardContentBinding="{x:Null}" Header="Cód. Prod."/>
                 <DataGridTextColumn Width="2*" Binding="{Binding Path=Producto.nombre}" ClipboardContentBinding="{x:Null}" Header="Nombre"/>
                 <DataGridTextColumn Width="1*" Binding="{Binding Path=cantidad}" ClipboardContentBinding="{x:Null}" Header="Cantidad"/>
@@ -34,11 +34,11 @@
         <Image HorizontalAlignment="Left" Height="47" Margin="357,10,0,0" VerticalAlignment="Top" Width="188" Source="/pe.edu.pucp.ferretin.view;component/Resources/ferretinLogo2.png"/>
         <Label Content="ENTRADAS" HorizontalAlignment="Center" Margin="0,172,0,0" VerticalAlignment="Top" Width="87"/>
         <Label Content="SALIDAS" HorizontalAlignment="Center" Margin="237,388,237,0" VerticalAlignment="Top" Width="87"/>
-        <DataGrid ItemsSource="{Binding Path=salidas}" BorderBrush="Transparent" HorizontalScrollBarVisibility="Hidden" IsManipulationEnabled="False" IsReadOnly="True"  AutoGenerateColumns="False" CanUserAddRows="False" CanUserDeleteRows="False" CanUserReorderColumns="False" CanUserResizeColumns="False" CanUserResizeRows="False" Background="Transparent"  Margin="0,419,5,10">
+        <DataGrid ItemsSource="{Binding Path=salidas}" BorderBrush="Transparent" HorizontalScrollBarVisibility="Hidden" IsManipulationEnabled="False" IsReadOnly="True"  AutoGenerateColumns="False" CanUserAddRows="False" CanUserDeleteRows="False" CanUserReorderColumns="False" CanUserResizeColumns="False" CanUserResizeRows="False" Background="Transparent"  Margin="10,419,10,10">
             <DataGrid.Columns>
                 <DataGridTextColumn Width="1*" Binding="{Binding Path=Movimiento.codigo}" ClipboardContentBinding="{x:Null}" Header="Cód. Mov."/>
                 <DataGridTextColumn Width="1.5*" Binding="{Binding Path=Movimiento.MovimientoTipo.nombre}" ClipboardContentBinding="{x:Null}" Header="Tipo"/>
-                <DataGridTextColumn Width="1*"  Binding="{Binding Path=Movimiento.fecha}" ClipboardContentBinding="{x:Null}" Header="Fecha"/>
+                <DataGridTextColumn Width="1*"  Binding="{Binding Path=Movimiento.fecha, StringFormat=dd/MM/yyyy}" ClipboardContentBinding="{x:Null}" Header="Fecha"/>
                 <DataGridTextColumn Width="1*" Binding="{Binding Path=Producto.codigo}" ClipboardContentBinding="{x:Null}" Header="Cód. Prod."/>
                 <DataGridTextColumn Width="2*" Binding="{Binding Path=Producto.nombre}" ClipboardContentBinding="{x:Null}" Header="Nombre"/>
                 <DataGridTextColumn Width="1*" Binding="{Binding Path=cantidad}" ClipboardContentBinding="{x:Null}" Header="Cantidad"/>

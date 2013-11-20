@@ -47,7 +47,6 @@
             <TextBox x:Name="comentarioText" HorizontalAlignment="Left" Height="49" Margin="96,216,0,0" TextWrapping="Wrap" Text="Muestra TODOS los movimientos del día" VerticalAlignment="Top" Width="375"/>
         </Grid>
         <Grid x:Name="repFinalGrid" Margin="0" Visibility="Collapsed">
-            <Label Content="Reporte 10 productos TOP" HorizontalAlignment="Center" Margin="0,10,0,0" VerticalAlignment="Top" FontSize="16"/>
             <Grid Height="48" Margin="20,0" VerticalAlignment="Center">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition/>

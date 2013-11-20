@@ -98,6 +98,12 @@
     <Compile Include="MSeguridad\MS_ReporteTrasaccionesParametrosWindow.xaml.cs">
       <DependentUpon>MS_ReporteTrasaccionesParametrosWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="MVentas\ReporteDeDevoluciones.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ReporteDeDevoluciones.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="ReportesWindow.xaml.cs">
       <DependentUpon>ReportesWindow.xaml</DependentUpon>
     </Compile>
@@ -329,7 +335,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="MVentas\prueba.xaml">
+    <Page Include="MVentas\MV_ComprobantePagoWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -498,8 +504,8 @@
     <Compile Include="MVentas\MV_ValeDialog.xaml.cs">
       <DependentUpon>MV_ValeDialog.xaml</DependentUpon>
     </Compile>
-    <Compile Include="MVentas\prueba.xaml.cs">
-      <DependentUpon>prueba.xaml</DependentUpon>
+    <Compile Include="MVentas\MV_ComprobantePagoWindow.xaml.cs">
+      <DependentUpon>MV_ComprobantePagoWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
@@ -517,6 +523,10 @@
     <EmbeddedResource Include="MSeguridad\ReporteDeTransacciones.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
       <LastGenOutput>ReporteDeTransacciones.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MVentas\ReporteDeDevoluciones.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>ReporteDeDevoluciones.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

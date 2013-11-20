@@ -125,7 +125,7 @@
                             </Grid.RowDefinitions>
                             <Label Content="Cód. Lote:" Grid.Column="0" VerticalContentAlignment="Center"/>
                             <Label Content="Empresa RUC :" Grid.Column="2" VerticalContentAlignment="Center"/>
-                            <Label Grid.Column="2" Content="*" HorizontalAlignment="Right"  VerticalAlignment="Top" Foreground="Red" FontSize="14" Width="15" Height="22"/>
+                            <Label Visibility="{Binding Path=detallarVale}" Grid.Column="2" Content="*" HorizontalAlignment="Right"  VerticalAlignment="Top" Foreground="Red" FontSize="14" Width="15" Height="22"/>
 
                             <Label Content="Fecha Emisión:" Grid.Column="0" Grid.Row="1" VerticalContentAlignment="Center"/>
                             <DatePicker SelectedDate="{Binding Path=loteVale.fechaEmision, Mode=TwoWay}" VerticalAlignment="Center" Grid.Column="1" Grid.Row="1"  BorderThickness="0" IsEnabled="False"/>
@@ -152,14 +152,14 @@
                                 <TextBox Text="{Binding Path=loteVale.Cliente.nombreCompleto, Mode=OneWay}" VerticalAlignment="Center" Grid.Column="3" IsEnabled="False" />
                             </Grid>
                             <Label Grid.Row="1" Grid.Column="2">Cantidad Vales:</Label>
-                            <Label Grid.Row="1" Grid.Column="2" Content="*" HorizontalAlignment="Right"  VerticalAlignment="Top" Foreground="Red" FontSize="14" Width="15" Height="22"/>
+                            <Label Visibility="{Binding Path=detallarVale}" Grid.Row="1" Grid.Column="2" Content="*" HorizontalAlignment="Right"  VerticalAlignment="Top" Foreground="Red" FontSize="14" Width="15" Height="22"/>
 
                             <StackPanel Orientation="Horizontal" Grid.Column="3" Grid.Row="1">
                                 <TextBox PreviewKeyDown="validarCantidad_KeyDown" PreviewTextInput="validarCantidad" Text="{Binding Path=loteVale.cantidad, Mode=TwoWay}" VerticalAlignment="Center"  Width="50" HorizontalAlignment="Left"/>
                                 <Label>Unidades</Label>
                             </StackPanel>
                             <Label Grid.Row="2" Grid.Column="2">Monto Unidad:</Label>
-                            <Label Grid.Row="2" Grid.Column="2" Content="*" HorizontalAlignment="Right"  VerticalAlignment="Top" Foreground="Red" FontSize="14" Width="15" Height="22"/>
+                            <Label Visibility="{Binding Path=detallarVale}" Grid.Row="2" Grid.Column="2" Content="*" HorizontalAlignment="Right"  VerticalAlignment="Top" Foreground="Red" FontSize="14" Width="15" Height="22"/>
 
                             <StackPanel Orientation="Horizontal" Grid.Column="3" Grid.Row="2">
                                 <TextBox PreviewKeyDown="validarMonto_KeyDown" PreviewTextInput="validarMonto" Text="{Binding Path=loteVale.monto, Mode=TwoWay}" VerticalAlignment="Center"  Width="50" HorizontalAlignment="Left"/>

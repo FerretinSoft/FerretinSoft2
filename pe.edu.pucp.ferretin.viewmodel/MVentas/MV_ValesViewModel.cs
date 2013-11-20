@@ -243,6 +243,8 @@ namespace pe.edu.pucp.ferretin.viewmodel.MVentas
 
             if (buscado == null)
             {
+                searchNroDocCliente = null;
+                nombreCliente = "";
                 MessageBox.Show("No se encontro ningún cliente con el número de documento proporcionado", "Error", MessageBoxButton.OK, MessageBoxImage.Question);
                 loteVale.Cliente = buscado;
             }
@@ -258,6 +260,9 @@ namespace pe.edu.pucp.ferretin.viewmodel.MVentas
             switch (result)
             {
                 case MessageBoxResult.OK:
+                    this.searchCodLote = "";
+                    this.searchNroDocCliente = null;
+                    this.nombreCliente = "";
                     loteVale.Vale = new System.Data.Linq.EntitySet<Vale>();
                     this.loteVale = new LoteVale();
                     this.selectedTab = 0;
@@ -347,6 +352,9 @@ namespace pe.edu.pucp.ferretin.viewmodel.MVentas
         {
             this.loteVale = new LoteVale();
             this.selectedTab = 1;
+            this.searchCodLote = "";
+            this.searchNroDocCliente = null;
+            this.nombreCliente = "";
             detallarVale = System.Windows.Visibility.Visible;
             this.noSoloDetallarLoteVale = true;
             this.listaVales = null;

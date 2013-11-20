@@ -1,4 +1,5 @@
-﻿using pe.edu.pucp.ferretin.view.MAlmacen;
+﻿using pe.edu.pucp.ferretin.controller.MVentas;
+using pe.edu.pucp.ferretin.view.MAlmacen;
 using pe.edu.pucp.ferretin.viewmodel.MAlmacen;
 using pe.edu.pucp.ferretin.viewmodel.MVentas;
 using System;
@@ -32,6 +33,7 @@ namespace pe.edu.pucp.ferretin.view.MVentas
         private void pagarBtn_Click(object sender, RoutedEventArgs e)
         {
             MV_PagoWindow pw = new MV_PagoWindow(this);
+            this.IsEnabled = false;
         }
 
         private void Button_Click_1(object sender, RoutedEventArgs e)
@@ -73,6 +75,11 @@ namespace pe.edu.pucp.ferretin.view.MVentas
         private void Window_Closed(object sender, EventArgs e)
         {
            
+        }
+
+        private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            MV_ComunService.Clean();            
         }
     }
 }
