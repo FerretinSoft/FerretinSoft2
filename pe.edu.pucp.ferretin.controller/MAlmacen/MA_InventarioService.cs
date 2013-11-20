@@ -182,7 +182,7 @@ namespace pe.edu.pucp.ferretin.controller.MAlmacen
                 else
                 {
                     //Caso: Almacén seleccionado
-                    if (searchAlmacen.nombre!="Todos")
+                    if (searchAlmacen.nombre!="Todos" && searchCategoria==null && nombre1=="")
                     {
                         listaProdAlm = from pa in db.ProductoAlmacen
                                         from p in db.Producto
@@ -195,7 +195,7 @@ namespace pe.edu.pucp.ferretin.controller.MAlmacen
                     else
                     {
                         //Caso: Categoría seleccionada
-                        if (searchCategoria.nombre != "Todos")
+                        if (searchCategoria.nombre != "Todos" && searchAlmacen == null && nombre1 == "")
                         {
                             listaProducto = from p in db.Producto
                                             from pc in db.ProductoCategoria

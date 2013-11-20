@@ -219,9 +219,14 @@ namespace pe.edu.pucp.ferretin.viewmodel.MVentas
         {
             try
             {
-                this.notaCredito = listaNotasDeCredito.Single(notaCredito => notaCredito.id == (long)id);
-                NotaCredito nota = MV_NotaCreditoService.obtenerNotaCreditoById((long)id);
-                this.listaProductos = MV_DevolucionService.obtenerProductosbyIdDevolucion((long)nota.id_devolucion);
+                this.searchNroNotaCredito = "";
+                this.searchVendedor = "";
+                this.nombreCliente = "";
+                this.nombreVendedor = "";
+                this.searchNroDocCliente = null;
+
+                this.notaCredito = MV_NotaCreditoService.obtenerNotaCreditoById((long)id);
+                this.listaProductos = MV_DevolucionService.obtenerProductosbyIdDevolucion((long)notaCredito.id_devolucion);
 
                 selectedTab = 1;
             }

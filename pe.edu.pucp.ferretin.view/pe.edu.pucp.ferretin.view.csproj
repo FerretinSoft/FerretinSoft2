@@ -98,6 +98,12 @@
     <Compile Include="MSeguridad\MS_ReporteTrasaccionesParametrosWindow.xaml.cs">
       <DependentUpon>MS_ReporteTrasaccionesParametrosWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="MVentas\ReporteDeDevoluciones.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ReporteDeDevoluciones.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="ReportesWindow.xaml.cs">
       <DependentUpon>ReportesWindow.xaml</DependentUpon>
     </Compile>
@@ -517,6 +523,10 @@
     <EmbeddedResource Include="MSeguridad\ReporteDeTransacciones.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
       <LastGenOutput>ReporteDeTransacciones.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MVentas\ReporteDeDevoluciones.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>ReporteDeDevoluciones.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
