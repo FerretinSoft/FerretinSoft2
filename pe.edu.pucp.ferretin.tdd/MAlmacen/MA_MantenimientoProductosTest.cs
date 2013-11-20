@@ -33,7 +33,7 @@ namespace pe.edu.pucp.ferretin.tdd.MAlmacen
             
         }
 
-
+        /****El Stock Actual debe ser mayor o igual al stock minimo por producto*****/
 
         [TestCase]
         public void stockActual_Superior_StockMinimo()
@@ -56,5 +56,23 @@ namespace pe.edu.pucp.ferretin.tdd.MAlmacen
             Assert.GreaterOrEqual(puntos, 0);
            
         }
+
+
+        /****************Cantidad minima de productos por tienda **********************************************/
+
+        [TestCase]
+        public void Cantidad_minima_producto_tienda() {
+
+            //var  creo el entorno
+            Tienda tnd = MS_TiendaService.db.Tienda.Single(t => t.nombre.ToLower().Contains("tienda lince 1"));
+            IEnumerable<ProductoAlmacen> lprodAlm = MA_ProductoAlmacenService.db.ProductoAlmacen.Where(pa => (pa.id_almacen == tnd.id));
+
+            int cantidadProd = (int)lprodAlm.Count();
+
+            //Assert - verificar condicion o criterio de aceptacion
+
+            Assert.GreaterOrEqual(cantidadProd, 6);
+        }
+
     }
 }
