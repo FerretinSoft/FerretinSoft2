@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -87,6 +88,12 @@ namespace pe.edu.pucp.ferretin.view.MVentas
             var viewModel = v.DataContext as MV_ClientesViewModel;
             viewModel.soloSeleccionarCliente = true;
             v.Show();
+        }
+
+        private void Window_Closing(object sender, CancelEventArgs e)
+        {
+            MV_ComunService.Clean();
+
         }
     }
 }
