@@ -50,7 +50,7 @@
 
                     <DataGrid ItemsSource="{Binding Path=listaEmpleados,Mode=TwoWay}"  Margin="5,52,5,0" Grid.Row="2" AutoGenerateColumns="False" CanUserAddRows="False" CanUserDeleteRows="False" IsReadOnly="True">
                         <DataGrid.Columns>
-                            <DataGridTemplateColumn Width="1.5*" Header="Código">
+                            <DataGridTemplateColumn Width="1.2*" Header="Código">
                                 <DataGridTemplateColumn.CellTemplate>
                                     <DataTemplate>
                                         <TextBlock>
@@ -65,12 +65,12 @@
                             </DataGridTemplateColumn>
 
 
-                            <DataGridTextColumn Width="1.5*" Binding="{Binding Path=dni}" Header="DNI"/>
+                            <DataGridTextColumn Width="1.4*" Binding="{Binding Path=dni}" Header="DNI"/>
                             <DataGridTextColumn Width="4*" Binding="{Binding Path=nombreCompleto}" Header="Nombres y Apellidos"/>
-                            <DataGridTextColumn Width="3*" Binding="{Binding Path=nombreCargo}" Header="Cargo"/>
+                            <DataGridTextColumn Width="2.7*" Binding="{Binding Path=nombreCargo}" Header="Cargo"/>
                             <DataGridTextColumn Width="2.5*" Binding="{Binding Path=nombreTienda}" Header="Tienda"/>                       
                             <DataGridTextColumn Width="1.5*" Binding="{Binding Path=telefono1}" Header="Teléfono"/>
-                            <DataGridTextColumn Width="1.5*" Binding="{Binding Path=nombreEstado}" Header="Estado"/>
+                            <DataGridTextColumn Width="1.2*" Binding="{Binding Path=nombreEstado}" Header="Estado"/>
                         </DataGrid.Columns>
                     </DataGrid>
 
