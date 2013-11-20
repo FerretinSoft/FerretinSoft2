@@ -10,7 +10,14 @@ namespace pe.edu.pucp.ferretin.controller.MRecursosHumanos
 {
     public class MR_EmpleadoService : MR_ComunService
     {
-        
+        public static FerretinDataContext dbEmpleado
+        {
+            get
+            {
+                return db;
+            }
+        }
+
         private static IEnumerable<Empleado> _listaEmpleados = null;
         public static IEnumerable<Empleado> listaEmpleados 
         {

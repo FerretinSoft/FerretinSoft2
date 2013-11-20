@@ -2,7 +2,7 @@
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:viewmode="clr-namespace:pe.edu.pucp.ferretin.viewmodel.MRecursosHumanos;assembly=pe.edu.pucp.ferretin.viewmodel"
-        Title="Administración de Personal"  WindowStartupLocation="CenterScreen" Height="516.362" Width="710" Icon="/Resources/ferretin_ico.ico" ResizeMode="CanMinimize">
+        Title="Administración de Personal"  WindowStartupLocation="CenterScreen" Height="516.362" Width="710" Icon="/Resources/ferretin_ico.ico" ResizeMode="CanMinimize" Closing="Window_Closing">
     <Window.Resources>
         <viewmode:MR_AdministrarPersonalViewModel x:Key="MR_AdministrarPersonalViewModel" />
         <ControlTemplate x:Key="validationTemplate">
@@ -50,14 +50,14 @@
 
                     <DataGrid ItemsSource="{Binding Path=listaEmpleados,Mode=TwoWay}"  Margin="5,52,5,0" Grid.Row="2" AutoGenerateColumns="False" CanUserAddRows="False" CanUserDeleteRows="False" IsReadOnly="True">
                         <DataGrid.Columns>
-                            <DataGridTemplateColumn Width="2*" Header="Código">
+                            <DataGridTemplateColumn Width="1.2*" Header="Código">
                                 <DataGridTemplateColumn.CellTemplate>
                                     <DataTemplate>
                                         <TextBlock>
                                         <Hyperlink 
                                             Command="{Binding Path=DataContext.viewEditEmpleadoCommand, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type DataGrid}}}" 
-                                            CommandParameter="{Binding codEmpleado}">
-                                            <TextBlock Text="{Binding codEmpleado}" />
+                                            CommandParameter="{Binding Path=codEmpleado}">
+                                            <TextBlock Text="{Binding Path=codEmpleado}" />
                                         </Hyperlink>
                                         </TextBlock>
                                     </DataTemplate>
@@ -65,13 +65,12 @@
                             </DataGridTemplateColumn>
 
 
-                            <DataGridTextColumn Width="2*" Binding="{Binding Path=dni}" Header="DNI"/>
+                            <DataGridTextColumn Width="1.4*" Binding="{Binding Path=dni}" Header="DNI"/>
                             <DataGridTextColumn Width="4*" Binding="{Binding Path=nombreCompleto}" Header="Nombres y Apellidos"/>
-                            <DataGridTextColumn Width="2*" Binding="{Binding Path=nombreCargo}" Header="Cargo"/>
-                            <DataGridTextColumn Width="2*" Binding="{Binding Path=nombreTienda}" Header="Tienda"/>
-                            <DataGridTextColumn Width="2*" Binding="{Binding Path=direccion}" Header="Dirección"/>
-                            <DataGridTextColumn Width="2*" Binding="{Binding Path=telefono1}" Header="Teléfono"/>
-                            <DataGridTextColumn Width="2*" Binding="{Binding Path=nombreEstado}" Header="Estado"/>
+                            <DataGridTextColumn Width="2.7*" Binding="{Binding Path=nombreCargo}" Header="Cargo"/>
+                            <DataGridTextColumn Width="2.5*" Binding="{Binding Path=nombreTienda}" Header="Tienda"/>                       
+                            <DataGridTextColumn Width="1.5*" Binding="{Binding Path=telefono1}" Header="Teléfono"/>
+                            <DataGridTextColumn Width="1.2*" Binding="{Binding Path=nombreEstado}" Header="Estado"/>
                         </DataGrid.Columns>
                     </DataGrid>
 

@@ -279,5 +279,10 @@ namespace pe.edu.pucp.ferretin.view.MRecursosHumanos
                 }
             }
     }
+
+         private void Window_Closing(object sender, CancelEventArgs e)
+         {
+             ComunService.Clean();
+         }
 }
     }

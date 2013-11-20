@@ -15,21 +15,25 @@ namespace pe.edu.pucp.ferretin.tdd.MAlmacen
     class MA_MantenimientoProductosTest
     {
 
-        /***********Test nombre unico de productos en una tienda************************/
+        /***********Test nombre unico de productos ************************/
 
         [TestCase]
         public void Nombre_De_Producto_Unico() 
         { 
             //var creo el entorno
 
-            
-            IEnumerable<Producto> pro= MA_ProductoService.db.Producto.Where(p=> p.nombre=="Sanitario Celima");
+            foreach (Producto p in MA_ProductoService.db.Producto)
+            {
+                IEnumerable<Producto> pro = MA_ProductoService.db.Producto.Where(prod => prod.nombre ==p.nombre);
 
-            //Assert - verificar condicion o criterio de aceptacion
+                //Assert - verificar condicion o criterio de aceptacion
 
-            int cantidadRegistros=pro.Count();
+                int cantidadRegistros = pro.Count();
+                
+                Console.WriteLine(cantidadRegistros);
 
-            Assert.AreEqual(cantidadRegistros, 1);
+                Assert.AreEqual(cantidadRegistros, 1);
+            }
             
         }
 

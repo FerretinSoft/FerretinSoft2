@@ -13,6 +13,7 @@ using System.Windows;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using System.Data.Linq;
 
 namespace pe.edu.pucp.ferretin.viewmodel.MRecursosHumanos
 {
@@ -334,9 +335,6 @@ namespace pe.edu.pucp.ferretin.viewmodel.MRecursosHumanos
         }
 
 
-
-
-
         #endregion
 
 
@@ -595,14 +593,21 @@ namespace pe.edu.pucp.ferretin.viewmodel.MRecursosHumanos
         }
         public void cancelEmpleado(Object obj)
         {
-            MessageBoxResult result = MessageBox.Show("Al salir perderá todos los datos ingresados. ¿Desea continuar?",
-            "ATENCIÓN", MessageBoxButton.OKCancel, MessageBoxImage.Warning);
-            if (result == MessageBoxResult.OK)
+            ChangeSet changes = MR_EmpleadoService.dbEmpleado.GetChangeSet();
+
+            if (statusTab == Tab.AGREGAR || changes.Updates.Count > 0)
             {
-                // Yes code here
-                this.statusTab = Tab.BUSQUEDA;
-                listaEmpleados = MR_EmpleadoService.listaEmpleados;
+                MessageBoxResult result = MessageBox.Show("Al salir perderá todos los datos ingresados. ¿Desea continuar?",
+                "ATENCIÓN", MessageBoxButton.OKCancel, MessageBoxImage.Warning);
+                if (result == MessageBoxResult.OK)//Borro si hubo algun cambio que no fue guardado
+                {
+                    // Yes code here
+
+                    MR_EmpleadoService.dbEmpleado.Refresh(RefreshMode.OverwriteCurrentValues, changes.Updates);
+                        
+                }
             }
+            this.statusTab = Tab.BUSQUEDA;
       
         }
 
