@@ -293,7 +293,7 @@ namespace pe.edu.pucp.ferretin.view.MSeguridad
 
         private void tipCambio_PreviewTextInput(object sender, TextCompositionEventArgs e)
         {
-            if ((Regex.IsMatch(tipCambio.Text, @"^[0-9]+(\.{0}[0-9]+)?$")) && (e.Text != ",") || (Regex.IsMatch(e.Text, "[0-9]")))
+            if (((Regex.IsMatch(tipCambio.Text, @"^[0-9]+(\.{0}[0-9]+)?$")) && (e.Text != ",") &&((Regex.IsMatch(e.Text, "[0-9]"))|| (e.Text == "."))|| (Regex.IsMatch(e.Text, "[0-9]"))))
             {
                 e.Handled = false;
             }
@@ -305,7 +305,7 @@ namespace pe.edu.pucp.ferretin.view.MSeguridad
 
         private void igv_PreviewTextInput(object sender, TextCompositionEventArgs e)
         {
-            if ((Regex.IsMatch(igv.Text, @"^[0-9]+(\.{0}[0-9]+)?$")) && (e.Text != ",") || (Regex.IsMatch(e.Text, "[0-9]")))
+            if (((Regex.IsMatch(igv.Text, @"^[0-9]+(\.{0}[0-9]+)?$")) && (e.Text != ",") && ((Regex.IsMatch(e.Text, "[0-9]")) || (e.Text == ".")) || (Regex.IsMatch(e.Text, "[0-9]"))))
             {
                 e.Handled = false;
             }
