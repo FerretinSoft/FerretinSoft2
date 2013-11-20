@@ -512,8 +512,8 @@ namespace pe.edu.pucp.ferretin.viewmodel.MVentas
                             devolucion.id_empleado = usuarioLogueado.Empleado.id;
                             devolucion.codigo = MV_DevolucionService.obtenerCodDevolucion();
                             notaCredito.fechaEmision = DateTime.Now;
-                            devolucion.igv = devolucion.subTotal * (decimal)MS_ParametroService.obtenerIGV() / 100;
-                            devolucion.total = devolucion.igv + devolucion.subTotal;
+                            devolucion.subTotal = Decimal.Round(this.devolucion.total.Value / (1 + ((decimal)MS_ParametroService.obtenerIGV() / 100)), 2);
+                            this.devolucion.igv = Decimal.Round(this.devolucion.total.Value - this.devolucion.subTotal.Value, 2);                           
                             notaCredito.importe = devolucion.total;
                             notaCredito.estado = 0;
                             notaCredito.codigo = "NC-" + devolucion.codigo + DateTime.Today.Year;
