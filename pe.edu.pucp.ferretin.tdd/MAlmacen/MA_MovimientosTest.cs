@@ -60,20 +60,26 @@ namespace pe.edu.pucp.ferretin.tdd.MAlmacen
         public void Movimiento_Con_Campos_Obligatorios()
         {
             //var creo el entorno
-            MovimientoTipo mt = MA_MovimientosService.db.MovimientoTipo.Single(t => t.nombre.ToLower() == "venta"); ;
-            IEnumerable<Movimiento> movi = MA_MovimientosService.db.Movimiento.Where(mov => mov.id_tipo == mt.id);
 
-            int i=0;
-            //Assert - verificar condicion o criterio de aceptacion
-            foreach (Movimiento m in movi){
-              Assert.IsNotNull(m.id_estado);
-              Assert.IsNotNull(m.codigo);
-              Assert.IsNotNull(m.fecha);
+            foreach (MovimientoTipo moviTipo in MA_MovimientosService.db.MovimientoTipo)
+            {
+                MovimientoTipo mt = MA_MovimientosService.db.MovimientoTipo.Single(t => t.nombre.ToLower() ==moviTipo.nombre.ToLower()); ;
+                IEnumerable<Movimiento> movi = MA_MovimientosService.db.Movimiento.Where(mov => mov.id_tipo == mt.id);
 
-               
+                int i = 0;
+                //Assert - verificar condicion o criterio de aceptacion
+                foreach (Movimiento m in movi)
+                {
+                    Assert.IsNotNull(m.id_estado);
+                    Assert.IsNotNull(m.codigo);
+                    Assert.IsNotNull(m.fecha);
+
+
+                }
             }
-        
         }
+
+
 
 
 

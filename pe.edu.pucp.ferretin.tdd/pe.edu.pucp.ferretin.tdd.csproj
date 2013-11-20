@@ -41,6 +41,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="MAlmacen\MA_MantenimientoCategoriaTest.cs" />
+    <Compile Include="MAlmacen\MA_MantenimientoInventarioTest.cs" />
+    <Compile Include="MAlmacen\MA_MantenimientoProductosTest.cs" />
     <Compile Include="MAlmacen\MA_MovimientosTest.cs" />
     <Compile Include="MRecursosHumanos\MR_AdministrarEmpleadosTest.cs" />
     <Compile Include="MSeguridad\MS_AdministrarPerfilesTest.cs" />
