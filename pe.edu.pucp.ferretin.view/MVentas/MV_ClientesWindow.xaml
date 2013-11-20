@@ -83,7 +83,7 @@
                         </Button>
 
                     </ToolBar>
-                    <DataGrid ItemsSource="{Binding listaClientes}" Margin="5" Grid.Row="2" IsManipulationEnabled="False" IsReadOnly="True" CanUserSortColumns="True" AutoGenerateColumns="False" CanUserAddRows="False" CanUserDeleteRows="False"  >
+                    <DataGrid ItemsSource="{Binding listaClientes,IsAsync=True}" Margin="5" Grid.Row="2" IsManipulationEnabled="False" IsReadOnly="True" CanUserSortColumns="True" AutoGenerateColumns="False" CanUserAddRows="False" CanUserDeleteRows="False"  >
                         <DataGrid.Columns>
                             <DataGridTemplateColumn Width="80" Header="Núm. Doc">
                                 <DataGridTemplateColumn.CellTemplate>

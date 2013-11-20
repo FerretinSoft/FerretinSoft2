@@ -57,10 +57,9 @@ namespace pe.edu.pucp.ferretin.controller.MSeguridad
 
             IEnumerable<Perfil> perfiles=listaPerfiles;
             //Filtrar por modulo
-            perfiles = perfiles.Where(p => (modulo == 0) || (p.modulo.ToLower().Contains(obtenerModulo(modulo).ToLower().Trim())));
+            perfiles = perfiles.Where(p => (modulo == 0) || (p.modulo.ToLower().Contains(obtenerModulo(modulo).ToLower().Trim())) );
             // Filtrar por descripcion
-            perfiles = perfiles.Where(p => p.descripcion.ToLower().Contains(descripcion.ToLower().Trim()));
-
+            perfiles = perfiles.Where(p => (descripcion == null) || (p.descripcion.ToLower().Contains(descripcion.ToLower().Trim())) );
             return perfiles;
         }
         

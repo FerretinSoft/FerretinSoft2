@@ -78,5 +78,17 @@ namespace pe.edu.pucp.ferretin.view.MVentas
             new MV_ComprobantePagoWindow(pagoViewModel).Owner = this ;
             
         }
+
+        private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            if (!this.IsEnabled)
+            {
+                this.Owner.Close();
+            }
+            else
+            {
+                this.Owner.IsEnabled = true;
+            }
+        }
     }
 }

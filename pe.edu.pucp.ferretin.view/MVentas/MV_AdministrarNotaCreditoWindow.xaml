@@ -1,4 +1,4 @@
-﻿<Window x:Class="pe.edu.pucp.ferretin.view.MVentas.MV_AdministrarNotaCreditoWindow"
+﻿<Window Closing="Window_Closing"  x:Class="pe.edu.pucp.ferretin.view.MVentas.MV_AdministrarNotaCreditoWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:viewmodel="clr-namespace:pe.edu.pucp.ferretin.viewmodel.MVentas;assembly=pe.edu.pucp.ferretin.viewmodel"
