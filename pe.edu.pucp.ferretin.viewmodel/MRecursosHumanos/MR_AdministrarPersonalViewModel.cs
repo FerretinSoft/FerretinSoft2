@@ -245,7 +245,7 @@ namespace pe.edu.pucp.ferretin.viewmodel.MRecursosHumanos
                 switch (_statusTab)
                 {
                     case Tab.BUSQUEDA: detallesTabHeader = "Agregar"; empleadoImagen = null; ; empleado = new Empleado(); break;//Si es agregar, creo un nuevo objeto Empleado
-                    case Tab.AGREGAR: detallesTabHeader = "Agregar"; empleado = new Empleado();
+                    case Tab.AGREGAR: detallesTabHeader = "Agregar"; empleado = new Empleado(); empleado.estado = 1; 
                         try { this.selectedDepartamento.id = "15"; empleado.EmpleadoTienda = null; empleadoImagen = null; }
                         catch(Exception ) { }
                             break;//Si es agregar, creo un nuevo objeto Empleado
