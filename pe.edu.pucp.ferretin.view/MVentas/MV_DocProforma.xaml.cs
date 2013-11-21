@@ -62,8 +62,8 @@ namespace pe.edu.pucp.ferretin.view.MVentas
                 doc.Close();
                 package.Close();
 
-                var pdfXpsDoc = PdfSharp.Xps.XpsModel.XpsDocument.Open(lMemoryStream);
-                var file = "proforma-" + vm.proforma.codigo + new Random(99).Next(1, 99).ToString() + ".pdf";
+               var pdfXpsDoc = PdfSharp.Xps.XpsModel.XpsDocument.Open(lMemoryStream);
+               var file = "proforma-" + vm.proforma.codigo + new Random(99).Next(1, 99).ToString() + ".pdf";
                 PdfSharp.Xps.XpsConverter.Convert(pdfXpsDoc, file, 0);
 
                 MailMessage message = new MailMessage(

@@ -24,12 +24,6 @@ namespace pe.edu.pucp.ferretin.view.MAlmacen
             InitializeComponent();
         }
 
-        private void TextBox_PreviewKeyDown(object sender, KeyEventArgs e)
-        {
-            if (((e.Key >= Key.A && e.Key <= Key.Z) || e.Key == Key.Back || e.Key == Key.Tab || (e.Key == Key.Space)))
-                e.Handled = false;
-            else
-                e.Handled = true;
-        }
+   
     }
 }
