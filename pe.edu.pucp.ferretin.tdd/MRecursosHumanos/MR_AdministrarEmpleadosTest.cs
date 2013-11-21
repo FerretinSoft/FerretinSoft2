@@ -17,6 +17,21 @@ namespace pe.edu.pucp.ferretin.tdd.MRecursosHumanos
     [TestFixture]
     public class MR_AdministrarEmpleadosTest
     {
+        /******************** Test Empleados nulo *************************/
+        [TestCase]
+        public void empleados_no_nulos()
+        {
+            IEnumerable<Empleado> emplea = MR_EmpleadoService.db.Empleado.Where(emp => emp.dni==null || emp.nombre == null 
+                                                                                     || emp.apMaterno==null || emp.apMaterno==null);
+
+            //Act - No hay nada que hacer, porque la accion fue la creacion misma
+            int cantidadRegistros;
+            if (emplea == null) cantidadRegistros = 0; // significa que no hay empleados con dni, nombre, apellido paterno y materno nulo
+            else cantidadRegistros = emplea.Count();
+
+            //Assert - verificar condicion o criterio de aceptacion
+            Assert.AreEqual(0, cantidadRegistros);
+        }
         /******************** Test Cantidad de Usuarios *************************/
         [TestCase]
         public void cantidad_de_empleados_igual_a_22()

@@ -92,6 +92,9 @@
     <Compile Include="MAlmacen\MA_AtencionSolAuxWindow.xaml.cs">
       <DependentUpon>MA_AtencionSolAuxWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="MAlmacen\MA_VisorReporteStock.xaml.cs">
+      <DependentUpon>MA_VisorReporteStock.xaml</DependentUpon>
+    </Compile>
     <Compile Include="MAlmacen\ReporteStock.cs">
       <DependentUpon>ReporteStock.rpt</DependentUpon>
       <AutoGen>True</AutoGen>
@@ -181,6 +184,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="MAlmacen\MA_RegistroSolAbastecimientoWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="MAlmacen\MA_VisorReporteStock.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

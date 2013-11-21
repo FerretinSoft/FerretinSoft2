@@ -17,6 +17,20 @@ namespace pe.edu.pucp.ferretin.tdd.MSeguridad
     [TestFixture]
     public class MS_AdministrarTiendasTest
     {
+        /******************** Test Tienda nulo *************************/
+        [TestCase]
+        public void tiendas_no_nulos()
+        {            
+            IEnumerable<Tienda> tiend = MS_TiendaService.db.Tienda.Where(tie => tie.nombre == null);
+
+            //Act - No hay nada que hacer, porque la accion fue la creacion misma
+            int cantidadRegistros;
+            if (tiend == null) cantidadRegistros = 0; // significa que no hay tiendas con numero de codumento o nombre nulos, o estan los 2 o ninguno
+            else cantidadRegistros = tiend.Count();
+
+            //Assert - verificar condicion o criterio de aceptacion
+            Assert.AreEqual(0, cantidadRegistros);            
+        }
         /******************* Test Nombre de Tienda *************************/
         [TestCase]
         public void cantidad_de_tiendas_igual_a_16()

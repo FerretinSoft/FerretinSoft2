@@ -62,7 +62,7 @@
 
                     </ToolBar>
                     <Label Content="Cód. Producto:" HorizontalAlignment="Left" Height="26" VerticalAlignment="Top" Width="91" Margin="15,73,0,0" Grid.ColumnSpan="2"/>
-                    <TextBox x:Name="txtCodigoProd" MaxLength="10" Text="{Binding searchCod, Mode=TwoWay}"  HorizontalAlignment="Left" Height="23" Margin="27,74,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="206" Grid.Column="1" KeyUp="txtCodigoProd_KeyUp"/>
+                    <TextBox x:Name="txtCodigoProd" MaxLength="10" Text="{Binding searchCod, Mode=TwoWay}"  HorizontalAlignment="Left" Height="23" Margin="27,74,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="206" Grid.Column="1" KeyUp="txtCodigoProd_KeyUp" TextChanged="txtCodigoProd_TextChanged"/>
                 </Grid>
             </TabItem>
             <TabItem x:Name="detallesTab" MouseUp="detallesTab_MouseUp" >
@@ -85,7 +85,7 @@
                     <Label Content="Código:" HorizontalAlignment="Left" Margin="115,10,0,0" VerticalAlignment="Top"/>
                     <TextBox x:Name="txtCodigo" IsEnabled="false" MaxLength="10" Text="{Binding Path=producto.codigo, Mode=TwoWay,  ValidatesOnExceptions=true, NotifyOnValidationError=true}" HorizontalAlignment="Left" Height="23" Margin="184,14,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="151" KeyDown="txtCodigo_KeyDown"/>
                     <Label Content="Nombre:" HorizontalAlignment="Left" Margin="115,41,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.464,1.231"/>
-                    <TextBox x:Name="txtNombreDet"   Text="{Binding Path=producto.nombre, Mode=TwoWay,  ValidatesOnExceptions=true, NotifyOnValidationError=true}" HorizontalAlignment="Left" Height="23" Margin="115,74,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="220" />
+                    <TextBox x:Name="txtNombreDet"  MaxLength="50" Text="{Binding Path=producto.nombre, Mode=TwoWay,  ValidatesOnExceptions=true, NotifyOnValidationError=true}" HorizontalAlignment="Left" Height="23" Margin="115,74,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="220" />
                     <Label Content="Descripción:" HorizontalAlignment="Left" Margin="115,100,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.464,1.231" Height="27" Grid.RowSpan="2"/>
                     <TextBox Text="{Binding Path=producto.descripcion, Mode=TwoWay,  ValidatesOnExceptions=true, NotifyOnValidationError=true}" HorizontalAlignment="Left" Height="36" Margin="115,9,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="220" Grid.Row="1"/>
                     <Label Content="Material Secundario:" HorizontalAlignment="Left" Margin="10,73,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.464,1.231" Grid.Column="1"/>
