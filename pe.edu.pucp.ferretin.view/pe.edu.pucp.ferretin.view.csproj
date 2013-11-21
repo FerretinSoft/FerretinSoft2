@@ -104,6 +104,9 @@
     <Compile Include="MSeguridad\MS_ReporteTrasaccionesParametrosWindow.xaml.cs">
       <DependentUpon>MS_ReporteTrasaccionesParametrosWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="MVentas\MV_BuscadorProductos.xaml.cs">
+      <DependentUpon>MV_BuscadorProductos.xaml</DependentUpon>
+    </Compile>
     <Compile Include="MVentas\ReporteDeDevoluciones.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -307,6 +310,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="MVentas\MV_AgregarValeWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="MVentas\MV_BuscadorProductos.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

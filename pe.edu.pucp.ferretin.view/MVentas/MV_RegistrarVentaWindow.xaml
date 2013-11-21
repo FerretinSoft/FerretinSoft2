@@ -85,7 +85,7 @@
                         <ImageBrush ImageSource="../Resources/add_20.png" Stretch="None"/>
                     </Button.Background>
                 </Button>
-                <Button Content="" Height="18" VerticalAlignment="Center" Width="18" Margin="5,0" ToolTip="Buscar otros productos con otros criterios">
+                <Button Content="" Height="18" VerticalAlignment="Center" Width="18" Margin="5,0" ToolTip="Buscar otros productos con otros criterios" Click="Button_Click_2">
                     <Button.Background>
                         <ImageBrush ImageSource="../Resources/search1_20.png"/>
                     </Button.Background>

@@ -58,7 +58,7 @@ namespace pe.edu.pucp.ferretin.controller.MVentas
         {
             get
             {
-                Int64 numCodProf = listaProformas.Count() + 1;
+                Int64 numCodProf = db.Proforma.Count() + 1;
                 string codDev = Convert.ToString(numCodProf);
                 while (true)
                 {

@@ -213,7 +213,7 @@ namespace pe.edu.pucp.ferretin.viewmodel.MVentas
                         }
                         else
                         {
-                            MessageBox.Show("No hay stock de este producto", "Mensaje", MessageBoxButton.OK, MessageBoxImage.Exclamation);
+                            MessageBox.Show("No hay stock de este producto:\n"+producto.nombre.ToUpper(), "Mensaje", MessageBoxButton.OK, MessageBoxImage.Exclamation);
                         }
 
                     }
