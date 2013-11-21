@@ -168,6 +168,9 @@ namespace pe.edu.pucp.ferretin.viewmodel.MVentas
                     case MessageBoxResult.OK:
                         
                         ComunService.idVentana(40);
+                        if (productoPrecio.precioString.Last() == '.')
+                            productoPrecio.precioString = productoPrecio.precioString + "00";
+
                         productoPrecio.precio = Convert.ToDecimal(productoPrecio.precioString);
                         productoPrecio.Producto.precioLista = productoPrecio.precio;
                         productoPrecio.Producto.precioPuntos = productoPrecio.precioPuntos;

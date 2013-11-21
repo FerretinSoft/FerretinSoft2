@@ -162,8 +162,8 @@
                             <Label Visibility="{Binding Path=detallarVale}" Grid.Row="2" Grid.Column="2" Content="*" HorizontalAlignment="Right"  VerticalAlignment="Top" Foreground="Red" FontSize="14" Width="15" Height="22"/>
 
                             <StackPanel Orientation="Horizontal" Grid.Column="3" Grid.Row="2">
-                                <TextBox MaxLength="5" PreviewKeyDown="validarMonto_KeyDown" PreviewTextInput="validarMonto" Text="{Binding Path=loteVale.monto, Mode=TwoWay}" VerticalAlignment="Center"  Width="50" HorizontalAlignment="Left"/>
-                                <ComboBox SelectedIndex="{Binding Path=loteVale.moneda, Mode=TwoWay, UpdateSourceTrigger=LostFocus, NotifyOnValidationError=True, ValidatesOnDataErrors=True, ValidatesOnExceptions=True}" VerticalAlignment="Center" Height="22" Width="70" Margin="5,4,0,4">
+                                <TextBox MaxLength="8" PreviewKeyDown="validarMonto_KeyDown" PreviewTextInput="validarMonto" Text="{Binding Path=loteVale.monto, Mode=TwoWay}" VerticalAlignment="Center"  Width="50" HorizontalAlignment="Left"/>
+                                <ComboBox SelectedIndex="{Binding Path=loteVale.moneda, Mode=TwoWay, UpdateSourceTrigger=LostFocus, NotifyOnValidationError=True, ValidatesOnDataErrors=True, ValidatesOnExceptions=True}" VerticalAlignment="Center" Height="22" Width="90" Margin="5,4,0,4">
                                     <ComboBoxItem Content="Soles (S/.)"></ComboBoxItem>
                                     <ComboBoxItem Content="Dolares (US $)"></ComboBoxItem>
                                 </ComboBox>
