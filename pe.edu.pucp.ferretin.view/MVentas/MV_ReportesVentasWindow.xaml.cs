@@ -57,7 +57,11 @@ namespace pe.edu.pucp.ferretin.view.MVentas
                 }
             }else{
                 padre_DataContext = this.main.DataContext as MV_ReportesViewModel;
-                MV_VisorReporte repW = new MV_VisorReporte(padre_DataContext.searchFechaInicio, padre_DataContext.searchFechaFin);
+                MV_VisorReporte repW;
+                if (this.listaRepDisp.SelectedIndex == 2)
+                 repW = new MV_VisorReporte(padre_DataContext.searchFechaInicio, padre_DataContext.searchFechaFin, "RTienda");
+                else
+                 repW = new MV_VisorReporte(padre_DataContext.searchFechaInicio, padre_DataContext.searchFechaFin, "RProducto");
                 
                 repW.Show();
 
@@ -79,7 +83,7 @@ namespace pe.edu.pucp.ferretin.view.MVentas
                     repIntroGrid.Visibility = System.Windows.Visibility.Visible;
                     estado = 0;
                     repAntBtn.IsEnabled = false;
-                    padre_DataContext.nombreBoton = "GUARDAR";
+                    padre_DataContext.nombreBoton = "SIGUIENTE";
                     break;
                 case 2:
                     repConfGrid.Visibility = System.Windows.Visibility.Visible;
