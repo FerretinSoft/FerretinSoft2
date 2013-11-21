@@ -129,15 +129,19 @@ namespace pe.edu.pucp.ferretin.view.MAlmacen
 
         private void btnViewReport_Click(object sender, RoutedEventArgs e)
         {
-            if (reporte == 1)
+            if (reporte == 1) //Reporte de Stock
             {
-                MA_ReportesStockPorTiendaWindow v = new MA_ReportesStockPorTiendaWindow();
-                v.Owner = this;
-                var viewModel = v.main.DataContext as MA_ReportesStockPorTiendaViewModel;
-                Tienda tiendaSelected = (Tienda)this.cmbTienda.SelectedItem;
+                //MA_ReportesStockPorTiendaWindow v = new MA_ReportesStockPorTiendaWindow();
+                //v.Owner = this;
+                //var viewModel = v.main.DataContext as MA_ReportesStockPorTiendaViewModel;
+                //Tienda tiendaSelected = (Tienda)this.cmbTienda.SelectedItem;
 
-                viewModel.tiendaSeleccionada = tiendaSelected;
-                v.Show();
+                //viewModel.tiendaSeleccionada = tiendaSelected;
+                //v.Show();
+
+                MA_VisorReporteStock vrs = new MA_VisorReporteStock(((Tienda)this.cmbTienda.SelectedItem).id);
+                vrs.Show();
+
             }
             else if (reporte >= 2 && reporte <= 4)
             {
