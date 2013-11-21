@@ -46,7 +46,7 @@ namespace pe.edu.pucp.ferretin.tdd.MAlmacen
 
             //Assert - verificar condicion o criterio de aceptacion
 
-            Assert.GreaterOrEqual(cantidadCategoria, 10);
+            Assert.GreaterOrEqual(cantidadCategoria, 5);
         }
 
 
