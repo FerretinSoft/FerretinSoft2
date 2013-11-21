@@ -213,10 +213,9 @@ namespace pe.edu.pucp.ferretin.view.MVentas
         private void imprimirBtn_Click(object sender, RoutedEventArgs e)
         {
             var print = new MV_DocProforma();
-            //print.Visibility = System.Windows.Visibility.Hidden;
-            print.Show();
+            //print.ShowDialog();
             
-            //print.imprimir();
+            print.imprimir();
         }
 
         private void enviarEmailBtn_Click(object sender, RoutedEventArgs e)
