@@ -3,7 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:viewmodel="clr-namespace:pe.edu.pucp.ferretin.viewmodel.MAlmacen;assembly=pe.edu.pucp.ferretin.viewmodel"
         xmlns:helper="clr-namespace:pe.edu.pucp.ferretin.viewmodel.Helper;assembly=pe.edu.pucp.ferretin.viewmodel"
-        Title="Administración de Categorías" Height="487" Width="704" Icon="../Resources/ferretin_ico.ico" ResizeMode="CanMinimize" WindowStartupLocation="CenterScreen">
+        Title="Administración de Categorías" Height="502" Width="720" Icon="../Resources/ferretin_ico.ico" ResizeMode="CanMinimize" WindowStartupLocation="CenterScreen">
     <Window.Resources>
         <viewmodel:MA_MantenimientoCategoriasViewModel x:Key="MA_MantenimientoCategoriasViewModel"/>
     </Window.Resources>
@@ -28,13 +28,15 @@
                 </HierarchicalDataTemplate>
             </TreeView.ItemTemplate>
         </helper:MyTreeView>
-        <Label Content="Nombre de categoría:" HorizontalAlignment="Left" Margin="307,49,0,0" VerticalAlignment="Top"/>
-        <Label Content="Categorías padre:" HorizontalAlignment="Left" Margin="307,86,0,0" VerticalAlignment="Top"/>
-        <Label Content="Descripción:" HorizontalAlignment="Left" Margin="307,129,0,0" VerticalAlignment="Top"/>
-        <TextBox Text="{Binding Path=CategoriaSeleccionada.nombre,Mode=TwoWay}"  HorizontalAlignment="Left" Height="23" Margin="438,49,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="229" PreviewKeyDown="TextBox_PreviewKeyDown"/>
-        <ComboBox ItemsSource="{Binding Path=categoriasPadre,Mode=TwoWay}" DisplayMemberPath="nombre" SelectedItem="{Binding Path=CategoriaSeleccionada.Categoria1}" HorizontalAlignment="Left" Margin="438,88,0,0" VerticalAlignment="Top" Width="229"/>
-        <TextBox Text="{Binding Path=CategoriaSeleccionada.descripcion,Mode=TwoWay}" Height="84" Margin="438,129,31,0" TextWrapping="Wrap" VerticalAlignment="Top"/>
-        <Button Command="{Binding saveCategoriaCommand}" Content="GUARDAR" HorizontalAlignment="Left" Margin="438,255,0,0" VerticalAlignment="Top" Width="76" Height="30"/>
+        <Label Content="Nombre:" HorizontalAlignment="Left" Margin="368,216,0,0" VerticalAlignment="Top"/>
+        <Label Content="Categorías padre:" HorizontalAlignment="Left" Margin="370,253,0,0" VerticalAlignment="Top"/>
+        <Label Content="Descripción:" HorizontalAlignment="Left" Margin="370,296,0,0" VerticalAlignment="Top"/>
+        <TextBox Text="{Binding Path=CategoriaSeleccionada.nombre,Mode=TwoWay}"  HorizontalAlignment="Left" Height="23" Margin="501,216,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="178" PreviewKeyDown="TextBox_PreviewKeyDown"/>
+        <ComboBox ItemsSource="{Binding Path=categoriasPadre,Mode=TwoWay}" DisplayMemberPath="nombre" SelectedItem="{Binding Path=CategoriaSeleccionada.Categoria1}" HorizontalAlignment="Left" Margin="501,255,0,0" VerticalAlignment="Top" Width="178"/>
+        <TextBox Text="{Binding Path=CategoriaSeleccionada.descripcion,Mode=TwoWay}" Height="84" Margin="501,296,35,0" TextWrapping="Wrap" VerticalAlignment="Top"/>
+        <Label Content="*" HorizontalAlignment="Left" Margin="479,62,0,0"  VerticalAlignment="Top" Foreground="Red" FontSize="14" Width="15" Height="22" RenderTransformOrigin="0.667,0.591"/>
+        <Button Command="{Binding saveCategoriaCommand}" Content="GUARDAR" HorizontalAlignment="Left" Margin="590,403,0,0" VerticalAlignment="Top" Width="76" Height="30" RenderTransformOrigin="0.321,0.078"/>
+        <Label Content="*" HorizontalAlignment="Left" Margin="479,217,0,0"  VerticalAlignment="Top" Foreground="Red" FontSize="14" Width="15" Height="22" RenderTransformOrigin="0.667,0.591"/>
         <ToolBar HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Height="24">
             <Button Command="{Binding Path=nuevaCategoriaCommand}" x:Name="nuevoProductoBtn" Content="" VerticalAlignment="Stretch" Width="20" Margin="0,0,2,-1">
                 <Button.Background>
@@ -47,8 +49,16 @@
                     <ImageBrush ImageSource="../Resources/trash_20.png"/>
                 </Button.Background>
             </Button>
-       
+
 
         </ToolBar>
+        <GroupBox Header="Categoria Principal" Margin="321,34,22,0" VerticalAlignment="Top" Height="128">
+            <Label Content="Nombre: " HorizontalAlignment="Left" Height="31" VerticalAlignment="Top" Width="111" Margin="38,10,0,0"/>
+        </GroupBox>
+        <Button x:Name="btnGuardar" Command="{Binding saveCategoriaPrincipalCommand}" Content="GUARDAR" HorizontalAlignment="Left" VerticalAlignment="Top" Width="76" Height="30" Margin="590,116,0,0" RenderTransformOrigin="1.572,0.54"/>
+
+        <TextBox x:Name="txtNombreCategoria" Text="{Binding categoria.nombre, Mode=TwoWay, NotifyOnValidationError=True, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True, ValidatesOnExceptions=True}"  HorizontalAlignment="Left" Height="23" Margin="501,61,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="179" PreviewKeyDown="TextBox_PreviewKeyDown"/>
+        <GroupBox Header="Categoría" Margin="321,183,22,0" VerticalAlignment="Top" Height="273"/>
+
     </Grid>
 </Window>

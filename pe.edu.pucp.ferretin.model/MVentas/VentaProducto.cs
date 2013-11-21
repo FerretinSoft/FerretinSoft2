@@ -26,8 +26,15 @@ namespace pe.edu.pucp.ferretin.model
             }
         }
 
+        partial void OncantidadChanging(int? value)
+        {
+            
+        }
+
         partial void OncantidadChanged()
         {
+            if (vieneDeProforma.Value) return;
+
             //Cantidad no puede ser negativa
             if (cantidad <= 0)
             {
@@ -134,7 +141,7 @@ namespace pe.edu.pucp.ferretin.model
                     }
                     else
                     {
-                        return "No Aplica";
+                        return "-";
                     }
                 }
             }
@@ -159,5 +166,21 @@ namespace pe.edu.pucp.ferretin.model
                 return moneda == 0 ? "Soles" : "Dolares";
             }
         }
+
+        private bool? _vieneDeProforma = false;
+        public bool? vieneDeProforma
+        {
+            get
+            {
+                return _vieneDeProforma;
+            }
+            set
+            {
+                _vieneDeProforma = true;
+                SendPropertyChanged("vieneDeProforma");
+                SendPropertyChanged("noVieneDeProforma");
+            }
+        }
+
     }
 }

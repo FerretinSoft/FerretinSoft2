@@ -16,14 +16,14 @@ namespace pe.edu.pucp.ferretin.view.MVentas {
     using CrystalDecisions.CrystalReports.Engine;
     
     
-    public class ReporteVentaTienda : ReportClass {
+    public class ReporteVentaProducto : ReportClass {
         
-        public ReporteVentaTienda() {
+        public ReporteVentaProducto() {
         }
         
         public override string ResourceName {
             get {
-                return "ReporteVentaTienda.rpt";
+                return "ReporteVentaProducto.rpt";
             }
             set {
                 // Do nothing
@@ -41,7 +41,7 @@ namespace pe.edu.pucp.ferretin.view.MVentas {
         
         public override string FullResourceName {
             get {
-                return "pe.edu.pucp.ferretin.view.MVentas.ReporteVentaTienda.rpt";
+                return "pe.edu.pucp.ferretin.view.MVentas.ReporteVentaProducto.rpt";
             }
             set {
                 // Do nothing
@@ -103,28 +103,12 @@ namespace pe.edu.pucp.ferretin.view.MVentas {
                 return this.ReportDefinition.Sections[6];
             }
         }
-        
-        [Browsable(false)]
-        [DesignerSerializationVisibilityAttribute(System.ComponentModel.DesignerSerializationVisibility.Hidden)]
-        public CrystalDecisions.Shared.IParameterField Parameter_fechaInicio {
-            get {
-                return this.DataDefinition.ParameterFields[0];
-            }
-        }
-        
-        [Browsable(false)]
-        [DesignerSerializationVisibilityAttribute(System.ComponentModel.DesignerSerializationVisibility.Hidden)]
-        public CrystalDecisions.Shared.IParameterField Parameter_fechaFin {
-            get {
-                return this.DataDefinition.ParameterFields[1];
-            }
-        }
     }
     
     [System.Drawing.ToolboxBitmapAttribute(typeof(CrystalDecisions.Shared.ExportOptions), "report.bmp")]
-    public class CachedReporteVentaTienda : Component, ICachedReport {
+    public class CachedReporteVentaProducto : Component, ICachedReport {
         
-        public CachedReporteVentaTienda() {
+        public CachedReporteVentaProducto() {
         }
         
         [Browsable(false)]
@@ -161,7 +145,7 @@ namespace pe.edu.pucp.ferretin.view.MVentas {
         }
         
         public virtual CrystalDecisions.CrystalReports.Engine.ReportDocument CreateReport() {
-            ReporteVentaTienda rpt = new ReporteVentaTienda();
+            ReporteVentaProducto rpt = new ReporteVentaProducto();
             rpt.Site = this.Site;
             return rpt;
         }

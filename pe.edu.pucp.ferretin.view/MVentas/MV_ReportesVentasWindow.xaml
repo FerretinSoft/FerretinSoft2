@@ -17,7 +17,7 @@
             <RowDefinition Height="40px"></RowDefinition>
 
         </Grid.RowDefinitions>
-        <Grid x:Name="repIntroGrid" Margin="0" Visibility="Collapsed">
+        <Grid x:Name="repIntroGrid" Margin="0" Visibility="Visible">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition></ColumnDefinition>
                 <ColumnDefinition></ColumnDefinition>
@@ -34,35 +34,17 @@
             </ListBox>
             <Label Content="Seleccione un reporte y presione Siguiente." HorizontalAlignment="Left" Margin="10,246,0,0" VerticalAlignment="Top" Width="308" Grid.ColumnSpan="2"/>
         </Grid>
-        <Grid x:Name="repConfGrid" Margin="0" Visibility="Visible">
+        <Grid x:Name="repConfGrid" Margin="0" Visibility="Collapsed">
             <Label Content="Configure los parámetros del reporte." HorizontalAlignment="Left" Margin="10,246,0,0" VerticalAlignment="Top" Width="308" Grid.ColumnSpan="2"/>
-            <Label Content="Reporte por productos" HorizontalAlignment="Center" Margin="146,10,111,0" VerticalAlignment="Top" FontSize="16"/>
+            <Label Content="{Binding Path=nombreVentana}" HorizontalAlignment="Center" Margin="146,10,111,0" VerticalAlignment="Top" FontSize="16"/>
             <Label Content="Fecha desde:" HorizontalAlignment="Left" Margin="13,60,0,0" VerticalAlignment="Top"/>
-            <Label Content="Fecha hasta:" HorizontalAlignment="Left" Margin="243,60,0,0" VerticalAlignment="Top"/>
-            <DatePicker HorizontalAlignment="Left" Margin="96,60,0,0" VerticalAlignment="Top" SelectedDate="{Binding Path=searchFechaInicio}"/>
-            <DatePicker HorizontalAlignment="Left" Margin="328,60,0,0" VerticalAlignment="Top" SelectedDate="{Binding Path=searchFechaFin}"/>
-            <ComboBox HorizontalAlignment="Left" Margin="96,95,0,0" VerticalAlignment="Top" Width="198" SelectedIndex="0">
-                <CheckBox Content="Todas" IsChecked="True"/>
-                <CheckBox Content="Categoría A"/>
-                <CheckBox Content="Categoría B"/>
-                <CheckBox Content="Categoría C"/>
-            </ComboBox>
-            <Label Content="Categorías:" HorizontalAlignment="Left" Margin="13,91,0,0" VerticalAlignment="Top"/>
-            <ComboBox HorizontalAlignment="Left" Margin="326,126,0,0" VerticalAlignment="Top" Width="130" SelectedIndex="1">
-                <ListBoxItem Content="Todas"/>
-                <ListBoxItem Content="Top 10"/>
-                <ListBoxItem Content="Top 100"/>
-            </ComboBox>
-            <Label Content="Mostrar filas:" HorizontalAlignment="Left" Margin="243,122,0,0" VerticalAlignment="Top"/>
+            <Label Content="Fecha hasta:" HorizontalAlignment="Left" Margin="227,60,0,0" VerticalAlignment="Top"/>
+            <DatePicker HorizontalAlignment="Left" Margin="96,60,0,0" VerticalAlignment="Top" SelectedDate="{Binding Path=searchFechaInicio, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Width="126"/>
+            <DatePicker HorizontalAlignment="Left" Margin="307,60,0,0" VerticalAlignment="Top" SelectedDate="{Binding Path=searchFechaFin, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Width="126"/>
             <Label Content="Alias:" HorizontalAlignment="Left" Margin="13,167,0,0" VerticalAlignment="Top"/>
-            <TextBox HorizontalAlignment="Left" Height="23" Margin="96,170,0,0" TextWrapping="Wrap" Text="Reporte 10 productos TOP" VerticalAlignment="Top" Width="198"/>
+            <TextBox HorizontalAlignment="Left" Height="23" Margin="96,170,0,0" TextWrapping="Wrap" Text="{Binding Path=aliasRep}" IsEnabled="False" VerticalAlignment="Top" Width="198"/>
             <Label Content="Comentario:" HorizontalAlignment="Left" Margin="13,198,0,0" VerticalAlignment="Top"/>
-            <TextBox HorizontalAlignment="Left" Height="49" Margin="96,198,0,0" TextWrapping="Wrap" Text="10 productos más vendidos (ordenados por monto de ventas)" VerticalAlignment="Top" Width="360"/>
-            <Label Content="Ordenar por:" HorizontalAlignment="Left" Margin="13,122,0,0" VerticalAlignment="Top"/>
-            <ComboBox HorizontalAlignment="Left" Margin="96,126,0,0" VerticalAlignment="Top" Width="104" SelectedIndex="1">
-                <ListBoxItem Content="Cantidad"/>
-                <ListBoxItem Content="Monto"/>
-            </ComboBox>
+            <TextBox HorizontalAlignment="Left" Height="49" Margin="96,198,0,0" TextWrapping="Wrap" Text="{Binding Path=comentRep}" IsEnabled="False" VerticalAlignment="Top" Width="360"/>
         </Grid>
         <Grid x:Name="repFinalGrid" Margin="0" Visibility="Collapsed">
             <Label Content="Reporte 10 productos TOP" HorizontalAlignment="Center" Margin="146,10,111,0" VerticalAlignment="Top" FontSize="16"/>
@@ -102,7 +84,7 @@
             </Grid>
 
         </Grid>
-        <Button x:Name="repSigBtn" Content="GENERAR" HorizontalAlignment="Left" Margin="301,5,0,0" Grid.Row="1" VerticalAlignment="Top" Width="75" Click="generarReporte_Click" Height="30"/>
+        <Button x:Name="repSigBtn" Content="{Binding Path=nombreBoton}" HorizontalAlignment="Left" Margin="301,5,0,0" Grid.Row="1" VerticalAlignment="Top" Width="75" Click="repSigBtn_Click" Height="30"/>
         <Button Content="CANCELAR" HorizontalAlignment="Left" Margin="381,5,0,0" Grid.Row="1" VerticalAlignment="Top" Width="75" IsCancel="True" Height="30"/>
         <Button x:Name="repAntBtn" Content="&lt; ANTERIOR" HorizontalAlignment="Left" Margin="221,5,0,0" Grid.Row="1" VerticalAlignment="Top" Width="75" IsEnabled="False" Click="repAntBtn_Click" Height="30"/>
         <Separator Height="2" Margin="0" Grid.Row="1" VerticalAlignment="Top"/>
