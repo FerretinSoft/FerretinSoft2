@@ -6,11 +6,16 @@ using pe.edu.pucp.ferretin.view.MRecursosHumanos;
 using pe.edu.pucp.ferretin.viewmodel.MRecursosHumanos;
 using pe.edu.pucp.ferretin.viewmodel.MVentas;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using System.IO.Packaging;
 using System.Linq;
+using System.Net;
+using System.Net.Mail;
+using System.Net.Mime;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -212,25 +217,90 @@ namespace pe.edu.pucp.ferretin.view.MVentas
 
         private void imprimirBtn_Click(object sender, RoutedEventArgs e)
         {
-            var print = new MV_DocProforma();
-            //print.ShowDialog();
-            
-            print.imprimir();
+            var vm = DataContext as MV_AdministrarProformasViewModel;
+            if (vm.proforma.id <= 0)
+            {
+                vm.registrar(null);
+            }
+            if (vm.proforma.id > 0)
+            {
+                var print = new MV_DocProforma();
+                var printVM = print.DataContext as MV_DocProformaViewModel;
+                printVM.proforma = vm.proforma;
+                print.imprimir();
+            }
         }
 
         private void enviarEmailBtn_Click(object sender, RoutedEventArgs e)
         {
-            var print = new MV_DocProforma();
-            MemoryStream lMemoryStream = new MemoryStream();
-            Package package = Package.Open(lMemoryStream, FileMode.Create);
-            XpsDocument doc = new XpsDocument(package);
-            XpsDocumentWriter writer = XpsDocument.CreateXpsDocumentWriter(doc);
-            writer.Write(print);
-            doc.Close();
-            package.Close();
+            var vm = DataContext as MV_AdministrarProformasViewModel;
+            if (vm.proforma.id <= 0)
+            {
+                vm.registrar(null);
+            }
+            if (vm.proforma.id > 0)
+            {
+                if (String.IsNullOrEmpty(vm.proforma.destinatario))
+                {
+                    MessageBox.Show("Debe ingresar el email de un destinatario");
+                    return;
+                }
+                MailAddress m;
+                try
+                {
+                    m = new MailAddress(vm.proforma.destinatario);
+                }
+                catch
+                {
+                    MessageBox.Show("El email ingresado no es válido");
+                    return;
+                }
 
-            var pdfXpsDoc = PdfSharp.Xps.XpsModel.XpsDocument.Open(lMemoryStream);
-            PdfSharp.Xps.XpsConverter.Convert(pdfXpsDoc, "proforma.pdf", 0);
+                var print = new MV_DocProforma();
+                var printVM = print.DataContext as MV_DocProformaViewModel;
+                printVM.proforma = vm.proforma;
+                print.Show();
+
+                try
+                {
+
+                    MemoryStream lMemoryStream = new MemoryStream();
+                    Package package = Package.Open(lMemoryStream, FileMode.Create);
+                    XpsDocument doc = new XpsDocument(package);
+                    XpsDocumentWriter writer = XpsDocument.CreateXpsDocumentWriter(doc);
+                    writer.Write(print);
+                    doc.Close();
+                    package.Close();
+
+                    var pdfXpsDoc = PdfSharp.Xps.XpsModel.XpsDocument.Open(lMemoryStream);
+                    PdfSharp.Xps.XpsConverter.Convert(pdfXpsDoc, "proforma-" + vm.proforma.codigo + new Random(99).Next(1, 99).ToString() + ".pdf", 0);
+
+
+                    string file = "proforma-" + vm.proforma.codigo + ".pdf";
+                    MailMessage message = new MailMessage(
+                       "ferretinsoft@pucp.edu.pe",
+                       vm.proforma.destinatario,
+                       "FerretinSoft: Solicitud de Proforma",
+                       vm.proforma.mensaje == null ? "" : vm.proforma.mensaje);
+                    Attachment data = new Attachment(file, MediaTypeNames.Application.Octet);
+                    ContentDisposition disposition = data.ContentDisposition;
+                    disposition.CreationDate = System.IO.File.GetCreationTime(file);
+                    disposition.ModificationDate = System.IO.File.GetLastWriteTime(file);
+                    disposition.ReadDate = System.IO.File.GetLastAccessTime(file);
+                    message.Attachments.Add(data);
+                    SmtpClient client = new SmtpClient("palas.pucp.edu.pe");
+                    client.Credentials = CredentialCache.DefaultNetworkCredentials;
+                    client.Send(message);
+
+                    data.Dispose();
+
+                    MessageBox.Show("Email Enviado correctamente");
+                }
+                catch
+                {
+                    MessageBox.Show("Ocurrio un error al enviar el email, intentelo más tarde");
+                }
+            }
         }
 
     }

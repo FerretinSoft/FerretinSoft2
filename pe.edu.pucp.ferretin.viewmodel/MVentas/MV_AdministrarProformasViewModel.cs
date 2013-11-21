@@ -189,7 +189,6 @@ namespace pe.edu.pucp.ferretin.viewmodel.MVentas
                                     Usuario = usuarioLogueado,
                                     fecEmision = DateTime.Now,
                                     fecVencimiento = DateTime.Now.AddDays(5),
-                                    Cliente = new Cliente(),
                                     igvActual = MS_SharedService.obtenerIGV(),
                                     igv = 0,
                                     subTotal = 0,
@@ -218,19 +217,11 @@ namespace pe.edu.pucp.ferretin.viewmodel.MVentas
 
         public void actualizarMontosProforma(object sender, object e)
         {
-            //elimino si algun producto tiene cantidad = 0
-            foreach (var pp in proforma.ProformaProducto)
-            {
-                if (pp.cantidad == 0)
-                {
-                    proforma.ProformaProducto.Remove(pp);
-                }
-            }
-
+            
             //Actualizo el total
             proforma.total = Decimal.Round(proforma.ProformaProducto.Sum(pp=> pp.montoParcial).Value, 2);
 
-            
+            NotifyPropertyChanged("proforma");
         }
         //Usado para mover los tabs de acuerdo a las acciones realizadas
         public int currentIndexTab
@@ -453,6 +444,42 @@ namespace pe.edu.pucp.ferretin.viewmodel.MVentas
             }
             else
             {
+                String result = String.Empty;
+                if (proforma != null)
+                {
+                    if (proforma.Cliente==null || proforma.Cliente.id<=0)
+                    {
+                        result = "Asigne un cliente a la proforma";
+                    }
+                    else
+                    {
+                        if (proforma.fecVencimiento != null)
+                        {
+                            if (DateTime.Compare(proforma.fecVencimiento.Value, DateTime.Now) < 0)
+                            {
+                                result = "La fecha desde debe ser mayor a la fecha actual";
+                            }
+                            else
+                            {
+                                if (proforma.ProformaProducto.Count <= 0)
+                                {
+                                    result = "Debe seleccionar al menos un Producto";
+                                }
+                            }
+                        }
+                        else
+                        {
+                            result = "Debe seleccionar una fecha de vencimiento de la proforma";
+
+
+                        }
+                    }
+                }
+                if (result.Length > 0)
+                {
+                    MessageBox.Show(result, "Mensaje", MessageBoxButton.OK, MessageBoxImage.Exclamation);
+                    return;
+                }
 
                 if (proforma.id > 0)//Si existe
                 {
@@ -499,6 +526,7 @@ namespace pe.edu.pucp.ferretin.viewmodel.MVentas
                 MessageBox.Show("No se encontro ningún Cliente con el número de documento proporcionado", "No se encontro", MessageBoxButton.OK, MessageBoxImage.Question);
             }
             proforma.Cliente = buscado;
+            proforma.destinatario = buscado.email;
             NotifyPropertyChanged("clienteImagen");
             NotifyPropertyChanged("widthClienteBar");
         }
@@ -527,12 +555,12 @@ namespace pe.edu.pucp.ferretin.viewmodel.MVentas
                         proformaProducto.tipoCambio = (decimal)MS_SharedService.obtenerTipodeCambio();
                         proformaProducto.Proforma = proforma;
                         proformaProducto.Producto = producto;
+                        proformaProducto.moneda = producto.moneda;
+                        proformaProducto.PropertyChanged += actualizarMontosProforma;
                         proformaProducto.cantidad = 1;
                         
-                        proformaProducto.PropertyChanged += actualizarMontosProforma;
-                        
                         proforma.ProformaProducto.Add(proformaProducto);
-                        proforma.ProformaProducto.ListChanged += actualizarMontosProforma;
+                        //proforma.ProformaProducto.ListChanged += actualizarMontosProforma;
 
                     }
                     NotifyPropertyChanged("proforma");
