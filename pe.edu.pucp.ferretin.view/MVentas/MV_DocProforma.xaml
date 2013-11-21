@@ -46,10 +46,10 @@
             <DataGrid  ItemsSource="{Binding proforma.ProformaProducto}" BorderBrush="Transparent" HorizontalScrollBarVisibility="Hidden" VerticalScrollBarVisibility="Hidden" IsManipulationEnabled="False" IsReadOnly="True"  AutoGenerateColumns="False" CanUserAddRows="False" CanUserDeleteRows="False" CanUserReorderColumns="False" CanUserResizeColumns="False" CanUserResizeRows="False" CanUserSortColumns="False" Background="Transparent"   Focusable="False" HeadersVisibility="All" HorizontalGridLinesBrush="Transparent" FontFamily="Shruti">
                 <DataGrid.Columns>
                     <DataGridTextColumn Width="100" Binding="{Binding Producto.codigo}"  Header="Cód Prod."/>
-                    <DataGridTextColumn Width="2*" Binding="{Binding Producto.nombre}" Header="Nombre" IsReadOnly="True"/>
+                    <DataGridTextColumn Width="215" Binding="{Binding Producto.nombre}" Header="Nombre" IsReadOnly="True"/>
                     <DataGridTextColumn Width="70" Binding="{Binding cantidad}" Header="Cantidad"/>
                     <DataGridTextColumn Width="100" Binding="{Binding Producto.precioMonedaString}" IsReadOnly="True" Header="Precio"/>
-                    <DataGridTextColumn Width="1*" Binding="{Binding descuentoPrecioString}" IsReadOnly="True" Header="Descuento"/>
+                    <DataGridTextColumn Width="130" Binding="{Binding descuentoPrecioString}" IsReadOnly="True" Header="Descuento"/>
                     <DataGridTextColumn Width="100" Binding="{Binding montoParcial}" IsReadOnly="True" Header="Importe"/>
                 </DataGrid.Columns>
             </DataGrid>
