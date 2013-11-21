@@ -490,6 +490,7 @@
       <Column Name="precioPuntos" Type="System.Int32" DbType="Int" CanBeNull="true" />
       <Column Name="id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
       <Column Name="precioString" Type="System.String" DbType="VarChar(15)" CanBeNull="true" />
+      <Column Name="ganarPuntos" Type="System.Int32" DbType="Int" CanBeNull="true" />
       <Association Name="Producto_ProductoPrecio" Member="Producto" ThisKey="producto_id" OtherKey="id" Type="Producto" IsForeignKey="true" />
     </Type>
   </Table>
