@@ -209,6 +209,19 @@ namespace pe.edu.pucp.ferretin.viewmodel.MCompras
             }
         }
 
+        RelayCommand _agregarGuiaCommand;
+        public ICommand agregarGuiaCommand
+        {
+            get
+            {
+                if (_agregarGuiaCommand == null)
+                {
+                    _agregarGuiaCommand = new RelayCommand(agregarGuia);
+                }
+                return _agregarGuiaCommand;
+            }
+        }
+
         RelayCommand _viewEditGuiaRemisionCommand;
         public ICommand viewEditGuiaRemisionCommand
         {
@@ -264,6 +277,18 @@ namespace pe.edu.pucp.ferretin.viewmodel.MCompras
 
         #region commands
 
+        public void agregarGuia(Object id)
+        {
+            try
+            {
+                statusTab = Tab.AGREGAR;
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show(e.Message);
+            }
+        }
+        
         public void viewEditGuiaRemision(Object id)
         {
             try
@@ -301,42 +326,47 @@ namespace pe.edu.pucp.ferretin.viewmodel.MCompras
         {
             if (!camposObligatorios())
             {
-                MessageBox.Show("Complete todos los datos obligatorios", "Documento de Compra", MessageBoxButton.OK, MessageBoxImage.Exclamation);
+                MessageBox.Show("Complete todos los datos obligatorios", "Guia de Remision", MessageBoxButton.OK, MessageBoxImage.Exclamation);
             }
             else
             {
-                bool exito = false;
-                if (guiaRemision.id > 0)//Si existe
-                {
-                    ComunService.idVentana(37);
-                    if (!MC_GuiaRemisionService.enviarCambios())
-                    {
-                        MessageBox.Show("No se pudo actualizar la guia de remision");
-                    }
-                    else
-                    {
-                        MessageBox.Show("La guia de remision fue guardado con éxito");
-                        exito = true;
-                    }
-                }
+                if (guiaRemision.fechaRecepcion > guiaRemision.fechaEmision)
+                    MessageBox.Show("La Fecha de Emision no puede ser menor que la Fecha de Recepcion", "Guia de Remision", MessageBoxButton.OK, MessageBoxImage.Exclamation);
                 else
                 {
-                    ComunService.idVentana(36);
-                    if (!MC_GuiaRemisionService.insertarGuiaRemision(guiaRemision))
+                    bool exito = false;
+                    if (guiaRemision.id > 0)//Si existe
                     {
-                        MessageBox.Show("No se pudo agregar la nueva guia de remision");
+                        ComunService.idVentana(37);
+                        if (!MC_GuiaRemisionService.enviarCambios())
+                        {
+                            MessageBox.Show("No se pudo actualizar la guia de remision");
+                        }
+                        else
+                        {
+                            MessageBox.Show("La guia de remision fue guardado con éxito");
+                            exito = true;
+                        }
                     }
                     else
                     {
-                        MessageBox.Show("La guia de remision se agrego con exito");
-                        exito = true;
+                        ComunService.idVentana(36);
+                        if (!MC_GuiaRemisionService.insertarGuiaRemision(guiaRemision))
+                        {
+                            MessageBox.Show("No se pudo agregar la nueva guia de remision");
+                        }
+                        else
+                        {
+                            MessageBox.Show("La guia de remision se agrego con exito");
+                            exito = true;
+                        }
                     }
-                }
-                if (exito)
-                {
-                    NotifyPropertyChanged("listaGuiasRemision");
-                    this.statusTab = Tab.BUSQUEDA;
-                }
+                    if (exito)
+                    {
+                        NotifyPropertyChanged("listaGuiasRemision");
+                        this.statusTab = Tab.BUSQUEDA;
+                    }
+                } 
             }                       
         }
 
