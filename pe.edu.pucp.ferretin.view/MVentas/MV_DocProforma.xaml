@@ -1,0 +1,74 @@
+﻿<Window
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:MVentas="clr-namespace:pe.edu.pucp.ferretin.viewmodel.MVentas;assembly=pe.edu.pucp.ferretin.viewmodel" x:Class="pe.edu.pucp.ferretin.view.MVentas.MV_DocProforma"
+        Title="Proforma"  WindowStartupLocation="CenterScreen" Height="800" Width="755.286" >
+    <Window.DataContext>
+        <MVentas:MV_DocProformaViewModel/>
+    </Window.DataContext>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <Grid HorizontalAlignment="Center">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+            <Image Grid.Column="0" Grid.RowSpan="2" HorizontalAlignment="Left" Height="75" Margin="10,10,0,0" VerticalAlignment="Center" Width="300" Source="../Resources/ferretinLogo2.png"/>
+
+            <TextBlock Grid.Column="1" VerticalAlignment="Center" FontSize="24" FontFamily="Rockwell Extra Bold"><Run Text="Ferretin Mark"/></TextBlock>
+            <StackPanel Grid.Column="1" Grid.Row="1">
+                <TextBlock  HorizontalAlignment="Center" FontSize="20" FontFamily="Simplified Arabic"><Run Text="Precios Insuperables"/></TextBlock>
+                <TextBlock  HorizontalAlignment="Center" FontSize="20" FontFamily="Simplified Arabic" Text="{Binding proforma.Usuario.Empleado.tiendaActual.direccion}"/>
+                <TextBlock  HorizontalAlignment="Center" FontSize="18" FontFamily="DokChampa" Margin="0,10" Text="{Binding proforma.fecEmision}"/>
+            </StackPanel>
+        </Grid>
+        <StackPanel Grid.Row="1" Margin="20,5">
+            <TextBlock FontFamily="Arial" FontSize="16" Margin="0,5"><Run Text="Señores:"/></TextBlock>
+            <TextBlock FontFamily="Arial" FontSize="16" FontWeight="Bold" Margin="10,5" Text="{Binding proforma.Cliente.nombreCompleto}"/>
+            <TextBlock FontFamily="Arial" FontSize="16" Margin="0,5"><Run Text="Presente.-"/></TextBlock>
+            <TextBlock FontFamily="Arial" FontSize="16" Margin="0,5" TextWrapping="Wrap"><Run Text="A través de la presente, tengo el agrado de saludarlos muy cordialmente y a su vez hacerles llegar nuestra propuesta según su requerimiento:"/></TextBlock>
+            <TextBlock FontFamily="Arial" FontSize="16" Margin="0,5" FontWeight="Bold"><Run Text="Requerimiento:"/></TextBlock>
+        </StackPanel>
+        <Grid Grid.Row="2" Margin="20,5" >
+            <Grid.RowDefinitions>
+                <RowDefinition/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <DataGrid  ItemsSource="{Binding proforma.ProformaProducto}" BorderBrush="Transparent" HorizontalScrollBarVisibility="Hidden" VerticalScrollBarVisibility="Hidden" IsManipulationEnabled="False" IsReadOnly="True"  AutoGenerateColumns="False" CanUserAddRows="False" CanUserDeleteRows="False" CanUserReorderColumns="False" CanUserResizeColumns="False" CanUserResizeRows="False" CanUserSortColumns="False" Background="Transparent"   Focusable="False" HeadersVisibility="All" HorizontalGridLinesBrush="Transparent" FontFamily="Shruti">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Width="100" Binding="{Binding Producto.codigo}"  Header="Cód Prod."/>
+                    <DataGridTextColumn Width="215" Binding="{Binding Producto.nombre}" Header="Nombre" IsReadOnly="True"/>
+                    <DataGridTextColumn Width="70" Binding="{Binding cantidad}" Header="Cantidad"/>
+                    <DataGridTextColumn Width="100" Binding="{Binding Producto.precioMonedaString}" IsReadOnly="True" Header="Precio"/>
+                    <DataGridTextColumn Width="130" Binding="{Binding descuentoPrecioString}" IsReadOnly="True" Header="Descuento"/>
+                    <DataGridTextColumn Width="100" Binding="{Binding montoParcial}" IsReadOnly="True" Header="Importe"/>
+                </DataGrid.Columns>
+            </DataGrid>
+            <TextBlock Grid.Row="1" FontFamily="Arial" FontSize="16" Margin="0,5" FontWeight="Bold" HorizontalAlignment="Right"><Run Text="Total: "/><InlineUIContainer>
+					<TextBlock Text="{Binding proforma.totalString}"/>
+				</InlineUIContainer></TextBlock>
+        </Grid>
+        <StackPanel Grid.Row="3" Margin="20,5">
+            <TextBlock FontFamily="Arial" FontSize="16" Margin="0,5" FontWeight="Bold"><Run Text="Condiciones:"/></TextBlock>
+            <TextBlock FontFamily="Arial" FontSize="16" Margin="0,5"><Run Text="■ Los precios incluyen IGV"/></TextBlock>
+            <TextBlock FontFamily="Arial" FontSize="16" Margin="0,5"><Run Text="■ Tipo de cambio "/><InlineUIContainer>
+					<TextBlock Text="{Binding proforma.tipoCambio}"/>
+				</InlineUIContainer></TextBlock>
+            <TextBlock FontFamily="Arial" FontSize="16" Margin="0,5"><Run Text="■ Los precios de esta cotización son válidas por la cantidad total expresada"/></TextBlock>
+            <TextBlock FontFamily="Arial" FontSize="16" Margin="0,5"><Run Text="■ Vigencia: "/><InlineUIContainer>
+					<TextBlock Text="{Binding proforma.diasVigencia}"/>
+				</InlineUIContainer></TextBlock>
+            <TextBlock FontFamily="Arial" FontSize="16" Margin="0,5" TextWrapping="Wrap" TextAlignment="Center"><Run Text="Pago por Banco BCP: RUC de Ferretin Mark SAC: 21521420604.- COMISION 1 dolar. AGENTE: Codigo 07604 como pago de servicios"/></TextBlock>
+            <TextBlock FontFamily="Arial" FontSize="16" Margin="0,5" TextWrapping="Wrap" TextAlignment="Center"><Run Text="Transferencia de Cta. a Cta BCP Pago de Servicios: FerretinMark y Comunicaciones, indicar monto a transferir."/></TextBlock>
+        </StackPanel>
+    </Grid>
+</Window>

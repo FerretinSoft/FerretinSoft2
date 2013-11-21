@@ -76,10 +76,13 @@
     <Compile Include="MAlmacen\Categoria.cs" />
     <Compile Include="MAlmacen\Movimiento.cs" />
     <Compile Include="MAlmacen\MovimientoEstado.cs" />
+    <Compile Include="MAlmacen\MovimientoProducto.cs" />
     <Compile Include="MAlmacen\MovimientoTipo.cs" />
     <Compile Include="MAlmacen\SolicitudAbastecimiento.cs" />
     <Compile Include="MCompras\DocumentoCompra.cs" />
+    <Compile Include="MCompras\DocumentoCompraProducto.cs" />
     <Compile Include="MCompras\GuiaRemision.cs" />
+    <Compile Include="MCompras\GuiaRemisionProducto.cs" />
     <Compile Include="MCompras\SolicitudCompra.cs" />
     <Compile Include="MCompras\Proveedor.cs" />
     <Compile Include="MCompras\ProveedorProducto.cs" />

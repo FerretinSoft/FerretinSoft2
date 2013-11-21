@@ -55,7 +55,7 @@ namespace pe.edu.pucp.ferretin.view.MVentas
                     {
                         MV_DevolucionesWindow padre = this.Owner as MV_DevolucionesWindow;
                         MV_DevolucionesViewModel padre_DataContext = padre.main.DataContext as MV_DevolucionesViewModel;
-                        padre_DataContext.searchNroDocCliente = my_DataContext.cliente.nroDoc;
+                        padre_DataContext.searchNroDocCliente = Convert.ToString(my_DataContext.cliente.nroDoc);
                         padre_DataContext.searchnombreCliente = my_DataContext.cliente.nombreCompleto;
                         this.Close();
                     }

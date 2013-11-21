@@ -27,7 +27,7 @@ namespace pe.edu.pucp.ferretin.tdd.MAlmacen
             
             //Act - No hay nada que hacer, porque la accion fue la creacion misma            
             Tienda tnd = MS_TiendaService.db.Tienda.Single(t => t.nombre.ToLower().Contains("tienda lince 1"));
-            Producto prod = MA_ProductoService.db.Producto.Single(p => p.nombre.ToLower().Contains("lampara grande"));
+            Producto prod = MA_ProductoService.db.Producto.Single(p => p.nombre.ToLower().Contains("sanitario celima"));
             ProductoAlmacen prodAlm = MA_ProductoAlmacenService.db.ProductoAlmacen.Single(pa => (pa.id_almacen == tnd.id && pa.id_producto == prod.id));
 
             int stock = (int)(prodAlm.stock);            

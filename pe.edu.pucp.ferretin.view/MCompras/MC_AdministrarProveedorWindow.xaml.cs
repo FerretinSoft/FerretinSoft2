@@ -1,4 +1,6 @@
-﻿using System.Text.RegularExpressions;
+﻿using pe.edu.pucp.ferretin.view.MVentas;
+using pe.edu.pucp.ferretin.viewmodel.MCompras;
+using System.Text.RegularExpressions;
 using System.Windows;
 using System.Windows.Input;
 
@@ -36,6 +38,15 @@ namespace pe.edu.pucp.ferretin.view.MCompras
                 e.Handled = true;
         }
         #endregion
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            //  var vm = DataContext as MV_RegistrarVentaViewModel;
+           // var buscador = new MV_BuscadorProductos(this, vm.usuarioLogueado.Empleado.tiendaActual);
+
+            var vm = DataContext as MC_ProveedoresViewModel;
+            var buscador = new MV_BuscadorProductos(this, vm.usuarioLogueado.Empleado.tiendaActual);
+        }
 
     }
 }

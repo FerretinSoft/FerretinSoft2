@@ -23,7 +23,7 @@ namespace pe.edu.pucp.ferretin.controller.MCompras
             {
                 if (_listaProveedores == null)
                 {
-                    _listaProveedores = db.Proveedor;
+                    _listaProveedores = db.Proveedor.Where(p => p.estado == 1); ;
                 }
             
                 db.Refresh(RefreshMode.OverwriteCurrentValues, _listaProveedores);
@@ -84,7 +84,8 @@ namespace pe.edu.pucp.ferretin.controller.MCompras
                        && p.ruc != null && p.ruc.Contains(ruc)&&
                        p.tipo!=null && p.tipo.Contains(tipo)&&
                       
-                        (rubro==null|| rubro.id==0 ||( p.id_rubro!=null && p.id_rubro == rubro.id))
+                        (rubro==null|| rubro.id==0 ||( p.id_rubro!=null && p.id_rubro == rubro.id)
+                        )
                   
                     )
                    orderby p.razonSoc
@@ -148,8 +149,8 @@ namespace pe.edu.pucp.ferretin.controller.MCompras
                                                   (p.Producto != null && p.Producto.id == producto.id)                                                
                                                   select p);
 
-            IEnumerable<Proveedor> proveedores = (from p in productos
-                                                  select p.Proveedor).Distinct();
+            IEnumerable<Proveedor> proveedores = (from p in productos where p.Proveedor.estado==1 
+                                                  select p.Proveedor ).Distinct();
 
             return proveedores;
         }

@@ -119,7 +119,11 @@ namespace pe.edu.pucp.ferretin.viewmodel.MVentas
                 //Si la pestaña es para agregar nuevo, limpio los input
                 switch (_statusTab)
                 {
-                    case Tab.BUSQUEDA: detallesTabHeader = soloSeleccionarPromocion ? "Detalles" : "Agregar"; break;//Si es agregar, creo un nuevo objeto Promocion
+                    case Tab.BUSQUEDA:
+                        {
+                            ComunService.Clean();
+                            detallesTabHeader = soloSeleccionarPromocion ? "Detalles" : "Agregar"; break;//Si es agregar, creo un nuevo objeto Promocion
+                        }
                     case Tab.AGREGAR: 
                         {
                             detallesTabHeader = "Agregar"; 

@@ -85,21 +85,21 @@ namespace pe.edu.pucp.ferretin.viewmodel.MCompras
             }
         }
 
-        private IEnumerable<GuiaRemisionProducto> _listaGuiaRemisionProducto = null;
-        public IEnumerable<GuiaRemisionProducto> listaGuiaRemisionProducto
-        {
-            get
-            {
-                if (guiaRemision.id >0)
-                    _listaGuiaRemisionProducto = MC_GuiaRemisionService.buscarProductosGuiaRemision(guiaRemision);
-                return _listaGuiaRemisionProducto;
-            }
-            set
-            {
-                _listaGuiaRemisionProducto = value;
-                NotifyPropertyChanged("listaGuiaRemisionProducto");
-            }
-        }
+        //private IEnumerable<GuiaRemisionProducto> _listaGuiaRemisionProducto = null;
+        //public IEnumerable<GuiaRemisionProducto> listaGuiaRemisionProducto
+        //{
+        //    get
+        //    {
+        //        if (guiaRemision.id >0)
+        //            _listaGuiaRemisionProducto = MC_GuiaRemisionService.buscarProductosGuiaRemision(guiaRemision);
+        //        return _listaGuiaRemisionProducto;
+        //    }
+        //    set
+        //    {
+        //        _listaGuiaRemisionProducto = value;
+        //        NotifyPropertyChanged("listaGuiaRemisionProducto");
+        //    }
+        //}
 
         //private IEnumerable<GuiaRemisionProducto> _listaProductosGuia;
         //public IEnumerable<GuiaRemisionProducto> listaProductosGuia
@@ -134,25 +134,41 @@ namespace pe.edu.pucp.ferretin.viewmodel.MCompras
             }
             set
             {
+                if (value == Tab.DETALLES && guiaRemision == null)
+                {
+                }
                 _statusTab = value;
-                //Si cambió el estado de las pestañas también cambio los Header
-                //Si la pestaña es para agregar nuevo, limpio los input
                 switch (_statusTab)
                 {
-                    case Tab.BUSQUEDA: detallesTabHeader = "Agregar"; guiaRemision = new GuiaRemision(); break;
-                    case Tab.AGREGAR: detallesTabHeader = "Agregar"; ordenCompraCod = ""; 
+                    case Tab.BUSQUEDA: 
+                        detallesTabHeader = "Agregar"; 
+                        break;
+
+                    case Tab.AGREGAR: 
+                        detallesTabHeader = "Agregar"; 
+                        ordenCompraCod = ""; 
                         guiaRemision = new GuiaRemision(); 
-                        listaGuiaRemisionProducto = null;
+                        //listaGuiaRemisionProducto = null;
                         guiaRemision.Tienda = MC_ComunService.usuarioL.Empleado.tiendaActual;break;
-                    case Tab.MODIFICAR: detallesTabHeader = "Modificar"; break;
-                    case Tab.DETALLES: detallesTabHeader = "Detalles";  break;
-                    default: detallesTabHeader = "Agregar"; guiaRemision = new GuiaRemision(); break;//Si es agregar, creo un nuevo objeto Guia de Remision
+
+                    case Tab.MODIFICAR: 
+                        detallesTabHeader = "Modificar"; 
+                        break;
+
+                    case Tab.DETALLES: 
+                        detallesTabHeader = "Detalles";  
+                        break;
+
+                    default: 
+                        detallesTabHeader = "Agregar"; 
+                        guiaRemision = new GuiaRemision(); 
+                        break;//Si es agregar, creo un nuevo objeto Guia de Remision
                 }
                 NotifyPropertyChanged("statusTab");
                 //Cuando se cambia el status, tambien se tiene que actualizar el currentIndex del tab
                 NotifyPropertyChanged("currentIndexTab"); //Hace que cambie el tab automaticamente
                 NotifyPropertyChanged("guiaRemision");
-                NotifyPropertyChanged("listaGuiaRemisionProducto");
+                //NotifyPropertyChanged("listaGuiaRemisionProducto");
                 NotifyPropertyChanged("ordenCompraCod");
             }
         }
@@ -173,7 +189,7 @@ namespace pe.edu.pucp.ferretin.viewmodel.MCompras
             {
                 _detallesTabHeader = value;
                 NotifyPropertyChanged("detallesTabHeader");
-                NotifyPropertyChanged("listaGuiaRemisionProducto");
+                //NotifyPropertyChanged("listaGuiaRemisionProducto");
             }
         }
         #endregion
@@ -253,9 +269,9 @@ namespace pe.edu.pucp.ferretin.viewmodel.MCompras
             try
             {
                 this.guiaRemision = listaGuiasRemision.Single(guiaRemision => guiaRemision.id == (int)id);
-                NotifyPropertyChanged("guiaRemision");
-                NotifyPropertyChanged("listaGuiaRemisionProducto");
-                NotifyPropertyChanged("ordenCompraCod");
+                //NotifyPropertyChanged("guiaRemision");
+                //NotifyPropertyChanged("listaGuiaRemisionProducto");
+                //NotifyPropertyChanged("ordenCompraCod");
                 this.statusTab = Tab.MODIFICAR;
             }
             catch (Exception e)
@@ -337,34 +353,40 @@ namespace pe.edu.pucp.ferretin.viewmodel.MCompras
             try
             {
                 buscado = MC_DocumentoCompraService.obtenerDCByCodigo(this._ordenCompraCod);
-                
-                if (buscado.id_estado != 7)
+
+                if (buscado != null)
                 {
-                    MessageBox.Show("La Orden de Compra no se encuentra Facturada", "Orden de Compra", MessageBoxButton.OK, MessageBoxImage.Question);
+                    if (buscado.id_estado != 7)
+                        MessageBox.Show("La Orden de Compra no se encuentra Facturada", "Orden de Compra", MessageBoxButton.OK, MessageBoxImage.Exclamation);
+                    else
+                    {
+                        decimal? restante = 0;
+                        int cont = buscado.DocumentoCompraProducto.Count();
+                        for (int i = 0; i < cont; i++)
+                            restante = restante + buscado.DocumentoCompraProducto[i].cantidadRestante;
+
+                        if (restante == 0)
+                            MessageBox.Show("La Orden de Compra ya fue recibida en su totalidad", "Orden de Compra", MessageBoxButton.OK, MessageBoxImage.Exclamation);
+                        else
+                        {
+                            documentoCompra = buscado;
+                            this.guiaRemision.DocumentoCompra = documentoCompra;
+
+                            cont = documentoCompra.DocumentoCompraProducto.Count();
+
+                            for (int j = 0; j < cont; j++)
+                            {
+                                GuiaRemisionProducto guiaLinea = new GuiaRemisionProducto() { id_guia_detalle = documentoCompra.DocumentoCompraProducto[j].id, cantidadRecibida = 0, DocumentoCompraProducto = documentoCompra.DocumentoCompraProducto[j], GuiaRemision = guiaRemision };
+                                guiaRemision.GuiaRemisionProducto.Add(guiaLinea);
+                            }
+                            NotifyPropertyChanged("guiaRemision");
+                        }
+                    }
                 }
                 else
                 {
-                    int i;
-                    documentoCompra = buscado;
-                    this.guiaRemision.DocumentoCompra = documentoCompra;
-
-                    var sequence = new List<GuiaRemisionProducto>();
-                    int cont = documentoCompra.DocumentoCompraProducto.Count();
-
-                    for (i = 0; i < cont; i++)
-                    {
-                        GuiaRemisionProducto guiaLinea = new GuiaRemisionProducto() { id_guia_detalle = documentoCompra.DocumentoCompraProducto[i].id, cantidadRecibida = 0, DocumentoCompraProducto = documentoCompra.DocumentoCompraProducto[i], GuiaRemision = guiaRemision };
-                        sequence.Add(guiaLinea);
-                        guiaRemision.GuiaRemisionProducto.Add(guiaLinea);
-                    }
-                    listaGuiaRemisionProducto = sequence;
-                    NotifyPropertyChanged("listaGuiaRemisionProducto");
-                }
-
-                if (buscado == null)
-                {
-                    documentoCompra = null;
-                    MessageBox.Show("No se encontro ninguna Orden de Compra con el número de documento proporcionado", "No se encontro", MessageBoxButton.OK, MessageBoxImage.Question);
+                    //documentoCompra = null;
+                    MessageBox.Show("No se encontro ninguna Orden de Compra con el codigo proporcionado", "Orden de Compra", MessageBoxButton.OK, MessageBoxImage.Exclamation);
                 }
             }
             catch (Exception e) 

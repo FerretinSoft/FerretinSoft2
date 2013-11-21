@@ -207,7 +207,7 @@
                                     <ImageBrush ImageSource="../Resources/add_20.png" Stretch="None"/>
                                 </Button.Background>
                             </Button>
-                            <Button Content="" Height="18" VerticalAlignment="Center" Width="18" Margin="5,0" ToolTip="Buscar otros productos con otros criterios">
+                            <Button Content="" Height="18" VerticalAlignment="Center" Width="18" Margin="5,0" ToolTip="Buscar otros productos con otros criterios" Click="Button_Click_2">
                                 <Button.Background>
                                     <ImageBrush ImageSource="../Resources/search1_20.png"/>
                                 </Button.Background>
@@ -218,9 +218,8 @@
                                 <DataGridHyperlinkColumn Width="1.5*" Binding="{Binding Producto.codigo}" IsReadOnly="True" Header="Código"/>
                                 <DataGridTextColumn Width="2*" Binding="{Binding Producto.nombre}" Header="Nombre" IsReadOnly="True"/>
                                 <DataGridTextColumn Width="1.2*" Binding="{Binding cantidad, UpdateSourceTrigger=PropertyChanged}" Header="Cantidad"/>
-                                <DataGridTextColumn Width="1.2*" Binding="{Binding Producto.monedaString}" IsReadOnly="True" Header="Moneda"/>
-                                <DataGridTextColumn Width="1*" Binding="{Binding Producto.precioLista}" IsReadOnly="True" Header="Precio"/>
-                                <DataGridTextColumn Width="1.5*" Binding="{Binding descuentoPorcentaje, UpdateSourceTrigger=PropertyChanged}" IsReadOnly="True" Header="Dscto. (%)"/>
+                                <DataGridTextColumn Width="1*" Binding="{Binding Producto.precioMonedaString}" IsReadOnly="True" Header="Precio"/>
+                                <DataGridTextColumn Width="1.5*" Binding="{Binding descuentoPrecioString, UpdateSourceTrigger=PropertyChanged}" IsReadOnly="True" Header="Descuento"/>
                                 <DataGridTextColumn Width="1.2*" Binding="{Binding montoParcial}" IsReadOnly="True" Header="Importe"/>
 
                             </DataGrid.Columns>
@@ -253,7 +252,7 @@
                                 <RowDefinition/>
                             </Grid.RowDefinitions>
                             <Label Content="Destinatarios:"/>
-                            <TextBox Text="{Binding proforma.Cliente.email}" Grid.Column="1" VerticalAlignment="Center"/>
+                            <TextBox Text="{Binding proforma.destinatario,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" Grid.Column="1" VerticalAlignment="Center"/>
                             <Label Grid.Row="1" Content="Mensaje:"/>
                             <TextBox Grid.Column="1" Grid.Row="1" Grid.RowSpan="2" VerticalAlignment="Stretch"/>
                         </Grid>
@@ -262,8 +261,8 @@
                             <Button Command="{Binding cancelarCommand}" Grid.Column="1" x:Name="cancelarBtn" Content="CANCELAR" HorizontalAlignment="Right" VerticalAlignment="Center" Height="30" Padding="5,0" />
                         </StackPanel>
                         <StackPanel Grid.Row="3" Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,5,0,0">
-                            <Button Command="{Binding imprimirCommand}" Grid.Column="1" x:Name="imprimirBtn" Content="IMPRIMIR" HorizontalAlignment="Right"  VerticalAlignment="Center" Width="75" Height="30" Margin="0,0,10,0"/>
-                            <Button Command="{Binding enviarEmailCommand}" Grid.Column="1" x:Name="enviarEmailBtn" Content="ENVIAR EMAIL" HorizontalAlignment="Right" VerticalAlignment="Center" Height="30" Padding="5,0" Margin="0" />
+                            <Button x:Name="imprimirBtn" Command="{Binding imprimirCommand}" Grid.Column="1" Content="IMPRIMIR" HorizontalAlignment="Right"  VerticalAlignment="Center" Width="75" Height="30" Margin="0,0,10,0" Click="imprimirBtn_Click"/>
+                            <Button Command="{Binding enviarEmailCommand}" Grid.Column="1" x:Name="enviarEmailBtn" Content="ENVIAR EMAIL" HorizontalAlignment="Right" VerticalAlignment="Center" Height="30" Padding="5,0" Margin="0" Click="enviarEmailBtn_Click" />
 
                         </StackPanel>
                         

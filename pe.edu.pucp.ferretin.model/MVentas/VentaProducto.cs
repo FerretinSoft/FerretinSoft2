@@ -106,6 +106,7 @@ namespace pe.edu.pucp.ferretin.model
             OncantidadChanged();
             if (this.Venta == null 
                 || this.Producto == null
+                || this.Producto.precioPuntos == null
                 || this.Producto.precioPuntos == 0
                 || this.Venta.Cliente == null 
                 || this.Venta.Cliente.puntosActual == null

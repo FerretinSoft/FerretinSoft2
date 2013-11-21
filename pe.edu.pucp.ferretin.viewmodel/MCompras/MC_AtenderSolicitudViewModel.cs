@@ -79,6 +79,23 @@ namespace pe.edu.pucp.ferretin.viewmodel.MCompras
 
         #endregion
 
+
+        //public  SolicitudCompra buscarSolByName(string nombre)
+        //{
+        //    IEnumerable<SolicitudCompra> sol = (from p in listaProductosSol
+        //                                          where
+        //                                          (p.Producto.nombre != null && p.Producto.nombre.Contains(nombre))
+        //                                        orderby p.Producto.nombre
+        //                                          select p);
+        //    if (sol.Count() > 0)
+        //        return sol.First();
+        //    else
+        //        return null;
+        //}
+
+
+
+
         RelayCommand _generarOCSCommand;
         public ICommand generarOCSCommand
         {
@@ -162,8 +179,9 @@ namespace pe.edu.pucp.ferretin.viewmodel.MCompras
                             cantidad = seleccionado.cantidad,
                             DocumentoCompra = dc,
                             Producto = seleccionado.Producto,
-                            precioUnit = seleccionado.Producto.precioLista,
-                            montoParcial = seleccionado.cantidad * seleccionado.Proveedor.ProveedorProducto.First(l=>l.Producto.id == seleccionado.Producto.id).precio,
+                           // precioUnit = seleccionado.Producto.precioLista,
+                           precioUnit= seleccionado.Proveedor.ProveedorProducto.First(l=>l.Producto.id == seleccionado.Producto.id).precio,
+                            montoParcial = seleccionado.cantidad * seleccionado.Proveedor.ProveedorProducto.First(l => l.Producto.id == seleccionado.Producto.id).precio,
                             estado = 1,
                             UnidadMedida = seleccionado.Producto.UnidadMedida
                         };

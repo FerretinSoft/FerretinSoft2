@@ -43,7 +43,26 @@ namespace pe.edu.pucp.ferretin.tdd.MRecursosHumanos
             int cantEmpleados = MR_EmpleadoService.db.Empleado.Count();
 
             //Assert - Verificar la condicion o criterio de aceptacion
-            Assert.AreEqual(22, cantEmpleados);
+            Assert.GreaterOrEqual(22, cantEmpleados);
         }
+
+
+
+        /*************************Prueba si un empleado no ha sido registrado dos veces**************************************/
+
+        [TestCase]
+        public void Empleado_Unico_En_Registro()
+        {
+            foreach (Empleado e in MR_EmpleadoService.db.Empleado) {
+
+                IEnumerable<Empleado> lemp = MR_EmpleadoService.db.Empleado.Where(em => em.nombre == e.nombre && em.apPaterno == e.apPaterno && em.apMaterno == e.apMaterno);
+
+                int cantidadRegistros = (int)lemp.Count();
+
+                //Assert- verificar que el empleado no ha sido registrdo dos veces en la Base de datos
+                Assert.AreEqual(cantidadRegistros, 1);
+            }
+        }
+
     }
 }

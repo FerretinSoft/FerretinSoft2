@@ -27,7 +27,7 @@
             <Label Content="Perfil:" HorizontalAlignment="Left" Height="26" VerticalAlignment="Top" Width="68" Margin="99,37,0,0" Grid.Column="1"/>
             <TextBox Text="{Binding searchNombreUsuario, Mode=TwoWay}" MaxLength="26" HorizontalAlignment="Left" Height="20" TextWrapping="Wrap" VerticalAlignment="Top" Width="191" Margin="175,37,0,0" PreviewTextInput="TextBox_PreviewTextInput"  />
 
-            <Button Command="{Binding actualizarListaTransaccionesCommand}" x:Name="buscarTransaccionesBtn" HorizontalAlignment="Left" Margin="408,57,0,0" VerticalAlignment="Top" Width="32" Height="32" RenderTransformOrigin="0.3,-0.35" Grid.Column="1">
+            <Button Command="{Binding actualizarListaTransaccionesCommand}" x:Name="buscarTransaccionesBtn" HorizontalAlignment="Left" Margin="417,53,0,20" Width="30" RenderTransformOrigin="0.3,-0.35" Grid.Column="1">
                 <Button.Background>
                     <ImageBrush ImageSource="../Resources/refresh2_48.png"/>
                 </Button.Background>

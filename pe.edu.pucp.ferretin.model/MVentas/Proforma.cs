@@ -13,8 +13,8 @@ namespace pe.edu.pucp.ferretin.model
 
         partial void OntotalChanged()
         {
-            igv = Decimal.Round((this.total * (decimal)igvActual / 100).Value, 2);
-            subTotal = this.total - this.igv;
+            this.subTotal = Decimal.Round(this.total.Value / (1 + ((decimal)igvActual / 100)), 2);
+            this.igv = Decimal.Round(this.total.Value - this.subTotal.Value, 2);
         }
 
         public string totalString

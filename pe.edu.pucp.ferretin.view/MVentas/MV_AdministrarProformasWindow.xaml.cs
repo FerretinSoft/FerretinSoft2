@@ -6,9 +6,17 @@ using pe.edu.pucp.ferretin.view.MRecursosHumanos;
 using pe.edu.pucp.ferretin.viewmodel.MRecursosHumanos;
 using pe.edu.pucp.ferretin.viewmodel.MVentas;
 using System;
+using System.Collections;
 using System.Collections.Generic;
+using System.IO;
+using System.IO.Packaging;
 using System.Linq;
+using System.Net;
+using System.Net.Mail;
+using System.Net.Mime;
 using System.Text;
+using System.Text.RegularExpressions;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -18,6 +26,8 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using System.Windows.Xps;
+using System.Windows.Xps.Packaging;
 
 namespace pe.edu.pucp.ferretin.view.MVentas
 {
@@ -195,6 +205,66 @@ namespace pe.edu.pucp.ferretin.view.MVentas
             var viewModel = v.main.DataContext as MR_AdministrarPersonalViewModel;
             viewModel.soloSeleccionarVendedor = true;
             v.Show();
+        }
+
+
+        //Buscador de productos
+        private void Button_Click_2(object sender, RoutedEventArgs e)
+        {
+            var vm = DataContext as MV_AdministrarProformasViewModel;
+            var buscador = new MV_BuscadorProductos(this, vm.usuarioLogueado.Empleado.tiendaActual);
+
+        }
+
+        private void imprimirBtn_Click(object sender, RoutedEventArgs e)
+        {
+            var vm = DataContext as MV_AdministrarProformasViewModel;
+            if (vm.proforma.id <= 0)
+            {
+                vm.registrar(null);
+            }
+            if (vm.proforma.id > 0)
+            {
+                var print = new MV_DocProforma();
+                var printVM = print.DataContext as MV_DocProformaViewModel;
+                printVM.proforma = vm.proforma;
+                print.imprimir();
+            }
+        }
+
+        private void enviarEmailBtn_Click(object sender, RoutedEventArgs e)
+        {
+            var vm = DataContext as MV_AdministrarProformasViewModel;
+            if (vm.proforma.id <= 0)
+            {
+                vm.registrar(null);
+            }
+            if (vm.proforma.id > 0)
+            {
+                if (String.IsNullOrEmpty(vm.proforma.destinatario))
+                {
+                    MessageBox.Show("Debe ingresar el email de un destinatario");
+                    return;
+                }
+                MailAddress m;
+                try
+                {
+                    m = new MailAddress(vm.proforma.destinatario);
+                }
+                catch
+                {
+                    MessageBox.Show("El email ingresado no es válido");
+                    return;
+                }
+
+                var print = new MV_DocProforma();
+                print.Owner = this;
+                var printVM = print.DataContext as MV_DocProformaViewModel;
+                printVM.proforma = vm.proforma;
+                print.Show();
+                print.enviarEmail();
+                
+            }
         }
 
     }

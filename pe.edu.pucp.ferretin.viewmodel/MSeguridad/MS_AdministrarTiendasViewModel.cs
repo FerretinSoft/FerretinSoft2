@@ -244,7 +244,7 @@ namespace pe.edu.pucp.ferretin.viewmodel.MSeguridad
             }
         }
         #endregion
-
+        /**************************************************/
         #region RalayCommand
         RelayCommand _actualizarListaAlmacenesCommand;
         public ICommand actualizarListaAlmacenesCommand
@@ -258,6 +258,7 @@ namespace pe.edu.pucp.ferretin.viewmodel.MSeguridad
                 return _actualizarListaAlmacenesCommand;
             }
         }
+        /**************************************************/
         RelayCommand _agregarAlmacenCommand;
         public ICommand agregarAlmacenCommand
         {
@@ -270,6 +271,7 @@ namespace pe.edu.pucp.ferretin.viewmodel.MSeguridad
                 return _agregarAlmacenCommand;
             }
         }
+        /**************************************************/
         RelayCommand _viewEditAlmacenCommand;
         public ICommand viewEditAlmacenCommand
         {
@@ -282,6 +284,7 @@ namespace pe.edu.pucp.ferretin.viewmodel.MSeguridad
                 return _viewEditAlmacenCommand;
             }
         }
+        /**************************************************/
         RelayCommand _saveAlmacenCommand;
         public ICommand saveAlmacenCommand
         {
@@ -293,8 +296,7 @@ namespace pe.edu.pucp.ferretin.viewmodel.MSeguridad
                 }
                 return _saveAlmacenCommand;
             }
-        }
-      
+        }      
         /**************************************************/
         RelayCommand _buscarJefeCommand;
         public ICommand buscarJefeCommand
@@ -308,7 +310,20 @@ namespace pe.edu.pucp.ferretin.viewmodel.MSeguridad
                 return _buscarJefeCommand;
             }
         }
-
+        /**************************************************/
+        RelayCommand _cancelAlmacenCommand;
+        public ICommand cancelAlmacenCommand
+        {
+            get
+            {
+                if (_cancelAlmacenCommand == null)
+                {
+                    _cancelAlmacenCommand = new RelayCommand(cancelAlmacen);
+                }
+                return _cancelAlmacenCommand;
+            }
+        }
+        /**************************************************/
         RelayCommand _uploadImageCommand;
         public ICommand uploadImageCommand
         {
@@ -321,7 +336,7 @@ namespace pe.edu.pucp.ferretin.viewmodel.MSeguridad
                 return _uploadImageCommand;
             }
         }
-
+        /**************************************************/
         #endregion
 
         #region Comandos

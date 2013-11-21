@@ -29,7 +29,7 @@ namespace pe.edu.pucp.ferretin.view.MVentas
             PrintDialog printDialog = new PrintDialog();
             if (printDialog.ShowDialog() == true){
                 imprimirBtn.Visibility = System.Windows.Visibility.Hidden;
-                printDialog.PrintVisual(main, "Boleta de venta");
+                printDialog.PrintVisual(main, "Nota de Crédito");
                 this.Close();
             }
         }

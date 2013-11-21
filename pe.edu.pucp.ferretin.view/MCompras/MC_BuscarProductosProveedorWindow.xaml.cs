@@ -28,26 +28,24 @@ namespace pe.edu.pucp.ferretin.view.MCompras
                     MC_CotizacionesOCViewModel padreViewModel = padre.main.DataContext as MC_CotizacionesOCViewModel;
                     IEnumerable<ProveedorProducto> listaPPFinal = miViewModel.listaProductosProveedorFinal;
 
-                    var sequence = new List<DocumentoCompraProducto>();
                     if (listaPPFinal != null)
                     {
                         List<ProveedorProducto> listAux = listaPPFinal.ToList();
-                        for (int i = 0; i < listAux.Count(); i++)
+                        int cont = listAux.Count();
+                        for (int i = 0; i < cont; i++)
                         {
-                            if (listAux[i].isSelected)
-                            {
-                                var linea = new DocumentoCompraProducto() { 
-                                    Producto = listAux[i].Producto,
-                                    UnidadMedida = listAux[i].UnidadMedida,
-                                    precioUnit = listAux[i].precio,
-                                    id_unidad_medida = listAux[i].id_unidad
-                                };
-                                listAux[i].isSelected = false;
-                                sequence.Add(linea);
-                            }
+                            var linea = new DocumentoCompraProducto() { 
+                                Producto = listAux[i].Producto,
+                                UnidadMedida = listAux[i].UnidadMedida,
+                                precioUnit = listAux[i].precio,
+                            };
+                            listAux[i].isSelected = false;
+                            linea.PropertyChanged += padreViewModel.actualizarMontosDC;
+                            padreViewModel.documentoCompra.DocumentoCompraProducto.Add(linea);
+                            padreViewModel.actualizarMontosDC(null, null);
                         }
-                        padreViewModel.listaProductosDC = sequence;
                     }
+                    padreViewModel.actualizar();
                     this.Close();
                 }
                 catch (Exception ex)
