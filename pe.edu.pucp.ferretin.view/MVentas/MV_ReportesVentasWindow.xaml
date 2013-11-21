@@ -1,8 +1,12 @@
 ﻿<Window x:Class="pe.edu.pucp.ferretin.view.MVentas.MV_ReportesVentasWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:viewmodel="clr-namespace:pe.edu.pucp.ferretin.viewmodel.MVentas;assembly=pe.edu.pucp.ferretin.viewmodel"
         Title="Reportes Ventas" Height="353.004" Width="473.851" Icon="../Resources/ferretin_ico.ico" WindowStartupLocation="CenterScreen">
-    <Grid>
+    <Window.Resources>
+        <viewmodel:MV_ReportesViewModel x:Key="MV_ReportesViewModel"/>
+    </Window.Resources>
+    <Grid x:Name="main" DataContext="{Binding Source={StaticResource MV_ReportesViewModel}}">
         <Grid.Background>
             <ImageBrush ImageSource="../Resources/texture_3_100.png" TileMode="FlipX" 
             Viewport="0,0,100,100" ViewportUnits="Absolute"/>
@@ -13,32 +17,30 @@
             <RowDefinition Height="40px"></RowDefinition>
 
         </Grid.RowDefinitions>
-        <Grid x:Name="repIntroGrid" Margin="0" Visibility="Visible">
+        <Grid x:Name="repIntroGrid" Margin="0" Visibility="Collapsed">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition></ColumnDefinition>
                 <ColumnDefinition></ColumnDefinition>
             </Grid.ColumnDefinitions>
             <Label Content="Reportes disponibles" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" FontSize="16" FontStyle="Italic"/>
-            <ListBox HorizontalAlignment="Left" Height="186" Margin="10,50,0,0" VerticalAlignment="Top" Width="194">
+            <ListBox Name="listaRepDisp"  HorizontalAlignment="Left" Height="186" Margin="10,50,0,0" VerticalAlignment="Top" Width="194">
                 <ListBoxItem Content="Reporte por período"/>
                 <ListBoxItem Content="Reporte por productos"/>
                 <ListBoxItem Content="Reporte por tienda"/>
             </ListBox>
             <Label Content="Reportes favoritos" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" FontSize="16" FontStyle="Italic" Grid.Column="1"/>
             <ListBox HorizontalAlignment="Left" Height="186" Margin="10,50,0,0" VerticalAlignment="Top" Width="194" Grid.Column="1">
-                <ListBoxItem Content="Reporte diario"/>
-                <ListBoxItem Content="Reporte 10 productos TOP"/>
-                <ListBoxItem Content="Reporte 10 productos BOTTOM"/>
+
             </ListBox>
             <Label Content="Seleccione un reporte y presione Siguiente." HorizontalAlignment="Left" Margin="10,246,0,0" VerticalAlignment="Top" Width="308" Grid.ColumnSpan="2"/>
         </Grid>
-        <Grid x:Name="repConfGrid" Margin="0" Visibility="Collapsed">
+        <Grid x:Name="repConfGrid" Margin="0" Visibility="Visible">
             <Label Content="Configure los parámetros del reporte." HorizontalAlignment="Left" Margin="10,246,0,0" VerticalAlignment="Top" Width="308" Grid.ColumnSpan="2"/>
             <Label Content="Reporte por productos" HorizontalAlignment="Center" Margin="146,10,111,0" VerticalAlignment="Top" FontSize="16"/>
             <Label Content="Fecha desde:" HorizontalAlignment="Left" Margin="13,60,0,0" VerticalAlignment="Top"/>
             <Label Content="Fecha hasta:" HorizontalAlignment="Left" Margin="243,60,0,0" VerticalAlignment="Top"/>
-            <DatePicker HorizontalAlignment="Left" Margin="96,60,0,0" VerticalAlignment="Top" DisplayDate="2013-09-01" Text="01/09/2013"/>
-            <DatePicker HorizontalAlignment="Left" Margin="328,60,0,0" VerticalAlignment="Top" DisplayDate="2013-09-12" Text="12/09/2013"/>
+            <DatePicker HorizontalAlignment="Left" Margin="96,60,0,0" VerticalAlignment="Top" SelectedDate="{Binding Path=searchFechaInicio}"/>
+            <DatePicker HorizontalAlignment="Left" Margin="328,60,0,0" VerticalAlignment="Top" SelectedDate="{Binding Path=searchFechaFin}"/>
             <ComboBox HorizontalAlignment="Left" Margin="96,95,0,0" VerticalAlignment="Top" Width="198" SelectedIndex="0">
                 <CheckBox Content="Todas" IsChecked="True"/>
                 <CheckBox Content="Categoría A"/>
@@ -100,7 +102,7 @@
             </Grid>
 
         </Grid>
-        <Button x:Name="repSigBtn" Content="SIGUIENTE &gt;" HorizontalAlignment="Left" Margin="301,5,0,0" Grid.Row="1" VerticalAlignment="Top" Width="75" Click="repSigBtn_Click" Height="30"/>
+        <Button x:Name="repSigBtn" Content="GENERAR" HorizontalAlignment="Left" Margin="301,5,0,0" Grid.Row="1" VerticalAlignment="Top" Width="75" Click="generarReporte_Click" Height="30"/>
         <Button Content="CANCELAR" HorizontalAlignment="Left" Margin="381,5,0,0" Grid.Row="1" VerticalAlignment="Top" Width="75" IsCancel="True" Height="30"/>
         <Button x:Name="repAntBtn" Content="&lt; ANTERIOR" HorizontalAlignment="Left" Margin="221,5,0,0" Grid.Row="1" VerticalAlignment="Top" Width="75" IsEnabled="False" Click="repAntBtn_Click" Height="30"/>
         <Separator Height="2" Margin="0" Grid.Row="1" VerticalAlignment="Top"/>
