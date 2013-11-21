@@ -71,10 +71,10 @@ namespace pe.edu.pucp.ferretin.view.MSeguridad
 
             vigNotaCredito.Text = listaParametros[6].valor;
             vigenciaNota = listaParametros[6];
-
+            /*
             solesPunto.Text = listaParametros[7].valor;
             solesPorPunto = listaParametros[7];
-
+            */
             vigVale.Text = listaParametros[8].valor;
             vigenciaVale = listaParametros[8];
             
@@ -162,7 +162,7 @@ namespace pe.edu.pucp.ferretin.view.MSeguridad
             }
             catch { }
         }
-
+        /*
         private void solesPunto_TextChanged(object sender, TextChangedEventArgs e)
         {
             try
@@ -171,6 +171,7 @@ namespace pe.edu.pucp.ferretin.view.MSeguridad
             }
             catch { }
         }
+         */
         //Fin de Eventos de Textbox
         #endregion
 
@@ -221,15 +222,15 @@ namespace pe.edu.pucp.ferretin.view.MSeguridad
                 {
                     MS_ParametroService.actualizarParametro(vigenciaVale);
                 }
-
+                /*
                 if (!String.IsNullOrEmpty(solesPunto.Text))
                 {
                     MS_ParametroService.actualizarParametro(solesPorPunto);
                 }
-
+                */
                 if (String.IsNullOrEmpty(intContrasena.Text) && String.IsNullOrEmpty(tMaxSesion.Text) && String.IsNullOrEmpty(durClave.Text)
                     && String.IsNullOrEmpty(tipCambio.Text) && String.IsNullOrEmpty(igv.Text) && String.IsNullOrEmpty(vigProforma.Text)
-                    && String.IsNullOrEmpty(vigNotaCredito.Text) && String.IsNullOrEmpty(solesPunto.Text) && String.IsNullOrEmpty(vigVale.Text))
+                    && String.IsNullOrEmpty(vigNotaCredito.Text) && String.IsNullOrEmpty(vigVale.Text))
                 {
                     MessageBox.Show("No hay parametros validos.");
 
@@ -350,7 +351,7 @@ namespace pe.edu.pucp.ferretin.view.MSeguridad
                 e.Handled = true;
             }
         }
-
+        /*
         private void solesPunto_PreviewTextInput(object sender, TextCompositionEventArgs e)
         {
             if ((Regex.IsMatch(solesPunto.Text, @"^[0-9]+(\.{0}[0-9]+)?$")) && (e.Text != ",") || (Regex.IsMatch(e.Text, "[0-9]")))
@@ -362,7 +363,7 @@ namespace pe.edu.pucp.ferretin.view.MSeguridad
                 e.Handled = true;
             }
         }
-
+        */
         #endregion
 
         #region Restringir la Tecla Espacio para cada Textbox
