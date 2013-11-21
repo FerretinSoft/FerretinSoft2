@@ -78,7 +78,7 @@ namespace pe.edu.pucp.ferretin.view.MVentas
         {
             if (ComunService.usuarioLpermisos[13].estado == true)
             {
-                MV_ReportesVentasWindow repW = new MV_ReportesVentasWindow();
+                MV_VisorReporte repW = new MV_VisorReporte();
                 repW.Owner = this;
                 repW.Show();
             }

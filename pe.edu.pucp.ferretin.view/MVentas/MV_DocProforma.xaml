@@ -1,0 +1,49 @@
+﻿<Window x:Class="pe.edu.pucp.ferretin.view.MVentas.MV_DocProforma"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Proforma"  WindowStartupLocation="CenterScreen">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <Grid HorizontalAlignment="Center">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+            </Grid.RowDefinitions>
+            <Image Grid.Column="0" Grid.RowSpan="2" HorizontalAlignment="Left" Height="75" Margin="10,10,0,0" VerticalAlignment="Center" Width="300" Source="../Resources/ferretinLogo2.png"/>
+            
+            <TextBlock Grid.Column="1" VerticalAlignment="Center" FontSize="24" FontFamily="Rockwell Extra Bold">Ferretin Mark</TextBlock>
+            <StackPanel Grid.Column="1" Grid.Row="1">
+                <TextBlock  HorizontalAlignment="Center" FontSize="20" FontFamily="Simplified Arabic">Precios Insuperables</TextBlock>
+                <TextBlock  HorizontalAlignment="Center" FontSize="20" FontFamily="Simplified Arabic">{tienda y dirección}</TextBlock>
+                <TextBlock  HorizontalAlignment="Center" FontSize="18" FontFamily="DokChampa" Margin="0,10">{Fecha y Hora}</TextBlock>
+            </StackPanel>
+        </Grid>
+        <StackPanel Grid.Row="1" Margin="20,5">
+            <TextBlock FontFamily="Arial" FontSize="16" Margin="0,5">Señores:</TextBlock>
+            <TextBlock FontFamily="Arial" FontSize="16" FontWeight="Bold" Margin="10,5">{Nombe del cliente}</TextBlock>
+            <TextBlock FontFamily="Arial" FontSize="16" Margin="0,5">Presente.-</TextBlock>
+            <TextBlock FontFamily="Arial" FontSize="16" Margin="0,5" TextWrapping="Wrap">A través de la presente, tengo el agrado de saludarlos muy cordialmente y a su vez hacerles llegar nuestra propuesta según su requerimiento:</TextBlock>
+            <TextBlock FontFamily="Arial" FontSize="16" Margin="0,5">Requerimiento:</TextBlock>
+        </StackPanel>
+        <DataGrid Grid.Row="2" Margin="20,5" BorderBrush="Transparent" HorizontalScrollBarVisibility="Hidden" VerticalScrollBarVisibility="Hidden" IsManipulationEnabled="False" IsReadOnly="True"  AutoGenerateColumns="False" CanUserAddRows="False" CanUserDeleteRows="False" CanUserReorderColumns="False" CanUserResizeColumns="False" CanUserResizeRows="False" CanUserSortColumns="False" Background="Transparent"  ItemsSource="{Binding Path=notaCredito.Devolucion.DevolucionProducto}">
+            <DataGrid.Columns>
+                <DataGridTextColumn Width="0.8*" Binding="{Binding Path=Producto.codigo}" ClipboardContentBinding="{x:Null}" Header="Cód Prod."/>
+                <DataGridTextColumn Width="2*"  Binding="{Binding Path=Producto.nombre}" ClipboardContentBinding="{x:Null}" Header="Descripción"/>
+                <DataGridTextColumn Width="1*" Binding="{Binding Path=cantidad}" ClipboardContentBinding="{x:Null}" Header="Cantidad"/>
+                <DataGridTextColumn Width="0.9*" Binding="{Binding Path=monedaString}" ClipboardContentBinding="{x:Null}" Header="Moneda"/>
+                <DataGridTextColumn Width="0.7*" Binding="{Binding Path=precioUnitario}" ClipboardContentBinding="{x:Null}" Header="Precio"/>
+                <DataGridTextColumn Width="1*" Binding="{x:Null}" ClipboardContentBinding="{x:Null}" Header="Dscto. (%)"/>
+                <DataGridTextColumn Width="0.8*" Binding="{Binding Path=monto}" ClipboardContentBinding="{x:Null}" Header="Importe"/>
+            </DataGrid.Columns>
+        </DataGrid>
+    </Grid>
+</Window>

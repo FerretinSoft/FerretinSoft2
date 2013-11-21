@@ -59,6 +59,16 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\..\..\..\Program Files (x86)\SAP BusinessObjects\Crystal Reports for .NET Framework 4.0\Common\SAP BusinessObjects Enterprise XI 4.0\win32_x86\dotnet\CrystalDecisions.Windows.Forms.dll</HintPath>
     </Reference>
+    <Reference Include="PdfSharp">
+      <HintPath>..\..\..\..\Desktop\PdfSharp.dll</HintPath>
+    </Reference>
+    <Reference Include="PdfSharp-WPF">
+      <HintPath>..\..\..\..\Desktop\PdfSharp-WPF.dll</HintPath>
+    </Reference>
+    <Reference Include="PdfSharp.Xps">
+      <HintPath>..\..\..\..\Desktop\PdfSharp.Xps.dll</HintPath>
+    </Reference>
+    <Reference Include="ReachFramework" />
     <Reference Include="SAPBusinessObjects.WPF.Viewer, Version=13.0.3500.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\..\..\..\Program Files (x86)\SAP BusinessObjects\Crystal Reports for .NET Framework 4.0\Common\SAP BusinessObjects Enterprise XI 4.0\win32_x86\dotnet\SAPBusinessObjects.WPF.Viewer.dll</HintPath>
@@ -72,6 +82,7 @@
     <Reference Include="System.Data.Entity" />
     <Reference Include="System.Data.Linq" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Printing" />
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Core" />
@@ -110,7 +121,10 @@
     <Compile Include="MVentas\MV_BuscadorProductos.xaml.cs">
       <DependentUpon>MV_BuscadorProductos.xaml</DependentUpon>
     </Compile>
-    <Compile Include="MVentas\ReporteDeDevoluciones.cs">
+    <Compile Include="MVentas\MV_VisorReporte.xaml.cs">
+      <DependentUpon>MV_VisorReporte.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="MVentas\ReporteVentaTienda.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>ReporteDeDevoluciones.rpt</DependentUpon>
@@ -336,6 +350,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="MVentas\MV_DocProforma.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="MVentas\MV_MainWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -352,11 +370,11 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="MVentas\MV_ValeDialog.xaml">
+    <Page Include="MVentas\MV_ComprobantePagoWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="MVentas\MV_ComprobantePagoWindow.xaml">
+    <Page Include="MVentas\MV_VisorReporte.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -523,9 +541,6 @@
     <Compile Include="MVentas\MV_ReportesVentasWindow.xaml.cs">
       <DependentUpon>MV_ReportesVentasWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="MVentas\MV_ValeDialog.xaml.cs">
-      <DependentUpon>MV_ValeDialog.xaml</DependentUpon>
-    </Compile>
     <Compile Include="MVentas\MV_ComprobantePagoWindow.xaml.cs">
       <DependentUpon>MV_ComprobantePagoWindow.xaml</DependentUpon>
     </Compile>
@@ -550,9 +565,9 @@
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
       <LastGenOutput>ReporteDeTransacciones.cs</LastGenOutput>
     </EmbeddedResource>
-    <EmbeddedResource Include="MVentas\ReporteDeDevoluciones.rpt">
+    <EmbeddedResource Include="MVentas\ReporteVentaTienda.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
-      <LastGenOutput>ReporteDeDevoluciones.cs</LastGenOutput>
+      <LastGenOutput>ReporteVentaTienda.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
