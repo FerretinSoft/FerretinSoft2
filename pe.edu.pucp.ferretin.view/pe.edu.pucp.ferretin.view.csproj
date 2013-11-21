@@ -124,6 +124,15 @@
       <SubType>Component</SubType>
       <DesignTime>True</DesignTime>
     </Compile>
+    <Compile Include="MCompras\MC_VisorReporteOC.xaml.cs">
+      <DependentUpon>MC_VisorReporteOC.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="MCompras\ReporteOrdenCompra.cs">
+      <DependentUpon>ReporteOrdenCompra.rpt</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <SubType>Component</SubType>
+      <DesignTime>True</DesignTime>
+    </Compile>
     <Compile Include="MSeguridad\MS_ReportesWindow.xaml.cs">
       <DependentUpon>MS_ReportesWindow.xaml</DependentUpon>
     </Compile>
@@ -139,6 +148,12 @@
     <Compile Include="MVentas\MV_VisorReporte.xaml.cs">
       <DependentUpon>MV_VisorReporte.xaml</DependentUpon>
     </Compile>
+    <Compile Include="MVentas\ReporteVentaCliente.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ReporteVentaCliente.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="MVentas\ReporteVentaProducto.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -149,6 +164,12 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>ReporteVentaTienda.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="MVentas\ReporteVentaVendedor.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ReporteVentaVendedor.rpt</DependentUpon>
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="ReportesWindow.xaml.cs">
@@ -229,6 +250,10 @@
     <Page Include="MAlmacen\MA_VisorReporteStock.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="MCompras\MC_VisorReporteOC.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="MCompras\MC_AdministrarGuiaRemiWindow.xaml">
       <SubType>Designer</SubType>
@@ -590,9 +615,17 @@
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
       <LastGenOutput>ReporteStock.cs</LastGenOutput>
     </EmbeddedResource>
+    <EmbeddedResource Include="MCompras\ReporteOrdenCompra.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>ReporteOrdenCompra.cs</LastGenOutput>
+    </EmbeddedResource>
     <EmbeddedResource Include="MSeguridad\ReporteDeTransacciones.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
       <LastGenOutput>ReporteDeTransacciones.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MVentas\ReporteVentaCliente.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>ReporteVentaCliente.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="MVentas\ReporteVentaProducto.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
@@ -601,6 +634,10 @@
     <EmbeddedResource Include="MVentas\ReporteVentaTienda.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
       <LastGenOutput>ReporteVentaTienda.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MVentas\ReporteVentaVendedor.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>ReporteVentaVendedor.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

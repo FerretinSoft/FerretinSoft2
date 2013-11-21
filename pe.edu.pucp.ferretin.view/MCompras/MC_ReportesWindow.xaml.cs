@@ -1,4 +1,5 @@
-﻿using System.Windows;
+﻿using System;
+using System.Windows;
 
 namespace pe.edu.pucp.ferretin.view.MCompras
 {
@@ -23,6 +24,16 @@ namespace pe.edu.pucp.ferretin.view.MCompras
             dpFechaHasta.SelectedDate = null;
         }
 
+        private void btnGenerarReporte_Click(object sender, RoutedEventArgs e)
+        {
+            if (estado == 2)
+            {
+                MC_VisorReporteOC vroc = new MC_VisorReporteOC(txtRuc.Text, (DateTime)dpFechaDesde.SelectedDate,
+                                                                (DateTime)dpFechaHasta.SelectedDate);
+                vroc.Show();
+            }
+        }
+
         private void repSigBtn_Click(object sender, RoutedEventArgs e)
         {
             switch (estado)
@@ -40,8 +51,8 @@ namespace pe.edu.pucp.ferretin.view.MCompras
                         MessageBox.Show("Debe seleccionar algún reporte");
                     break;
                 case 1:
-                    if (dpFechaDesde.SelectedDate == null || dpFechaHasta.SelectedDate == null)
-                        MessageBox.Show("Debe seleccionar un período para generar su reporte.");
+                    if (dpFechaDesde.SelectedDate == null || dpFechaHasta.SelectedDate == null || txtRuc.Text=="")
+                        MessageBox.Show("Verifique sus datos de entrada");
                     else
                     {
                         repConfGrid.Visibility = System.Windows.Visibility.Collapsed;
@@ -107,6 +118,20 @@ namespace pe.edu.pucp.ferretin.view.MCompras
                     repSigBtn.IsEnabled = true;
                     break;
             }
+        }
+
+        private void txtRuc_PreviewTextInput(object sender, System.Windows.Input.TextCompositionEventArgs e)
+        {
+            int ascci = Convert.ToInt32(Convert.ToChar(e.Text));
+            if (ascci >= 48 && ascci <= 57) e.Handled = false;
+            else e.Handled = true;
+        }
+
+        private void txtRuc_PreviewTextInput_1(object sender, System.Windows.Input.TextCompositionEventArgs e)
+        {
+            int ascci = Convert.ToInt32(Convert.ToChar(e.Text));
+            if (ascci >= 48 && ascci <= 57) e.Handled = false;
+            else e.Handled = true;
         }
     }
 }

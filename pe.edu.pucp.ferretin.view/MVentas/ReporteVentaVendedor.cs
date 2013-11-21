@@ -16,14 +16,14 @@ namespace pe.edu.pucp.ferretin.view.MVentas {
     using CrystalDecisions.CrystalReports.Engine;
     
     
-    public class ReporteVentaProducto : ReportClass {
+    public class ReporteVentaVendedor : ReportClass {
         
-        public ReporteVentaProducto() {
+        public ReporteVentaVendedor() {
         }
         
         public override string ResourceName {
             get {
-                return "ReporteVentaProducto.rpt";
+                return "ReporteVentaVendedor.rpt";
             }
             set {
                 // Do nothing
@@ -41,7 +41,7 @@ namespace pe.edu.pucp.ferretin.view.MVentas {
         
         public override string FullResourceName {
             get {
-                return "pe.edu.pucp.ferretin.view.MVentas.ReporteVentaProducto.rpt";
+                return "pe.edu.pucp.ferretin.view.MVentas.ReporteVentaVendedor.rpt";
             }
             set {
                 // Do nothing
@@ -122,9 +122,9 @@ namespace pe.edu.pucp.ferretin.view.MVentas {
     }
     
     [System.Drawing.ToolboxBitmapAttribute(typeof(CrystalDecisions.Shared.ExportOptions), "report.bmp")]
-    public class CachedReporteVentaProducto : Component, ICachedReport {
+    public class CachedReporteVentaVendedor : Component, ICachedReport {
         
-        public CachedReporteVentaProducto() {
+        public CachedReporteVentaVendedor() {
         }
         
         [Browsable(false)]
@@ -161,7 +161,7 @@ namespace pe.edu.pucp.ferretin.view.MVentas {
         }
         
         public virtual CrystalDecisions.CrystalReports.Engine.ReportDocument CreateReport() {
-            ReporteVentaProducto rpt = new ReporteVentaProducto();
+            ReporteVentaVendedor rpt = new ReporteVentaVendedor();
             rpt.Site = this.Site;
             return rpt;
         }

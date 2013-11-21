@@ -54,6 +54,7 @@ namespace pe.edu.pucp.ferretin.viewmodel.MAlmacen
             set
             {
                 _categoriaPrincipal = value;
+                NotifyPropertyChanged("categoriaPrincipal");
             }
         }
 
