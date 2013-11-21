@@ -209,6 +209,19 @@ namespace pe.edu.pucp.ferretin.viewmodel.MCompras
             }
         }
 
+        RelayCommand _agregarGuiaCommand;
+        public ICommand agregarGuiaCommand
+        {
+            get
+            {
+                if (_agregarGuiaCommand == null)
+                {
+                    _agregarGuiaCommand = new RelayCommand(agregarGuia);
+                }
+                return _agregarGuiaCommand;
+            }
+        }
+
         RelayCommand _viewEditGuiaRemisionCommand;
         public ICommand viewEditGuiaRemisionCommand
         {
@@ -264,6 +277,18 @@ namespace pe.edu.pucp.ferretin.viewmodel.MCompras
 
         #region commands
 
+        public void agregarGuia(Object id)
+        {
+            try
+            {
+                statusTab = Tab.AGREGAR;
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show(e.Message);
+            }
+        }
+        
         public void viewEditGuiaRemision(Object id)
         {
             try
@@ -280,40 +305,69 @@ namespace pe.edu.pucp.ferretin.viewmodel.MCompras
             }
         }
 
+        private bool camposObligatorios()
+        {
+            //PRIMERO VALIDO LOS CAMPOS GENERALES
+            if ((guiaRemision.codigo != null) && (guiaRemision.fechaEmision != null) && (guiaRemision.fechaRecepcion != null) && (guiaRemision.DocumentoCompra != null))
+            {
+                //SI SE CUMPLE LO DE ARRIBA VERIFICO QUE SE HAYA INGRESADO VALORES EN LAS CANTIDADES RECIBIDAS
+                decimal? aux = 0;
+                for (int i = 0; i < guiaRemision.GuiaRemisionProducto.Count(); i++)
+                    aux = aux + guiaRemision.GuiaRemisionProducto[i].cantidadRecibida;
+                if (aux > 0)
+                    return true;
+                else
+                    return false;
+            }
+            return false;
+        }
+
         public void saveGuiaRemision(Object obj)
         {
-            bool exito = false;
-            if (guiaRemision.id > 0)//Si existe
+            if (!camposObligatorios())
             {
-                ComunService.idVentana(37);
-                if (!MC_GuiaRemisionService.enviarCambios())
-                {
-                    MessageBox.Show("No se pudo actualizar la guia de remision");
-                }
-                else
-                {
-                    MessageBox.Show("La guia de remision fue guardado con éxito");
-                    exito = true;
-                }
+                MessageBox.Show("Complete todos los datos obligatorios", "Guia de Remision", MessageBoxButton.OK, MessageBoxImage.Exclamation);
             }
             else
             {
-                ComunService.idVentana(36);
-                if (!MC_GuiaRemisionService.insertarGuiaRemision(guiaRemision))
-                {
-                    MessageBox.Show("No se pudo agregar la nueva guia de remision");
-                }
+                if (guiaRemision.fechaRecepcion > guiaRemision.fechaEmision)
+                    MessageBox.Show("La Fecha de Emision no puede ser menor que la Fecha de Recepcion", "Guia de Remision", MessageBoxButton.OK, MessageBoxImage.Exclamation);
                 else
                 {
-                    MessageBox.Show("La guia de remision se agrego con exito");
-                    exito = true;
-                }
-            }
-            if(exito)
-            {
-                NotifyPropertyChanged("listaGuiasRemision");
-            this.statusTab = Tab.BUSQUEDA;
-            }           
+                    bool exito = false;
+                    if (guiaRemision.id > 0)//Si existe
+                    {
+                        ComunService.idVentana(37);
+                        if (!MC_GuiaRemisionService.enviarCambios())
+                        {
+                            MessageBox.Show("No se pudo actualizar la guia de remision");
+                        }
+                        else
+                        {
+                            MessageBox.Show("La guia de remision fue guardado con éxito");
+                            exito = true;
+                        }
+                    }
+                    else
+                    {
+                        ComunService.idVentana(36);
+                        if (!MC_GuiaRemisionService.insertarGuiaRemision(guiaRemision))
+                        {
+                            MessageBox.Show("No se pudo agregar la nueva guia de remision");
+                        }
+                        else
+                        {
+                            MessageBox.Show("La guia de remision se agrego con exito");
+                            exito = true;
+                        }
+                    }
+                    if (exito)
+                    {
+                        NotifyPropertyChanged("listaGuiasRemision");
+                        this.statusTab = Tab.BUSQUEDA;
+                    }
+                } 
+            }                       
         }
 
         public void cancelGuiaRemision(Object obj)
