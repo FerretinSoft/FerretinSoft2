@@ -15,23 +15,22 @@ using System.Windows.Shapes;
 namespace pe.edu.pucp.ferretin.view.MVentas
 {
     /// <summary>
-    /// Lógica de interacción para MV_DocNotaCredito.xaml
+    /// Lógica de interacción para MV_VisorReporte.xaml
     /// </summary>
-    public partial class MV_DocNotaCredito : Window
+    public partial class MV_VisorReporte : Window
     {
-        public MV_DocNotaCredito()
+        ReporteVentaTienda rep;
+        public MV_VisorReporte()
         {
             InitializeComponent();
+            rep = new ReporteVentaTienda();
+
+            VisorReporte.ViewerCore.ReportSource = rep;
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
+        private void VisorReporte_Refresh(object source, SAPBusinessObjects.WPF.Viewer.ViewerEventArgs e)
         {
-            PrintDialog printDialog = new PrintDialog();
-            if (printDialog.ShowDialog() == true){
-                imprimirBtn.Visibility = System.Windows.Visibility.Hidden;
-                printDialog.PrintVisual(main, "Nota de Crédito");
-                this.Close();
-            }
+            rep.SetDatabaseLogon("inf245g2usr", "server", "inti.lab.inf.pucp.edu.pe", "inf245g2");
         }
     }
 }
