@@ -133,6 +133,10 @@ namespace pe.edu.pucp.ferretin.view.MSeguridad
 
         }
 
+        private void Windows_Closing(object sender, CancelEventArgs e)
+        {
+            ComunService.Clean();
+        }        
 
     }
     
