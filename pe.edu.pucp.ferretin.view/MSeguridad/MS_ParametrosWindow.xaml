@@ -26,7 +26,7 @@
         <Label Content="Duración de la clave de los usuarios:" HorizontalAlignment="Left" Margin="22,97,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.464,1.231" Height="26" Width="203"/>
         <TextBox x:Name="durClave" HorizontalAlignment="Left" Height="23" Margin="267,97,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="86" TextChanged="durClave_TextChanged" PreviewTextInput="durClave_PreviewTextInput" MaxLength="3" PreviewKeyDown="durClave_PreviewKeyDown"/>
 
-        <GroupBox Header="Ventas" Margin="10,205,10.4,0" BorderBrush="Black" Height="148" VerticalAlignment="Top"/>
+        <GroupBox Header="Ventas" Margin="10,205,10,0" BorderBrush="Black" Height="148" VerticalAlignment="Top"/>
 
         <!--Vigencia de la Proforma-->
 
@@ -43,22 +43,18 @@
         <Label Content="(días)" HorizontalAlignment="Left" Margin="358,93,0,0" VerticalAlignment="Top" Height="26" Width="61" RenderTransformOrigin="0.462,0.994"/>
         <Label Content="(días)" HorizontalAlignment="Left" Margin="359,226,0,0" VerticalAlignment="Top" Height="26" Width="61"/>
         <Label Content="(soles)" HorizontalAlignment="Left" Margin="359,126,0,0" VerticalAlignment="Top" Height="26" Width="61"/>
-        <Label Content="Vigencia de las Notas de Crédito:" HorizontalAlignment="Left" Margin="22,255,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.464,1.231" Height="26" Width="192"/>
-        <TextBox x:Name="vigNotaCredito" HorizontalAlignment="Left" Height="23" Margin="267,257,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="86" TextChanged="vigNotaCredito_TextChanged" PreviewTextInput="vigNotaCredito_PreviewTextInput" MaxLength="3" PreviewKeyDown="vigNotaCredito_PreviewKeyDown"/>
-        <Label Content="(días)" HorizontalAlignment="Left" Margin="358,254,0,0" VerticalAlignment="Top" Height="26" Width="61"/>
-
-        <Label Content="Cantidad de Soles por punto:" HorizontalAlignment="Left" Margin="23,310,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.464,1.231" Height="26" Width="245"/>
-        <TextBox x:Name="solesPunto" HorizontalAlignment="Left" Height="23" Margin="268,313,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="86" TextChanged="solesPunto_TextChanged" PreviewTextInput="solesPunto_PreviewTextInput" MaxLength="5" PreviewKeyDown="solesPunto_PreviewKeyDown"/>
-        <Label Content="(soles)" HorizontalAlignment="Left" Margin="359,309,0,0" VerticalAlignment="Top" Height="26" Width="61"/>
+        <Label Content="Vigencia de las Notas de Crédito:" HorizontalAlignment="Left" Margin="22,265,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.464,1.231" Height="26" Width="192"/>
+        <TextBox x:Name="vigNotaCredito" HorizontalAlignment="Left" Height="23" Margin="267,268,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="86" TextChanged="vigNotaCredito_TextChanged" PreviewTextInput="vigNotaCredito_PreviewTextInput" MaxLength="3" PreviewKeyDown="vigNotaCredito_PreviewKeyDown"/>
+        <Label Content="(días)" HorizontalAlignment="Left" Margin="358,265,0,0" VerticalAlignment="Top" Height="26" Width="61"/>
         <Label Content="IGV" HorizontalAlignment="Left" Margin="23,156,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.464,1.231" Height="26" Width="151"/>
 
         <TextBox x:Name="igv" HorizontalAlignment="Left" Height="23" Margin="268,158,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="86" TextChanged="igv_TextChanged" MaxLength="5" PreviewTextInput="igv_PreviewTextInput" PreviewKeyDown="igv_PreviewKeyDown" />
         <Label Content="(Porcentaje)" HorizontalAlignment="Left" Margin="359,156,0,0" VerticalAlignment="Top" Height="26" Width="74"/>
-        
-        
-        <Label Content="Vigencia de Vale:" HorizontalAlignment="Left" Margin="22,284,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.464,1.231" Height="26" Width="245"/>
-        <TextBox x:Name="vigVale" HorizontalAlignment="Left" Height="23" Margin="267,285,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="86" MaxLength="3" TextChanged="vigVale_TextChanged" PreviewTextInput="vigVale_PreviewTextInput" PreviewKeyDown="vigVale_PreviewKeyDown"/>
-        <Label Content="(días)" HorizontalAlignment="Left" Margin="359,285,0,0" VerticalAlignment="Top" Height="26" Width="61"/>
+
+
+        <Label Content="Vigencia de Vale:" HorizontalAlignment="Left" Margin="22,305,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.464,1.231" Height="26" Width="245"/>
+        <TextBox x:Name="vigVale" HorizontalAlignment="Left" Height="23" Margin="267,308,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="86" MaxLength="3" TextChanged="vigVale_TextChanged" PreviewTextInput="vigVale_PreviewTextInput" PreviewKeyDown="vigVale_PreviewKeyDown"/>
+        <Label Content="(días)" HorizontalAlignment="Left" Margin="358,305,0,0" VerticalAlignment="Top" Height="26" Width="61"/>
 
     </Grid>
 </Window>

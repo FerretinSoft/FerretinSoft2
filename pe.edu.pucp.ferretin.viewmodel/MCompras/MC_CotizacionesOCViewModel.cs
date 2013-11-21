@@ -169,8 +169,12 @@ namespace pe.edu.pucp.ferretin.viewmodel.MCompras
                         {
                             case "Facturada":
                                 return false;
-                            default:
+                            case "Ingresada":
+                                return false;
+                            case "Emitida":
                                 return true;
+                            default:
+                                return false;
                         }
                     }
                 }
@@ -688,7 +692,10 @@ namespace pe.edu.pucp.ferretin.viewmodel.MCompras
                 cont = documentoCompra.DocumentoCompraProducto.Count();
                 subTotal = 0;
                 for (i = 0; i < cont; i++)
+                {
                     subTotal = subTotal + documentoCompra.DocumentoCompraProducto[i].montoParcial;
+                    documentoCompra.DocumentoCompraProducto[i].cantidadRestante = documentoCompra.DocumentoCompraProducto[i].cantidad;
+                }
                 documentoCompra.total = subTotal;
                 documentoCompra.subTotal = documentoCompra.total / (((decimal)MS_SharedService.obtenerIGV() / (100)) + 1);
                 documentoCompra.igv = documentoCompra.total - documentoCompra.subTotal;
@@ -717,7 +724,11 @@ namespace pe.edu.pucp.ferretin.viewmodel.MCompras
                 cont = documentoCompra.DocumentoCompraProducto.Count();
                 subTotal = 0;
                 for (i = 0; i < cont; i++)
+                {
                     subTotal = subTotal + documentoCompra.DocumentoCompraProducto[i].montoParcial;
+                    documentoCompra.DocumentoCompraProducto[i].cantidadRestante = documentoCompra.DocumentoCompraProducto[i].cantidad;
+                }
+                    
                 documentoCompra.total = subTotal;
                 documentoCompra.subTotal = documentoCompra.total / (((decimal)MS_SharedService.obtenerIGV() / (100)) + 1);
                 documentoCompra.igv = documentoCompra.total - documentoCompra.subTotal;
