@@ -76,6 +76,7 @@
     <Compile Include="MAlmacen\Categoria.cs" />
     <Compile Include="MAlmacen\Movimiento.cs" />
     <Compile Include="MAlmacen\MovimientoEstado.cs" />
+    <Compile Include="MAlmacen\MovimientoProducto.cs" />
     <Compile Include="MAlmacen\MovimientoTipo.cs" />
     <Compile Include="MAlmacen\SolicitudAbastecimiento.cs" />
     <Compile Include="MCompras\DocumentoCompra.cs" />

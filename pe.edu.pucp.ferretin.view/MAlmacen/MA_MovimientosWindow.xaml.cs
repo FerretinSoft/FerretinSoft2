@@ -20,6 +20,7 @@ using pe.edu.pucp.ferretin.controller.MSeguridad;
 using pe.edu.pucp.ferretin.controller.MAlmacen;
 using pe.edu.pucp.ferretin.viewmodel;
 using pe.edu.pucp.ferretin.viewmodel.MAlmacen;
+using pe.edu.pucp.ferretin.view.MVentas;
 
 namespace pe.edu.pucp.ferretin.view.MAlmacen
 {
@@ -94,6 +95,25 @@ namespace pe.edu.pucp.ferretin.view.MAlmacen
 
             vm.NotifyPropertyChanged("productosPorMovimiento");
             vm.NotifyPropertyChanged("movimiento");
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            //var vm = DataContext as MA_MovimientosViewModel;
+            //var buscador = new MV_BuscadorProductos(this, vm.usuarioLogueado.Empleado.tiendaActual);
+        }
+
+        private void productosGrid_PreviewKeyDown(object sender, KeyEventArgs e)
+        {
+            DataGrid grid = (DataGrid)sender;
+            if (grid.CurrentCell.Column.DisplayIndex == 3)
+            {
+                //Validaciones para que acepte solo numeros
+                if (((e.Key >= Key.D0 && e.Key <= Key.D9) || (e.Key >= Key.NumPad0 && e.Key <= Key.NumPad9) || e.Key == Key.Back || e.Key == Key.Tab))
+                    e.Handled = false;
+                else
+                    e.Handled = true;
+            }
         }        
 
 
