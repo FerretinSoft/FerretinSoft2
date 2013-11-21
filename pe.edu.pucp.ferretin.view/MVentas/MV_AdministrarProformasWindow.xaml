@@ -59,15 +59,21 @@
 
                             <Grid Grid.Row="0" Grid.Column="3" Grid.ColumnSpan="2">
                                 <Grid.ColumnDefinitions>
-                                    <ColumnDefinition/>
+                                    <ColumnDefinition Width="1*"/>
                                     <ColumnDefinition Width="Auto"/>
+                                    <ColumnDefinition Width="3*"/>
                                 </Grid.ColumnDefinitions>
-                                <TextBox Text="{Binding vendedorSearch.nombreCompleto}" VerticalAlignment="Center" IsEnabled="False"/>
-                                <Button x:Name="buscarVendedorBtn" VerticalAlignment="Center" Width="20" Height="20" Grid.Column="1" BorderThickness="0">
+                                <TextBox Text="{Binding vendedorSearchdni,UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}" IsEnabled="True" VerticalAlignment="Center" HorizontalAlignment="Stretch">
+                                    <TextBox.InputBindings>
+                                        <KeyBinding Key="Enter" Command="{Binding seleccionarEmpleadoSearchCommand}" />
+                                    </TextBox.InputBindings>
+                                </TextBox>
+                                <Button x:Name="buscarVendedorBtn" VerticalAlignment="Center" Width="20" Height="20" Grid.Column="1" BorderThickness="0" Margin="5,0" Click="buscarVendedorBtn_Click_1">
                                     <Button.Background>
                                         <ImageBrush ImageSource="../Resources/search1_20.png"/>
                                     </Button.Background>
                                 </Button>
+                                <TextBox Text="{Binding vendedorSearch.nombreCompleto,Mode=OneWay}" VerticalAlignment="Center" Grid.Column="2" IsEnabled="False"/>
                             </Grid>
                             <TextBox Text="{Binding clienteSearch.nombreCompleto,Mode=OneWay}" VerticalAlignment="Center" Grid.Column="2" Grid.ColumnSpan="3" Grid.Row="1" IsEnabled="False" Margin="0,3"/>
                             <DatePicker SelectedDate="{Binding fechaDesdeSearch}" VerticalAlignment="Center" Grid.Column="1" Grid.Row="2"  Margin="0,3,10,3" BorderThickness="0"/>
@@ -91,7 +97,7 @@
                     </ToolBar>
                     <DataGrid ItemsSource="{Binding listaProformas}" Grid.Row="1" Margin="5" IsManipulationEnabled="False" IsReadOnly="True" CanUserSortColumns="True" AutoGenerateColumns="False" CanUserAddRows="False" CanUserDeleteRows="False">
                         <DataGrid.Columns>
-                            <DataGridTemplateColumn Width="2*" Header="Cód. Proforma">
+                            <DataGridTemplateColumn Width="Auto" Header="Cód. Proforma">
                                 <DataGridTemplateColumn.CellTemplate>
                                     <DataTemplate>
                                         <TextBlock>
@@ -104,11 +110,11 @@
                                     </DataTemplate>
                                 </DataGridTemplateColumn.CellTemplate>
                             </DataGridTemplateColumn>
-                            <DataGridTextColumn Width="2*" Binding="{Binding Cliente.nroDoc}" ClipboardContentBinding="{x:Null}" Header="Doc. Cliente"/>
+                            <DataGridTextColumn Width="Auto" Binding="{Binding Cliente.nroDoc}" Header="Doc. Cliente"/>
                             <DataGridTextColumn Width="3*" Binding="{Binding Cliente.nombreCompleto}" ClipboardContentBinding="{x:Null}" Header="Nombre Cliente"/>
                             <DataGridTextColumn Width="3*" Binding="{Binding Usuario.Empleado.nombreCompleto}" ClipboardContentBinding="{x:Null}" Header="Vendedor"/>
                             <DataGridTextColumn Width="2*" Binding="{Binding fecEmision,StringFormat=\{0:dd/MM/yyyy hh:mm:ss\}}" ClipboardContentBinding="{x:Null}" Header="Fecha Proforma"/>
-                            <DataGridTextColumn Width="2*" Binding="{Binding totalString}" ClipboardContentBinding="{x:Null}" Header="Importe"/>
+                            <DataGridTextColumn Width="2*" Binding="{Binding totalString}" Header="Importe"/>
                         </DataGrid.Columns>
                     </DataGrid>
                 </Grid>

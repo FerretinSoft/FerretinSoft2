@@ -259,7 +259,7 @@ namespace pe.edu.pucp.ferretin.viewmodel.MVentas
             {
                 if (_savePromocionCommand == null)
                 {
-                    _savePromocionCommand = new RelayCommand(savePromocion, canSaveExecute);
+                    _savePromocionCommand = new RelayCommand(savePromocion);
                 }
                 return _savePromocionCommand;
             }
@@ -301,13 +301,55 @@ namespace pe.edu.pucp.ferretin.viewmodel.MVentas
         }
         public void savePromocion(Object obj)
         {
-
             if (soloSeleccionarPromocion)
             {
 
             }
             else
             {
+                String result = String.Empty;
+                if (promocion != null)
+                {
+                    if (String.IsNullOrEmpty(promocion.nombre))
+                    {
+                        result = "Ingrese un nombre para la promoción";
+                    }
+                    else
+                    {
+                        if (promocion.fechaDesde != null && promocion.fechaHasta != null)
+                        {
+                            if (DateTime.Compare(promocion.fechaDesde.Value, promocion.fechaHasta.Value) > 0)
+                            {
+                                result = "La fecha desde debe ser menor que la fecha hasta";
+                            }
+                            else
+                            {
+                                if (promocion.PromocionTienda.Count <= 0)
+                                {
+                                    result = "Debe seleccionar al menos una tienda";
+                                }
+                                else
+                                {
+                                    if (promocion.PromocionProducto.Count <= 0)
+                                    {
+                                        result = "Debe agregar al menos un producto";
+                                    }
+                                }
+                            }
+                        }
+                        else
+                        {
+                            result = "Debe seleccionar un rango de duración de la promoción válido";
+
+                            
+                        }
+                    }
+                }
+                if (result.Length > 0)
+                {
+                    MessageBox.Show(result, "Mensaje", MessageBoxButton.OK, MessageBoxImage.Exclamation);
+                    return;
+                }
 
                 if (promocion.id > 0)//Si existe
                 {
@@ -318,7 +360,9 @@ namespace pe.edu.pucp.ferretin.viewmodel.MVentas
                     }
                     else
                     {
-                        MessageBox.Show("El promocion fue guardado con éxito");
+                        MessageBox.Show("La promoción fue guardada con éxito");
+                        listaPromociones = null;
+                        statusTab = Tab.BUSQUEDA;
                     }
                 }
                 else
@@ -330,7 +374,9 @@ namespace pe.edu.pucp.ferretin.viewmodel.MVentas
                     }
                     else
                     {
-                        MessageBox.Show("El promocion fue agregado con éxito");
+                        listaPromociones = null;
+                        statusTab = Tab.BUSQUEDA;
+                        MessageBox.Show("La promoción fue agregado con éxito");
                     }
                 }
             }
@@ -341,20 +387,13 @@ namespace pe.edu.pucp.ferretin.viewmodel.MVentas
                                         "ATENCIÓN", MessageBoxButton.OKCancel, MessageBoxImage.Warning);
             if (result == MessageBoxResult.OK)
             {
-                MV_PromocionService.db.Refresh(System.Data.Linq.RefreshMode.OverwriteCurrentValues, this.promocion);
+                ComunService.Clean();
                 listaPromociones = null;
                 this.statusTab = Tab.BUSQUEDA;
             }
         }
 
-        private bool canSaveExecute(object obj)
-        {
-            if (soloSeleccionarPromocion)
-            {
-                return promocion != null;
-            }
-            return this.promocion!=null && base.UIValidationErrorCount == 0 && this.promocion.Errors.Count == 0;
-        }
+        
 
         public void agregarProducto(Object id)
         {
@@ -381,7 +420,7 @@ namespace pe.edu.pucp.ferretin.viewmodel.MVentas
                         {
                             Producto = producto,
                             cantMulUnidades = 1,
-                            descuento = 0,
+                            descuentoPorcentaje = 0,
                             Promocion = this.promocion,
                             stockActual = 0,
                             stockTotal = 1,

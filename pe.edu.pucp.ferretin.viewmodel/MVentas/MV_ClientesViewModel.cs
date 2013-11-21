@@ -106,7 +106,7 @@ namespace pe.edu.pucp.ferretin.viewmodel.MVentas
                         }
                     case Tab.AGREGAR:
                         {
-                            soloSeleccionarCliente = false;
+                            
                             cambiarSoloSeleccionarCliente = true;
 
                             detallesTabHeader = "Agregar";
@@ -114,7 +114,11 @@ namespace pe.edu.pucp.ferretin.viewmodel.MVentas
                             {
                                 cliente = new Cliente()
                                 {
+                                    puntosActual = 0,
+                                    puntosGanados = 0,
+                                    puntosUsados = 0,
                                     tipo = 1,
+                                    totalCompras = 0,
                                     nombre = "",
                                     apMaterno = "",
                                     apPaterno = "",
@@ -376,10 +380,7 @@ namespace pe.edu.pucp.ferretin.viewmodel.MVentas
                     {
                         MessageBox.Show("El cliente fue agregado con éxito");
                         this.statusTab = Tab.BUSQUEDA;
-                        if (!soloSeleccionarCliente && cambiarSoloSeleccionarCliente)
-                        {
-                            soloSeleccionarCliente = true;
-                        }
+                        
 
                     }
                 }

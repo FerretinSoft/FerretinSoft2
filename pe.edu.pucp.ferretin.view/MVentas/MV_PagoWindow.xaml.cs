@@ -36,7 +36,9 @@ namespace pe.edu.pucp.ferretin.view.MVentas
                 MV_RegistrarVentaWindow regVen = this.Owner as MV_RegistrarVentaWindow;
                 MV_RegistrarVentaViewModel regVen_DC = regVen.DataContext as MV_RegistrarVentaViewModel;
                 MV_PagoWindowViewModel my_DC = DataContext as MV_PagoWindowViewModel;
+                regVen_DC.venta.VentaMedioPago.Clear();
                 my_DC.venta = regVen_DC.venta;
+                
             }
             catch (Exception e)
             {
