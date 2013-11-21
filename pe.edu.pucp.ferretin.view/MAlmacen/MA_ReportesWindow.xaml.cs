@@ -145,14 +145,18 @@ namespace pe.edu.pucp.ferretin.view.MAlmacen
             }
             else if (reporte >= 2 && reporte <= 4)
             {
-                MA_ReporteKardexWindow kardexW = new MA_ReporteKardexWindow();
-                kardexW.Owner = this;
-                var viewModel = kardexW.main.DataContext as MA_ReporteKardexViewModel;
-                Tienda tiendaSelected = (Tienda)this.cmbTienda.SelectedItem;
-                viewModel.tiendaSeleccionada = tiendaSelected;
-                viewModel.fechaDesde = (DateTime)fechaDesdePicker.SelectedDate;
-                viewModel.fechaHasta = (DateTime)fechaHastaPicker.SelectedDate;
-                kardexW.Show();
+                //MA_ReporteKardexWindow kardexW = new MA_ReporteKardexWindow();
+                //kardexW.Owner = this;
+                //var viewModel = kardexW.main.DataContext as MA_ReporteKardexViewModel;
+                //Tienda tiendaSelected = (Tienda)this.cmbTienda.SelectedItem;
+                //viewModel.tiendaSeleccionada = tiendaSelected;
+                //viewModel.fechaDesde = (DateTime)fechaDesdePicker.SelectedDate;
+                //viewModel.fechaHasta = (DateTime)fechaHastaPicker.SelectedDate;
+                //kardexW.Show();
+                MA_KardexVisor visor = new MA_KardexVisor((DateTime)fechaDesdePicker.SelectedDate,
+                                                          (DateTime)fechaHastaPicker.SelectedDate,
+                                                          (Tienda)this.cmbTienda.SelectedItem);
+                visor.Show();
             }
             
             

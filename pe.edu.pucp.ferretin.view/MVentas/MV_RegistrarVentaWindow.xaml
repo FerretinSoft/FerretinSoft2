@@ -95,7 +95,13 @@
                 <DataGrid.Columns>
                     <DataGridHyperlinkColumn Width="100" Binding="{Binding Producto.codigo}" IsReadOnly="True" Header="Código"/>
                     <DataGridTextColumn Width="1*" Binding="{Binding Producto.nombre}" Header="Nombre" IsReadOnly="True"/>
-                    <DataGridTextColumn Width="80" Binding="{Binding cantidad, UpdateSourceTrigger=PropertyChanged}" Header="Cantidad"/>
+                    <DataGridTextColumn Width="80" Binding="{Binding cantidad, UpdateSourceTrigger=PropertyChanged}"  Header="Cantidad">
+                        <DataGridTextColumn.EditingElementStyle>
+                            <Style TargetType="TextBox">
+                                <Setter  Property="IsReadOnly" Value="{Binding vieneDeProforma,Mode=OneWay,UpdateSourceTrigger=PropertyChanged}"/>
+                            </Style>
+                        </DataGridTextColumn.EditingElementStyle>
+                    </DataGridTextColumn>
                     <DataGridTextColumn Width="100" Binding="{Binding Producto.precioMonedaString}" IsReadOnly="True" Header="Precio Unitario"/>
                     <DataGridTextColumn Width="100" Binding="{Binding descuentoPrecioString, UpdateSourceTrigger=PropertyChanged}" IsReadOnly="True" Header="Descuento"/>
                     <DataGridTextColumn Width="90" Binding="{Binding montoParcial, StringFormat=S/. \{0\}}" IsReadOnly="True" Header="Importe">

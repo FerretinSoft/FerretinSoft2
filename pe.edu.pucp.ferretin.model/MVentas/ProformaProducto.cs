@@ -83,7 +83,7 @@ namespace pe.edu.pucp.ferretin.model
                     }
                     else
                     {
-                        return "No Aplica";
+                        return "-";
                     }
                 }
             }
