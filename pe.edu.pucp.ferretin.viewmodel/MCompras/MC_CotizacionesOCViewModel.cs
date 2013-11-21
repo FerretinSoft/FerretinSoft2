@@ -17,7 +17,7 @@ namespace pe.edu.pucp.ferretin.viewmodel.MCompras
         public MC_CotizacionesOCViewModel()
         {
             _documentoCompra = new DocumentoCompra();
-            
+            _documentoCompra.DocumentoCompraProducto.ListChanged += actualizarMontosDC;
         }
         #endregion
 
@@ -838,6 +838,14 @@ namespace pe.edu.pucp.ferretin.viewmodel.MCompras
         public void actualizar()
         {
             NotifyPropertyChanged("documentoCompra");
+        }
+
+        public void actualizarMontosDC(object sender, object e)
+        {
+            //Actualizo el total
+            documentoCompra.total = Decimal.Round(documentoCompra.DocumentoCompraProducto.Sum(p => p.montoParcial).Value, 2);
+            documentoCompra.subTotal = Decimal.Round((documentoCompra.total / (((decimal)MS_SharedService.obtenerIGV() / (100)) + 1)).Value,2);
+            documentoCompra.igv = documentoCompra.total - documentoCompra.subTotal;
         }
 
         #endregion 

@@ -40,7 +40,9 @@ namespace pe.edu.pucp.ferretin.view.MCompras
                                 precioUnit = listAux[i].precio,
                             };
                             listAux[i].isSelected = false;
+                            linea.PropertyChanged += padreViewModel.actualizarMontosDC;
                             padreViewModel.documentoCompra.DocumentoCompraProducto.Add(linea);
+                            padreViewModel.actualizarMontosDC(null, null);
                         }
                     }
                     padreViewModel.actualizar();
