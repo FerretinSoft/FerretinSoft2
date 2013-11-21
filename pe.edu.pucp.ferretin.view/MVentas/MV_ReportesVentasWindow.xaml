@@ -34,17 +34,17 @@
             </ListBox>
             <Label Content="Seleccione un reporte y presione Siguiente." HorizontalAlignment="Left" Margin="10,246,0,0" VerticalAlignment="Top" Width="308" Grid.ColumnSpan="2"/>
         </Grid>
-        <Grid x:Name="repConfGrid" Margin="0" Visibility="Hidden">
+        <Grid x:Name="repConfGrid" Margin="0" Visibility="Collapsed">
             <Label Content="Configure los parámetros del reporte." HorizontalAlignment="Left" Margin="10,246,0,0" VerticalAlignment="Top" Width="308" Grid.ColumnSpan="2"/>
-            <Label Content="Reporte por productos" HorizontalAlignment="Center" Margin="146,10,111,0" VerticalAlignment="Top" FontSize="16"/>
+            <Label Content="{Binding Path=nombreVentana}" HorizontalAlignment="Center" Margin="146,10,111,0" VerticalAlignment="Top" FontSize="16"/>
             <Label Content="Fecha desde:" HorizontalAlignment="Left" Margin="13,60,0,0" VerticalAlignment="Top"/>
-            <Label Content="Fecha hasta:" HorizontalAlignment="Left" Margin="243,60,0,0" VerticalAlignment="Top"/>
-            <DatePicker HorizontalAlignment="Left" Margin="96,60,0,0" VerticalAlignment="Top" SelectedDate="{Binding Path=searchFechaInicio, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
-            <DatePicker HorizontalAlignment="Left" Margin="328,60,0,0" VerticalAlignment="Top" SelectedDate="{Binding Path=searchFechaFin, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+            <Label Content="Fecha hasta:" HorizontalAlignment="Left" Margin="227,60,0,0" VerticalAlignment="Top"/>
+            <DatePicker HorizontalAlignment="Left" Margin="96,60,0,0" VerticalAlignment="Top" SelectedDate="{Binding Path=searchFechaInicio, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Width="126"/>
+            <DatePicker HorizontalAlignment="Left" Margin="307,60,0,0" VerticalAlignment="Top" SelectedDate="{Binding Path=searchFechaFin, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Width="126"/>
             <Label Content="Alias:" HorizontalAlignment="Left" Margin="13,167,0,0" VerticalAlignment="Top"/>
-            <TextBox HorizontalAlignment="Left" Height="23" Margin="96,170,0,0" TextWrapping="Wrap" Text="{Binding Path=aliasRep}"  VerticalAlignment="Top" Width="198"/>
+            <TextBox HorizontalAlignment="Left" Height="23" Margin="96,170,0,0" TextWrapping="Wrap" Text="{Binding Path=aliasRep}" IsEnabled="False" VerticalAlignment="Top" Width="198"/>
             <Label Content="Comentario:" HorizontalAlignment="Left" Margin="13,198,0,0" VerticalAlignment="Top"/>
-            <TextBox HorizontalAlignment="Left" Height="49" Margin="96,198,0,0" TextWrapping="Wrap" Text="{Binding Path=comentRep}" VerticalAlignment="Top" Width="360"/>
+            <TextBox HorizontalAlignment="Left" Height="49" Margin="96,198,0,0" TextWrapping="Wrap" Text="{Binding Path=comentRep}" IsEnabled="False" VerticalAlignment="Top" Width="360"/>
         </Grid>
         <Grid x:Name="repFinalGrid" Margin="0" Visibility="Collapsed">
             <Label Content="Reporte 10 productos TOP" HorizontalAlignment="Center" Margin="146,10,111,0" VerticalAlignment="Top" FontSize="16"/>

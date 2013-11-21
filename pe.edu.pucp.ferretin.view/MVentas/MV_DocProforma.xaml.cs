@@ -91,7 +91,7 @@ namespace pe.edu.pucp.ferretin.view.MVentas
 
                 MessageBox.Show("Email Enviado correctamente");
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 MessageBox.Show("Ocurrió un error al enviar el email, inténtelo más tarde.\nDetalles:\n" + e.Message);
             }

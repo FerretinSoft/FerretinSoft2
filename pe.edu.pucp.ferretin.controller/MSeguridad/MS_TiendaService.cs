@@ -35,6 +35,14 @@ namespace pe.edu.pucp.ferretin.controller.MSeguridad
             }
         }
 
+        public static IEnumerable<Tienda> obtenerTiendas()
+        {
+            IEnumerable<Tienda> tiendas = from t in db.Tienda
+                                          select t;
+
+            return tiendas;
+        }
+
 
         public static Tienda obtenerTiendaByCodigo(String codigoTienda)
         {

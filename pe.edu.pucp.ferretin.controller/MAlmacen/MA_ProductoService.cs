@@ -166,20 +166,21 @@ namespace pe.edu.pucp.ferretin.controller.MAlmacen
             }
 
 
-            List<Producto> pList = listaProductos.ToList();
+            //List<Producto> pList = listaProductos.ToList();
 
-            foreach (Producto p in pList)
-            {
-                String cad = "";
-                foreach (ProductoCategoria pc in p.ProductoCategoria)
-                {
-                    if (cad != "") cad += ", ";
-                    cad += pc.Categoria.nombre;
-                }
-                p.cadenaCategoria = cad;
-            }
+            //foreach (Producto p in pList)
+            //{
+            //    String cad = "";
+            //    foreach (ProductoCategoria pc in p.ProductoCategoria)
+            //    {
+            //        if (cad != "") cad += ", ";
+            //        cad += pc.Categoria.nombre;
+            //    }
+            //    p.cadenaCategoria = cad;
+            //}
 
-            return pList;
+            //return pList;
+            return listaProductos;
         }
 
         public static ProductoAlmacen obtenerProdxTienda(int idProd,int idTienda)
