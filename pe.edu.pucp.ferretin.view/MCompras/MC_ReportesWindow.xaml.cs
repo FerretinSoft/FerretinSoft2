@@ -51,8 +51,8 @@ namespace pe.edu.pucp.ferretin.view.MCompras
                         MessageBox.Show("Debe seleccionar algún reporte");
                     break;
                 case 1:
-                    if (dpFechaDesde.SelectedDate == null || dpFechaHasta.SelectedDate == null)
-                        MessageBox.Show("Debe seleccionar un período para generar su reporte.");
+                    if (dpFechaDesde.SelectedDate == null || dpFechaHasta.SelectedDate == null || txtRuc.Text=="")
+                        MessageBox.Show("Verifique sus datos de entrada");
                     else
                     {
                         repConfGrid.Visibility = System.Windows.Visibility.Collapsed;
