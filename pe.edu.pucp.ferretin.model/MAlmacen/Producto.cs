@@ -21,7 +21,9 @@ namespace pe.edu.pucp.ferretin.model
                     if (cad != "") cad += ", ";
                     cad += pc.Categoria.nombre;
                 }
-                _cadenaCategoria = cad;
+
+                if (cad!="")
+                    _cadenaCategoria = cad;
                 return _cadenaCategoria;
             }
             set{

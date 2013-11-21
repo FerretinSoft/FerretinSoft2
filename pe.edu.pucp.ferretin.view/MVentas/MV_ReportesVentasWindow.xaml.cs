@@ -11,6 +11,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using pe.edu.pucp.ferretin.viewmodel.MVentas;
 
 namespace pe.edu.pucp.ferretin.view.MVentas
 {
@@ -28,27 +29,53 @@ namespace pe.edu.pucp.ferretin.view.MVentas
         }
         private void repSigBtn_Click(object sender, RoutedEventArgs e)
         {
-            switch (estado)
-            {
-                case 0:
-                    repIntroGrid.Visibility = System.Windows.Visibility.Collapsed;
-                    repConfGrid.Visibility = System.Windows.Visibility.Visible;
-                    estado = 1;
-                    repAntBtn.IsEnabled = true;
-                    break;
-                case 1:
-                    repConfGrid.Visibility = System.Windows.Visibility.Collapsed;
-                    repFinalGrid.Visibility = System.Windows.Visibility.Visible;
-                    estado = 2;
-                    repSigBtn.IsEnabled = false;
-                    break;
+           
+            MV_ReportesViewModel padre_DataContext = this.main.DataContext as MV_ReportesViewModel;
+            if (padre_DataContext.nombreBoton.Equals("SIGUIENTE")){
+
+                switch (estado)
+                {
+                    case 0:
+                        repIntroGrid.Visibility = System.Windows.Visibility.Collapsed;
+                        repConfGrid.Visibility = System.Windows.Visibility.Visible;
+                    
+                        padre_DataContext.nombreBoton = "GENERAR";
+                        if (this.listaRepDisp.SelectedIndex == 2)
+                        {
+                            padre_DataContext.aliasRep = "Reporte de ventas por tienda";
+                            padre_DataContext.comentRep = "El presente reporte tiene como finalidad mostrar un resumen de las ventas realizadas por tienda en un período de tiempo";
+                        }
+                        estado = 1;
+                        repAntBtn.IsEnabled = true;
+                        break;
+                    case 1:
+                        repConfGrid.Visibility = System.Windows.Visibility.Collapsed;
+                        repFinalGrid.Visibility = System.Windows.Visibility.Visible;
+                        estado = 2;
+                        repSigBtn.IsEnabled = false;
+                        break;
+                }
+            }else{
+                padre_DataContext = this.main.DataContext as MV_ReportesViewModel;
+                MV_VisorReporte repW;
+                if (this.listaRepDisp.SelectedIndex == 2)
+                 repW = new MV_VisorReporte(padre_DataContext.searchFechaInicio, padre_DataContext.searchFechaFin, "RTienda");
+                else
+                 repW = new MV_VisorReporte(padre_DataContext.searchFechaInicio, padre_DataContext.searchFechaFin, "RProducto");
+                
+                repW.Show();
+
+            }
 
 
             }
-        }
+        
+
 
         private void repAntBtn_Click(object sender, RoutedEventArgs e)
         {
+            MV_ReportesViewModel padre_DataContext = this.main.DataContext as MV_ReportesViewModel;
+            
             switch (estado)
             {
                 case 1:
@@ -56,6 +83,7 @@ namespace pe.edu.pucp.ferretin.view.MVentas
                     repIntroGrid.Visibility = System.Windows.Visibility.Visible;
                     estado = 0;
                     repAntBtn.IsEnabled = false;
+                    padre_DataContext.nombreBoton = "SIGUIENTE";
                     break;
                 case 2:
                     repConfGrid.Visibility = System.Windows.Visibility.Visible;

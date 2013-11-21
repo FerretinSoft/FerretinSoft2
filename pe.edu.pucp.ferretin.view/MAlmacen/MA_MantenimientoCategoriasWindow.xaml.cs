@@ -1,4 +1,5 @@
-﻿using System;
+﻿using pe.edu.pucp.ferretin.model;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -11,6 +12,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using pe.edu.pucp.ferretin.controller.MAlmacen;
 
 namespace pe.edu.pucp.ferretin.view.MAlmacen
 {
@@ -30,6 +32,30 @@ namespace pe.edu.pucp.ferretin.view.MAlmacen
                 e.Handled = false;
             else
                 e.Handled = true;
+        }
+
+        private void btnGuardar_Click(object sender, RoutedEventArgs e)
+        {
+            if (txtNombreCategoria.Text != "" || txtNombreCategoria != null)
+            {
+                Categoria cat = new Categoria();
+                cat.nombre = txtNombreCategoria.Text;
+                cat.id_padre = null;
+                cat.descripcion = txtNombreCategoria.Text;
+                cat.nivel = 0;
+                if (!MA_CategoriaService.insertarCategoria(cat))
+                {
+                    MessageBox.Show("No se pudo agregar");
+                }
+                else {
+                    MessageBox.Show("Se agrego con exito");
+                }
+            }
+            else {
+
+                MessageBox.Show("Ingresar los campos");
+            }
+            
         }
     }
 }

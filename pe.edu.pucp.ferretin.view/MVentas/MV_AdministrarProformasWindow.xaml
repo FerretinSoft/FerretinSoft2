@@ -218,9 +218,8 @@
                                 <DataGridHyperlinkColumn Width="1.5*" Binding="{Binding Producto.codigo}" IsReadOnly="True" Header="Código"/>
                                 <DataGridTextColumn Width="2*" Binding="{Binding Producto.nombre}" Header="Nombre" IsReadOnly="True"/>
                                 <DataGridTextColumn Width="1.2*" Binding="{Binding cantidad, UpdateSourceTrigger=PropertyChanged}" Header="Cantidad"/>
-                                <DataGridTextColumn Width="1.2*" Binding="{Binding Producto.monedaString}" IsReadOnly="True" Header="Moneda"/>
-                                <DataGridTextColumn Width="1*" Binding="{Binding Producto.precioLista}" IsReadOnly="True" Header="Precio"/>
-                                <DataGridTextColumn Width="1.5*" Binding="{Binding descuentoPorcentaje, UpdateSourceTrigger=PropertyChanged}" IsReadOnly="True" Header="Dscto. (%)"/>
+                                <DataGridTextColumn Width="1*" Binding="{Binding Producto.precioMonedaString}" IsReadOnly="True" Header="Precio"/>
+                                <DataGridTextColumn Width="1.5*" Binding="{Binding descuentoPrecioString, UpdateSourceTrigger=PropertyChanged}" IsReadOnly="True" Header="Descuento"/>
                                 <DataGridTextColumn Width="1.2*" Binding="{Binding montoParcial}" IsReadOnly="True" Header="Importe"/>
 
                             </DataGrid.Columns>
@@ -253,7 +252,7 @@
                                 <RowDefinition/>
                             </Grid.RowDefinitions>
                             <Label Content="Destinatarios:"/>
-                            <TextBox Text="{Binding proforma.Cliente.email}" Grid.Column="1" VerticalAlignment="Center"/>
+                            <TextBox Text="{Binding proforma.destinatario,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" Grid.Column="1" VerticalAlignment="Center"/>
                             <Label Grid.Row="1" Content="Mensaje:"/>
                             <TextBox Grid.Column="1" Grid.Row="1" Grid.RowSpan="2" VerticalAlignment="Stretch"/>
                         </Grid>

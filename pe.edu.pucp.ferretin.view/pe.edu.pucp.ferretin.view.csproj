@@ -51,6 +51,9 @@
     <WarningLevel>4</WarningLevel>
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>Resources\ferretin_ico.ico</ApplicationIcon>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="CrystalDecisions.CrystalReports.Engine, Version=13.0.2000.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL" />
     <Reference Include="CrystalDecisions.ReportSource, Version=13.0.2000.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL" />
@@ -60,13 +63,13 @@
       <HintPath>..\..\..\..\..\..\Program Files (x86)\SAP BusinessObjects\Crystal Reports for .NET Framework 4.0\Common\SAP BusinessObjects Enterprise XI 4.0\win32_x86\dotnet\CrystalDecisions.Windows.Forms.dll</HintPath>
     </Reference>
     <Reference Include="PdfSharp">
-      <HintPath>..\..\..\..\Desktop\PdfSharp.dll</HintPath>
+      <HintPath>Properties\pdfSharp\PdfSharp.dll</HintPath>
     </Reference>
     <Reference Include="PdfSharp-WPF">
-      <HintPath>..\..\..\..\Desktop\PdfSharp-WPF.dll</HintPath>
+      <HintPath>Properties\pdfSharp\PdfSharp-WPF.dll</HintPath>
     </Reference>
     <Reference Include="PdfSharp.Xps">
-      <HintPath>..\..\..\..\Desktop\PdfSharp.Xps.dll</HintPath>
+      <HintPath>Properties\pdfSharp\PdfSharp.Xps.dll</HintPath>
     </Reference>
     <Reference Include="ReachFramework" />
     <Reference Include="SAPBusinessObjects.WPF.Viewer, Version=13.0.3500.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL">
@@ -127,10 +130,16 @@
     <Compile Include="MVentas\MV_VisorReporte.xaml.cs">
       <DependentUpon>MV_VisorReporte.xaml</DependentUpon>
     </Compile>
+    <Compile Include="MVentas\ReporteVentaProducto.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ReporteVentaProducto.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="MVentas\ReporteVentaTienda.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>ReporteDeDevoluciones.rpt</DependentUpon>
+      <DependentUpon>ReporteVentaTienda.rpt</DependentUpon>
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="ReportesWindow.xaml.cs">
@@ -567,6 +576,10 @@
     <EmbeddedResource Include="MSeguridad\ReporteDeTransacciones.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
       <LastGenOutput>ReporteDeTransacciones.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MVentas\ReporteVentaProducto.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>ReporteVentaProducto.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="MVentas\ReporteVentaTienda.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
