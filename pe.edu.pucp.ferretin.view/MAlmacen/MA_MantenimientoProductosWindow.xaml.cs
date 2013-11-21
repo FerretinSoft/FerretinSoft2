@@ -63,18 +63,18 @@ namespace pe.edu.pucp.ferretin.view.MAlmacen
         private void txtPrecio_KeyDown(object sender, KeyEventArgs e)
         {
             //Validaciones para textbox tipo precio
-            if (e.Key == Key.OemComma || e.Key == Key.OemPeriod)
-            {
-                Console.WriteLine(txtPrecio.Text.Contains("."));
-                if (txtPrecio.Text.Contains(".") || txtPrecio.Text.Contains(",")) e.Handled = true;
-            }
-            else
-            {
-                if (e.Key >= Key.D0 && e.Key <= Key.D9 || e.Key >= Key.NumPad0 && e.Key <= Key.NumPad9)
-                    e.Handled = false;
-                else
-                    e.Handled = true;
-            }
+            //if (e.Key == Key.OemComma || e.Key == Key.OemPeriod)
+            //{
+            //    Console.WriteLine(txtPrecio.Text.Contains("."));
+            //    if (txtPrecio.Text.Contains(".") || txtPrecio.Text.Contains(",")) e.Handled = true;
+            //}
+            //else
+            //{
+            //    if (e.Key >= Key.D0 && e.Key <= Key.D9 || e.Key >= Key.NumPad0 && e.Key <= Key.NumPad9)
+            //        e.Handled = false;
+            //    else
+            //        e.Handled = true;
+            //}
         }
 
         private void btnCancelar_Click(object sender, RoutedEventArgs e)
@@ -129,7 +129,7 @@ namespace pe.edu.pucp.ferretin.view.MAlmacen
         private void btnGuardar_Click(object sender, RoutedEventArgs e)
         {
             if ((cmbUnidadMed.SelectedItem == null) || (cmbMatBase.SelectedItem==null) || (cmbMatSec.SelectedItem==null) || 
-                (txtNombreDet.Text=="") || (txtPrecio.Text==""))
+                (txtNombreDet.Text=="") )
             {
                 MessageBox.Show("Verifique los datos ingresados");
                 return;

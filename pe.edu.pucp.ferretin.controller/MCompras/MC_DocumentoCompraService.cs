@@ -218,9 +218,9 @@ namespace pe.edu.pucp.ferretin.controller.MCompras
                                                        where e.codigo != null && e.tipo.Equals(tipoDC)
                                                        select e);
             if (tipoDC == 1)
-                return "COT" + documentos.Count().ToString();
+                return "COT" + (documentos.Count()+1).ToString();
             else
-                return "ORD" + documentos.Count().ToString();
+                return "ORD" + (documentos.Count()+1).ToString();
         }
 
         public static bool insertarDocumentoCompra(DocumentoCompra documentoCompra)
