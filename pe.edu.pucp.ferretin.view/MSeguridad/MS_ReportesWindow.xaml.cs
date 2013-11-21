@@ -26,8 +26,23 @@ namespace pe.edu.pucp.ferretin.view.MSeguridad
 
         private void repSigBtn_Click(object sender, RoutedEventArgs e)
         {
-            MS_ReporteTrasaccionesParametrosWindow RTW = new MS_ReporteTrasaccionesParametrosWindow();
-            RTW.Show();
+            System.Diagnostics.Debug.WriteLine(reportesBaseListBox.SelectedIndex.ToString());
+
+            if (reportesBaseListBox.SelectedIndex.ToString() == "0")
+            {
+
+                MS_ReporteTrasaccionesParametrosWindow RTW = new MS_ReporteTrasaccionesParametrosWindow();
+                RTW.Show();
+            }
+            else
+            {
+                MessageBox.Show("Seleccione un reporte.");
+            }
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            this.Close();
         }
     }
 }
