@@ -145,13 +145,14 @@
                             <ColumnDefinition Width="9*"/>
                             <ColumnDefinition Width="52*"/>
                         </Grid.ColumnDefinitions>
-
-                        <Label Content="Últ. Compra:" HorizontalAlignment="Left" VerticalAlignment="Top" Width="86" Margin="7,30,0,-18" RenderTransformOrigin="0.442,0.846" Height="26"/>
-                        <TextBox x:Name="ultCompraTxtBox" HorizontalAlignment="Right" TextWrapping="Wrap" Text="04/01/2013" Width="69" Margin="0,31,14,-16" TextAlignment="Right" Grid.ColumnSpan="5"/>
                     </Grid>
                     <Label x:Name="fecValPagoLbl" Content="{Binding labelFechaDC2}" Margin="314,61,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.183,0.438" Height="26" HorizontalAlignment="Left" Width="116" Grid.Column="1"/>
-                    <DatePicker IsEnabled="{Binding isCreatingFechaPago}" SelectedDate="{Binding Path=documentoCompra.fechaVencimiento, Mode=TwoWay}" Margin="426,61,0,0" Height="24" VerticalAlignment="Top" HorizontalAlignment="Left" Width="130" Grid.Column="1"/>
+                    <DatePicker IsEnabled="{Binding isCreatingFechaPago}" SelectedDate="{Binding Path=documentoCompra.fechaVencimiento, Mode=TwoWay}" Margin="426,63,0,0" Height="24" VerticalAlignment="Top" HorizontalAlignment="Left" Width="130" Grid.Column="1"/>
+                    <Label Visibility="{Binding Path=ingresaFactura, Mode=OneWay}" Content="*" HorizontalAlignment="Left" Foreground="Red" FontSize="14" Width="15" Height="22" Margin="406,65,0,0" VerticalAlignment="Top" RenderTransformOrigin="-1.479,-0.159" Grid.Column="1"/>
+
                     <DatePicker IsEnabled="{Binding isCreating}" SelectedDate="{Binding Path=documentoCompra.fechaEmision, Mode=TwoWay}" Height="24" VerticalAlignment="Top" Margin="110,63,0,0" HorizontalAlignment="Left" Width="130" Grid.Column="1"/>
+                    <Label Content="*" HorizontalAlignment="Left" Foreground="Red" FontSize="14" Width="15" Height="22" Margin="90,65,0,0" VerticalAlignment="Top" RenderTransformOrigin="-1.479,-0.159" Grid.Column="1"/>
+                    <Label Content="*" HorizontalAlignment="Left" Foreground="Red" FontSize="14" Width="15" Height="22" Margin="406,34,0,0" VerticalAlignment="Top" RenderTransformOrigin="-1.479,-0.159" Grid.Column="1"/>
                     <Label Content="Ingresado por:" HorizontalAlignment="Left" Margin="59,6,0,0" VerticalAlignment="Top" Grid.Column="2" Height="26" Width="98"/>
                     <Label Content="Aprobado por:" HorizontalAlignment="Left" Margin="59,52,0,0" VerticalAlignment="Top" Grid.Column="2" Height="26" Width="87"/>
                     <TextBox Text="{Binding Path=usuarioAprobacion.Empleado.nombreCompleto, Mode=OneWay}" HorizontalAlignment="Left" Height="23" Margin="59,78,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="150" IsEnabled="False" Grid.Column="2"/>
