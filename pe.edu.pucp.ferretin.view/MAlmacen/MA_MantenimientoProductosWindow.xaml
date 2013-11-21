@@ -52,7 +52,7 @@
 
                     </ComboBox>
                     <Label Content="Nombre:" HorizontalAlignment="Left" Height="26" VerticalAlignment="Top" Width="64" Margin="15,37,0,0"/>
-                    <TextBox x:Name="txtNombre" Text="{Binding searchNombre, Mode=TwoWay}"  HorizontalAlignment="Left" Height="23" Margin="27,36,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="206" Grid.Column="1"/>
+                    <TextBox  x:Name="txtNombre" MaxLength="30" Text="{Binding searchNombre, Mode=TwoWay}"  HorizontalAlignment="Left" Height="23" Margin="27,36,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="206" Grid.Column="1"/>
                     <ToolBar HorizontalAlignment="Left" Margin="10,125,0,0" VerticalAlignment="Top" Height="24">
                         <Button x:Name="nuevoProductoBtn" Content="" VerticalAlignment="Bottom" Width="20" Click="nuevoProductoBtn_Click" Margin="0,0,2,-1" Height="20">
                             <Button.Background>

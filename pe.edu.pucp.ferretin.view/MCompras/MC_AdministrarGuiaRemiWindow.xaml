@@ -21,27 +21,36 @@
                         <RowDefinition Height="37*"></RowDefinition>
                         <RowDefinition Height="255*"/>
                     </Grid.RowDefinitions>
-                    <GroupBox Header="Parámetros" Margin="0,13,20,31" BorderBrush="Black" Grid.ColumnSpan="4">
+                    <GroupBox Header="Parámetros" Margin="10,13,10,31" BorderBrush="Black" Grid.ColumnSpan="4">
 
                     </GroupBox>
-                    <Label Content="Codigo:" HorizontalAlignment="Left" Height="26" VerticalAlignment="Top" Width="63" Margin="24,33,0,0" Grid.ColumnSpan="2"/>
+                    <Label Content="Codigo:" HorizontalAlignment="Left" Height="26" VerticalAlignment="Top" Width="63" Margin="36,33,0,0" Grid.ColumnSpan="3"/>
 
-                    <Label Content="Proveedor:" HorizontalAlignment="Left" Height="26" VerticalAlignment="Top" Width="63" Margin="294.953,33,0,0" Grid.Column="3"/>
+                    <Label Content="Proveedor:" HorizontalAlignment="Left" Height="26" VerticalAlignment="Top" Width="63" Margin="307,33,0,0" Grid.Column="3"/>
 
-                    <Label Content="Fecha hasta:" HorizontalAlignment="Left" Width="75" Margin="294.953,64,0,0" Height="27" VerticalAlignment="Top" Grid.Column="3"/>
-                    <Label Content="Fecha desde:" Height="26" VerticalAlignment="Top" Margin="24,64,588.105,0" Grid.ColumnSpan="4"/>
-                    <DatePicker SelectedDate="{Binding searchFechaDesde, Mode=TwoWay}" HorizontalAlignment="Left" Margin="35.953,64,0,0" VerticalAlignment="Top" Width="130" Height="24" Grid.Column="3"/>
-                    <DatePicker SelectedDate="{Binding searchFechaHasta, Mode=TwoWay}" HorizontalAlignment="Left" Margin="401.953,64,0,0" VerticalAlignment="Top" Width="130" Height="24" Grid.Column="3"/>
-                    <TextBox Text="{Binding searchCodigo, Mode=TwoWay}" HorizontalAlignment="Left" Height="20" Margin="35.953,36,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="130" RenderTransformOrigin="0.667,0.4" Grid.Column="3"/>
+                    <Label Content="Fecha hasta:" HorizontalAlignment="Left" Width="75" Margin="307,64,0,0" Height="27" VerticalAlignment="Top" Grid.Column="3"/>
+                    <Label Content="Fecha desde:" Height="26" VerticalAlignment="Top" Margin="36,64,576,0" Grid.ColumnSpan="4"/>
+                    <DatePicker SelectedDate="{Binding searchFechaDesde, Mode=TwoWay}" HorizontalAlignment="Left" Margin="48,64,0,0" VerticalAlignment="Top" Width="130" Height="24" Grid.Column="3"/>
+                    <DatePicker SelectedDate="{Binding searchFechaHasta, Mode=TwoWay}" HorizontalAlignment="Left" Margin="414,64,0,0" VerticalAlignment="Top" Width="130" Height="24" Grid.Column="3"/>
+                    <TextBox Text="{Binding searchCodigo, Mode=TwoWay}" HorizontalAlignment="Left" Height="20" Margin="48,36,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="130" RenderTransformOrigin="0.667,0.4" Grid.Column="3"/>
 
-                    <TextBox Text="{Binding searchProveedor, Mode=TwoWay}" HorizontalAlignment="Left" Height="20" Margin="402,36,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="130" RenderTransformOrigin="0.667,0.4" Grid.Column="3"/>
+                    <TextBox Text="{Binding searchProveedor, Mode=TwoWay}" HorizontalAlignment="Left" Height="20" Margin="414,36,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="130" RenderTransformOrigin="0.667,0.4" Grid.Column="3"/>
 
-                    <Button Command="{Binding actualizarListaGuiasRemisionCommand}" HorizontalAlignment="Left" Margin="706.953,58,0,0" Width="32" RenderTransformOrigin="0.3,-0.35" Height="32" VerticalAlignment="Top" Grid.Column="3">
+                    <Button Command="{Binding actualizarListaGuiasRemisionCommand}" HorizontalAlignment="Left" Margin="719,58,0,0" Width="32" RenderTransformOrigin="0.3,-0.35" Height="32" VerticalAlignment="Top" Grid.Column="3">
                         <Button.Background>
                             <ImageBrush ImageSource="../Resources/refresh2_48.png"/>
                         </Button.Background>
                     </Button>
-                    <DataGrid ItemsSource="{Binding Path=listaGuiasRemision}" Margin="11,111,9,10" RenderTransformOrigin="0.5,0.5" Grid.ColumnSpan="4" Grid.RowSpan="3" AutoGenerateColumns="False" CanUserAddRows="False" CanUserDeleteRows="False" IsReadOnly="True">
+
+                    <ToolBar HorizontalAlignment="Left" Margin="10,106,0,0" VerticalAlignment="Top" Height="24">
+                        <Button Command="{Binding agregarGuiaCommand}" Content="" VerticalAlignment="Stretch" Width="20" Margin="0,0,2,-1" >
+                            <Button.Background>
+                                <ImageBrush ImageSource="../Resources/add_20.png" Stretch="None"/>
+                            </Button.Background>
+                        </Button>
+                    </ToolBar>
+
+                    <DataGrid ItemsSource="{Binding Path=listaGuiasRemision}" Margin="10,135,10,10" RenderTransformOrigin="0.5,0.5" Grid.ColumnSpan="4" AutoGenerateColumns="False" CanUserAddRows="False" CanUserDeleteRows="False" IsReadOnly="True" Grid.RowSpan="3">
                         <DataGrid.Columns>
                             <DataGridTextColumn Width="1.8*" Binding="{Binding Path=DocumentoCompra.codigo}" Header="Orden de Compra"/>
                             <DataGridTemplateColumn Width="2.5*" Header="Guia de Remision">
