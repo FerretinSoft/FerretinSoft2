@@ -20,11 +20,19 @@ namespace pe.edu.pucp.ferretin.view.MVentas
     public partial class MV_VisorReporte : Window
     {
         ReporteVentaTienda rep;
-        public MV_VisorReporte()
+        public MV_VisorReporte(DateTime fechaInicio, DateTime fechaFin)
         {
             InitializeComponent();
             rep = new ReporteVentaTienda();
 
+            rep.SetParameterValue("fechaInicio", fechaInicio);
+            rep.SetParameterValue("fechaFin", fechaFin);
+
+            rep.SetDatabaseLogon("inf245g2usr", "server", "inti.lab.inf.pucp.edu.pe", "inf245g2");
+            rep.Refresh();
+
+            rep.SetParameterValue("fechaInicio", fechaInicio);
+            rep.SetParameterValue("fechaFin", fechaFin);
             VisorReporte.ViewerCore.ReportSource = rep;
         }
 

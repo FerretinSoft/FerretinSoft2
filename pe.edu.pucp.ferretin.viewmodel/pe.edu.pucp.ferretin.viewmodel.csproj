@@ -86,6 +86,7 @@
     <Compile Include="MVentas\MV_NotaCreditoViewModel.cs" />
     <Compile Include="MVentas\MV_PagoWindowViewModel.cs" />
     <Compile Include="MVentas\MV_RegistrarVentaViewModel.cs" />
+    <Compile Include="MVentas\MV_ReportesViewModel.cs" />
     <Compile Include="MVentas\MV_ValesViewModel.cs" />
     <Compile Include="MVentas\MV_VentasViewModel.cs" />
     <Compile Include="MVentas\MV_AdministrarProformasViewModel.cs" />
