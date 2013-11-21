@@ -69,8 +69,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Ferretin.designer.cs">
-      <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
       <DependentUpon>Ferretin.dbml</DependentUpon>
     </Compile>
     <Compile Include="MAlmacen\Categoria.cs" />

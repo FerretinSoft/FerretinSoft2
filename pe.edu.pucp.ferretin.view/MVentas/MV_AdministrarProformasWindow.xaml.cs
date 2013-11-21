@@ -2,6 +2,8 @@
 using pe.edu.pucp.ferretin.controller.MSeguridad;
 using pe.edu.pucp.ferretin.controller.MVentas;
 using pe.edu.pucp.ferretin.model;
+using pe.edu.pucp.ferretin.view.MRecursosHumanos;
+using pe.edu.pucp.ferretin.viewmodel.MRecursosHumanos;
 using pe.edu.pucp.ferretin.viewmodel.MVentas;
 using System;
 using System.Collections.Generic;
@@ -114,7 +116,7 @@ namespace pe.edu.pucp.ferretin.view.MVentas
                             padreViewModel.NotifyPropertyChanged("venta");
                             padreViewModel.actualizarMontosVenta(null, null);
                         }
-                        
+                        padreViewModel.venta.Proforma = miVM.proforma;
                        
                     }
                     this.Close();
@@ -179,7 +181,20 @@ namespace pe.edu.pucp.ferretin.view.MVentas
 
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
-            ComunService.Clean();
+            var vm = DataContext as MV_AdministrarProformasViewModel;
+            if (!vm.soloSeleccionarProforma)
+            {
+                ComunService.Clean();
+            }
+        }
+
+        private void buscarVendedorBtn_Click_1(object sender, RoutedEventArgs e)
+        {
+            MR_AdministrarPersonalWindow v = new MR_AdministrarPersonalWindow();
+            v.Owner = this;
+            var viewModel = v.main.DataContext as MR_AdministrarPersonalViewModel;
+            viewModel.soloSeleccionarVendedor = true;
+            v.Show();
         }
 
     }

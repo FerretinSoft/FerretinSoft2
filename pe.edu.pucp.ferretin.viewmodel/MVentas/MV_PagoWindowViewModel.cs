@@ -87,9 +87,10 @@ namespace pe.edu.pucp.ferretin.viewmodel.MVentas
                 return;
             }
             int tipoPago = int.Parse(param.ToString());
-            var ventaMP = new VentaMedioPago()
+            VentaMedioPago ventaMP = null;
+            
+            ventaMP = new VentaMedioPago()
             {
-                Venta = venta,
                 moneda = 0,
                 tipoCambio = (decimal)MS_SharedService.obtenerTipodeCambio()
             };
@@ -99,12 +100,14 @@ namespace pe.edu.pucp.ferretin.viewmodel.MVentas
             {
                 case 1://Pago Efectivo
                     {
+                        ventaMP.Venta = venta;
                         ventaMP.MedioPago = mediosPago.ElementAt(0);
                         ventaMP.monto = venta.diferencia;
                         break;
                     };
                 case 2: //Pago Tarjeta
                     {
+                        ventaMP.Venta = venta;
                         ventaMP.MedioPago = mediosPago.ElementAt(1);
                         ventaMP.detalle = "# Transacción " + new Random(100).Next(11111111, 99999999).ToString() + "";
                         ventaMP.monto = venta.diferencia;
@@ -114,12 +117,17 @@ namespace pe.edu.pucp.ferretin.viewmodel.MVentas
                     {
                         if (valeSeleccionado != null)
                         {
+                            ventaMP.Venta = venta;
                             ventaMP.Vale = valeSeleccionado;
                             ventaMP.MedioPago = mediosPago.ElementAt(2);
                             ventaMP.detalle = "Vale N° " + valeSeleccionado.codigo.ToString();
-                            ventaMP.moneda = valeSeleccionado.LoteVale.moneda-1;
+                            ventaMP.moneda = valeSeleccionado.LoteVale.moneda;
                             ventaMP.monto = valeSeleccionado.LoteVale.monto;
                             valeSeleccionado = null;
+                        }
+                        else
+                        {
+                            ventaMP = null;
                         }
                         break;
                     };
@@ -127,12 +135,17 @@ namespace pe.edu.pucp.ferretin.viewmodel.MVentas
                     {
                         if (notaCreditoSeleccionado != null)
                         {
+                            ventaMP.Venta = venta;
                             ventaMP.NotaCredito = notaCreditoSeleccionado;
                             ventaMP.MedioPago = mediosPago.ElementAt(3);
                             ventaMP.detalle = "Nota de Crédito N° " + notaCreditoSeleccionado.codigo.ToString();
                             ventaMP.moneda = 0;//TODO siempre en soles?
                             ventaMP.monto = notaCreditoSeleccionado.importe;
                             notaCreditoSeleccionado = null;
+                        }
+                        else
+                        {
+                            ventaMP = null;
                         }
                         break;
                     };
@@ -161,6 +174,10 @@ namespace pe.edu.pucp.ferretin.viewmodel.MVentas
                     venta.fecha = DateTime.Now;
                     try
                     {
+                        if (venta.Proforma != null)
+                        {
+                            venta.Proforma.finalizado = true;
+                        }
                         venta.nroDocumento = MV_VentaService.generarNroDoc((venta.Cliente == null ? false : (venta.Cliente.tipo == 2)));
                         venta.tipoDocumento = ((venta.Cliente == null ? 0 : (venta.Cliente.tipo == 2 ? 1 : 0)));
                         if (venta.Cliente != null)
@@ -187,7 +204,7 @@ namespace pe.edu.pucp.ferretin.viewmodel.MVentas
                         {
                             if (vp.PromocionActual != null)
                             {
-                                vp.PromocionActual.stockActual--;
+                                vp.PromocionActual.stockActual = vp.PromocionActual.stockActual - (int)(vp.prodConDesc/vp.PromocionActual.cantMulUnidades);
                             }
                         }
                         //Ya que almacen esta utilizando db
@@ -204,7 +221,7 @@ namespace pe.edu.pucp.ferretin.viewmodel.MVentas
             }
             catch (Exception e)
             {
-                result = "Error al registrar venta: "+ e.Message;
+                result = "Error al registrar en almacen: "+ e.Message;
             }
             if (result.Trim().Length>0)
             {

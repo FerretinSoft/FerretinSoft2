@@ -8,9 +8,6 @@ namespace pe.edu.pucp.ferretin.model
 {
     public partial class PromocionProducto
     {
-        partial void OndescuentoChanged()
-        {
-            
-        }
+        
     }
 }

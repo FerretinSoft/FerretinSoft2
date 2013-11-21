@@ -29,7 +29,7 @@ namespace pe.edu.pucp.ferretin.controller.MVentas
             {
                 if (_listaProformas == null)
                 {
-                    _listaProformas = db.Proforma;
+                    _listaProformas = from p in db.Proforma where !p.finalizado.Value select p;
                 }
                 
                 return _listaProformas;
@@ -58,7 +58,7 @@ namespace pe.edu.pucp.ferretin.controller.MVentas
         {
             get
             {
-                Int64 numCodProf = listaProformas.Max(p=>p.id) + 1;
+                Int64 numCodProf = listaProformas.Count() + 1;
                 string codDev = Convert.ToString(numCodProf);
                 while (true)
                 {

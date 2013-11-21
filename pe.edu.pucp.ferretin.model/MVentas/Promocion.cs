@@ -40,11 +40,7 @@ namespace pe.edu.pucp.ferretin.model
                 string errorMessage = string.Empty;
                 this.Errors.Remove(columnName);
 
-                switch (columnName)
-                {
-                    case "telefono1":
-                        break;
-                }
+                
 
                 if (!string.IsNullOrEmpty(errorMessage))
                 {

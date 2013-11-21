@@ -1,4 +1,5 @@
-﻿using System;
+﻿using pe.edu.pucp.ferretin.controller;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -34,6 +35,11 @@ namespace pe.edu.pucp.ferretin.view.MVentas
         private void nuevaPromocionBtn_Click(object sender, RoutedEventArgs e)
         {
             VentasTab.SelectedIndex = 1;
+        }
+
+        private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            ComunService.Clean();
         }
     }
 }
