@@ -28,13 +28,13 @@
                 </HierarchicalDataTemplate>
             </TreeView.ItemTemplate>
         </helper:MyTreeView>
-        <Label Content="Nombre de categoría:" HorizontalAlignment="Left" Margin="307,49,0,0" VerticalAlignment="Top"/>
-        <Label Content="Categorías padre:" HorizontalAlignment="Left" Margin="307,86,0,0" VerticalAlignment="Top"/>
-        <Label Content="Descripción:" HorizontalAlignment="Left" Margin="307,129,0,0" VerticalAlignment="Top"/>
-        <TextBox Text="{Binding Path=CategoriaSeleccionada.nombre,Mode=TwoWay}"  HorizontalAlignment="Left" Height="23" Margin="438,49,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="229" PreviewKeyDown="TextBox_PreviewKeyDown"/>
-        <ComboBox ItemsSource="{Binding Path=categoriasPadre,Mode=TwoWay}" DisplayMemberPath="nombre" SelectedItem="{Binding Path=CategoriaSeleccionada.Categoria1}" HorizontalAlignment="Left" Margin="438,88,0,0" VerticalAlignment="Top" Width="229"/>
-        <TextBox Text="{Binding Path=CategoriaSeleccionada.descripcion,Mode=TwoWay}" Height="84" Margin="438,129,31,0" TextWrapping="Wrap" VerticalAlignment="Top"/>
-        <Button Command="{Binding saveCategoriaCommand}" Content="GUARDAR" HorizontalAlignment="Left" Margin="438,255,0,0" VerticalAlignment="Top" Width="76" Height="30"/>
+        <Label Content="Nombre de categoría:" HorizontalAlignment="Left" Margin="328,224,0,0" VerticalAlignment="Top"/>
+        <Label Content="Categorías padre:" HorizontalAlignment="Left" Margin="328,261,0,0" VerticalAlignment="Top"/>
+        <Label Content="Descripción:" HorizontalAlignment="Left" Margin="328,304,0,0" VerticalAlignment="Top"/>
+        <TextBox Text="{Binding Path=CategoriaSeleccionada.nombre,Mode=TwoWay}"  HorizontalAlignment="Left" Height="23" Margin="459,224,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="181" PreviewKeyDown="TextBox_PreviewKeyDown"/>
+        <ComboBox ItemsSource="{Binding Path=categoriasPadre,Mode=TwoWay}" DisplayMemberPath="nombre" SelectedItem="{Binding Path=CategoriaSeleccionada.Categoria1}" HorizontalAlignment="Left" Margin="459,263,0,0" VerticalAlignment="Top" Width="181"/>
+        <TextBox Text="{Binding Path=CategoriaSeleccionada.descripcion,Mode=TwoWay}" Height="84" Margin="459,304,58,0" TextWrapping="Wrap" VerticalAlignment="Top"/>
+        <Button Command="{Binding saveCategoriaCommand}" Content="Guardar" HorizontalAlignment="Left" Margin="328,358,0,0" VerticalAlignment="Top" Width="76" Height="30"/>
         <ToolBar HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Height="24">
             <Button Command="{Binding Path=nuevaCategoriaCommand}" x:Name="nuevoProductoBtn" Content="" VerticalAlignment="Stretch" Width="20" Margin="0,0,2,-1">
                 <Button.Background>
@@ -47,8 +47,14 @@
                     <ImageBrush ImageSource="../Resources/trash_20.png"/>
                 </Button.Background>
             </Button>
-       
+
 
         </ToolBar>
+        <GroupBox Header="Categoría Principal" HorizontalAlignment="Left" Margin="304,49,0,0" VerticalAlignment="Top" Height="122" Width="360">
+            <Button Content="Guardar" HorizontalAlignment="Left" Height="27" VerticalAlignment="Top" Width="69" Margin="134,68,0,0"/>
+        </GroupBox>
+        <GroupBox Header="Subcategorías" HorizontalAlignment="Left" Margin="304,192,0,0" VerticalAlignment="Top" Height="223" Width="360"/>
+        <Label Content="Nombre de categoría:" HorizontalAlignment="Left" Margin="322,85,0,0" VerticalAlignment="Top"/>
+        <TextBox Text="{Binding CategoriaSeleccionada.nombre, Mode=TwoWay}"  HorizontalAlignment="Left" Height="23" Margin="469,88,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="171" PreviewKeyDown="TextBox_PreviewKeyDown"/>
     </Grid>
 </Window>
