@@ -44,8 +44,8 @@ namespace pe.edu.pucp.ferretin.controller.MAlmacen
                 pa.puntos = 0;
                 pa.estado = 1;
                 db.ProductoAlmacen.InsertOnSubmit(pa);
-                db.SubmitChanges();
             }
+            db.SubmitChanges();
         }
 
         public static void guardarStockProductoAlmacen()
