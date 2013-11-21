@@ -58,6 +58,13 @@ namespace pe.edu.pucp.ferretin.view.MVentas
                                 padre_DataContext.comentRep = "El presente reporte tiene como finalidad mostrar un resumen de las ventas realizadas por producto en un período de tiempo";
                             }
 
+                            if (this.listaRepDisp.SelectedIndex == 0)
+                            {
+                                padre_DataContext.nombreVentana = "Reporte por cliente";
+                                padre_DataContext.aliasRep = "Reporte de ventas por cliente";
+                                padre_DataContext.comentRep = "El presente reporte tiene como finalidad mostrar un resumen de las ventas realizadas por cliente en un período de tiempo";
+                            }
+
                             estado = 1;
                             repAntBtn.IsEnabled = true;
                         }
@@ -75,9 +82,11 @@ namespace pe.edu.pucp.ferretin.view.MVentas
                 padre_DataContext = this.main.DataContext as MV_ReportesViewModel;
                 MV_VisorReporte repW;
                 if (this.listaRepDisp.SelectedIndex == 2)
-                 repW = new MV_VisorReporte(padre_DataContext.searchFechaInicio, padre_DataContext.searchFechaFin, "RTienda");
+                    repW = new MV_VisorReporte(padre_DataContext.searchFechaInicio, padre_DataContext.searchFechaFin, "RTienda");
+                else if (this.listaRepDisp.SelectedIndex == 1)
+                    repW = new MV_VisorReporte(padre_DataContext.searchFechaInicio, padre_DataContext.searchFechaFin, "RProducto");
                 else
-                 repW = new MV_VisorReporte(padre_DataContext.searchFechaInicio, padre_DataContext.searchFechaFin, "RProducto");
+                    repW = new MV_VisorReporte(padre_DataContext.searchFechaInicio, padre_DataContext.searchFechaFin, "RCliente");
                 
                 repW.Show();
 

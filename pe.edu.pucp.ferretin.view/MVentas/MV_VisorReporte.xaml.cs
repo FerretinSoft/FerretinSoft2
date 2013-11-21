@@ -37,8 +37,12 @@ namespace pe.edu.pucp.ferretin.view.MVentas
                 rep.SetParameterValue("fechaInicio", fechaInicio);
                 rep.SetParameterValue("fechaFin", fechaFin);
                 VisorReporte.ViewerCore.ReportSource = rep;
+            }else if (nombreReporte.Equals("RCliente")){
+                ReporteVentaCliente rep;
+                rep = new ReporteVentaCliente();
+                VisorReporte.ViewerCore.ReportSource = rep;
             }
-            else
+            else 
             {
                 ReporteVentaProducto rep;
                 rep = new ReporteVentaProducto();
