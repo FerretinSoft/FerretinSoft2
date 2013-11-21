@@ -100,8 +100,8 @@
                     </GroupBox>
                     <Label x:Name="tipoDocLbl" Content="{Binding labelCodigo}" HorizontalAlignment="Left" Margin="15,30,0,0" VerticalAlignment="Top" Height="26" Width="105" Grid.ColumnSpan="2"/>
                     <TextBox Text="{Binding Path=documentoCompra.codigo, Mode=TwoWay, UpdateSourceTrigger=LostFocus, NotifyOnValidationError=True, ValidatesOnDataErrors=True, ValidatesOnExceptions=True}" HorizontalAlignment="Left" Height="20" Margin="110,33,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="130" IsEnabled="False" Grid.Column="1"/>
-                    <Label x:Name="provedorLbl" Content="Proveedor:" HorizontalAlignment="Left" Margin="314,30,0,0" VerticalAlignment="Top" Height="26" Width="121" Grid.Column="1"/>
-                    <TextBox IsEnabled="{Binding isCreating}" x:Name="proveedorTxt" Text="{Binding proveedorNombre, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, NotifyOnValidationError=True, ValidatesOnDataErrors=True, ValidatesOnExceptions=True}" HorizontalAlignment="Left" Height="20" Margin="426,33,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="172" Grid.Column="1">
+                    <Label x:Name="provedorLbl" Content="Proveedor:" HorizontalAlignment="Left" Margin="328,30,0,0" VerticalAlignment="Top" Height="26" Width="121" Grid.Column="1"/>
+                    <TextBox IsEnabled="{Binding isCreating}" x:Name="proveedorTxt" Text="{Binding proveedorNombre, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, NotifyOnValidationError=True, ValidatesOnDataErrors=True, ValidatesOnExceptions=True}" HorizontalAlignment="Left" Height="20" Margin="471,33,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="172" Grid.Column="1" Grid.ColumnSpan="2">
                         <TextBox.InputBindings>
                             <KeyBinding Key="Enter" Command="{Binding cargarProveedorCommand}" />
                         </TextBox.InputBindings>
@@ -146,19 +146,19 @@
                             <ColumnDefinition Width="52*"/>
                         </Grid.ColumnDefinitions>
                     </Grid>
-                    <Label x:Name="fecValPagoLbl" Content="{Binding labelFechaDC2}" Margin="314,61,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.183,0.438" Height="26" HorizontalAlignment="Left" Width="116" Grid.Column="1"/>
-                    <DatePicker IsEnabled="{Binding isCreatingFechaPago}" SelectedDate="{Binding Path=documentoCompra.fechaVencimiento, Mode=TwoWay}" Margin="426,63,0,0" Height="24" VerticalAlignment="Top" HorizontalAlignment="Left" Width="130" Grid.Column="1"/>
+                    <Label x:Name="fecValPagoLbl" Content="{Binding labelFechaDC2}" Margin="328,61,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.183,0.438" Height="26" HorizontalAlignment="Left" Width="116" Grid.Column="1"/>
+                    <DatePicker IsEnabled="{Binding isCreatingFechaPago}" SelectedDate="{Binding Path=documentoCompra.fechaVencimiento, Mode=TwoWay}" Margin="471,63,0,0" Height="24" VerticalAlignment="Top" HorizontalAlignment="Left" Width="130" Grid.Column="1"/>
                     <Label Visibility="{Binding Path=ingresaFactura, Mode=OneWay}" Content="*" HorizontalAlignment="Left" Foreground="Red" FontSize="14" Width="15" Height="22" Margin="406,65,0,0" VerticalAlignment="Top" RenderTransformOrigin="-1.479,-0.159" Grid.Column="1"/>
 
                     <DatePicker IsEnabled="{Binding isCreating}" SelectedDate="{Binding Path=documentoCompra.fechaEmision, Mode=TwoWay}" Height="24" VerticalAlignment="Top" Margin="110,63,0,0" HorizontalAlignment="Left" Width="130" Grid.Column="1"/>
                     <Label Content="*" HorizontalAlignment="Left" Foreground="Red" FontSize="14" Width="15" Height="22" Margin="90,65,0,0" VerticalAlignment="Top" RenderTransformOrigin="-1.479,-0.159" Grid.Column="1"/>
-                    <Label Content="*" HorizontalAlignment="Left" Foreground="Red" FontSize="14" Width="15" Height="22" Margin="406,34,0,0" VerticalAlignment="Top" RenderTransformOrigin="-1.479,-0.159" Grid.Column="1"/>
-                    <Label Content="*" HorizontalAlignment="Left" Foreground="Red" FontSize="14" Width="15" Height="22" Margin="406,65,0,0" VerticalAlignment="Top" RenderTransformOrigin="-1.479,-0.159" Grid.Column="1"/>
+                    <Label Content="*" HorizontalAlignment="Left" Foreground="Red" FontSize="14" Width="15" Height="22" Margin="451,34,0,0" VerticalAlignment="Top" RenderTransformOrigin="-1.479,-0.159" Grid.Column="1"/>
+                    <Label Content="*" HorizontalAlignment="Left" Foreground="Red" FontSize="14" Width="15" Height="22" Margin="451,63,0,0" VerticalAlignment="Top" RenderTransformOrigin="-1.479,-0.159" Grid.Column="1"/>
                     <Label Content="Ingresado por:" HorizontalAlignment="Left" Margin="59,6,0,0" VerticalAlignment="Top" Grid.Column="2" Height="26" Width="98"/>
                     <Label Content="Aprobado por:" HorizontalAlignment="Left" Margin="59,52,0,0" VerticalAlignment="Top" Grid.Column="2" Height="26" Width="87"/>
                     <TextBox Text="{Binding Path=usuarioAprobacion.Empleado.nombreCompleto, Mode=OneWay}" HorizontalAlignment="Left" Height="23" Margin="59,78,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="150" IsEnabled="False" Grid.Column="2"/>
                     <TextBox Text="{Binding Path=usuarioIngreso.Empleado.nombreCompleto, Mode=OneWay}" HorizontalAlignment="Left" Height="23" Margin="59,32,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="150" IsEnabled="False" Grid.Column="2"/>
-                    <Button x:Name="buscarProveedorBtn2" HorizontalAlignment="Left" Margin="598,33,0,0" Width="18" RenderTransformOrigin="0.3,-0.35" Height="18" VerticalAlignment="Top" Grid.Column="1" Click="Button_Click_Proveedor">
+                    <Button Visibility="Hidden" x:Name="buscarProveedorBtn2" HorizontalAlignment="Left" Margin="598,33,0,0" Width="18" RenderTransformOrigin="0.3,-0.35" Height="18" VerticalAlignment="Top" Grid.Column="1" Click="Button_Click_Proveedor">
                         <Button.Background>
                             <ImageBrush ImageSource="../Resources/search1_20.png"/>
                         </Button.Background>
