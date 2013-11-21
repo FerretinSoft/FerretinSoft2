@@ -22,6 +22,10 @@ namespace pe.edu.pucp.ferretin.viewmodel.MVentas
         public String _nombreBoton = "SIGUIENTE";
         public String nombreBoton { get { return _nombreBoton; } set { _nombreBoton = value; NotifyPropertyChanged("nombreBoton"); } }
 
+        public String _nombreVentana = "";
+        public String nombreVentana { get { return _nombreVentana; } set { _nombreVentana = value; NotifyPropertyChanged("nombreVentana"); } }
+
+
         public String _comentRep = "";
         public String comentRep { get { return _comentRep; } set { _comentRep = value; NotifyPropertyChanged("comentRep"); } }
         
