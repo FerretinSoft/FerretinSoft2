@@ -17,6 +17,20 @@ namespace pe.edu.pucp.ferretin.tdd.MSeguridad
     [TestFixture]
     public class MS_AdministrarPerfilesTest
     {
+        /******************** Test Perfiles nulo *************************/
+        [TestCase]
+        public void perfiles_no_nulos()
+        {
+            IEnumerable<Perfil> perfi = MS_PerfilService.db.Perfil.Where(perf => perf.nombre == null);
+
+            //Act - No hay nada que hacer, porque la accion fue la creacion misma
+            int cantidadRegistros;
+            if (perfi == null) cantidadRegistros = 0; // significa que no hay perfiles con nombre nulo
+            else cantidadRegistros = perfi.Count();
+
+            //Assert - verificar condicion o criterio de aceptacion
+            Assert.AreEqual(0, cantidadRegistros);
+        }
         /******************** Test Cantidad de Usuarios *************************/
         [TestCase]
         public void cantidad_de_perfiles_igual_a_12()

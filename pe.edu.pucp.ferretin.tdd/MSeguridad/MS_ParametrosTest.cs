@@ -130,7 +130,7 @@ namespace pe.edu.pucp.ferretin.tdd.MSeguridad
         }
         /******************** Test vigencia vales *************************/
         [TestCase]
-        public void vigencia_de_vales_igual_20_dias()
+        public void vigencia_de_vales_igual_30_dias()
         {
             //Arrange = Creo el entorno            
             //var ventana = new MS_AdministrarTiendasViewModel();
@@ -140,7 +140,7 @@ namespace pe.edu.pucp.ferretin.tdd.MSeguridad
             int valorVVale = Convert.ToInt32(par.valor);
 
             //Assert - Verificar la condicion o criterio de aceptacion
-            Assert.AreEqual(20, valorVVale);
+            Assert.AreEqual(30, valorVVale);
         }
 
     }
