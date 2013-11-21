@@ -74,10 +74,11 @@ namespace pe.edu.pucp.ferretin.controller.MVentas
                    where
                    (c.codigo != null && c.codigo.Contains(nroDevolucion)
                    && c.Venta.nroDocumento != null && c.Venta.nroDocumento.Contains(nroVenta)
+                   
                    && c.fecEmision != null && c.fecEmision >= fechaInicio
                    && c.fecEmision != null && c.fecEmision <= fechaFin
                    && c.Venta.Usuario.Empleado.dni != null && c.Venta.Usuario.Empleado.dni.Contains(searchVendedor)
-                   && (nroDocCliente == null || c.Venta.Cliente == null || c.Venta.Cliente.nroDoc.Equals(nroDocCliente))
+                   && (nroDocCliente == null || (c.Venta.Cliente != null && c.Venta.Cliente.nroDoc.Equals(nroDocCliente)))
                     )
                    orderby c.codigo
                    select c;

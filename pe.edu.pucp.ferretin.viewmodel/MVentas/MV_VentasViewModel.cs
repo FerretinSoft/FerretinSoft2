@@ -33,8 +33,8 @@ namespace pe.edu.pucp.ferretin.viewmodel.MVentas
         public String _searchNroDocumento = "";
         public String searchNroDocumento { get { return _searchNroDocumento; } set { _searchNroDocumento = value; NotifyPropertyChanged("searchNroDocumento"); } }
 
-        public long? _searchNroDocCliente = null;
-        public long? searchNroDocCliente { get { return _searchNroDocCliente; } set { _searchNroDocCliente = value; NotifyPropertyChanged("searchNroDocCliente"); } }
+        public String _searchNroDocCliente = "";
+        public String searchNroDocCliente { get { return _searchNroDocCliente; } set { _searchNroDocCliente = value; NotifyPropertyChanged("searchNroDocCliente"); } }
 
         public DateTime _searchFechaInicio = DateTime.Parse("10/09/2013");
         public DateTime searchFechaInicio { get { return _searchFechaInicio; } set { _searchFechaInicio = value; NotifyPropertyChanged("searchFechaInicio"); } }
@@ -124,9 +124,11 @@ namespace pe.edu.pucp.ferretin.viewmodel.MVentas
         {
             get
             {
-
-                _listaVentas = MV_VentaService.buscarVentas(searchNroDocumento, searchNroDocCliente, searchFechaInicio, searchFechaFin, searchVendedor);
-
+                if (searchNroDocCliente!="")
+                    _listaVentas = MV_VentaService.buscarVentas(searchNroDocumento, Convert.ToInt32(searchNroDocCliente), searchFechaInicio, searchFechaFin, searchVendedor);
+                else
+                    _listaVentas = MV_VentaService.buscarVentas(searchNroDocumento, null, searchFechaInicio, searchFechaFin, searchVendedor);
+                
                 return _listaVentas;
             }
             set
@@ -248,7 +250,7 @@ namespace pe.edu.pucp.ferretin.viewmodel.MVentas
             {
                 this.searchVendedor = "";
                 this.searchNroDocumento = "";
-                this.searchNroDocCliente = null;
+                this.searchNroDocCliente = "";
                 this.nombreCliente = "";
                 this.nombreVendedor = "";
                 this.venta = listaVentas.Single(venta => venta.id == (long)id);
@@ -267,7 +269,7 @@ namespace pe.edu.pucp.ferretin.viewmodel.MVentas
             Cliente buscado = null;
             try
             {
-                buscado = MV_ClienteService.obtenerClienteByNroDoc(searchNroDocCliente);
+                buscado = MV_ClienteService.obtenerClienteByNroDoc(Convert.ToInt32(searchNroDocCliente));
             }
             catch { }
 
@@ -275,12 +277,12 @@ namespace pe.edu.pucp.ferretin.viewmodel.MVentas
             {
                 MessageBox.Show("No se encontro ningún cliente con el número de documento proporcionado", "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
                 nombreCliente = "";
-                searchNroDocCliente=null;
+                searchNroDocCliente="";
             }
             else
             {
                 nombreCliente = buscado.nombreCompleto;
-                searchNroDocCliente = buscado.nroDoc;
+                searchNroDocCliente = Convert.ToString(buscado.nroDoc);
             }
             NotifyPropertyChanged("nombreCliente");
             NotifyPropertyChanged("searchNroDocCliente");

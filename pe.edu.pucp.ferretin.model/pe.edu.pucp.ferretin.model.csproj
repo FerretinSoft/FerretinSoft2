@@ -79,6 +79,7 @@
     <Compile Include="MAlmacen\MovimientoTipo.cs" />
     <Compile Include="MAlmacen\SolicitudAbastecimiento.cs" />
     <Compile Include="MCompras\DocumentoCompra.cs" />
+    <Compile Include="MCompras\DocumentoCompraProducto.cs" />
     <Compile Include="MCompras\GuiaRemision.cs" />
     <Compile Include="MCompras\SolicitudCompra.cs" />
     <Compile Include="MCompras\Proveedor.cs" />

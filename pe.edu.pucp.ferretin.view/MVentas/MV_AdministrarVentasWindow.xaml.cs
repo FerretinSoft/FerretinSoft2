@@ -51,7 +51,7 @@ namespace pe.edu.pucp.ferretin.view.MVentas
                     {
                         padre_DataContext.searchnombreCliente = my_DataContext.venta.nombreCompletoCliente;
                         padre_DataContext.searchNroDocumento = my_DataContext.venta.nroDocumento;
-                        padre_DataContext.searchNroDocCliente = my_DataContext.venta.Cliente.nroDoc;
+                        padre_DataContext.searchNroDocCliente = Convert.ToString(my_DataContext.venta.Cliente.nroDoc);
                         padre_DataContext.searchVendedor = my_DataContext.venta.Usuario.Empleado.dni;
                         padre_DataContext.nombreVendedor = my_DataContext.venta.Usuario.Empleado.nombreCompleto;
                     }

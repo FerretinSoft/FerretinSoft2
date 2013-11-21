@@ -46,6 +46,10 @@ namespace pe.edu.pucp.ferretin.viewmodel.MAlmacen
             set
             {
                 _listaMovimientos = value;
+                foreach (Movimiento m in _listaMovimientos)
+                {
+                    m.convertDate = String.Format("{0:dd/MM/yyyy}", m.fecha);
+                }
                 NotifyPropertyChanged("listaMovimientos");
             }
 

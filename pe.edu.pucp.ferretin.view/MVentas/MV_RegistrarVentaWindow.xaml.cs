@@ -81,5 +81,17 @@ namespace pe.edu.pucp.ferretin.view.MVentas
         {
             MV_ComunService.Clean();            
         }
+
+
+        /// <summary>
+        /// Buscar Producto
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void Button_Click_2(object sender, RoutedEventArgs e)
+        {
+            var vm = DataContext as MV_RegistrarVentaViewModel;
+            var buscador = new MV_BuscadorProductos(this,vm.usuarioLogueado.Empleado.tiendaActual);
+        }
     }
 }

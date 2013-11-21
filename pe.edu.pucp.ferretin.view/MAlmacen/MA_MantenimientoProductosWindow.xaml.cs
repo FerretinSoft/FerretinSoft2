@@ -164,9 +164,18 @@ namespace pe.edu.pucp.ferretin.view.MAlmacen
             {
                 this.categoriaCombo.IsEnabled = true;
                 this.txtNombre.IsEnabled = true;
+                this.buscarClienteBtn.IsEnabled = true;
             }
             else
             {
+                if (txtCodigoProd.Text.Length == 10)
+                {
+                    this.buscarClienteBtn.IsEnabled = true;
+                }
+                else
+                {
+                    this.buscarClienteBtn.IsEnabled = false;
+                }
                 this.categoriaCombo.IsEnabled = false;
                 this.txtNombre.IsEnabled = false;
             }
@@ -195,6 +204,11 @@ namespace pe.edu.pucp.ferretin.view.MAlmacen
         {
             if (cmbTienda.SelectedIndex!=-1)
             this.txtStockMin.IsEnabled = true;
+        }
+
+        private void txtCodigoProd_TextChanged(object sender, TextChangedEventArgs e)
+        {
+
         }
     }
 }

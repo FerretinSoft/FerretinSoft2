@@ -45,6 +45,7 @@
     <Compile Include="MAlmacen\MA_MantenimientoInventarioTest.cs" />
     <Compile Include="MAlmacen\MA_MantenimientoProductosTest.cs" />
     <Compile Include="MAlmacen\MA_MovimientosTest.cs" />
+    <Compile Include="MCompras\MC_AdministrarProveedorTest.cs" />
     <Compile Include="MRecursosHumanos\MR_AdministrarEmpleadosTest.cs" />
     <Compile Include="MSeguridad\MS_AdministrarPerfilesTest.cs" />
     <Compile Include="MSeguridad\MS_AdministrarTiendasTest.cs" />
@@ -68,9 +69,7 @@
       <Name>pe.edu.pucp.ferretin.viewmodel</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="MCompras\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

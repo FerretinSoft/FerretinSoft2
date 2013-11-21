@@ -54,9 +54,19 @@ namespace pe.edu.pucp.ferretin.viewmodel.MRecursosHumanos
                 _soloSeleccionarVendedor = value;
                 NotifyPropertyChanged("soloSeleccionarVendedor");
                 NotifyPropertyChanged("nombreBotonGuardar");
+                NotifyPropertyChanged("noSoloSeleccionarVendedor");
                 detallesTabHeader = value ? "Detalles" : "Agregar";
             }
         }
+
+        public bool noSoloSeleccionarVendedor
+        {
+            get
+            {
+                return !soloSeleccionarVendedor;
+            }
+        }
+
 
         public String nombreBotonGuardar
         {
