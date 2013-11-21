@@ -23,7 +23,7 @@ namespace pe.edu.pucp.ferretin.viewmodel.MSeguridad
         private String _searchApellidosMat = "";
         public String searchApellidosMat { get { return _searchApellidosMat; } set { _searchApellidosMat = value; } }
 
-        private String _searchNombreUsuario = "";
+        private String _searchNombreUsuario = null;
         public String searchNombreUsuario { get { return _searchNombreUsuario; } set { _searchNombreUsuario = value; } }
 
         private Perfil _searchPerfil = null;
