@@ -51,7 +51,7 @@ namespace pe.edu.pucp.ferretin.view.MSeguridad
             if (ComunService.usuarioLpermisos[29].estado == true)
             {
                 MSeguridad.MS_AdministrarPerfiles perW = new MSeguridad.MS_AdministrarPerfiles();
-                perW.Show();
+                perW.ShowDialog();
             }
             else
             {
@@ -64,7 +64,7 @@ namespace pe.edu.pucp.ferretin.view.MSeguridad
             if (ComunService.usuarioLpermisos[30].estado == true)
             {
                 MSeguridad.MS_AdministrarTiendas tw = new MSeguridad.MS_AdministrarTiendas();
-                tw.Show();
+                tw.ShowDialog();
             }
             else
             {

@@ -54,11 +54,23 @@ namespace pe.edu.pucp.ferretin.controller
         }
 
         /// <summary>
+        /// Limpia la BD quitando los elementos pendientes a insertar y devolviendo a su estado original los elementos pendientes a modificar
+        /// </summary>
+        public static void Clean()
+        {
+            var changes = db.GetChangeSet();
+            changes.Inserts.ToList().ForEach(i => db.GetTable(i.GetType()).DeleteOnSubmit(i));
+            changes.Updates.ToList().ForEach(u => db.Refresh(RefreshMode.OverwriteCurrentValues, u));
+            //deletes not implemented
+        }
+
+        /// <summary>
         /// Envia a la Base de Datos todos los cambios realizados en los objetos recuperados
         /// </summary>
         /// <returns>True si se guardo correctamente, False en caso hubo algun error</returns>
         public static bool enviarCambios()
         {
+            var changes = db.GetChangeSet();
             return enviarCambios(db);
         }
         public static bool enviarCambios(FerretinDataContext db)

@@ -73,9 +73,22 @@ namespace pe.edu.pucp.ferretin.view.MVentas
 
         private void Button_Click_3(object sender, RoutedEventArgs e)
         {
+            this.IsEnabled = false;
             MV_PagoWindowViewModel pagoViewModel = this.DataContext as MV_PagoWindowViewModel;
-            new prueba(pagoViewModel).Owner = this ;
+            new MV_ComprobantePagoWindow(pagoViewModel).Owner = this ;
             
+        }
+
+        private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            if (!this.IsEnabled)
+            {
+                this.Owner.Close();
+            }
+            else
+            {
+                this.Owner.IsEnabled = true;
+            }
         }
     }
 }

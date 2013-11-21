@@ -280,6 +280,7 @@
     <Page Include="MVentas\MV_AdministrarNotaCreditoWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Page>
     <Page Include="MVentas\MV_AdministrarPrecioProductos.xaml">
       <SubType>Designer</SubType>
@@ -341,7 +342,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="MVentas\prueba.xaml">
+    <Page Include="MVentas\MV_ComprobantePagoWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -464,6 +465,7 @@
     </Compile>
     <Compile Include="MVentas\MV_AdministrarNotaCreditoWindow.xaml.cs">
       <DependentUpon>MV_AdministrarNotaCreditoWindow.xaml</DependentUpon>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
     <Compile Include="MVentas\MV_AdministrarPrecioProductos.xaml.cs">
       <DependentUpon>MV_AdministrarPrecioProductos.xaml</DependentUpon>
@@ -510,8 +512,8 @@
     <Compile Include="MVentas\MV_ValeDialog.xaml.cs">
       <DependentUpon>MV_ValeDialog.xaml</DependentUpon>
     </Compile>
-    <Compile Include="MVentas\prueba.xaml.cs">
-      <DependentUpon>prueba.xaml</DependentUpon>
+    <Compile Include="MVentas\MV_ComprobantePagoWindow.xaml.cs">
+      <DependentUpon>MV_ComprobantePagoWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>

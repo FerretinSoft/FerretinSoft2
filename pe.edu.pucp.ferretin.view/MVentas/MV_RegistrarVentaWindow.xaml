@@ -2,7 +2,7 @@
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:MVentas="clr-namespace:pe.edu.pucp.ferretin.viewmodel.MVentas;assembly=pe.edu.pucp.ferretin.viewmodel" x:Class="pe.edu.pucp.ferretin.view.MVentas.MV_RegistrarVentaWindow"
-        Title="Registrar Venta" Height="487" Width="909" Icon="../Resources/ferretin_ico.ico" WindowStartupLocation="CenterScreen" Closed="Window_Closed">
+        Title="Registrar Venta" Height="487" Width="909" Icon="../Resources/ferretin_ico.ico" WindowStartupLocation="CenterScreen" Closed="Window_Closed" Closing="Window_Closing">
     <Window.DataContext>
         <MVentas:MV_RegistrarVentaViewModel/>
     </Window.DataContext>
@@ -93,27 +93,20 @@
             </ToolBar>
             <DataGrid ItemsSource="{Binding venta.VentaProducto, Mode=TwoWay, NotifyOnTargetUpdated=True, NotifyOnSourceUpdated=True, UpdateSourceTrigger=PropertyChanged}" AutoGenerateColumns="False" CanUserAddRows="False" Grid.Row="1" Grid.Column="0" VerticalAlignment="Stretch" Margin="0,5">
                 <DataGrid.Columns>
-                    <DataGridHyperlinkColumn Width="1.5*" Binding="{Binding Producto.codigo}" IsReadOnly="True" Header="Código"/>
-                    <DataGridTextColumn Width="2*" Binding="{Binding Producto.nombre}" Header="Nombre" IsReadOnly="True"/>
-                    <DataGridTextColumn Width="1.2*" Binding="{Binding cantidad, UpdateSourceTrigger=PropertyChanged}" Header="Cantidad"/>
-                    <DataGridTextColumn Width="1.2*" Binding="{Binding Producto.monedaString}" IsReadOnly="True" Header="Moneda"/>
-                    <DataGridTextColumn Width="1*" Binding="{Binding Producto.precioLista}" IsReadOnly="True" Header="Precio">
+                    <DataGridHyperlinkColumn Width="100" Binding="{Binding Producto.codigo}" IsReadOnly="True" Header="Código"/>
+                    <DataGridTextColumn Width="1*" Binding="{Binding Producto.nombre}" Header="Nombre" IsReadOnly="True"/>
+                    <DataGridTextColumn Width="80" Binding="{Binding cantidad, UpdateSourceTrigger=PropertyChanged}" Header="Cantidad"/>
+                    <DataGridTextColumn Width="100" Binding="{Binding Producto.precioMonedaString}" IsReadOnly="True" Header="Precio Unitario"/>
+                    <DataGridTextColumn Width="80" Binding="{Binding descuentoPrecioString, UpdateSourceTrigger=PropertyChanged}" IsReadOnly="True" Header="Descuento"/>
+                    <DataGridTextColumn Width="90" Binding="{Binding montoParcial, StringFormat=S/. \{0\}}" IsReadOnly="True" Header="Importe">
                         <DataGridTextColumn.CellStyle>
                             <Style>
                                 <Setter Property="FrameworkElement.HorizontalAlignment" Value="Right"/>
                             </Style>
                         </DataGridTextColumn.CellStyle>
                     </DataGridTextColumn>
-                    <DataGridTextColumn Width="1.5*" Binding="{Binding descuentoPorcentaje, StringFormat=\{0\} %, UpdateSourceTrigger=PropertyChanged}" IsReadOnly="True" Header="Dscto. (%)"/>
-                    <DataGridTextColumn Width="1.2*" Binding="{Binding montoParcial, StringFormat=S/. \{0\}}" IsReadOnly="True" Header="Importe">
-                        <DataGridTextColumn.CellStyle>
-                            <Style>
-                                <Setter Property="FrameworkElement.HorizontalAlignment" Value="Right"/>
-                            </Style>
-                        </DataGridTextColumn.CellStyle>
-                    </DataGridTextColumn>
-                    <DataGridTextColumn Width="1.7*" Binding="{Binding Producto.precioPuntos}" IsReadOnly="True" Header="Precio Puntos"/>
-                    <DataGridCheckBoxColumn Width="1*" Binding="{Binding canjeado, UpdateSourceTrigger=PropertyChanged}" Header="Canjear"/>
+                    <DataGridTextColumn Width="95" Binding="{Binding precioPuntosParcialString}" IsReadOnly="True" Header="Precio Puntos"/>
+                    <DataGridCheckBoxColumn Width="60" Binding="{Binding canjeado, UpdateSourceTrigger=PropertyChanged}" Header="¿Canjear?"/>
                 </DataGrid.Columns>
             </DataGrid>
             <Grid Grid.Row="2" Grid.Column="0" Margin="0,5">
@@ -177,7 +170,7 @@
                 <Label Content="{Binding venta.Cliente.telefono1}" Grid.Row="2" Grid.Column="1" />
                 <Label Content="{Binding venta.Cliente.email}" Grid.Row="3" Grid.Column="1"/>
                 <Label Content="{Binding venta.Cliente.ultimaCompra}" Grid.Row="4" Grid.Column="1"/>
-                <Label Content="{Binding venta.Cliente.puntos}" Grid.Row="5" Grid.Column="1"/>
+                <Label Content="{Binding venta.Cliente.puntosActual}" Grid.Row="5" Grid.Column="1"/>
             </Grid>
         </StackPanel>
 

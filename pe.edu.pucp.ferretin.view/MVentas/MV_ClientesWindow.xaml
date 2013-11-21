@@ -2,7 +2,7 @@
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
        xmlns:MVentas="clr-namespace:pe.edu.pucp.ferretin.viewmodel.MVentas;assembly=pe.edu.pucp.ferretin.viewmodel" x:Class="pe.edu.pucp.ferretin.view.MVentas.MV_ClientesWindow"
-       Title="Administrar Clientes" Icon="../Resources/ferretin_ico.ico" MaxHeight="600" MinWidth="600" MaxWidth="800" Width="700" MinHeight="500" Height="525" WindowStartupLocation="CenterScreen" >
+       Title="Administrar Clientes" Icon="../Resources/ferretin_ico.ico" MaxHeight="600" MinWidth="600" MaxWidth="800" Width="700" MinHeight="500" Height="525" WindowStartupLocation="CenterScreen" Closing="Window_Closing" >
     <Window.Resources>
         <ControlTemplate x:Key="validationTemplate">
             <DockPanel>
@@ -83,7 +83,7 @@
                         </Button>
 
                     </ToolBar>
-                    <DataGrid ItemsSource="{Binding listaClientes}" Margin="5" Grid.Row="2" IsManipulationEnabled="False" IsReadOnly="True" CanUserSortColumns="True" AutoGenerateColumns="False" CanUserAddRows="False" CanUserDeleteRows="False"  >
+                    <DataGrid ItemsSource="{Binding listaClientes,IsAsync=True}" Margin="5" Grid.Row="2" IsManipulationEnabled="False" IsReadOnly="True" CanUserSortColumns="True" AutoGenerateColumns="False" CanUserAddRows="False" CanUserDeleteRows="False"  >
                         <DataGrid.Columns>
                             <DataGridTemplateColumn Width="80" Header="Núm. Doc">
                                 <DataGridTemplateColumn.CellTemplate>

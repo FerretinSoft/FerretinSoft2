@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -121,6 +122,13 @@ namespace pe.edu.pucp.ferretin.view.MVentas
       
 
         }
+
+        private void Window_Closing(object sender, CancelEventArgs e)
+        {
+            MV_ComunService.Clean();
+            
+        }
+
 
     }
 }

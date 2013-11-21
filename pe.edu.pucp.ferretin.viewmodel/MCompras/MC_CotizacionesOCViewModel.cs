@@ -20,13 +20,47 @@ namespace pe.edu.pucp.ferretin.viewmodel.MCompras
         }
         #endregion
 
-        #region Valores para el cuadro de Búsqueda
+        #region Valores de los controles - PRIMERA PESTANA
 
         public String _searchCodigo = "";
         public String searchCodigo { get { return _searchCodigo; } set { _searchCodigo = value; NotifyPropertyChanged("searchCodigo"); } }
 
         public String _searchProveedor = "";
         public String searchProveedor { get { return _searchProveedor; } set { _searchProveedor = value; NotifyPropertyChanged("searchProveedor"); } }
+
+        public DateTime? _searchFechaDesde = null;
+        public DateTime? searchFechaDesde { get { return _searchFechaDesde; } set { _searchFechaDesde = value; NotifyPropertyChanged("searchFechaDesde"); } }
+
+        public DateTime? _searchFechaHasta = null;
+        public DateTime? searchFechaHasta { get { return _searchFechaHasta; } set { _searchFechaHasta = value; NotifyPropertyChanged("searchFechaHasta"); } }
+
+        private DocumentoCompraEstado _searchEstado = new DocumentoCompraEstado();
+        public DocumentoCompraEstado searchEstado
+        {
+            get
+            {
+                return _searchEstado;
+            }
+            set
+            {
+                _searchEstado = value;
+                NotifyPropertyChanged("searchEstado");
+            }
+        }
+
+        private IEnumerable<DocumentoCompraEstado> _listaEstadosDC;
+        public IEnumerable<DocumentoCompraEstado> listaEstadosDC
+        {
+            get
+            {
+                return _listaEstadosDC;
+            }
+            set
+            {
+                _listaEstadosDC = value;
+                NotifyPropertyChanged("listaEstadosDC");
+            }
+        }
 
         public int _searchTipoDocumento = 0;
         public int searchTipoDocumento
@@ -52,6 +86,40 @@ namespace pe.edu.pucp.ferretin.viewmodel.MCompras
                 NotifyPropertyChanged("searchTipoDocumento");
             }
         }
+
+        private DocumentoCompra _documentoCompra;
+        public DocumentoCompra documentoCompra
+        {
+            get
+            {
+                return _documentoCompra;
+            }
+            set
+            {
+                _documentoCompra = value;
+                NotifyPropertyChanged("documentoCompra");
+            }
+        }
+
+        private IEnumerable<DocumentoCompra> _listaDocumentosCompra;
+        public IEnumerable<DocumentoCompra> listaDocumentosCompra
+        {
+            get
+            {
+                _listaDocumentosCompra = MC_DocumentoCompraService.buscarDocumentosCompra(searchCodigo, searchProveedor, searchTipoDocumento, searchFechaDesde, searchFechaHasta, searchEstado.id);
+
+                return _listaDocumentosCompra;
+            }
+            set
+            {
+                _listaDocumentosCompra = value;
+                NotifyPropertyChanged("listaDocumentosCompra");
+            }
+        }
+
+        #endregion
+
+        #region Valores para mostrar u ocultar controles - SEGUNDA PESTANA
 
         public bool isCreating
         {
@@ -195,19 +263,9 @@ namespace pe.edu.pucp.ferretin.viewmodel.MCompras
             }
         }
 
-        private IEnumerable<DocumentoCompraEstado> _listaEstadosDC;
-        public IEnumerable<DocumentoCompraEstado> listaEstadosDC
-        {
-            get
-            {
-                return _listaEstadosDC;
-            }
-            set
-            {
-                _listaEstadosDC = value;
-                NotifyPropertyChanged("listaEstadosDC");
-            }
-        }
+        #endregion 
+
+        #region Valores de los controles - SEGUNDA PESTANA      
 
         private IEnumerable<DocumentoCompraProducto> _listaProductosDC = null;
         public IEnumerable<DocumentoCompraProducto> listaProductosDC
@@ -222,26 +280,6 @@ namespace pe.edu.pucp.ferretin.viewmodel.MCompras
                 NotifyPropertyChanged("listaProductosDC");
             }
         }
-
-        private DocumentoCompraEstado _searchEstado = new DocumentoCompraEstado();
-        public DocumentoCompraEstado searchEstado
-        {
-            get
-            {
-                return _searchEstado;
-            }
-            set
-            {
-                _searchEstado = value;
-                NotifyPropertyChanged("searchEstado");
-            }
-        }
-
-        public DateTime? _searchFechaDesde = null;
-        public DateTime? searchFechaDesde { get { return _searchFechaDesde; } set { _searchFechaDesde = value; NotifyPropertyChanged("searchFechaDesde"); } }
-
-        public DateTime? _searchFechaHasta = null;
-        public DateTime? searchFechaHasta { get { return _searchFechaHasta; } set { _searchFechaHasta = value; NotifyPropertyChanged("searchFechaHasta"); } }
 
         public Usuario _usuarioIngreso = null;
         public Usuario usuarioIngreso
@@ -270,9 +308,31 @@ namespace pe.edu.pucp.ferretin.viewmodel.MCompras
                 NotifyPropertyChanged("usuarioAprobacion");
             }
         }
-        #endregion
+       
+        private String _proveedorNombre;
+        public String proveedorNombre
+        {
+            get
+            {
+                try
+                {
+                    if (documentoCompra.id > 0)
+                        return documentoCompra.Proveedor.razonSoc;
+                    else
+                        return _proveedorNombre;
 
-        #region Valores para la segunda pestana
+                }
+                catch (Exception e)
+                {
+                    return _proveedorNombre;
+                }
+            }
+            set
+            {
+                _proveedorNombre = value;
+                NotifyPropertyChanged("proveedorNombre");
+            }
+        }
 
         public string _labelCodigo = null;
         public string labelCodigo
@@ -315,36 +375,11 @@ namespace pe.edu.pucp.ferretin.viewmodel.MCompras
                 NotifyPropertyChanged("labelFechaDC2");
             }
         }
-
-        private String _proveedorNombre;
-        public String proveedorNombre
-        {
-            get
-            {
-                try
-                {
-                    if(documentoCompra.id > 0)
-                            return documentoCompra.Proveedor.razonSoc;
-                        else
-                            return _proveedorNombre;
-                                          
-                }
-                catch (Exception e)
-                {
-                    return _proveedorNombre;
-                }
-            }
-            set
-            {
-                _proveedorNombre = value;
-                NotifyPropertyChanged("proveedorNombre");
-            }
-        }
-
+      
         #endregion
 
-
         #region Manejo de los Tabs
+
         public enum Tab
         {
             //Pestañas virtuales:
@@ -362,25 +397,20 @@ namespace pe.edu.pucp.ferretin.viewmodel.MCompras
             {
                 if (value == Tab.DETALLES && documentoCompra == null)
                 {
-
                 }
                 _statusTab = value;
-                //Si cambió el estado de las pestañas también cambio los Header
-                //Si la pestaña es para agregar nuevo, limpio los input
                 switch (_statusTab)
                 {
                     case Tab.BUSQUEDA: 
                         detallesTabHeader = "Agregar"; 
-                        //documentoCompra = new DocumentoCompra(); 
-                        //listaProductosDC = new List<DocumentoCompraProducto>(); 
-                        break;//Si es agregar, creo un nuevo objeto Cliente
+                        break;
 
                     case Tab.AGREGAR: 
                         detallesTabHeader = "Agregar"; 
                         documentoCompra = new DocumentoCompra(); 
                         listaProductosDC = new List<DocumentoCompraProducto>(); 
                         usuarioIngreso = MC_ComunService.usuarioL;
-                        break;//Si es agregar, creo un nuevo objeto Cliente
+                        break;
 
                     case Tab.MODIFICAR: 
                         detallesTabHeader = "Modificar"; 
@@ -400,7 +430,7 @@ namespace pe.edu.pucp.ferretin.viewmodel.MCompras
                         detallesTabHeader = "Agregar"; 
                         documentoCompra = new DocumentoCompra(); 
                         listaProductosDC = new List<DocumentoCompraProducto>(); 
-                        break;//Si es agregar, creo un nuevo objeto Cliente
+                        break;
                 }
                 NotifyPropertyChanged("statusTab");
                 //Cuando se cambia el status, tambien se tiene que actualizar el currentIndex del tab
@@ -410,16 +440,16 @@ namespace pe.edu.pucp.ferretin.viewmodel.MCompras
                 NotifyPropertyChanged("generarAprobar");
                 NotifyPropertyChanged("isCreatingFechaPago");
                 NotifyPropertyChanged("ingresaFactura");
-                
-                //NotifyPropertyChanged("usuarioIngreso");
             }
         }
+
         //Usado para mover los tabs de acuerdo a las acciones realizadas
         public int currentIndexTab
         {
             get { return _statusTab == Tab.BUSQUEDA ? 0 : 1; }
             set { statusTab = value == 0 ? Tab.BUSQUEDA : Tab.AGREGAR; }
         }
+
         private String _detallesTabHeader = "Agregar"; //Default
         public String detallesTabHeader
         {
@@ -433,39 +463,6 @@ namespace pe.edu.pucp.ferretin.viewmodel.MCompras
                 NotifyPropertyChanged("detallesTabHeader");
             }
         }
-        #endregion
-
-        #region Lista Documentos de Compra y Edicion de Documentos de Compra
-        private DocumentoCompra _documentoCompra;
-        public DocumentoCompra documentoCompra
-        {
-            get
-            {
-                return _documentoCompra;
-            }
-            set
-            {
-                _documentoCompra = value;
-                NotifyPropertyChanged("documentoCompra");
-            }
-        }
-
-        private IEnumerable<DocumentoCompra> _listaDocumentosCompra;
-        public IEnumerable<DocumentoCompra> listaDocumentosCompra
-        {
-            get
-            {
-                _listaDocumentosCompra = MC_DocumentoCompraService.buscarDocumentosCompra(searchCodigo, searchProveedor, searchTipoDocumento, searchFechaDesde, searchFechaHasta, searchEstado.id);
-
-                return _listaDocumentosCompra;
-            }
-            set
-            {
-                _listaDocumentosCompra = value;
-                NotifyPropertyChanged("listaDocumentosCompra");
-            }
-        }
-
         #endregion
 
         #region RalayCommand
@@ -496,8 +493,7 @@ namespace pe.edu.pucp.ferretin.viewmodel.MCompras
 
             }
         }
-
-        //aprobarDocumentoCompraCommand
+        
         RelayCommand _aprobarDocumentoCompraCommand;
         public ICommand aprobarDocumentoCompraCommand
         {
@@ -537,6 +533,7 @@ namespace pe.edu.pucp.ferretin.viewmodel.MCompras
                 return _viewEditDocumentoCompraCommand;
             }
         }
+
         RelayCommand _saveDocumentoCompraCommand;
         public ICommand saveDocumentoCompraCommand
         {
@@ -549,6 +546,7 @@ namespace pe.edu.pucp.ferretin.viewmodel.MCompras
                 return _saveDocumentoCompraCommand;
             }
         }
+
         RelayCommand _cancelDocumentoCompraCommand;
         public ICommand cancelDocumentoCompraCommand
         {
@@ -586,15 +584,11 @@ namespace pe.edu.pucp.ferretin.viewmodel.MCompras
                 this.documentoCompra = listaDocumentosCompra.Single(documentoCompra => documentoCompra.id == (long)id);               
                 if (this.documentoCompra.tipoDC == "Cotizacion")
                 {
-                    this.labelCodigo = "Cotizacion";
-                    this.labelFechaDC1 = "Fecha Emision";
-                    this.labelFechaDC2 = "Fecha Vencimiento";
+                    prepararLabels(1);
                 }
                 if (this.documentoCompra.tipoDC == "Orden de Compra")
                 {
-                    this.labelCodigo = "Orden Compra";
-                    this.labelFechaDC1 = "Fecha Emision";
-                    this.labelFechaDC2 = "Fecha Pago";
+                    prepararLabels(2);
                 }
                 this.statusTab = Tab.MODIFICAR;
             }
@@ -607,16 +601,10 @@ namespace pe.edu.pucp.ferretin.viewmodel.MCompras
         public void agregarCotizacion(Object id)
         {
             try
-            {
+            {                
+                prepararLabels(1);
+                prepararDC(1);
                 this.statusTab = Tab.AGREGAR;
-                this.labelCodigo = "Cotizacion";
-                this.labelFechaDC1 = "Fecha Emision";
-                this.labelFechaDC2 = "Fecha Vencimiento";
-                this.proveedorNombre = "";
-                this.documentoCompra.tipo = 1;
-                this.documentoCompra.id_estado = 1;
-                this.documentoCompra.Usuario1 = usuarioIngreso;
-
             }
             catch (Exception e)
             {
@@ -627,46 +615,28 @@ namespace pe.edu.pucp.ferretin.viewmodel.MCompras
         public void agregarOrdenCompra(Object id)
         {
             try
-            {
+            {                
+                prepararLabels(2);
+                prepararDC(2);
                 this.statusTab = Tab.AGREGAR;
-                this.labelCodigo = "Orden Compra";
-                this.labelFechaDC1 = "Fecha Emision";
-                this.labelFechaDC2 = "Fecha Pago";
-                this.proveedorNombre = "";
-                this.documentoCompra.tipo = 2;
-                this.documentoCompra.id_estado = 5;
-                this.documentoCompra.Usuario1 = usuarioIngreso;
-
             }
             catch (Exception e)
             {
                 MessageBox.Show(e.Message);
             }
-        }
+        }     
 
         public void aprobarDocumento(Object id)
         {
             try
             {               
                 if (documentoCompra.tipo == 1)//ES COTIZACION
-                {                    
-                    int i;                    
+                {
+                    int i;
+                    int cont = this.documentoCompra.DocumentoCompraProducto.Count();
                     // CREO LA ORDEN DE COMPRA
-                    DocumentoCompra ocGenerada = new DocumentoCompra()
-                    {
-                        tipo = 2,
-                        codigo = MC_DocumentoCompraService.generarCodigoDC(2),
-                        fechaEmision = DateTime.Now,
-                        DocumentoCompra1 = this.documentoCompra,
-                        DocumentoCompraEstado = MC_DocumentoCompraService.obtenerEstado(1),
-                        Proveedor = this.documentoCompra.Proveedor,
-                        Usuario1 = MC_ComunService.usuarioL,
-                        igv = this.documentoCompra.igv,
-                        subTotal = this.documentoCompra.subTotal,
-                        total = this.documentoCompra.total,
-                        DocumentoCompraProducto = new System.Data.Linq.EntitySet<DocumentoCompraProducto>(),
-                    };
-                    for(i =0; i< this.documentoCompra.DocumentoCompraProducto.Count(); i++)
+                    DocumentoCompra ocGenerada = generarOCDeCotizacion();
+                    for (i = 0; i < cont; i++)
                     {
                         DocumentoCompraProducto producto = new DocumentoCompraProducto()
                         {
@@ -683,14 +653,16 @@ namespace pe.edu.pucp.ferretin.viewmodel.MCompras
                     }
                     usuarioAprobacion = MC_ComunService.usuarioL;
                     this.documentoCompra.Usuario = usuarioAprobacion;
-                    documentoCompra.DocumentoCompraEstado = MC_DocumentoCompraService.obtenerEstado(3);
+                    this.documentoCompra.DocumentoCompraEstado = MC_DocumentoCompraService.obtenerEstado(3);
+                    MC_DocumentoCompraService.enviarCambios();
                     ComunService.idVentana(36);
-                    MC_DocumentoCompraService.insertarDocumentoCompra(ocGenerada);
-                }
-                    
+                    MC_DocumentoCompraService.insertarDocumentoCompra(ocGenerada);                   
+                }                   
                 else //ES ORDEN DE COMPRA
-                    documentoCompra.DocumentoCompraEstado = MC_DocumentoCompraService.obtenerEstado(6); ;
+                    documentoCompra.DocumentoCompraEstado = MC_DocumentoCompraService.obtenerEstado(6);
+
                 ComunService.idVentana(37);
+
                 if (!MC_DocumentoCompraService.enviarCambios())
                 {
                     if (documentoCompra.tipo == 1)//ES COTIZACION
@@ -705,6 +677,9 @@ namespace pe.edu.pucp.ferretin.viewmodel.MCompras
                     else
                         MessageBox.Show("La Orden de Compra se aprobo con exito");
                 }
+
+                NotifyPropertyChanged("listaDocumentosCompra");
+                this.statusTab = Tab.BUSQUEDA;
             }
             catch (Exception e)
             {
@@ -714,13 +689,15 @@ namespace pe.edu.pucp.ferretin.viewmodel.MCompras
 
         public void saveDocumentoCompra(Object obj)
         {
-            
+            int i;
+            int cont;
+            decimal? subTotal;
             if (documentoCompra.id > 0)//Si existe
             {
-                int i;
-                decimal? subTotal = 0;
+                cont = documentoCompra.DocumentoCompraProducto.Count();
+                subTotal = 0;
                 List<DocumentoCompraProducto> listAux = listaProductosDC.ToList();
-                for (i = 0; i < documentoCompra.DocumentoCompraProducto.Count(); i++)
+                for (i = 0; i < cont; i++)
                 {
                     documentoCompra.DocumentoCompraProducto[i].montoParcial = documentoCompra.DocumentoCompraProducto[i].cantidad * documentoCompra.DocumentoCompraProducto[i].precioUnit;
                     documentoCompra.DocumentoCompraProducto[i].cantidadRestante = documentoCompra.DocumentoCompraProducto[i].cantidad;
@@ -750,8 +727,8 @@ namespace pe.edu.pucp.ferretin.viewmodel.MCompras
             }
             else
             {
-                int i;
-                decimal? subTotal = 0;
+                cont = listaProductosDC.Count();
+                subTotal = 0;
                 List<DocumentoCompraProducto> listAux = listaProductosDC.ToList();
                 for (i = 0; i < listaProductosDC.Count(); i++)
                 {
@@ -788,10 +765,9 @@ namespace pe.edu.pucp.ferretin.viewmodel.MCompras
             MessageBoxResult result = MessageBox.Show("Al salir, perderá todos los datos ingresados. ¿Desea continuar?",
         "ATENCIÓN", MessageBoxButton.OKCancel, MessageBoxImage.Warning, MessageBoxResult.Cancel);
             if (result == MessageBoxResult.OK)
-            {
-
-                this.statusTab = Tab.BUSQUEDA;
+            {               
                 listaDocumentosCompra = MC_DocumentoCompraService.listaDocumentosCompra;
+                this.statusTab = Tab.BUSQUEDA;
             }
         }
 
@@ -814,5 +790,69 @@ namespace pe.edu.pucp.ferretin.viewmodel.MCompras
         }
 
         #endregion
+
+        #region Metodos Auxiliares
+
+        private DocumentoCompra generarOCDeCotizacion()
+        {
+            DocumentoCompra ocGenerada = null;
+            try
+            {
+                ocGenerada = new DocumentoCompra()
+                {
+                    tipo = 2,
+                    codigo = MC_DocumentoCompraService.generarCodigoDC(2),
+                    fechaEmision = DateTime.Now,
+                    DocumentoCompra1 = this.documentoCompra,
+                    DocumentoCompraEstado = MC_DocumentoCompraService.obtenerEstado(1),
+                    Proveedor = this.documentoCompra.Proveedor,
+                    Usuario1 = MC_ComunService.usuarioL,
+                    igv = this.documentoCompra.igv,
+                    subTotal = this.documentoCompra.subTotal,
+                    total = this.documentoCompra.total,
+                    DocumentoCompraProducto = new System.Data.Linq.EntitySet<DocumentoCompraProducto>(),
+                };
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show(e.Message);
+            }
+            return ocGenerada;
+        }
+
+        private void prepararLabels(int tipo)
+        {
+            if (tipo == 1)//ES COTIZACION
+            {
+                this.labelCodigo = "Cotizacion";
+                this.labelFechaDC1 = "Fecha Emision";
+                this.labelFechaDC2 = "Fecha Vencimiento";
+            }
+            else //ES ORDEN DE COMPRA
+            {
+                this.labelCodigo = "Orden Compra";
+                this.labelFechaDC1 = "Fecha Emision";
+                this.labelFechaDC2 = "Fecha Pago";
+            }
+        }
+
+        private void prepararDC(int tipo)
+        {
+            this.proveedorNombre = "";
+            if (tipo == 1)
+            {
+                this.documentoCompra.tipo = 1;
+                this.documentoCompra.id_estado = 1;
+                this.documentoCompra.Usuario1 = usuarioIngreso;
+            }
+            else
+            {
+                this.documentoCompra.tipo = 2;
+                this.documentoCompra.id_estado = 5;
+                this.documentoCompra.Usuario1 = usuarioIngreso;
+            }
+        }
+
+        #endregion 
     }
 }

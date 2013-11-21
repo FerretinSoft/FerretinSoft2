@@ -364,7 +364,7 @@ namespace pe.edu.pucp.ferretin.viewmodel.MVentas
             {
                 nombreVendedor = "";
                 searchVendedor = "";
-                MessageBox.Show("No se encontro ningún vendedor con el número de documento proporcionado", "Error", MessageBoxButton.OK, MessageBoxImage.Question);
+                MessageBox.Show("No se encontro ningún vendedor con el número de documento proporcionado", "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
             }
            
         }
@@ -387,9 +387,10 @@ namespace pe.edu.pucp.ferretin.viewmodel.MVentas
 
             if (buscado == null)
             {
+                this.loadNroDocumento = "";
                 this.listaProductosComprados = null;
                 this.devolucion = new Devolucion();
-                MessageBox.Show("No se encontro ninguna venta con el número de documento proporcionado", "Error", MessageBoxButton.OK, MessageBoxImage.Question);
+                MessageBox.Show("No se encontro ninguna venta con el número de documento proporcionado", "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
             }
            
         }
@@ -405,7 +406,8 @@ namespace pe.edu.pucp.ferretin.viewmodel.MVentas
 
             if (buscado == null)
             {
-                MessageBox.Show("No se encontro ninguna venta con el número de documento proporcionado", "Error", MessageBoxButton.OK, MessageBoxImage.Question);
+                this.searchNroDocumento = "";
+                MessageBox.Show("No se encontro ninguna venta con el número de documento proporcionado", "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
             }
             NotifyPropertyChanged("searchnombreCliente");
             NotifyPropertyChanged("searchNroDocCliente");
@@ -425,7 +427,7 @@ namespace pe.edu.pucp.ferretin.viewmodel.MVentas
 
             if (buscado == null)
             {
-                MessageBox.Show("No se encontro ningún cliente con el número de documento proporcionado", "Error", MessageBoxButton.OK, MessageBoxImage.Question);
+                MessageBox.Show("No se encontro ningún cliente con el número de documento proporcionado", "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
                 searchnombreCliente = "";
                 searchNroDocCliente = null;
             }
@@ -512,8 +514,8 @@ namespace pe.edu.pucp.ferretin.viewmodel.MVentas
                             devolucion.id_empleado = usuarioLogueado.Empleado.id;
                             devolucion.codigo = MV_DevolucionService.obtenerCodDevolucion();
                             notaCredito.fechaEmision = DateTime.Now;
-                            devolucion.igv = devolucion.subTotal * (decimal)MS_ParametroService.obtenerIGV() / 100;
-                            devolucion.total = devolucion.igv + devolucion.subTotal;
+                            devolucion.subTotal = Decimal.Round(this.devolucion.total.Value / (1 + ((decimal)MS_ParametroService.obtenerIGV() / 100)), 2);
+                            this.devolucion.igv = Decimal.Round(this.devolucion.total.Value - this.devolucion.subTotal.Value, 2);                           
                             notaCredito.importe = devolucion.total;
                             notaCredito.estado = 0;
                             notaCredito.codigo = "NC-" + devolucion.codigo + DateTime.Today.Year;
@@ -521,7 +523,7 @@ namespace pe.edu.pucp.ferretin.viewmodel.MVentas
                             ComunService.idVentana(40);
                             if (!MV_DevolucionService.insertarDevolucion(devolucion))
                             {
-                                MessageBox.Show("No se pudo agregar la nuevo devolución", "Error");
+                                MessageBox.Show("No se pudo agregar la nuevo devolución", "ERROR",MessageBoxButton.OK, MessageBoxImage.Error);
                             }
                             else
                             {
@@ -531,7 +533,7 @@ namespace pe.edu.pucp.ferretin.viewmodel.MVentas
                             ComunService.idVentana(44);
                             if (!MV_NotaCreditoService.insertarNotaCredito(notaCredito))
                             {
-                                MessageBox.Show("No se pudo agregar la nueva Nota de Crédito", "Error");
+                                MessageBox.Show("No se pudo agregar la nueva Nota de Crédito", "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
                             }
                             else
                             {
@@ -546,7 +548,7 @@ namespace pe.edu.pucp.ferretin.viewmodel.MVentas
                             {
                                 try
                                 {
-                                    MessageBox.Show("Error en registrar movimiento en almácen", "Error");
+                                    MessageBox.Show("Error en registrar movimiento en almácen", "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
                                 }
 
                                 catch { }

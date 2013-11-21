@@ -20,6 +20,7 @@ using System.IO;
 using System.Xml;
 using System.Windows.Markup;
 using System.Data;
+using System.ComponentModel;
 
 namespace pe.edu.pucp.ferretin.view.MVentas
 {
@@ -91,6 +92,13 @@ namespace pe.edu.pucp.ferretin.view.MVentas
             MV_DocNotaCreditoViewModel padre = p.main.DataContext as MV_DocNotaCreditoViewModel;
             padre.notaCredito = actual.notaCredito; 
             p.Show();
+        }
+
+        private void Window_Closing(object sender, CancelEventArgs e)
+        {
+           
+            MV_ComunService.Clean();
+
         }
         
         

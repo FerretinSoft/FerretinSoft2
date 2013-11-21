@@ -68,13 +68,10 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Ferretin.cs">
-      <DependentUpon>Ferretin.dbml</DependentUpon>
-    </Compile>
     <Compile Include="Ferretin.designer.cs">
-      <DependentUpon>Ferretin.dbml</DependentUpon>
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
+      <DependentUpon>Ferretin.dbml</DependentUpon>
     </Compile>
     <Compile Include="MAlmacen\Categoria.cs" />
     <Compile Include="MAlmacen\Movimiento.cs" />
@@ -157,11 +154,6 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Ferretin.dbml.layout">
-      <DependentUpon>Ferretin.dbml</DependentUpon>
-    </None>
-  </ItemGroup>
-  <ItemGroup>
     <Content Include="FerretinLocal.mdf">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
@@ -169,6 +161,11 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       <DependentUpon>FerretinLocal.mdf</DependentUpon>
     </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Ferretin.dbml.layout">
+      <DependentUpon>Ferretin.dbml</DependentUpon>
+    </None>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -21,6 +21,7 @@ namespace pe.edu.pucp.ferretin.view.MSeguridad
     {
         DateTime fechaInicial;
         DateTime fechaFinal;
+        DateTime fechaDefecto;
 
         public MS_ReporteTrasaccionesParametrosWindow()
         {
@@ -29,8 +30,41 @@ namespace pe.edu.pucp.ferretin.view.MSeguridad
 
         private void repSigBtn_Click(object sender, RoutedEventArgs e)
         {
-            MS_ReporteWindow RTW = new MS_ReporteWindow(fechaInicial, fechaFinal);
-            RTW.Show();
+            if ((fechaInicial != fechaDefecto && fechaFinal != fechaDefecto) && (fechaInicial < fechaFinal) && (fechaFinal <= System.DateTime.Now))
+            {
+                fechaFinal = fechaFinal.AddDays(1);
+                MS_ReporteWindow RTW = new MS_ReporteWindow(fechaInicial, fechaFinal);
+                RTW.Show();
+            }
+            else
+            {
+
+                if (fechaInicial == fechaDefecto || fechaFinal == fechaDefecto)
+                {
+                    MessageBox.Show("Seleccione una fecha inicial y una fecha final.");
+                    return;
+                }
+
+                if (fechaInicial > fechaFinal)
+                {
+                    MessageBox.Show("La fecha inicial no puede ser posterior a la fecha final.");
+                    return;
+                }
+
+                if (fechaFinal > System.DateTime.Now)
+                {
+                    MessageBox.Show("La fecha final no puede ser posterior a la fecha de actual.");
+                    return;
+                }
+
+                if (fechaInicial == fechaFinal)
+                {
+                    MessageBox.Show("La fecha inicial no puede ser igual a la fecha final.");
+                    return;
+                }
+
+            }
+
         }
 
         private void finicialpicker_SelectedDateChanged(object sender, SelectionChangedEventArgs e)
