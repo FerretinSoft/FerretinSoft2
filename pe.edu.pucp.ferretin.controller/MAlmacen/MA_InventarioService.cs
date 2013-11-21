@@ -156,7 +156,9 @@ namespace pe.edu.pucp.ferretin.controller.MAlmacen
         {
             IEnumerable<ProductoAlmacen> listaProdAlm=null;
             //Caso: Iniciando pantalla o con Almacen=Todos,Categoria=Todos y nombre=vacío
-            if ((nombre1 == "") && ((searchAlmacen == null) || (searchAlmacen.nombre=="Todos")) && ((searchCategoria == null) || (searchCategoria.nombre=="Todos")))
+
+            if (((nombre1 == "") && (searchAlmacen==null) && (searchCategoria==null)) || ((nombre1=="") &&          (searchAlmacen.nombre=="Todos") && (searchCategoria.nombre=="Todos")))
+            //if ((nombre1 == "") && ((searchAlmacen == null) || (searchAlmacen.nombre=="Todos")) && ((searchCategoria == null) || (searchCategoria.nombre=="Todos")))
             {
 
                 listaProdAlm = from pa in db.ProductoAlmacen
@@ -182,7 +184,8 @@ namespace pe.edu.pucp.ferretin.controller.MAlmacen
                 else
                 {
                     //Caso: Almacén seleccionado
-                    if (searchAlmacen.nombre!="Todos" && searchCategoria==null && nombre1=="")
+                    //if (searchAlmacen.nombre != "Todos" && searchCategoria.id == 0 && nombre1 == "")
+                    if (searchAlmacen.nombre!="Todos")
                     {
                         listaProdAlm = from pa in db.ProductoAlmacen
                                         from p in db.Producto

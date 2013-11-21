@@ -92,6 +92,12 @@
     <Compile Include="MAlmacen\MA_AtencionSolAuxWindow.xaml.cs">
       <DependentUpon>MA_AtencionSolAuxWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="MAlmacen\ReporteStock.cs">
+      <DependentUpon>ReporteStock.rpt</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <SubType>Component</SubType>
+      <DesignTime>True</DesignTime>
+    </Compile>
     <Compile Include="MSeguridad\MS_ReportesWindow.xaml.cs">
       <DependentUpon>MS_ReportesWindow.xaml</DependentUpon>
     </Compile>
@@ -522,6 +528,10 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+    <EmbeddedResource Include="MAlmacen\ReporteStock.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>ReporteStock.cs</LastGenOutput>
+    </EmbeddedResource>
     <EmbeddedResource Include="MSeguridad\ReporteDeTransacciones.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
       <LastGenOutput>ReporteDeTransacciones.cs</LastGenOutput>

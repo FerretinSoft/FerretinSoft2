@@ -73,7 +73,7 @@ namespace pe.edu.pucp.ferretin.view
             if (ComunService.usuarioLpermisos[27].estado == true)
             {
                 MSeguridad.MS_MainWindow MSWindow = new MSeguridad.MS_MainWindow();
-                MSWindow.Show();
+                MSWindow.ShowDialog();
             }
             else
             {
@@ -107,7 +107,7 @@ namespace pe.edu.pucp.ferretin.view
             if (ComunService.usuarioLpermisos[1].estado == true)
             {
                 MRecursosHumanos.MR_MainWindow MRWindow = new MRecursosHumanos.MR_MainWindow();
-                MRWindow.Show();
+                MRWindow.ShowDialog();
             }
             else
             {

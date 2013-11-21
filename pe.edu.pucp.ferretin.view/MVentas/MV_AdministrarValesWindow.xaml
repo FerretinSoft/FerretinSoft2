@@ -42,10 +42,10 @@
                             <Label Content="Empresa :" Grid.Column="2" VerticalContentAlignment="Center"/>
                             <Label Content="Fecha desde:" Grid.Column="0" Grid.Row="1" VerticalContentAlignment="Center"/>
                             <DatePicker SelectedDate="{Binding Path=searchFechaInicio}" VerticalAlignment="Center" Grid.Column="1" Grid.Row="1"  BorderThickness="0" />
-                            <TextBox Text="{Binding Path=searchCodLote}" VerticalAlignment="Center" Grid.Column="1" Margin="0,0,7,0"/>
+                            <TextBox PreviewKeyDown="validarCodLote_KeyDown" PreviewTextInput="validarCodLote" MaxLength="5" Text="{Binding Path=searchCodLote}" VerticalAlignment="Center" Grid.Column="1" Margin="0,0,7,0"/>
                             <Label Content="Fecha hasta:" Grid.Column="2" Grid.Row="1" VerticalContentAlignment="Center"/>
                             <DatePicker SelectedDate="{Binding Path=searchFechaFin}" VerticalAlignment="Center" Grid.Column="3" Grid.Row="1"  BorderThickness="0" Width="100" HorizontalAlignment="Left" Margin="0,5"/>
-                            <TextBox Text="{Binding Path=searchNroDocCliente, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Center" HorizontalAlignment="Stretch" Grid.Column="3" Margin="0,0,10,0">
+                            <TextBox PreviewKeyDown="validarCodCliente_KeyDown" PreviewTextInput="validarCodCliente" MaxLength="11" Text="{Binding Path=searchNroDocCliente, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Center" HorizontalAlignment="Stretch" Grid.Column="3" Margin="0,0,10,0">
                                 <TextBox.InputBindings>
                                     <KeyBinding Key="Enter" Command="{Binding cargarClienteCommand}" />
                                 </TextBox.InputBindings>
@@ -138,7 +138,7 @@
                                     <ColumnDefinition Width="Auto"></ColumnDefinition>
                                     <ColumnDefinition></ColumnDefinition>
                                 </Grid.ColumnDefinitions>
-                                <TextBox Text="{Binding Path=loteVale.Cliente.nroDoc, Mode=TwoWay}" VerticalAlignment="Center" HorizontalAlignment="Stretch"
+                                <TextBox PreviewKeyDown="validarCodCliente_KeyDown" PreviewTextInput="validarCodCliente" MaxLength="11" Text="{Binding Path=loteVale.Cliente.nroDoc, Mode=TwoWay}" VerticalAlignment="Center" HorizontalAlignment="Stretch"
                                          >
                                 <TextBox.InputBindings>
                                     <KeyBinding Key="Enter" Command="{Binding cargarClienteCommand}" />
@@ -155,15 +155,15 @@
                             <Label Visibility="{Binding Path=detallarVale}" Grid.Row="1" Grid.Column="2" Content="*" HorizontalAlignment="Right"  VerticalAlignment="Top" Foreground="Red" FontSize="14" Width="15" Height="22"/>
 
                             <StackPanel Orientation="Horizontal" Grid.Column="3" Grid.Row="1">
-                                <TextBox PreviewKeyDown="validarCantidad_KeyDown" PreviewTextInput="validarCantidad" Text="{Binding Path=loteVale.cantidad, Mode=TwoWay}" VerticalAlignment="Center"  Width="50" HorizontalAlignment="Left"/>
+                                <TextBox MaxLength="5" PreviewKeyDown="validarCantidad_KeyDown" PreviewTextInput="validarCantidad" Text="{Binding Path=loteVale.cantidad, Mode=TwoWay}" VerticalAlignment="Center"  Width="50" HorizontalAlignment="Left"/>
                                 <Label>Unidades</Label>
                             </StackPanel>
                             <Label Grid.Row="2" Grid.Column="2">Monto Unidad:</Label>
                             <Label Visibility="{Binding Path=detallarVale}" Grid.Row="2" Grid.Column="2" Content="*" HorizontalAlignment="Right"  VerticalAlignment="Top" Foreground="Red" FontSize="14" Width="15" Height="22"/>
 
                             <StackPanel Orientation="Horizontal" Grid.Column="3" Grid.Row="2">
-                                <TextBox PreviewKeyDown="validarMonto_KeyDown" PreviewTextInput="validarMonto" Text="{Binding Path=loteVale.monto, Mode=TwoWay}" VerticalAlignment="Center"  Width="50" HorizontalAlignment="Left"/>
-                                <ComboBox SelectedIndex="{Binding Path=loteVale.moneda, Mode=TwoWay, UpdateSourceTrigger=LostFocus, NotifyOnValidationError=True, ValidatesOnDataErrors=True, ValidatesOnExceptions=True}" VerticalAlignment="Center" Height="22" Width="70" Margin="5,4,0,4">
+                                <TextBox MaxLength="8" PreviewKeyDown="validarMonto_KeyDown" PreviewTextInput="validarMonto" Text="{Binding Path=loteVale.monto, Mode=TwoWay}" VerticalAlignment="Center"  Width="50" HorizontalAlignment="Left"/>
+                                <ComboBox SelectedIndex="{Binding Path=loteVale.moneda, Mode=TwoWay, UpdateSourceTrigger=LostFocus, NotifyOnValidationError=True, ValidatesOnDataErrors=True, ValidatesOnExceptions=True}" VerticalAlignment="Center" Height="22" Width="90" Margin="5,4,0,4">
                                     <ComboBoxItem Content="Soles (S/.)"></ComboBoxItem>
                                     <ComboBoxItem Content="Dolares (US $)"></ComboBoxItem>
                                 </ComboBox>

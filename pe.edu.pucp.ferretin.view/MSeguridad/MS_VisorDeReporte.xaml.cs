@@ -26,9 +26,6 @@ namespace pe.edu.pucp.ferretin.view.MSeguridad
             InitializeComponent();
             rep = new ReporteDeTransacciones();
 
-            System.Diagnostics.Debug.WriteLine(Convert.ToString(finicial));
-            System.Diagnostics.Debug.WriteLine(Convert.ToString(ffinal));
-
             rep.SetParameterValue("FechaIni", finicial);
             rep.SetParameterValue("FechaFin", ffinal);
 

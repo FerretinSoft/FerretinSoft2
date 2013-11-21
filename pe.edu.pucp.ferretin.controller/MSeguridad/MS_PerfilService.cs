@@ -18,7 +18,7 @@ namespace pe.edu.pucp.ferretin.controller.MSeguridad
         {
             get
             {
-                return db.Perfil;
+                return db.Perfil.OrderBy(p=> p.nombre);
             }
         }
      
