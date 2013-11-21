@@ -22,6 +22,26 @@ namespace pe.edu.pucp.ferretin.controller.MAlmacen
             return true;            
         }
 
+        public static void inicializarProductosNuevaTIenda(Tienda t)
+        {
+            IEnumerable<Producto> listaProd = MA_ProductoService.obtenerTodosProductos();
+            
+            foreach (Producto p in listaProd)
+            {
+                ProductoAlmacen pa = new ProductoAlmacen();
+                pa.id_almacen = t.id;
+                pa.id_producto = p.id;
+                pa.stock = 0;
+                pa.stockMin = 0;
+                pa.descuento = 0;
+                pa.puntos=0;
+                pa.estado = 1;
+                db.ProductoAlmacen.InsertOnSubmit(pa);
+            }
+
+            db.SubmitChanges();
+        }
+
         public static ProductoAlmacen ObtenerProductoAlmacenPorTiendaProducto(Tienda t, Producto p)
         {
             var pa = (from m in db.ProductoAlmacen

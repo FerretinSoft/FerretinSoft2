@@ -29,6 +29,7 @@ namespace pe.edu.pucp.ferretin.controller.MAlmacen
             foreach (ProductoCategoria prodcat in pc)
                     db.ProductoCategoria.InsertOnSubmit(prodcat);
 
+            db.SubmitChanges();
         }
 
 
