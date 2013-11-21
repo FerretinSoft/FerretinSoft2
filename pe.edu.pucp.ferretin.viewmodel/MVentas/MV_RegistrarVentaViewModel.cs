@@ -170,18 +170,40 @@ namespace pe.edu.pucp.ferretin.viewmodel.MVentas
 
                 if (producto != null)
                 {
-                    var stockDisponible = (int)producto.ProductoAlmacen.First(pa => pa.Tienda.Equals(venta.Tienda)).stock;
+                    var stockDisponible = 0;
+
+                    try
+                    {
+                        stockDisponible = (int)producto.ProductoAlmacen.First(pa => pa.Tienda.Equals(venta.Tienda)).stock;
+                    }
+                    catch { }
+
+                    if (stockDisponible <= 0)
+                    {
+                        MessageBox.Show("No se cuenta con Stock de este producto", "Mensaje", MessageBoxButton.OK, MessageBoxImage.Exclamation);
+                        return;
+                    }
+                    
 
                     if (venta.VentaProducto.Count(vp => vp.Producto.id == producto.id) == 1)
                     {
+
                         var prod = venta.VentaProducto.Single(vp => vp.Producto.id == producto.id);
-                        if (prod.cantidad + 1 > prod.stockDisponible)
+
+                        if (prod.vieneDeProforma.Value)
                         {
-                            MessageBox.Show("No se tiene más stock de este producto", "Mensaje", MessageBoxButton.OK, MessageBoxImage.Exclamation);
+                            MessageBox.Show("El producto seleccionado, viene de una proforma, no se puede modificar las cantidades", "Mensaje", MessageBoxButton.OK, MessageBoxImage.Exclamation);
                         }
                         else
                         {
-                            prod.cantidad++;
+                            if (prod.cantidad + 1 > prod.stockDisponible)
+                            {
+                                MessageBox.Show("No se tiene más stock de este producto", "Mensaje", MessageBoxButton.OK, MessageBoxImage.Exclamation);
+                            }
+                            else
+                            {
+                                prod.cantidad++;
+                            }
                         }
                     }
                     else

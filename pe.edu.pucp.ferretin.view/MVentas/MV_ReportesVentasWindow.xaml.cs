@@ -36,17 +36,33 @@ namespace pe.edu.pucp.ferretin.view.MVentas
                 switch (estado)
                 {
                     case 0:
-                        repIntroGrid.Visibility = System.Windows.Visibility.Collapsed;
-                        repConfGrid.Visibility = System.Windows.Visibility.Visible;
-                    
-                        padre_DataContext.nombreBoton = "GENERAR";
-                        if (this.listaRepDisp.SelectedIndex == 2)
+                        if (this.listaRepDisp.SelectedItem != null)
                         {
-                            padre_DataContext.aliasRep = "Reporte de ventas por tienda";
-                            padre_DataContext.comentRep = "El presente reporte tiene como finalidad mostrar un resumen de las ventas realizadas por tienda en un período de tiempo";
+                            repIntroGrid.Visibility = System.Windows.Visibility.Collapsed;
+                            repConfGrid.Visibility = System.Windows.Visibility.Visible;
+
+                            padre_DataContext.nombreBoton = "GENERAR";
+                            padre_DataContext.searchFechaFin = DateTime.Today.AddDays(1);
+                            padre_DataContext.searchFechaInicio = DateTime.Parse("10/09/2013");
+
+                            if (this.listaRepDisp.SelectedIndex == 2)
+                            {
+                                padre_DataContext.nombreVentana = "Reporte por tienda";
+                                padre_DataContext.aliasRep = "Reporte de ventas por tienda";
+                                padre_DataContext.comentRep = "El presente reporte tiene como finalidad mostrar un resumen de las ventas realizadas por tienda en un período de tiempo";
+                            }
+                            if (this.listaRepDisp.SelectedIndex == 1)
+                            {
+                                padre_DataContext.nombreVentana = "Reporte por productos";
+                                padre_DataContext.aliasRep = "Reporte de ventas por producto";
+                                padre_DataContext.comentRep = "El presente reporte tiene como finalidad mostrar un resumen de las ventas realizadas por producto en un período de tiempo";
+                            }
+
+                            estado = 1;
+                            repAntBtn.IsEnabled = true;
                         }
-                        estado = 1;
-                        repAntBtn.IsEnabled = true;
+                        else
+                            MessageBox.Show("Debe seleccionar un reporte", "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
                         break;
                     case 1:
                         repConfGrid.Visibility = System.Windows.Visibility.Collapsed;
@@ -57,7 +73,11 @@ namespace pe.edu.pucp.ferretin.view.MVentas
                 }
             }else{
                 padre_DataContext = this.main.DataContext as MV_ReportesViewModel;
-                MV_VisorReporte repW = new MV_VisorReporte(padre_DataContext.searchFechaInicio, padre_DataContext.searchFechaFin);
+                MV_VisorReporte repW;
+                if (this.listaRepDisp.SelectedIndex == 2)
+                 repW = new MV_VisorReporte(padre_DataContext.searchFechaInicio, padre_DataContext.searchFechaFin, "RTienda");
+                else
+                 repW = new MV_VisorReporte(padre_DataContext.searchFechaInicio, padre_DataContext.searchFechaFin, "RProducto");
                 
                 repW.Show();
 
@@ -79,7 +99,7 @@ namespace pe.edu.pucp.ferretin.view.MVentas
                     repIntroGrid.Visibility = System.Windows.Visibility.Visible;
                     estado = 0;
                     repAntBtn.IsEnabled = false;
-                    padre_DataContext.nombreBoton = "GUARDAR";
+                    padre_DataContext.nombreBoton = "SIGUIENTE";
                     break;
                 case 2:
                     repConfGrid.Visibility = System.Windows.Visibility.Visible;

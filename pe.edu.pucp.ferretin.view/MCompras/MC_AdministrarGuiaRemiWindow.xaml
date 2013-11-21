@@ -21,8 +21,9 @@
                         <RowDefinition Height="37*"></RowDefinition>
                         <RowDefinition Height="255*"/>
                     </Grid.RowDefinitions>
-                    <GroupBox Header="Parámetros" Margin="0,13,20,31" BorderBrush="Black" Grid.ColumnSpan="4"/>
+                    <GroupBox Header="Parámetros" Margin="0,13,20,31" BorderBrush="Black" Grid.ColumnSpan="4">
 
+                    </GroupBox>
                     <Label Content="Codigo:" HorizontalAlignment="Left" Height="26" VerticalAlignment="Top" Width="63" Margin="24,33,0,0" Grid.ColumnSpan="2"/>
 
                     <Label Content="Proveedor:" HorizontalAlignment="Left" Height="26" VerticalAlignment="Top" Width="63" Margin="294.953,33,0,0" Grid.Column="3"/>
@@ -78,9 +79,13 @@
                     </GroupBox>
                     <Label Content="Fecha de Emision" HorizontalAlignment="Left" Height="29" Margin="0,78,0,0" VerticalAlignment="Top" Width="119" Grid.Column="1"/>
                     <Label x:Name="tipoDocLbl" Content="Código:" HorizontalAlignment="Left" Margin="0.393,32,0,0" VerticalAlignment="Top" Height="26" Width="105" Grid.Column="1"/>
-                    <TextBox Text="{Binding Path=guiaRemision.codigo, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, NotifyOnValidationError=True, ValidatesOnDataErrors=True, ValidatesOnExceptions=True}" HorizontalAlignment="Left" Height="20" Margin="115,35,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="130" Grid.Column="1"/>
+                    <Label Content="*" HorizontalAlignment="Left" Foreground="Red" FontSize="14" Width="15" Height="22" Margin="104,35,0,0" VerticalAlignment="Top" RenderTransformOrigin="-1.479,-0.159" Grid.Column="1"/>
+                    <Label Content="*" HorizontalAlignment="Left" Foreground="Red" FontSize="14" Width="15" Height="22" Margin="405,35,0,0" VerticalAlignment="Top" RenderTransformOrigin="-1.479,-0.159" Grid.Column="1"/>
+                    <Label Content="*" HorizontalAlignment="Left" Foreground="Red" FontSize="14" Width="15" Height="22" Margin="405,81,0,0" VerticalAlignment="Top" RenderTransformOrigin="-1.479,-0.159" Grid.Column="1"/>
+                    <Label Content="*" HorizontalAlignment="Left" Foreground="Red" FontSize="14" Width="15" Height="22" Margin="104,81,0,0" VerticalAlignment="Top" RenderTransformOrigin="-1.479,-0.159" Grid.Column="1"/>
+                    <TextBox Text="{Binding Path=guiaRemision.codigo, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, NotifyOnValidationError=True, ValidatesOnDataErrors=True, ValidatesOnExceptions=True}" HorizontalAlignment="Left" Height="20" Margin="124,35,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="130" Grid.Column="1"/>
                     <Label x:Name="docOrdLbl" Content="Orden de Compra:" HorizontalAlignment="Left" Margin="284.393,32,0,0" VerticalAlignment="Top" Height="26" Width="121" Grid.Column="1"/>
-                    <TextBox Text="{Binding ordenCompraCod, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, NotifyOnValidationError=True, ValidatesOnDataErrors=True, ValidatesOnExceptions=True}" HorizontalAlignment="Left" Height="20" Margin="410,35,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="130" Grid.Column="1">
+                    <TextBox Text="{Binding ordenCompraCod, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, NotifyOnValidationError=True, ValidatesOnDataErrors=True, ValidatesOnExceptions=True}" HorizontalAlignment="Left" Height="20" Margin="425,35,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="130" Grid.Column="1">
                         <TextBox.InputBindings>
                             <KeyBinding Key="Enter" Command="{Binding cargarOCCommand}" />
                         </TextBox.InputBindings>
@@ -128,13 +133,13 @@
                     <TextBox Text="{Binding Path=guiaRemision.Tienda.nombre, Mode=OneWay}" HorizontalAlignment="Left" Height="23" Margin="59,78,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="150" IsEnabled="False" Grid.Column="2"/>
                     <TextBox Text="{Binding Path=guiaRemision.DocumentoCompra.Proveedor.razonSoc, Mode=OneWay}" HorizontalAlignment="Left" Height="23" Margin="59,32,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="150" IsEnabled="False" Grid.Column="2"/>
 
-                    <Button x:Name="guardarBtn"  Command="{Binding saveGuiaRemisionCommand}" Content="GUARDAR" Grid.Column="2" HorizontalAlignment="Left" Margin="96,432,0,0" VerticalAlignment="Top" Width="80" Height="30"/>
-                    <Button x:Name="cancelarBtn" Command="{Binding cancelGuiaRemisionCommand}" Content="CANCELAR" Grid.Column="2" HorizontalAlignment="Left" Margin="96,469,0,0" VerticalAlignment="Top" Width="80" Height="30" />
+                    <Button x:Name="guardarBtn"  Command="{Binding saveGuiaRemisionCommand}" Content="GUARDAR" Grid.Column="2" HorizontalAlignment="Left" Margin="96,425,0,0" VerticalAlignment="Top" Width="89" Height="39"/>
+                    <Button x:Name="cancelarBtn" Command="{Binding cancelGuiaRemisionCommand}" Content="CANCELAR" Grid.Column="2" HorizontalAlignment="Left" Margin="96,469,0,0" VerticalAlignment="Top" Width="89" Height="39"/>
                     <Label Content="Cant. Prod. Recibidos" Grid.Column="1" HorizontalAlignment="Left" Margin="316.393,457,0,0" VerticalAlignment="Top" FontSize="14"/>
                     <Label Content="Cant. Prod. Total" Grid.Column="1" HorizontalAlignment="Left" Margin="0.393,459,0,0" VerticalAlignment="Top" FontSize="14"/>
-                    <DatePicker SelectedDate="{Binding guiaRemision.fechaEmision}" Grid.Column="1" HorizontalAlignment="Left" Margin="115,79,0,0" VerticalAlignment="Top" Width="130"/>
+                    <DatePicker SelectedDate="{Binding guiaRemision.fechaEmision}" Grid.Column="1" HorizontalAlignment="Left" Margin="124,79,0,0" VerticalAlignment="Top" Width="130"/>
                     <Label Content="Fecha de Recepcion" HorizontalAlignment="Left" Height="29" Margin="284,78,0,0" VerticalAlignment="Top" Width="119" Grid.Column="1"/>
-                    <DatePicker SelectedDate="{Binding guiaRemision.fechaRecepcion}" Grid.Column="1" HorizontalAlignment="Left" Margin="410,79,0,0" VerticalAlignment="Top" Width="130"/>
+                    <DatePicker SelectedDate="{Binding guiaRemision.fechaRecepcion}" Grid.Column="1" HorizontalAlignment="Left" Margin="425,81,0,0" VerticalAlignment="Top" Width="130"/>
 
                 </Grid>
             </TabItem>

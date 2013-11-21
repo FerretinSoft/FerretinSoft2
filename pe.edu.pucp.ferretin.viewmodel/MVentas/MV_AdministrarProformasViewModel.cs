@@ -190,6 +190,7 @@ namespace pe.edu.pucp.ferretin.viewmodel.MVentas
                                     fecEmision = DateTime.Now,
                                     fecVencimiento = DateTime.Now.AddDays(5),
                                     igvActual = MS_SharedService.obtenerIGV(),
+                                    tipoCambio = (decimal)MS_SharedService.obtenerTipodeCambio(),
                                     igv = 0,
                                     subTotal = 0,
                                     total = 0,
@@ -552,7 +553,7 @@ namespace pe.edu.pucp.ferretin.viewmodel.MVentas
                     {
                         ProformaProducto proformaProducto = new ProformaProducto();
                         proformaProducto.PromocionActual = MV_PromocionService.ultimaPromocionPorProducto(producto, MS_SharedService.usuarioL.Empleado.tiendaActual);
-                        proformaProducto.tipoCambio = (decimal)MS_SharedService.obtenerTipodeCambio();
+                        proformaProducto.tipoCambio = proforma.tipoCambio??1;
                         proformaProducto.Proforma = proforma;
                         proformaProducto.Producto = producto;
                         proformaProducto.moneda = producto.moneda;

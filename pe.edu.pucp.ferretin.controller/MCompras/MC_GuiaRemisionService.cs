@@ -90,17 +90,29 @@ namespace pe.edu.pucp.ferretin.controller.MCompras
                    select g;
         }
 
+        private static bool verificaSiExisteGR(GuiaRemision guia)
+        {
+            IEnumerable<GuiaRemision> gAux = from g in listaGuiasRemision
+                                             where ((g.codigo == guia.codigo) && (g.DocumentoCompra.codigo == guia.DocumentoCompra.codigo))
+                                             select g;
+
+            if (gAux.Count() > 0)
+                return true;
+            else
+                return false;
+        }
+
         public static bool insertarGuiaRemision(GuiaRemision guiaRemision)
         {
-            GuiaRemision guia = null;
-            bool flag = false;
+            //GuiaRemision guia = null;
+            bool flag, flagF = false;
             int i, cont;
             try
             {
-                if(db.GuiaRemision.Count() > 0)
-                    guia = db.GuiaRemision.Single(t => t.codigo == guiaRemision.codigo && t.DocumentoCompra.codigo == guiaRemision.DocumentoCompra.codigo);
-                if (guia != null)
-                    flag = false;
+                flag = verificaSiExisteGR(guiaRemision);
+                //db.GuiaRemision.Single(t => t.codigo == guiaRemision.codigo);
+                if (flag)
+                    flagF = false;
                 else
                 {
                     cont = guiaRemision.GuiaRemisionProducto.Count();
@@ -112,14 +124,14 @@ namespace pe.edu.pucp.ferretin.controller.MCompras
                     db.GuiaRemision.InsertOnSubmit(guiaRemision);
                     MA_SharedService.registrarCompra(guiaRemision.Tienda, guiaRemision.GuiaRemisionProducto);
                     enviarCambios();
-                    flag = true; 
+                    flagF = true;
                 }
             }
             catch (Exception e)
             {
                 MessageBox.Show(e.Message);
             }
-            return flag;
+            return flagF;
         }
 
         #endregion
