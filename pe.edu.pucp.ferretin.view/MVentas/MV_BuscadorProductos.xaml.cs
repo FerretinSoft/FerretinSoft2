@@ -50,6 +50,31 @@ namespace pe.edu.pucp.ferretin.view.MVentas
                 }
                 vmpadre.codProdAgregar = "";
             }
+            //Código para la ventana de proformas
+            else if (this.Owner is MV_AdministrarProformasWindow)
+            {
+                var vmpadre = this.Owner.DataContext as MV_AdministrarProformasViewModel;
+                var seleccionados = listaProductos.SelectedItems;
+                foreach (ProductoAlmacen seleccionado in seleccionados)
+                {
+                    vmpadre.codProdAgregar = seleccionado.Producto.codigo;
+                    vmpadre.agregarProducto(null);
+                }
+                vmpadre.codProdAgregar = "";
+            }
+            //Código para la ventana de promociones
+            else if (this.Owner is MV_AdministrarPromocionesWindow)
+            {
+                var vmpadre = this.Owner.DataContext as MV_PromocionesViewModel;
+                var seleccionados = listaProductos.SelectedItems;
+                foreach (ProductoAlmacen seleccionado in seleccionados)
+                {
+                    vmpadre.codProdAgregar = seleccionado.Producto.codigo;
+                    vmpadre.agregarProducto(null);
+                }
+                vmpadre.codProdAgregar = "";
+            }
+
 
             //Poner aqui tu codigo para tu ventana 
 

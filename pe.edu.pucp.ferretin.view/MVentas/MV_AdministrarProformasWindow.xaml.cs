@@ -197,5 +197,24 @@ namespace pe.edu.pucp.ferretin.view.MVentas
             v.Show();
         }
 
+
+        //Buscador de productos
+        private void Button_Click_2(object sender, RoutedEventArgs e)
+        {
+            var vm = DataContext as MV_AdministrarProformasViewModel;
+            var buscador = new MV_BuscadorProductos(this, vm.usuarioLogueado.Empleado.tiendaActual);
+
+        }
+
+        private void imprimirBtn_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void enviarEmailBtn_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
     }
 }

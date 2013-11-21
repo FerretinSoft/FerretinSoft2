@@ -42,6 +42,7 @@
                     </Button>
                     <DataGrid ItemsSource="{Binding Path=listaGuiasRemision}" Margin="11,111,9,10" RenderTransformOrigin="0.5,0.5" Grid.ColumnSpan="4" Grid.RowSpan="3" AutoGenerateColumns="False" CanUserAddRows="False" CanUserDeleteRows="False" IsReadOnly="True">
                         <DataGrid.Columns>
+                            <DataGridTextColumn Width="1.8*" Binding="{Binding Path=DocumentoCompra.codigo}" Header="Orden de Compra"/>
                             <DataGridTemplateColumn Width="2.5*" Header="Guia de Remision">
                                 <DataGridTemplateColumn.CellTemplate>
                                     <DataTemplate>
@@ -85,7 +86,7 @@
                         </TextBox.InputBindings>
                     </TextBox>
 
-                    <DataGrid ItemsSource="{Binding Path=listaGuiaRemisionProducto,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged,NotifyOnSourceUpdated=True,NotifyOnTargetUpdated=True}" Margin="10,133,178,0" RenderTransformOrigin="0.5, 0.5" Height="279" VerticalAlignment="Top" Grid.ColumnSpan="3" AutoGenerateColumns="False" CanUserAddRows="False" CanUserDeleteRows="False">
+                    <DataGrid ItemsSource="{Binding Path=guiaRemision.GuiaRemisionProducto,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged,NotifyOnSourceUpdated=True,NotifyOnTargetUpdated=True}" Margin="10,133,178,0" RenderTransformOrigin="0.5, 0.5" Height="279" VerticalAlignment="Top" Grid.ColumnSpan="3" AutoGenerateColumns="False" CanUserAddRows="False" CanUserDeleteRows="False">
                         <DataGrid.Columns>
                             <DataGridTextColumn Width="2.8*" Binding="{Binding Path=DocumentoCompraProducto.Producto.nombre}" IsReadOnly="True" Header="Producto"/>
                             <DataGridTextColumn Width="2.5*" Binding="{Binding Path=DocumentoCompraProducto.Producto.descripcion}" IsReadOnly="True" Header="Descripción"/>
