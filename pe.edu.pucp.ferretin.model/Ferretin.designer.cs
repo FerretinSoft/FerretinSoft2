@@ -11420,6 +11420,8 @@ namespace pe.edu.pucp.ferretin.model
 		
 		private string _precioString;
 		
+		private System.Nullable<int> _ganarPuntos;
+		
 		private EntityRef<Producto> _Producto;
 		
     #region Definiciones de métodos de extensibilidad
@@ -11442,6 +11444,8 @@ namespace pe.edu.pucp.ferretin.model
     partial void OnidChanged();
     partial void OnprecioStringChanging(string value);
     partial void OnprecioStringChanged();
+    partial void OnganarPuntosChanging(System.Nullable<int> value);
+    partial void OnganarPuntosChanged();
     #endregion
 		
 		public ProductoPrecio()
@@ -11610,6 +11614,26 @@ namespace pe.edu.pucp.ferretin.model
 					this._precioString = value;
 					this.SendPropertyChanged("precioString");
 					this.OnprecioStringChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ganarPuntos", DbType="Int")]
+		public System.Nullable<int> ganarPuntos
+		{
+			get
+			{
+				return this._ganarPuntos;
+			}
+			set
+			{
+				if ((this._ganarPuntos != value))
+				{
+					this.OnganarPuntosChanging(value);
+					this.SendPropertyChanging();
+					this._ganarPuntos = value;
+					this.SendPropertyChanged("ganarPuntos");
+					this.OnganarPuntosChanged();
 				}
 			}
 		}

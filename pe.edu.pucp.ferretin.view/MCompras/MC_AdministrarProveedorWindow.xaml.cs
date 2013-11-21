@@ -47,6 +47,105 @@ namespace pe.edu.pucp.ferretin.view.MCompras
             var vm = DataContext as MC_ProveedoresViewModel;
             var buscador = new MV_BuscadorProductos(this, vm.usuarioLogueado.Empleado.tiendaActual);
         }
+        /****************************************************/
+        private void codigoProveedor_PreviewTextInput(object sender, TextCompositionEventArgs e)
+        {
+            if (Regex.IsMatch(e.Text, "[0-9]"))
+            {
+                e.Handled = false;
+            }
+            else
+            {
+                e.Handled = true;
+            }
+        }
+        /****************************************************/
+        private void razonSocialProveedor_PreviewTextInput(object sender, TextCompositionEventArgs e)
+        {
+            if (Regex.IsMatch(e.Text, "[a-zA-Z0-9]"))
+            {
+                e.Handled = false;
+            }
+            else
+            {
+                e.Handled = true;
+            }
+        }
+        /****************************************************/
+        private void codigoProveedor_PreviewKeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key != Key.Space)
+                e.Handled = false;
+            else
+                e.Handled = true;
+        }
+        /****************************************************/
+        private void razonSocialProveedor_PreviewKeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key != Key.Space)
+                e.Handled = false;
+            else
+                e.Handled = true;
+        }
 
+        private void TextBox_PreviewTextInput(object sender, TextCompositionEventArgs e)
+        {
+             if (Regex.IsMatch(e.Text, "[0-9]"))
+             {
+                 e.Handled = false;
+             }
+             else
+             {
+                 e.Handled = true;
+             }
+        }
+
+        private void nombre_PreviewTextInput(object sender, TextCompositionEventArgs e)
+        {
+            if (Regex.IsMatch(e.Text, "[a-zA-Z.]"))
+             {
+                 e.Handled = false;
+             }
+             else
+             {
+                 e.Handled = true;
+             }
+        }
+
+        private void TextBox_PreviewTextInput_1(object sender, TextCompositionEventArgs e)
+        {
+            if (Regex.IsMatch(e.Text, "[0-9]"))
+            {
+                e.Handled = false;
+            }
+            else
+            {
+                e.Handled = true;
+            }
+        }
+
+        private void nombreCont_PreviewTextInput(object sender, TextCompositionEventArgs e)
+        {
+            if (Regex.IsMatch(e.Text, "[a-zA-Z]"))
+            {
+                e.Handled = false;
+            }
+            else
+            {
+                e.Handled = true;
+            }
+        }
+
+        private void telfCont_PreviewTextInput(object sender, TextCompositionEventArgs e)
+        {
+            if (Regex.IsMatch(e.Text, "[0-9]"))
+            {
+                e.Handled = false;
+            }
+            else
+            {
+                e.Handled = true;
+            }
+        }
     }
 }
