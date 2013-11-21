@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace pe.edu.pucp.ferretin.view.MSeguridad {
+namespace pe.edu.pucp.ferretin.view.MAlmacen {
     using System;
     using System.ComponentModel;
     using CrystalDecisions.Shared;
@@ -16,14 +16,14 @@ namespace pe.edu.pucp.ferretin.view.MSeguridad {
     using CrystalDecisions.CrystalReports.Engine;
     
     
-    public class ReporteDeTransacciones : ReportClass {
+    public class ReporteStock : ReportClass {
         
-        public ReporteDeTransacciones() {
+        public ReporteStock() {
         }
         
         public override string ResourceName {
             get {
-                return "ReporteDeTransacciones.rpt";
+                return "ReporteStock.rpt";
             }
             set {
                 // Do nothing
@@ -41,7 +41,7 @@ namespace pe.edu.pucp.ferretin.view.MSeguridad {
         
         public override string FullResourceName {
             get {
-                return "pe.edu.pucp.ferretin.view.MSeguridad.ReporteDeTransacciones.rpt";
+                return "pe.edu.pucp.ferretin.view.MAlmacen.ReporteStock.rpt";
             }
             set {
                 // Do nothing
@@ -66,7 +66,7 @@ namespace pe.edu.pucp.ferretin.view.MSeguridad {
         
         [Browsable(false)]
         [DesignerSerializationVisibilityAttribute(System.ComponentModel.DesignerSerializationVisibility.Hidden)]
-        public CrystalDecisions.CrystalReports.Engine.Section GroupHeaderSection1 {
+        public CrystalDecisions.CrystalReports.Engine.Section DetailSection2 {
             get {
                 return this.ReportDefinition.Sections[2];
             }
@@ -74,7 +74,7 @@ namespace pe.edu.pucp.ferretin.view.MSeguridad {
         
         [Browsable(false)]
         [DesignerSerializationVisibilityAttribute(System.ComponentModel.DesignerSerializationVisibility.Hidden)]
-        public CrystalDecisions.CrystalReports.Engine.Section Section3 {
+        public CrystalDecisions.CrystalReports.Engine.Section Section4 {
             get {
                 return this.ReportDefinition.Sections[3];
             }
@@ -82,49 +82,17 @@ namespace pe.edu.pucp.ferretin.view.MSeguridad {
         
         [Browsable(false)]
         [DesignerSerializationVisibilityAttribute(System.ComponentModel.DesignerSerializationVisibility.Hidden)]
-        public CrystalDecisions.CrystalReports.Engine.Section GroupFooterSection1 {
-            get {
-                return this.ReportDefinition.Sections[4];
-            }
-        }
-        
-        [Browsable(false)]
-        [DesignerSerializationVisibilityAttribute(System.ComponentModel.DesignerSerializationVisibility.Hidden)]
-        public CrystalDecisions.CrystalReports.Engine.Section Section4 {
-            get {
-                return this.ReportDefinition.Sections[5];
-            }
-        }
-        
-        [Browsable(false)]
-        [DesignerSerializationVisibilityAttribute(System.ComponentModel.DesignerSerializationVisibility.Hidden)]
         public CrystalDecisions.CrystalReports.Engine.Section Section5 {
             get {
-                return this.ReportDefinition.Sections[6];
-            }
-        }
-        
-        [Browsable(false)]
-        [DesignerSerializationVisibilityAttribute(System.ComponentModel.DesignerSerializationVisibility.Hidden)]
-        public CrystalDecisions.Shared.IParameterField Parameter_FechaIni {
-            get {
-                return this.DataDefinition.ParameterFields[0];
-            }
-        }
-        
-        [Browsable(false)]
-        [DesignerSerializationVisibilityAttribute(System.ComponentModel.DesignerSerializationVisibility.Hidden)]
-        public CrystalDecisions.Shared.IParameterField Parameter_Fechafin {
-            get {
-                return this.DataDefinition.ParameterFields[1];
+                return this.ReportDefinition.Sections[4];
             }
         }
     }
     
     [System.Drawing.ToolboxBitmapAttribute(typeof(CrystalDecisions.Shared.ExportOptions), "report.bmp")]
-    public class CachedReporteDeTransacciones : Component, ICachedReport {
+    public class CachedReporteStock : Component, ICachedReport {
         
-        public CachedReporteDeTransacciones() {
+        public CachedReporteStock() {
         }
         
         [Browsable(false)]
@@ -161,7 +129,7 @@ namespace pe.edu.pucp.ferretin.view.MSeguridad {
         }
         
         public virtual CrystalDecisions.CrystalReports.Engine.ReportDocument CreateReport() {
-            ReporteDeTransacciones rpt = new ReporteDeTransacciones();
+            ReporteStock rpt = new ReporteStock();
             rpt.Site = this.Site;
             return rpt;
         }
