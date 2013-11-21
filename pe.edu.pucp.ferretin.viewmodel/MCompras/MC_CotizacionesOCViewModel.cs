@@ -605,9 +605,10 @@ namespace pe.edu.pucp.ferretin.viewmodel.MCompras
             try
             {                
                 prepararLabels(1);
-                this.proveedorNombre = "";
+                proveedorNombre = "";
                 tipoDC = 1;
-                this.statusTab = Tab.AGREGAR;
+                NotifyPropertyChanged("proveedorNombre");
+                statusTab = Tab.AGREGAR;
             }
             catch (Exception e)
             {
@@ -620,9 +621,10 @@ namespace pe.edu.pucp.ferretin.viewmodel.MCompras
             try
             {                
                 prepararLabels(2);
-                this.proveedorNombre = "";
+                proveedorNombre = "";
                 tipoDC = 2;
-                this.statusTab = Tab.AGREGAR;
+                NotifyPropertyChanged("proveedorNombre");
+                statusTab = Tab.AGREGAR;
             }
             catch (Exception e)
             {
@@ -633,7 +635,7 @@ namespace pe.edu.pucp.ferretin.viewmodel.MCompras
         public void aprobarDocumento(Object id)
         {
             try
-            {               
+            {
                 if (documentoCompra.tipo == 1)//ES COTIZACION
                 {
                     int i;
@@ -655,15 +657,16 @@ namespace pe.edu.pucp.ferretin.viewmodel.MCompras
                         };
                         ocGenerada.DocumentoCompraProducto.Add(producto);
                     }
-                    usuarioAprobacion = MC_ComunService.usuarioL;
-                    this.documentoCompra.Usuario = usuarioAprobacion;
-                    this.documentoCompra.DocumentoCompraEstado = MC_DocumentoCompraService.obtenerEstado(3);
-                    MC_DocumentoCompraService.enviarCambios();
+                    documentoCompra.Usuario = MC_ComunService.usuarioL;
+                    documentoCompra.DocumentoCompraEstado = MC_DocumentoCompraService.obtenerEstado(3);
                     ComunService.idVentana(36);
-                    MC_DocumentoCompraService.insertarDocumentoCompra(ocGenerada);                   
-                }                   
-                else //ES ORDEN DE COMPRA
+                    MC_DocumentoCompraService.insertarDocumentoCompra(ocGenerada);
+                }
+                else//ES ORDEN DE COMPRA
+                {
                     documentoCompra.DocumentoCompraEstado = MC_DocumentoCompraService.obtenerEstado(6);
+                    documentoCompra.Usuario = MC_ComunService.usuarioL;
+                }                   
 
                 ComunService.idVentana(37);
 
