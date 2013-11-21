@@ -14,6 +14,7 @@ namespace pe.edu.pucp.ferretin.model
             return today.ToString("yyyyMMddHHmmssFF"); // 16 characters code
         }
 
+        public String convertDate{get;set;}
         public MovimientoProducto mp { get; set; }
 
     }

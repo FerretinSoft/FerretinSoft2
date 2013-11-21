@@ -43,8 +43,8 @@ namespace pe.edu.pucp.ferretin.viewmodel.MVentas
         public String _loadNroDocumento = "";
         public String loadNroDocumento { get { return _loadNroDocumento; } set { _loadNroDocumento = value; NotifyPropertyChanged("loadNroDocumento"); } }
 
-        public long? _searchNroDocCliente;
-        public long? searchNroDocCliente { get { return _searchNroDocCliente; } set { _searchNroDocCliente = value; NotifyPropertyChanged("searchNroDocCliente"); } }
+        public String _searchNroDocCliente = "";
+        public String searchNroDocCliente { get { return _searchNroDocCliente; } set { _searchNroDocCliente = value; NotifyPropertyChanged("searchNroDocCliente"); } }
 
         public String _searchnombreCliente = "";
         public String searchnombreCliente { get { return _searchnombreCliente; } set { _searchnombreCliente = value; NotifyPropertyChanged("searchnombreCliente"); } }
@@ -130,9 +130,11 @@ namespace pe.edu.pucp.ferretin.viewmodel.MVentas
         {
             get
             {
-
-                _listaDevoluciones = MV_DevolucionService.buscarDevoluciones(searchNroDevolucion, searchNroDocumento, searchNroDocCliente, searchFechaInicio, searchFechaFin, searchVendedor);
-
+                if (searchNroDocCliente != "")
+                    _listaDevoluciones = MV_DevolucionService.buscarDevoluciones(searchNroDevolucion, searchNroDocumento, Convert.ToInt32(searchNroDocCliente), searchFechaInicio, searchFechaFin, searchVendedor);
+                else
+                    _listaDevoluciones = MV_DevolucionService.buscarDevoluciones(searchNroDevolucion, searchNroDocumento, null, searchFechaInicio, searchFechaFin, searchVendedor);
+                
                 return _listaDevoluciones;
             }
             set
@@ -419,9 +421,9 @@ namespace pe.edu.pucp.ferretin.viewmodel.MVentas
             Cliente buscado = null;
             try
             {
-                buscado = MV_ClienteService.obtenerClienteByNroDoc(searchNroDocCliente);
+                buscado = MV_ClienteService.obtenerClienteByNroDoc(Convert.ToInt32(searchNroDocCliente));
                 searchnombreCliente = buscado.nombreCompleto;
-                searchNroDocCliente = buscado.nroDoc;
+                searchNroDocCliente = Convert.ToString(buscado.nroDoc);
             }
             catch { }
 
@@ -429,7 +431,7 @@ namespace pe.edu.pucp.ferretin.viewmodel.MVentas
             {
                 MessageBox.Show("No se encontro ningún cliente con el número de documento proporcionado", "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
                 searchnombreCliente = "";
-                searchNroDocCliente = null;
+                searchNroDocCliente = "";
             }
             
             NotifyPropertyChanged("searchnombreCliente");
@@ -453,7 +455,7 @@ namespace pe.edu.pucp.ferretin.viewmodel.MVentas
                 case MessageBoxResult.OK:
                         this.searchNroDevolucion = "";
                         this.searchnombreCliente = "";
-                        this.searchNroDocCliente = null;
+                        this.searchNroDocCliente = "";
                         this.searchNroDocumento = null;
                         this.searchVendedor = "";
                         this.nombreVendedor = "";
@@ -555,7 +557,7 @@ namespace pe.edu.pucp.ferretin.viewmodel.MVentas
                             }
                             this.devolucionRegistrada = true;
                             this.noDevolucionRegistrada = false;
-                            listaDevoluciones = MV_DevolucionService.buscarDevoluciones(searchNroDevolucion, searchNroDocumento, searchNroDocCliente, searchFechaInicio, searchFechaFin, searchVendedor);
+                            listaDevoluciones = MV_DevolucionService.buscarDevoluciones(searchNroDevolucion, searchNroDocumento, Convert.ToInt32(searchNroDocCliente), searchFechaInicio, searchFechaFin, searchVendedor);
                             NotifyPropertyChanged("listaDevoluciones");
                             break;
                         case MessageBoxResult.Cancel:
@@ -575,7 +577,7 @@ namespace pe.edu.pucp.ferretin.viewmodel.MVentas
             {
                 this.searchNroDevolucion = "";
                 this.searchnombreCliente = "";
-                this.searchNroDocCliente = null;
+                this.searchNroDocCliente = "";
                 this.searchNroDocumento = null;
                 this.searchVendedor = "";
                 this.nombreVendedor = "";

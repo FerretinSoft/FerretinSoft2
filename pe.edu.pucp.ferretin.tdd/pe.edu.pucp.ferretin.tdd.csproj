@@ -52,6 +52,7 @@
     <Compile Include="MSeguridad\MS_AdministrarUsuariosTest.cs" />
     <Compile Include="MSeguridad\MS_ParametrosTest.cs" />
     <Compile Include="MVentas\MV_AdministrarClientesTest.cs" />
+    <Compile Include="MVentas\MV_AdministrarVentasTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

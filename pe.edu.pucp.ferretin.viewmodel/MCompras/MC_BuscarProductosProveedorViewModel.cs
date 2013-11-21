@@ -91,22 +91,12 @@ namespace pe.edu.pucp.ferretin.viewmodel.MCompras
                 {
                     
                     List<ProveedorProducto> listAux = listaProductosProveedor.ToList();
-                    for (int i = 0; i < listaProductosProveedor.Count(); i++)
+                    int cont = listaProductosProveedor.Count();
+                    for (int i = 0; i < cont; i++)
                     {
-                        //ProveedorProducto linea =null;
                         if (listAux[i].isSelected)
                         {
                             sequence.Add(listAux[i]);
-                            //linea.Producto = listAux[i].Producto;
-                            //linea.Proveedor = listAux[i].Proveedor;
-                            //linea.id = listAux[i].id;
-                            //linea.UnidadMedida = listAux[i].UnidadMedida;
-                            //linea.estado = listAux[i].estado;
-                            //linea.precio = listAux[i].precio;
-                            //linea.tiempoEntrega = listAux[i].tiempoEntrega;
-                            //linea.isSelected = listAux[i].isSelected;
-                            //linea = new ProveedorProducto() { Producto = listAux[i].Producto, Proveedor = listAux[i].Proveedor, id = listAux[i].id, UnidadMedida = listAux[i].UnidadMedida, estado = listAux[i].estado, precio = listAux[i].precio, tiempoEntrega = listAux[i].tiempoEntrega, isSelected = listAux[i].isSelected };
-                            //sequence.Add(linea);
                         }
                     }
                     

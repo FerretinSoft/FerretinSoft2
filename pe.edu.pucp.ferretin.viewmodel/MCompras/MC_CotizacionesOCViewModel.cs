@@ -17,6 +17,7 @@ namespace pe.edu.pucp.ferretin.viewmodel.MCompras
         public MC_CotizacionesOCViewModel()
         {
             _documentoCompra = new DocumentoCompra();
+            
         }
         #endregion
 
@@ -269,20 +270,6 @@ namespace pe.edu.pucp.ferretin.viewmodel.MCompras
 
         #region Valores de los controles - SEGUNDA PESTANA      
 
-        private IEnumerable<DocumentoCompraProducto> _listaProductosDC = null;
-        public IEnumerable<DocumentoCompraProducto> listaProductosDC
-        {
-            get
-            {
-                return _listaProductosDC;
-            }
-            set
-            {
-                _listaProductosDC = value;
-                NotifyPropertyChanged("listaProductosDC");
-            }
-        }
-
         public Usuario _usuarioIngreso = null;
         public Usuario usuarioIngreso
         {
@@ -377,6 +364,7 @@ namespace pe.edu.pucp.ferretin.viewmodel.MCompras
                 NotifyPropertyChanged("labelFechaDC2");
             }
         }
+
       
         #endregion
 
@@ -410,20 +398,20 @@ namespace pe.edu.pucp.ferretin.viewmodel.MCompras
                     case Tab.AGREGAR: 
                         detallesTabHeader = "Agregar"; 
                         documentoCompra = new DocumentoCompra(); 
-                        listaProductosDC = new List<DocumentoCompraProducto>(); 
+                        //listaProductosDC = new List<DocumentoCompraProducto>(); 
                         usuarioIngreso = MC_ComunService.usuarioL;
                         break;
 
                     case Tab.MODIFICAR: 
                         detallesTabHeader = "Modificar"; 
-                        listaProductosDC = MC_DocumentoCompraService.buscarProductosDC(documentoCompra).ToList(); 
+                        //listaProductosDC = MC_DocumentoCompraService.buscarProductosDC(documentoCompra).ToList(); 
                         usuarioIngreso = documentoCompra.Usuario1;
                         usuarioAprobacion = documentoCompra.Usuario;
                         break;
 
                     case Tab.DETALLES: 
                         detallesTabHeader = "Detalles"; 
-                        listaProductosDC = MC_DocumentoCompraService.buscarProductosDC(documentoCompra).ToList(); 
+                        //listaProductosDC = MC_DocumentoCompraService.buscarProductosDC(documentoCompra).ToList(); 
                         usuarioIngreso = documentoCompra.Usuario1;
                         usuarioAprobacion = documentoCompra.Usuario;
                         break;
@@ -431,7 +419,7 @@ namespace pe.edu.pucp.ferretin.viewmodel.MCompras
                     default: 
                         detallesTabHeader = "Agregar"; 
                         documentoCompra = new DocumentoCompra(); 
-                        listaProductosDC = new List<DocumentoCompraProducto>(); 
+                        //listaProductosDC = new List<DocumentoCompraProducto>(); 
                         break;
                 }
                 NotifyPropertyChanged("statusTab");
@@ -605,9 +593,8 @@ namespace pe.edu.pucp.ferretin.viewmodel.MCompras
             try
             {                
                 prepararLabels(1);
-                this.proveedorNombre = "";
                 tipoDC = 1;
-                this.statusTab = Tab.AGREGAR;
+                statusTab = Tab.AGREGAR;
             }
             catch (Exception e)
             {
@@ -620,9 +607,8 @@ namespace pe.edu.pucp.ferretin.viewmodel.MCompras
             try
             {                
                 prepararLabels(2);
-                this.proveedorNombre = "";
                 tipoDC = 2;
-                this.statusTab = Tab.AGREGAR;
+                statusTab = Tab.AGREGAR;
             }
             catch (Exception e)
             {
@@ -633,7 +619,7 @@ namespace pe.edu.pucp.ferretin.viewmodel.MCompras
         public void aprobarDocumento(Object id)
         {
             try
-            {               
+            {
                 if (documentoCompra.tipo == 1)//ES COTIZACION
                 {
                     int i;
@@ -655,15 +641,16 @@ namespace pe.edu.pucp.ferretin.viewmodel.MCompras
                         };
                         ocGenerada.DocumentoCompraProducto.Add(producto);
                     }
-                    usuarioAprobacion = MC_ComunService.usuarioL;
-                    this.documentoCompra.Usuario = usuarioAprobacion;
-                    this.documentoCompra.DocumentoCompraEstado = MC_DocumentoCompraService.obtenerEstado(3);
-                    MC_DocumentoCompraService.enviarCambios();
+                    documentoCompra.Usuario = MC_ComunService.usuarioL;
+                    documentoCompra.DocumentoCompraEstado = MC_DocumentoCompraService.obtenerEstado(3);
                     ComunService.idVentana(36);
-                    MC_DocumentoCompraService.insertarDocumentoCompra(ocGenerada);                   
-                }                   
-                else //ES ORDEN DE COMPRA
+                    MC_DocumentoCompraService.insertarDocumentoCompra(ocGenerada);
+                }
+                else//ES ORDEN DE COMPRA
+                {
                     documentoCompra.DocumentoCompraEstado = MC_DocumentoCompraService.obtenerEstado(6);
+                    documentoCompra.Usuario = MC_ComunService.usuarioL;
+                }                   
 
                 ComunService.idVentana(37);
 
@@ -700,16 +687,11 @@ namespace pe.edu.pucp.ferretin.viewmodel.MCompras
             {
                 cont = documentoCompra.DocumentoCompraProducto.Count();
                 subTotal = 0;
-                List<DocumentoCompraProducto> listAux = listaProductosDC.ToList();
                 for (i = 0; i < cont; i++)
-                {
-                    documentoCompra.DocumentoCompraProducto[i].montoParcial = documentoCompra.DocumentoCompraProducto[i].cantidad * documentoCompra.DocumentoCompraProducto[i].precioUnit;
-                    documentoCompra.DocumentoCompraProducto[i].cantidadRestante = documentoCompra.DocumentoCompraProducto[i].cantidad;
                     subTotal = subTotal + documentoCompra.DocumentoCompraProducto[i].montoParcial;
-                }
-                documentoCompra.subTotal = subTotal;
-                documentoCompra.igv = subTotal * (decimal)MS_SharedService.obtenerIGV()/(100);
-                documentoCompra.total = documentoCompra.subTotal + documentoCompra.igv;
+                documentoCompra.total = subTotal;
+                documentoCompra.subTotal = documentoCompra.total / (((decimal)MS_SharedService.obtenerIGV() / (100)) + 1);
+                documentoCompra.igv = documentoCompra.total - documentoCompra.subTotal;
                 if (documentoCompra.tipo == 2 && documentoCompra.DocumentoCompraEstado.nombre.Equals("Emitida") && documentoCompra.nroFactura != null && documentoCompra.fechaVencimiento != null)
                     documentoCompra.DocumentoCompraEstado = MC_DocumentoCompraService.obtenerEstado(7);
 
@@ -732,18 +714,13 @@ namespace pe.edu.pucp.ferretin.viewmodel.MCompras
             else
             {
                 prepararDC(tipoDC);
-                cont = listaProductosDC.Count();
+                cont = documentoCompra.DocumentoCompraProducto.Count();
                 subTotal = 0;
-                List<DocumentoCompraProducto> listAux = listaProductosDC.ToList();
-                for (i = 0; i < listaProductosDC.Count(); i++)
-                {
-                    DocumentoCompraProducto guiaDC = new DocumentoCompraProducto() { DocumentoCompra = documentoCompra, Producto = listAux[i].Producto, UnidadMedida = listAux[i].Producto.UnidadMedida, precioUnit = listAux[i].precioUnit, estado = listAux[i].estado, cantidad = listAux[i].cantidad, cantidadRestante = listAux[i].cantidad, montoParcial = listAux[i].cantidad * listAux[i].precioUnit };
-                    subTotal = subTotal + guiaDC.montoParcial;
-                    documentoCompra.DocumentoCompraProducto.Add(guiaDC);
-                }
-                documentoCompra.subTotal = subTotal;
-                documentoCompra.igv = subTotal * (decimal)MS_SharedService.obtenerIGV()/(100);
-                documentoCompra.total = documentoCompra.subTotal + documentoCompra.igv;
+                for (i = 0; i < cont; i++)
+                    subTotal = subTotal + documentoCompra.DocumentoCompraProducto[i].montoParcial;
+                documentoCompra.total = subTotal;
+                documentoCompra.subTotal = documentoCompra.total / (((decimal)MS_SharedService.obtenerIGV() / (100)) + 1);
+                documentoCompra.igv = documentoCompra.total - documentoCompra.subTotal;
                 documentoCompra.codigo = MC_DocumentoCompraService.generarCodigoDC(documentoCompra.tipo);
                 ComunService.idVentana(36);
                 if (!MC_DocumentoCompraService.insertarDocumentoCompra(documentoCompra))
@@ -783,6 +760,8 @@ namespace pe.edu.pucp.ferretin.viewmodel.MCompras
             {
                 buscado = MC_ProveedorService.buscarProveedorByName(this._proveedorNombre);
                 documentoCompra.Proveedor = buscado;
+                proveedorNombre = "";
+                NotifyPropertyChanged("proveedorNombre");
                 NotifyPropertyChanged("documentoCompra");
             }
             catch { }
@@ -854,6 +833,11 @@ namespace pe.edu.pucp.ferretin.viewmodel.MCompras
                 documentoCompra.DocumentoCompraEstado = MC_DocumentoCompraService.obtenerEstado(5);
                 documentoCompra.Usuario1 = usuarioIngreso;
             }
+        }
+
+        public void actualizar()
+        {
+            NotifyPropertyChanged("documentoCompra");
         }
 
         #endregion 

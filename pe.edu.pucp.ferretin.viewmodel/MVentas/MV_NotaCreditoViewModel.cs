@@ -38,8 +38,8 @@ namespace pe.edu.pucp.ferretin.viewmodel.MVentas
         public String _searchNroNotaCredito = "";
         public String searchNroNotaCredito { get { return _searchNroNotaCredito; } set { _searchNroNotaCredito = value; NotifyPropertyChanged("searchNroNotaCredito"); } }
 
-        public long? _searchNroDocCliente;
-        public long? searchNroDocCliente { get { return _searchNroDocCliente; } set { _searchNroDocCliente = value; NotifyPropertyChanged("searchNroDocCliente"); } }
+        public String _searchNroDocCliente = "";
+        public String searchNroDocCliente { get { return _searchNroDocCliente; } set { _searchNroDocCliente = value; NotifyPropertyChanged("searchNroDocCliente"); } }
 
         public DateTime _searchFechaInicio = DateTime.Parse("10/09/2013");
         public DateTime searchFechaInicio { get { return _searchFechaInicio; } set { _searchFechaInicio = value; NotifyPropertyChanged("searchFechaInicio"); } }
@@ -88,9 +88,11 @@ namespace pe.edu.pucp.ferretin.viewmodel.MVentas
         {
             get
             {
-
-                _listaNotasDeCredito = MV_NotaCreditoService.buscarNotaCredito(searchNroNotaCredito, searchNroDocCliente, searchFechaInicio, searchFechaFin, searchVendedor);
-
+                if (searchNroDocCliente != "")
+                _listaNotasDeCredito = MV_NotaCreditoService.buscarNotaCredito(searchNroNotaCredito, Convert.ToInt32(searchNroDocCliente), searchFechaInicio, searchFechaFin, searchVendedor);
+                else
+                    _listaNotasDeCredito = MV_NotaCreditoService.buscarNotaCredito(searchNroNotaCredito, null, searchFechaInicio, searchFechaFin, searchVendedor);
+                
                 return _listaNotasDeCredito;
             }
             set
@@ -211,7 +213,7 @@ namespace pe.edu.pucp.ferretin.viewmodel.MVentas
             {
                 this.searchVendedor = "";
                 nombreVendedor = "";
-                MessageBox.Show("No se encontro ningún vendedor con el número de documento proporcionado", "No se encontro", MessageBoxButton.OK, MessageBoxImage.Question);
+                MessageBox.Show("No se encontro ningún vendedor con el número de documento proporcionado", "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
             }
 
         }
@@ -224,7 +226,7 @@ namespace pe.edu.pucp.ferretin.viewmodel.MVentas
                 this.searchVendedor = "";
                 this.nombreCliente = "";
                 this.nombreVendedor = "";
-                this.searchNroDocCliente = null;
+                this.searchNroDocCliente = "";
 
                 this.notaCredito = MV_NotaCreditoService.obtenerNotaCreditoById((long)id);
                 this.listaProductos = MV_DevolucionService.obtenerProductosbyIdDevolucion((long)notaCredito.id_devolucion);
@@ -242,20 +244,20 @@ namespace pe.edu.pucp.ferretin.viewmodel.MVentas
             Cliente buscado = null;
             try
             {
-                buscado = MV_ClienteService.obtenerClienteByNroDoc(searchNroDocCliente);
+                buscado = MV_ClienteService.obtenerClienteByNroDoc(Convert.ToInt32(searchNroDocCliente));
             }
             catch { }
 
             if (buscado == null)
             {
-                MessageBox.Show("No se encontro ningún Cliente con el número de documento proporcionado", "No se encontro", MessageBoxButton.OK, MessageBoxImage.Question);
+                MessageBox.Show("No se encontro ningún Cliente con el número de documento proporcionado", "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
                 nombreCliente = "";
-                searchNroDocCliente = null;
+                searchNroDocCliente = "";
             }
             else
             {
                 nombreCliente = buscado.nombreCompleto;
-                searchNroDocCliente = buscado.nroDoc;
+                searchNroDocCliente = Convert.ToString(buscado.nroDoc);
             }
             NotifyPropertyChanged("nombreCliente");
             NotifyPropertyChanged("searchNroDocCliente");

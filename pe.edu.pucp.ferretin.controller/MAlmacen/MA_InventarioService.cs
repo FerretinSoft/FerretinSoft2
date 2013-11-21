@@ -198,7 +198,7 @@ namespace pe.edu.pucp.ferretin.controller.MAlmacen
                     else
                     {
                         //Caso: Categoría seleccionada
-                        if (searchCategoria.nombre != "Todos" && searchAlmacen == null && nombre1 == "")
+                        if (searchCategoria.nombre != "Todos")
                         {
                             listaProducto = from p in db.Producto
                                             from pc in db.ProductoCategoria

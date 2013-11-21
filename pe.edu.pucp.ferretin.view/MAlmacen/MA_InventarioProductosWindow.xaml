@@ -3,7 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:viewmodel="clr-namespace:pe.edu.pucp.ferretin.viewmodel.MAlmacen;assembly=pe.edu.pucp.ferretin.viewmodel"
         xmlns:helper="clr-namespace:pe.edu.pucp.ferretin.viewmodel.Helper;assembly=pe.edu.pucp.ferretin.viewmodel"
-        Title="Inventario de Productos" Height="487" Width="704" ResizeMode="CanMinimize" WindowStartupLocation="CenterScreen" Icon="/pe.edu.pucp.ferretin.view;component/Resources/ferretin_ico.ico">
+        Title="Inventario de Productos" Height="596" Width="704" ResizeMode="CanMinimize" WindowStartupLocation="CenterScreen" Icon="/pe.edu.pucp.ferretin.view;component/Resources/ferretin_ico.ico">
     <Window.Resources>
         <viewmodel:MA_InventarioProductosViewModel x:Key="MA_InventarioProductosViewModel"/>
         <ControlTemplate x:Key="validationTemplate">
@@ -45,7 +45,7 @@
 
                     <DataGrid ItemsSource="{Binding Path=listaProductoAlmacen}" Margin="5,5.22,5.068,5.298" Grid.Row="2" IsManipulationEnabled="False" IsReadOnly="True" CanUserSortColumns="True" AutoGenerateColumns="False" CanUserAddRows="False" CanUserDeleteRows="False" Grid.ColumnSpan="2">
                         <DataGrid.Columns>
-                            <DataGridTemplateColumn Width="2.5*" Header="Cód.Producto">
+                            <DataGridTemplateColumn Width="1.5*" Header="Cód.Producto">
                                 <DataGridTemplateColumn.CellTemplate>
                                     <DataTemplate>
                                         <TextBlock>
@@ -61,11 +61,11 @@
 
 
 
-                            <DataGridTextColumn Width="3*" Binding="{Binding Path=Producto.nombre}"  Header="Nombre"/>
+                            <DataGridTextColumn Width="2*" Binding="{Binding Path=Producto.nombre}"  Header="Nombre"/>
                             <DataGridTextColumn Width="2*"  Binding="{Binding Path=Producto.cadenaCategoria}"  Header="Categorías"/>
                             <DataGridTextColumn Width="1.2*" Binding="{Binding Path=stock}" Header="Stock"/>
                             <DataGridTextColumn Width="1.2*" Binding="{Binding Path=stockMin}" Header="Stock Min."/>
-                            <DataGridTextColumn Width="2*" Binding="{Binding Path=Tienda.nombre}" Header="Almacen"/>
+                            <DataGridTextColumn Width="2.5*" Binding="{Binding Path=Tienda.nombre}" Header="Almacen"/>
 
                         </DataGrid.Columns>
                     </DataGrid>
@@ -88,28 +88,23 @@
                         <ColumnDefinition Width="106*"/>
                         <ColumnDefinition Width="115*"></ColumnDefinition>
                     </Grid.ColumnDefinitions>
-                    <Button  Width="100" Margin="10,10,0,0"  Grid.ColumnSpan="5"  HorizontalAlignment="Left" Height="100" VerticalAlignment="Top">
-                        <Image Source="{Binding productoImagen,Mode=OneWay,UpdateSourceTrigger=PropertyChanged}" Stretch="Fill">
-                        </Image>
-                    </Button>
-                    
-                    <Label Content="Código:" HorizontalAlignment="Left" Margin="88,41,0,0" VerticalAlignment="Top" Grid.Column="2"/>
-                    <Label Content="Categorías:" HorizontalAlignment="Left" Margin="88,72,0,0" VerticalAlignment="Top" Grid.Column="2"/>
-                    <TextBox Text="{Binding Path=producto.codigo, Mode=TwoWay}" HorizontalAlignment="Left" Height="23" Margin="157,44,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="151" IsEnabled="False" Grid.Column="2"/>
-                    <Label Content="Nombre:" HorizontalAlignment="Left" Margin="10,150,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.464,1.231" Grid.ColumnSpan="3"/>
-                    <TextBox Text="{Binding Path=producto.nombre, Mode=TwoWay}" HorizontalAlignment="Left" Height="23" Margin="62,154,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="246" Grid.Column="2" IsEnabled="False"/>
-                    <Label Content="Descripción:" HorizontalAlignment="Left" Margin="10,181,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.464,1.231" Grid.ColumnSpan="3"/>
-                    <TextBox Text="{Binding Path=producto.descripcion, Mode=TwoWay}" HorizontalAlignment="Left" Height="53" Margin="62,185,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="246" Grid.Column="2" IsEnabled="False"/>
-                    <Label Content="Material Secundario:" HorizontalAlignment="Left" Margin="10,278,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.464,1.231" Grid.ColumnSpan="3"/>
-                    <Label Content="Material Base:" HorizontalAlignment="Left" Margin="10,243,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.464,1.231" Grid.ColumnSpan="3"/>
-                    <Label Content="Producto Activo:" HorizontalAlignment="Left" Margin="10,44,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.464,1.231" Grid.Column="3"/>
-                    <RadioButton Content="Sí" Grid.Column="3" HorizontalAlignment="Left" Margin="128,50,0,0" VerticalAlignment="Top" IsChecked="True" IsEnabled="False"/>
-                    <RadioButton Content="No" Grid.Column="3" HorizontalAlignment="Left" Margin="217,50,0,0" VerticalAlignment="Top" IsEnabled="False"/>
-                    <Label Content="Precio Lista:" HorizontalAlignment="Left" Margin="10,75,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.464,1.231" Grid.Column="3"/>
-                    <Label Content="Puntos:" HorizontalAlignment="Left" Margin="10,141,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.464,1.231" Grid.Column="3"/>
-                    <TextBox Text="{Binding Path=productoAlmacenSeleccionado.puntos, Mode=TwoWay}" HorizontalAlignment="Left" Height="23" Margin="128,141,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="207" Grid.Column="3" IsEnabled="False"/>
-                    <Label Content="Descuento:" HorizontalAlignment="Left" Margin="10,106,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.464,1.231" Grid.Column="3"/>
-                    <Label Content="Colores:" HorizontalAlignment="Left" Margin="10,318,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.464,1.231" Grid.ColumnSpan="3"/>
+
+                    <Label Content="Código:" HorizontalAlignment="Left" Margin="0,13,0,0" VerticalAlignment="Top" Grid.Column="1" Grid.ColumnSpan="2"/>
+                    <Label Content="Categorías:" HorizontalAlignment="Left" Margin="0,50,0,0" VerticalAlignment="Top" Grid.ColumnSpan="2" Grid.Column="1"/>
+                    <TextBox Text="{Binding Path=producto.codigo, Mode=TwoWay}" HorizontalAlignment="Left" Height="23" Margin="84,16,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="224" IsEnabled="False" Grid.Column="2"/>
+                    <Label Content="Nombre:" HorizontalAlignment="Left" Margin="0,128,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.464,1.231" Grid.Column="1" Grid.ColumnSpan="2"/>
+                    <TextBox Text="{Binding Path=producto.nombre, Mode=TwoWay}" HorizontalAlignment="Left" Height="23" Margin="84,131,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="224" Grid.Column="2" IsEnabled="False"/>
+                    <Label Content="Descripción:" HorizontalAlignment="Left" Margin="0,168,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.464,1.231" Grid.ColumnSpan="2" Grid.Column="1"/>
+                    <TextBox Text="{Binding Path=producto.descripcion, Mode=TwoWay}" HorizontalAlignment="Left" Height="57" Margin="84,168,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="224" Grid.Column="2" IsEnabled="False"/>
+                    <Label Content="Mat. Sec:" HorizontalAlignment="Left" Margin="0,275,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.464,1.231" Grid.ColumnSpan="2" Grid.Column="1"/>
+                    <Label Content="Material Base:" HorizontalAlignment="Left" Margin="0,235,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.464,1.231" Grid.ColumnSpan="2" Grid.Column="1"/>
+                    <Label Content="Producto Activo:" HorizontalAlignment="Left" Margin="10,50,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.464,1.231" Grid.Column="3"/>
+                    <RadioButton Content="Sí" Grid.Column="3" HorizontalAlignment="Left" Margin="129,53,0,0" VerticalAlignment="Top" IsChecked="True" IsEnabled="False"/>
+                    <RadioButton Content="No" Grid.Column="3" HorizontalAlignment="Left" Margin="218,53,0,0" VerticalAlignment="Top" IsEnabled="False"/>
+                    <Label Content="Precio Lista:" HorizontalAlignment="Left" Margin="10,87,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.464,1.231" Grid.Column="3"/>
+                    <Label Content="Puntos:" HorizontalAlignment="Left" Margin="10,168,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.464,1.231" Grid.Column="3"/>
+                    <TextBox Text="{Binding Path=productoAlmacenSeleccionado.puntos, Mode=TwoWay}" HorizontalAlignment="Left" Height="23" Margin="127,168,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="207" Grid.Column="3" IsEnabled="False"/>
+                    <Label Content="Descuento:" HorizontalAlignment="Left" Margin="10,131,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.464,1.231" Grid.Column="3"/>
 
                     <ItemsControl ItemsSource="{Binding listaColores}" Margin="62,318,10,10" Grid.Column="2">
                         <ItemsControl.ItemTemplate>
@@ -124,29 +119,28 @@
                     <!--<Button Content="" Grid.Column="2" HorizontalAlignment="Left" Margin="105,318,0,0" VerticalAlignment="Top" Width="32" Height="32" Background="White"/>
                     <Button Content="" Grid.Column="2" HorizontalAlignment="Left" Margin="179,318,0,0" VerticalAlignment="Top" Width="32" Height="32" Background="#FF815555"/>
                     <Button Content="" Grid.Column="2" HorizontalAlignment="Left" Margin="142,318,0,0" VerticalAlignment="Top" Width="32" Height="32" Background="Black"/>-->
-                    <TextBox Text="{Binding Path=producto.precioLista, Mode=TwoWay,  ValidatesOnExceptions=true, NotifyOnValidationError=true}" HorizontalAlignment="Left" Height="23" Margin="128,78,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="207" Grid.Column="3" IsEnabled="False"/>
-                    <TextBox Text="{Binding Path=productoAlmacenSeleccionado.descuento, Mode=TwoWay,  ValidatesOnExceptions=true, NotifyOnValidationError=true}" HorizontalAlignment="Left" Height="23" Margin="128,109,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="207" Grid.Column="3" IsEnabled="False"/>
-                    <Label Content="Stock Mínimo:" HorizontalAlignment="Left" Margin="10,207,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.464,1.231" Grid.Column="3"/>
-                    <Label Content="Stock Actual:" HorizontalAlignment="Left" Margin="10,173,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.464,1.231" Grid.Column="3"/>
-                    <TextBox Text="{Binding Path=productoAlmacenSeleccionado.stock, Mode=TwoWay,  ValidatesOnExceptions=true, NotifyOnValidationError=true}" HorizontalAlignment="Left" Height="23" Margin="128,175,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="207" Grid.Column="3" IsEnabled="False"/>
-                    <TextBox Text="{Binding Path=productoAlmacenSeleccionado.stockMin, Mode=TwoWay,  ValidatesOnExceptions=true, NotifyOnValidationError=true}" HorizontalAlignment="Left" Height="23" Margin="128,206,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="207" Grid.Column="3" IsEnabled="False"/>
-                    <Label Content="Últimos movimientos:" HorizontalAlignment="Left" Margin="10,247,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.464,1.231" Grid.Column="3"/>
-                    <DataGrid ItemsSource="{Binding Path=listaMovimientos}"  AutoGenerateColumns="False" Grid.Column="
-                              3" Margin="10,0,10,10" VerticalAlignment="Bottom" Height="136">
+                    <TextBox Text="{Binding Path=producto.precioLista, Mode=TwoWay,  ValidatesOnExceptions=true, NotifyOnValidationError=true}" HorizontalAlignment="Left" Height="23" Margin="127,93,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="207" Grid.Column="3" IsEnabled="False"/>
+                    <TextBox Text="{Binding Path=productoAlmacenSeleccionado.descuento, Mode=TwoWay,  ValidatesOnExceptions=true, NotifyOnValidationError=true}" HorizontalAlignment="Left" Height="23" Margin="127,134,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="207" Grid.Column="3" IsEnabled="False"/>
+                    <Label Content="Stock Mínimo:" HorizontalAlignment="Left" Margin="10,235,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.464,1.231" Grid.Column="3"/>
+                    <Label Content="Stock Actual:" HorizontalAlignment="Left" Margin="10,199,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.464,1.231" Grid.Column="3"/>
+                    <TextBox Text="{Binding Path=productoAlmacenSeleccionado.stock, Mode=TwoWay,  ValidatesOnExceptions=true, NotifyOnValidationError=true}" HorizontalAlignment="Left" Height="23" Margin="127,202,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="207" Grid.Column="3" IsEnabled="False"/>
+                    <TextBox Text="{Binding Path=productoAlmacenSeleccionado.stockMin, Mode=TwoWay,  ValidatesOnExceptions=true, NotifyOnValidationError=true}" HorizontalAlignment="Left" Height="23" Margin="128,238,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="207" Grid.Column="3" IsEnabled="False"/>
+                    <Label Content="Últimos movimientos:" HorizontalAlignment="Left" Margin="0,326,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.464,1.231" Grid.Column="1" Grid.ColumnSpan="2"/>
+                    <DataGrid ItemsSource="{Binding Path=listaMovimientos}"  AutoGenerateColumns="False" Grid.Column="1" Margin="0,0,19,10" VerticalAlignment="Bottom" Height="169" Grid.ColumnSpan="3">
                         <DataGrid.Columns>
-                            <DataGridTextColumn Width="2*" Binding="{Binding Path=fecha}" IsReadOnly="true" ClipboardContentBinding="{x:Null}" Header="Fecha"/>
-                            <DataGridTextColumn Width="2*" Binding="{Binding Path=mp.cantidad}" IsReadOnly="true" ClipboardContentBinding="{x:Null}" Header="Cantidad"/>
+                            <DataGridTextColumn Width="1*" Binding="{Binding Path=convertDate}" IsReadOnly="true" ClipboardContentBinding="{x:Null}" Header="Fecha"/>
+                            <DataGridTextColumn Width="1.5*" Binding="{Binding Path=mp.cantidad}" IsReadOnly="true" ClipboardContentBinding="{x:Null}" Header="Cantidad"/>
                             <DataGridTextColumn Width="3*" Binding="{Binding Path=MovimientoTipo.nombre}" IsReadOnly="true" ClipboardContentBinding="{x:Null}" Header="Concepto"/>
-                            <DataGridTextColumn Width="3*" Binding="{Binding Path=MovimientoTipo.categoria}" IsReadOnly="true" ClipboardContentBinding="{x:Null}" Header="Categoría"/>
+                            <DataGridTextColumn Width="1*" Binding="{Binding Path=MovimientoTipo.categoria}" IsReadOnly="true" ClipboardContentBinding="{x:Null}" Header="Categoría"/>
                         </DataGrid.Columns>
                     </DataGrid>
-                    <Label Content="Unidad de medida:" HorizontalAlignment="Left" Margin="88,103,0,0" VerticalAlignment="Top" Grid.Column="2"/>
+                    <Label Content="Unid. Medidas:" HorizontalAlignment="Left" Margin="0,90,0,0" VerticalAlignment="Top" Grid.Column="1" Grid.ColumnSpan="2"/>
                     <Label Content="Tienda:" HorizontalAlignment="Left" Margin="10,13,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.464,1.231" Grid.Column="3"/>
-                    <TextBox Text="{Binding Path=producto.cadenaCategoria, Mode=TwoWay}" HorizontalAlignment="Left" Height="23" Margin="157,76,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="151" Grid.Column="2" IsEnabled="False"/>
-                    <TextBox Text="{Binding Path=producto.Material.nombre, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" HorizontalAlignment="Left" Height="23" Margin="119,246,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="189" Grid.Column="2" IsEnabled="False"/>
-                    <TextBox Text="{Binding Path=producto.Material1.nombre, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" HorizontalAlignment="Left" Height="23" Margin="119,278,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="189" Grid.Column="2" IsEnabled="False"/>
-                    <TextBox Text="{Binding Path=productoAlmacenSeleccionado.Tienda.nombre, Mode=TwoWay}" HorizontalAlignment="Left" Height="23" Margin="128,13,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="207" IsEnabled="False" Grid.Column="3"/>
-                    <TextBox Text="{Binding Path=producto.UnidadMedida.abreviatura, Mode=TwoWay}" HorizontalAlignment="Left" Height="23" Margin="215,106,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="93" IsEnabled="False" Grid.Column="2"/>
+                    <TextBox Text="{Binding Path=producto.cadenaCategoria, Mode=TwoWay}" HorizontalAlignment="Left" Height="23" Margin="84,53,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="224" Grid.Column="2" IsEnabled="False"/>
+                    <TextBox Text="{Binding Path=producto.Material.nombre, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" HorizontalAlignment="Left" Height="23" Margin="84,238,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="224" Grid.Column="2" IsEnabled="False"/>
+                    <TextBox Text="{Binding Path=producto.Material1.nombre, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" HorizontalAlignment="Left" Height="23" Margin="84,275,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="224" Grid.Column="2" IsEnabled="False"/>
+                    <TextBox Text="{Binding Path=productoAlmacenSeleccionado.Tienda.nombre, Mode=TwoWay}" HorizontalAlignment="Left" Height="23" Margin="128,16,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="207" IsEnabled="False" Grid.Column="3"/>
+                    <TextBox Text="{Binding Path=producto.UnidadMedida.abreviatura, Mode=TwoWay}" HorizontalAlignment="Left" Height="23" Margin="84,93,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="224" IsEnabled="False" Grid.Column="2"/>
                 </Grid>
             </TabItem>
         </TabControl>
