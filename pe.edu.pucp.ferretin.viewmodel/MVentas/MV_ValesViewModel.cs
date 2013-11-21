@@ -245,7 +245,7 @@ namespace pe.edu.pucp.ferretin.viewmodel.MVentas
             {
                 searchNroDocCliente = null;
                 nombreCliente = "";
-                MessageBox.Show("No se encontro ningún cliente con el número de documento proporcionado", "Error", MessageBoxButton.OK, MessageBoxImage.Question);
+                MessageBox.Show("No se encontro ningún cliente con el número de documento proporcionado", "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
                 loteVale.Cliente = buscado;
             }
 
@@ -285,7 +285,7 @@ namespace pe.edu.pucp.ferretin.viewmodel.MVentas
             ComunService.idVentana(50);
             if (!MV_ValeService.insertarLoteVale(loteVale))
             {
-                MessageBox.Show("No se pudo agregar el nuevo lote de vales", "Error");
+                MessageBox.Show("No se pudo agregar el nuevo lote de vales", "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
             }
             else
             {

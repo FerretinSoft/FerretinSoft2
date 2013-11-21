@@ -236,7 +236,7 @@ namespace pe.edu.pucp.ferretin.viewmodel.MVentas
             if (buscado == null)
             {
                 searchVendedor = "";
-                MessageBox.Show("No se encontro ningún vendedor con el número de documento proporcionado", "No se encontro", MessageBoxButton.OK, MessageBoxImage.Question);
+                MessageBox.Show("No se encontro ningún vendedor con el número de documento proporcionado", "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
             }
 
         }
@@ -272,7 +272,7 @@ namespace pe.edu.pucp.ferretin.viewmodel.MVentas
 
             if (buscado == null)
             {
-                MessageBox.Show("No se encontro ningún Cliente con el número de documento proporcionado", "No se encontro", MessageBoxButton.OK, MessageBoxImage.Question);
+                MessageBox.Show("No se encontro ningún cliente con el número de documento proporcionado", "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
                 nombreCliente = "";
                 searchNroDocCliente=null;
             }
