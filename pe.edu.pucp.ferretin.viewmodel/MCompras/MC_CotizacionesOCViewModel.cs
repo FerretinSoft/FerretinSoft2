@@ -718,16 +718,16 @@ namespace pe.edu.pucp.ferretin.viewmodel.MCompras
                     if (!MC_DocumentoCompraService.enviarCambios())
                     {
                         if (documentoCompra.tipo == 1)//ES COTIZACION
-                            MessageBox.Show("La Cotizacion no se pudo aprobar");
+                            MessageBox.Show("No se pudo generar la Orden de Compra", "Orden de Compra", MessageBoxButton.OK, MessageBoxImage.Error);
                         else
-                            MessageBox.Show("La Orden de Compra no se pudo aprobar");
+                            MessageBox.Show("La Orden de Compra no se pudo aprobar", "Orden de Compra", MessageBoxButton.OK, MessageBoxImage.Error);
                     }
                     else
                     {
                         if (documentoCompra.tipo == 1)//ES COTIZACION
-                            MessageBox.Show("La Cotizacion se aprobo con exito");
+                            MessageBox.Show("Se genero la Orden de Compra con exito", "Orden de Compra", MessageBoxButton.OK, MessageBoxImage.Information);
                         else
-                            MessageBox.Show("La Orden de Compra se aprobo con exito");
+                            MessageBox.Show("La Orden de Compra se aprobo con exito", "Orden de Compra", MessageBoxButton.OK, MessageBoxImage.Information);
                     }
 
                     NotifyPropertyChanged("listaDocumentosCompra");
@@ -760,20 +760,24 @@ namespace pe.edu.pucp.ferretin.viewmodel.MCompras
                 if (documentoCompra.tipo == 2 && documentoCompra.DocumentoCompraEstado.nombre.Equals("Emitida") && documentoCompra.nroFactura != null && documentoCompra.fechaVencimiento != null)
                     documentoCompra.DocumentoCompraEstado = MC_DocumentoCompraService.obtenerEstado(7);
 
-                ComunService.idVentana(37);
+                if(documentoCompra.tipo == 1)
+                    ComunService.idVentana(55);
+                else
+                    ComunService.idVentana(34);
+
                 if (!MC_DocumentoCompraService.enviarCambios())
                 {
                     if (documentoCompra.tipo == 1)//ES COTIZACION
-                        MessageBox.Show("La Cotizacion no se pudo actualizar");
+                        MessageBox.Show("La Cotizacion no se pudo actualizar", "Cotizacion", MessageBoxButton.OK, MessageBoxImage.Error);
                     else
-                        MessageBox.Show("La Orden de Compra no se pudo actualizar");
+                        MessageBox.Show("La Orden de Compra no se pudo actualizar", "Orden de Compra", MessageBoxButton.OK, MessageBoxImage.Error);
                 }
                 else
                 {
                     if (documentoCompra.tipo == 1)//ES COTIZACION
-                        MessageBox.Show("La Cotizacion se guardo con exito");
+                        MessageBox.Show("La Cotizacion se guardo con exito", "Cotizacion", MessageBoxButton.OK, MessageBoxImage.Information);
                     else
-                        MessageBox.Show("La Orden de Compra se guardo con exito");
+                        MessageBox.Show("La Orden de Compra se guardo con exito", "Orden de Compra", MessageBoxButton.OK, MessageBoxImage.Information);
                 }
             }
             else
@@ -791,20 +795,25 @@ namespace pe.edu.pucp.ferretin.viewmodel.MCompras
                 documentoCompra.subTotal = documentoCompra.total / (((decimal)MS_SharedService.obtenerIGV() / (100)) + 1);
                 documentoCompra.igv = documentoCompra.total - documentoCompra.subTotal;
                 documentoCompra.codigo = MC_DocumentoCompraService.generarCodigoDC(documentoCompra.tipo);
-                ComunService.idVentana(36);
+
+                if (documentoCompra.tipo == 1)
+                    ComunService.idVentana(54);
+                else
+                    ComunService.idVentana(33);
+
                 if (!MC_DocumentoCompraService.insertarDocumentoCompra(documentoCompra))
                 {
                     if (documentoCompra.tipo == 1)//ES COTIZACION
-                        MessageBox.Show("La Cotizacion no se pudo agregar");
+                        MessageBox.Show("La Cotizacion no se pudo agregar", "Cotizacion", MessageBoxButton.OK, MessageBoxImage.Error);
                     else
-                        MessageBox.Show("La Orden de Compra no se pudo agregar");
+                        MessageBox.Show("La Orden de Compra no se pudo agregar", "Orden de Compra", MessageBoxButton.OK, MessageBoxImage.Error);
                 }
                 else
                 {
                     if(documentoCompra.tipo == 1)//ES COTIZACION
-                        MessageBox.Show("La Cotizacion se agrego con exito");
+                        MessageBox.Show("La Cotizacion se agrego con exito", "Cotizacion", MessageBoxButton.OK, MessageBoxImage.Information);
                     else
-                        MessageBox.Show("La Orden de Compra se agrego con exito");
+                        MessageBox.Show("La Orden de Compra se agrego con exito", "Orden de Compra", MessageBoxButton.OK, MessageBoxImage.Information);
                 }
             }
             NotifyPropertyChanged("listaDocumentosCompra");
@@ -837,7 +846,7 @@ namespace pe.edu.pucp.ferretin.viewmodel.MCompras
 
             if (buscado == null)
             {
-                MessageBox.Show("No se encontro ninguna Proveedor", "No se encontro", MessageBoxButton.OK, MessageBoxImage.Question);
+                MessageBox.Show("No se encontro ninguna Proveedor", "Proveedor", MessageBoxButton.OK, MessageBoxImage.Exclamation);
             }
         }
 
