@@ -20,7 +20,7 @@ namespace pe.edu.pucp.ferretin.model
             {
                 if (cantidad >= PromocionActual.cantMulUnidades)
                 {
-                    descuentoPorcentaje = PromocionActual.descuento;
+                    descuentoPorcentaje = 1/Decimal.Round(1/PromocionActual.descuentoPorcentaje.Value,2);
                 }
                 else
                 {

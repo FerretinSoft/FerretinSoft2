@@ -9,13 +9,11 @@ namespace pe.edu.pucp.ferretin.controller.MVentas
 {
     public class MV_PromocionService : MV_ComunService
     {
-        private static FerretinDataContext _dbPromocion = null;
         public static FerretinDataContext dbPromocion
         {
             get
             {
-                if (_dbPromocion == null) _dbPromocion = new FerretinDataContext();
-                return _dbPromocion;
+                return db;
             }
         }
 
@@ -74,7 +72,8 @@ namespace pe.edu.pucp.ferretin.controller.MVentas
         {
             get
             {
-                Int64 numCodProm = dbPromocion.Promocion.Max(p => p.id) + 1;
+                var max = dbPromocion.Promocion.Count();
+                Int64 numCodProm = max + 1;
                 string codProm = Convert.ToString(numCodProm);
                 while (true)
                 {

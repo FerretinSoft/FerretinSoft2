@@ -22,7 +22,7 @@ namespace pe.edu.pucp.ferretin.model
         {
             get
             {
-                return (this.moneda == 0 ? " S/. " : "US $ ") + Decimal.Round(this.monto.Value, 2,MidpointRounding.ToEven).ToString();
+                return (this.moneda == 0 ? " S/. " : "$  ") + Decimal.Round(this.monto.Value, 2,MidpointRounding.ToEven).ToString();
             }
         }
 

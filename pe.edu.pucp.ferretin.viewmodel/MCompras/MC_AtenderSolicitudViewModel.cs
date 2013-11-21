@@ -16,6 +16,13 @@ namespace pe.edu.pucp.ferretin.viewmodel.MCompras
 {
     public class MC_AtenderSolicitudViewModel : ViewModelBase
     {
+   
+        double igv = MS_ComunService.obtenerIGV();
+        Usuario usr = MS_ComunService.usuarioL;
+        int cont = MC_DocumentoCompraService.devuelvecantidadDC(2) +1;
+     
+
+
         #region lista Productos de la  Solicitud
 
 
@@ -138,10 +145,11 @@ namespace pe.edu.pucp.ferretin.viewmodel.MCompras
                     {
                         dc = new DocumentoCompra()
                         {
-                            codigo = MC_DocumentoCompraService.generarCodigoDC(2),
+                            //codigo = MC_DocumentoCompraService.generarCodigoDC(2),
+                            codigo = "ORD" + cont.ToString(),
                             DocumentoCompraEstado = dce,
                             fechaEmision = DateTime.Now,
-                            Usuario1 = MS_SharedService.usuarioL,
+                            Usuario1 = usr,
                             Proveedor = seleccionado.Proveedor,
                             total = 0,
                             SolicitudCompra = seleccionado,
@@ -160,8 +168,9 @@ namespace pe.edu.pucp.ferretin.viewmodel.MCompras
                             UnidadMedida = seleccionado.Producto.UnidadMedida
                         };
                     dc.total += Decimal.Round(dcp.montoParcial.Value,2);
-                    dc.subTotal = Decimal.Round((dc.total / (1 + (decimal)MS_SharedService.obtenerIGV() / 100)).Value,2);
+                    dc.subTotal = Decimal.Round((dc.total / (1 + (decimal)igv / 100)).Value,2);
                     dc.igv = Decimal.Round((dc.total - dc.subTotal).Value, 2);
+                    cont++;
                     
                     dc.DocumentoCompraProducto.Add(dcp);
                     if (!documentosCompra.Contains(dc))
@@ -181,21 +190,7 @@ namespace pe.edu.pucp.ferretin.viewmodel.MCompras
             {
                 MessageBox.Show("Seleccione algún elemento");
             }
-            //this._productoSol;
-            //Proveedor buscado = null;
-            //int i;
-            //try
-            //{
-            //    buscado = MC_ProveedorService.buscarProveedorByName(this._proveedorNombre);
-            //    documentoCompra.Proveedor = buscado;
-            //    NotifyPropertyChanged("documentoCompra");
-            //}
-            //catch { }
-
-            //if (buscado == null)
-            //{
-            //    MessageBox.Show("No se encontro ninguna Proveedor", "No se encontro", MessageBoxButton.OK, MessageBoxImage.Question);
-            //}
+       
         }
 
 

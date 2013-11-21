@@ -1,11 +1,13 @@
 ﻿using pe.edu.pucp.ferretin.controller;
 using pe.edu.pucp.ferretin.controller.MAlmacen;
+using pe.edu.pucp.ferretin.controller.MRecursosHumanos;
 using pe.edu.pucp.ferretin.controller.MSeguridad;
 using pe.edu.pucp.ferretin.controller.MVentas;
 using pe.edu.pucp.ferretin.model;
 using pe.edu.pucp.ferretin.viewmodel.Helper;
 using System;
 using System.Collections.Generic;
+using System.Data.Linq;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -23,7 +25,10 @@ namespace pe.edu.pucp.ferretin.viewmodel.MVentas
         public string codProformaSearch { get; set; }
         private Cliente _clienteSearch;
         public Cliente clienteSearch { get { return _clienteSearch; } set { _clienteSearch = value; NotifyPropertyChanged("clienteSearch"); } }
-
+        public string _vendedorSearchdni;
+        public string vendedorSearchdni { get { return _vendedorSearchdni; } set { _vendedorSearchdni = value; NotifyPropertyChanged("vendedorSearchdni"); } }
+        private Empleado _vendedorSearch;
+        public Empleado vendedorSearch { get { return _vendedorSearch; } set { _vendedorSearch = value; vendedorSearchdni = value!=null?value.dni:""; NotifyPropertyChanged("vendedorSearch"); } }
         private DateTime _fechaDesdeSearch = DateTime.Today.AddDays(-30);
         public DateTime fechaDesdeSearch
         {
@@ -167,20 +172,20 @@ namespace pe.edu.pucp.ferretin.viewmodel.MVentas
                 //Si la pestaña es para agregar nuevo, limpio los input
                 switch (_statusTab)
                 {
-                    case Tab.BUSQUEDA: { 
+                    case Tab.BUSQUEDA: {
+                        if(!soloSeleccionarProforma)
+                            ComunService.Clean();
                         detallesTabHeader = soloSeleccionarProforma ? "Detalles" : "Agregar";
                         NotifyPropertyChanged("listaProformas");
-                        
                         break;
                     };
                     case Tab.AGREGAR:
                         {
-                            if (proforma == null || proforma.id > 0)
-                            {
+                            
                                 detallesTabHeader = "Agregar";
                                 var miproforma = new Proforma()
                                 {
-                                    codigo = MV_ProformasService.newCodProforma,
+                                    codigo = "Auto",
                                     Usuario = usuarioLogueado,
                                     fecEmision = DateTime.Now,
                                     fecVencimiento = DateTime.Now.AddDays(5),
@@ -189,10 +194,10 @@ namespace pe.edu.pucp.ferretin.viewmodel.MVentas
                                     igv = 0,
                                     subTotal = 0,
                                     total = 0,
+                                    finalizado = false
                                 };
                                 miproforma.ProformaProducto.ListChanged += actualizarMontosProforma;
                                 proforma = miproforma;
-                            }
                             
                             break;
                         }
@@ -375,7 +380,15 @@ namespace pe.edu.pucp.ferretin.viewmodel.MVentas
             {
                 if (_cancelarCommand == null)
                 {
-                    _cancelarCommand = new RelayCommand(p=>statusTab=Tab.BUSQUEDA);
+                    _cancelarCommand = new RelayCommand(p =>
+                        {
+                            var result = MessageBox.Show("Al salir, perderá todos los datos ingresados. ¿Desea continuar?",
+                                                            "ATENCIÓN", MessageBoxButton.OKCancel, MessageBoxImage.Warning);
+                            if (result == MessageBoxResult.OK)//Borro si hubo algun cambio que no fue guardado
+                            {
+                                statusTab = Tab.BUSQUEDA;
+                            }
+                        });
                 }
                 return _cancelarCommand;
             }
@@ -394,11 +407,28 @@ namespace pe.edu.pucp.ferretin.viewmodel.MVentas
             }
         }
 
+        RelayCommand _seleccionarEmpleadoSearchCommand;
+        public ICommand seleccionarEmpleadoSearchCommand
+        {
+            get
+            {
+                if (_seleccionarEmpleadoSearchCommand == null)
+                {
+                    _seleccionarEmpleadoSearchCommand = new RelayCommand(seleccionarEmpleadoSearch);
+                }
+                return _seleccionarEmpleadoSearchCommand;
+            }
+        }
+
         #endregion
 
         #region Comandos
 
 
+        private void seleccionarEmpleadoSearch(object obj)
+        {
+            this.vendedorSearch = MR_SharedService.obtenerEmpleadoPorDNI(vendedorSearchdni);
+        }
         private void viewDetailProforma(object id)
         {
             try
@@ -431,6 +461,7 @@ namespace pe.edu.pucp.ferretin.viewmodel.MVentas
                 else
                 {
                     ComunService.idVentana(48);
+                    
                     if (!MV_ProformasService.insertarProforma(proforma))
                     {
                         MessageBox.Show("No se pudo agregar la nueva Proforma");
@@ -512,5 +543,9 @@ namespace pe.edu.pucp.ferretin.viewmodel.MVentas
         
 
         #endregion
+
+
+
+        
     }
 }

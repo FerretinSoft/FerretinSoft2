@@ -44,17 +44,27 @@ namespace pe.edu.pucp.ferretin.view.MVentas
 
         private void codigoVale_LostFocus(object sender, RoutedEventArgs e)
         {
-            if (listaVales == null) listaVales = MV_ValeService.listaVales.ToList<Vale>();
-            if (listaVales.Count(v => v.codigo.Equals(codigoVale.Text)) > 0)
+            //if (listaVales == null) listaVales = MV_ValeService.listaVales.ToList<Vale>();
+            if (MV_ValeService.listaVales.Count(v => v.codigo.Equals(codigoVale.Text)) > 0)
             {
 
-                Vale vale = listaVales.First(v => v.codigo.Equals(codigoVale.Text));
+                Vale vale = MV_ValeService.listaVales.First(v => v.codigo.Equals(codigoVale.Text));
                 if (vale.estado == 0)
                 {
-                    valeSeleccionado = vale;
-                    valorVale.Text = valeSeleccionado.LoteVale.monto.ToString() + " " + valeSeleccionado.LoteVale.monedaString;
-                    errorMensaje.Text = "";
-                    aceptar.IsEnabled = true;
+                    if (!pagoviewmodel.venta.VentaMedioPago.Any(vmp => vmp.Vale != null && vmp.Vale.id == vale.id))
+                    {
+                        valeSeleccionado = vale;
+                        valorVale.Text = valeSeleccionado.LoteVale.monto.ToString() + " " + valeSeleccionado.LoteVale.monedaString;
+                        errorMensaje.Text = "";
+                        aceptar.IsEnabled = true;
+                    }
+                    else
+                    {
+                        valeSeleccionado = null;
+                        valorVale.Text = "";
+                        errorMensaje.Text = "Este vale ya se encuentra en la lista";
+                        aceptar.IsEnabled = false;
+                    }
                 }
                 else
                 {

@@ -24,7 +24,7 @@ namespace pe.edu.pucp.ferretin.controller.MVentas
                 {
                     _listaLoteVale = db.LoteVale;
                 }
-                db.Refresh(RefreshMode.OverwriteCurrentValues, _listaLoteVale);
+                //db.Refresh(RefreshMode.OverwriteCurrentValues, _listaLoteVale);
                 return _listaLoteVale;
             }
             set
@@ -43,7 +43,7 @@ namespace pe.edu.pucp.ferretin.controller.MVentas
                 {
                     _listaVales = db.Vale;
                 }
-                db.Refresh(RefreshMode.OverwriteCurrentValues, _listaVales);
+                //db.Refresh(RefreshMode.OverwriteCurrentValues, _listaVales);
                 return _listaVales;
             }
             set

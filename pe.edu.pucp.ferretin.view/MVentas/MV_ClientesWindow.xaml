@@ -76,7 +76,7 @@
                     </GroupBox>
                     <ToolBar Grid.Row="1" HorizontalAlignment="Left" Margin="5,0" VerticalAlignment="Center" Height="24">
 
-                        <Button Command="{Binding nuevoClienteCommand}" Content="" VerticalAlignment="Top" Width="20" Margin="0,0,2,-1" Height="20">
+                        <Button Command="{Binding nuevoClienteCommand}" IsEnabled="{Binding noSoloSeleccionarCliente, Mode=OneWay}" Content="" VerticalAlignment="Top" Width="20" Margin="0,0,2,-1" Height="20">
                             <Button.Background>
                                 <ImageBrush ImageSource="../Resources/add_20.png"/>
                             </Button.Background>
