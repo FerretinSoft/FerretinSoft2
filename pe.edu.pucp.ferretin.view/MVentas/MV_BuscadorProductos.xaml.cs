@@ -1,4 +1,6 @@
 ﻿using pe.edu.pucp.ferretin.model;
+using pe.edu.pucp.ferretin.view.MCompras;
+using pe.edu.pucp.ferretin.viewmodel.MCompras;
 using pe.edu.pucp.ferretin.viewmodel.MVentas;
 using System;
 using System.Collections.Generic;
@@ -77,7 +79,18 @@ namespace pe.edu.pucp.ferretin.view.MVentas
 
 
             //Poner aqui tu codigo para tu ventana 
+            else if (this.Owner is MC_AdministrarProveedorWindow)
+            {
+                var vmpadre = this.Owner.DataContext as MC_ProveedoresViewModel;
+                var seleccionados = listaProductos.SelectedItems;
+                foreach (ProductoAlmacen seleccionado in seleccionados)
+                {
+                    vmpadre.codProdAgregar = seleccionado.Producto.codigo;
+                    vmpadre.agregarProducto(null);
+                }
+                vmpadre.codProdAgregar = "";
 
+            }
 
             this.Owner.Focus();
             this.Close();
