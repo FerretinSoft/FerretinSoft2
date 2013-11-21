@@ -3,7 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:sys="clr-namespace:System;assembly=mscorlib"
         xmlns:viewmodel="clr-namespace:pe.edu.pucp.ferretin.viewmodel.MSeguridad;assembly=pe.edu.pucp.ferretin.viewmodel"
-        Title="Administrar Tiendas" WindowStartupLocation="CenterScreen" Height="706" Width="787" Icon="/Resources/ferretin_ico.ico" ResizeMode="CanMinimize">
+        Title="Administrar Tiendas" WindowStartupLocation="CenterScreen" Height="706" Width="787" Icon="/Resources/ferretin_ico.ico" ResizeMode="CanMinimize" Closing="Windows_Closing"  >
     <Window.Resources>
         <viewmodel:MS_AdministrarTiendasViewModel x:Key="MS_AdministrarTiendasViewModel"/>
     </Window.Resources>
@@ -29,16 +29,16 @@
                         <RowDefinition Height="132*"/>
                         <RowDefinition Height="445*"/>
                     </Grid.RowDefinitions>
-                    <GroupBox Header="Tienda" Margin="11,10,10.026,9.77" BorderBrush="Black" Grid.ColumnSpan="5"/>
+                    <GroupBox Header="Parámetros" Margin="11,10,10.026,9.77" BorderBrush="Black" Grid.ColumnSpan="5"/>
                     <Label Content="Código Tienda:" HorizontalAlignment="Left" Height="26" VerticalAlignment="Top" Width="93" Margin="14.942,39,0,0" Grid.Column="1" Grid.ColumnSpan="2"/>
-                    <Button Command="{Binding actualizarListaAlmacenesCommand}" x:Name="buscarTiendaBtn"  HorizontalAlignment="Left" Margin="588.832,76,0,0" VerticalAlignment="Top" Width="32" Height="32" RenderTransformOrigin="0.3,-0.35" Grid.Column="3" Grid.ColumnSpan="2">
+                    <Button Command="{Binding actualizarListaAlmacenesCommand}" x:Name="buscarTiendaBtn"  HorizontalAlignment="Left" Margin="578,60,0,0" VerticalAlignment="Top" Width="32" Height="32" RenderTransformOrigin="0.3,-0.35" Grid.Column="3" Grid.ColumnSpan="2">
                         <Button.Background>
                             <ImageBrush ImageSource="/Resources/refresh2_48.png"/>
                         </Button.Background>
                     </Button>
-                    <DataGrid ItemsSource="{Binding Path=listaAlmacenes,Mode=OneWay}" x:Name="tiendasGrid"  Margin="11,33.23,10.026,10.366" Grid.Row="1" Grid.ColumnSpan="5" AutoGenerateColumns="False" CanUserAddRows="False" CanUserDeleteRows="False" IsReadOnly="True">
+                    <DataGrid ItemsSource="{Binding Path=listaAlmacenes,Mode=OneWay}" x:Name="tiendasGrid"  Margin="11,33.23,10.026,10.366" Grid.Row="1" Grid.ColumnSpan="5" AutoGenerateColumns="False" CanUserReorderColumns="False" CanUserResizeColumns="False" CanUserResizeRows="False" CanUserAddRows="False" CanUserDeleteRows="False" IsReadOnly="True">
                         <DataGrid.Columns>
-                            <DataGridTemplateColumn Width="100" Header="Código">
+                            <DataGridTemplateColumn Width="75" Header="Código">
                                 <DataGridTemplateColumn.CellTemplate>
                                     <DataTemplate>
                                         <TextBlock>
@@ -51,7 +51,7 @@
                                     </DataTemplate>
                                 </DataGridTemplateColumn.CellTemplate>
                             </DataGridTemplateColumn>
-                            <DataGridTextColumn Width="1*" Binding="{Binding Path=nombre}" ClipboardContentBinding="{x:Null}" Header="Nombre de Tienda"/>
+                            <DataGridTextColumn Width="300" Binding="{Binding Path=nombre}" ClipboardContentBinding="{x:Null}" Header="Nombre de Tienda"/>
                             <DataGridTextColumn Width="2*" Binding="{Binding Path=direccion}" ClipboardContentBinding="{x:Null}" Header="Dirección"/>
 
                         </DataGrid.Columns>
@@ -61,7 +61,7 @@
                     <ComboBox ItemsSource="{Binding searchDepartamento.UbigeoProvincia,Mode=TwoWay}" DisplayMemberPath="nombre" SelectedItem="{Binding searchProvincia,Mode=TwoWay}" HorizontalAlignment="Left" Margin="270.832,39,0,0" VerticalAlignment="Top" Width="102" Height="26" Grid.Column="3" Grid.ColumnSpan="2">
 
                     </ComboBox>
-                    <ToolBar HorizontalAlignment="Left" VerticalAlignment="Top" Height="24" Grid.Row="1" Width="68" Grid.ColumnSpan="2" Margin="11,0.23,0,0">
+                    <ToolBar HorizontalAlignment="Left" VerticalAlignment="Top" Height="24" Grid.Row="1" Width="47" Grid.Column="1">
                         <Button Command="{Binding Path=agregarAlmacenCommand}" x:Name="nuevoPerfilBtn" Content="" VerticalAlignment="Bottom" Width="20" Margin="0,0,2,-1" Height="20" >
                             <Button.Background>
                                 <ImageBrush ImageSource="/Resources/add_20.png" Stretch="None"/>
@@ -123,7 +123,7 @@
                     <TextBox Text="{Binding Path=almacen.codigo, Mode=TwoWay}" x:Name="codigoTiendaTxtBox" HorizontalAlignment="Left" Height="23" Margin="10,28,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="84"  Grid.Column="4" SpellCheck.IsEnabled="True" IsEnabled="False"/>
                     <Label Content="Nombre:" HorizontalAlignment="Left" Margin="1,62,0,0" VerticalAlignment="Top" Grid.Column="3" Height="26" Width="61"/>
 
-                    <TextBox Text="{Binding Path=almacen.nombre, Mode=TwoWay, ValidatesOnExceptions=true, NotifyOnValidationError=true}" x:Name="nombreTiendaTxtBox" HorizontalAlignment="Left" Height="23" Margin="10,64,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="156" Grid.Column="4" MaxLength="35"/>
+                    <TextBox Text="{Binding Path=almacen.nombre, Mode=TwoWay, ValidatesOnExceptions=true, NotifyOnValidationError=true}" x:Name="nombreTiendaTxtBox" HorizontalAlignment="Left" Height="23" Margin="10,64,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="283" Grid.Column="4" MaxLength="35" PreviewTextInput="nombreTiendaTxtBox_PreviewTextInput" />
 
                     <!--<TextBox Text="{Binding Path=NameAlmacen, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" x:Name="nombreTiendaTxtBox" HorizontalAlignment="Left" Height="23" Margin="10,64,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="156" Grid.Column="4" MaxLength="35"/>-->
 
@@ -645,12 +645,12 @@
                     <Label Content="Domingo:" HorizontalAlignment="Left" Margin="2,482,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.464,1.231" Height="30" Grid.Column="6" Width="65"/>
                     <Label Content="Nombre:" HorizontalAlignment="Left" Margin="10,520,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.464,1.231" Height="30" Grid.Column="3" Width="76"/>
                     <TextBox Text="{Binding Path=dniJefe,Mode=TwoWay}" MaxLength="8" HorizontalAlignment="Left" Height="26" Margin="10,486,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="110" Grid.Column="4" PreviewKeyDown="txtDNI_KeyDown" PreviewTextInput="ValidaDNI" />
-                    <Label Content="Almacén &#xD;&#xA;Abastecedor:" HorizontalAlignment="Left" Margin="91,87,0,0" VerticalAlignment="Top" Grid.Column="4" Height="41" Width="80"/>
+                    <Label Content="Almacén &#xD;&#xA;Abastecedor:" HorizontalAlignment="Left" Margin="99,87,0,0" VerticalAlignment="Top" Grid.Column="4" Height="41" Width="78"/>
                     <ComboBox Name="almacenesAbast" ItemsSource="{Binding Path=almacenes}" SelectedItem="{Binding Path=almacen.Tienda1}" DisplayMemberPath="nombre" HorizontalAlignment="Left" Margin="186,97,0,0" VerticalAlignment="Top" Width="105" Grid.Column="4" Height="26"
                               IsEnabled="{Binding comboEnabledAlmacen}" SelectedIndex="{Binding defaultcomboIndex}">
                     </ComboBox>
                     <Label Content="Tipo:" HorizontalAlignment="Left" Margin="1,97,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.464,1.231" Grid.Column="3" Height="30" Width="36"/>
-                    <ComboBox SelectedIndex="{Binding selectedTipo, Mode=TwoWay, FallbackValue=-1}" x:Name="tipoCombo" HorizontalAlignment="Left" Margin="54,98,0,0" VerticalAlignment="Top" Width="108" Grid.Column="3" Height="25" Grid.ColumnSpan="2" SelectionChanged="tipoCombo_SelectionChanged">
+                    <ComboBox SelectedIndex="{Binding selectedTipo, Mode=TwoWay, FallbackValue=-1}" x:Name="tipoCombo" HorizontalAlignment="Left" Margin="10,98,0,0" VerticalAlignment="Top" Width="84" Grid.Column="4" Height="25" SelectionChanged="tipoCombo_SelectionChanged">
                         <ComboBoxItem Content="Venta"></ComboBoxItem>
                         <ComboBoxItem Content="Venta/Compra"></ComboBoxItem>
                     </ComboBox>
@@ -666,7 +666,7 @@
                     <Button Command="{Binding saveAlmacenCommand}"  Content="GUARDAR" HorizontalAlignment="Left" Margin="186,602,0,0" VerticalAlignment="Top" Width="76" RenderTransformOrigin="1.347,-0.05" Grid.Column="4" Height="30"/>
                     <Button Command="{Binding cancelAlmacenCommand}" Content="CANCELAR" HorizontalAlignment="Left" Margin="0,602,0,0" VerticalAlignment="Top" Width="75" RenderTransformOrigin="1.347,-0.05" Grid.Column="6" Height="30" />
                     <Label Content="*" HorizontalAlignment="Left" Margin="81,64,0,0" VerticalAlignment="Top" Foreground="Red" FontSize="14" Width="15" Height="22" RenderTransformOrigin="3.646,-0.402" Grid.Column="3" Grid.ColumnSpan="2"/>
-                    <Label Content="*" HorizontalAlignment="Left" Margin="39,98,0,0" VerticalAlignment="Top" Foreground="Red" FontSize="14" Width="15" Height="22" RenderTransformOrigin="3.646,-0.402" Grid.Column="3"/>
+                    <Label Content="*" HorizontalAlignment="Left" Margin="80,101,0,0" VerticalAlignment="Top" Foreground="Red" FontSize="14" Width="15" Height="22" RenderTransformOrigin="3.646,-0.402" Grid.Column="3" Grid.ColumnSpan="2"/>
                     <Label Content="*" HorizontalAlignment="Left" Margin="80,138,0,0" VerticalAlignment="Top" Foreground="Red" FontSize="14" Width="15" Height="22" RenderTransformOrigin="3.646,-0.402" Grid.Column="3" Grid.ColumnSpan="2"/>
                     <Label Content="*" HorizontalAlignment="Left" Margin="80,252,0,0" VerticalAlignment="Top" Foreground="Red" FontSize="14" Width="15" Height="22" RenderTransformOrigin="3.646,-0.402" Grid.Column="3" Grid.ColumnSpan="2"/>
                     <Label x:Name="almacenAbasAsterisco"  Content="" Foreground="Red" HorizontalAlignment="Left" Margin="171,98,0,0" VerticalAlignment="Top" FontSize="14" Width="15" Height="22" RenderTransformOrigin="3.646,-0.402" Grid.Column="4" Grid.ColumnSpan="2"/>

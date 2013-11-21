@@ -138,7 +138,7 @@ namespace pe.edu.pucp.ferretin.controller.MSeguridad
 
             IEnumerable<Usuario> usuarios = listaUsuarios;            
             //Filtro por nombre
-            usuarios = usuarios.Where(u => u.nombre.ToLower().Contains(nomUsuario.ToLower().Trim()));
+            usuarios = usuarios.Where(u => (nomUsuario==null) || u.nombre.ToLower().Contains(nomUsuario.ToLower().Trim()));
             //Filtro por perfil
             usuarios = usuarios.Where(u => (perfil==null) || (perfil.id<=0) || (u.Perfil.id == perfil.id) );
             //Filtro por nombre y apellido

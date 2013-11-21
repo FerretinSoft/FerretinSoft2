@@ -153,7 +153,22 @@ namespace pe.edu.pucp.ferretin.view.MSeguridad
 
         #endregion
 
+        private void nombreTiendaTxtBox_PreviewTextInput(object sender, TextCompositionEventArgs e)
+        {
+            if (Regex.IsMatch(e.Text, "[a-zA-Z0-9]"))
+            {
+                e.Handled = false;
+            }
+            else
+            {
+                e.Handled = true;
+            }
+        }
 
+        private void Windows_Closing(object sender, CancelEventArgs e)
+        {
+            ComunService.Clean();
+        }        
 
     }
 }

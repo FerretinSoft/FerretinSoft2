@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Data.Linq;
 using System.Linq;
 using pe.edu.pucp.ferretin.controller.MAlmacen;
+using System.Windows;
 
 namespace pe.edu.pucp.ferretin.controller.MCompras
 {
@@ -91,32 +92,34 @@ namespace pe.edu.pucp.ferretin.controller.MCompras
 
         public static bool insertarGuiaRemision(GuiaRemision guiaRemision)
         {
-            GuiaRemision guia;
-            int i;
+            GuiaRemision guia = null;
+            bool flag = false;
+            int i, cont;
             try
             {
-                try
+                if(db.GuiaRemision.Count() > 0)
+                    guia = db.GuiaRemision.Single(t => t.codigo == guiaRemision.codigo && t.DocumentoCompra.codigo == guiaRemision.DocumentoCompra.codigo);
+                if (guia != null)
+                    flag = false;
+                else
                 {
-                    guia = db.GuiaRemision.Single(t => t.codigo == guiaRemision.codigo);
-                    return false;
-                }
-                catch (Exception e)
-                {
+                    cont = guiaRemision.GuiaRemisionProducto.Count();
                     guiaRemision.estado = 1;
-                    for (i = 0; i < guiaRemision.GuiaRemisionProducto.Count(); i++)
+                    for (i = 0; i < cont; i++)
                     {
                         guiaRemision.DocumentoCompra.DocumentoCompraProducto[i].cantidadRestante = guiaRemision.DocumentoCompra.DocumentoCompraProducto[i].cantidadRestante - guiaRemision.GuiaRemisionProducto[i].cantidadRecibida;
                     }
                     db.GuiaRemision.InsertOnSubmit(guiaRemision);
                     MA_SharedService.registrarCompra(guiaRemision.Tienda, guiaRemision.GuiaRemisionProducto);
                     enviarCambios();
-                    return true;
+                    flag = true; 
                 }
             }
             catch (Exception e)
             {
-                return false;
+                MessageBox.Show(e.Message);
             }
+            return flag;
         }
 
         #endregion
