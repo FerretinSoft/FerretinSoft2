@@ -41,7 +41,7 @@
             <Label Content="Comentario:" HorizontalAlignment="Left" Margin="35,215,0,0" VerticalAlignment="Top"/>
             <TextBox HorizontalAlignment="Left" Height="40" Margin="115,213,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="360"/>
             <Label Content="Proveedor:" HorizontalAlignment="Left" Margin="27,77,0,0" VerticalAlignment="Top"/>
-            <TextBox HorizontalAlignment="Left" Height="23" Margin="109,80,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="128"/>
+            <TextBox x:Name="txtRuc" MaxLength="11" HorizontalAlignment="Left" Height="23" Margin="109,80,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="128" PreviewTextInput="txtRuc_PreviewTextInput_1"/>
             <Label Content="RUC" HorizontalAlignment="Left" Height="24" Margin="35,120,0,0" VerticalAlignment="Top" Width="110" RenderTransformOrigin="0.5,1.458"/>
             <Label Content="RAZON SOCIAL" HorizontalAlignment="Left" Height="30" Margin="35,144,0,0" VerticalAlignment="Top" Width="192"/>
             <GroupBox Header="Proveedor" HorizontalAlignment="Left" Height="74" Margin="27,103,0,0" VerticalAlignment="Top" Width="489" BorderBrush="Black"/>
@@ -56,7 +56,7 @@
                     <ColumnDefinition></ColumnDefinition>
                     <ColumnDefinition></ColumnDefinition>
                 </Grid.ColumnDefinitions>
-                <Button Grid.Column="0" Content="" HorizontalAlignment="Center" Margin="0" VerticalAlignment="Top" Width="48" Height="48" ToolTip="Visualizar Reporte">
+                <Button x:Name="btnGenerarReporte" Click="btnGenerarReporte_Click" Grid.Column="0" Content="" HorizontalAlignment="Center" Margin="0" VerticalAlignment="Top" Width="48" Height="48" ToolTip="Visualizar Reporte">
                     <Button.Background>
                         <ImageBrush ImageSource="/Resources/view_48.png" Stretch="Uniform"/>
                     </Button.Background>
