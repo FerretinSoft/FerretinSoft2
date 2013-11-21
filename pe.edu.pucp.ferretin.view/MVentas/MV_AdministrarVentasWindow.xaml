@@ -43,13 +43,13 @@
                             <Label Content="Vendedor:" Grid.Row="0" Grid.Column="2" VerticalContentAlignment="Center"/>
                             <Label Content="Fecha Hasta:" Grid.Row="3" Grid.Column="2" VerticalContentAlignment="Center"/>
 
-                            <TextBox Text="{Binding searchNroDocumento, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Center" Grid.Row="0" Grid.Column="1" Margin="0,0,25,0"/>
+                            <TextBox MaxLength="14" PreviewKeyDown="validarCodVenta_KeyDown" PreviewTextInput="validarCodVenta" Text="{Binding searchNroDocumento, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Center" Grid.Row="0" Grid.Column="1" Margin="0,0,25,0"/>
                             <Grid Grid.Row="1" Grid.Column="1" >
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition></ColumnDefinition>
                                     <ColumnDefinition Width="Auto"></ColumnDefinition>
                                 </Grid.ColumnDefinitions>
-                                <TextBox  Text="{Binding searchNroDocCliente, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" x:Name="searchNroDoc" VerticalAlignment="Center" HorizontalAlignment="Stretch">
+                                <TextBox MaxLength="11" PreviewKeyDown="validarCodCliente_KeyDown" PreviewTextInput="validarCodCliente" Text="{Binding searchNroDocCliente, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" x:Name="searchNroDoc" VerticalAlignment="Center" HorizontalAlignment="Stretch">
                                     <TextBox.InputBindings>
                                         <KeyBinding Key="Enter" Command="{Binding cargarClienteCommand}"></KeyBinding>
                                     </TextBox.InputBindings>
@@ -70,7 +70,7 @@
                                     <ColumnDefinition Width="115*"></ColumnDefinition>
                                     <ColumnDefinition Width="Auto"></ColumnDefinition>
                                 </Grid.ColumnDefinitions>
-                                <TextBox Text="{Binding Path=searchVendedor, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Grid.Row="0" Grid.Column="0" VerticalAlignment="Bottom" Margin="0,0,0,2">
+                                <TextBox MaxLength="6" PreviewKeyDown="validarCodVendedor_KeyDown" PreviewTextInput="validarCodVendedor" Text="{Binding Path=searchVendedor, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Grid.Row="0" Grid.Column="0" VerticalAlignment="Bottom" Margin="0,0,0,2">
                                     <TextBox.InputBindings>
                                         <KeyBinding Key="Enter" Command="{Binding cargarVendedorCommand}" />
                                     </TextBox.InputBindings>
