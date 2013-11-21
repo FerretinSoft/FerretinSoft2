@@ -81,6 +81,7 @@
     <Compile Include="MCompras\DocumentoCompra.cs" />
     <Compile Include="MCompras\DocumentoCompraProducto.cs" />
     <Compile Include="MCompras\GuiaRemision.cs" />
+    <Compile Include="MCompras\GuiaRemisionProducto.cs" />
     <Compile Include="MCompras\SolicitudCompra.cs" />
     <Compile Include="MCompras\Proveedor.cs" />
     <Compile Include="MCompras\ProveedorProducto.cs" />
