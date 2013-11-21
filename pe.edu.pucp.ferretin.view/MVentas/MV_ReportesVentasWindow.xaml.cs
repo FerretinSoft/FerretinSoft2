@@ -28,6 +28,7 @@ namespace pe.edu.pucp.ferretin.view.MVentas
         }
         private void repSigBtn_Click(object sender, RoutedEventArgs e)
         {
+            Console.WriteLine(this.listaRepDisp.SelectedIndex);
             switch (estado)
             {
                 case 0:
@@ -45,6 +46,11 @@ namespace pe.edu.pucp.ferretin.view.MVentas
 
 
             }
+        }
+        private void generarReporte_Click(object sender, RoutedEventArgs e)
+        {
+            MV_VisorReporte repW = new MV_VisorReporte();
+            repW.Show();
         }
 
         private void repAntBtn_Click(object sender, RoutedEventArgs e)
