@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -94,6 +95,67 @@ namespace pe.edu.pucp.ferretin.view.MVentas
         {
             MV_ComunService.Clean();
 
+        }
+
+
+        private void validarCodVenta(object sender, TextCompositionEventArgs e)
+        {
+            if (Regex.IsMatch(e.Text, "[0-9]"))
+            {
+                e.Handled = false;
+            }
+            else
+            {
+                e.Handled = true;
+            }
+        }
+
+        private void validarCodVenta_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key != Key.Space)
+                e.Handled = false;
+            else
+                e.Handled = true;
+        }
+
+        private void validarCodCliente(object sender, TextCompositionEventArgs e)
+        {
+            if (Regex.IsMatch(e.Text, "[0-9]"))
+            {
+                e.Handled = false;
+            }
+            else
+            {
+                e.Handled = true;
+            }
+        }
+
+        private void validarCodCliente_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key != Key.Space)
+                e.Handled = false;
+            else
+                e.Handled = true;
+        }
+
+        private void validarCodVendedor(object sender, TextCompositionEventArgs e)
+        {
+            if (Regex.IsMatch(e.Text, "[0-9]"))
+            {
+                e.Handled = false;
+            }
+            else
+            {
+                e.Handled = true;
+            }
+        }
+
+        private void validarCodVendedor_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key != Key.Space)
+                e.Handled = false;
+            else
+                e.Handled = true;
         }
     }
 }

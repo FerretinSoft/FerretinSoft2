@@ -21,7 +21,7 @@ namespace pe.edu.pucp.ferretin.viewmodel.MSeguridad
         private int _searchModulo = 0;
         public int searchModulo { get { return _searchModulo; } set { _searchModulo = value; NotifyPropertyChanged("searchModulo"); } }
         
-        private string _searchDescripcion = "";
+        private string _searchDescripcion = null;
         public string searchDescripcion { get { return _searchDescripcion; } set { _searchDescripcion = value; NotifyPropertyChanged("searchPerfil"); } }
         #endregion
         /***********************************/
@@ -293,19 +293,18 @@ namespace pe.edu.pucp.ferretin.viewmodel.MSeguridad
             else
             {
                 ComunService.idVentana(10);
-               
-                    
-                    if (!MS_PerfilService.insertarPerfil(perfil))
-                    {
-                        MessageBox.Show("No se pudo agregar el nuevo perfil");
-                    }
-                    else
-                    {
-                        MessageBox.Show("El perfil fue agregado con éxito");
-                    }
-               
-            }
-            NotifyPropertyChanged("listaPerfiles");
+                                   
+                if (!MS_PerfilService.insertarPerfil(perfil))
+                {
+                    MessageBox.Show("No se pudo agregar el nuevo perfil");
+                }
+                else
+                {
+                    MessageBox.Show("El perfil fue agregado con éxito");
+                    this.statusTab = tabs.BUSQUEDA;
+                    listaPerfiles = MS_PerfilService.listaPerfiles;                        
+                }               
+            }            
         }
         /**************************************************/
         public void cancelPerfil(Object obj)

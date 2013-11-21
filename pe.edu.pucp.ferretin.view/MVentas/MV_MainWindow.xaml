@@ -63,6 +63,16 @@
 
         <StackPanel x:Name="postVentaMenu" VerticalAlignment="Top" HorizontalAlignment="Center" Margin="0,50,0,0" Visibility="Collapsed">
             <Label Content="Servicios Postventa" FontSize="24" FontWeight="Bold"/>
+
+            <StackPanel Orientation="Horizontal"  Margin="0,10" Cursor="Hand" MouseDown="anularVentaBtn_Click">
+                <Button x:Name="administrarVentasBtn" Content="" Width="32" Height="32" Click="anularVentaBtn_Click">
+                    <Button.Background>
+                        <ImageBrush ImageSource="../Resources/forward_32.png"/>
+                    </Button.Background>
+                </Button>
+                <Label Content="Consultar Ventas"  FontSize="16"/>
+            </StackPanel>
+
             <StackPanel Orientation="Horizontal" Margin="0,10" Cursor="Hand" MouseDown="administrarDevolucionBtn_Click">
                 <Button x:Name="administrarDevolucionBtn" Content="" Width="32" Height="32" Click="administrarDevolucionBtn_Click">
                     <Button.Background>
@@ -108,15 +118,6 @@
                     </Button.Background>
                 </Button>
                 <Label Content="Administrar Promociones" FontSize="16"/>
-            </StackPanel>
-
-            <StackPanel Orientation="Horizontal"  Margin="0,10" Cursor="Hand" MouseDown="anularVentaBtn_Click">
-                <Button x:Name="administrarVentasBtn" Content="" Width="32" Height="32" Click="anularVentaBtn_Click">
-                    <Button.Background>
-                        <ImageBrush ImageSource="../Resources/forward_32.png"/>
-                    </Button.Background>
-                </Button>
-                <Label Content="Consultar Ventas"  FontSize="16"/>
             </StackPanel>
 
             <StackPanel Orientation="Horizontal"  Margin="0,10" Cursor="Hand" MouseDown="admValesBtn_Click">

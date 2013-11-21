@@ -89,11 +89,24 @@ namespace pe.edu.pucp.ferretin.controller.MVentas
 
         public static IEnumerable<Venta> buscarVentas(string nroDocumento, long? nroDocCliente, DateTime fechaInicio, DateTime fechaFin, string searchVendedor)
         {
-            return from c in listaVentas
-                   where
-                   c.nroDocumento != null
-                   orderby c.nroDocumento
-                   select c;
+
+            IEnumerable<Venta> ventas = listaVentas;
+
+
+            ventas = ventas.Where(t => (((nroDocumento == "") || (t.nroDocumento.Contains(nroDocumento)))));
+         
+            ventas = ventas.Where(t => (nroDocCliente == null) || (t.Cliente != null && t.Cliente.nroDoc == nroDocCliente));
+
+            ventas = ventas.Where(t => (searchVendedor == "") || (t.Usuario.Empleado != null && t.Usuario.Empleado.dni == searchVendedor));
+
+     
+            ventas = ventas.Where(t => (fechaInicio.Equals(DateTime.Parse("10/09/2013")) || (t.fecha != null && t.fecha >= fechaInicio)));
+         
+            ventas = ventas.Where(t => (fechaFin.Equals(DateTime.Today) || (t.fecha != null && t.fecha <= fechaFin)));
+
+            return ventas;
+
+            
         }
 
         public static IEnumerable<VentaProducto> obtenerProductosbyIdVenta(long id_venta)

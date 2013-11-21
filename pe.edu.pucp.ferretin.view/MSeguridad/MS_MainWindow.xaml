@@ -44,9 +44,9 @@
                 <ImageBrush ImageSource="/Resources/forward_32.png"/>
             </Button.Background>
         </Button>
-        <Label Content="Administrar Usuarios" HorizontalAlignment="Left" Margin="150,115,0,0" VerticalAlignment="Top" FontSize="16"/>
-        <Label Content="Administrar Perfiles" HorizontalAlignment="Left" Margin="150,160,0,0" VerticalAlignment="Top" FontSize="16"/>
-        <Label Content="Administrar Tiendas" HorizontalAlignment="Left" Margin="150,202,0,0" VerticalAlignment="Top" FontSize="16"/>
+        <Label Content="Administración de Usuarios" HorizontalAlignment="Left" Margin="150,115,0,0" VerticalAlignment="Top" FontSize="16"/>
+        <Label Content="Administración de Perfiles" HorizontalAlignment="Left" Margin="150,160,0,0" VerticalAlignment="Top" FontSize="16"/>
+        <Label Content="Administración de Tiendas" HorizontalAlignment="Left" Margin="150,202,0,0" VerticalAlignment="Top" FontSize="16"/>
         <Label Content="Parámetros del Sistema" HorizontalAlignment="Left" Margin="150,245,0,0" VerticalAlignment="Top" FontSize="16"/>
         <Label Content="Auditoría de Transacciones" HorizontalAlignment="Left" Margin="150,287,0,0" VerticalAlignment="Top" FontSize="16"/>
         <StatusBar Height="35" VerticalAlignment="Bottom">

@@ -41,12 +41,16 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="MAlmacen\MA_MantenimientoCategoriaTest.cs" />
+    <Compile Include="MAlmacen\MA_MantenimientoInventarioTest.cs" />
+    <Compile Include="MAlmacen\MA_MantenimientoProductosTest.cs" />
     <Compile Include="MAlmacen\MA_MovimientosTest.cs" />
     <Compile Include="MRecursosHumanos\MR_AdministrarEmpleadosTest.cs" />
     <Compile Include="MSeguridad\MS_AdministrarPerfilesTest.cs" />
     <Compile Include="MSeguridad\MS_AdministrarTiendasTest.cs" />
     <Compile Include="MSeguridad\MS_AdministrarUsuariosTest.cs" />
     <Compile Include="MSeguridad\MS_ParametrosTest.cs" />
+    <Compile Include="MVentas\MV_AdministrarClientesTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -65,7 +69,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="MCompras\" />
-    <Folder Include="MVentas\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
