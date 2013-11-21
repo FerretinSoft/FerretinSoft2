@@ -22,6 +22,8 @@ namespace pe.edu.pucp.ferretin.viewmodel.MCompras
 
         #region Valores de los controles - PRIMERA PESTANA
 
+        public int tipoDC;
+
         public String _searchCodigo = "";
         public String searchCodigo { get { return _searchCodigo; } set { _searchCodigo = value; NotifyPropertyChanged("searchCodigo"); } }
 
@@ -603,7 +605,8 @@ namespace pe.edu.pucp.ferretin.viewmodel.MCompras
             try
             {                
                 prepararLabels(1);
-                prepararDC(1);
+                this.proveedorNombre = "";
+                tipoDC = 1;
                 this.statusTab = Tab.AGREGAR;
             }
             catch (Exception e)
@@ -617,7 +620,8 @@ namespace pe.edu.pucp.ferretin.viewmodel.MCompras
             try
             {                
                 prepararLabels(2);
-                prepararDC(2);
+                this.proveedorNombre = "";
+                tipoDC = 2;
                 this.statusTab = Tab.AGREGAR;
             }
             catch (Exception e)
@@ -727,6 +731,7 @@ namespace pe.edu.pucp.ferretin.viewmodel.MCompras
             }
             else
             {
+                prepararDC(tipoDC);
                 cont = listaProductosDC.Count();
                 subTotal = 0;
                 List<DocumentoCompraProducto> listAux = listaProductosDC.ToList();
@@ -774,7 +779,6 @@ namespace pe.edu.pucp.ferretin.viewmodel.MCompras
         public void cargarProveedor(Object id)
         {
             Proveedor buscado = null;
-            int i;
             try
             {
                 buscado = MC_ProveedorService.buscarProveedorByName(this._proveedorNombre);
@@ -837,19 +841,18 @@ namespace pe.edu.pucp.ferretin.viewmodel.MCompras
         }
 
         private void prepararDC(int tipo)
-        {
-            this.proveedorNombre = "";
+        {           
             if (tipo == 1)
             {
-                this.documentoCompra.tipo = 1;
-                this.documentoCompra.id_estado = 1;
-                this.documentoCompra.Usuario1 = usuarioIngreso;
+                documentoCompra.tipo = 1;
+                documentoCompra.DocumentoCompraEstado = MC_DocumentoCompraService.obtenerEstado(1);
+                documentoCompra.Usuario1 = usuarioIngreso;
             }
             else
             {
-                this.documentoCompra.tipo = 2;
-                this.documentoCompra.id_estado = 5;
-                this.documentoCompra.Usuario1 = usuarioIngreso;
+                documentoCompra.tipo = 2;
+                documentoCompra.DocumentoCompraEstado = MC_DocumentoCompraService.obtenerEstado(5);
+                documentoCompra.Usuario1 = usuarioIngreso;
             }
         }
 
