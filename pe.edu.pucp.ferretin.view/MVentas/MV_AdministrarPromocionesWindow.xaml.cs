@@ -1,4 +1,5 @@
 ﻿using pe.edu.pucp.ferretin.controller;
+using pe.edu.pucp.ferretin.viewmodel.MVentas;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -40,6 +41,13 @@ namespace pe.edu.pucp.ferretin.view.MVentas
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
             ComunService.Clean();
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            var vm = DataContext as MV_PromocionesViewModel;
+            var buscador = new MV_BuscadorProductos(this, vm.usuarioLogueado.Empleado.tiendaActual);
+
         }
     }
 }
