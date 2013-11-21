@@ -1,5 +1,5 @@
-﻿<?xml version="1.0" encoding="utf-8"?><Database Name="inf245g2" Class="FerretinDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
-  <Connection Mode="AppSettings" ConnectionString="Data Source=inti.lab.inf.pucp.edu.pe;Initial Catalog=inf245g2;Persist Security Info=True;User ID=inf245g2dba" SettingsObjectName="pe.edu.pucp.ferretin.model.Properties.Settings" SettingsPropertyName="inf245g2ConnectionString2" Provider="System.Data.SqlClient" />
+﻿<?xml version="1.0" encoding="utf-8"?><Database Name="DataSource" Class="FerretinDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
+  <Connection Mode="AppSettings" ConnectionString="Data Source=inti.lab.inf.pucp.edu.pe;Persist Security Info=True;User ID=inf245g2dba" SettingsObjectName="pe.edu.pucp.ferretin.model.Properties.Settings" SettingsPropertyName="DataSourceConnectionString2" Provider="System.Data.SqlClient" />
   <Table Name="dbo.Cargo" Member="Cargo">
     <Type Name="Cargo">
       <Column Name="id" Type="System.Int16" DbType="SmallInt NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
@@ -438,11 +438,11 @@
       <Association Name="Producto_ProductoCategoria" Member="ProductoCategoria" ThisKey="id" OtherKey="id_producto" Type="ProductoCategoria" />
       <Association Name="Producto_ProductoColor" Member="ProductoColor" ThisKey="id" OtherKey="id_producto" Type="ProductoColor" />
       <Association Name="Producto_ProductoPrecio" Member="ProductoPrecio" ThisKey="id" OtherKey="producto_id" Type="ProductoPrecio" />
+      <Association Name="Producto_ProformaProducto" Member="ProformaProducto" ThisKey="id" OtherKey="producto_id" Type="ProformaProducto" />
       <Association Name="Producto_PromocionProducto" Member="PromocionProducto" ThisKey="id" OtherKey="producto_id" Type="PromocionProducto" />
       <Association Name="Producto_ProveedorProducto" Member="ProveedorProducto" ThisKey="id" OtherKey="id_producto" Type="ProveedorProducto" />
       <Association Name="Producto_SolicitudAbastecimientoProducto" Member="SolicitudAbastecimientoProducto" ThisKey="id" OtherKey="id_producto" Type="SolicitudAbastecimientoProducto" />
       <Association Name="Producto_SolicitudCompra" Member="SolicitudCompra" ThisKey="id" OtherKey="producto_id" Type="SolicitudCompra" />
-      <Association Name="Producto_ProformaProducto" Member="ProformaProducto" ThisKey="id" OtherKey="producto_id" Type="ProformaProducto" />
       <Association Name="Material_Producto" Member="Material" ThisKey="id_material_base" OtherKey="id" Type="Material" IsForeignKey="true" />
       <Association Name="Material_Producto1" Member="Material1" ThisKey="id_material_sec" OtherKey="id" Type="Material" IsForeignKey="true" />
       <Association Name="UnidadMedida_Producto" Member="UnidadMedida" ThisKey="id_unidad_medida" OtherKey="id" Type="UnidadMedida" IsForeignKey="true" />
@@ -507,10 +507,28 @@
       <Column Name="id_cliente" Type="System.Int32" DbType="Int" CanBeNull="true" />
       <Column Name="id_usuario" Type="System.Int32" DbType="Int" CanBeNull="true" />
       <Column Name="finalizado" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
-      <Association Name="Proforma_Venta" Member="Venta" ThisKey="id" OtherKey="id_proforma" Type="Venta" />
+      <Column Name="tipoCambio" Type="System.Decimal" DbType="Decimal(10,2)" CanBeNull="true" />
       <Association Name="Proforma_ProformaProducto" Member="ProformaProducto" ThisKey="id" OtherKey="proforma_id" Type="ProformaProducto" />
+      <Association Name="Proforma_Venta" Member="Venta" ThisKey="id" OtherKey="id_proforma" Type="Venta" />
       <Association Name="Cliente_Proforma" Member="Cliente" ThisKey="id_cliente" OtherKey="id" Type="Cliente" IsForeignKey="true" />
       <Association Name="Usuario_Proforma" Member="Usuario" ThisKey="id_usuario" OtherKey="id" Type="Usuario" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.ProformaProducto" Member="ProformaProducto">
+    <Type Name="ProformaProducto">
+      <Column Name="proforma_id" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="producto_id" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="cantidad" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="montoParcial" Type="System.Decimal" DbType="Decimal(18,2)" CanBeNull="true" />
+      <Column Name="montoReal" Type="System.Decimal" DbType="Decimal(18,2)" CanBeNull="true" />
+      <Column Name="descuento" Type="System.Decimal" DbType="Decimal(18,2)" CanBeNull="true" />
+      <Column Name="descuentoPorcentaje" Type="System.Decimal" DbType="Decimal(18,2)" CanBeNull="true" />
+      <Column Name="id" Type="System.Int64" DbType="BigInt NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="preciounitario" Type="System.Decimal" DbType="Decimal(8,2)" CanBeNull="true" />
+      <Column Name="stockDisponible" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="moneda" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Association Name="Producto_ProformaProducto" Member="Producto" ThisKey="producto_id" OtherKey="id" Type="Producto" IsForeignKey="true" />
+      <Association Name="Proforma_ProformaProducto" Member="Proforma" ThisKey="proforma_id" OtherKey="id" Type="Proforma" IsForeignKey="true" />
     </Type>
   </Table>
   <Table Name="dbo.Promocion" Member="Promocion">
@@ -849,23 +867,6 @@
       <Association Name="Vale_VentaMedioPago" Member="Vale" ThisKey="vale_id" OtherKey="id" Type="Vale" IsForeignKey="true" />
       <Association Name="MedioPago_VentaMedioPago" Member="MedioPago" ThisKey="id_medio_pago" OtherKey="id" Type="MedioPago" IsForeignKey="true" />
       <Association Name="Venta_VentaMedioPago" Member="Venta" ThisKey="id_venta" OtherKey="id" Type="Venta" IsForeignKey="true" />
-    </Type>
-  </Table>
-  <Table Name="dbo.ProformaProducto" Member="ProformaProducto">
-    <Type Name="ProformaProducto">
-      <Column Name="proforma_id" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="producto_id" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="cantidad" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="montoParcial" Type="System.Decimal" DbType="Decimal(18,2)" CanBeNull="true" />
-      <Column Name="montoReal" Type="System.Decimal" DbType="Decimal(18,2)" CanBeNull="true" />
-      <Column Name="descuento" Type="System.Decimal" DbType="Decimal(18,2)" CanBeNull="true" />
-      <Column Name="descuentoPorcentaje" Type="System.Decimal" DbType="Decimal(18,2)" CanBeNull="true" />
-      <Column Name="id" Type="System.Int64" DbType="BigInt NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
-      <Column Name="preciounitario" Type="System.Decimal" DbType="Decimal(8,2)" CanBeNull="true" />
-      <Column Name="stockDisponible" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="moneda" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Association Name="Producto_ProformaProducto" Member="Producto" ThisKey="producto_id" OtherKey="id" Type="Producto" IsForeignKey="true" />
-      <Association Name="Proforma_ProformaProducto" Member="Proforma" ThisKey="proforma_id" OtherKey="id" Type="Proforma" IsForeignKey="true" />
     </Type>
   </Table>
 </Database>
