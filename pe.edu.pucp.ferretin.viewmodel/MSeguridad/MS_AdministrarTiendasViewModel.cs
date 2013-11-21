@@ -1,5 +1,6 @@
 ﻿using Microsoft.Win32;
 using pe.edu.pucp.ferretin.controller;
+using pe.edu.pucp.ferretin.controller.MAlmacen;
 using pe.edu.pucp.ferretin.controller.MRecursosHumanos;
 using pe.edu.pucp.ferretin.controller.MSeguridad;
 using pe.edu.pucp.ferretin.model;
@@ -417,6 +418,7 @@ namespace pe.edu.pucp.ferretin.viewmodel.MSeguridad
                     }
                     else
                     {
+                        MA_ProductoAlmacenService.inicializarProductosNuevaTIenda(almacen);
                         MessageBox.Show("La Tienda fue agregada con éxito");
                         this.statusTab = Tab.BUSQUEDA;
                     }

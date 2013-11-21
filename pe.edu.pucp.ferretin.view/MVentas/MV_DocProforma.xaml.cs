@@ -77,15 +77,21 @@ namespace pe.edu.pucp.ferretin.view.MVentas
                 disposition.ModificationDate = System.IO.File.GetLastWriteTime(file);
                 disposition.ReadDate = System.IO.File.GetLastAccessTime(file);
                 message.Attachments.Add(data);
-                SmtpClient client = new SmtpClient("palas.pucp.edu.pe");
-                client.Credentials = CredentialCache.DefaultNetworkCredentials;
+                //SmtpClient client = new SmtpClient("palas.pucp.edu.pe");
+                //Aquí es donde se hace lo especial 
+                SmtpClient client = new SmtpClient();
+                client.Credentials = new System.Net.NetworkCredential("ferretinsoft@gmail.com", "hUasnASiraQ");
+                client.Port = 587;
+                client.Host = "smtp.gmail.com";
+                client.EnableSsl = true;
+                //client.Credentials = CredentialCache.DefaultNetworkCredentials;
                 client.Send(message);
 
                 data.Dispose();
 
                 MessageBox.Show("Email Enviado correctamente");
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 MessageBox.Show("Ocurrió un error al enviar el email, inténtelo más tarde.\nDetalles:\n" + e.Message);
             }

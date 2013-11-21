@@ -179,6 +179,7 @@ namespace pe.edu.pucp.ferretin.controller.MAlmacen
                                 (pa.id_almacen == searchAlmacen.id) &&
                                 (pc.id_categoria == searchCategoria.id) &&
                                 (pc.id_producto == p.id)
+                                   orderby pa.id_producto, pa.Tienda.nombre
                                 select pa;
                 }
                 else
@@ -192,6 +193,7 @@ namespace pe.edu.pucp.ferretin.controller.MAlmacen
                                         where (p.nombre.Contains(nombre1)) &&
                                         (pa.id_producto == p.id) &&
                                         (pa.id_almacen == searchAlmacen.id)
+                                       orderby pa.id_producto, pa.Tienda.nombre
                                         select pa;
 
                     }
@@ -200,14 +202,15 @@ namespace pe.edu.pucp.ferretin.controller.MAlmacen
                         //Caso: Categoría seleccionada
                         if (searchCategoria.nombre != "Todos")
                         {
-                            listaProducto = from p in db.Producto
+                            listaProdAlm = from p in db.Producto
                                             from pc in db.ProductoCategoria
                                             from pa in db.ProductoAlmacen //+
                                             where (p.nombre.Contains(nombre1)) &&
                                             (pc.id_categoria == searchCategoria.id) &&
                                             (pc.id_producto == p.id) &&
                                             (pa.id_producto==p.id) //*
-                                            select p;
+                                           orderby pa.id_producto, pa.Tienda.nombre
+                                            select pa;
 
                         }
                         else//Búsqueda solo por nombre
@@ -216,6 +219,7 @@ namespace pe.edu.pucp.ferretin.controller.MAlmacen
                                             from pa in db.ProductoAlmacen //*
                                             where (p.nombre.Contains(nombre1)) &&
                                             (p.id==pa.id_producto)
+                                           orderby pa.id_producto, pa.Tienda.nombre
                                             select pa;
                         }
                     }

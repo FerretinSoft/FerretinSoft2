@@ -44,6 +44,8 @@ namespace pe.edu.pucp.ferretin.view.MAlmacen
             //Editar producto
             this.txtStockMin.IsEnabled = false;
             this.cmbTienda.IsEnabled = true;
+            this.rbtnActivo.IsEnabled = false;
+            this.rbtnInactivo.IsEnabled = false;
         }
 
         private void txtCodigo_KeyDown(object sender, KeyEventArgs e)
@@ -82,7 +84,13 @@ namespace pe.edu.pucp.ferretin.view.MAlmacen
 
             if (MessageBox.Show("¿Está seguro que desea cerrar esta ventana?", "Confirmación",
                                 MessageBoxButton.YesNo) == MessageBoxResult.Yes)
+            {
+                this.txtStockMin.IsEnabled = false;
+                this.cmbTienda.IsEnabled = true;
+                this.rbtnActivo.IsEnabled = false;
+                this.rbtnInactivo.IsEnabled = false;
                 this.productoTabControl.SelectedIndex = 0;
+            }
         }
 
         private void checkTree(object sender, RoutedEventArgs e)
@@ -139,6 +147,9 @@ namespace pe.edu.pucp.ferretin.view.MAlmacen
             
             if (productoTabControl.SelectedValue.ToString().Contains("Edición de Producto"))
             {
+                if (this.rbtnActivo.IsChecked==true) viewModelThis.prodAlm.estado = 1;
+                else viewModelThis.prodAlm.estado = 0;
+
                 MA_ProductoService.actualizarProducto
                     (viewModelThis.listaCategorias,viewModelThis.producto);
                 MessageBox.Show("El producto fue modificado con éxito");
@@ -157,30 +168,6 @@ namespace pe.edu.pucp.ferretin.view.MAlmacen
                 v.Show();
             }
         }
-
-        private void txtCodigoProd_KeyUp(object sender, KeyEventArgs e)
-        {
-            if (txtCodigoProd.Text == "")
-            {
-                this.categoriaCombo.IsEnabled = true;
-                this.txtNombre.IsEnabled = true;
-                this.buscarClienteBtn.IsEnabled = true;
-            }
-            else
-            {
-                if (txtCodigoProd.Text.Length == 10)
-                {
-                    this.buscarClienteBtn.IsEnabled = true;
-                }
-                else
-                {
-                    this.buscarClienteBtn.IsEnabled = false;
-                }
-                this.categoriaCombo.IsEnabled = false;
-                this.txtNombre.IsEnabled = false;
-            }
-        }
-
         private void detallesTab_MouseUp(object sender, MouseButtonEventArgs e)
         {
             //Click directo en agregar producto
@@ -202,13 +189,72 @@ namespace pe.edu.pucp.ferretin.view.MAlmacen
 
         private void cmbTienda_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (cmbTienda.SelectedIndex!=-1)
-            this.txtStockMin.IsEnabled = true;
+            if (cmbTienda.SelectedIndex != -1) //Seleccion de una tienda
+            {
+                this.txtStockMin.IsEnabled = true;
+                rbtnActivo.IsEnabled = true;
+                rbtnInactivo.IsEnabled = true;
+            }
+            else
+            {
+                this.txtStockMin.IsEnabled = false;
+                rbtnActivo.IsEnabled = false;
+                rbtnInactivo.IsEnabled = false;
+
+            }
         }
 
         private void txtCodigoProd_TextChanged(object sender, TextChangedEventArgs e)
         {
 
+        }
+
+        private void txtCodigoProd_PreviewTextInput(object sender, TextCompositionEventArgs e)
+        {
+            int ascci = Convert.ToInt32(Convert.ToChar(e.Text));
+            if (ascci >= 48 && ascci <= 57) e.Handled = false;
+            else e.Handled = true;
+
+            
+        }
+
+        private void txtCodigoProd_TextChanged_1(object sender, TextChangedEventArgs e)
+        {
+            if (txtCodigoProd.Text == "")
+            {
+                this.categoriaCombo.IsEnabled = true;
+                this.txtNombre.IsEnabled = true;
+                this.buscarClienteBtn.IsEnabled = true;
+            }
+            else
+            {
+                if (txtCodigoProd.Text.Length == 10)
+                {
+                    this.buscarClienteBtn.IsEnabled = true;
+                }
+                else
+                {
+                    this.buscarClienteBtn.IsEnabled = false;
+                }
+                this.categoriaCombo.IsEnabled = false;
+                this.txtNombre.IsEnabled = false;
+            }
+
+        }
+
+        private void txtStockMin_PreviewTextInput(object sender, TextCompositionEventArgs e)
+        {
+
+            if (e.Text == "," || e.Text == ".")
+            {
+                if (txtStockMin.Text.Contains(".") || txtStockMin.Text.Contains(",")) e.Handled = true;
+            }
+            else
+            {
+                int ascci = Convert.ToInt32(Convert.ToChar(e.Text));
+                if (ascci >= 48 && ascci <= 57) e.Handled = false;
+                else e.Handled = true;
+            }
         }
     }
 }

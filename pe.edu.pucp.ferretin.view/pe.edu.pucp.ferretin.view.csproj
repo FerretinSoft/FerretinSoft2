@@ -103,11 +103,20 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="MAlmacen\MA_KardexVisor.xaml.cs">
+      <DependentUpon>MA_KardexVisor.xaml</DependentUpon>
+    </Compile>
     <Compile Include="MAlmacen\MA_AtencionSolAuxWindow.xaml.cs">
       <DependentUpon>MA_AtencionSolAuxWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="MAlmacen\MA_VisorReporteStock.xaml.cs">
       <DependentUpon>MA_VisorReporteStock.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="MAlmacen\ReporteKardex.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ReporteKardex.rpt</DependentUpon>
+      <SubType>Component</SubType>
     </Compile>
     <Compile Include="MAlmacen\ReporteStock.cs">
       <DependentUpon>ReporteStock.rpt</DependentUpon>
@@ -130,6 +139,12 @@
     <Compile Include="MVentas\MV_VisorReporte.xaml.cs">
       <DependentUpon>MV_VisorReporte.xaml</DependentUpon>
     </Compile>
+    <Compile Include="MVentas\ReporteVentaProducto.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ReporteVentaProducto.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="MVentas\ReporteVentaTienda.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -151,6 +166,10 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="MAlmacen\MA_KardexVisor.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="MAlmacen\MA_AtencionSolAbastecimientoWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -563,6 +582,10 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+    <EmbeddedResource Include="MAlmacen\ReporteKardex.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>ReporteKardex.cs</LastGenOutput>
+    </EmbeddedResource>
     <EmbeddedResource Include="MAlmacen\ReporteStock.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
       <LastGenOutput>ReporteStock.cs</LastGenOutput>
@@ -570,6 +593,10 @@
     <EmbeddedResource Include="MSeguridad\ReporteDeTransacciones.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
       <LastGenOutput>ReporteDeTransacciones.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MVentas\ReporteVentaProducto.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>ReporteVentaProducto.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="MVentas\ReporteVentaTienda.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>

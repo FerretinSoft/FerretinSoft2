@@ -80,7 +80,7 @@
                     <TextBox MaxLength="30" Text="{Binding searchNombre, Mode=TwoWay}" HorizontalAlignment="Left" Height="23" Margin="9,84,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="297" Grid.Column="1" />
                 </Grid>
             </TabItem>
-            <TabItem Header="Detalle">
+            <TabItem Header="Detalle" IsEnabled="False">
                 <Grid Background="#FFE5E5E5" Margin="0">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="6*"></ColumnDefinition>

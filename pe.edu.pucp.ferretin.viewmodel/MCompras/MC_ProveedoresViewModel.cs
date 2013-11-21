@@ -12,8 +12,13 @@ namespace pe.edu.pucp.ferretin.viewmodel.MCompras
 {
     public class MC_ProveedoresViewModel:ViewModelBase
     {
-
-
+        #region Constructor
+        public MC_ProveedoresViewModel()
+        {
+            _proveedor = new Proveedor();
+        }
+        #endregion
+        /*************************************/
         public string _labelCodigo = null;
         public string labelCodigo
         {
@@ -27,6 +32,7 @@ namespace pe.edu.pucp.ferretin.viewmodel.MCompras
                 NotifyPropertyChanged("labelCodigo");
             }
         }
+        /*************************************/
         public string _labelNombre = null;
         public string labelNombre
         {
@@ -40,8 +46,7 @@ namespace pe.edu.pucp.ferretin.viewmodel.MCompras
                 NotifyPropertyChanged("labelNombre");
             }
         }
-
-
+        /*************************************/
         private bool _soloSeleccionarProveedor = false;
         public bool soloSeleccionarProveedor
         {
@@ -58,6 +63,7 @@ namespace pe.edu.pucp.ferretin.viewmodel.MCompras
                 detallesTabHeader = value ? "Detalles" : "Agregar";
             }
         }
+        /*************************************/
         public bool noSoloSeleccionarProveedor
         {
             get
@@ -65,6 +71,7 @@ namespace pe.edu.pucp.ferretin.viewmodel.MCompras
                 return !soloSeleccionarProveedor;
             }
         }
+        /*************************************/
         public String nombreBotonGuardar
         {
             get
@@ -72,14 +79,7 @@ namespace pe.edu.pucp.ferretin.viewmodel.MCompras
                 return soloSeleccionarProveedor ? "SELECCIONAR" : "GUARDAR";
             }
         }
-        
-        #region Constructor
-        public MC_ProveedoresViewModel()
-        {
-            _proveedor = new Proveedor();
-        }
-        #endregion
-
+        /*************************************/
         public bool isCreating
         {
             get
@@ -87,7 +87,7 @@ namespace pe.edu.pucp.ferretin.viewmodel.MCompras
                 return true;
             }
         }
-
+        /*************************************/
         private IEnumerable<Rubro> _rubros;
         public IEnumerable<Rubro> rubros
         {
@@ -101,7 +101,7 @@ namespace pe.edu.pucp.ferretin.viewmodel.MCompras
                 NotifyPropertyChanged("rubros");
             }
         }
-
+        /*************************************/
         private ProveedorProducto _provProd;
         public ProveedorProducto provProd
         {
@@ -115,7 +115,7 @@ namespace pe.edu.pucp.ferretin.viewmodel.MCompras
                 NotifyPropertyChanged("provProd");
             }
         }
-
+        /*************************************/
         private Producto _prod;
         public Producto prod
         {
@@ -129,9 +129,9 @@ namespace pe.edu.pucp.ferretin.viewmodel.MCompras
                 NotifyPropertyChanged("prod");
             }
         }
-
-      public string codProdAgregar { get; set; }
-
+        /*************************************/
+        public string codProdAgregar { get; set; }
+        /*************************************/
         public IEnumerable<Rubro> listaRubros
         {
             get
@@ -139,17 +139,28 @@ namespace pe.edu.pucp.ferretin.viewmodel.MCompras
                 //Creo una nueva secuencia
                 var sequence = Enumerable.Empty<Rubro>();
                 //Primero agrego un item de Todos para que salga al inicio
-                //Pongo el ID en 0 para que al buscar, no filtre nada cuando se selecciona todos
-              
-                    IEnumerable<Rubro> items = new Rubro[] { new Rubro { id = 0, nombre = "Todos" } };
-               
+                //Pongo el ID en 0 para que al buscar, no filtre nada cuando se selecciona todos              
+                IEnumerable<Rubro> items = new Rubro[] { new Rubro { id = 0, nombre = "Todos" } };               
                 
                 //Luego concateno el itemcon los elementos del combobox
                 return items.Concat(MC_RubroService.rubro);
             }
 
         }
-
+        /*************************************/
+        public IEnumerable<Rubro> listaRubros2
+        {
+            get
+            {
+                //Creo una nueva secuencia
+                var sequence = Enumerable.Empty<Rubro>();
+                //Primero agrego un item de Todos para que salga al inicio
+                //Pongo el ID en 0 para que al buscar, no filtre nada cuando se selecciona todos              
+                //Luego concateno el itemcon los elementos del combobox
+                return MC_RubroService.rubro;
+            }
+        }
+        /*************************************/
         private Rubro _selectedRubro;
         public Rubro selectedRubro
         {
@@ -165,8 +176,7 @@ namespace pe.edu.pucp.ferretin.viewmodel.MCompras
 
             }
         }
-
-
+        /*************************************/
         #region lista de Proveedores
         private Proveedor _proveedor;
         public Proveedor proveedor
@@ -183,6 +193,7 @@ namespace pe.edu.pucp.ferretin.viewmodel.MCompras
                 NotifyPropertyChanged("proveedor");
             }
         }
+        /*************************************/
         private IEnumerable<Proveedor> _listaProveedores;
         public IEnumerable<Proveedor> listaProveedores
         {
@@ -201,7 +212,7 @@ namespace pe.edu.pucp.ferretin.viewmodel.MCompras
             }
 
         }
-
+        /*************************************/
         private IEnumerable<ProveedorProducto> _listaProductos;
         public IEnumerable<ProveedorProducto> listaProductos
         {
@@ -215,11 +226,8 @@ namespace pe.edu.pucp.ferretin.viewmodel.MCompras
                 NotifyPropertyChanged("proveedor.ProveedorProducto");
             }
         }
-
-    
-
         #endregion
-
+        /*************************************/
         #region Valores para el cuadro de Búsqueda
         public String _searchRuc = "";
         public String searchRuc { get { return _searchRuc; } set { _searchRuc = value; NotifyPropertyChanged("searchRuc"); } }
@@ -515,7 +523,7 @@ namespace pe.edu.pucp.ferretin.viewmodel.MCompras
                 //Si la pestaña es para agregar nuevo, limpio los input
                 switch (_statusTab)
                 {
-                    case Tab.BUSQUEDA: detallesTabHeader = soloSeleccionarProveedor ? "Detalles" : "Agregar"; break;
+                    case Tab.BUSQUEDA: detallesTabHeader = soloSeleccionarProveedor ? "Detalles" : "Agregar"; proveedor = new Proveedor(); break;
                     case Tab.AGREGAR: detallesTabHeader = "Agregar"; proveedor = new Proveedor(); labelCodigo = "Código:"; labelNombre = "Nombre Proveedor:"; NotifyPropertyChanged("labelCodigo");
                         NotifyPropertyChanged("labelNombre"); break;
                     case Tab.MODIFICAR: detallesTabHeader = "Modificar"; if (this.proveedor.tipo == "EMPRESA")
@@ -577,6 +585,7 @@ namespace pe.edu.pucp.ferretin.viewmodel.MCompras
        
         #endregion
 
+        /*************************************/
         private bool canSaveExecute(object obj)
         {
             if (soloSeleccionarProveedor)

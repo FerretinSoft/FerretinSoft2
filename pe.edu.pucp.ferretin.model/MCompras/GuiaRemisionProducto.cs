@@ -17,14 +17,13 @@ namespace pe.edu.pucp.ferretin.model
                 return;
             }
 
-            if (cantidadRecibida > DocumentoCompraProducto.cantidadRestante)
-            {
-                cantidadRecibida = DocumentoCompraProducto.cantidadRestante;
-            }
 
             if (DocumentoCompraProducto != null)
             {
-                DocumentoCompraProducto.cantidadRestante = DocumentoCompraProducto.cantidadRestante - cantidadRecibida;
+                if (cantidadRecibida > DocumentoCompraProducto.cantidadRestante)
+                {
+                    cantidadRecibida = DocumentoCompraProducto.cantidadRestante;
+                }
             }
         }
     }
