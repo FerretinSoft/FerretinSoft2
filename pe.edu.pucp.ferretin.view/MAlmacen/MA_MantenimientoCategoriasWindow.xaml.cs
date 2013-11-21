@@ -13,6 +13,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using pe.edu.pucp.ferretin.controller.MAlmacen;
+using pe.edu.pucp.ferretin.controller;
 
 namespace pe.edu.pucp.ferretin.view.MAlmacen
 {
@@ -38,11 +39,12 @@ namespace pe.edu.pucp.ferretin.view.MAlmacen
         {
             if (txtNombreCategoria.Text != "" || txtNombreCategoria != null)
             {
+                ComunService.idVentana(19);
                 Categoria cat = new Categoria();
                 cat.nombre = txtNombreCategoria.Text;
                 cat.id_padre = null;
                 cat.descripcion = txtNombreCategoria.Text;
-                cat.nivel = 0;
+                cat.nivel = 1;
                 if (!MA_CategoriaService.insertarCategoria(cat))
                 {
                     MessageBox.Show("No se pudo agregar");
@@ -57,5 +59,6 @@ namespace pe.edu.pucp.ferretin.view.MAlmacen
             }
             
         }
+
     }
 }
