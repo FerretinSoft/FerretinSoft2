@@ -14,7 +14,7 @@ namespace pe.edu.pucp.ferretin.tdd.MAlmacen
 {
     class MA_MantenimientoInventarioTest
     {
-
+        /**************Cantidade minima de productos en inventario en tienda************************/
         [TestCase]
         public void cantidadProductos_Inventario_tienda() {
             Tienda ti = MS_TiendaService.db.Tienda.Single(t=> t.nombre.ToLower()=="tienda lince 1");
