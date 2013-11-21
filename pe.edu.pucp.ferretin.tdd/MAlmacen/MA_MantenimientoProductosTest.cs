@@ -79,6 +79,22 @@ namespace pe.edu.pucp.ferretin.tdd.MAlmacen
         }
 
 
+        /*************Producto tiene asignado categoria*****************************/
+
+        [TestCase]
+        public void ProductoConCategoria() {
+            foreach (Producto p in MA_ProductoService.db.Producto) 
+            {
+                ProductoCategoria pc = MA_ProductoService.db.ProductoCategoria.Single(pcat => pcat.id_producto == p.id);
+
+                //Assert - verificar condicion o criterio de aceptacion
+
+                Assert.IsNotNull(pc);
+
+            }
+        
+        }
+
 
     }
 }
