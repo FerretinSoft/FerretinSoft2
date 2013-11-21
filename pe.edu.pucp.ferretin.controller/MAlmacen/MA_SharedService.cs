@@ -37,18 +37,16 @@ namespace pe.edu.pucp.ferretin.controller.MAlmacen
             }
         }
 
-        private static IEnumerable<MovimientoTipo> _tiposMovimientos;
+        private static List<MovimientoTipo> _tiposMovimientos;
 
-        public static IEnumerable<MovimientoTipo> tiposMovimientos
+        public static List<MovimientoTipo> tiposMovimientos
         {
             get
             {
                 if (_tiposMovimientos == null)
                 {
-                    _tiposMovimientos = db.MovimientoTipo;
+                    _tiposMovimientos = db.MovimientoTipo.ToList();
                 }
-                //pesimista
-                db.Refresh(RefreshMode.OverwriteCurrentValues, _tiposMovimientos);
                 return _tiposMovimientos;
             }
             set

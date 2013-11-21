@@ -187,6 +187,24 @@ namespace pe.edu.pucp.ferretin.viewmodel.MAlmacen
             {
                 _tiposMovimiento = value;
                 NotifyPropertyChanged("tiposMovimiento");
+                //NotifyPropertyChanged("tiposMovimientoSel");
+            }
+        }
+
+        private List<MovimientoTipo> _tiposMovimientoSel;
+        public List<MovimientoTipo> tiposMovimientoSel
+        {
+            get
+            {
+
+                _tiposMovimientoSel = MA_SharedService.tiposMovimientos;
+                _tiposMovimientoSel.RemoveAll(tm => tm.id <= 0);
+                return _tiposMovimientoSel;
+            }
+            set
+            {
+                _tiposMovimientoSel = value;
+                NotifyPropertyChanged("tiposMovimientoSel");
             }
         }
 
@@ -279,6 +297,7 @@ namespace pe.edu.pucp.ferretin.viewmodel.MAlmacen
                         movimiento.fecha = DateTime.Today;
                         movimiento.Tienda = usuarioLogueado.Empleado.tiendaActual;
                         isCreating = true;
+                        codigoNuevoProducto = "";
                         break;//Si es agregar, creo un nuevo objeto Cliente
                     case Tab.DETALLES:
                         isCreating = false;
@@ -471,6 +490,8 @@ namespace pe.edu.pucp.ferretin.viewmodel.MAlmacen
                 MessageBox.Show("Se guardo correctamente","Guardado",MessageBoxButton.OK,MessageBoxImage.Information);
             }
             NotifyPropertyChanged("tiposMovimiento");
+            //NotifyPropertyChanged("tiposMovimientoSel");
+
         }
 
         public void cancelTipoMovimiento(object param)
@@ -566,13 +587,23 @@ namespace pe.edu.pucp.ferretin.viewmodel.MAlmacen
             {
                 //validación
                 //if (movimiento.codigo == null || movimiento.codigo == "") MessageBox.Show("Debe llenar el campo código.");
-                if (movimiento.MovimientoTipo == null) MessageBox.Show("Debe seleccionar un tipo de movimiento");
+                if (movimiento.MovimientoTipo == null || movimiento.MovimientoTipo.id <= 0) MessageBox.Show("Debe seleccionar un tipo de movimiento");
                 else if (movimiento.Tienda == null && movimiento.MovimientoTipo.categoriaEnum == MovimientoTipo.CategoriaMovimiento.SALIDA) MessageBox.Show("Debe seleccionar un almacén de salida de mercancía");
                 else if (movimiento.Tienda1 == null && movimiento.MovimientoTipo.categoriaEnum == MovimientoTipo.CategoriaMovimiento.ENTRADA) MessageBox.Show("Debe seleccionar un almacén destino para la entrada de mercancía");
                 else if ((movimiento.Tienda == null || movimiento.Tienda1 == null) && movimiento.MovimientoTipo.categoriaEnum == MovimientoTipo.CategoriaMovimiento.TRANSFERENCIA) MessageBox.Show("Debe seleccionar un almacén de salida de mercancía y un almacén de entrada");
                 else if (movimiento.Tienda == movimiento.Tienda1) MessageBox.Show("Las tiendas origen y destino deben ser diferentes");
                 else if (movimiento.MovimientoEstado == null) MessageBox.Show("Debe seleccionar un estado para el movimiento");
-                else if (movimiento.MovimientoProducto.Count <= 0) MessageBox.Show("Debe registrar al menos un Producto en su movimiento");
+                else if (movimiento.MovimientoProducto.Count <= 0)
+                {
+                    MessageBox.Show("Debe registrar al menos un Producto en su movimiento");
+                }
+                else if (movimiento.MovimientoProducto.Count > 0)
+                {
+                    foreach (var item in movimiento.MovimientoProducto)
+                    {
+                        var ctdad = item.cantidad;    
+                    }
+                }
                 else
                 {
                     MA_ComunService.idVentana(22);
