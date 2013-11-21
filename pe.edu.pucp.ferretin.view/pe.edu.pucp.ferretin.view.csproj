@@ -130,7 +130,7 @@
     <Compile Include="MVentas\ReporteVentaTienda.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>ReporteDeDevoluciones.rpt</DependentUpon>
+      <DependentUpon>ReporteVentaTienda.rpt</DependentUpon>
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="ReportesWindow.xaml.cs">
