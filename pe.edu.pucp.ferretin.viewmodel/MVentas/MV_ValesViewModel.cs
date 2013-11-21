@@ -38,8 +38,8 @@ namespace pe.edu.pucp.ferretin.viewmodel.MVentas
         public String _nombreCliente = "";
         public String nombreCliente { get { return _nombreCliente; } set { _nombreCliente = value; NotifyPropertyChanged("nombreCliente"); } }
 
-        public long? _searchNroDocCliente = null;
-        public long? searchNroDocCliente { get { return _searchNroDocCliente; } set { _searchNroDocCliente = value; NotifyPropertyChanged("searchNroDocCliente"); } }
+        public String _searchNroDocCliente = "";
+        public String searchNroDocCliente { get { return _searchNroDocCliente; } set { _searchNroDocCliente = value; NotifyPropertyChanged("searchNroDocCliente"); } }
 
         public string _detallesTabHeader = "";
         public String detallesTabHeader { get { return _detallesTabHeader; } set { _detallesTabHeader = value; NotifyPropertyChanged("detallesTabHeader"); } }
@@ -105,9 +105,11 @@ namespace pe.edu.pucp.ferretin.viewmodel.MVentas
         {
             get
             {
-
-                _listaLoteVale = MV_ValeService.buscarLotesVale(searchCodLote, searchNroDocCliente, searchFechaInicio, searchFechaFin);
-
+                if (searchNroDocCliente != "")
+                    _listaLoteVale = MV_ValeService.buscarLotesVale(searchCodLote, Convert.ToInt32(searchNroDocCliente), searchFechaInicio, searchFechaFin);
+                else
+                    _listaLoteVale = MV_ValeService.buscarLotesVale(searchCodLote, null, searchFechaInicio, searchFechaFin);
+                
                 return _listaLoteVale;
             }
             set
@@ -236,14 +238,14 @@ namespace pe.edu.pucp.ferretin.viewmodel.MVentas
             Cliente buscado = null;
             try
             {
-                buscado = MV_ClienteService.obtenerClienteByNroDoc(searchNroDocCliente);
+                buscado = MV_ClienteService.obtenerClienteByNroDoc(Convert.ToInt32(searchNroDocCliente));
                 loteVale.Cliente = buscado;
             }
             catch { }
 
             if (buscado == null)
             {
-                searchNroDocCliente = null;
+                searchNroDocCliente = "";
                 nombreCliente = "";
                 MessageBox.Show("No se encontro ningún cliente con el número de documento proporcionado", "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
                 loteVale.Cliente = buscado;
@@ -261,7 +263,7 @@ namespace pe.edu.pucp.ferretin.viewmodel.MVentas
             {
                 case MessageBoxResult.OK:
                     this.searchCodLote = "";
-                    this.searchNroDocCliente = null;
+                    this.searchNroDocCliente = "";
                     this.nombreCliente = "";
                     loteVale.Vale = new System.Data.Linq.EntitySet<Vale>();
                     this.loteVale = new LoteVale();
@@ -291,7 +293,7 @@ namespace pe.edu.pucp.ferretin.viewmodel.MVentas
             {
                 MessageBox.Show("El lote de vales fue agregado con éxito", "Mensaje de confirmación");
             }
-            this.listaLoteVale = MV_ValeService.buscarLotesVale(searchCodLote, searchNroDocCliente, searchFechaInicio, searchFechaFin);
+            this.listaLoteVale = MV_ValeService.buscarLotesVale(searchCodLote, Convert.ToInt32(searchNroDocCliente), searchFechaInicio, searchFechaFin);
             NotifyPropertyChanged("listaLoteVale");
             this.selectedTab = 0;
                 break;
@@ -353,7 +355,7 @@ namespace pe.edu.pucp.ferretin.viewmodel.MVentas
             this.loteVale = new LoteVale();
             this.selectedTab = 1;
             this.searchCodLote = "";
-            this.searchNroDocCliente = null;
+            this.searchNroDocCliente = "";
             this.nombreCliente = "";
             detallarVale = System.Windows.Visibility.Visible;
             this.noSoloDetallarLoteVale = true;
