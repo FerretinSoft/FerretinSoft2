@@ -37,7 +37,7 @@
             </Grid>
         </GroupBox>
 
-        <DataGrid x:Name="listaProductos" Margin="5" CanUserAddRows="False" AutoGenerateColumns="False" ItemsSource="{Binding listaProductos, IsAsync=True}" Grid.Row="1" IsManipulationEnabled="False" IsReadOnly="True">
+        <DataGrid x:Name="listaProductos" Margin="5" CanUserAddRows="False" AutoGenerateColumns="False" ItemsSource="{Binding listaProductos}" Grid.Row="1" IsManipulationEnabled="False" IsReadOnly="True">
             <DataGrid.Columns>
                 <DataGridTextColumn Width="100" Binding="{Binding Producto.codigo}" Header="Código"/>
                 <DataGridTextColumn Width="3*" Binding="{Binding Producto.nombre}" Header="Nombre"/>
