@@ -11697,7 +11697,11 @@ namespace pe.edu.pucp.ferretin.model
 		
 		private System.Nullable<int> _id_usuario;
 		
+		private System.Nullable<bool> _finalizado;
+		
 		private EntitySet<ProformaProducto> _ProformaProducto;
+		
+		private EntitySet<Venta> _Venta;
 		
 		private EntityRef<Cliente> _Cliente;
 		
@@ -11729,11 +11733,14 @@ namespace pe.edu.pucp.ferretin.model
     partial void Onid_clienteChanged();
     partial void Onid_usuarioChanging(System.Nullable<int> value);
     partial void Onid_usuarioChanged();
+    partial void OnfinalizadoChanging(System.Nullable<bool> value);
+    partial void OnfinalizadoChanged();
     #endregion
 		
 		public Proforma()
 		{
 			this._ProformaProducto = new EntitySet<ProformaProducto>(new Action<ProformaProducto>(this.attach_ProformaProducto), new Action<ProformaProducto>(this.detach_ProformaProducto));
+			this._Venta = new EntitySet<Venta>(new Action<Venta>(this.attach_Venta), new Action<Venta>(this.detach_Venta));
 			this._Cliente = default(EntityRef<Cliente>);
 			this._Usuario = default(EntityRef<Usuario>);
 			OnCreated();
@@ -11967,6 +11974,26 @@ namespace pe.edu.pucp.ferretin.model
 			}
 		}
 		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_finalizado", DbType="Bit")]
+		public System.Nullable<bool> finalizado
+		{
+			get
+			{
+				return this._finalizado;
+			}
+			set
+			{
+				if ((this._finalizado != value))
+				{
+					this.OnfinalizadoChanging(value);
+					this.SendPropertyChanging();
+					this._finalizado = value;
+					this.SendPropertyChanged("finalizado");
+					this.OnfinalizadoChanged();
+				}
+			}
+		}
+		
 		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Proforma_ProformaProducto", Storage="_ProformaProducto", ThisKey="id", OtherKey="proforma_id")]
 		public EntitySet<ProformaProducto> ProformaProducto
 		{
@@ -11977,6 +12004,19 @@ namespace pe.edu.pucp.ferretin.model
 			set
 			{
 				this._ProformaProducto.Assign(value);
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Proforma_Venta", Storage="_Venta", ThisKey="id", OtherKey="id_proforma")]
+		public EntitySet<Venta> Venta
+		{
+			get
+			{
+				return this._Venta;
+			}
+			set
+			{
+				this._Venta.Assign(value);
 			}
 		}
 		
@@ -12075,6 +12115,18 @@ namespace pe.edu.pucp.ferretin.model
 		}
 		
 		private void detach_ProformaProducto(ProformaProducto entity)
+		{
+			this.SendPropertyChanging();
+			entity.Proforma = null;
+		}
+		
+		private void attach_Venta(Venta entity)
+		{
+			this.SendPropertyChanging();
+			entity.Proforma = this;
+		}
+		
+		private void detach_Venta(Venta entity)
 		{
 			this.SendPropertyChanging();
 			entity.Proforma = null;
@@ -12691,7 +12743,7 @@ namespace pe.edu.pucp.ferretin.model
 		
 		private System.Nullable<int> _producto_id;
 		
-		private System.Nullable<decimal> _descuento;
+		private System.Nullable<decimal> _descuentoPorcentaje;
 		
 		private System.Nullable<int> _cantMulUnidades;
 		
@@ -12715,8 +12767,8 @@ namespace pe.edu.pucp.ferretin.model
     partial void Onpromocion_idChanged();
     partial void Onproducto_idChanging(System.Nullable<int> value);
     partial void Onproducto_idChanged();
-    partial void OndescuentoChanging(System.Nullable<decimal> value);
-    partial void OndescuentoChanged();
+    partial void OndescuentoPorcentajeChanging(System.Nullable<decimal> value);
+    partial void OndescuentoPorcentajeChanged();
     partial void OncantMulUnidadesChanging(System.Nullable<int> value);
     partial void OncantMulUnidadesChanged();
     partial void OnmaxPromVentaChanging(System.Nullable<int> value);
@@ -12802,22 +12854,22 @@ namespace pe.edu.pucp.ferretin.model
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_descuento", DbType="Decimal(18,2)")]
-		public System.Nullable<decimal> descuento
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_descuentoPorcentaje", DbType="Decimal(18,2)")]
+		public System.Nullable<decimal> descuentoPorcentaje
 		{
 			get
 			{
-				return this._descuento;
+				return this._descuentoPorcentaje;
 			}
 			set
 			{
-				if ((this._descuento != value))
+				if ((this._descuentoPorcentaje != value))
 				{
-					this.OndescuentoChanging(value);
+					this.OndescuentoPorcentajeChanging(value);
 					this.SendPropertyChanging();
-					this._descuento = value;
-					this.SendPropertyChanged("descuento");
-					this.OndescuentoChanged();
+					this._descuentoPorcentaje = value;
+					this.SendPropertyChanged("descuentoPorcentaje");
+					this.OndescuentoPorcentajeChanged();
 				}
 			}
 		}
@@ -18782,11 +18834,15 @@ namespace pe.edu.pucp.ferretin.model
 		
 		private System.Nullable<int> _id_tienda;
 		
+		private System.Nullable<int> _id_proforma;
+		
 		private EntitySet<VentaProducto> _VentaProducto;
 		
 		private EntitySet<Devolucion> _Devolucion;
 		
 		private EntitySet<VentaMedioPago> _VentaMedioPago;
+		
+		private EntityRef<Proforma> _Proforma;
 		
 		private EntityRef<Tienda> _Tienda;
 		
@@ -18834,6 +18890,8 @@ namespace pe.edu.pucp.ferretin.model
     partial void OntipoMonedaChanged();
     partial void Onid_tiendaChanging(System.Nullable<int> value);
     partial void Onid_tiendaChanged();
+    partial void Onid_proformaChanging(System.Nullable<int> value);
+    partial void Onid_proformaChanged();
     #endregion
 		
 		public Venta()
@@ -18841,6 +18899,7 @@ namespace pe.edu.pucp.ferretin.model
 			this._VentaProducto = new EntitySet<VentaProducto>(new Action<VentaProducto>(this.attach_VentaProducto), new Action<VentaProducto>(this.detach_VentaProducto));
 			this._Devolucion = new EntitySet<Devolucion>(new Action<Devolucion>(this.attach_Devolucion), new Action<Devolucion>(this.detach_Devolucion));
 			this._VentaMedioPago = new EntitySet<VentaMedioPago>(new Action<VentaMedioPago>(this.attach_VentaMedioPago), new Action<VentaMedioPago>(this.detach_VentaMedioPago));
+			this._Proforma = default(EntityRef<Proforma>);
 			this._Tienda = default(EntityRef<Tienda>);
 			this._Cliente = default(EntityRef<Cliente>);
 			this._Usuario = default(EntityRef<Usuario>);
@@ -19219,6 +19278,30 @@ namespace pe.edu.pucp.ferretin.model
 			}
 		}
 		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_id_proforma", DbType="Int")]
+		public System.Nullable<int> id_proforma
+		{
+			get
+			{
+				return this._id_proforma;
+			}
+			set
+			{
+				if ((this._id_proforma != value))
+				{
+					if (this._Proforma.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.Onid_proformaChanging(value);
+					this.SendPropertyChanging();
+					this._id_proforma = value;
+					this.SendPropertyChanged("id_proforma");
+					this.Onid_proformaChanged();
+				}
+			}
+		}
+		
 		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Venta_VentaProducto", Storage="_VentaProducto", ThisKey="id", OtherKey="id_venta")]
 		public EntitySet<VentaProducto> VentaProducto
 		{
@@ -19255,6 +19338,40 @@ namespace pe.edu.pucp.ferretin.model
 			set
 			{
 				this._VentaMedioPago.Assign(value);
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Proforma_Venta", Storage="_Proforma", ThisKey="id_proforma", OtherKey="id", IsForeignKey=true)]
+		public Proforma Proforma
+		{
+			get
+			{
+				return this._Proforma.Entity;
+			}
+			set
+			{
+				Proforma previousValue = this._Proforma.Entity;
+				if (((previousValue != value) 
+							|| (this._Proforma.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._Proforma.Entity = null;
+						previousValue.Venta.Remove(this);
+					}
+					this._Proforma.Entity = value;
+					if ((value != null))
+					{
+						value.Venta.Add(this);
+						this._id_proforma = value.id;
+					}
+					else
+					{
+						this._id_proforma = default(Nullable<int>);
+					}
+					this.SendPropertyChanged("Proforma");
+				}
 			}
 		}
 		

@@ -17,6 +17,20 @@ namespace pe.edu.pucp.ferretin.tdd.MSeguridad
     [TestFixture]
     public class MS_AdministrarUsuariosTest
     {
+        /******************** Test Cliente nulo *************************/
+        [TestCase]
+        public void usuarios_no_nulos()
+        {          
+            IEnumerable<Usuario> usuar = MS_UsuarioService.db.Usuario.Where(usu => usu.nombre == null);
+
+            //Act - No hay nada que hacer, porque la accion fue la creacion misma
+            int cantidadRegistros;
+            if (usuar == null) cantidadRegistros = 0; // significa que no hay usuarios con numero de codumento o nombre nulos, o estan los 2 o ninguno
+            else cantidadRegistros = usuar.Count();
+
+            //Assert - verificar condicion o criterio de aceptacion
+            Assert.AreEqual(0, cantidadRegistros);            
+        }
         /******************** Test Cantidad de Usuarios *************************/
         [TestCase]
         public void cantidad_de_usuarios_igual_a_16()

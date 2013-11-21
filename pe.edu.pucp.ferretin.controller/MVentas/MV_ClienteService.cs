@@ -36,7 +36,7 @@ namespace pe.edu.pucp.ferretin.controller.MVentas
             {
                 if (_listaClientes == null)
                 {
-                    _listaClientes = from c in dbCliente.Cliente select c;
+                    _listaClientes = from c in dbCliente.Cliente where c.nroDoc>0  select c;
                 }
                 return _listaClientes;
             }

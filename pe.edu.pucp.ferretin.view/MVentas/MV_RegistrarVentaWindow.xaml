@@ -85,7 +85,7 @@
                         <ImageBrush ImageSource="../Resources/add_20.png" Stretch="None"/>
                     </Button.Background>
                 </Button>
-                <Button Content="" Height="18" VerticalAlignment="Center" Width="18" Margin="5,0" ToolTip="Buscar otros productos con otros criterios">
+                <Button Content="" Height="18" VerticalAlignment="Center" Width="18" Margin="5,0" ToolTip="Buscar otros productos con otros criterios" Click="Button_Click_2">
                     <Button.Background>
                         <ImageBrush ImageSource="../Resources/search1_20.png"/>
                     </Button.Background>
@@ -97,7 +97,7 @@
                     <DataGridTextColumn Width="1*" Binding="{Binding Producto.nombre}" Header="Nombre" IsReadOnly="True"/>
                     <DataGridTextColumn Width="80" Binding="{Binding cantidad, UpdateSourceTrigger=PropertyChanged}" Header="Cantidad"/>
                     <DataGridTextColumn Width="100" Binding="{Binding Producto.precioMonedaString}" IsReadOnly="True" Header="Precio Unitario"/>
-                    <DataGridTextColumn Width="80" Binding="{Binding descuentoPrecioString, UpdateSourceTrigger=PropertyChanged}" IsReadOnly="True" Header="Descuento"/>
+                    <DataGridTextColumn Width="100" Binding="{Binding descuentoPrecioString, UpdateSourceTrigger=PropertyChanged}" IsReadOnly="True" Header="Descuento"/>
                     <DataGridTextColumn Width="90" Binding="{Binding montoParcial, StringFormat=S/. \{0\}}" IsReadOnly="True" Header="Importe">
                         <DataGridTextColumn.CellStyle>
                             <Style>

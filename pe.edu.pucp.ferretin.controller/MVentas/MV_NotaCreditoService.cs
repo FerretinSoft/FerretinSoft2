@@ -41,7 +41,7 @@ namespace pe.edu.pucp.ferretin.controller.MVentas
             return from c in listaNotasCredito
                    where
                    (c.codigo != null && c.codigo.Contains(nroNotaCredito)
-                   && (nroDocCliente == null || c.Devolucion.Venta.Cliente == null || c.Devolucion.Venta.Cliente.nroDoc.Equals(nroDocCliente))
+                   && (nroDocCliente == null || (c.Devolucion.Venta.Cliente != null && c.Devolucion.Venta.Cliente.nroDoc.Equals(nroDocCliente)))
                    && c.Devolucion.fecEmision != null && c.Devolucion.fecEmision >= fechaInicio
                    && c.Devolucion.fecEmision != null && c.Devolucion.fecEmision <= fechaFin
                    && c.Devolucion.Venta.Usuario.Empleado.dni != null && c.Devolucion.Venta.Usuario.Empleado.dni.Contains(searchVendedor)

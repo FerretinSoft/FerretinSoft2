@@ -54,7 +54,7 @@ namespace pe.edu.pucp.ferretin.model
             {
                 if (cantidad >= PromocionActual.cantMulUnidades)
                 {
-                    descuentoPorcentaje = Decimal.Round(PromocionActual.descuento.Value,2);
+                    descuentoPorcentaje = 1 / Decimal.Round(1 / PromocionActual.descuentoPorcentaje.Value, 2);
                 }
                 else
                 {
@@ -71,7 +71,7 @@ namespace pe.edu.pucp.ferretin.model
             {
                 decimal? desc = ((100 - (descuentoPorcentaje == null ? 0 : descuentoPorcentaje)) / 100);
                 //Calcular la cantidad de productos que tienen descuento
-                int? prodConDesc = ((PromocionActual != null && cantidad >= PromocionActual.cantMulUnidades) ? (cantidad / PromocionActual.cantMulUnidades) * PromocionActual.cantMulUnidades : 0);
+                prodConDesc = ((PromocionActual != null && cantidad >= PromocionActual.cantMulUnidades) ? (cantidad / PromocionActual.cantMulUnidades) * PromocionActual.cantMulUnidades : 0);
                 //Calcular Si se ha superamo el maximo permitido por venta
                 prodConDesc = prodConDesc > 0 && prodConDesc > (PromocionActual.maxPromVenta * PromocionActual.cantMulUnidades) ? (PromocionActual.maxPromVenta * PromocionActual.cantMulUnidades) : prodConDesc;
                 //Calculo la cantidad de productos sin descuento
@@ -80,17 +80,27 @@ namespace pe.edu.pucp.ferretin.model
 
                 decimal? productoPrecioLista = Producto.precioLista * (Producto.moneda == 0/*soles*/ ? 1 : (tipoCambio != null && tipoCambio <= 0) ? 1 : tipoCambio);
 
-                descuento = Decimal.Round(canjeado.Value ? 0 : (prodConDesc * productoPrecioLista * (1-desc) ).Value,2);
+                descuento = Decimal.Round(canjeado.Value ? 0 : (prodConDesc * (Producto.moneda == 0/*soles*/ ?productoPrecioLista:Producto.precioLista) * (1-desc) ).Value,2);
                 montoParcial = canjeado.Value ? 0 : Decimal.Round((prodConDesc*productoPrecioLista*desc + prodSinDesc*productoPrecioLista).Value,2) ;
                 montoParcial = Decimal.Round(montoParcial.Value, 2);
                 montoReal = cantidad * productoPrecioLista;
                 montoReal = Decimal.Round(montoReal.Value, 2);
+                precioPuntos = Producto.precioPuntos;
+                precioPuntosParcial = Producto.precioPuntos * cantidad;
             }
 
             SendPropertyChanged("descuentoPrecioString");
-            SendPropertyChanged("precioPuntosParcial");
+            SendPropertyChanged("precioPuntosParcialString");
         }
 
+        /// <summary>
+        /// Cantidad de productos que tienen descuento
+        /// </summary>
+        public int? prodConDesc
+        {
+            get;
+            set;
+        }
         partial void OncanjeadoChanged()
         {
             OncantidadChanged();
@@ -113,7 +123,7 @@ namespace pe.edu.pucp.ferretin.model
             {
                 if (descuentoPorcentaje > 0)
                 {
-                    return (moneda == 0 ? "S/." : "$  ") + descuento.ToString() + "(" + descuentoPorcentaje.ToString() + "%)";
+                    return (moneda == 0 ? "S/." : "$  ") + descuento.ToString() + " (" + Decimal.Round(descuentoPorcentaje.Value,2).ToString() + "%)";
                 }
                 else
                 {

@@ -223,6 +223,15 @@ namespace pe.edu.pucp.ferretin.controller.MCompras
                 return "ORD" + (documentos.Count()+1).ToString();
         }
 
+        public static int devuelvecantidadDC(byte? tipoDC)
+        {
+            IEnumerable<DocumentoCompra> documentos = (from e in listaDocumentosCompra
+                                                       where e.codigo != null && e.tipo.Equals(tipoDC)
+                                                       select e);
+            return documentos.Count();
+
+        }
+
         public static bool insertarDocumentoCompra(DocumentoCompra documentoCompra)
         {
             DocumentoCompra doc;
