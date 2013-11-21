@@ -52,7 +52,7 @@
 
 
         </ToolBar>
-        <GroupBox Header="Categoria Principal" Margin="321,34,22,0" VerticalAlignment="Top" Height="128">
+        <GroupBox Header="Categoría Principal" Margin="321,34,22,0" VerticalAlignment="Top" Height="128">
             <Label Content="Nombre: " HorizontalAlignment="Left" Height="31" VerticalAlignment="Top" Width="111" Margin="38,10,0,0"/>
         </GroupBox>
         <Button x:Name="btnGuardar"  Content="GUARDAR" HorizontalAlignment="Left" VerticalAlignment="Top" Width="76" Height="30" Margin="590,116,0,0" RenderTransformOrigin="1.572,0.54" Click="btnGuardar_Click"/>
