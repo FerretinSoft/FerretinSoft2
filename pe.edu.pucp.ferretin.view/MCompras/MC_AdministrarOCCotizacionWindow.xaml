@@ -114,7 +114,7 @@
                             <DataGridTextColumn Width="1.7*" Header="Unidad" Binding="{Binding Path=Producto.UnidadMedida.abreviatura}" IsReadOnly="True"/>
                             <DataGridTextColumn Width="1.7*" Header="Precio Unit." Binding="{Binding Path=precioUnit, UpdateSourceTrigger=PropertyChanged}"/>
                             <DataGridTextColumn Width="1.7*" Header="Cantidad" Binding="{Binding Path=cantidad, UpdateSourceTrigger=PropertyChanged}"/>
-                            <DataGridTextColumn Width="2.0*" Header="Total" Binding="{Binding Path=montoParcial, UpdateSourceTrigger=PropertyChanged}"/>
+                            <DataGridTextColumn Width="2.0*" Header="Total" Binding="{Binding Path=montoParcial, UpdateSourceTrigger=PropertyChanged}" IsReadOnly="True"/>
                             <DataGridCheckBoxColumn Width="1.6*" Header="Seleccionar"/>
                         </DataGrid.Columns>
                     </DataGrid>
