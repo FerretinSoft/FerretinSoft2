@@ -45,5 +45,15 @@ namespace pe.edu.pucp.ferretin.model
                 return moneda == 0 ? "Soles" : "Dolares";
             }
         }
+
+
+        public string precioMonedaString
+        {
+            get
+            {
+                return (moneda == 0 ? "S/." : "$  ") + precioLista.ToString();
+            }
+        }
+
     }
 }

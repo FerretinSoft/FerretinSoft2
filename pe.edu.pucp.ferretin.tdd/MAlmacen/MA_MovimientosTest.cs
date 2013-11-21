@@ -36,6 +36,55 @@ namespace pe.edu.pucp.ferretin.tdd.MAlmacen
             Assert.GreaterOrEqual(2000, stock);
             Assert.LessOrEqual(200, stock);
         }
+
+        /************ tipo de movimiento unico*******************************************/
+        [TestCase]
+        public void Nombre_De_TipoMovimiento_Unico()
+        {
+            //var creo el entorno
+
+            foreach (MovimientoTipo mt in MA_MovimientoProductoService.db.MovimientoTipo)
+            {
+                IEnumerable<MovimientoTipo> movTipo = MA_CategoriaService.db.MovimientoTipo.Where(p => p.nombre == mt.nombre);
+
+                //Assert - verificar condicion o criterio de aceptacion
+
+                int cantidadRegistros = movTipo.Count();
+
+                Assert.AreEqual(cantidadRegistros, 1);
+            }
+        }
+
+
+        [TestCase]
+        public void Movimiento_Con_Campos_Obligatorios()
+        {
+            //var creo el entorno
+
+            foreach (MovimientoTipo moviTipo in MA_MovimientosService.db.MovimientoTipo)
+            {
+                MovimientoTipo mt = MA_MovimientosService.db.MovimientoTipo.Single(t => t.nombre.ToLower() ==moviTipo.nombre.ToLower()); ;
+                IEnumerable<Movimiento> movi = MA_MovimientosService.db.Movimiento.Where(mov => mov.id_tipo == mt.id);
+
+                int i = 0;
+                //Assert - verificar condicion o criterio de aceptacion
+                foreach (Movimiento m in movi)
+                {
+                    Assert.IsNotNull(m.id_estado);
+                    Assert.IsNotNull(m.codigo);
+                    Assert.IsNotNull(m.fecha);
+
+
+                }
+            }
+        }
+
+
+
+
+
+
+
     }
 
 }
