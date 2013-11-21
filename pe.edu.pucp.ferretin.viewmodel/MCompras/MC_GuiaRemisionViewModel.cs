@@ -282,6 +282,7 @@ namespace pe.edu.pucp.ferretin.viewmodel.MCompras
 
         public void saveGuiaRemision(Object obj)
         {
+            bool exito = false;
             if (guiaRemision.id > 0)//Si existe
             {
                 ComunService.idVentana(37);
@@ -291,7 +292,8 @@ namespace pe.edu.pucp.ferretin.viewmodel.MCompras
                 }
                 else
                 {
-                    MessageBox.Show("LA guia de remision fue guardado con éxito");
+                    MessageBox.Show("La guia de remision fue guardado con éxito");
+                    exito = true;
                 }
             }
             else
@@ -304,10 +306,14 @@ namespace pe.edu.pucp.ferretin.viewmodel.MCompras
                 else
                 {
                     MessageBox.Show("La guia de remision se agrego con exito");
+                    exito = true;
                 }
             }
-            NotifyPropertyChanged("listaGuiasRemision");
+            if(exito)
+            {
+                NotifyPropertyChanged("listaGuiasRemision");
             this.statusTab = Tab.BUSQUEDA;
+            }           
         }
 
         public void cancelGuiaRemision(Object obj)
