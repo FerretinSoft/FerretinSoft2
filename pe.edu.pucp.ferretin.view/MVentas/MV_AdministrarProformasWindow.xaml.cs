@@ -216,7 +216,7 @@ namespace pe.edu.pucp.ferretin.view.MVentas
             //print.Visibility = System.Windows.Visibility.Hidden;
             print.Show();
             
-            print.imprimir();
+            //print.imprimir();
         }
 
         private void enviarEmailBtn_Click(object sender, RoutedEventArgs e)
