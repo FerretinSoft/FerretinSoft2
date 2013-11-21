@@ -25,12 +25,12 @@ namespace pe.edu.pucp.ferretin.controller.MSeguridad
             {
                 if (_listaUsuarios == null)
                 {
-                    _listaUsuarios = db.Usuario;
-                }
+                    _listaUsuarios = db.Usuario.OrderBy(u=>u.nombre);
+                }                
                 //Usando concurrencia pesimista:
                 ///La lista de clientes se actualizara para ver los cambios
                 ///Si quisiera usar concurrencia optimista quito la siguiente linea
-                db.Refresh(RefreshMode.OverwriteCurrentValues, _listaUsuarios);
+                db.Refresh(RefreshMode.OverwriteCurrentValues, _listaUsuarios);                
                 return _listaUsuarios;
             }
             set
@@ -42,8 +42,9 @@ namespace pe.edu.pucp.ferretin.controller.MSeguridad
         public static IEnumerable<Usuario> obtenerListaUsuarios()
         {
             listaUsuarios = from p in db.Usuario
-                            orderby p.id_empleado
+                            orderby p.nombre
                             select p;
+
             return listaUsuarios;
         }
 
@@ -129,9 +130,13 @@ namespace pe.edu.pucp.ferretin.controller.MSeguridad
         }
         /*******************************************************/
         public static IEnumerable<Usuario> buscar(string nomUsuario, Perfil perfil, string nombres, string apellidos, string apellidosMat, int estado)
-        {            
-            IEnumerable<Usuario> usuarios = listaUsuarios;
-            
+        {
+            int estadoAuxiliar=estado;
+
+            if (estado == 1) estadoAuxiliar = 2;
+            if (estado == 2) estadoAuxiliar = 1;
+
+            IEnumerable<Usuario> usuarios = listaUsuarios;            
             //Filtro por nombre
             usuarios = usuarios.Where(u => u.nombre.ToLower().Contains(nomUsuario.ToLower().Trim()));
             //Filtro por perfil
@@ -141,7 +146,7 @@ namespace pe.edu.pucp.ferretin.controller.MSeguridad
             //Filtro por código
             //if (codigo!=null) usuarios = usuarios.Where(u => u.codUsuario.ToLower().Contains(codigo.ToLower().Trim()));           
             //Filtro por estado
-            usuarios = usuarios.Where(u => (estado == 0) || (u.estado != null && u.estado == estado - 1));
+            usuarios = usuarios.Where(u => (estado == 0) || (u.estado != null && u.estado == estadoAuxiliar - 1));
 
             return usuarios;
 
@@ -240,8 +245,7 @@ namespace pe.edu.pucp.ferretin.controller.MSeguridad
             {
                 if (_listaPerfiles == null)
                 {
-                    _listaPerfiles = from p in db.Perfil
-                                     select p;
+                    _listaPerfiles = db.Perfil.OrderBy(p => p.nombre);
                 }
                 return _listaPerfiles;
             }
@@ -255,8 +259,7 @@ namespace pe.edu.pucp.ferretin.controller.MSeguridad
         {
             return listaPerfiles;
         }  
-
-
+        
 
 
         /*******************************************************************************/

@@ -49,8 +49,8 @@
                     </ComboBox>
                     <ComboBox SelectedIndex="{Binding searchEstado, Mode=TwoWay}" x:Name="estadoCombo" HorizontalAlignment="Left" Margin="438,86,0,0" VerticalAlignment="Top" Width="173" Height="22" Grid.RowSpan="2">
                         <ComboBoxItem Content="Todos"/>
-                        <ComboBoxItem Content="Inactivo"/>
                         <ComboBoxItem Content="Activo"/>
+                        <ComboBoxItem Content="Inactivo"/>
                     </ComboBox>
 
                     <!-- Buttons -->

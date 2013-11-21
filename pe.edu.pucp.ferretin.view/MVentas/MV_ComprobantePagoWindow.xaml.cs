@@ -46,8 +46,16 @@ namespace pe.edu.pucp.ferretin.view.MVentas
             if (printDialog.ShowDialog() == true)
             {
                 printDialog.PrintVisual(printZone, "Boleta de venta");
-                //this.parent();
             }
+        }
+
+        private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            try
+            {
+                this.Owner.Owner.Close();
+            }
+            catch { }
         }
     }
 }

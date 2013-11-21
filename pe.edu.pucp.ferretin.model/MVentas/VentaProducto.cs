@@ -29,7 +29,19 @@ namespace pe.edu.pucp.ferretin.model
         partial void OncantidadChanged()
         {
             //Cantidad no puede ser negativa
-            if (cantidad <= 0) cantidad = 1;
+            if (cantidad <= 0)
+            {
+                cantidad = 1;
+                return;
+            }
+
+            if (cantidad > stockDisponible)
+            {
+                //("No se tiene stock de la cantidad proporcionada");
+                cantidad = stockDisponible;
+                return;
+            }
+
 
             //Si supera el límite de puntos del usuario quito el canjeado
             if (canjeado.Value && this.Venta != null && this.Venta.Cliente != null && this.Venta.Cliente.puntosActual!=null && this.Venta.Cliente.puntosActual < (this.Venta.puntosCanjeados))
@@ -74,6 +86,9 @@ namespace pe.edu.pucp.ferretin.model
                 montoReal = cantidad * productoPrecioLista;
                 montoReal = Decimal.Round(montoReal.Value, 2);
             }
+
+            SendPropertyChanged("descuentoPrecioString");
+            SendPropertyChanged("precioPuntosParcial");
         }
 
         partial void OncanjeadoChanged()
@@ -91,6 +106,36 @@ namespace pe.edu.pucp.ferretin.model
             }
         }
 
+
+        public string descuentoPrecioString
+        {
+            get
+            {
+                if (descuentoPorcentaje > 0)
+                {
+                    return (moneda == 0 ? "S/." : "$  ") + descuento.ToString() + "(" + descuentoPorcentaje.ToString() + "%)";
+                }
+                else
+                {
+                    if (PromocionActual != null)
+                    {
+                        return PromocionActual.cantMulUnidades.ToString() + "un. mín.";
+                    }
+                    else
+                    {
+                        return "No Aplica";
+                    }
+                }
+            }
+        }
+
+        public string precioPuntosParcialString
+        {
+            get
+            {
+                return precioPuntos > 0 ? (precioPuntos * cantidad).ToString() : "-";
+            }
+        }
 
         public PromocionProducto PromocionActual { get; set; }
 
