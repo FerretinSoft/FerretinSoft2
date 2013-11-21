@@ -14,7 +14,9 @@ namespace pe.edu.pucp.ferretin.controller.MCompras
             get
             {
                 if (_rubro == null)
-                    _rubro = from r in db.Rubro select r;
+                    _rubro = from r in db.Rubro
+                             orderby r.nombre
+                             select r;
                 //_rubro = db.Rubro;
                 return _rubro;
             }
@@ -29,6 +31,7 @@ namespace pe.edu.pucp.ferretin.controller.MCompras
         {
             return from r in rubro
                    where r.id== selectedRubro.id
+                   orderby r.nombre
                    select r;
         }
 
