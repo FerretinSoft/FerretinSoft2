@@ -107,7 +107,7 @@
                         </TextBox.InputBindings>
                     </TextBox>
                     <Label x:Name="fecEmisioLbl" Content="{Binding labelFechaDC1}" Margin="15,61,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.183,0.438" Height="26" HorizontalAlignment="Left" Width="105" Grid.ColumnSpan="2"/>
-                    <DataGrid ItemsSource="{Binding Path=listaProductosDC, UpdateSourceTrigger=PropertyChanged,NotifyOnSourceUpdated=True,NotifyOnTargetUpdated=True,Mode=TwoWay}" Margin="10,135,178.105,0" RenderTransformOrigin="0.5, 0.5" Height="232" VerticalAlignment="Top" Grid.ColumnSpan="3" AutoGenerateColumns="False" CanUserAddRows="False" IsEnabled="{Binding isCreating}">
+                    <DataGrid ItemsSource="{Binding Path=documentoCompra.DocumentoCompraProducto, UpdateSourceTrigger=PropertyChanged,NotifyOnSourceUpdated=True,NotifyOnTargetUpdated=True,Mode=TwoWay}" Margin="10,135,178.105,0" RenderTransformOrigin="0.5, 0.5" Height="232" VerticalAlignment="Top" Grid.ColumnSpan="3" AutoGenerateColumns="False" CanUserAddRows="False" IsEnabled="{Binding isCreating}">
                         <DataGrid.Columns>
                             <DataGridTextColumn Width="3.8*" Header="Producto" Binding="{Binding Path=Producto.nombre}" IsReadOnly="True"/>
                             <DataGridTextColumn Width="3.0*" Header="Descripción" Binding="{Binding Path=Producto.descripcion}" IsReadOnly="True"/>
