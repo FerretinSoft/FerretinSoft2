@@ -1,0 +1,9 @@
+﻿<Window x:Class="pe.edu.pucp.ferretin.view.MVentas.MV_VisorReporte"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:my="clr-namespace:SAPBusinessObjects.WPF.Viewer;assembly=SAPBusinessObjects.WPF.Viewer" 
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Reporte de ventas por tienda" Icon="/Resources/ferretin_ico.ico" Height="424.749" Width="714.474" WindowStartupLocation="CenterScreen" WindowState="Maximized">
+    <Grid>
+        <my:CrystalReportsViewer x:Name="VisorReporte" Refresh="VisorReporte_Refresh" />
+    </Grid>
+</Window>

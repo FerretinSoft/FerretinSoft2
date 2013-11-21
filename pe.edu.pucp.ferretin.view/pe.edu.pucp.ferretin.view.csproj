@@ -121,10 +121,10 @@
     <Compile Include="MVentas\MV_BuscadorProductos.xaml.cs">
       <DependentUpon>MV_BuscadorProductos.xaml</DependentUpon>
     </Compile>
-    <Compile Include="MVentas\MV_DocProforma.xaml.cs">
-      <DependentUpon>MV_DocProforma.xaml</DependentUpon>
+    <Compile Include="MVentas\MV_VisorReporte.xaml.cs">
+      <DependentUpon>MV_VisorReporte.xaml</DependentUpon>
     </Compile>
-    <Compile Include="MVentas\ReporteDeDevoluciones.cs">
+    <Compile Include="MVentas\ReporteVentaTienda.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>ReporteDeDevoluciones.rpt</DependentUpon>
@@ -374,6 +374,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="MVentas\MV_VisorReporte.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="ReportesWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -561,9 +565,9 @@
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
       <LastGenOutput>ReporteDeTransacciones.cs</LastGenOutput>
     </EmbeddedResource>
-    <EmbeddedResource Include="MVentas\ReporteDeDevoluciones.rpt">
+    <EmbeddedResource Include="MVentas\ReporteVentaTienda.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
-      <LastGenOutput>ReporteDeDevoluciones.cs</LastGenOutput>
+      <LastGenOutput>ReporteVentaTienda.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

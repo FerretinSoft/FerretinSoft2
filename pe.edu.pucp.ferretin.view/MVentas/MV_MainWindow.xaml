@@ -57,7 +57,7 @@
                         <ImageBrush ImageSource="../Resources/forward_32.png"/>
                     </Button.Background>
                 </Button>
-                <Label Content="Generar Reportes" FontSize="16"/>
+                <Label Content="Generar Reporte Venta/Tienda" FontSize="16"/>
             </StackPanel>
         </StackPanel>
 
