@@ -5,7 +5,7 @@
 		  xmlns:viewmodel="clr-namespace:pe.edu.pucp.ferretin.viewmodel.MCompras;assembly=pe.edu.pucp.ferretin.viewmodel"
         xmlns:helper="clr-namespace:pe.edu.pucp.ferretin.viewmodel.Helper;assembly=pe.edu.pucp.ferretin.viewmodel"
         Title="Solicitudes de Abastecimiento" Height="540" Width="825" Icon="/Resources/ferretin_ico.ico">
-   <Window.Resources>
+    <Window.Resources>
         <viewmodel:MC_AtenderSolicitudViewModel x:Key="MC_AtenderSolicitudViewModel"/>
     </Window.Resources>
     <Grid DataContext="{Binding Source={StaticResource MC_AtenderSolicitudViewModel}}">
@@ -19,22 +19,24 @@
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition/>
                     </Grid.ColumnDefinitions>
-                    <GroupBox Header="Parámetros" Height="73" Margin="10,10,0,0" BorderBrush="Black" VerticalAlignment="Top" Width="790" HorizontalAlignment="Left"/>
-                    <Label Content="Producto:" HorizontalAlignment="Left" Height="32" Margin="21,34,0,0" VerticalAlignment="Top" Width="67"/>
+                    <GroupBox  Height="60" Margin="10,10,0,0" BorderBrush="Black" VerticalAlignment="Top" Width="770" HorizontalAlignment="Left">
+
+                    </GroupBox>
+                    <Label Content="Productos que están por debajo  de su stock mínimo :" HorizontalAlignment="Left" Height="32" Margin="21,28,0,0" VerticalAlignment="Top" Width="338" FontSize="14"/>
 
 
-                    <TextBox HorizontalAlignment="Left" Height="22" Margin="111,37,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="223"/>
-                    <Button x:Name="buscarSolicitudAbs" HorizontalAlignment="Left" Margin="700,34,0,0" Width="32" RenderTransformOrigin="0.3,-0.35" Height="32" VerticalAlignment="Top">
-                        <Button.Background>
+                    <!--<TextBox HorizontalAlignment="Left" Height="22" Margin="111,37,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="223"/>-->
+                    <!-- <Button x:Name="buscarSolicitudAbs" HorizontalAlignment="Left" Margin="700,34,0,0" Width="32" RenderTransformOrigin="0.3,-0.35" Height="32" VerticalAlignment="Top">-->
+                    <!-- <Button.Background>
                             <ImageBrush ImageSource="../Resources/refresh2_48.png"/>
                         </Button.Background>
-                    </Button>
-                    <DataGrid  ItemsSource="{Binding Path=listaProductosSol}" Margin="10,1.984,9.717,65.005" Grid.Row="1" AutoGenerateColumns="False" CanUserAddRows="False" CanUserDeleteRows="False">
+                    </Button>-->
+                    <DataGrid  ItemsSource="{Binding Path=listaProductosSol}" Margin="5,99,14.717,67.005" AutoGenerateColumns="False" CanUserAddRows="False" CanUserDeleteRows="False" Grid.RowSpan="2">
                         <DataGrid.Columns>
                             <DataGridTextColumn Width="3*" Binding="{Binding Path=Tienda.nombre}" Header=" Almacén"/>
-                            <DataGridTextColumn Width="3*" Binding="{Binding Path=Producto.nombre}"  Header="Producto"/>                            
+                            <DataGridTextColumn Width="3*" Binding="{Binding Path=Producto.nombre}"  Header="Producto"/>
                             <DataGridTextColumn Width="1.5*" Binding="{Binding Path=cantidad}"  Header="Cant. Compra"/>
-                           <DataGridComboBoxColumn Header="Proveedor" DisplayMemberPath="razonSoc" Width="120">
+                            <DataGridComboBoxColumn Header="Proveedor" DisplayMemberPath="razonSoc" Width="120">
                                 <DataGridComboBoxColumn.ElementStyle>
                                     <Style TargetType="{x:Type ComboBox}">
                                         <Setter Property="ItemsSource" Value="{Binding posiProveedor}"/>
