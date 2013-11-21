@@ -173,7 +173,7 @@ namespace pe.edu.pucp.ferretin.viewmodel.MAlmacen
         {
             get
             {
-                _listaTiendas = MS_TiendaService.listaTiendas;
+                _listaTiendas = MS_TiendaService.obtenerTiendas();
                 return _listaTiendas;
             }
             set
@@ -258,7 +258,7 @@ namespace pe.edu.pucp.ferretin.viewmodel.MAlmacen
                 //if (searchCod!="") searchNombre = "";
 
                 _listaProductos=MA_ProductoService.obtenerProductosPorNombre(searchNombre,chkActivo,chkInactivo,searchIdCategoria,searchCod);
-                
+
                 return _listaProductos;
             }
             
@@ -486,6 +486,11 @@ namespace pe.edu.pucp.ferretin.viewmodel.MAlmacen
             try
             {
                 this.producto = listaProductos.Single(producto => producto.codigo == (String)codigo);
+                if (this.producto.estado == 1)
+                    radioYes = true;
+                else
+                    radioNo = true;
+
                 this.prodAlm = new ProductoAlmacen();
                 this.statusTab = (int)tabs.MODIFICAR;
                 obtenerCategoriasDeProducto();
@@ -530,6 +535,7 @@ namespace pe.edu.pucp.ferretin.viewmodel.MAlmacen
                 }
 
             MA_CategoriaService.agregarCategoriaProductos(prodCat);
+            
             IEnumerable<Categoria> p2= MA_CategoriaService.obtenerCategoriasxProducto(producto.id);
             String cad = "";
             foreach (Categoria pc in p2)

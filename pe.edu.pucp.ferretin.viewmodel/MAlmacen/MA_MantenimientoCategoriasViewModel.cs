@@ -56,6 +56,26 @@ namespace pe.edu.pucp.ferretin.viewmodel.MAlmacen
                 _categoriaPrincipal = value;
             }
         }
+
+        
+        private Categoria _categoria = null;
+        public Categoria categoria
+        {
+
+            get
+            {
+
+                return _categoria;
+            }
+            set
+            {
+
+
+                _categoria = value;
+                NotifyPropertyChanged("categoria");
+            }
+        }
+        
         private Categoria _CategoriaSeleccionada=null;
         
         public Categoria CategoriaSeleccionada
@@ -94,6 +114,22 @@ namespace pe.edu.pucp.ferretin.viewmodel.MAlmacen
                 return _saveCategoriaCommand;
             }
         }
+
+        /*RelayCommand _saveCategoriaPrincipalCommand;
+        public ICommand saveCategoriaPrincipalCommand
+        {
+            get
+            {
+                if (_saveCategoriaPrincipalCommand == null)
+                {
+                    _saveCategoriaPrincipalCommand = new RelayCommand(saveCategoriaPrincipal);
+                }
+                return _saveCategoriaPrincipalCommand;
+            }
+        }*/
+
+
+
         RelayCommand _nuevaCategoriaCommand;
         public ICommand nuevaCategoriaCommand
         {
@@ -189,6 +225,24 @@ namespace pe.edu.pucp.ferretin.viewmodel.MAlmacen
 
            
            
+        }
+
+        
+        public void saveCategoriaPrincipal(Object obj) 
+        {
+
+          
+                if (!MA_CategoriaService.insertarCategoria(categoria))
+                {
+                    MessageBox.Show("No se pudo agregar la nueva categoría");
+                }
+                else
+                {
+                    MessageBox.Show("La categoría fue agregado con éxito");
+
+                }
+            
+
         }
 
         public void saveCategoria(Object obj)
