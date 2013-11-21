@@ -78,6 +78,7 @@
     <Compile Include="MVentas\MV_AdministrarPrecioProdViewModel.cs" />
     <Compile Include="MVentas\MV_BuscadorProductosViewModel.cs" />
     <Compile Include="MVentas\MV_DocNotaCreditoViewModel.cs" />
+    <Compile Include="MVentas\MV_DocProformaViewModel.cs" />
     <Compile Include="MVentas\MV_PromocionesViewModel.cs" />
     <Compile Include="MVentas\MV_ClientesViewModel.cs" />
     <Compile Include="Base\ViewModelBase.cs" />

@@ -7,6 +7,8 @@ using pe.edu.pucp.ferretin.viewmodel.MRecursosHumanos;
 using pe.edu.pucp.ferretin.viewmodel.MVentas;
 using System;
 using System.Collections.Generic;
+using System.IO;
+using System.IO.Packaging;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -18,6 +20,8 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using System.Windows.Xps;
+using System.Windows.Xps.Packaging;
 
 namespace pe.edu.pucp.ferretin.view.MVentas
 {
@@ -208,12 +212,26 @@ namespace pe.edu.pucp.ferretin.view.MVentas
 
         private void imprimirBtn_Click(object sender, RoutedEventArgs e)
         {
-
+            var print = new MV_DocProforma();
+            //print.Visibility = System.Windows.Visibility.Hidden;
+            print.Show();
+            
+            print.imprimir();
         }
 
         private void enviarEmailBtn_Click(object sender, RoutedEventArgs e)
         {
+            var print = new MV_DocProforma();
+            MemoryStream lMemoryStream = new MemoryStream();
+            Package package = Package.Open(lMemoryStream, FileMode.Create);
+            XpsDocument doc = new XpsDocument(package);
+            XpsDocumentWriter writer = XpsDocument.CreateXpsDocumentWriter(doc);
+            writer.Write(print);
+            doc.Close();
+            package.Close();
 
+            var pdfXpsDoc = PdfSharp.Xps.XpsModel.XpsDocument.Open(lMemoryStream);
+            PdfSharp.Xps.XpsConverter.Convert(pdfXpsDoc, "proforma.pdf", 0);
         }
 
     }

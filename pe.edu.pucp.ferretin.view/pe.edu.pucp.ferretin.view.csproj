@@ -59,6 +59,16 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\..\..\..\Program Files (x86)\SAP BusinessObjects\Crystal Reports for .NET Framework 4.0\Common\SAP BusinessObjects Enterprise XI 4.0\win32_x86\dotnet\CrystalDecisions.Windows.Forms.dll</HintPath>
     </Reference>
+    <Reference Include="PdfSharp">
+      <HintPath>..\..\..\..\Desktop\PdfSharp.dll</HintPath>
+    </Reference>
+    <Reference Include="PdfSharp-WPF">
+      <HintPath>..\..\..\..\Desktop\PdfSharp-WPF.dll</HintPath>
+    </Reference>
+    <Reference Include="PdfSharp.Xps">
+      <HintPath>..\..\..\..\Desktop\PdfSharp.Xps.dll</HintPath>
+    </Reference>
+    <Reference Include="ReachFramework" />
     <Reference Include="SAPBusinessObjects.WPF.Viewer, Version=13.0.3500.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\..\..\..\Program Files (x86)\SAP BusinessObjects\Crystal Reports for .NET Framework 4.0\Common\SAP BusinessObjects Enterprise XI 4.0\win32_x86\dotnet\SAPBusinessObjects.WPF.Viewer.dll</HintPath>
@@ -72,6 +82,7 @@
     <Reference Include="System.Data.Entity" />
     <Reference Include="System.Data.Linq" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Printing" />
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Core" />
@@ -109,6 +120,9 @@
     </Compile>
     <Compile Include="MVentas\MV_BuscadorProductos.xaml.cs">
       <DependentUpon>MV_BuscadorProductos.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="MVentas\MV_DocProforma.xaml.cs">
+      <DependentUpon>MV_DocProforma.xaml</DependentUpon>
     </Compile>
     <Compile Include="MVentas\ReporteDeDevoluciones.cs">
       <AutoGen>True</AutoGen>
@@ -336,6 +350,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="MVentas\MV_DocProforma.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="MVentas\MV_MainWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -349,10 +367,6 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="MVentas\MV_ReportesVentasWindow.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="MVentas\MV_ValeDialog.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -522,9 +536,6 @@
     </Compile>
     <Compile Include="MVentas\MV_ReportesVentasWindow.xaml.cs">
       <DependentUpon>MV_ReportesVentasWindow.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="MVentas\MV_ValeDialog.xaml.cs">
-      <DependentUpon>MV_ValeDialog.xaml</DependentUpon>
     </Compile>
     <Compile Include="MVentas\MV_ComprobantePagoWindow.xaml.cs">
       <DependentUpon>MV_ComprobantePagoWindow.xaml</DependentUpon>
