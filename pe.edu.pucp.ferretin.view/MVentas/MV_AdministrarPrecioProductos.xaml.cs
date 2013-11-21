@@ -33,7 +33,7 @@ namespace pe.edu.pucp.ferretin.view.MVentas
 
         private void validarPrecioLista(object sender, TextCompositionEventArgs e)
         {
-            if ((Regex.IsMatch(PrecioListaText.Text, @"^[0-9]+(\.{0}[0-9]+)?$")) && (e.Text != ",") || (Regex.IsMatch(e.Text, "[0-9]")))
+                if (((Regex.IsMatch(PrecioListaText.Text, @"^[0-9]+(\.{0}[0-9]+)?$")) && (e.Text != ",") && ((Regex.IsMatch(e.Text, "[0-9]")) || (e.Text == ".")) || (Regex.IsMatch(e.Text, "[0-9]"))))          
             {
                 e.Handled = false;
             }
