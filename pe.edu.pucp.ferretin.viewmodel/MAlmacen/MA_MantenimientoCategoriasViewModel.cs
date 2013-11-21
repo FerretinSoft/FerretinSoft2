@@ -259,20 +259,16 @@ namespace pe.edu.pucp.ferretin.viewmodel.MAlmacen
                     else
                     {
                         MessageBox.Show("La categoría fue guardado con éxito");
-                        
+
                     }
                 }
                 else
                 {
                     ComunService.idVentana(19);
                     //insertar categoria nueva
-                    if (CategoriaSeleccionada.nombre == null && CategoriaSeleccionada.descripcion!=null)
+                    if (CategoriaSeleccionada.nombre == null && CategoriaSeleccionada.descripcion != null)
                     {
                         MessageBox.Show("Ingresar el nombre de la categoría");
-                    }
-                    else if (CategoriaSeleccionada.descripcion == null  && CategoriaSeleccionada.nombre!=null)
-                    {
-                        MessageBox.Show("Ingresar la descripción de la categoría");
                     }
                     else if (CategoriaSeleccionada.nombre == null && CategoriaSeleccionada.descripcion == null)
                     {
@@ -280,28 +276,37 @@ namespace pe.edu.pucp.ferretin.viewmodel.MAlmacen
                     }
                     else
                     {
-                        if (!MA_CategoriaService.insertarCategoria(CategoriaSeleccionada))
+                        int esSub = 0;
+                        /************Cambios**************/
+                        /*esSub= (from cs in categoriaPrincipal
+                                   where
+                                   CategoriaSeleccionada.id_padre==cs.id
+                                   select cs).Count();*/
+                        if (CategoriaSeleccionada.nivel==2)
                         {
-                            MessageBox.Show("No se pudo agregar la nuevo categoría");
-                        }
-                        else
-                        {
-                            MessageBox.Show("La categoría fue agregado con éxito");
+                            //Console.WriteLine("assaas", CategoriaSeleccionada.nivel);
 
-                            ///**********************************************/              
-                            //    copiarCategoria(categoriaPadre);                         
-                            //NotifyPropertyChanged("categoriaPrincipal");
-                            ///**********************************************/
-                            ///
-                           
+                            if (!MA_CategoriaService.insertarCategoria(CategoriaSeleccionada))
+
+                                MessageBox.Show("No se pudo agregar la nuevo categoría");
+
+                            else
+
+                                MessageBox.Show("La categoría fue agregado con éxito");
+
+
+
                         }
+                        else { MessageBox.Show("No se puede asignar una categoria hijo a una subCategoría"); }
                     }
-                }
-                NotifyPropertyChanged("categoriaPrincipal");
 
+                }
             }
-            else
-                MessageBox.Show("Seleccionar una Categoria e ingresar los campos");
+            else MessageBox.Show("Seleccionar una Categoria principal");
+             NotifyPropertyChanged("categoriaPrincipal");
+
+            
+            
         }
         
         #endregion
