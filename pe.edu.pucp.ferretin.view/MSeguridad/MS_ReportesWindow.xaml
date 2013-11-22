@@ -20,14 +20,13 @@
             </ListBox>
             <Label Content="Reportes favoritos" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" FontSize="16" FontStyle="Italic" Grid.Column="1"/>
             <ListBox x:Name="reportesFavoritosListBox" HorizontalAlignment="Left" Height="186" Margin="10,50,0,0" VerticalAlignment="Top" Width="239" Grid.Column="1">
-                <ListBoxItem Content="Reporte de Transacciones"/>
+                
             </ListBox>
             <Label Content="Seleccione un reporte y presione Siguiente. " HorizontalAlignment="Left" Margin="10,270,0,0" VerticalAlignment="Top" Width="308" Grid.ColumnSpan="2"/>
         </Grid>
         
         <Button x:Name="repSigBtn" Content="SIGUIENTE &gt;" HorizontalAlignment="Right" Margin="0,0,110,0" Grid.Row="1" Width="75" Height="31" Click="repSigBtn_Click"/>
-        <Button Content="CANCELAR" HorizontalAlignment="Right" Margin="0,0,20,0" Grid.Row="1" Width="75" IsCancel="True" Height="31"/>
-        <Button x:Name="repAntBtn" Content="&lt; ANTERIOR" HorizontalAlignment="Right" Margin="0,0,200,0" Grid.Row="1" Width="75" IsEnabled="False" Height="31"/>
+        <Button Content="CANCELAR" HorizontalAlignment="Right" Margin="0,0,20,0" Grid.Row="1" Width="75" IsCancel="True" Height="31" Click="Button_Click"/>
         <Separator Height="2" Margin="0" Grid.Row="1" VerticalAlignment="Top"/>
 
     </Grid>

@@ -40,12 +40,42 @@ namespace pe.edu.pucp.ferretin.view.MVentas
             }else if (nombreReporte.Equals("RCliente")){
                 ReporteVentaCliente rep;
                 rep = new ReporteVentaCliente();
+                rep.SetParameterValue("fechaInicio", fechaInicio);
+                rep.SetParameterValue("fechaFin", fechaFin);
+
+                rep.SetDatabaseLogon("inf245g2usr", "server", "inti.lab.inf.pucp.edu.pe", "inf245g2");
+                rep.Refresh();
+
+                rep.SetParameterValue("fechaInicio", fechaInicio);
+                rep.SetParameterValue("fechaFin", fechaFin);
                 VisorReporte.ViewerCore.ReportSource = rep;
             }
-            else 
+            else if (nombreReporte.Equals("RProducto"))
             {
                 ReporteVentaProducto rep;
                 rep = new ReporteVentaProducto();
+                rep.SetParameterValue("fechaInicio", fechaInicio);
+                rep.SetParameterValue("fechaFin", fechaFin);
+
+                rep.SetDatabaseLogon("inf245g2usr", "server", "inti.lab.inf.pucp.edu.pe", "inf245g2");
+                rep.Refresh();
+
+                rep.SetParameterValue("fechaInicio", fechaInicio);
+                rep.SetParameterValue("fechaFin", fechaFin);
+                VisorReporte.ViewerCore.ReportSource = rep;
+            }
+            else
+            {
+                ReporteVentaVendedor rep;
+                rep = new ReporteVentaVendedor();
+                rep.SetParameterValue("fechaInicio", fechaInicio);
+                rep.SetParameterValue("fechaFin", fechaFin);
+
+                rep.SetDatabaseLogon("inf245g2usr", "server", "inti.lab.inf.pucp.edu.pe", "inf245g2");
+                rep.Refresh();
+
+                rep.SetParameterValue("fechaInicio", fechaInicio);
+                rep.SetParameterValue("fechaFin", fechaFin);
                 VisorReporte.ViewerCore.ReportSource = rep;
             }
 

@@ -35,6 +35,7 @@ namespace pe.edu.pucp.ferretin.view.MSeguridad
                 fechaFinal = fechaFinal.AddDays(1);
                 MS_ReporteWindow RTW = new MS_ReporteWindow(fechaInicial, fechaFinal);
                 RTW.Show();
+                fechaFinal = fechaFinal.AddDays(-1);
             }
             else
             {
