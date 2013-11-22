@@ -97,7 +97,7 @@ namespace pe.edu.pucp.ferretin.view.MVentas
                 else
                     repW = new MV_VisorReporte(padre_DataContext.searchFechaInicio, padre_DataContext.searchFechaFin, "RVendedor");
                 
-                repW.Show();
+                repW.ShowDialog();
 
             }
 

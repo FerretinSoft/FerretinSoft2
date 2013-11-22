@@ -18,7 +18,7 @@ namespace pe.edu.pucp.ferretin.view.MCompras
             if (ComunService.usuarioLpermisos[15].estado == true)
             {
                 MC_AdministrarProveedorWindow prove = new MC_AdministrarProveedorWindow();
-                prove.Show();
+                prove.ShowDialog();
             }
             else
             {
@@ -36,7 +36,7 @@ namespace pe.edu.pucp.ferretin.view.MCompras
                 //solabas.generarSolTab.Visibility = System.Windows.Visibility.Hidden;
                 //solabas.ShowDialog();
                 MC_AtenderSolicitudWindow solabs = new MC_AtenderSolicitudWindow();
-                solabs.Show();
+                solabs.ShowDialog();
             }
             else
             {
@@ -49,7 +49,7 @@ namespace pe.edu.pucp.ferretin.view.MCompras
             if (ComunService.usuarioLpermisos[17].estado == true)
             {
                 MC_AdministrarOCCotizacionWindow orden = new MC_AdministrarOCCotizacionWindow();
-                orden.Show();
+                orden.ShowDialog();
             }
             else
             {
@@ -62,7 +62,7 @@ namespace pe.edu.pucp.ferretin.view.MCompras
             if (ComunService.usuarioLpermisos[18].estado == true)
             {
                 MC_AdministrarGuiaRemiWindow guia = new MC_AdministrarGuiaRemiWindow();
-                guia.Show();
+                guia.ShowDialog();
             }
             else
             {
@@ -75,7 +75,7 @@ namespace pe.edu.pucp.ferretin.view.MCompras
             if (ComunService.usuarioLpermisos[19].estado == true)
             {
                 MC_ReportesWindow reporte = new MC_ReportesWindow();
-                reporte.Show();
+                reporte.ShowDialog();
             }
             else
             {

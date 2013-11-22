@@ -137,10 +137,10 @@ namespace pe.edu.pucp.ferretin.view.MAlmacen
                 //Tienda tiendaSelected = (Tienda)this.cmbTienda.SelectedItem;
 
                 //viewModel.tiendaSeleccionada = tiendaSelected;
-                //v.Show();
+                //v.ShowDialog();
 
                 MA_VisorReporteStock vrs = new MA_VisorReporteStock(((Tienda)this.cmbTienda.SelectedItem).id);
-                vrs.Show();
+                vrs.ShowDialog();
 
             }
             else if (reporte >= 2 && reporte <= 4)
@@ -152,11 +152,11 @@ namespace pe.edu.pucp.ferretin.view.MAlmacen
                 //viewModel.tiendaSeleccionada = tiendaSelected;
                 //viewModel.fechaDesde = (DateTime)fechaDesdePicker.SelectedDate;
                 //viewModel.fechaHasta = (DateTime)fechaHastaPicker.SelectedDate;
-                //kardexW.Show();
+                //kardexW.ShowDialog();
                 MA_KardexVisor visor = new MA_KardexVisor((DateTime)fechaDesdePicker.SelectedDate,
                                                           (DateTime)fechaHastaPicker.SelectedDate,
                                                           (Tienda)this.cmbTienda.SelectedItem);
-                visor.Show();
+                visor.ShowDialog();
             }
             
             

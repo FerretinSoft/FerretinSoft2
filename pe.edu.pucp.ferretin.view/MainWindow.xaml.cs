@@ -57,7 +57,7 @@ namespace pe.edu.pucp.ferretin.view
             if (ComunService.usuarioLpermisos[14].estado == true)
             {
                 MCompras.MC_MainWindow Mainw = new MCompras.MC_MainWindow();
-                Mainw.Show();
+                Mainw.ShowDialog();
             }
             else
             {
@@ -90,7 +90,7 @@ namespace pe.edu.pucp.ferretin.view
             {
 
                 MVentas.MV_MainWindow MVWindow = MVentas.MV_MainWindow.instance;
-                MVWindow.Show();
+                MVWindow.ShowDialog();
                 MVWindow.Focus();
             }
             else
@@ -124,7 +124,7 @@ namespace pe.edu.pucp.ferretin.view
             if (ComunService.usuarioLpermisos[20].estado == true)
             {
                 MAlmacen.MA_MainWindow maMain = new MAlmacen.MA_MainWindow();
-                maMain.Show();
+                maMain.ShowDialog();
             }
             else
             {
@@ -139,7 +139,7 @@ namespace pe.edu.pucp.ferretin.view
         private void cambiarPasswMenuItem_Click(object sender, RoutedEventArgs e)
         {
             MSeguridad.MS_CambiarContraseñaUsuario wCambiar = new MSeguridad.MS_CambiarContraseñaUsuario(usuarioLog, 0);
-            wCambiar.Show();
+            wCambiar.ShowDialog();
         }
 
         private void cerrarSesionMenuItem_Click(object sender, RoutedEventArgs e)
@@ -153,7 +153,7 @@ namespace pe.edu.pucp.ferretin.view
             }
 
             MSeguridad.MS_LoginWindow lw = new MSeguridad.MS_LoginWindow();
-            lw.Show();
+            lw.ShowDialog();
             this.Close();
         }
         #endregion
@@ -162,7 +162,7 @@ namespace pe.edu.pucp.ferretin.view
         private void reportesBtn_Click(object sender, RoutedEventArgs e)
         {
             ReportesWindow RPWindow = new ReportesWindow();
-            RPWindow.Show();
+            RPWindow.ShowDialog();
         }
         #endregion
     }

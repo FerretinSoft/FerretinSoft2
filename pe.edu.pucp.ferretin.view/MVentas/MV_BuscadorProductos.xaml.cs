@@ -31,7 +31,7 @@ namespace pe.edu.pucp.ferretin.view.MVentas
             var myDC = DataContext as MV_BuscadorProductosViewModel;
             myDC.tienda = tienda;
             myDC.buscarProductos(null);
-            this.Show();
+            this.ShowDialog();
         }
 
         private void cancelButton_Click(object sender, RoutedEventArgs e)

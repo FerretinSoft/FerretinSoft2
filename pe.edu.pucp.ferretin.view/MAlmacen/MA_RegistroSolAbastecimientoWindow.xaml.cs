@@ -40,7 +40,7 @@ namespace pe.edu.pucp.ferretin.view.MAlmacen
         private void consolidarBtn_Click(object sender, RoutedEventArgs e)
         {
             MCompras.MC_ConsolidarSolicitudesWindow consoli = new MCompras.MC_ConsolidarSolicitudesWindow();
-            consoli.Show();
+            consoli.ShowDialog();
         }
 
         private void borrarProductosBtn_Click(object sender, RoutedEventArgs e)
