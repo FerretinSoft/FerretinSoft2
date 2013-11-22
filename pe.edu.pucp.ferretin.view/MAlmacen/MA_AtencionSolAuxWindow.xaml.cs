@@ -1,4 +1,5 @@
 ﻿using pe.edu.pucp.ferretin.controller;
+using pe.edu.pucp.ferretin.controller.MAlmacen;
 using pe.edu.pucp.ferretin.viewmodel.MAlmacen;
 using System;
 using System.Collections.Generic;
@@ -28,11 +29,24 @@ namespace pe.edu.pucp.ferretin.view.MAlmacen
 
         private void aceptarBtn_Click(object sender, RoutedEventArgs e)
         {
+            MA_AtencionSolAuxViewModel thisVM = this.main.DataContext as MA_AtencionSolAuxViewModel;
+            List<MA_SolicitudAbastecimientoService.AtencionSolicitudProducto> lista = thisVM.listadoProductos;
+            foreach (var item in lista)
+            {
+                if (item.cantidad > item.producto.cantidadRestante)
+                {
+                    MessageBox.Show("La cantidad especificada para el producto "
+                        + item.producto.Producto.nombre
+                        + " es mayor que la cantidad que debe abastecerse ("
+                        + item.producto.cantidadRestante + ").");
+                    return;
+                }                
+            }
+
             if (MessageBox.Show("Esta seguro que desea atender la solicitud?", "Confirmación de Atención", MessageBoxButton.OKCancel) == MessageBoxResult.OK)
             {
                 MA_AtencionSolAbastecimientoWindow parent = this.Owner as MA_AtencionSolAbastecimientoWindow;
                 MA_AtencionSolAbastecimientoViewModel parentVM = parent.main.DataContext as MA_AtencionSolAbastecimientoViewModel;
-                MA_AtencionSolAuxViewModel thisVM = this.main.DataContext as MA_AtencionSolAuxViewModel;
                 parentVM.listaAtencion = thisVM.listadoProductos;
                 this.Close();
             }
@@ -45,6 +59,19 @@ namespace pe.edu.pucp.ferretin.view.MAlmacen
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
             ComunService.Clean();
+        }
+
+        private void DataGrid_PreviewKeyDown(object sender, KeyEventArgs e)
+        {
+            DataGrid grid = (DataGrid)sender;
+            if (grid.CurrentCell.Column.DisplayIndex == 3)
+            {
+                //Validaciones para que acepte solo numeros
+                if (((e.Key >= Key.D0 && e.Key <= Key.D9) || (e.Key >= Key.NumPad0 && e.Key <= Key.NumPad9) || e.Key == Key.Back || e.Key == Key.Tab))
+                    e.Handled = false;
+                else
+                    e.Handled = true;
+            }
         }
     }
 }

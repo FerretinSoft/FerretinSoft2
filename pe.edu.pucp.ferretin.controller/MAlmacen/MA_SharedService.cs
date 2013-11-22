@@ -207,7 +207,8 @@ namespace pe.edu.pucp.ferretin.controller.MAlmacen
         {
             Dictionary<ProductoAlmacen, decimal> result = new Dictionary<ProductoAlmacen, decimal>();
             ProductoAlmacen current; decimal diferencia;
-            for (int i = 0; i < almacen.ProductoAlmacen.Count; i++)
+            int count = almacen.ProductoAlmacen.Count;
+            for (int i = 0; i < count; i++)
 			{
                 current = almacen.ProductoAlmacen[i];
                 diferencia = (decimal)current.stock - (decimal)current.stockMin;
@@ -219,10 +220,12 @@ namespace pe.edu.pucp.ferretin.controller.MAlmacen
                 foreach (var prod in item.SolicitudAbastecimientoProducto)
                 {
                     current = MA_ProductoAlmacenService.ObtenerProductoAlmacenPorTiendaProducto(almacen, prod.Producto);
-                    if (prod.cantidadRestante > current.stock)
+                    if (prod.cantidadRestante > current.stock - current.stockMin)
                     {
                         if (!result.ContainsKey(current))
                             result.Add(current, (decimal)prod.cantidadRestante - (decimal)current.stock);
+                        else
+                            result[current] = result[current] + prod.cantidadRestante; 
                     }
                 }                
             }

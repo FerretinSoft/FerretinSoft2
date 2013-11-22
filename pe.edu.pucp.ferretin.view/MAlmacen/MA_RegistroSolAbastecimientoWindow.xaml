@@ -80,7 +80,7 @@
 
                     <Label Content="Tienda:" HorizontalAlignment="Left" Height="26" VerticalAlignment="Top" Width="64" Margin="326,43,0,0"/>
                     <Label Content="Estado:" HorizontalAlignment="Left" Height="26" VerticalAlignment="Top" Width="65" Margin="325,82,0,0"/>
-                    <DataGrid x:Name="productosGrid" IsEnabled="{Binding isCreating}" ItemsSource="{Binding productosPorSolicitud,UpdateSourceTrigger=PropertyChanged,NotifyOnSourceUpdated=True,NotifyOnTargetUpdated=True,Mode=TwoWay}" Margin="8,30,2,3" Grid.Row="1" AutoGenerateColumns="False"  CanUserDeleteRows="False" IsManipulationEnabled="True" CanUserAddRows="False">
+                    <DataGrid x:Name="productosGrid" IsEnabled="{Binding isCreating}" ItemsSource="{Binding productosPorSolicitud,UpdateSourceTrigger=PropertyChanged,NotifyOnSourceUpdated=True,NotifyOnTargetUpdated=True,Mode=TwoWay}" Margin="8,30,2,3" Grid.Row="1" AutoGenerateColumns="False"  CanUserDeleteRows="False" IsManipulationEnabled="True" CanUserAddRows="False" PreviewKeyDown="productosGrid_PreviewKeyDown">
                         <DataGrid.Columns>
                             <DataGridTextColumn Width="2*" Binding="{Binding Path=productoPorSolicitud.Producto.codigo}"  IsReadOnly="True" Header="Cód. Producto"/>
                             <DataGridTextColumn Width="2*" Binding="{Binding Path=productoPorSolicitud.Producto.nombre}"  IsReadOnly="True"  Header="Nombre"/>

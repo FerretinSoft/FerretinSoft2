@@ -7,7 +7,7 @@
         <viewmodel:MA_AtencionSolAuxViewModel x:Key="MA_AtencionSolAuxViewModel"/>
     </Window.Resources>
     <Grid x:Name="main" DataContext="{Binding Source={StaticResource MA_AtencionSolAuxViewModel}}">
-        <DataGrid BorderBrush="Transparent" IsManipulationEnabled="False" AutoGenerateColumns="False" CanUserAddRows="False" Background="Transparent"  Margin="10,10,10,64" ItemsSource="{Binding Path=listadoProductos}">
+        <DataGrid x:Name="cantidadesGrid" BorderBrush="Transparent" IsManipulationEnabled="False" AutoGenerateColumns="False" CanUserAddRows="False" Background="Transparent"  Margin="10,10,10,64" ItemsSource="{Binding Path=listadoProductos}" PreviewKeyDown="DataGrid_PreviewKeyDown">
             <DataGrid.Columns>
                 <DataGridTextColumn Width="1*" Binding="{Binding Path=producto.Producto.codigo}" ClipboardContentBinding="{x:Null}" Header="Cód. Producto" IsReadOnly="True"/>
                 <DataGridTextColumn Width="2*"  Binding="{Binding Path=producto.Producto.nombre}" ClipboardContentBinding="{x:Null}" Header="Nombre" IsReadOnly="True"/>

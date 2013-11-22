@@ -66,6 +66,19 @@ namespace pe.edu.pucp.ferretin.view.MAlmacen
             ComunService.Clean();
         }
 
+        private void productosGrid_PreviewKeyDown(object sender, KeyEventArgs e)
+        {
+            DataGrid grid = (DataGrid)sender;
+            if (grid.CurrentCell.Column.DisplayIndex == 2)
+            {
+                //Validaciones para que acepte solo numeros
+                if (((e.Key >= Key.D0 && e.Key <= Key.D9) || (e.Key >= Key.NumPad0 && e.Key <= Key.NumPad9) || e.Key == Key.Back || e.Key == Key.Tab))
+                    e.Handled = false;
+                else
+                    e.Handled = true;
+            }
+        }
+
         
     }
 }

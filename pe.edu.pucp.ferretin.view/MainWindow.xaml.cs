@@ -1,4 +1,5 @@
 ﻿using pe.edu.pucp.ferretin.model;
+using pe.edu.pucp.ferretin.viewmodel;
 using pe.edu.pucp.ferretin.controller;
 using System;
 using System.Collections.Generic;
