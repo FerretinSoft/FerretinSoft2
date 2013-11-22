@@ -3,7 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:viewmodel="clr-namespace:pe.edu.pucp.ferretin.viewmodel.MAlmacen;assembly=pe.edu.pucp.ferretin.viewmodel"
         xmlns:helper="clr-namespace:pe.edu.pucp.ferretin.viewmodel.Helper;assembly=pe.edu.pucp.ferretin.viewmodel"
-        Title="Administración de Productos" Height="439" Width="704" Icon="../Resources/ferretin_ico.ico" ResizeMode="CanMinimize" WindowStartupLocation="CenterScreen">
+        Title="Administración de Productos" Height="439" Width="704" Icon="../Resources/ferretin_ico.ico" ResizeMode="CanMinimize" WindowStartupLocation="CenterScreen" Closing="Window_Closing">
     <Window.Resources>
         <viewmodel:MA_MantenimientoProductosViewModel x:Key="MA_MantenimientoProductosViewModel"/>
     </Window.Resources>
@@ -25,7 +25,7 @@
                             <ImageBrush ImageSource="../Resources/refresh2_48.png"/>
                         </Button.Background>
                     </Button>
-                    <DataGrid Name="gridProductos" CanUserAddRows="False" Margin="9,160,1,22" AutoGenerateColumns="False" ItemsSource="{Binding Path=listaProductos}" Grid.ColumnSpan="2">
+                    <DataGrid Name="gridProductos" CanUserAddRows="False" Margin="9,160,1,22" IsManipulationEnabled="False" AutoGenerateColumns="False" ItemsSource="{Binding Path=listaProductos}" Grid.ColumnSpan="2" CanUserDeleteRows="False"  CanUserReorderColumns="false" IsReadOnly="true">
                         <DataGrid.Columns>
                             <DataGridTemplateColumn Width="2.5*" Header="Cód. Prod.">
                                 <DataGridTemplateColumn.CellTemplate>

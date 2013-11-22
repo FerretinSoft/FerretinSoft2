@@ -3,7 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:viewmodel="clr-namespace:pe.edu.pucp.ferretin.viewmodel.MAlmacen;assembly=pe.edu.pucp.ferretin.viewmodel"
         xmlns:helper="clr-namespace:pe.edu.pucp.ferretin.viewmodel.Helper;assembly=pe.edu.pucp.ferretin.viewmodel"
-        Title="Inventario de Productos" Height="596" Width="704" ResizeMode="CanMinimize" WindowStartupLocation="CenterScreen" Icon="/pe.edu.pucp.ferretin.view;component/Resources/ferretin_ico.ico">
+        Title="Inventario de Productos" Height="596" Width="704" ResizeMode="CanMinimize" WindowStartupLocation="CenterScreen" Icon="/pe.edu.pucp.ferretin.view;component/Resources/ferretin_ico.ico" Closing="Window_Closing">
     <Window.Resources>
         <viewmodel:MA_InventarioProductosViewModel x:Key="MA_InventarioProductosViewModel"/>
         <ControlTemplate x:Key="validationTemplate">
@@ -43,7 +43,7 @@
                         </Button.Background>
                     </Button>
 
-                    <DataGrid ItemsSource="{Binding Path=listaProductoAlmacen}" Margin="5,5.22,5.068,5.298" Grid.Row="2" IsManipulationEnabled="False" IsReadOnly="True" CanUserSortColumns="True" AutoGenerateColumns="False" CanUserAddRows="False" CanUserDeleteRows="False" Grid.ColumnSpan="2">
+                    <DataGrid ItemsSource="{Binding Path=listaProductoAlmacen}" Margin="5,5.22,5.068,5.298" Grid.Row="2" IsManipulationEnabled="False" IsReadOnly="True" CanUserSortColumns="True" AutoGenerateColumns="False" CanUserAddRows="False" CanUserDeleteRows="False" Grid.ColumnSpan="2"  CanUserReorderColumns="false" >
                         <DataGrid.Columns>
                             <DataGridTemplateColumn Width="1.5*" Header="Cód.Producto">
                                 <DataGridTemplateColumn.CellTemplate>
@@ -126,7 +126,7 @@
                     <TextBox Text="{Binding Path=productoAlmacenSeleccionado.stock, Mode=TwoWay,  ValidatesOnExceptions=true, NotifyOnValidationError=true}" HorizontalAlignment="Left" Height="23" Margin="127,202,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="207" Grid.Column="3" IsEnabled="False"/>
                     <TextBox Text="{Binding Path=productoAlmacenSeleccionado.stockMin, Mode=TwoWay,  ValidatesOnExceptions=true, NotifyOnValidationError=true}" HorizontalAlignment="Left" Height="23" Margin="128,238,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="207" Grid.Column="3" IsEnabled="False"/>
                     <Label Content="Últimos movimientos:" HorizontalAlignment="Left" Margin="0,326,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.464,1.231" Grid.Column="1" Grid.ColumnSpan="2"/>
-                    <DataGrid ItemsSource="{Binding Path=listaMovimientos}"  AutoGenerateColumns="False" Grid.Column="1" Margin="0,0,19,10" VerticalAlignment="Bottom" Height="169" Grid.ColumnSpan="3">
+                    <DataGrid ItemsSource="{Binding Path=listaMovimientos}"  AutoGenerateColumns="False" Grid.Column="1" Margin="0,0,19,10" VerticalAlignment="Bottom" Height="169" Grid.ColumnSpan="3" CanUserDeleteRows="False" CanUserReorderColumns="false">
                         <DataGrid.Columns>
                             <DataGridTextColumn Width="1*" Binding="{Binding Path=convertDate}" IsReadOnly="true" ClipboardContentBinding="{x:Null}" Header="Fecha"/>
                             <DataGridTextColumn Width="1.5*" Binding="{Binding Path=mp.cantidad}" IsReadOnly="true" ClipboardContentBinding="{x:Null}" Header="Cantidad"/>

@@ -1,4 +1,5 @@
 ﻿using Microsoft.Win32;
+using pe.edu.pucp.ferretin.controller;
 using pe.edu.pucp.ferretin.controller.MAlmacen;
 using pe.edu.pucp.ferretin.model;
 using pe.edu.pucp.ferretin.viewmodel.MAlmacen;
@@ -158,13 +159,13 @@ namespace pe.edu.pucp.ferretin.view.MAlmacen
             else //Nuevo producto
             {
 
-                MA_MantenimientoProductosEdicionStockWindow v = new MA_MantenimientoProductosEdicionStockWindow();
+                MA_MantenimientoProductosEdicionStockWindow v = new MA_MantenimientoProductosEdicionStockWindow(productoTabControl);
                 v.Owner = this;
                 guardarBtn(viewModelThis.producto);
                 viewModelThis.guardarCategoriasProducto();
                 var viewModel = v.main.DataContext as MA_MantenimientoProductosEdicionStockViewModel;
                 viewModel.producto = viewModelThis.producto;
-                productoTabControl.SelectedIndex = 0;
+                //productoTabControl.SelectedIndex = 0;
                 v.Show();
             }
         }
@@ -255,6 +256,11 @@ namespace pe.edu.pucp.ferretin.view.MAlmacen
                 if (ascci >= 48 && ascci <= 57) e.Handled = false;
                 else e.Handled = true;
             }
+        }
+
+        private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            ComunService.Clean();
         }
     }
 }

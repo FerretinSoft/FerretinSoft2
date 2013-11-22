@@ -19,14 +19,16 @@ namespace pe.edu.pucp.ferretin.view.MAlmacen
     /// </summary>
     public partial class MA_MantenimientoProductosEdicionStockWindow : Window
     {
-        public MA_MantenimientoProductosEdicionStockWindow()
+        TabControl tabMain;
+        public MA_MantenimientoProductosEdicionStockWindow(TabControl tab)
         {
             InitializeComponent();
+            tabMain = tab;
         }
 
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
-            //e.Cancel = true;
+            tabMain.SelectedIndex = 0;
         }
     }
 }
