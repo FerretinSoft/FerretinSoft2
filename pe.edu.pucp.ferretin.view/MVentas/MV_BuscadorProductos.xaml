@@ -42,6 +42,7 @@
                 <DataGridTextColumn Width="100" Binding="{Binding Producto.codigo}" Header="Código"/>
                 <DataGridTextColumn Width="3*" Binding="{Binding Producto.nombre}" Header="Nombre"/>
                 <DataGridTextColumn Width="4*" Binding="{Binding Producto.cadenaCategoria}" Header="Categorías"/>
+                <DataGridTextColumn Width="2*" Binding="{Binding Producto.precioMonedaString}" Header="Precio"/>
                 <DataGridTextColumn Width="100" Binding="{Binding stock}" Header="Stock"/>
             </DataGrid.Columns>
         </DataGrid>

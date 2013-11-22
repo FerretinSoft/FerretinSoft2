@@ -48,7 +48,7 @@ namespace pe.edu.pucp.ferretin.view.MVentas
                 var seleccionados = listaProductos.SelectedItems;
                 foreach(ProductoAlmacen seleccionado in seleccionados){
                     vmpadre.codProdAgregar = seleccionado.Producto.codigo;
-                    vmpadre.agregarProducto(null);
+                    vmpadre.agregarProducto(seleccionado);
                 }
                 vmpadre.codProdAgregar = "";
             }
@@ -60,7 +60,7 @@ namespace pe.edu.pucp.ferretin.view.MVentas
                 foreach (ProductoAlmacen seleccionado in seleccionados)
                 {
                     vmpadre.codProdAgregar = seleccionado.Producto.codigo;
-                    vmpadre.agregarProducto(null);
+                    vmpadre.agregarProducto(seleccionado);
                 }
                 vmpadre.codProdAgregar = "";
             }
@@ -72,7 +72,7 @@ namespace pe.edu.pucp.ferretin.view.MVentas
                 foreach (ProductoAlmacen seleccionado in seleccionados)
                 {
                     vmpadre.codProdAgregar = seleccionado.Producto.codigo;
-                    vmpadre.agregarProducto(null);
+                    vmpadre.agregarProducto(seleccionado);
                 }
                 vmpadre.codProdAgregar = "";
             }
