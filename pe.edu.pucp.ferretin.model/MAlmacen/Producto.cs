@@ -53,6 +53,7 @@ namespace pe.edu.pucp.ferretin.model
         {
             get
             {
+                if (moneda == null || precioLista == null || precioLista <= 0) return "No asignado";
                 return (moneda == 0 ? "S/." : "$  ") + precioLista.ToString();
             }
         }

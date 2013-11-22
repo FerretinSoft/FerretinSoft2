@@ -35,25 +35,25 @@ namespace pe.edu.pucp.ferretin.view
         private void RepAlmBtn_Click(object sender, RoutedEventArgs e)
         {
             MAlmacen.MA_ReportesWindow RAW = new MAlmacen.MA_ReportesWindow();
-            RAW.Show();
+            RAW.ShowDialog();
         }
 
         private void RepVenBtn_Click(object sender, RoutedEventArgs e)
         {
             MVentas.MV_ReportesVentasWindow RVW = new MVentas.MV_ReportesVentasWindow();
-            RVW.Show();
+            RVW.ShowDialog();
         }
 
         private void RepComBtn_Click(object sender, RoutedEventArgs e)
         {
             MCompras.MC_ReportesWindow RCW = new MCompras.MC_ReportesWindow();
-            RCW.Show();
+            RCW.ShowDialog();
         }
 
         private void RepSegBtn_Click(object sender, RoutedEventArgs e)
         {
             MSeguridad.MS_ReportesWindow RSW = new MSeguridad.MS_ReportesWindow();
-            RSW.Show();
+            RSW.ShowDialog();
         }
 
 

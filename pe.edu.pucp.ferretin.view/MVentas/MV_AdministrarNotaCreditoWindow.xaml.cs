@@ -42,19 +42,19 @@ namespace pe.edu.pucp.ferretin.view.MVentas
         private void buscarClienteBtn_Click(object sender, RoutedEventArgs e)
         {
             //ClientesWindow pw = new ClientesWindow();
-            //pw.Show();
+            //pw.ShowDialog();
         }
 
         private void buscarVendedorBtn_Click(object sender, RoutedEventArgs e)
         {
             //PersonalAdminWindow pw = new PersonalAdminWindow();
-            //pw.Show();
+            //pw.ShowDialog();
         }
 
         private void nuevaNotaCreditoBtn_Click(object sender, RoutedEventArgs e)
         {
             //RegistrarNotaCreditoWindow pw = new RegistrarNotaCreditoWindow();
-            //pw.Show();
+            //pw.ShowDialog();
         }
 
         public void seleccionarCliente()
@@ -68,7 +68,7 @@ namespace pe.edu.pucp.ferretin.view.MVentas
             v.Owner = this;
             var viewModel = v.DataContext as MV_ClientesViewModel;
             viewModel.soloSeleccionarCliente = true;
-            v.Show();
+            v.ShowDialog();
         }
 
         private void Button_Click_Vendedor(object sender, RoutedEventArgs e)
@@ -77,7 +77,7 @@ namespace pe.edu.pucp.ferretin.view.MVentas
             v.Owner = this;
             var viewModel = v.main.DataContext as MR_AdministrarPersonalViewModel;
             viewModel.soloSeleccionarVendedor = true;
-            v.Show();
+            v.ShowDialog();
         }
 
         private void visualizar_DocClick(object sender, RoutedEventArgs e)
@@ -91,7 +91,7 @@ namespace pe.edu.pucp.ferretin.view.MVentas
             MV_NotaCreditoViewModel actual = this.main.DataContext as MV_NotaCreditoViewModel;
             MV_DocNotaCreditoViewModel padre = p.main.DataContext as MV_DocNotaCreditoViewModel;
             padre.notaCredito = actual.notaCredito; 
-            p.Show();
+            p.ShowDialog();
         }
 
         private void Window_Closing(object sender, CancelEventArgs e)

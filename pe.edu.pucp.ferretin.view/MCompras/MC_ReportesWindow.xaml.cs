@@ -30,7 +30,7 @@ namespace pe.edu.pucp.ferretin.view.MCompras
             {
                 MC_VisorReporteOC vroc = new MC_VisorReporteOC(txtRuc.Text, (DateTime)dpFechaDesde.SelectedDate,
                                                                 (DateTime)dpFechaHasta.SelectedDate);
-                vroc.Show();
+                vroc.ShowDialog();
             }
         }
 

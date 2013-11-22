@@ -52,7 +52,7 @@ namespace pe.edu.pucp.ferretin.view.MVentas
             {
                 MV_RegistrarVentaWindow w = new MV_RegistrarVentaWindow();
                 w.Owner = this;
-                w.Show();
+                w.ShowDialog();
             }
             else
             {
@@ -66,7 +66,7 @@ namespace pe.edu.pucp.ferretin.view.MVentas
             {
                 MV_ClientesWindow cw = new MV_ClientesWindow();
                 cw.Owner = this;
-                cw.Show();
+                cw.ShowDialog();
             }
             else
             {
@@ -81,7 +81,7 @@ namespace pe.edu.pucp.ferretin.view.MVentas
                 //
                 MV_ReportesVentasWindow repW = new MV_ReportesVentasWindow();
                 repW.Owner = this;
-                repW.Show();
+                repW.ShowDialog();
             }
             else
             {
@@ -103,7 +103,7 @@ namespace pe.edu.pucp.ferretin.view.MVentas
             {
                 MV_AdministrarProformasWindow w = new MV_AdministrarProformasWindow();
                 w.Owner = this;
-                w.Show();
+                w.ShowDialog();
             }
             else
             {
@@ -122,7 +122,7 @@ namespace pe.edu.pucp.ferretin.view.MVentas
             if (ComunService.usuarioLpermisos[5].estado == true)
             {
                 MV_AdministrarVentasWindow pw = new MV_AdministrarVentasWindow();
-                pw.Show();
+                pw.ShowDialog();
             }
             else
             {
@@ -135,7 +135,7 @@ namespace pe.edu.pucp.ferretin.view.MVentas
             if (ComunService.usuarioLpermisos[9].estado == true)
             {
                 MV_DevolucionesWindow pw = new MV_DevolucionesWindow();
-                pw.Show();
+                pw.ShowDialog();
             }
             else
             {
@@ -149,7 +149,7 @@ namespace pe.edu.pucp.ferretin.view.MVentas
             if (ComunService.usuarioLpermisos[10].estado == true)
             {
                 MV_AdministrarNotaCreditoWindow w = new MV_AdministrarNotaCreditoWindow();
-                w.Show();
+                w.ShowDialog();
             }
             else
             {
@@ -188,7 +188,7 @@ namespace pe.edu.pucp.ferretin.view.MVentas
             //if (ComunService.usuarioLpermisos[8].estado == true)
             //{
             MV_AdministrarPrecioProductos w = new MV_AdministrarPrecioProductos();
-            w.Show();
+            w.ShowDialog();
             //}
             //else
             //{
@@ -207,7 +207,7 @@ namespace pe.edu.pucp.ferretin.view.MVentas
             if (ComunService.usuarioLpermisos[6].estado == true)
             {
                 MV_AdministrarPromocionesWindow w = new MV_AdministrarPromocionesWindow();
-                w.Show();
+                w.ShowDialog();
             }
             else
             {
@@ -220,7 +220,7 @@ namespace pe.edu.pucp.ferretin.view.MVentas
             if (ComunService.usuarioLpermisos[12].estado == true)
             {
                 MV_AdministrarValesWindow w = new MV_AdministrarValesWindow();
-                w.Show();
+                w.ShowDialog();
             }
             else
             {

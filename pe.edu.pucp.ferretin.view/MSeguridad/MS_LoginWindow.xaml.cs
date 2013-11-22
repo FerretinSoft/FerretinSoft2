@@ -125,7 +125,7 @@ namespace pe.edu.pucp.ferretin.view.MSeguridad
                         ComunService.usuarioLo(value);
                         MS_CambiarContraseñaUsuario cc = new MS_CambiarContraseñaUsuario(usuarioLog, 1);
                         MessageBox.Show("Inicio de sesión exitoso. Su contraseña ha caducado. A continuación actualice su contraseña para ingresar al sistema.");
-                        cc.Show();
+                        cc.ShowDialog();
                         this.Close();
                         break;
 
@@ -139,7 +139,7 @@ namespace pe.edu.pucp.ferretin.view.MSeguridad
                         ComunService.usuarioLo(value);
                         MS_CambiarContraseñaUsuario cc = new MS_CambiarContraseñaUsuario(usuarioLog, 0);
                         MessageBox.Show("Inicio de sesión exitoso. A continuación cambie su contraseña.");
-                        cc.Show();
+                        cc.ShowDialog();
                         this.Close();
                         break;
 
@@ -164,7 +164,7 @@ namespace pe.edu.pucp.ferretin.view.MSeguridad
                          
                         MainWindow mainW = new MainWindow(usuarioLog);
                         this.Close();
-                        mainW.Show();
+                        mainW.ShowDialog();
                     }
 
                 }

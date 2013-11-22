@@ -67,6 +67,16 @@ namespace pe.edu.pucp.ferretin.controller.MVentas
             }
         }
 
+        public static PromocionProducto ultimaPromocionPorProducto(ProductoAlmacen productoAlmacen)
+        {
+            try
+            {
+                return ultimaPromocionPorProducto(productoAlmacen.Producto, productoAlmacen.Tienda);
+            }
+            catch {
+                return null;
+            }
+        }
 
         public static string newCodPromocion
         {

@@ -37,7 +37,7 @@ namespace pe.edu.pucp.ferretin.view.MVentas
             var myDC = this.main.DataContext as pruebaViewModel;
             myDC.venta = pagoViewModel.venta;
             var n = pagoViewModel.venta.id;
-            this.Show();
+            this.ShowDialog();
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)

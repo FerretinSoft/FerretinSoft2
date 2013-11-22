@@ -47,7 +47,7 @@ namespace pe.edu.pucp.ferretin.view.MVentas
             profWindow.Owner = this;
             MV_AdministrarProformasViewModel prodViewModel = profWindow.DataContext as MV_AdministrarProformasViewModel;
             prodViewModel.soloSeleccionarProforma = true;
-            profWindow.Show();
+            profWindow.ShowDialog();
         }
 
 
@@ -69,7 +69,7 @@ namespace pe.edu.pucp.ferretin.view.MVentas
             v.Owner = this;
             var viewModel = v.DataContext as MV_ClientesViewModel;
             viewModel.soloSeleccionarCliente = true;
-            v.Show();
+            v.ShowDialog();
         }
 
         private void Window_Closed(object sender, EventArgs e)
