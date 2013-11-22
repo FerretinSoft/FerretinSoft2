@@ -225,7 +225,7 @@ namespace pe.edu.pucp.ferretin.controller.MAlmacen
                         if (!result.ContainsKey(current))
                             result.Add(current, (decimal)prod.cantidadRestante - (decimal)current.stock);
                         else
-                            result[current] = result[current] + prod.cantidadRestante; 
+                            result[current] = result[current] + (prod.cantidadRestante == null ? 0 : prod.cantidadRestante); 
                     }
                 }                
             }
