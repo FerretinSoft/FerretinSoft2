@@ -109,7 +109,8 @@ namespace pe.edu.pucp.ferretin.controller.MAlmacen
         {
             List<ProductoPorSolicitudTienda> result = new List<ProductoPorSolicitudTienda>();
             if (solicitud == null) return result;
-            for (int i = 0; i < solicitud.SolicitudAbastecimientoProducto.Count; i++)
+            int count = solicitud.SolicitudAbastecimientoProducto.Count;
+            for (int i = 0; i < count; i++)
             {
                 ProductoAlmacen pa = MA_ProductoAlmacenService.ObtenerProductoAlmacenPorTiendaProducto(almacen, 
                                                                     solicitud.SolicitudAbastecimientoProducto[i].Producto);
@@ -123,7 +124,8 @@ namespace pe.edu.pucp.ferretin.controller.MAlmacen
         {
             EntitySet<SolicitudAbastecimientoProducto> result = new EntitySet<SolicitudAbastecimientoProducto>();
             decimal diferencia;
-            for (int i = 0; i < almacen.ProductoAlmacen.Count; i++)
+            int count = almacen.ProductoAlmacen.Count;
+            for (int i = 0; i < count; i++)
             {
                 ProductoAlmacen pa = almacen.ProductoAlmacen[i];
                 diferencia = ((pa.stock == null)?0:(decimal)pa.stock) - ((pa.stockMin == null)?0:(decimal)pa.stockMin);

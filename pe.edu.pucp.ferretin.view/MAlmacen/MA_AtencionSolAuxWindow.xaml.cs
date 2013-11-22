@@ -1,4 +1,5 @@
-﻿using pe.edu.pucp.ferretin.viewmodel.MAlmacen;
+﻿using pe.edu.pucp.ferretin.controller;
+using pe.edu.pucp.ferretin.viewmodel.MAlmacen;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -39,6 +40,11 @@ namespace pe.edu.pucp.ferretin.view.MAlmacen
             {
                 
             }
+        }
+
+        private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            ComunService.Clean();
         }
     }
 }

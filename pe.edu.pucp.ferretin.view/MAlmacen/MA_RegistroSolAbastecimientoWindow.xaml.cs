@@ -1,4 +1,5 @@
-﻿using pe.edu.pucp.ferretin.controller.MAlmacen;
+﻿using pe.edu.pucp.ferretin.controller;
+using pe.edu.pucp.ferretin.controller.MAlmacen;
 using pe.edu.pucp.ferretin.viewmodel.MAlmacen;
 using System;
 using System.Collections.Generic;
@@ -58,6 +59,11 @@ namespace pe.edu.pucp.ferretin.view.MAlmacen
             vm.NotifyPropertyChanged("productosPorSolicitud");
             vm.NotifyPropertyChanged("current");
         
+        }
+
+        private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            ComunService.Clean();
         }
 
         

@@ -114,6 +114,11 @@ namespace pe.edu.pucp.ferretin.view.MAlmacen
                 else
                     e.Handled = true;
             }
+        }
+
+        private void Window_Closing(object sender, CancelEventArgs e)
+        {
+            ComunService.Clean();
         }        
 
 
