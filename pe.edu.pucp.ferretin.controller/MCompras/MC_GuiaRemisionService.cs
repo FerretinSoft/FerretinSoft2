@@ -68,7 +68,7 @@ namespace pe.edu.pucp.ferretin.controller.MCompras
 
         public static IEnumerable<GuiaRemision> buscarGuiasRemision(string codigo, string proveedor, DateTime? fechaDesde, DateTime? fechaHasta)
         {
-            return from g in listaGuiasRemision
+            return from g in db.GuiaRemision
                    where (
                        //Cada fila es un filtro
                           (g.codigo != null && g.codigo.ToLower().Contains(codigo.ToLower().Trim()))
@@ -82,7 +82,7 @@ namespace pe.edu.pucp.ferretin.controller.MCompras
 
         public static IEnumerable<GuiaRemisionProducto> buscarProductosGuiaRemision(GuiaRemision guia)
         {
-            return from g in listaGuiaRemisionProducto
+            return from g in db.GuiaRemisionProducto
                    where (
                        //Cada fila es un filtro
                           (g.GuiaRemision.id == guia.id))
@@ -92,7 +92,7 @@ namespace pe.edu.pucp.ferretin.controller.MCompras
 
         private static bool verificaSiExisteGR(GuiaRemision guia)
         {
-            IEnumerable<GuiaRemision> gAux = from g in listaGuiasRemision
+            IEnumerable<GuiaRemision> gAux = from g in db.GuiaRemision
                                              where ((g.codigo == guia.codigo) && (g.DocumentoCompra.codigo == guia.DocumentoCompra.codigo))
                                              select g;
 

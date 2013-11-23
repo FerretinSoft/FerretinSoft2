@@ -146,7 +146,6 @@ namespace pe.edu.pucp.ferretin.viewmodel.MCompras
 
                     case Tab.AGREGAR: 
                         detallesTabHeader = "Agregar"; 
-                        ordenCompraCod = ""; 
                         guiaRemision = new GuiaRemision(); 
                         //listaGuiaRemisionProducto = null;
                         guiaRemision.Tienda = MC_ComunService.usuarioL.Empleado.tiendaActual;break;
@@ -169,7 +168,6 @@ namespace pe.edu.pucp.ferretin.viewmodel.MCompras
                 NotifyPropertyChanged("currentIndexTab"); //Hace que cambie el tab automaticamente
                 NotifyPropertyChanged("guiaRemision");
                 //NotifyPropertyChanged("listaGuiaRemisionProducto");
-                NotifyPropertyChanged("ordenCompraCod");
             }
         }
         //Usado para mover los tabs de acuerdo a las acciones realizadas
@@ -376,8 +374,8 @@ namespace pe.edu.pucp.ferretin.viewmodel.MCompras
        "ATENCIÓN", MessageBoxButton.OKCancel, MessageBoxImage.Warning, MessageBoxResult.Cancel);
             if (result == MessageBoxResult.OK)
             {
-                this.statusTab = Tab.BUSQUEDA;
-                listaGuiasRemision = MC_GuiaRemisionService.listaGuiasRemision;
+                listaGuiasRemision = ComunService.db.GuiaRemision;
+                this.statusTab = Tab.BUSQUEDA;                
             }
         }
 
@@ -389,10 +387,10 @@ namespace pe.edu.pucp.ferretin.viewmodel.MCompras
             {
                 try
                 {
-                    if ("".Equals(this.guiaRemision.DocumentoCompra.codigo) || this.guiaRemision.DocumentoCompra.codigo == null)
-                        return _ordenCompraCod;
-                    else
+                    if (guiaRemision.id > 0)
                         return guiaRemision.DocumentoCompra.codigo;
+                    else
+                        return _ordenCompraCod;
                 }
                 catch (Exception e)
                 {
@@ -412,7 +410,8 @@ namespace pe.edu.pucp.ferretin.viewmodel.MCompras
             DocumentoCompra buscado = null;          
             try
             {
-                buscado = MC_DocumentoCompraService.obtenerDCByCodigo(this._ordenCompraCod);
+                buscado = ComunService.db.DocumentoCompra.Where(dc => dc.codigo.ToLower().Trim().Contains(this._ordenCompraCod.ToLower().Trim())).SingleOrDefault();
+                //buscado = MC_DocumentoCompraService.obtenerDCByCodigo(this._ordenCompraCod);
 
                 if (buscado != null)
                 {
@@ -439,6 +438,8 @@ namespace pe.edu.pucp.ferretin.viewmodel.MCompras
                                 GuiaRemisionProducto guiaLinea = new GuiaRemisionProducto() { id_guia_detalle = documentoCompra.DocumentoCompraProducto[j].id, cantidadRecibida = 0, DocumentoCompraProducto = documentoCompra.DocumentoCompraProducto[j], GuiaRemision = guiaRemision };
                                 guiaRemision.GuiaRemisionProducto.Add(guiaLinea);
                             }
+                            ordenCompraCod = "";
+                            NotifyPropertyChanged("ordenCompraCod");
                             NotifyPropertyChanged("guiaRemision");
                         }
                     }

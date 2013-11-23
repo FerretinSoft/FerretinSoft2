@@ -203,7 +203,7 @@ namespace pe.edu.pucp.ferretin.controller.MCompras
 
         public static DocumentoCompra obtenerDCByCodigo(string codigo)
         {
-            IEnumerable<DocumentoCompra> documentos = (from e in db.DocumentoCompra
+            IEnumerable<DocumentoCompra> documentos = (from e in listaDocumentosCompra
                                                        where e.codigo != null && e.codigo.Equals(codigo)
                                                         select e);
             if (documentos.Count() > 0)

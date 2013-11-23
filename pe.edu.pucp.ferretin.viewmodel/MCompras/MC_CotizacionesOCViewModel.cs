@@ -577,11 +577,14 @@ namespace pe.edu.pucp.ferretin.viewmodel.MCompras
         {
             try
             {
-                this.documentoCompra = listaDocumentosCompra.Single(documentoCompra => documentoCompra.id == (long)id);               
-                if (this.documentoCompra.tipoDC == "Cotizacion")
-                {
-                    prepararLabels(1);
-                }
+                this.documentoCompra = ComunService.db.DocumentoCompra.Where(p => p.id == (long)id).SingleOrDefault();
+                //this.documentoCompra = ComunService.db.DocumentoCompra.Single(documentoCompra => documentoCompra.id == (long)id);
+                for (int i = 0; i < this.documentoCompra.DocumentoCompraProducto.Count(); i++ )
+                    this.documentoCompra.DocumentoCompraProducto[i].PropertyChanged += actualizarMontosDC;
+                    if (this.documentoCompra.tipoDC == "Cotizacion")
+                    {
+                        prepararLabels(1);
+                    }
                 if (this.documentoCompra.tipoDC == "Orden de Compra")
                 {
                     prepararLabels(2);
