@@ -64,8 +64,8 @@ namespace pe.edu.pucp.ferretin.viewmodel.MVentas
         public int _searchProducto = 0;
         public int searchProducto { get { return _searchProducto; } set { _searchProducto = value; NotifyPropertyChanged("searchProducto"); } }
 
-        public int _searchCliente = 0;
-        public int searchCliente { get { return _searchCliente; } set { _searchCliente = value; NotifyPropertyChanged("searchCliente"); } }
+        public string _searchCliente = "";
+        public string searchCliente { get { return _searchCliente; } set { _searchCliente = value; NotifyPropertyChanged("searchCliente"); } }
 
 
         public String _nombreBoton = "SIGUIENTE";
@@ -79,6 +79,9 @@ namespace pe.edu.pucp.ferretin.viewmodel.MVentas
 
         public System.Windows.Visibility _visibleVendedor = System.Windows.Visibility.Collapsed;
         public System.Windows.Visibility visibleVendedor { get { return _visibleVendedor; } set { _visibleVendedor = value; NotifyPropertyChanged("visibleVendedor"); } }
+
+        public System.Windows.Visibility _visibleCliente = System.Windows.Visibility.Collapsed;
+        public System.Windows.Visibility visibleCliente { get { return _visibleCliente; } set { _visibleCliente = value; NotifyPropertyChanged("visibleCliente"); } }
         
 
         public String _comentRep = "";
@@ -95,9 +98,24 @@ namespace pe.edu.pucp.ferretin.viewmodel.MVentas
 
         public String _nombreVendedor = "";
         public String nombreVendedor { get { return _nombreVendedor; } set { _nombreVendedor = value; NotifyPropertyChanged("nombreVendedor"); } }
+
+        public String _nombreCliente = "";
+        public String nombreCliente { get { return _nombreCliente; } set { _nombreCliente = value; NotifyPropertyChanged("nombreCliente"); } }
         
         #endregion
         #region relay commad
+        RelayCommand _cargarClienteCommand;
+        public ICommand cargarClienteCommand
+        {
+            get
+            {
+                if (_cargarClienteCommand == null)
+                {
+                    _cargarClienteCommand = new RelayCommand(cargarCliente);
+                }
+                return _cargarClienteCommand;
+            }
+        }
 
         RelayCommand _cargarVendedorCommand;
         public ICommand cargarVendedorCommand
@@ -131,6 +149,28 @@ namespace pe.edu.pucp.ferretin.viewmodel.MVentas
                 MessageBox.Show("No se encontro ningún vendedor con el número de documento proporcionado", "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
             }
 
+        }
+
+        public void cargarCliente(Object id)
+        {
+            Cliente buscado = null;
+            try
+            {
+                buscado = MV_ClienteService.obtenerClienteByNroDoc(Convert.ToInt32(searchCliente));
+                nombreCliente = buscado.nombreCompleto;
+                searchCliente = Convert.ToString(buscado.nroDoc);
+            }
+            catch { }
+
+            if (buscado == null)
+            {
+                MessageBox.Show("No se encontro ningún cliente con el número de documento proporcionado", "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
+                nombreCliente = "";
+                searchCliente = "";
+            }
+
+            NotifyPropertyChanged("nombreCliente");
+            NotifyPropertyChanged("searchCliente");
         }
         #endregion
 

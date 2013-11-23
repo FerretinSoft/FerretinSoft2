@@ -20,7 +20,7 @@ namespace pe.edu.pucp.ferretin.view.MVentas
     public partial class MV_VisorReporte : Window
     {
         
-        public MV_VisorReporte(DateTime fechaInicio, DateTime fechaFin, int selectedItem, string nombreReporte, string codEmpleado)
+        public MV_VisorReporte(DateTime fechaInicio, DateTime fechaFin, int selectedItem, string nombreReporte, string codEmpleado, string codCliente)
         {
             InitializeComponent();
             if (nombreReporte.Equals("RTienda"))
@@ -43,10 +43,16 @@ namespace pe.edu.pucp.ferretin.view.MVentas
                 rep = new ReporteVentaCliente();
                 rep.SetParameterValue("fechaInicio", fechaInicio);
                 rep.SetParameterValue("fechaFin", fechaFin);
-
+                if (codCliente != "")
+                    rep.SetParameterValue("codCliente", Convert.ToInt32(codCliente));
+                else
+                    rep.SetParameterValue("codCliente", 0);
                 rep.SetDatabaseLogon("inf245g2usr", "server", "inti.lab.inf.pucp.edu.pe", "inf245g2");
                 rep.Refresh();
-
+                if (codCliente != "")
+                    rep.SetParameterValue("codCliente", Convert.ToInt32(codCliente));
+                else
+                    rep.SetParameterValue("codCliente", 0);
                 rep.SetParameterValue("fechaInicio", fechaInicio);
                 rep.SetParameterValue("fechaFin", fechaFin);
                 VisorReporte.ViewerCore.ReportSource = rep;

@@ -51,6 +51,14 @@ namespace pe.edu.pucp.ferretin.view.MVentas
                             this.Close();
                         }
                     }
+                    if (Owner is MV_ReportesVentasWindow)
+                    {
+                        MV_ReportesVentasWindow padre = Owner as MV_ReportesVentasWindow;
+                        MV_ReportesViewModel padre_DataContext = padre.main.DataContext as MV_ReportesViewModel;
+                        padre_DataContext.searchCliente = Convert.ToString(my_DataContext.cliente.nroDoc);
+                        padre_DataContext.nombreCliente = my_DataContext.cliente.nombreCompleto;
+                        this.Close();
+                    }
                     else if (Owner is MV_DevolucionesWindow)
                     {
                         MV_DevolucionesWindow padre = this.Owner as MV_DevolucionesWindow;

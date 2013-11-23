@@ -17,6 +17,7 @@
             <RowDefinition Height="40px"></RowDefinition>
 
         </Grid.RowDefinitions>
+        
         <Grid x:Name="repIntroGrid" Margin="0" Visibility="Visible">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition></ColumnDefinition>
@@ -49,7 +50,7 @@
                 <RowDefinition Height="122*"/>
             </Grid.RowDefinitions>
             <Label Content="Configure los parámetros del reporte." HorizontalAlignment="Left" Margin="10,85,0,0" VerticalAlignment="Top" Width="308" Grid.Row="2" Grid.ColumnSpan="4"/>
-            <Label Content="{Binding Path=nombreVentana}" HorizontalAlignment="Center" Margin="24,10,4,0" VerticalAlignment="Top" FontSize="16" Grid.Column="2"/>
+            <Label Content="{Binding Path=nombreVentana}" HorizontalAlignment="Left" Margin="24,10,4,0" VerticalAlignment="Top" FontSize="16" Grid.Column="2" Grid.ColumnSpan="3"/>
             <Label Content="Fecha desde:" HorizontalAlignment="Left" Margin="13,60,0,0" VerticalAlignment="Top"/>
             <Label Content="Fecha hasta:" HorizontalAlignment="Left" Margin="5,60,0,0" VerticalAlignment="Top" Grid.Column="2" Grid.ColumnSpan="2"/>
             <Label Visibility="{Binding Path=visibleTienda}" Content="Tienda:" HorizontalAlignment="Left" Margin="13,101,0,0" VerticalAlignment="Top"/>
@@ -71,6 +72,23 @@
                     <ImageBrush ImageSource="../Resources/search1_20.png"/>
                 </Button.Background>
             </Button>
+
+            <Label Visibility="{Binding Path=visibleCliente}" Grid.Column="0" Grid.Row="1" Content="Cliente:" HorizontalAlignment="Left" Margin="13,2,0,0" VerticalAlignment="Top"/>
+            
+            <TextBox Visibility="{Binding Path=visibleCliente}" IsEnabled="False" Text="{Binding Path=nombreCliente}" VerticalAlignment="Center" Height="22" Margin="2,6,1,4" Grid.Row="1" Grid.Column="3"/>
+
+            <TextBox MaxLength="12" PreviewKeyDown="validarCodCliente_KeyDown" PreviewTextInput="validarCodCliente" Visibility="{Binding Path=visibleCliente}" Text="{Binding Path=searchCliente, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Bottom" Margin="1,0,0,4" Grid.Row="1" Grid.Column="1">
+                <TextBox.InputBindings>
+                    <KeyBinding Key="Enter" Command="{Binding cargarClienteCommand}" />
+                </TextBox.InputBindings>
+            </TextBox>
+            
+            <Button Visibility="{Binding Path=visibleCliente}" Click="Button_Click_Cliente" Width="20" Height="20" BorderThickness="0"  Margin="5,8,13,4" Grid.Row="1" Grid.Column="2">
+                <Button.Background>
+                    <ImageBrush ImageSource="../Resources/search1_20.png"/>
+                </Button.Background>
+            </Button>
+            
             <DatePicker HorizontalAlignment="Left" Margin="1,60,0,0" VerticalAlignment="Top" SelectedDate="{Binding Path=searchFechaInicio, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Width="126" Grid.Column="1"/>
             <DatePicker HorizontalAlignment="Left" Margin="47,60,0,0" VerticalAlignment="Top" SelectedDate="{Binding Path=searchFechaFin, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Width="126" Grid.Column="3"/>
             <Label Content="Alias:" HorizontalAlignment="Left" Margin="13,6,0,0" VerticalAlignment="Top" Grid.Row="2"/>
