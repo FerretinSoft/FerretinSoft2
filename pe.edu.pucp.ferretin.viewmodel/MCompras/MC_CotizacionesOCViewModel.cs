@@ -669,7 +669,8 @@ namespace pe.edu.pucp.ferretin.viewmodel.MCompras
                         else
                         {
                             documentoCompra.Usuario = MC_ComunService.usuarioL;
-                            documentoCompra.DocumentoCompraEstado = MC_DocumentoCompraService.obtenerEstado(3);
+                            documentoCompra.DocumentoCompraEstado = ComunService.db.DocumentoCompraEstado.Where(dce => dce.id == 3).SingleOrDefault();
+                            //documentoCompra.DocumentoCompraEstado = MC_DocumentoCompraService.obtenerEstado(3);
                             ComunService.idVentana(55);
                             MC_DocumentoCompraService.enviarCambios();
                             int i;
@@ -705,7 +706,8 @@ namespace pe.edu.pucp.ferretin.viewmodel.MCompras
                     }
                     else
                     {
-                        documentoCompra.DocumentoCompraEstado = MC_DocumentoCompraService.obtenerEstado(6);
+                        documentoCompra.DocumentoCompraEstado = ComunService.db.DocumentoCompraEstado.Where(dce => dce.id == 6).SingleOrDefault();
+                        //documentoCompra.DocumentoCompraEstado = MC_DocumentoCompraService.obtenerEstado(6);
                         documentoCompra.Usuario = MC_ComunService.usuarioL;
                         ComunService.idVentana(34);
                         MC_DocumentoCompraService.enviarCambios();
@@ -760,7 +762,8 @@ namespace pe.edu.pucp.ferretin.viewmodel.MCompras
                 documentoCompra.subTotal = documentoCompra.total / (((decimal)MS_SharedService.obtenerIGV() / (100)) + 1);
                 documentoCompra.igv = documentoCompra.total - documentoCompra.subTotal;
                 if (documentoCompra.tipo == 2 && documentoCompra.DocumentoCompraEstado.nombre.Equals("Emitida") && documentoCompra.nroFactura != null && documentoCompra.fechaVencimiento != null)
-                    documentoCompra.DocumentoCompraEstado = MC_DocumentoCompraService.obtenerEstado(7);
+                    documentoCompra.DocumentoCompraEstado = ComunService.db.DocumentoCompraEstado.Where(dce => dce.id == 7).SingleOrDefault();
+                    //documentoCompra.DocumentoCompraEstado = MC_DocumentoCompraService.obtenerEstado(7);
 
                 if(documentoCompra.tipo == 1)
                     ComunService.idVentana(55);
@@ -838,7 +841,8 @@ namespace pe.edu.pucp.ferretin.viewmodel.MCompras
             Proveedor buscado = null;
             try
             {
-                buscado = MC_ProveedorService.buscarProveedorByName(this._proveedorNombre);
+                buscado = ComunService.db.Proveedor.Where(pv => pv.razonSoc.ToLower().Trim().Contains(this._proveedorNombre.ToLower().Trim())).SingleOrDefault();
+                //buscado = MC_ProveedorService.buscarProveedorByName(this._proveedorNombre);
                 documentoCompra.Proveedor = buscado;
                 proveedorNombre = "";
                 NotifyPropertyChanged("proveedorNombre");
@@ -867,7 +871,8 @@ namespace pe.edu.pucp.ferretin.viewmodel.MCompras
                     codigo = MC_DocumentoCompraService.generarCodigoDC(2),
                     fechaEmision = DateTime.Now,
                     DocumentoCompra1 = this.documentoCompra,
-                    DocumentoCompraEstado = MC_DocumentoCompraService.obtenerEstado(1),
+                    DocumentoCompraEstado = ComunService.db.DocumentoCompraEstado.Where(dce => dce.id == 5).SingleOrDefault(),
+                    //DocumentoCompraEstado = MC_DocumentoCompraService.obtenerEstado(1),
                     Proveedor = this.documentoCompra.Proveedor,
                     Usuario1 = MC_ComunService.usuarioL,
                     igv = this.documentoCompra.igv,
@@ -904,13 +909,15 @@ namespace pe.edu.pucp.ferretin.viewmodel.MCompras
             if (tipo == 1)
             {
                 documentoCompra.tipo = 1;
-                documentoCompra.DocumentoCompraEstado = MC_DocumentoCompraService.obtenerEstado(1);
+                documentoCompra.DocumentoCompraEstado = ComunService.db.DocumentoCompraEstado.Where(dce => dce.id == 1).SingleOrDefault();
+                //documentoCompra.DocumentoCompraEstado = MC_DocumentoCompraService.obtenerEstado(1);
                 documentoCompra.Usuario1 = usuarioIngreso;
             }
             else
             {
                 documentoCompra.tipo = 2;
-                documentoCompra.DocumentoCompraEstado = MC_DocumentoCompraService.obtenerEstado(5);
+                documentoCompra.DocumentoCompraEstado = ComunService.db.DocumentoCompraEstado.Where(dce => dce.id == 5).SingleOrDefault();
+                //documentoCompra.DocumentoCompraEstado = MC_DocumentoCompraService.obtenerEstado(5);
                 documentoCompra.Usuario1 = usuarioIngreso;
             }
         }
