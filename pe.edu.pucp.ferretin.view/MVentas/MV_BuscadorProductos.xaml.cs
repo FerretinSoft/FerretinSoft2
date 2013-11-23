@@ -15,6 +15,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using pe.edu.pucp.ferretin.controller.MAlmacen;
 
 namespace pe.edu.pucp.ferretin.view.MVentas
 {
@@ -75,6 +76,21 @@ namespace pe.edu.pucp.ferretin.view.MVentas
                     vmpadre.agregarProducto(seleccionado);
                 }
                 vmpadre.codProdAgregar = "";
+            }
+            else if (this.Owner is MV_ReportesVentasWindow)
+            {
+                var vmpadre = this.Owner.DataContext as MV_ReportesViewModel;
+                var seleccionados = listaProductos.SelectedItems;
+                Producto productoRep;
+                foreach (ProductoAlmacen seleccionado in seleccionados)
+                {
+                    string codProd = seleccionado.Producto.codigo;
+                    productoRep = MA_SharedService.obtenerProductoxCodigo(codProd);
+                    vmpadre.searchProducto = productoRep.codigo;
+                    vmpadre.nombreProducto = productoRep.nombre;
+                }
+                
+               
             }
 
 

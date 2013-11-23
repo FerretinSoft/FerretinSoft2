@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
+using pe.edu.pucp.ferretin.controller.MAlmacen;
 using pe.edu.pucp.ferretin.controller.MRecursosHumanos;
 using pe.edu.pucp.ferretin.controller.MSeguridad;
 using pe.edu.pucp.ferretin.controller.MVentas;
@@ -61,12 +62,11 @@ namespace pe.edu.pucp.ferretin.viewmodel.MVentas
         public String _aliasRep = "";
         public String aliasRep { get { return _aliasRep; } set { _aliasRep = value; NotifyPropertyChanged("aliasRep"); } }
 
-        public int _searchProducto = 0;
-        public int searchProducto { get { return _searchProducto; } set { _searchProducto = value; NotifyPropertyChanged("searchProducto"); } }
+        public String _searchProducto = "";
+        public String searchProducto { get { return _searchProducto; } set { _searchProducto = value; NotifyPropertyChanged("searchProducto"); } }
 
         public string _searchCliente = "";
         public string searchCliente { get { return _searchCliente; } set { _searchCliente = value; NotifyPropertyChanged("searchCliente"); } }
-
 
         public String _nombreBoton = "SIGUIENTE";
         public String nombreBoton { get { return _nombreBoton; } set { _nombreBoton = value; NotifyPropertyChanged("nombreBoton"); } }
@@ -82,6 +82,9 @@ namespace pe.edu.pucp.ferretin.viewmodel.MVentas
 
         public System.Windows.Visibility _visibleCliente = System.Windows.Visibility.Collapsed;
         public System.Windows.Visibility visibleCliente { get { return _visibleCliente; } set { _visibleCliente = value; NotifyPropertyChanged("visibleCliente"); } }
+
+        public System.Windows.Visibility _visibleProducto = System.Windows.Visibility.Collapsed;
+        public System.Windows.Visibility visibleProducto { get { return _visibleProducto; } set { _visibleProducto = value; NotifyPropertyChanged("visibleProducto"); } }
         
 
         public String _comentRep = "";
@@ -98,6 +101,10 @@ namespace pe.edu.pucp.ferretin.viewmodel.MVentas
 
         public String _nombreVendedor = "";
         public String nombreVendedor { get { return _nombreVendedor; } set { _nombreVendedor = value; NotifyPropertyChanged("nombreVendedor"); } }
+
+        public String _nombreProducto = "";
+        public String nombreProducto { get { return _nombreProducto; } set { _nombreProducto = value; NotifyPropertyChanged("nombreProducto"); } }
+
 
         public String _nombreCliente = "";
         public String nombreCliente { get { return _nombreCliente; } set { _nombreCliente = value; NotifyPropertyChanged("nombreCliente"); } }
@@ -117,6 +124,19 @@ namespace pe.edu.pucp.ferretin.viewmodel.MVentas
             }
         }
 
+        RelayCommand _cargarProductoCommand;
+        public ICommand cargarProductoCommand
+        {
+            get
+            {
+                if (_cargarProductoCommand == null)
+                {
+                    _cargarProductoCommand = new RelayCommand(cargarProducto);
+                }
+                return _cargarProductoCommand;
+            }
+        }
+
         RelayCommand _cargarVendedorCommand;
         public ICommand cargarVendedorCommand
         {
@@ -129,9 +149,31 @@ namespace pe.edu.pucp.ferretin.viewmodel.MVentas
                 return _cargarVendedorCommand;
             }
         }
+
     #endregion
 
         #region command
+
+        public void cargarProducto(Object id)
+        {
+            Producto buscado = null;
+            try
+            {
+                buscado = MA_SharedService.obtenerProductoxCodigo(searchProducto);
+                    
+                nombreProducto = buscado.nombre;
+            }
+            catch { }
+
+            if (buscado == null)
+            {
+                nombreProducto = "";
+                searchProducto = "";
+                MessageBox.Show("No se encontro ningún producto con el código proporcionado", "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+
+        }
+
         public void cargarVendedor(Object id)
         {
             Empleado buscado = null;

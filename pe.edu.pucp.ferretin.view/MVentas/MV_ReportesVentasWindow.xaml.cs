@@ -53,6 +53,7 @@ namespace pe.edu.pucp.ferretin.view.MVentas
 
                             if (this.listaRepDisp.SelectedIndex == 2)
                             {
+                                padre_DataContext.visibleProducto = System.Windows.Visibility.Collapsed;
                                 padre_DataContext.visibleVendedor = System.Windows.Visibility.Collapsed;
                                 padre_DataContext.visibleCliente = System.Windows.Visibility.Collapsed;
                                 padre_DataContext.visibleTienda = System.Windows.Visibility.Visible;
@@ -62,6 +63,7 @@ namespace pe.edu.pucp.ferretin.view.MVentas
                             }
                             if (this.listaRepDisp.SelectedIndex == 1)
                             {
+                                padre_DataContext.visibleProducto = System.Windows.Visibility.Visible;
                                 padre_DataContext.visibleVendedor = System.Windows.Visibility.Collapsed;
                                 padre_DataContext.visibleCliente = System.Windows.Visibility.Collapsed;
                                 padre_DataContext.visibleTienda = System.Windows.Visibility.Visible;
@@ -72,6 +74,7 @@ namespace pe.edu.pucp.ferretin.view.MVentas
 
                             if (this.listaRepDisp.SelectedIndex == 0)
                             {
+                                padre_DataContext.visibleProducto = System.Windows.Visibility.Collapsed;
                                 padre_DataContext.visibleVendedor = System.Windows.Visibility.Collapsed;
                                 padre_DataContext.visibleCliente = System.Windows.Visibility.Visible;
                                 padre_DataContext.visibleTienda = System.Windows.Visibility.Collapsed;
@@ -82,6 +85,7 @@ namespace pe.edu.pucp.ferretin.view.MVentas
 
                             if (this.listaRepDisp.SelectedIndex == 3)
                             {
+                                padre_DataContext.visibleProducto = System.Windows.Visibility.Collapsed;
                                 padre_DataContext.visibleCliente = System.Windows.Visibility.Collapsed;
                                 padre_DataContext.visibleVendedor = System.Windows.Visibility.Visible;                      
                                 padre_DataContext.visibleTienda = System.Windows.Visibility.Collapsed;
@@ -164,6 +168,14 @@ namespace pe.edu.pucp.ferretin.view.MVentas
             var viewModel = v.DataContext as MV_ClientesViewModel;
             viewModel.soloSeleccionarCliente = true;
             v.ShowDialog();  
+        }
+
+        private void Button_Click_Producto(object sender, RoutedEventArgs e)
+        {
+             
+            var vm = main.DataContext as MV_ReportesViewModel;
+            var buscador = new MV_BuscadorProductos(this,vm.selectedTienda);
+        
         }
 
         private void validarCodCliente(object sender, TextCompositionEventArgs e)
