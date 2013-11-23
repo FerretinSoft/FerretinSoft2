@@ -244,14 +244,7 @@ namespace pe.edu.pucp.ferretin.controller.MCompras
                 }
                 catch (Exception e)
                 {
-                    //guiaRemision.estado = 1;
-                    //for (i = 0; i < guiaRemision.GuiaRemisionProducto.Count(); i++)
-                    //{
-                    //    guiaRemision.DocumentoCompra.DocumentoCompraProducto[i].cantidadRestante = guiaRemision.DocumentoCompra.DocumentoCompraProducto[i].cantidadRestante - guiaRemision.GuiaRemisionProducto[i].cantidadRecibida;
-                    //}
                     db.DocumentoCompra.InsertOnSubmit(documentoCompra);
-                   // db.GuiaRemision.InsertOnSubmit(guiaRemision);
-                    //MA_SharedService.registrarCompra(guiaRemision.Tienda, guiaRemision.GuiaRemisionProducto);
                     enviarCambios();
                     return true;
                 }
