@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -11,6 +12,8 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using pe.edu.pucp.ferretin.view.MRecursosHumanos;
+using pe.edu.pucp.ferretin.viewmodel.MRecursosHumanos;
 using pe.edu.pucp.ferretin.viewmodel.MVentas;
 
 namespace pe.edu.pucp.ferretin.view.MVentas
@@ -47,12 +50,14 @@ namespace pe.edu.pucp.ferretin.view.MVentas
 
                             if (this.listaRepDisp.SelectedIndex == 2)
                             {
+                                padre_DataContext.visibleTienda = System.Windows.Visibility.Visible;
                                 padre_DataContext.nombreVentana = "Reporte por tienda";
                                 padre_DataContext.aliasRep = "Reporte de ventas por tienda";
                                 padre_DataContext.comentRep = "El presente reporte tiene como finalidad mostrar un resumen de las ventas realizadas por tienda en un período de tiempo";
                             }
                             if (this.listaRepDisp.SelectedIndex == 1)
                             {
+                                padre_DataContext.visibleTienda = System.Windows.Visibility.Visible;
                                 padre_DataContext.nombreVentana = "Reporte por productos";
                                 padre_DataContext.aliasRep = "Reporte de ventas por producto";
                                 padre_DataContext.comentRep = "El presente reporte tiene como finalidad mostrar un resumen de las ventas realizadas por producto en un período de tiempo";
@@ -60,6 +65,7 @@ namespace pe.edu.pucp.ferretin.view.MVentas
 
                             if (this.listaRepDisp.SelectedIndex == 0)
                             {
+                                padre_DataContext.visibleTienda = System.Windows.Visibility.Collapsed;
                                 padre_DataContext.nombreVentana = "Reporte por cliente";
                                 padre_DataContext.aliasRep = "Reporte de ventas por cliente";
                                 padre_DataContext.comentRep = "El presente reporte tiene como finalidad mostrar un resumen de las ventas realizadas por cliente en un período de tiempo";
@@ -67,6 +73,8 @@ namespace pe.edu.pucp.ferretin.view.MVentas
 
                             if (this.listaRepDisp.SelectedIndex == 3)
                             {
+                                padre_DataContext.visibleVendedor = System.Windows.Visibility.Visible;                      
+                                padre_DataContext.visibleTienda = System.Windows.Visibility.Collapsed;
                                 padre_DataContext.nombreVentana = "Reporte por vendedor";
                                 padre_DataContext.aliasRep = "Reporte de ventas por vendedor";
                                 padre_DataContext.comentRep = "El presente reporte tiene como finalidad mostrar un resumen de las ventas realizadas por vendedor en un período de tiempo";
@@ -89,13 +97,13 @@ namespace pe.edu.pucp.ferretin.view.MVentas
                 padre_DataContext = this.main.DataContext as MV_ReportesViewModel;
                 MV_VisorReporte repW;
                 if (this.listaRepDisp.SelectedIndex == 2)
-                    repW = new MV_VisorReporte(padre_DataContext.searchFechaInicio, padre_DataContext.searchFechaFin, "RTienda");
+                    repW = new MV_VisorReporte(padre_DataContext.searchFechaInicio, padre_DataContext.searchFechaFin, padre_DataContext.selectedTienda.id,"RTienda","");
                 else if (this.listaRepDisp.SelectedIndex == 1)
-                    repW = new MV_VisorReporte(padre_DataContext.searchFechaInicio, padre_DataContext.searchFechaFin, "RProducto");
+                    repW = new MV_VisorReporte(padre_DataContext.searchFechaInicio, padre_DataContext.searchFechaFin, 0,"RProducto","");
                 else if (this.listaRepDisp.SelectedIndex == 0)
-                    repW = new MV_VisorReporte(padre_DataContext.searchFechaInicio, padre_DataContext.searchFechaFin, "RCliente");
+                    repW = new MV_VisorReporte(padre_DataContext.searchFechaInicio, padre_DataContext.searchFechaFin, 0,"RCliente","");
                 else
-                    repW = new MV_VisorReporte(padre_DataContext.searchFechaInicio, padre_DataContext.searchFechaFin, "RVendedor");
+                    repW = new MV_VisorReporte(padre_DataContext.searchFechaInicio, padre_DataContext.searchFechaFin, 0,"RVendedor",padre_DataContext.searchVendedor);
                 
                 repW.ShowDialog();
 
@@ -128,6 +136,35 @@ namespace pe.edu.pucp.ferretin.view.MVentas
 
 
             }
+        }
+
+        private void Button_Click_Vendedor(object sender, RoutedEventArgs e)
+        {
+            MR_AdministrarPersonalWindow v = new MR_AdministrarPersonalWindow();
+            v.Owner = this;
+            var viewModel = v.main.DataContext as MR_AdministrarPersonalViewModel;
+            viewModel.soloSeleccionarVendedor = true;
+            v.ShowDialog();
+        }
+
+        private void validarCodCliente(object sender, TextCompositionEventArgs e)
+        {
+            if (Regex.IsMatch(e.Text, "[0-9]"))
+            {
+                e.Handled = false;
+            }
+            else
+            {
+                e.Handled = true;
+            }
+        }
+
+        private void validarCodCliente_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key != Key.Space)
+                e.Handled = false;
+            else
+                e.Handled = true;
         }
     }
 }
