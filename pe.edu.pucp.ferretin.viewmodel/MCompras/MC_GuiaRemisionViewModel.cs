@@ -74,7 +74,10 @@ namespace pe.edu.pucp.ferretin.viewmodel.MCompras
         {
             get
             {
-                _listaGuiasRemision = MC_GuiaRemisionService.buscarGuiasRemision(searchCodigo, searchProveedor, searchFechaDesde, searchFechaHasta);
+                if (searchFechaDesde > searchFechaHasta)
+                    MessageBox.Show("La 'Fecha Hasta' no puede ser menor que la 'Fecha Desde'", "Guia de Remision", MessageBoxButton.OK, MessageBoxImage.Exclamation);
+                else
+                    _listaGuiasRemision = MC_GuiaRemisionService.buscarGuiasRemision(searchCodigo, searchProveedor, searchFechaDesde, searchFechaHasta);
 
                 return _listaGuiasRemision;
             }

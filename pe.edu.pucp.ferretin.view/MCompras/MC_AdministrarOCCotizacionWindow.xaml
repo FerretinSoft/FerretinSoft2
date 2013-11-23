@@ -79,7 +79,7 @@
                                 </DataGridTemplateColumn.CellTemplate>
                             </DataGridTemplateColumn>
                             <DataGridTextColumn Width="3.5*" Binding="{Binding Path=Proveedor.razonSoc}" Header="Proveedor"/>
-                            <DataGridTextColumn Width="2.0*" Binding="{Binding Path=fechaEmision}" Header="Fecha"/>
+                            <DataGridTextColumn Width="2.0*" Binding="{Binding Path=fechaEmision, StringFormat=\{0:dd/MM/yy\}}" Header="Fecha Emision"/>
                             <DataGridTextColumn Width="1.8*" Binding="{Binding Path=DocumentoCompraEstado.nombre}" Header="Estado"/>
                         </DataGrid.Columns>
                     </DataGrid>
