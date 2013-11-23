@@ -49,13 +49,13 @@ namespace pe.edu.pucp.ferretin.view.MVentas
         private void buscarClienteBtn_Click(object sender, RoutedEventArgs e)
         {
             //ClientesWindow pw = new ClientesWindow();
-            //pw.Show();
+            //pw.ShowDialog();
         }
 
         private void buscarVendedorBtn_Click(object sender, RoutedEventArgs e)
         {
             //PersonalAdminWindow pw = new PersonalAdminWindow();
-            //pw.Show();
+            //pw.ShowDialog();
         }
 
         private void nuevaProformaBtn_Click(object sender, RoutedEventArgs e)
@@ -91,7 +91,7 @@ namespace pe.edu.pucp.ferretin.view.MVentas
             v.Owner = this;
             var viewModel = v.DataContext as MV_ClientesViewModel;
             viewModel.soloSeleccionarCliente = true;
-            v.Show();
+            v.ShowDialog();
         }
 
         private void registrarBtn_Click(object sender, RoutedEventArgs e)
@@ -190,7 +190,7 @@ namespace pe.edu.pucp.ferretin.view.MVentas
             profWindow.Owner = this;
             MV_AdministrarProformasViewModel prodViewModel = profWindow.DataContext as MV_AdministrarProformasViewModel;
             prodViewModel.soloSeleccionarProforma = true;
-            profWindow.Show();
+            profWindow.ShowDialog();
         }
 
         private void buscarClienteBtn_Click_1(object sender, RoutedEventArgs e)
@@ -201,7 +201,7 @@ namespace pe.edu.pucp.ferretin.view.MVentas
             v.clienteSearch = true;
             var viewModel = v.DataContext as MV_ClientesViewModel;
             viewModel.soloSeleccionarCliente = true;
-            v.Show();
+            v.ShowDialog();
         }
 
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
@@ -219,7 +219,7 @@ namespace pe.edu.pucp.ferretin.view.MVentas
             v.Owner = this;
             var viewModel = v.main.DataContext as MR_AdministrarPersonalViewModel;
             viewModel.soloSeleccionarVendedor = true;
-            v.Show();
+            v.ShowDialog();
         }
 
 
@@ -276,7 +276,7 @@ namespace pe.edu.pucp.ferretin.view.MVentas
                 print.Owner = this;
                 var printVM = print.DataContext as MV_DocProformaViewModel;
                 printVM.proforma = vm.proforma;
-                print.Show();
+                print.ShowDialog();
                 print.enviarEmail();
                 
             }

@@ -591,18 +591,11 @@ namespace pe.edu.pucp.ferretin.viewmodel.MAlmacen
                 else if (movimiento.Tienda == null && movimiento.MovimientoTipo.categoriaEnum == MovimientoTipo.CategoriaMovimiento.SALIDA) MessageBox.Show("Debe seleccionar un almacén de salida de mercancía");
                 else if (movimiento.Tienda1 == null && movimiento.MovimientoTipo.categoriaEnum == MovimientoTipo.CategoriaMovimiento.ENTRADA) MessageBox.Show("Debe seleccionar un almacén destino para la entrada de mercancía");
                 else if ((movimiento.Tienda == null || movimiento.Tienda1 == null) && movimiento.MovimientoTipo.categoriaEnum == MovimientoTipo.CategoriaMovimiento.TRANSFERENCIA) MessageBox.Show("Debe seleccionar un almacén de salida de mercancía y un almacén de entrada");
-                else if (movimiento.Tienda == movimiento.Tienda1) MessageBox.Show("Las tiendas origen y destino deben ser diferentes");
+                else if (movimiento.MovimientoTipo.categoriaEnum == MovimientoTipo.CategoriaMovimiento.TRANSFERENCIA && movimiento.Tienda == movimiento.Tienda1) MessageBox.Show("Las tiendas origen y destino deben ser diferentes");
                 else if (movimiento.MovimientoEstado == null) MessageBox.Show("Debe seleccionar un estado para el movimiento");
                 else if (movimiento.MovimientoProducto.Count <= 0)
                 {
                     MessageBox.Show("Debe registrar al menos un Producto en su movimiento");
-                }
-                else if (movimiento.MovimientoProducto.Count > 0)
-                {
-                    foreach (var item in movimiento.MovimientoProducto)
-                    {
-                        var ctdad = item.cantidad;    
-                    }
                 }
                 else
                 {

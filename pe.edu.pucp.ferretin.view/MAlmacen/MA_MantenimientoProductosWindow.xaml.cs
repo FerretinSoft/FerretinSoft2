@@ -103,7 +103,7 @@ namespace pe.edu.pucp.ferretin.view.MAlmacen
         private void btnAddColor_Click(object sender, RoutedEventArgs e)
         {
             //MA_ColoresProductosWindow cpw = new MA_ColoresProductosWindow(MA_ProductoService.obtenerIDProducto(txtCodigo.Text));
-            //cpw.Show();
+            //cpw.ShowDialog();
         }
 
       
@@ -166,7 +166,7 @@ namespace pe.edu.pucp.ferretin.view.MAlmacen
                 var viewModel = v.main.DataContext as MA_MantenimientoProductosEdicionStockViewModel;
                 viewModel.producto = viewModelThis.producto;
                 //productoTabControl.SelectedIndex = 0;
-                v.Show();
+                v.ShowDialog();
             }
         }
         private void detallesTab_MouseUp(object sender, MouseButtonEventArgs e)

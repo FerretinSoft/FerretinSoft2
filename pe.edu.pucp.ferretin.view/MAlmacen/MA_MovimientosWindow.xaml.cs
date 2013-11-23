@@ -53,7 +53,7 @@ namespace pe.edu.pucp.ferretin.view.MAlmacen
             MA_MovimientosViewModel movVM = this.main.DataContext as MA_MovimientosViewModel;
             MA_DocumentoMovimientoViewModel docVM = w.main.DataContext as MA_DocumentoMovimientoViewModel;
             docVM.movimiento = movVM.movimiento;
-            w.Show();
+            w.ShowDialog();
         }
 
         
@@ -114,6 +114,11 @@ namespace pe.edu.pucp.ferretin.view.MAlmacen
                 else
                     e.Handled = true;
             }
+        }
+
+        private void Window_Closing(object sender, CancelEventArgs e)
+        {
+            ComunService.Clean();
         }        
 
 
