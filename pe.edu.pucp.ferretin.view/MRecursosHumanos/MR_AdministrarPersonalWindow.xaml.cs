@@ -251,6 +251,17 @@ namespace pe.edu.pucp.ferretin.view.MRecursosHumanos
                     this.Close();
                 }
 
+                if (this.Owner is MV_ReportesVentasWindow)
+                {
+                    MV_ReportesVentasWindow padre = this.Owner as MV_ReportesVentasWindow;
+
+                    MV_ReportesViewModel padre_DataContext = padre.main.DataContext as MV_ReportesViewModel;
+
+                    padre_DataContext.nombreVendedor = my_DataContext.empleado.nombreCompleto;
+                    padre_DataContext.searchVendedor = my_DataContext.empleado.dni;
+                    this.Close();
+                }
+
                 if (this.Owner is MV_AdministrarVentasWindow)
                 {
                     MV_AdministrarVentasWindow padre = this.Owner as MV_AdministrarVentasWindow;

@@ -342,6 +342,10 @@
                             <DataGridTextColumn Width="0.7*" Binding="{Binding Path=precioUnitario}" ClipboardContentBinding="{x:Null}" Header="Precio"/>
                             <DataGridTextColumn Width="0.7*" Binding="{Binding Path=descuento}" ClipboardContentBinding="{x:Null}" Header="Dscto. (S/.)"/>
                             <DataGridTextColumn Width="1*" Binding="{Binding Path=montoParcial, StringFormat=S/. \{0\}}" ClipboardContentBinding="{x:Null}" Header="Importe"/>
+                            <DataGridCheckBoxColumn Width="1*" Binding="{Binding Path=canjeado}" ClipboardContentBinding="{x:Null}" Header="Canjeado"/>
+
+                            <DataGridTextColumn Width="1*" Binding="{Binding Path=precioPuntos}" ClipboardContentBinding="{x:Null}" Header="Precio Puntos"/>
+
                         </DataGrid.Columns>
                     </DataGrid>
                     <StackPanel HorizontalAlignment="Right" Orientation="Horizontal" VerticalAlignment="Center" Grid.Row="3" Margin="5,0">

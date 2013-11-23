@@ -36,16 +36,47 @@
             <Label Content="Seleccione un reporte y presione Siguiente." HorizontalAlignment="Left" Margin="10,246,0,0" VerticalAlignment="Top" Width="308" Grid.ColumnSpan="2"/>
         </Grid>
         <Grid x:Name="repConfGrid" Margin="0" Visibility="Collapsed">
-            <Label Content="Configure los parámetros del reporte." HorizontalAlignment="Left" Margin="10,246,0,0" VerticalAlignment="Top" Width="308" Grid.ColumnSpan="2"/>
-            <Label Content="{Binding Path=nombreVentana}" HorizontalAlignment="Center" Margin="146,10,111,0" VerticalAlignment="Top" FontSize="16"/>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="95*"/>
+                <ColumnDefinition Width="127*"/>
+                <ColumnDefinition Width="38*"/>
+                <ColumnDefinition Width="174*"/>
+                <ColumnDefinition Width="32*"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="129*"/>
+                <RowDefinition Height="32*"/>
+                <RowDefinition Height="122*"/>
+            </Grid.RowDefinitions>
+            <Label Content="Configure los parámetros del reporte." HorizontalAlignment="Left" Margin="10,85,0,0" VerticalAlignment="Top" Width="308" Grid.Row="2" Grid.ColumnSpan="4"/>
+            <Label Content="{Binding Path=nombreVentana}" HorizontalAlignment="Center" Margin="24,10,4,0" VerticalAlignment="Top" FontSize="16" Grid.Column="2"/>
             <Label Content="Fecha desde:" HorizontalAlignment="Left" Margin="13,60,0,0" VerticalAlignment="Top"/>
-            <Label Content="Fecha hasta:" HorizontalAlignment="Left" Margin="227,60,0,0" VerticalAlignment="Top"/>
-            <DatePicker HorizontalAlignment="Left" Margin="96,60,0,0" VerticalAlignment="Top" SelectedDate="{Binding Path=searchFechaInicio, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Width="126"/>
-            <DatePicker HorizontalAlignment="Left" Margin="307,60,0,0" VerticalAlignment="Top" SelectedDate="{Binding Path=searchFechaFin, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Width="126"/>
-            <Label Content="Alias:" HorizontalAlignment="Left" Margin="13,167,0,0" VerticalAlignment="Top"/>
-            <TextBox HorizontalAlignment="Left" Height="23" Margin="96,170,0,0" TextWrapping="Wrap" Text="{Binding Path=aliasRep}" IsEnabled="False" VerticalAlignment="Top" Width="198"/>
-            <Label Content="Comentario:" HorizontalAlignment="Left" Margin="13,198,0,0" VerticalAlignment="Top"/>
-            <TextBox HorizontalAlignment="Left" Height="49" Margin="96,198,0,0" TextWrapping="Wrap" Text="{Binding Path=comentRep}" IsEnabled="False" VerticalAlignment="Top" Width="360"/>
+            <Label Content="Fecha hasta:" HorizontalAlignment="Left" Margin="5,60,0,0" VerticalAlignment="Top" Grid.Column="2" Grid.ColumnSpan="2"/>
+            <Label Visibility="{Binding Path=visibleTienda}" Content="Tienda:" HorizontalAlignment="Left" Margin="13,101,0,0" VerticalAlignment="Top"/>
+            <Label Visibility="{Binding Path=visibleVendedor}" Grid.Column="0" Grid.Row="1" Content="Vendedor:" HorizontalAlignment="Left" Margin="13,2,0,0" VerticalAlignment="Top"/>
+
+            <ComboBox Visibility="{Binding Path=visibleTienda}" Name="cmbTienda" SelectedItem="{Binding selectedTienda}" ItemsSource="{Binding listaTiendas}" DisplayMemberPath="nombre" SelectedValuePath="id" HorizontalAlignment="Left" Margin="1,105,0,0" VerticalAlignment="Top" Width="140" Grid.Column="1" Grid.ColumnSpan="2">
+
+            </ComboBox>
+
+            <TextBox MaxLength="12" PreviewKeyDown="validarCodCliente_KeyDown" PreviewTextInput="validarCodCliente" Visibility="{Binding Path=visibleVendedor}" Text="{Binding Path=searchVendedor, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Bottom" Margin="1,0,0,4" Grid.Row="1" Grid.Column="1">
+                <TextBox.InputBindings>
+                    <KeyBinding Key="Enter" Command="{Binding cargarVendedorCommand}" />
+                </TextBox.InputBindings>
+            </TextBox>
+            <TextBox Visibility="{Binding Path=visibleVendedor}" IsEnabled="False" Text="{Binding Path=nombreVendedor}" VerticalAlignment="Center" Height="22" Margin="2,6,1,4" Grid.Row="1" Grid.Column="3"/>
+
+            <Button Visibility="{Binding Path=visibleVendedor}" Click="Button_Click_Vendedor" x:Name="buscarVendedorBtn" Width="20" Height="20" BorderThickness="0"  Margin="5,8,13,4" Grid.Row="1" Grid.Column="2">
+                <Button.Background>
+                    <ImageBrush ImageSource="../Resources/search1_20.png"/>
+                </Button.Background>
+            </Button>
+            <DatePicker HorizontalAlignment="Left" Margin="1,60,0,0" VerticalAlignment="Top" SelectedDate="{Binding Path=searchFechaInicio, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Width="126" Grid.Column="1"/>
+            <DatePicker HorizontalAlignment="Left" Margin="47,60,0,0" VerticalAlignment="Top" SelectedDate="{Binding Path=searchFechaFin, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Width="126" Grid.Column="3"/>
+            <Label Content="Alias:" HorizontalAlignment="Left" Margin="13,6,0,0" VerticalAlignment="Top" Grid.Row="2"/>
+            <TextBox HorizontalAlignment="Left" Height="23" Margin="1,9,0,0" TextWrapping="Wrap" Text="{Binding Path=aliasRep}" IsEnabled="False" VerticalAlignment="Top" Width="198" Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="3"/>
+            <Label Content="Comentario:" HorizontalAlignment="Left" Margin="13,37,0,0" VerticalAlignment="Top" Grid.Row="2"/>
+            <TextBox HorizontalAlignment="Left" Height="49" Margin="1,37,0,0" TextWrapping="Wrap" Text="{Binding Path=comentRep}" IsEnabled="False" VerticalAlignment="Top" Width="360" Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="4"/>
         </Grid>
         <Grid x:Name="repFinalGrid" Margin="0" Visibility="Collapsed">
             <Label Content="Reporte 10 productos TOP" HorizontalAlignment="Center" Margin="146,10,111,0" VerticalAlignment="Top" FontSize="16"/>
