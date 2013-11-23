@@ -764,9 +764,9 @@ namespace pe.edu.pucp.ferretin.viewmodel.MCompras
                     subTotal = subTotal + documentoCompra.DocumentoCompraProducto[i].montoParcial;
                     documentoCompra.DocumentoCompraProducto[i].cantidadRestante = documentoCompra.DocumentoCompraProducto[i].cantidad;
                 }
-                documentoCompra.total = subTotal;
-                documentoCompra.subTotal = documentoCompra.total / (((decimal)MS_SharedService.obtenerIGV() / (100)) + 1);
-                documentoCompra.igv = documentoCompra.total - documentoCompra.subTotal;
+                documentoCompra.total = Decimal.Round(subTotal.Value,2);
+                documentoCompra.subTotal = Decimal.Round((documentoCompra.total / (((decimal)MS_SharedService.obtenerIGV() / (100)) + 1)).Value,2);
+                documentoCompra.igv = Decimal.Round((documentoCompra.total - documentoCompra.subTotal).Value, 2);
                 if (documentoCompra.tipo == 2 && documentoCompra.DocumentoCompraEstado.nombre.Equals("Emitida") && documentoCompra.nroFactura != null && documentoCompra.fechaVencimiento != null)
                     documentoCompra.DocumentoCompraEstado = ComunService.db.DocumentoCompraEstado.Where(dce => dce.id == 7).SingleOrDefault();
                     //documentoCompra.DocumentoCompraEstado = MC_DocumentoCompraService.obtenerEstado(7);
@@ -801,10 +801,10 @@ namespace pe.edu.pucp.ferretin.viewmodel.MCompras
                     subTotal = subTotal + documentoCompra.DocumentoCompraProducto[i].montoParcial;
                     documentoCompra.DocumentoCompraProducto[i].cantidadRestante = documentoCompra.DocumentoCompraProducto[i].cantidad;
                 }
-                    
-                documentoCompra.total = subTotal;
-                documentoCompra.subTotal = documentoCompra.total / (((decimal)MS_SharedService.obtenerIGV() / (100)) + 1);
-                documentoCompra.igv = documentoCompra.total - documentoCompra.subTotal;
+
+                documentoCompra.total = Decimal.Round(subTotal.Value, 2);
+                documentoCompra.subTotal = Decimal.Round((documentoCompra.total / (((decimal)MS_SharedService.obtenerIGV() / (100)) + 1)).Value, 2);
+                documentoCompra.igv = Decimal.Round((documentoCompra.total - documentoCompra.subTotal).Value, 2);
                 documentoCompra.codigo = MC_DocumentoCompraService.generarCodigoDC(documentoCompra.tipo);
 
                 if (documentoCompra.tipo == 1)

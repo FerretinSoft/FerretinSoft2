@@ -19,7 +19,7 @@ namespace pe.edu.pucp.ferretin.model
 
             if (Producto != null)
             {
-                montoParcial = cantidad * precioUnit;
+                montoParcial =  Decimal.Round((cantidad * precioUnit).Value,2);
             }
         }
 
@@ -33,7 +33,7 @@ namespace pe.edu.pucp.ferretin.model
 
             if (Producto != null)
             {
-                montoParcial = cantidad * precioUnit;
+                montoParcial = Decimal.Round((cantidad * precioUnit).Value, 2);
             }
         }
     }
