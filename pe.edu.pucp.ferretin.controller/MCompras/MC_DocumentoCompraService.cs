@@ -94,7 +94,7 @@ namespace pe.edu.pucp.ferretin.controller.MCompras
             {
                 if (estado != 0)
                 {
-                    return from d in listaDocumentosCompra
+                    return from d in db.DocumentoCompra
                            where
                            (d.codigo != null && d.codigo.Contains(codigo)
                            && d.Proveedor.razonSoc.Contains(proveedor)
@@ -107,7 +107,7 @@ namespace pe.edu.pucp.ferretin.controller.MCompras
                 }
                 else
                 {
-                    return from d in listaDocumentosCompra
+                    return from d in db.DocumentoCompra
                            where
                            (d.codigo != null && d.codigo.Contains(codigo)
                            && d.Proveedor.razonSoc.Contains(proveedor)
@@ -122,7 +122,7 @@ namespace pe.edu.pucp.ferretin.controller.MCompras
             {
                 if (estado != 0)
                 {
-                    return from d in listaDocumentosCompra
+                    return from d in db.DocumentoCompra
                            where
                            (d.codigo != null && d.codigo.Contains(codigo)
                            && d.Proveedor.razonSoc.Contains(proveedor)
@@ -136,7 +136,7 @@ namespace pe.edu.pucp.ferretin.controller.MCompras
                 }
                 else
                 {
-                    return from d in listaDocumentosCompra
+                    return from d in db.DocumentoCompra
                            where
                            (d.codigo != null && d.codigo.Contains(codigo)
                            && d.Proveedor.razonSoc.Contains(proveedor)
@@ -151,37 +151,37 @@ namespace pe.edu.pucp.ferretin.controller.MCompras
             
         }
 
-        public static IEnumerable<DocumentoCompraProducto> buscarProductosDC(DocumentoCompra doc)
-        {           
-            return from g in listaProductosDC
-                   where (
-                       //Cada fila es un filtro
-                          (g.id_documento_compra == doc.id))
-                   orderby g.id
-                   select g;
-        }
+        //public static IEnumerable<DocumentoCompraProducto> buscarProductosDC(DocumentoCompra doc)
+        //{           
+        //    return from g in listaProductosDC
+        //           where (
+        //               //Cada fila es un filtro
+        //                  (g.id_documento_compra == doc.id))
+        //           orderby g.id
+        //           select g;
+        //}
 
-        public static IEnumerable<DocumentoCompra> buscarTodosDocumentosCompra()
-        {
-            return from d in listaDocumentosCompra
-                   where
-                   (d.codigo != null)
-                   orderby d.codigo
-                   select d;
-        }
+        //public static IEnumerable<DocumentoCompra> buscarTodosDocumentosCompra()
+        //{
+        //    return from d in listaDocumentosCompra
+        //           where
+        //           (d.codigo != null)
+        //           orderby d.codigo
+        //           select d;
+        //}
 
         //obtenerEstado
-        public static DocumentoCompraEstado obtenerEstado(int id)
-        {
+        //public static DocumentoCompraEstado obtenerEstado(int id)
+        //{
 
-            IEnumerable<DocumentoCompraEstado> estados = (from e in listaEstadosDC
-                                                       where e.id == id
-                                                       select e);
-            if (estados.Count() > 0)
-                return estados.First();
-            else
-                return null;          
-        }
+        //    IEnumerable<DocumentoCompraEstado> estados = (from e in listaEstadosDC
+        //                                               where e.id == id
+        //                                               select e);
+        //    if (estados.Count() > 0)
+        //        return estados.First();
+        //    else
+        //        return null;          
+        //}
 
         public static IEnumerable<DocumentoCompraEstado> obtenerEstadosPorTipoDC(int tipoDocumento)
         {
@@ -214,7 +214,7 @@ namespace pe.edu.pucp.ferretin.controller.MCompras
 
         public static string generarCodigoDC(byte? tipoDC)
         {
-            IEnumerable<DocumentoCompra> documentos = (from e in listaDocumentosCompra
+            IEnumerable<DocumentoCompra> documentos = (from e in db.DocumentoCompra
                                                        where e.codigo != null && e.tipo.Equals(tipoDC)
                                                        select e);
             if (tipoDC == 1)
@@ -225,7 +225,7 @@ namespace pe.edu.pucp.ferretin.controller.MCompras
 
         public static int devuelvecantidadDC(byte? tipoDC)
         {
-            IEnumerable<DocumentoCompra> documentos = (from e in listaDocumentosCompra
+            IEnumerable<DocumentoCompra> documentos = (from e in db.DocumentoCompra
                                                        where e.codigo != null && e.tipo.Equals(tipoDC)
                                                        select e);
             return documentos.Count();
@@ -235,7 +235,6 @@ namespace pe.edu.pucp.ferretin.controller.MCompras
         public static bool insertarDocumentoCompra(DocumentoCompra documentoCompra)
         {
             DocumentoCompra doc;
-            int i;
             try
             {
                 try

@@ -21,6 +21,8 @@ namespace pe.edu.pucp.ferretin.viewmodel.MCompras
         }
         #endregion
 
+        public string codProdAgregar { get; set; }
+
         #region Valores de los controles - PRIMERA PESTANA
 
         public int tipoDC;
@@ -575,11 +577,14 @@ namespace pe.edu.pucp.ferretin.viewmodel.MCompras
         {
             try
             {
-                this.documentoCompra = listaDocumentosCompra.Single(documentoCompra => documentoCompra.id == (long)id);               
-                if (this.documentoCompra.tipoDC == "Cotizacion")
-                {
-                    prepararLabels(1);
-                }
+                this.documentoCompra = ComunService.db.DocumentoCompra.Where(p => p.id == (long)id).SingleOrDefault();
+                //this.documentoCompra = ComunService.db.DocumentoCompra.Single(documentoCompra => documentoCompra.id == (long)id);
+                for (int i = 0; i < this.documentoCompra.DocumentoCompraProducto.Count(); i++ )
+                    this.documentoCompra.DocumentoCompraProducto[i].PropertyChanged += actualizarMontosDC;
+                    if (this.documentoCompra.tipoDC == "Cotizacion")
+                    {
+                        prepararLabels(1);
+                    }
                 if (this.documentoCompra.tipoDC == "Orden de Compra")
                 {
                     prepararLabels(2);
@@ -663,11 +668,12 @@ namespace pe.edu.pucp.ferretin.viewmodel.MCompras
                     else
                     {
                         if (documentoCompra.fechaVencimiento < documentoCompra.fechaEmision)
-                            MessageBox.Show("La Fecha de Emision no puede ser menor que la Fecha de Vencimiento", "Cotizacion", MessageBoxButton.OK, MessageBoxImage.Exclamation);
+                            MessageBox.Show("La Fecha de Vecimiento no puede ser menor que la Fecha de Emision", "Cotizacion", MessageBoxButton.OK, MessageBoxImage.Exclamation);
                         else
                         {
                             documentoCompra.Usuario = MC_ComunService.usuarioL;
-                            documentoCompra.DocumentoCompraEstado = MC_DocumentoCompraService.obtenerEstado(3);
+                            documentoCompra.DocumentoCompraEstado = ComunService.db.DocumentoCompraEstado.Where(dce => dce.id == 3).SingleOrDefault();
+                            //documentoCompra.DocumentoCompraEstado = MC_DocumentoCompraService.obtenerEstado(3);
                             ComunService.idVentana(55);
                             MC_DocumentoCompraService.enviarCambios();
                             int i;
@@ -703,7 +709,8 @@ namespace pe.edu.pucp.ferretin.viewmodel.MCompras
                     }
                     else
                     {
-                        documentoCompra.DocumentoCompraEstado = MC_DocumentoCompraService.obtenerEstado(6);
+                        documentoCompra.DocumentoCompraEstado = ComunService.db.DocumentoCompraEstado.Where(dce => dce.id == 6).SingleOrDefault();
+                        //documentoCompra.DocumentoCompraEstado = MC_DocumentoCompraService.obtenerEstado(6);
                         documentoCompra.Usuario = MC_ComunService.usuarioL;
                         ComunService.idVentana(34);
                         MC_DocumentoCompraService.enviarCambios();
@@ -758,7 +765,8 @@ namespace pe.edu.pucp.ferretin.viewmodel.MCompras
                 documentoCompra.subTotal = documentoCompra.total / (((decimal)MS_SharedService.obtenerIGV() / (100)) + 1);
                 documentoCompra.igv = documentoCompra.total - documentoCompra.subTotal;
                 if (documentoCompra.tipo == 2 && documentoCompra.DocumentoCompraEstado.nombre.Equals("Emitida") && documentoCompra.nroFactura != null && documentoCompra.fechaVencimiento != null)
-                    documentoCompra.DocumentoCompraEstado = MC_DocumentoCompraService.obtenerEstado(7);
+                    documentoCompra.DocumentoCompraEstado = ComunService.db.DocumentoCompraEstado.Where(dce => dce.id == 7).SingleOrDefault();
+                    //documentoCompra.DocumentoCompraEstado = MC_DocumentoCompraService.obtenerEstado(7);
 
                 if(documentoCompra.tipo == 1)
                     ComunService.idVentana(55);
@@ -823,7 +831,7 @@ namespace pe.edu.pucp.ferretin.viewmodel.MCompras
         public void cancelDocumentoCompra(Object obj)
         {
             MessageBoxResult result = MessageBox.Show("Al salir, perderá todos los datos ingresados. ¿Desea continuar?",
-        "ATENCIÓN", MessageBoxButton.OKCancel, MessageBoxImage.Warning, MessageBoxResult.Cancel);
+                "ATENCIÓN", MessageBoxButton.OKCancel, MessageBoxImage.Warning, MessageBoxResult.Cancel);
             if (result == MessageBoxResult.OK)
             {               
                 listaDocumentosCompra = MC_DocumentoCompraService.listaDocumentosCompra;
@@ -836,7 +844,8 @@ namespace pe.edu.pucp.ferretin.viewmodel.MCompras
             Proveedor buscado = null;
             try
             {
-                buscado = MC_ProveedorService.buscarProveedorByName(this._proveedorNombre);
+                buscado = ComunService.db.Proveedor.Where(pv => pv.razonSoc.ToLower().Trim().Contains(this._proveedorNombre.ToLower().Trim())).SingleOrDefault();
+                //buscado = MC_ProveedorService.buscarProveedorByName(this._proveedorNombre);
                 documentoCompra.Proveedor = buscado;
                 proveedorNombre = "";
                 NotifyPropertyChanged("proveedorNombre");
@@ -865,7 +874,8 @@ namespace pe.edu.pucp.ferretin.viewmodel.MCompras
                     codigo = MC_DocumentoCompraService.generarCodigoDC(2),
                     fechaEmision = DateTime.Now,
                     DocumentoCompra1 = this.documentoCompra,
-                    DocumentoCompraEstado = MC_DocumentoCompraService.obtenerEstado(1),
+                    DocumentoCompraEstado = ComunService.db.DocumentoCompraEstado.Where(dce => dce.id == 5).SingleOrDefault(),
+                    //DocumentoCompraEstado = MC_DocumentoCompraService.obtenerEstado(1),
                     Proveedor = this.documentoCompra.Proveedor,
                     Usuario1 = MC_ComunService.usuarioL,
                     igv = this.documentoCompra.igv,
@@ -902,13 +912,15 @@ namespace pe.edu.pucp.ferretin.viewmodel.MCompras
             if (tipo == 1)
             {
                 documentoCompra.tipo = 1;
-                documentoCompra.DocumentoCompraEstado = MC_DocumentoCompraService.obtenerEstado(1);
+                documentoCompra.DocumentoCompraEstado = ComunService.db.DocumentoCompraEstado.Where(dce => dce.id == 1).SingleOrDefault();
+                //documentoCompra.DocumentoCompraEstado = MC_DocumentoCompraService.obtenerEstado(1);
                 documentoCompra.Usuario1 = usuarioIngreso;
             }
             else
             {
                 documentoCompra.tipo = 2;
-                documentoCompra.DocumentoCompraEstado = MC_DocumentoCompraService.obtenerEstado(5);
+                documentoCompra.DocumentoCompraEstado = ComunService.db.DocumentoCompraEstado.Where(dce => dce.id == 5).SingleOrDefault();
+                //documentoCompra.DocumentoCompraEstado = MC_DocumentoCompraService.obtenerEstado(5);
                 documentoCompra.Usuario1 = usuarioIngreso;
             }
         }
@@ -926,6 +938,48 @@ namespace pe.edu.pucp.ferretin.viewmodel.MCompras
             documentoCompra.igv = documentoCompra.total - documentoCompra.subTotal;
         }
 
+        public void agregarProducto(Object obj, Proveedor proveedor)
+        {
+            if (codProdAgregar != null && proveedor != null)
+            {
+                ProveedorProducto producto = null;
+                try
+                {
+                    producto = ComunService.db.ProveedorProducto.Where(pp => pp.Producto.codigo == codProdAgregar && pp.Proveedor == proveedor).SingleOrDefault();
+                    //producto = MC_ProveedorService.obtenerProductoProveedor(codProdAgregar, proveedor);
+                }
+                catch { }
+
+                if (producto != null)
+                {
+                    DocumentoCompraProducto dcp = null;
+                    if (documentoCompra.DocumentoCompraProducto.Count(vp => vp.Producto.id == producto.Producto.id) == 1)
+                    {
+                        NotifyPropertyChanged("documentoCompra");
+                    }
+                    else
+                    {
+                        dcp = new DocumentoCompraProducto()
+                        {
+                            Producto = producto.Producto,
+                            UnidadMedida = producto.UnidadMedida,
+                            precioUnit = producto.precio,
+                            estado = 1,
+                            cantidad = 0,
+                        };
+                        dcp.PropertyChanged += actualizarMontosDC;
+                        documentoCompra.DocumentoCompraProducto.Add(dcp);
+                        actualizarMontosDC(null, null);
+                        //NotifyPropertyChanged("documentoCompra");
+                    }                    
+                }
+                NotifyPropertyChanged("documentoCompra");
+            }
+            else
+            {
+                MessageBox.Show("No se encontro ningun producto con el código proporcionado");
+            }
+        }
         #endregion 
     }
 }
