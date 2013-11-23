@@ -21,6 +21,8 @@ namespace pe.edu.pucp.ferretin.viewmodel.MCompras
         }
         #endregion
 
+        public string codProdAgregar { get; set; }
+
         #region Valores de los controles - PRIMERA PESTANA
 
         public int tipoDC;
@@ -663,7 +665,7 @@ namespace pe.edu.pucp.ferretin.viewmodel.MCompras
                     else
                     {
                         if (documentoCompra.fechaVencimiento < documentoCompra.fechaEmision)
-                            MessageBox.Show("La Fecha de Emision no puede ser menor que la Fecha de Vencimiento", "Cotizacion", MessageBoxButton.OK, MessageBoxImage.Exclamation);
+                            MessageBox.Show("La Fecha de Vecimiento no puede ser menor que la Fecha de Emision", "Cotizacion", MessageBoxButton.OK, MessageBoxImage.Exclamation);
                         else
                         {
                             documentoCompra.Usuario = MC_ComunService.usuarioL;
@@ -823,7 +825,7 @@ namespace pe.edu.pucp.ferretin.viewmodel.MCompras
         public void cancelDocumentoCompra(Object obj)
         {
             MessageBoxResult result = MessageBox.Show("Al salir, perderá todos los datos ingresados. ¿Desea continuar?",
-        "ATENCIÓN", MessageBoxButton.OKCancel, MessageBoxImage.Warning, MessageBoxResult.Cancel);
+                "ATENCIÓN", MessageBoxButton.OKCancel, MessageBoxImage.Warning, MessageBoxResult.Cancel);
             if (result == MessageBoxResult.OK)
             {               
                 listaDocumentosCompra = MC_DocumentoCompraService.listaDocumentosCompra;
@@ -926,6 +928,48 @@ namespace pe.edu.pucp.ferretin.viewmodel.MCompras
             documentoCompra.igv = documentoCompra.total - documentoCompra.subTotal;
         }
 
+        public void agregarProducto(Object obj, Proveedor proveedor)
+        {
+            if (codProdAgregar != null && proveedor != null)
+            {
+                ProveedorProducto producto = null;
+                try
+                {
+                    producto = ComunService.db.ProveedorProducto.Where(pp => pp.Producto.codigo == codProdAgregar && pp.Proveedor == proveedor).SingleOrDefault();
+                    //producto = MC_ProveedorService.obtenerProductoProveedor(codProdAgregar, proveedor);
+                }
+                catch { }
+
+                if (producto != null)
+                {
+                    DocumentoCompraProducto dcp = null;
+                    if (documentoCompra.DocumentoCompraProducto.Count(vp => vp.Producto.id == producto.Producto.id) == 1)
+                    {
+                        NotifyPropertyChanged("documentoCompra");
+                    }
+                    else
+                    {
+                        dcp = new DocumentoCompraProducto()
+                        {
+                            Producto = producto.Producto,
+                            UnidadMedida = producto.UnidadMedida,
+                            precioUnit = producto.precio,
+                            estado = 1,
+                            cantidad = 0,
+                        };
+                        dcp.PropertyChanged += actualizarMontosDC;
+                        documentoCompra.DocumentoCompraProducto.Add(dcp);
+                        actualizarMontosDC(null, null);
+                        //NotifyPropertyChanged("documentoCompra");
+                    }                    
+                }
+                NotifyPropertyChanged("documentoCompra");
+            }
+            else
+            {
+                MessageBox.Show("No se encontro ningun producto con el código proporcionado");
+            }
+        }
         #endregion 
     }
 }
