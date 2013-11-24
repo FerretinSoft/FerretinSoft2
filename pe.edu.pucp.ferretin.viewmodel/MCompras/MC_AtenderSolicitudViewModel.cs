@@ -45,8 +45,8 @@ namespace pe.edu.pucp.ferretin.viewmodel.MCompras
                 bool huboCambio = false;
                 foreach (var entry in diccionario)
                 {
-                    if (!_listaProductosSol.Any(p => (p.Producto.id == entry.Key.Producto.id) ) && _listaProductosSol.Any(a => (a.almacen_id == entry.Key.id_almacen) ) &&
-                        !_listaProductosPendientes.Any(p => (p.Producto.id == entry.Key.Producto.id)) && _listaProductosPendientes.Any(a => (a.almacen_id == entry.Key.id_almacen)))
+                    if (!_listaProductosSol.Any(p => (p.Producto.id == entry.Key.Producto.id) ) &&
+                        !_listaProductosPendientes.Any(p => (p.Producto.id == entry.Key.Producto.id)))
                     {
                         var nuevo = new SolicitudCompra()
                         {
