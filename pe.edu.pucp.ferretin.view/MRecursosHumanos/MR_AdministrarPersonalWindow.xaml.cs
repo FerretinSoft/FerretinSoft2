@@ -149,10 +149,11 @@ namespace pe.edu.pucp.ferretin.view.MRecursosHumanos
 
          private void txtDireccion_KeyDown(object sender, KeyEventArgs e)
          {
-             if ((e.Key == Key.Back || e.Key == Key.Tab || (e.Key == Key.Space) || (e.Key >= Key.A && e.Key <= Key.Z) || ((e.Key >= Key.D0 && e.Key <= Key.D9)) || (e.Key == Key.Left) || (e.Key == Key.Right)) && (Keyboard.Modifiers != ModifierKeys.Control))
+             if ((e.Key == Key.Back || e.Key == Key.Tab || (e.Key == Key.Space) || (e.Key == Key.OemPeriod) || (e.Key >= Key.A && e.Key <= Key.Z) || ((e.Key >= Key.D0 && e.Key <= Key.D9)) || (e.Key == Key.Left) || (e.Key == Key.Right)) && (Keyboard.Modifiers != ModifierKeys.Control))
                  e.Handled = false;
              else
                  e.Handled = true;
+             
 
          }
 
@@ -199,18 +200,51 @@ namespace pe.edu.pucp.ferretin.view.MRecursosHumanos
         private void email_PreviewTextInput(object sender, TextCompositionEventArgs e)
         {
            
-             //Regex regex = new Regex("^[a-zA-Z][.]*[a-zA-Z0-9]@[a-zA-Z0-9]*[a-zA-Z0-9](.)[a-zA-Z][a-zA-Z]*[a-zA-Z]$");
-             //e.Handled = !regex.IsMatch((sender as TextBox).Text.Insert((sender as TextBox).SelectionStart, e.Text));
+            // Regex regex = new Regex("^[a-zA-Z][.]*[a-zA-Z0-9]@[a-zA-Z0-9]*[a-zA-Z0-9](.)[a-zA-Z][a-zA-Z]*[a-zA-Z]$");
+              //e.Handled = !regex.IsMatch((sender as TextBox).Text.Insert((sender as TextBox).SelectionStart, e.Text));
 
         }
 
         private void txtEmail_KeyDown(object sender, KeyEventArgs e)
         {
-            if (((e.Key != Key.Space) || (e.Key == Key.Left) || (e.Key == Key.Right)) && (Keyboard.Modifiers != ModifierKeys.Control))
-                e.Handled = false;
-            else
-                e.Handled = true;
+            //if (((e.Key != Key.Space) || (e.Key == Key.Left) || (e.Key == Key.Right)) && (Keyboard.Modifiers != ModifierKeys.Control))
+            //    e.Handled = false;
+            //else
+            //    e.Handled = true;
+
+           
         }
+
+        private void email_LostFocus(object sender, RoutedEventArgs e)
+        {
+
+
+            if (IsEmailAllowed(txtEmail.Text.Trim())==false)
+            {
+                e.Handled = true;
+                MessageBox.Show("Ingrese un correo válido", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                txtEmail.Focus();
+            
+            
+            }
+        
+        
+        }
+
+        private static bool IsEmailAllowed(string text)
+        {
+            bool blnValidEmail = false;
+            Regex regEMail = new Regex(@"^[a-zA-Z][\w\.-]{2,28}[a-zA-Z0-9]@[a-zA-Z0-9][\w\.-]*[a-zA-Z0-9]\.[a-zA-Z][a-zA-Z\.]*[a-zA-Z]$");
+            if (text.Length > 0)
+            {
+                blnValidEmail = regEMail.IsMatch(text);
+            }
+
+            return blnValidEmail;
+        }
+
+
+     
 
         private void sueldo_PreviewTextInput(object sender, TextCompositionEventArgs e)
         {
