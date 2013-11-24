@@ -53,6 +53,7 @@
     <Compile Include="Helper\RelayCommand.cs" />
     <Compile Include="Helper\TreeViewHelper.cs" />
     <Compile Include="MAlmacen\MA_AtencionSolAuxViewModel.cs" />
+    <Compile Include="MAlmacen\MA_BuscadorProductosViewModel.cs" />
     <Compile Include="MAlmacen\MA_DocumentoMovimientoViewModel.cs" />
     <Compile Include="MAlmacen\MA_InventarioProductosViewModel.cs" />
     <Compile Include="MAlmacen\MA_MainWindowViewModel.cs" />

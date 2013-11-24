@@ -105,7 +105,12 @@
                         </Button.Background>
                     </Button>
                     <ComboBox ItemsSource="{Binding estadoSolicitud}" SelectedItem="{Binding solicitud.SolicitudAbastecimientoEstado}" DisplayMemberPath="nombre" HorizontalAlignment="Left" Margin="433,81,0,0" VerticalAlignment="Top" Width="208" Height="22" IsEnabled="False"/>
-                    <Button x:Name="borrarProductosBtn" IsEnabled="{Binding isCreating}" Content="" Width="20" Margin="160,0,0,0" Grid.Row="1" HorizontalAlignment="Left" Click="borrarProductosBtn_Click" Height="20" VerticalAlignment="Top">
+                    <Button x:Name="searchProductosBtn" IsEnabled="{Binding isCreating}" Content="" Width="20" Margin="160,0,0,0" Grid.Row="1" HorizontalAlignment="Left" Height="20" VerticalAlignment="Top" Click="searchProductosBtn_Click">
+                        <Button.Background>
+                            <ImageBrush ImageSource="/pe.edu.pucp.ferretin.view;component/Resources/search1_20.png" Stretch="None"/>
+                        </Button.Background>
+                    </Button>
+                    <Button x:Name="borrarProductosBtn_Copy" IsEnabled="{Binding isCreating}" Content="" Width="20" Margin="185,0,0,0" Grid.Row="1" HorizontalAlignment="Left" Click="borrarProductosBtn_Click" Height="20" VerticalAlignment="Top" RenderTransformOrigin="2.297,0.377">
                         <Button.Background>
                             <ImageBrush ImageSource="/pe.edu.pucp.ferretin.view;component/Resources/trash_20.png" Stretch="None"/>
                         </Button.Background>

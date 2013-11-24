@@ -1,5 +1,6 @@
 ﻿using pe.edu.pucp.ferretin.model;
 using pe.edu.pucp.ferretin.view.MCompras;
+using pe.edu.pucp.ferretin.view.MAlmacen;
 using pe.edu.pucp.ferretin.viewmodel.MCompras;
 using pe.edu.pucp.ferretin.viewmodel.MVentas;
 using System;
@@ -16,6 +17,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using pe.edu.pucp.ferretin.controller.MAlmacen;
+using pe.edu.pucp.ferretin.viewmodel.MAlmacen;
 
 namespace pe.edu.pucp.ferretin.view.MVentas
 {
@@ -89,8 +91,6 @@ namespace pe.edu.pucp.ferretin.view.MVentas
                     vmpadre.searchProducto = productoRep.codigo;
                     vmpadre.nombreProducto = productoRep.nombre;
                 }
-                
-               
             }
 
 
@@ -106,6 +106,20 @@ namespace pe.edu.pucp.ferretin.view.MVentas
                 }
                 vmpadre.codProdAgregar = "";
 
+            }
+
+            //Almacen - Registro de solicitud de abastecimiento
+            else if (this.Owner is MA_RegistroSolAbastecimientoWindow)
+            {
+                MA_RegistroSolAbastecimientoWindow window = this.Owner as MA_RegistroSolAbastecimientoWindow;
+                var vmpadre = window.main.DataContext as MA_RegistroSolAbastecimientoViewModel;
+                var seleccionados = listaProductos.SelectedItems;
+                foreach (ProductoAlmacen item in seleccionados)
+                {
+                    vmpadre.codigoNuevoProducto = item.Producto.codigo;
+                    vmpadre.agregarNuevoProducto(null);
+                }
+                vmpadre.codigoNuevoProducto = "";
             }
 
             this.Owner.Focus();
