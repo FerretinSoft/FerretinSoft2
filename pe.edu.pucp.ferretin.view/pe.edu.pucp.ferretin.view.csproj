@@ -145,6 +145,9 @@
     <Compile Include="MVentas\MV_BuscarProdReporte.xaml.cs">
       <DependentUpon>MV_BuscarProdReporte.xaml</DependentUpon>
     </Compile>
+    <Compile Include="MVentas\MV_DatosMailWindow.xaml.cs">
+      <DependentUpon>MV_DatosMailWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="MVentas\MV_DocProforma.xaml.cs">
       <DependentUpon>MV_DocProforma.xaml</DependentUpon>
     </Compile>
@@ -396,6 +399,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="MVentas\MV_ClientesWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="MVentas\MV_DatosMailWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

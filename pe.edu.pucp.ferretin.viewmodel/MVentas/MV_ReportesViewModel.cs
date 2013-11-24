@@ -95,15 +95,21 @@ namespace pe.edu.pucp.ferretin.viewmodel.MVentas
         public String _aliasRep = "";
         public String aliasRep { get { return _aliasRep; } set { _aliasRep = value; NotifyPropertyChanged("aliasRep"); } }
 
-        public String _emailEnviar = "lpinto@pucp.pe";
+        public String _emailEnviar = "";
         public String emailEnviar { get { return _emailEnviar; } set { _emailEnviar = value; NotifyPropertyChanged("emailEnviar"); } }
+
+        public String _mensajeEnviar = "";
+        public String mensajeEnviar { get { return _mensajeEnviar; } set { _mensajeEnviar = value; NotifyPropertyChanged("mensajeEnviar"); } }
 
 
         public String _searchProducto = "";
         public String searchProducto { get { return _searchProducto; } set { _searchProducto = value; NotifyPropertyChanged("searchProducto"); } }
 
-        public string _searchCliente = "";
-        public string searchCliente { get { return _searchCliente; } set { _searchCliente = value; NotifyPropertyChanged("searchCliente"); } }
+        public String _searchCliente = "";
+        public String searchCliente { get { return _searchCliente; } set { _searchCliente = value; NotifyPropertyChanged("searchCliente"); } }
+
+        public int _selectedReport = 0;
+        public int selectedReport { get { return _selectedReport; } set { _selectedReport = value; NotifyPropertyChanged("selectedReport"); } }
 
         public String _nombreBoton = "SIGUIENTE";
         public String nombreBoton { get { return _nombreBoton; } set { _nombreBoton = value; NotifyPropertyChanged("nombreBoton"); } }

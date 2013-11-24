@@ -120,8 +120,10 @@ namespace pe.edu.pucp.ferretin.view.MVentas
             //rep.SetDatabaseLogon("inf245g2usr", "server", "inti.lab.inf.pucp.edu.pe", "inf245g2");
         }
 
-        internal void enviarEmail(DateTime fechaInicio, DateTime fechaFin, int selectedItem, string nombreReporte, string codEmpleado, string codCliente, string codProducto)
+        internal void enviarEmail(DateTime fechaInicio, DateTime fechaFin, int selectedItem, string nombreReporte, string codEmpleado, string codCliente, string codProducto,
+            string email, string mensajeEmail)
         {
+
             if (nombreReporte.Equals("RTienda"))
             {
                 ReporteVentaTienda rep;
@@ -140,9 +142,9 @@ namespace pe.edu.pucp.ferretin.view.MVentas
                 {//Mandamos el email
                     MailMessage message = new MailMessage(
                        "ferretinsoft@pucp.edu.pe",
-                       "lpintov@pucp.pe",
+                       email,
                        "FerretinSoft: Reporte de ventas por tienda", null);
-                    message.Body = "Se adjunta el presente reporte." + Environment.NewLine + "Saludos," + Environment.NewLine + "Ferretin Soft";
+                    message.Body = mensajeEmail;
                     message.Attachments.Add(new Attachment(rep.ExportToStream(ExportFormatType.PortableDocFormat), "ReporteVenta-Tienda.pdf"));
                     SmtpClient client = new SmtpClient();
                     client.Credentials = new System.Net.NetworkCredential("ferretinsoft@gmail.com", "hUasnASiraQ");
@@ -180,9 +182,9 @@ namespace pe.edu.pucp.ferretin.view.MVentas
                 {
                     MailMessage message = new MailMessage(
                        "ferretinsoft@pucp.edu.pe",
-                       "lpintov@pucp.pe",
+                       email,
                        "FerretinSoft: Reporte de ventas por cliente", null);
-                    message.Body = "Se adjunta el presente reporte." + Environment.NewLine + "Saludos," + Environment.NewLine + "Ferretin Soft";
+                    message.Body = mensajeEmail;
                     
                     message.Attachments.Add(new Attachment(rep.ExportToStream(ExportFormatType.PortableDocFormat), "ReporteVenta-Cliente.pdf"));
                     SmtpClient client = new SmtpClient();
@@ -218,9 +220,9 @@ namespace pe.edu.pucp.ferretin.view.MVentas
                     
                     MailMessage message = new MailMessage(
                        "ferretinsoft@pucp.edu.pe",
-                       "lpintov@pucp.pe",
-                       "FerretinSoft: de ventas por producto", null);
-                    message.Body = "Se adjunta el presente reporte." + Environment.NewLine + "Saludos," + Environment.NewLine + "Ferretin Soft";
+                       email,
+                       "FerretinSoft: Reporte de ventas por producto", null);
+                    message.Body = mensajeEmail;
                     
                     message.Attachments.Add(new Attachment(rep.ExportToStream(ExportFormatType.PortableDocFormat), "ReporteVenta-Producto.pdf"));
                     SmtpClient client = new SmtpClient();
@@ -253,9 +255,9 @@ namespace pe.edu.pucp.ferretin.view.MVentas
                 {//Mandamos el email
                     MailMessage message = new MailMessage(
                        "ferretinsoft@pucp.edu.pe",
-                       "lpintov@pucp.pe",
+                       email,
                        "FerretinSoft: Reporte de ventas por vendedor", null);
-                    message.Body = "Se adjunta el presente reporte." + Environment.NewLine + "Saludos," + Environment.NewLine + "Ferretin Soft";
+                    message.Body = mensajeEmail;
                     
                     message.Attachments.Add(new Attachment(rep.ExportToStream(ExportFormatType.PortableDocFormat), "ReporteVenta-Vendedor.pdf"));
                     SmtpClient client = new SmtpClient();
