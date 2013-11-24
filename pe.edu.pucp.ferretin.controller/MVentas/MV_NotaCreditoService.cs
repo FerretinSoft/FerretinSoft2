@@ -60,6 +60,24 @@ namespace pe.edu.pucp.ferretin.controller.MVentas
             return notaCredito;
         }
 
+        public static NotaCredito obtenerNotaCreditoByIdVenta(long id)
+        {
+            try
+            {
+                NotaCredito notaCredito = (from c in listaNotasCredito
+                                           where c.Devolucion.Venta.id.Equals(id)
+                                           select c).Single();
+
+                return notaCredito;
+            }
+            catch
+            {
+            }
+            return null;
+
+        }
+        
+
         public static bool insertarNotaCredito(NotaCredito notaCredito)
         {
             if (!db.NotaCredito.Contains(notaCredito))

@@ -18,7 +18,7 @@
             <RowDefinition Height="40px"></RowDefinition>
 
         </Grid.RowDefinitions>
-        
+
         <Grid x:Name="repIntroGrid" Margin="0" Visibility="Visible">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition></ColumnDefinition>
@@ -81,7 +81,7 @@
                     <KeyBinding Key="Enter" Command="{Binding cargarProductoCommand}" />
                 </TextBox.InputBindings>
             </TextBox>
-            
+
             <TextBox Visibility="{Binding Path=visibleVendedor}" IsEnabled="False" Text="{Binding Path=nombreVendedor}" VerticalAlignment="Center" Height="22" Margin="2,6,1,4" Grid.Row="1" Grid.Column="3"/>
 
             <Button Visibility="{Binding Path=visibleVendedor}" Click="Button_Click_Vendedor" x:Name="buscarVendedorBtn" Width="20" Height="20" BorderThickness="0"  Margin="5,8,13,4" Grid.Row="1" Grid.Column="2">
@@ -91,7 +91,7 @@
             </Button>
 
             <Label Visibility="{Binding Path=visibleCliente}" Grid.Column="0" Grid.Row="1" Content="Cliente:" HorizontalAlignment="Left" Margin="13,2,0,0" VerticalAlignment="Top"/>
-            
+
             <TextBox Visibility="{Binding Path=visibleCliente}" IsEnabled="False" Text="{Binding Path=nombreCliente}" VerticalAlignment="Center" Height="22" Margin="2,6,1,4" Grid.Row="1" Grid.Column="3"/>
 
             <TextBox MaxLength="12" PreviewKeyDown="validarCodCliente_KeyDown" PreviewTextInput="validarCodCliente" Visibility="{Binding Path=visibleCliente}" Text="{Binding Path=searchCliente, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Bottom" Margin="1,0,0,4" Grid.Row="1" Grid.Column="1">
@@ -99,13 +99,13 @@
                     <KeyBinding Key="Enter" Command="{Binding cargarClienteCommand}" />
                 </TextBox.InputBindings>
             </TextBox>
-            
+
             <Button Visibility="{Binding Path=visibleCliente}" Click="Button_Click_Cliente" Width="20" Height="20" BorderThickness="0"  Margin="5,8,13,4" Grid.Row="1" Grid.Column="2">
                 <Button.Background>
                     <ImageBrush ImageSource="../Resources/search1_20.png"/>
                 </Button.Background>
             </Button>
-            
+
             <DatePicker HorizontalAlignment="Left" Margin="1,60,0,0" VerticalAlignment="Top" SelectedDate="{Binding Path=searchFechaInicio, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Width="126" Grid.Column="1"/>
             <DatePicker HorizontalAlignment="Left" Margin="47,60,0,0" VerticalAlignment="Top" SelectedDate="{Binding Path=searchFechaFin, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Width="126" Grid.Column="3"/>
             <Label Content="Alias:" HorizontalAlignment="Left" Margin="13,6,0,0" VerticalAlignment="Top" Grid.Row="2"/>
@@ -114,7 +114,7 @@
             <TextBox HorizontalAlignment="Left" Height="49" Margin="1,37,0,0" TextWrapping="Wrap" Text="{Binding Path=comentRep}" IsEnabled="False" VerticalAlignment="Top" Width="360" Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="4"/>
         </Grid>
         <Grid x:Name="repFinalGrid" Margin="0" Visibility="Collapsed">
-            <Label Content="Reporte 10 productos TOP" HorizontalAlignment="Center" Margin="146,10,111,0" VerticalAlignment="Top" FontSize="16"/>
+
             <Grid Height="48" Margin="20,0" VerticalAlignment="Center">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition></ColumnDefinition>
@@ -123,22 +123,14 @@
                     <ColumnDefinition></ColumnDefinition>
                     <ColumnDefinition></ColumnDefinition>
                 </Grid.ColumnDefinitions>
-                <Button Grid.Column="0" Content="" HorizontalAlignment="Center" Margin="0" VerticalAlignment="Top" Width="48" Height="48" ToolTip="Visualizar Reporte">
+                <Button Grid.Column="0" Content="" HorizontalAlignment="Center" Margin="0" VerticalAlignment="Top" Width="48" Height="48" ToolTip="Visualizar Reporte" Click="repShow_Click">
                     <Button.Background>
                         <ImageBrush ImageSource="../Resources/view_48.png" Stretch="Uniform"/>
                     </Button.Background>
                 </Button>
-                <Button Grid.Column="1" Content="" HorizontalAlignment="Center" Margin="0" VerticalAlignment="Top" Width="48" Height="48" ToolTip="Guardar Reporte">
-                    <Button.Background>
-                        <ImageBrush ImageSource="../Resources/save1_48.png" Stretch="Uniform"/>
-                    </Button.Background>
-                </Button>
-                <Button Grid.Column="2" Content="" HorizontalAlignment="Center" Margin="0" VerticalAlignment="Top" Width="48" Height="48" ToolTip="Imprimir Reporte">
-                    <Button.Background>
-                        <ImageBrush ImageSource="../Resources/print_48.png" Stretch="Uniform"/>
-                    </Button.Background>
-                </Button>
-                <Button Grid.Column="3" Content="" HorizontalAlignment="Center" Margin="0" VerticalAlignment="Top" Width="48" Height="48" ToolTip="Enviar por email">
+
+
+                <Button Grid.Column="2" Content="" HorizontalAlignment="Center" Margin="27,0,10,0" VerticalAlignment="Top" Width="48" Height="48" ToolTip="Enviar por email">
                     <Button.Background>
                         <ImageBrush ImageSource="../Resources/mail1_48.png" Stretch="Uniform"/>
                     </Button.Background>

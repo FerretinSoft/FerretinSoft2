@@ -47,7 +47,7 @@ namespace pe.edu.pucp.ferretin.view.MVentas
                             repIntroGrid.Visibility = System.Windows.Visibility.Collapsed;
                             repConfGrid.Visibility = System.Windows.Visibility.Visible;
 
-                            padre_DataContext.nombreBoton = "GENERAR";
+                            padre_DataContext.nombreBoton = "SIGUIENTE";
                             padre_DataContext.searchFechaFin = DateTime.Today.AddDays(1);
                             padre_DataContext.searchFechaInicio = DateTime.Parse("10/09/2013");
 
@@ -108,24 +108,28 @@ namespace pe.edu.pucp.ferretin.view.MVentas
                         break;
                 }
             }else{
-                padre_DataContext = this.main.DataContext as MV_ReportesViewModel;
-                MV_VisorReporte repW;
-                if (this.listaRepDisp.SelectedIndex == 2)
-                    repW = new MV_VisorReporte(padre_DataContext.searchFechaInicio, padre_DataContext.searchFechaFin, padre_DataContext.selectedTienda.id,"RTienda","", "");
-                else if (this.listaRepDisp.SelectedIndex == 1)
-                    repW = new MV_VisorReporte(padre_DataContext.searchFechaInicio, padre_DataContext.searchFechaFin, 0,"RProducto","", "");
-                else if (this.listaRepDisp.SelectedIndex == 0)
-                    repW = new MV_VisorReporte(padre_DataContext.searchFechaInicio, padre_DataContext.searchFechaFin, 0, "RCliente", "", padre_DataContext.searchCliente);
-                else
-                    repW = new MV_VisorReporte(padre_DataContext.searchFechaInicio, padre_DataContext.searchFechaFin, 0,"RVendedor",padre_DataContext.searchVendedor, "");
                 
-                repW.ShowDialog();
+                
 
             }
 
 
             }
-        
+        private void repShow_Click(object sender, RoutedEventArgs e)
+        {
+            MV_ReportesViewModel padre_DataContext = this.main.DataContext as MV_ReportesViewModel;
+            MV_VisorReporte rep;
+            if (this.listaRepDisp.SelectedIndex == 2)
+                rep = new MV_VisorReporte(padre_DataContext.searchFechaInicio, padre_DataContext.searchFechaFin, padre_DataContext.selectedTienda.id, "RTienda", "", "", "");
+            else if (this.listaRepDisp.SelectedIndex == 1)
+                rep = new MV_VisorReporte(padre_DataContext.searchFechaInicio, padre_DataContext.searchFechaFin, padre_DataContext.selectedTienda.id, "RProducto", "", "", padre_DataContext.searchProducto);
+            else if (this.listaRepDisp.SelectedIndex == 0)
+                rep = new MV_VisorReporte(padre_DataContext.searchFechaInicio, padre_DataContext.searchFechaFin, 0, "RCliente", "", padre_DataContext.searchCliente, "");
+            else
+                rep = new MV_VisorReporte(padre_DataContext.searchFechaInicio, padre_DataContext.searchFechaFin, 0, "RVendedor", padre_DataContext.searchVendedor, "", "");
+
+            rep.Show();
+        }
 
 
         private void repAntBtn_Click(object sender, RoutedEventArgs e)
@@ -174,7 +178,7 @@ namespace pe.edu.pucp.ferretin.view.MVentas
         {
              
             var vm = main.DataContext as MV_ReportesViewModel;
-            var buscador = new MV_BuscadorProductos(this,vm.selectedTienda);
+            var buscador = new MV_BuscarProdReporte(this);
         
         }
 

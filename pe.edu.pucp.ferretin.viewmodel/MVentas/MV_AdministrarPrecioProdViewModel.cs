@@ -175,6 +175,7 @@ namespace pe.edu.pucp.ferretin.viewmodel.MVentas
                         productoPrecio.Producto.precioLista = productoPrecio.precio;
                         productoPrecio.Producto.precioPuntos = productoPrecio.precioPuntos;
                         productoPrecio.Producto.moneda = productoPrecio.moneda;
+                        productoPrecio.Producto.ganarPuntos = productoPrecio.ganarPuntos;
                         
                         productoPrecio.estado = true;
                         NotifyPropertyChanged("productoPrecio");

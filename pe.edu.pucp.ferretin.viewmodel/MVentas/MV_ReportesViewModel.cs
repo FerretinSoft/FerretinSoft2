@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
+using pe.edu.pucp.ferretin.controller;
 using pe.edu.pucp.ferretin.controller.MAlmacen;
 using pe.edu.pucp.ferretin.controller.MRecursosHumanos;
 using pe.edu.pucp.ferretin.controller.MSeguridad;
@@ -25,7 +26,39 @@ namespace pe.edu.pucp.ferretin.viewmodel.MVentas
         #endregion
 
         #region Valores para el cuadro de Búsqueda
+        public string searchNombre
+        {
+            get;
+            set;
+        }
 
+        private IEnumerable<Producto> _listaProductos;
+        public IEnumerable<Producto> listaProductos
+        {
+            get
+            {
+
+                if (_listaProductos == null)
+                {
+                    
+                        var productos = ComunService.db.Producto;
+                        _listaProductos = productos;
+                    
+                }
+                if (_listaProductos != null)
+                    return _listaProductos.Where(p => p.nombre.ToLower().Contains(searchNombre == null ? "" : searchNombre.ToLower()));
+                else
+                    return null;
+
+            }
+        }
+
+
+
+
+
+
+        
         public IEnumerable<Tienda> _listaTiendas;
         public IEnumerable<Tienda> listaTiendas
         {
@@ -150,9 +183,28 @@ namespace pe.edu.pucp.ferretin.viewmodel.MVentas
             }
         }
 
+        RelayCommand _buscarProductoCommand;
+        public ICommand buscarProductoCommand
+        {
+            get
+            {
+                if (_buscarProductoCommand == null)
+                {
+                    _buscarProductoCommand = new RelayCommand(buscarProductos);
+                }
+                return _buscarProductoCommand;
+            }
+        }
+
+        
     #endregion
 
         #region command
+
+        public void buscarProductos(object obj)
+        {
+            NotifyPropertyChanged("listaProductos");
+        }
 
         public void cargarProducto(Object id)
         {

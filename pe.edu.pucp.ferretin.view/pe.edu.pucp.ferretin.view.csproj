@@ -142,6 +142,9 @@
     <Compile Include="MVentas\MV_BuscadorProductos.xaml.cs">
       <DependentUpon>MV_BuscadorProductos.xaml</DependentUpon>
     </Compile>
+    <Compile Include="MVentas\MV_BuscarProdReporte.xaml.cs">
+      <DependentUpon>MV_BuscarProdReporte.xaml</DependentUpon>
+    </Compile>
     <Compile Include="MVentas\MV_DocProforma.xaml.cs">
       <DependentUpon>MV_DocProforma.xaml</DependentUpon>
     </Compile>
@@ -385,6 +388,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="MVentas\MV_BuscadorProductos.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="MVentas\MV_BuscarProdReporte.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -741,6 +748,9 @@
   </ItemGroup>
   <ItemGroup>
     <Service Include="{C0C07587-41A7-46C8-8FBD-3F9C8EBE2DDC}" />
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Service References\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
