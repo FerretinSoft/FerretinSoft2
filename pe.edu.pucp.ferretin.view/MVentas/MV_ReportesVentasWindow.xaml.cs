@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Mail;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
@@ -12,6 +13,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using pe.edu.pucp.ferretin.controller;
 using pe.edu.pucp.ferretin.view.MRecursosHumanos;
 using pe.edu.pucp.ferretin.viewmodel.MRecursosHumanos;
 using pe.edu.pucp.ferretin.viewmodel.MVentas;
@@ -132,6 +134,14 @@ namespace pe.edu.pucp.ferretin.view.MVentas
         }
 
 
+        private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+           
+                ComunService.Clean();
+                    
+        }
+
+
         private void repAntBtn_Click(object sender, RoutedEventArgs e)
         {
             MV_ReportesViewModel padre_DataContext = this.main.DataContext as MV_ReportesViewModel;
@@ -156,6 +166,41 @@ namespace pe.edu.pucp.ferretin.view.MVentas
             }
         }
 
+
+        private void Button_Click_Mail(object sender, RoutedEventArgs e)
+        {
+            var vm = DataContext as MV_ReportesViewModel;
+            
+                if (String.IsNullOrEmpty(vm.emailEnviar))
+                {
+                    MessageBox.Show("Debe ingresar el email de un destinatario");
+                    return;
+                }
+                MailAddress m;
+                try
+                {
+                    m = new MailAddress(vm.emailEnviar);
+                }
+                catch
+                {
+                    MessageBox.Show("El email ingresado no es válido");
+                    return;
+                }
+            MV_ReportesViewModel padre_DataContext = this.main.DataContext as MV_ReportesViewModel;
+            MV_VisorReporte print = new MV_VisorReporte();
+            if (this.listaRepDisp.SelectedIndex == 2)
+                print.enviarEmail(padre_DataContext.searchFechaInicio, padre_DataContext.searchFechaFin, padre_DataContext.selectedTienda.id, "RTienda", "", "", "");
+            else if (this.listaRepDisp.SelectedIndex == 1)
+                print.enviarEmail(padre_DataContext.searchFechaInicio, padre_DataContext.searchFechaFin, padre_DataContext.selectedTienda.id, "RProducto", "", "", padre_DataContext.searchProducto);
+            else if (this.listaRepDisp.SelectedIndex == 0)
+                print.enviarEmail(padre_DataContext.searchFechaInicio, padre_DataContext.searchFechaFin, 0, "RCliente", "", padre_DataContext.searchCliente, "");
+            else
+                print.enviarEmail(padre_DataContext.searchFechaInicio, padre_DataContext.searchFechaFin, 0, "RVendedor", padre_DataContext.searchVendedor, "", "");
+
+               
+
+            }
+ 
         private void Button_Click_Vendedor(object sender, RoutedEventArgs e)
         {
             MR_AdministrarPersonalWindow v = new MR_AdministrarPersonalWindow();

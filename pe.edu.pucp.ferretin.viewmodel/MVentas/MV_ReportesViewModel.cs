@@ -95,6 +95,10 @@ namespace pe.edu.pucp.ferretin.viewmodel.MVentas
         public String _aliasRep = "";
         public String aliasRep { get { return _aliasRep; } set { _aliasRep = value; NotifyPropertyChanged("aliasRep"); } }
 
+        public String _emailEnviar = "lpinto@pucp.pe";
+        public String emailEnviar { get { return _emailEnviar; } set { _emailEnviar = value; NotifyPropertyChanged("emailEnviar"); } }
+
+
         public String _searchProducto = "";
         public String searchProducto { get { return _searchProducto; } set { _searchProducto = value; NotifyPropertyChanged("searchProducto"); } }
 
