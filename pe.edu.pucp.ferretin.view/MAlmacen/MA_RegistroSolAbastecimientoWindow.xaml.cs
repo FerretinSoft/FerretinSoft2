@@ -1,5 +1,6 @@
 ﻿using pe.edu.pucp.ferretin.controller;
 using pe.edu.pucp.ferretin.controller.MAlmacen;
+using pe.edu.pucp.ferretin.view.MVentas;
 using pe.edu.pucp.ferretin.viewmodel.MAlmacen;
 using System;
 using System.Collections.Generic;
@@ -77,6 +78,12 @@ namespace pe.edu.pucp.ferretin.view.MAlmacen
                 else
                     e.Handled = true;
             }
+        }
+
+        private void searchProductosBtn_Click(object sender, RoutedEventArgs e)
+        {
+            var vm = this.main.DataContext as MA_RegistroSolAbastecimientoViewModel;
+            var buscador = new MV_BuscadorProductos(this, vm.usuarioLogueado.Empleado.tiendaActual);
         }
 
         
