@@ -91,8 +91,6 @@ namespace pe.edu.pucp.ferretin.view.MVentas
                     vmpadre.searchProducto = productoRep.codigo;
                     vmpadre.nombreProducto = productoRep.nombre;
                 }
-                
-               
             }
 
 

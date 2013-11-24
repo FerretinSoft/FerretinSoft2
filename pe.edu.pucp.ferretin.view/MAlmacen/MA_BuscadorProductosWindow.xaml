@@ -1,0 +1,50 @@
+﻿<Window x:Class="pe.edu.pucp.ferretin.view.MAlmacen.MA_BuscadorProductosWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:MAlmacen="clr-namespace:pe.edu.pucp.ferretin.viewmodel.MAlmacen;assembly=pe.edu.pucp.ferretin.viewmodel"
+        Title="Buscar Productos" Height="369" Width="689" WindowStartupLocation="CenterScreen" Icon="/pe.edu.pucp.ferretin.view;component/Resources/ferretin_ico.ico">
+    <Window.DataContext>
+        <MAlmacen:MA_BuscadorProductosViewModel/>
+    </Window.DataContext>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <GroupBox Margin="5" Header="Parámetros de Búsqueda" BorderBrush="Black">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="2*"/>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="1.3*"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+                <Label Content="Nombre:" HorizontalAlignment="Left" VerticalAlignment="Center" />
+                <TextBox  Text="{Binding searchNombre, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Center" Grid.Column="1">
+                    <TextBox.InputBindings>
+                        <KeyBinding Key="Enter" Command="{Binding buscarProductoCommand}" />
+                    </TextBox.InputBindings>
+                </TextBox>
+                <Button Margin="10,6,0,5" HorizontalAlignment="Left" VerticalAlignment="Center" Width="24" Height="24" Command="{Binding buscarProductoCommand}" Grid.Column="3">
+                    <Button.Background>
+                        <ImageBrush ImageSource="../Resources/refresh2_48.png"/>
+                    </Button.Background>
+                </Button>
+            </Grid>
+        </GroupBox>
+
+        <DataGrid x:Name="listaProductos" Margin="5" CanUserAddRows="False" AutoGenerateColumns="False" ItemsSource="{Binding listaProductos}" Grid.Row="1" IsManipulationEnabled="False" IsReadOnly="True">
+            <DataGrid.Columns>
+                <DataGridTextColumn Width="150" Binding="{Binding codigo}" Header="Código"/>
+                <DataGridTextColumn Width="3*" Binding="{Binding nombre}" Header="Nombre"/>
+                <DataGridTextColumn Width="3*" Binding="{Binding cadenaCategoria}" Header="Categorías"/>                
+            </DataGrid.Columns>
+        </DataGrid>
+        <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Center" Height="40">
+            <Button x:Name="seleccionarButton" Content="SELECCIONAR" Margin="5" Width="100" Command="{Binding buscarProductoCommand}" CommandParameter="{Binding ElementName=listaProductos}" Click="seleccionarButton_Click"/>
+            <Button x:Name="cancelButton" Content="CANCELAR" Margin="5" Width="100" Click="cancelButton_Click"/>
+        </StackPanel>
+    </Grid>
+</Window>

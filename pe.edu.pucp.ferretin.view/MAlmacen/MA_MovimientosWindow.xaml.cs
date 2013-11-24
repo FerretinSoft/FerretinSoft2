@@ -99,8 +99,7 @@ namespace pe.edu.pucp.ferretin.view.MAlmacen
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            //var vm = DataContext as MA_MovimientosViewModel;
-            //var buscador = new MV_BuscadorProductos(this, vm.usuarioLogueado.Empleado.tiendaActual);
+            var buscador = new MA_BuscadorProductosWindow(this);
         }
 
         private void productosGrid_PreviewKeyDown(object sender, KeyEventArgs e)
