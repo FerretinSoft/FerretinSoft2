@@ -37,16 +37,16 @@ namespace pe.edu.pucp.ferretin.viewmodel.MCompras
                 Dictionary<ProductoAlmacen,decimal> diccionario = MA_SharedService.obtenerProductosPorAbastecer(tienda);
 
                 //Productos atentidos pendientes
-                var _listaProductosPendientes = from sc in MC_ComunService.db.SolicitudCompra where sc.estado == 1 select sc;
+                var _listaProductosPendientes = from sc in MC_ComunService.db.SolicitudCompra where sc.estado == 1 && sc.almacen_id == tienda.id select sc;
 
                 //Productos vistos pero no atendidos
-                _listaProductosSol = from sc in MC_ComunService.db.SolicitudCompra where sc.estado == 0 select sc;
+                _listaProductosSol = from sc in MC_ComunService.db.SolicitudCompra where sc.estado == 0 && sc.almacen_id == tienda.id select sc;
 
                 bool huboCambio = false;
                 foreach (var entry in diccionario)
                 {
-                    if (!_listaProductosSol.Any(p => (p.Producto.id == entry.Key.Producto.id) ) && 
-                        !_listaProductosPendientes.Any(p => (p.Producto.id == entry.Key.Producto.id) ) )
+                    if (!_listaProductosSol.Any(p => (p.Producto.id == entry.Key.Producto.id) ) &&
+                        !_listaProductosPendientes.Any(p => (p.Producto.id == entry.Key.Producto.id)))
                     {
                         var nuevo = new SolicitudCompra()
                         {
