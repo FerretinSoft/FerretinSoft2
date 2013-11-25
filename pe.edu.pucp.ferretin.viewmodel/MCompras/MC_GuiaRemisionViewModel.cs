@@ -295,6 +295,8 @@ namespace pe.edu.pucp.ferretin.viewmodel.MCompras
                         else
                         {
                             MessageBox.Show("La guia de remision fue guardado con éxito");
+                            if (guiaRemision.DocumentoCompra.id_solicitud_compra != null)
+                                guiaRemision.DocumentoCompra.SolicitudCompra.estado = 2;
                             exito = true;
                         }
                     }
@@ -303,15 +305,20 @@ namespace pe.edu.pucp.ferretin.viewmodel.MCompras
                         ComunService.idVentana(36);
                         if (!MC_GuiaRemisionService.insertarGuiaRemision(guiaRemision))
                             MessageBox.Show("No se pudo agregar la nueva guia de remision");
+
                         else
                         {
                             MessageBox.Show("La guia de remision se agrego con exito");
+                            if (guiaRemision.DocumentoCompra.id_solicitud_compra != null)
+                                guiaRemision.DocumentoCompra.SolicitudCompra.estado = 2;
+                            
                             exito = true;
                         }
                     }
                     if (exito)
                     {
                         NotifyPropertyChanged("listaGuiasRemision");
+                       
                         this.statusTab = Tab.BUSQUEDA;
                     }
                 } 

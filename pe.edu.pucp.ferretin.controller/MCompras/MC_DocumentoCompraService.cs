@@ -228,7 +228,7 @@ namespace pe.edu.pucp.ferretin.controller.MCompras
             IEnumerable<DocumentoCompra> documentos = (from e in db.DocumentoCompra
                                                        where e.codigo != null && e.tipo.Equals(tipoDC)
                                                        select e);
-            return documentos.Count();
+            return documentos.Count()+1;
 
         }
 
