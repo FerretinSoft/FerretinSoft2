@@ -91,7 +91,7 @@
                     </Button.Background>
                 </Button>
             </ToolBar>
-            <DataGrid ItemsSource="{Binding venta.VentaProducto, Mode=TwoWay, NotifyOnTargetUpdated=True, NotifyOnSourceUpdated=True, UpdateSourceTrigger=PropertyChanged}" AutoGenerateColumns="False" CanUserAddRows="False" Grid.Row="1" Grid.Column="0" VerticalAlignment="Stretch" Margin="0,5">
+            <DataGrid ItemsSource="{Binding venta.VentaProducto, Mode=TwoWay, NotifyOnTargetUpdated=True, NotifyOnSourceUpdated=True, UpdateSourceTrigger=PropertyChanged}" AutoGenerateColumns="False" CanUserAddRows="False" Grid.Row="1" Grid.Column="0" VerticalAlignment="Stretch" Margin="0,5" CanUserSortColumns="False">
                 <DataGrid.Columns>
                     <DataGridHyperlinkColumn Width="100" Binding="{Binding Producto.codigo}" IsReadOnly="True" Header="Código"/>
                     <DataGridTextColumn Width="1*" Binding="{Binding Producto.nombre}" Header="Nombre" IsReadOnly="True"/>
