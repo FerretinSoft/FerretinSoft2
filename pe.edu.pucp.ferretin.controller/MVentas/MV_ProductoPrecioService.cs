@@ -72,8 +72,7 @@ namespace pe.edu.pucp.ferretin.controller.MVentas
         {
             if (!db.ProductoPrecio.Contains(prodPrecio))
             {
-                db.ProductoPrecio.InsertOnSubmit(prodPrecio);
-                db.SubmitChanges();
+                db.ProductoPrecio.InsertOnSubmit(prodPrecio);                
                 return enviarCambios();
             }
             else
