@@ -295,8 +295,8 @@ namespace pe.edu.pucp.ferretin.viewmodel.MCompras
                         else
                         {
                             MessageBox.Show("La guia de remision fue guardado con éxito");
-                            if (this.guiaRemision.DocumentoCompra.id_solicitud_compra != null)
-                                this.guiaRemision.DocumentoCompra.SolicitudCompra.estado = 2;
+                            if (guiaRemision.DocumentoCompra.id_solicitud_compra != null)
+                                guiaRemision.DocumentoCompra.SolicitudCompra.estado = 2;
                             exito = true;
                         }
                     }
@@ -309,8 +309,8 @@ namespace pe.edu.pucp.ferretin.viewmodel.MCompras
                         else
                         {
                             MessageBox.Show("La guia de remision se agrego con exito");
-                            if (this.guiaRemision.DocumentoCompra.id_solicitud_compra != null)
-                                this.guiaRemision.DocumentoCompra.SolicitudCompra.estado = 2;
+                            if (guiaRemision.DocumentoCompra.id_solicitud_compra != null)
+                                guiaRemision.DocumentoCompra.SolicitudCompra.estado = 2;
                             
                             exito = true;
                         }
