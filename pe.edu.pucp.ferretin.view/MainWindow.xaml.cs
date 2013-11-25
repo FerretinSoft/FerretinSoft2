@@ -154,8 +154,8 @@ namespace pe.edu.pucp.ferretin.view
             }
 
             MSeguridad.MS_LoginWindow lw = new MSeguridad.MS_LoginWindow();
-            lw.ShowDialog();
             this.Close();
+            lw.ShowDialog();
         }
         #endregion
         
