@@ -36,6 +36,7 @@ namespace pe.edu.pucp.ferretin.view.MCompras
                 //solabas.generarSolTab.Visibility = System.Windows.Visibility.Hidden;
                 //solabas.ShowDialog();
                 MC_AtenderSolicitudWindow solabs = new MC_AtenderSolicitudWindow();
+                solabs.Owner = this;
                 solabs.ShowDialog();
             }
             else
