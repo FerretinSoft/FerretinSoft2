@@ -217,6 +217,16 @@ namespace pe.edu.pucp.ferretin.viewmodel.MCompras
        
         }
 
+        public static void actualizaestado(Tienda tienda, Producto producto)
+        {
+            var lsol =( from l in MC_ComunService.db.SolicitudCompra
+                       where l.Tienda == tienda && l.Producto == producto && l.estado==1
+                       select l).First();
+            lsol.estado = 2;
+            BaseService.enviarCambios();
+
+        }
+
 
     }
 } 

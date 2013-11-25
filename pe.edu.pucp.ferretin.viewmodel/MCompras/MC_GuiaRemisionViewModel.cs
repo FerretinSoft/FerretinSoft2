@@ -7,6 +7,7 @@ using pe.edu.pucp.ferretin.controller.MCompras;
 using System.Windows.Input;
 using System.Windows;
 using pe.edu.pucp.ferretin.controller;
+using pe.edu.pucp.ferretin.controller.MSeguridad;
 
 namespace pe.edu.pucp.ferretin.viewmodel.MCompras
 {
@@ -296,7 +297,12 @@ namespace pe.edu.pucp.ferretin.viewmodel.MCompras
                         {
                             MessageBox.Show("La guia de remision fue guardado con éxito");
                             if (guiaRemision.DocumentoCompra.id_solicitud_compra != null)
-                                guiaRemision.DocumentoCompra.SolicitudCompra.estado = 2;
+                                // guiaRemision.DocumentoCompra.SolicitudCompra.estado = 2;
+
+
+                                for (int i = 0; i < guiaRemision.DocumentoCompra.DocumentoCompraProducto.Count(); i++)
+                                    MC_AtenderSolicitudViewModel.actualizaestado(guiaRemision.Tienda, guiaRemision.DocumentoCompra.DocumentoCompraProducto[i].Producto);
+
                             exito = true;
                         }
                     }
@@ -310,7 +316,9 @@ namespace pe.edu.pucp.ferretin.viewmodel.MCompras
                         {
                             MessageBox.Show("La guia de remision se agrego con exito");
                             if (guiaRemision.DocumentoCompra.id_solicitud_compra != null)
-                                guiaRemision.DocumentoCompra.SolicitudCompra.estado = 2;
+                              //  guiaRemision.DocumentoCompra.SolicitudCompra.estado = 2;
+                                for (int i = 0; i < guiaRemision.DocumentoCompra.DocumentoCompraProducto.Count(); i++)
+                                    MC_AtenderSolicitudViewModel.actualizaestado(guiaRemision.Tienda, guiaRemision.DocumentoCompra.DocumentoCompraProducto[i].Producto);
                             
                             exito = true;
                         }
