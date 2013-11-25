@@ -1,8 +1,12 @@
 ﻿<Window x:Class="pe.edu.pucp.ferretin.view.MCompras.MC_ReportesWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:MVentas="clr-namespace:pe.edu.pucp.ferretin.viewmodel.MCompras;assembly=pe.edu.pucp.ferretin.viewmodel"
        Title="Reportes Compras" Height="370" Width="546.344" Icon="/Resources/ferretin_ico.ico">
-    <Grid>
+    <Window.DataContext>
+        <MVentas:MC_ReportesViewModel/>
+    </Window.DataContext>
+    <Grid x:Name="main">
         <Grid.RowDefinitions>
             <RowDefinition >
             </RowDefinition>
@@ -20,34 +24,27 @@
             <Label Content="Reportes disponibles" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" FontSize="16" FontStyle="Italic"/>
             <ListBox x:Name="reportesBaseListBox" HorizontalAlignment="Left" Height="186" Margin="10,50,0,0" VerticalAlignment="Top" Width="219" SelectionChanged="reportesBaseListBox_SelectionChanged">
                 <ListBoxItem Content="Reporte de estado de OC"/>
-                <ListBoxItem Content="Reporte productos Comprados"/>
             </ListBox>
             <Label Content="Reportes favoritos" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" FontSize="16" FontStyle="Italic" Grid.Column="1"/>
             <ListBox x:Name="reportesFavoritosListBox" HorizontalAlignment="Left" Height="186" Margin="10,50,0,0" VerticalAlignment="Top" Width="222" Grid.Column="1" SelectionChanged="reportesFavoritosListBox_SelectionChanged">
-                <ListBoxItem Content="Reporte compras mensual"/>
-                <ListBoxItem Content="Reporte compras por proveedor anual"/>
             </ListBox>
             <Label Content="Seleccione un reporte y presione Siguiente." HorizontalAlignment="Left" Margin="10,246,0,0" VerticalAlignment="Top" Width="308" Grid.ColumnSpan="2"/>
         </Grid>
         <Grid x:Name="repConfGrid" Margin="0" Visibility="Collapsed">
-            <Label Content="Configure los parámetros del reporte." HorizontalAlignment="Left" Margin="35,253,0,0" VerticalAlignment="Top" Width="308"/>
-            <Label Content="Reporte de compras" HorizontalAlignment="Center" Margin="202,6,183,0" VerticalAlignment="Top" FontSize="16"/>
-            <Label Content="Fecha desde:" HorizontalAlignment="Left" Margin="26,46,0,0" VerticalAlignment="Top"/>
-            <Label Content="Fecha hasta:" HorizontalAlignment="Left" Margin="289,46,0,0" VerticalAlignment="Top"/>
-            <DatePicker HorizontalAlignment="Left" Margin="109,50,0,0" VerticalAlignment="Top" DisplayDate="2013-09-01" Text="01/09/2013" x:Name="dpFechaDesde"/>
-            <DatePicker HorizontalAlignment="Left" Margin="371,50,0,0" VerticalAlignment="Top" DisplayDate="2013-09-12" Text="12/09/2013" x:Name="dpFechaHasta"/>
-            <Label Content="Alias:" HorizontalAlignment="Left" Margin="35,182,0,0" VerticalAlignment="Top"/>
-            <TextBox HorizontalAlignment="Left" Height="23" Margin="115,185,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="360" />
-            <Label Content="Comentario:" HorizontalAlignment="Left" Margin="35,215,0,0" VerticalAlignment="Top"/>
-            <TextBox HorizontalAlignment="Left" Height="40" Margin="115,213,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="360"/>
-            <Label Content="Proveedor:" HorizontalAlignment="Left" Margin="27,77,0,0" VerticalAlignment="Top"/>
-            <TextBox x:Name="txtRuc" MaxLength="11" HorizontalAlignment="Left" Height="23" Margin="109,80,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="128" PreviewTextInput="txtRuc_PreviewTextInput_1"/>
-            <Label Content="RUC" HorizontalAlignment="Left" Height="24" Margin="35,120,0,0" VerticalAlignment="Top" Width="110" RenderTransformOrigin="0.5,1.458"/>
-            <Label Content="RAZON SOCIAL" HorizontalAlignment="Left" Height="30" Margin="35,144,0,0" VerticalAlignment="Top" Width="192"/>
-            <GroupBox Header="Proveedor" HorizontalAlignment="Left" Height="74" Margin="27,103,0,0" VerticalAlignment="Top" Width="489" BorderBrush="Black"/>
+            <Label Content="Configure los parámetros del reporte." HorizontalAlignment="Left" Margin="19,258,0,0" VerticalAlignment="Top" Width="308"/>
+            <Label Content="Reporte de compras" HorizontalAlignment="Center" Margin="202,11,183,0" VerticalAlignment="Top" FontSize="16"/>
+            <Label Content="Fecha desde:" HorizontalAlignment="Left" Margin="19,134,0,0" VerticalAlignment="Top"/>
+            <Label Content="Fecha hasta:" HorizontalAlignment="Left" Margin="267,134,0,0" VerticalAlignment="Top"/>
+            <DatePicker HorizontalAlignment="Left" Margin="115,134,0,0" VerticalAlignment="Top" x:Name="fechaDesdePicker" Width="128" SelectedDate="{Binding fechaDesde}"/>
+            <DatePicker HorizontalAlignment="Left" Margin="347,134,0,0" VerticalAlignment="Top" x:Name="fechaHastaPicker" Width="128" SelectedDate="{Binding fechaHasta}"/>
+            <Label Content="Alias:" HorizontalAlignment="Left" Margin="19,177,0,0" VerticalAlignment="Top"/>
+            <TextBox HorizontalAlignment="Left" Height="23" Margin="115,180,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="360" />
+            <Label Content="Comentario:" HorizontalAlignment="Left" Margin="19,208,0,0" VerticalAlignment="Top"/>
+            <TextBox HorizontalAlignment="Left" Height="40" Margin="115,208,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="360"/>
+            <Label Content="Tienda:" HorizontalAlignment="Left" Margin="19,85,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.939,0.899"/>
+            <ComboBox x:Name="cmbTienda" SelectedItem="{Binding selectedTienda}" ItemsSource="{Binding listaTiendas}" DisplayMemberPath="nombre" SelectedValuePath="id" HorizontalAlignment="Left" Margin="115,89,0,0" VerticalAlignment="Top" Width="128"/>
         </Grid>
         <Grid x:Name="repFinalGrid" Margin="0" Visibility="Collapsed">
-            <Label Content="Reporte 10 productos TOP" HorizontalAlignment="Center" Margin="146,10,111,0" VerticalAlignment="Top" FontSize="16"/>
             <Grid Height="48" Margin="20,0" VerticalAlignment="Center">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition></ColumnDefinition>
@@ -61,17 +58,8 @@
                         <ImageBrush ImageSource="/Resources/view_48.png" Stretch="Uniform"/>
                     </Button.Background>
                 </Button>
-                <Button Grid.Column="1" Content="" HorizontalAlignment="Center" Margin="0" VerticalAlignment="Top" Width="48" Height="48" ToolTip="Guardar Reporte">
-                    <Button.Background>
-                        <ImageBrush ImageSource="/Resources/save1_48.png" Stretch="Uniform"/>
-                    </Button.Background>
-                </Button>
-                <Button Grid.Column="2" Content="" HorizontalAlignment="Center" Margin="0" VerticalAlignment="Top" Width="48" Height="48" ToolTip="Imprimir Reporte">
-                    <Button.Background>
-                        <ImageBrush ImageSource="/Resources/print_48.png" Stretch="Uniform"/>
-                    </Button.Background>
-                </Button>
-                <Button Grid.Column="3" Content="" HorizontalAlignment="Center" Margin="0" VerticalAlignment="Top" Width="48" Height="48" ToolTip="Enviar por email">
+
+                <Button Grid.Column="2" Content="" HorizontalAlignment="Center" Margin="41,0,10,0" VerticalAlignment="Top" Width="48" Height="48" ToolTip="Enviar por email">
                     <Button.Background>
                         <ImageBrush ImageSource="/Resources/mail1_48.png" Stretch="Uniform"/>
                     </Button.Background>

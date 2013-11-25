@@ -72,6 +72,7 @@
     <Compile Include="MCompras\MC_CotizacionesOCViewModel.cs" />
     <Compile Include="MCompras\MC_GuiaRemisionViewModel.cs" />
     <Compile Include="MCompras\MC_ProveedoresViewModel.cs" />
+    <Compile Include="MCompras\MC_ReportesViewModel.cs" />
     <Compile Include="MRecursosHumanos\MR_AdministrarPersonalViewModel.cs" />
     <Compile Include="MSeguridad\MS_AdministrarPerfilesViewModel.cs" />
     <Compile Include="MSeguridad\MS_AdministrarTiendasViewModel.cs" />
