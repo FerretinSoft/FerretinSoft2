@@ -159,41 +159,31 @@ namespace pe.edu.pucp.ferretin.view.MVentas
 
         private void postVentaBtn_Click(object sender, RoutedEventArgs e)
         {
-            if (ComunService.usuarioLpermisos[8].estado == true)
-            {
+            
                 ventasMenu.Visibility = System.Windows.Visibility.Hidden;
                 postVentaMenu.Visibility = System.Windows.Visibility.Visible;
-            }
-            else
-            {
-                MessageBox.Show("Usted no cuenta con el permiso necesario");
-            }
+            
         }
 
         private void preVentaBtn_Click(object sender, RoutedEventArgs e)
         {
-            if (ComunService.usuarioLpermisos[8].estado == true)
-            {
+            
                 ventasMenu.Visibility = System.Windows.Visibility.Hidden;
                 preVentaMenu.Visibility = System.Windows.Visibility.Visible;
+            
+        }
+
+        private void precioProdBtn_Click(object sender, RoutedEventArgs e)
+        {
+            if (ComunService.usuarioLpermisos[8].estado == true)
+            {
+            MV_AdministrarPrecioProductos w = new MV_AdministrarPrecioProductos();
+            w.ShowDialog();
             }
             else
             {
                 MessageBox.Show("Usted no cuenta con el permiso necesario");
             }
-        }
-
-        private void precioProdBtn_Click(object sender, RoutedEventArgs e)
-        {
-            //if (ComunService.usuarioLpermisos[8].estado == true)
-            //{
-            MV_AdministrarPrecioProductos w = new MV_AdministrarPrecioProductos();
-            w.ShowDialog();
-            //}
-            //else
-            //{
-            //    MessageBox.Show("Usted no cuenta con el permiso necesario");
-            //}
         }
 
 
