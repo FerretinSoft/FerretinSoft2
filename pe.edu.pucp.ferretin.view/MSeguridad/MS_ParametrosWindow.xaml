@@ -8,7 +8,7 @@
             <ColumnDefinition Width="0*"/>
         </Grid.ColumnDefinitions>
 
-        <GroupBox Header="Sistema" Margin="11,8,9,193" BorderBrush="Black"/>
+        <GroupBox Header="Sistema" Margin="11,8,9.4,235.8" BorderBrush="Black"/>
 
         <!-- Numero de intentos para ingresar contraseña-->
 
@@ -17,44 +17,40 @@
 
         <!-- Tiempo Maximo de sesion inactiva-->
 
-        <Label Content="Tiempo Máximo de Sesión Inactiva:" HorizontalAlignment="Left" Margin="22,65,0,0" VerticalAlignment="Top" Height="26" Width="203"/>
-        <TextBox x:Name="tMaxSesion" HorizontalAlignment="Left" Height="23" Margin="267,65,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="86" TextChanged="tMaxSesion_TextChanged" PreviewTextInput="tMaxSesion_PreviewTextInput" MaxLength="3" PreviewKeyDown="tMaxSesion_PreviewKeyDown"/>
-
 
         <!-- Duracion de la clave de los usuarios -->
 
-        <Label Content="Duración de la clave de los usuarios:" HorizontalAlignment="Left" Margin="22,97,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.464,1.231" Height="26" Width="203"/>
-        <TextBox x:Name="durClave" HorizontalAlignment="Left" Height="23" Margin="267,97,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="86" TextChanged="durClave_TextChanged" PreviewTextInput="durClave_PreviewTextInput" MaxLength="3" PreviewKeyDown="durClave_PreviewKeyDown"/>
+        <Label Content="Duración de la clave de los usuarios:" HorizontalAlignment="Left" Margin="21,60,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.464,1.231" Height="26" Width="203"/>
+        <TextBox x:Name="durClave" HorizontalAlignment="Left" Height="23" Margin="266,60,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="86" TextChanged="durClave_TextChanged" PreviewTextInput="durClave_PreviewTextInput" MaxLength="3" PreviewKeyDown="durClave_PreviewKeyDown"/>
 
-        <GroupBox Header="Ventas" Margin="10,205,10,0" BorderBrush="Black" Height="148" VerticalAlignment="Top"/>
+        <GroupBox Header="Ventas" Margin="10,182,10.4,0" BorderBrush="Black" Height="148" VerticalAlignment="Top"/>
 
         <!--Vigencia de la Proforma-->
 
-        <Label Content="Vigencia de las Proforma:" HorizontalAlignment="Left" Margin="22,226,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.464,1.231" Height="26" Width="192"/>
-        <TextBox x:Name="vigProforma" HorizontalAlignment="Left" Height="23" Margin="268,228,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="86" TextChanged="vigProforma_TextChanged" PreviewTextInput="vigProforma_PreviewTextInput" MaxLength="3" PreviewKeyDown="vigProforma_PreviewKeyDown" />
+        <Label Content="Vigencia de las Proforma:" HorizontalAlignment="Left" Margin="22,203,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.464,1.231" Height="26" Width="192"/>
+        <TextBox x:Name="vigProforma" HorizontalAlignment="Left" Height="23" Margin="268,205,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="86" TextChanged="vigProforma_TextChanged" PreviewTextInput="vigProforma_PreviewTextInput" MaxLength="3" PreviewKeyDown="vigProforma_PreviewKeyDown" />
 
         <!-- Tiempo Maximo de sesion inactiva-->
 
-        <Label Content="Tipo de cambio del dólar:" HorizontalAlignment="Left" Margin="23,126,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.464,1.231" Height="26" Width="151"/>
-        <TextBox x:Name="tipCambio" HorizontalAlignment="Left" Height="23" Margin="268,127,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="86" TextChanged="tipCambio_TextChanged" MaxLength="5" PreviewTextInput="tipCambio_PreviewTextInput" PreviewKeyDown="tipCambio_PreviewKeyDown" />
+        <Label Content="Tipo de cambio del dólar:" HorizontalAlignment="Left" Margin="22,89,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.464,1.231" Height="26" Width="151"/>
+        <TextBox x:Name="tipCambio" HorizontalAlignment="Left" Height="23" Margin="267,90,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="86" TextChanged="tipCambio_TextChanged" MaxLength="5" PreviewTextInput="tipCambio_PreviewTextInput" PreviewKeyDown="tipCambio_PreviewKeyDown" />
         <Button Content="GUARDAR" HorizontalAlignment="Left" Margin="114,358,0,0" VerticalAlignment="Top" Width="75" RenderTransformOrigin="1.347,-0.05" Height="30" Click="Button_Click"/>
         <Button Content="CANCELAR" HorizontalAlignment="Left" Margin="268,358,0,0" VerticalAlignment="Top" Width="75" RenderTransformOrigin="1.347,-0.05" Height="30" Click="Button_Click_1"/>
-        <Label Content="(minutos)" HorizontalAlignment="Left" Margin="358,62,0,0" VerticalAlignment="Top" Height="26" Width="61"/>
-        <Label Content="(días)" HorizontalAlignment="Left" Margin="358,93,0,0" VerticalAlignment="Top" Height="26" Width="61" RenderTransformOrigin="0.462,0.994"/>
-        <Label Content="(días)" HorizontalAlignment="Left" Margin="359,226,0,0" VerticalAlignment="Top" Height="26" Width="61"/>
-        <Label Content="(soles)" HorizontalAlignment="Left" Margin="359,126,0,0" VerticalAlignment="Top" Height="26" Width="61"/>
-        <Label Content="Vigencia de las Notas de Crédito:" HorizontalAlignment="Left" Margin="22,265,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.464,1.231" Height="26" Width="192"/>
-        <TextBox x:Name="vigNotaCredito" HorizontalAlignment="Left" Height="23" Margin="267,268,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="86" TextChanged="vigNotaCredito_TextChanged" PreviewTextInput="vigNotaCredito_PreviewTextInput" MaxLength="3" PreviewKeyDown="vigNotaCredito_PreviewKeyDown"/>
-        <Label Content="(días)" HorizontalAlignment="Left" Margin="358,265,0,0" VerticalAlignment="Top" Height="26" Width="61"/>
-        <Label Content="IGV" HorizontalAlignment="Left" Margin="23,156,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.464,1.231" Height="26" Width="151"/>
+        <Label Content="(días)" HorizontalAlignment="Left" Margin="357,56,0,0" VerticalAlignment="Top" Height="26" Width="61" RenderTransformOrigin="0.462,0.994"/>
+        <Label Content="(días)" HorizontalAlignment="Left" Margin="359,203,0,0" VerticalAlignment="Top" Height="26" Width="61"/>
+        <Label Content="(soles)" HorizontalAlignment="Left" Margin="358,89,0,0" VerticalAlignment="Top" Height="26" Width="61"/>
+        <Label Content="Vigencia de las Notas de Crédito:" HorizontalAlignment="Left" Margin="22,242,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.464,1.231" Height="26" Width="192"/>
+        <TextBox x:Name="vigNotaCredito" HorizontalAlignment="Left" Height="23" Margin="267,245,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="86" TextChanged="vigNotaCredito_TextChanged" PreviewTextInput="vigNotaCredito_PreviewTextInput" MaxLength="3" PreviewKeyDown="vigNotaCredito_PreviewKeyDown"/>
+        <Label Content="(días)" HorizontalAlignment="Left" Margin="358,242,0,0" VerticalAlignment="Top" Height="26" Width="61"/>
+        <Label Content="IGV" HorizontalAlignment="Left" Margin="22,119,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.464,1.231" Height="26" Width="151"/>
 
-        <TextBox x:Name="igv" HorizontalAlignment="Left" Height="23" Margin="268,158,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="86" TextChanged="igv_TextChanged" MaxLength="5" PreviewTextInput="igv_PreviewTextInput" PreviewKeyDown="igv_PreviewKeyDown" />
-        <Label Content="(Porcentaje)" HorizontalAlignment="Left" Margin="359,156,0,0" VerticalAlignment="Top" Height="26" Width="74"/>
+        <TextBox x:Name="igv" HorizontalAlignment="Left" Height="23" Margin="267,121,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="86" TextChanged="igv_TextChanged" MaxLength="5" PreviewTextInput="igv_PreviewTextInput" PreviewKeyDown="igv_PreviewKeyDown" />
+        <Label Content="(Porcentaje)" HorizontalAlignment="Left" Margin="358,119,0,0" VerticalAlignment="Top" Height="26" Width="74"/>
 
 
-        <Label Content="Vigencia de Vale:" HorizontalAlignment="Left" Margin="22,305,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.464,1.231" Height="26" Width="245"/>
-        <TextBox x:Name="vigVale" HorizontalAlignment="Left" Height="23" Margin="267,308,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="86" MaxLength="3" TextChanged="vigVale_TextChanged" PreviewTextInput="vigVale_PreviewTextInput" PreviewKeyDown="vigVale_PreviewKeyDown"/>
-        <Label Content="(días)" HorizontalAlignment="Left" Margin="358,305,0,0" VerticalAlignment="Top" Height="26" Width="61"/>
+        <Label Content="Vigencia de Vale:" HorizontalAlignment="Left" Margin="22,282,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.464,1.231" Height="26" Width="245"/>
+        <TextBox x:Name="vigVale" HorizontalAlignment="Left" Height="23" Margin="267,285,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="86" MaxLength="3" TextChanged="vigVale_TextChanged" PreviewTextInput="vigVale_PreviewTextInput" PreviewKeyDown="vigVale_PreviewKeyDown"/>
+        <Label Content="(días)" HorizontalAlignment="Left" Margin="358,282,0,0" VerticalAlignment="Top" Height="26" Width="61"/>
 
     </Grid>
 </Window>
