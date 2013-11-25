@@ -114,9 +114,9 @@ namespace pe.edu.pucp.ferretin.viewmodel.MCompras
                 if(searchFechaDesde > searchFechaHasta)
                     MessageBox.Show("La 'Fecha Hasta' no puede ser menor que la 'Fecha Desde'", "Documento de Compra", MessageBoxButton.OK, MessageBoxImage.Exclamation);
                 else
-                    _listaDocumentosCompra = MC_DocumentoCompraService.buscarDocumentosCompra(searchCodigo, searchProveedor, searchTipoDocumento, searchFechaDesde, searchFechaHasta, searchEstado.id);
+                    _listaDocumentosCompra = MC_DocumentoCompraService.buscarDocumentosCompra(searchCodigo, searchProveedor, searchTipoDocumento, searchFechaDesde, searchFechaHasta, searchEstado.id).ToList();
 
-                return _listaDocumentosCompra;
+                return _listaDocumentosCompra.ToList();
             }
             set
             {

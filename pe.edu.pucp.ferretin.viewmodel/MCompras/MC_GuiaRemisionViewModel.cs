@@ -78,9 +78,9 @@ namespace pe.edu.pucp.ferretin.viewmodel.MCompras
                 if (searchFechaDesde > searchFechaHasta)
                     MessageBox.Show("La 'Fecha Hasta' no puede ser menor que la 'Fecha Desde'", "Guia de Remision", MessageBoxButton.OK, MessageBoxImage.Exclamation);
                 else
-                    _listaGuiasRemision = MC_GuiaRemisionService.buscarGuiasRemision(searchCodigo, searchProveedor, searchFechaDesde, searchFechaHasta);
+                    _listaGuiasRemision = MC_GuiaRemisionService.buscarGuiasRemision(searchCodigo, searchProveedor, searchFechaDesde, searchFechaHasta).ToList();
 
-                return _listaGuiasRemision;
+                return _listaGuiasRemision.ToList();
             }
             set
             {
