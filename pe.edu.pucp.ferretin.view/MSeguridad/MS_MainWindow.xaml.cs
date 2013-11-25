@@ -101,5 +101,18 @@ namespace pe.edu.pucp.ferretin.view.MSeguridad
               
             
         }
+
+        private void repSeguridadBtn_Click(object sender, RoutedEventArgs e)
+        {
+            if (ComunService.usuarioLpermisos[32].estado == true)
+            {
+                MSeguridad.MS_ReportesWindow rw = new MSeguridad.MS_ReportesWindow();
+                rw.ShowDialog();
+            }
+            else
+            {
+                MessageBox.Show("Usted no cuenta con el permiso necesario.");
+            }
+        }
     }
 }
