@@ -68,7 +68,7 @@ namespace pe.edu.pucp.ferretin.viewmodel.MCompras
                     _listaProductosSol.ElementAt(i).posiProveedor = MC_ProveedorService.obtenerPosiblesProveedores(_listaProductosSol.ElementAt(i).Producto);
                 }
                 
-                return _listaProductosSol;
+                return _listaProductosSol.ToList();
             }
             set
             {
