@@ -30,7 +30,6 @@ namespace pe.edu.pucp.ferretin.view.MSeguridad
 
         //Variables auxiliares para jalar los Parametros
         Parametro intentosC;
-        Parametro tiempoSesion;
         Parametro duracionClave;
         Parametro tipoDeCambio;
         Parametro IGV;
@@ -53,9 +52,6 @@ namespace pe.edu.pucp.ferretin.view.MSeguridad
             //Se asigna a cada textbox su valor respectivo de la base de datos.
             intContrasena.Text = listaParametros[0].valor;
             intentosC = listaParametros[0];
-
-            tMaxSesion.Text = listaParametros[1].valor;
-            tiempoSesion = listaParametros[1];
 
             durClave.Text = listaParametros[2].valor;
             duracionClave = listaParametros[2];
@@ -94,16 +90,6 @@ namespace pe.edu.pucp.ferretin.view.MSeguridad
             
         }
 
-        private void tMaxSesion_TextChanged(object sender, TextChangedEventArgs e)
-        {
-   
-            try
-            {
-                tiempoSesion.valor = tMaxSesion.Text;
-            }
-            catch { }
-
-        }
 
         private void durClave_TextChanged(object sender, TextChangedEventArgs e)
         {
@@ -188,11 +174,6 @@ namespace pe.edu.pucp.ferretin.view.MSeguridad
                     MS_ParametroService.actualizarParametro(intentosC);
                 }
 
-                if (!String.IsNullOrEmpty(tMaxSesion.Text))
-                {
-                    MS_ParametroService.actualizarParametro(tiempoSesion);
-                }
-
                 if (!String.IsNullOrEmpty(durClave.Text))
                 {
                     MS_ParametroService.actualizarParametro(duracionClave);
@@ -228,7 +209,7 @@ namespace pe.edu.pucp.ferretin.view.MSeguridad
                     MS_ParametroService.actualizarParametro(solesPorPunto);
                 }
                 */
-                if (String.IsNullOrEmpty(intContrasena.Text) && String.IsNullOrEmpty(tMaxSesion.Text) && String.IsNullOrEmpty(durClave.Text)
+                if (String.IsNullOrEmpty(intContrasena.Text) && String.IsNullOrEmpty(durClave.Text)
                     && String.IsNullOrEmpty(tipCambio.Text) && String.IsNullOrEmpty(igv.Text) && String.IsNullOrEmpty(vigProforma.Text)
                     && String.IsNullOrEmpty(vigNotaCredito.Text) && String.IsNullOrEmpty(vigVale.Text))
                 {
@@ -264,18 +245,6 @@ namespace pe.edu.pucp.ferretin.view.MSeguridad
             {
                 e.Handled = false;
             }else{
-                e.Handled = true;
-            }
-        }
-
-        private void tMaxSesion_PreviewTextInput(object sender, TextCompositionEventArgs e)
-        {
-            if (Regex.IsMatch(e.Text, "[0-9]"))
-            {
-                e.Handled = false;
-            }
-            else
-            {
                 e.Handled = true;
             }
         }
@@ -368,14 +337,6 @@ namespace pe.edu.pucp.ferretin.view.MSeguridad
 
         #region Restringir la Tecla Espacio para cada Textbox
         private void intContrasena_PreviewKeyDown(object sender, KeyEventArgs e)
-        {
-            if (e.Key != Key.Space)
-                e.Handled = false;
-            else
-                e.Handled = true;
-        }
-
-        private void tMaxSesion_PreviewKeyDown(object sender, KeyEventArgs e)
         {
             if (e.Key != Key.Space)
                 e.Handled = false;
