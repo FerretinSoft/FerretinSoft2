@@ -26,7 +26,7 @@
                 </Button.Background>
             </Button>
             <Button Content="AGREGAR" Command="{Binding actualizarListaProductosProveedorCommand}" CommandParameter="{Binding ElementName=listaProductosProveedor}" HorizontalAlignment="Left" Margin="181,261,0,12" Width="100" Click="Button_Click"/>
-            <Button Content="CANCELAR" HorizontalAlignment="Left" Margin="303,261,0,12" Width="100"/>
+            <Button Content="CANCELAR" HorizontalAlignment="Left" Margin="303,261,0,12" Width="100" Click="Button_Click_1"/>
 
         </Grid>
     </Grid>

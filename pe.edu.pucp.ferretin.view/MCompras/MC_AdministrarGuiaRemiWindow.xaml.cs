@@ -1,4 +1,5 @@
 ﻿using System.Windows;
+using pe.edu.pucp.ferretin.controller;
 using pe.edu.pucp.ferretin.viewmodel.MCompras;
 
 namespace pe.edu.pucp.ferretin.view.MCompras
@@ -25,6 +26,11 @@ namespace pe.edu.pucp.ferretin.view.MCompras
             //var viewModel = v.DataContext as MC_ProveedoresViewModel;
             //viewModel.soloSeleccionarProveedor = true;
             //v.ShowDialog();
+        }
+
+        private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            ComunService.Clean();
         }
 
 
