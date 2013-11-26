@@ -159,7 +159,7 @@
                             <DataGridCheckBoxColumn Width="1.25*" Binding="{x:Null}" ClipboardContentBinding="{x:Null}" Header="Seleccionar"/>
                         </DataGrid.Columns>
                     </DataGrid>
-                    <ToolBar Grid.Column="4" HorizontalAlignment="Left" Margin="282.895,41,0,0" VerticalAlignment="Top" Height="25" Width="92">
+                    <ToolBar Grid.Column="4" HorizontalAlignment="Left" Margin="283,41,0,0" VerticalAlignment="Top" Height="25" Width="65">
                         <Button  Command="{Binding agregarNuevoProductoCommand}"  Content="" VerticalAlignment="Stretch" Width="20" Margin="0,0,0,0.105" >
                             <Button.Background>
                                 <ImageBrush ImageSource="../Resources/add_20.png" Stretch="None"/>
@@ -170,7 +170,7 @@
                                 <ImageBrush ImageSource="../Resources/search1_20.png"/>
                             </Button.Background>
                         </Button>
-                        <Button x:Name="importarProducto" Content="" VerticalAlignment="Top" Width="20" Height="20" Margin="0,0,0,0" RenderTransformOrigin="-0.494,-0.707">
+                        <Button Visibility="Hidden" x:Name="importarProducto" Content="" VerticalAlignment="Top" Width="20" Height="20" Margin="0,0,0,0" RenderTransformOrigin="-0.494,-0.707">
                             <Button.Background>
                                 <ImageBrush ImageSource="../Resources/back_20.png" Stretch="None"/>
                             </Button.Background>
