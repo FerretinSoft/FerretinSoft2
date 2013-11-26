@@ -29,7 +29,7 @@ namespace pe.edu.pucp.ferretin.controller.MAlmacen
             foreach (ProductoCategoria prodcat in pc)
                     db.ProductoCategoria.InsertOnSubmit(prodcat);
 
-            db.SubmitChanges();
+            enviarCambios();
         }
 
 
@@ -101,7 +101,7 @@ namespace pe.edu.pucp.ferretin.controller.MAlmacen
                 db.Categoria.DeleteOnSubmit(Cat);
                 try
                 {
-                    db.SubmitChanges();
+                    enviarCambios();
                 }
                 catch (Exception e)
                 {

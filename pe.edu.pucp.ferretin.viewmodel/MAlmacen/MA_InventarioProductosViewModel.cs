@@ -24,7 +24,14 @@ namespace pe.edu.pucp.ferretin.viewmodel.MAlmacen
         public Categoria searchCategoria { get { return _searchCategoria; } set { _searchCategoria = value; NotifyPropertyChanged("searchCategoria"); } }
 
         public String _searchNombre = "";
-        public String searchNombre { get { return _searchNombre; } set { _searchNombre = value; NotifyPropertyChanged("_searchNombre"); } }
+        public String searchNombre { get { return _searchNombre; } set { _searchNombre = value; NotifyPropertyChanged("searchNombre"); } }
+
+        public int _radioActivo = 1;
+        public int radioActivo { get { return _radioActivo; } set { _radioActivo = value; NotifyPropertyChanged("radioActivo"); } }
+
+        public int _radioInactivo = 1;
+        public int radioInactivo { get { return _radioInactivo; } set { _radioInactivo = value; NotifyPropertyChanged("radioInactivo"); } }
+
 
         public ProductoAlmacen _productoAlmacenSeleccionado;
         public ProductoAlmacen productoAlmacenSeleccionado
@@ -242,8 +249,15 @@ namespace pe.edu.pucp.ferretin.viewmodel.MAlmacen
                     searchAlmacen = et.Tienda;
                 }
                 else //Una vez que ya se realiza la búsqueda por cualquier criterio
-                    _listaProductoAlmacen = MA_InventarioService.obtenerProductosPorAlmacenCategoriaNombre(searchNombre, searchAlmacen, searchCategoria,1);
-                
+                    if (radioInactivo == 1)
+                    {
+
+                        _listaProductoAlmacen = MA_InventarioService.obtenerProductosPorAlmacenCategoriaNombre(searchNombre, searchAlmacen, searchCategoria, 0);
+                    }
+                    else
+                    {
+                        _listaProductoAlmacen = MA_InventarioService.obtenerProductosPorAlmacenCategoriaNombre(searchNombre, searchAlmacen, searchCategoria, 1);
+                    }
                 return _listaProductoAlmacen;
             }
             set
