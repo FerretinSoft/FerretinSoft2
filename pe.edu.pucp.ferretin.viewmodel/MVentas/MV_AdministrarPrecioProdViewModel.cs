@@ -219,12 +219,15 @@ namespace pe.edu.pucp.ferretin.viewmodel.MVentas
                 this.productoPrecio.Producto = prodSelected;
                 this.productoPrecio.fechaRegistro = DateTime.Today;
                 ProductoPrecio precioActual  = MV_ProductoPrecioService.obtenerPrecioActualbyProd(prodSelected);
-                this.productoPrecio.ganarPuntos = precioActual.ganarPuntos;
-                this.productoPrecio.precio = precioActual.precio;
-                this.productoPrecio.precioPuntos = precioActual.precioPuntos;
-                this.productoPrecio.moneda = precioActual.moneda;
-                this.productoPrecio.precioString = precioActual.precioString;
-                NotifyPropertyChanged("productoPrecio");
+                if (precioActual != null)
+                {
+                    this.productoPrecio.ganarPuntos = precioActual.ganarPuntos;
+                    this.productoPrecio.precio = precioActual.precio;
+                    this.productoPrecio.precioPuntos = precioActual.precioPuntos;
+                    this.productoPrecio.moneda = precioActual.moneda;
+                    this.productoPrecio.precioString = precioActual.precioString;
+                    NotifyPropertyChanged("productoPrecio");
+                }
                 selectedTab = 1;
             }
             catch (Exception e)

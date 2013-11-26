@@ -25,7 +25,7 @@ namespace pe.edu.pucp.ferretin.viewmodel.MAlmacen
             {
                 if (_listaProductos == null)
                 {
-                    var productos = ComunService.db.Producto.Where(p => p.estado.HasValue && p.estado == 1).OrderBy(pa => pa.id);
+                    var productos = ComunService.db.Producto.OrderBy(pa => pa.id);
                     _listaProductos = productos;                    
                 }
                 if (_listaProductos != null)

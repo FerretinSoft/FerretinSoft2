@@ -41,7 +41,7 @@ namespace pe.edu.pucp.ferretin.viewmodel.MVentas
                 {
                     if (tienda != null)
                     {
-                        var productos = ComunService.db.ProductoAlmacen.Where(pa => pa.Tienda.id.Equals(tienda.id) && pa.estado.HasValue && pa.estado == 1 && pa.Producto != null && pa.Producto.estado == 1).OrderBy(pa=>pa.id);
+                        var productos = ComunService.db.ProductoAlmacen.Where(pa => pa.Tienda.id.Equals(tienda.id) && pa.estado.HasValue && pa.estado == 1 && pa.Producto != null).OrderBy(pa=>pa.id);
                         _listaProductos = productos;
                     }
                 }

@@ -69,13 +69,14 @@ namespace pe.edu.pucp.ferretin.controller.MVentas
 
         public static ProductoPrecio obtenerPrecioActualbyProd(Producto producto)
         {
-            return (from c in listaHistorialPrecios
+            var lista = (from c in listaHistorialPrecios
                    where
                    (c.Producto != null && c.Producto.Equals(producto)
                    && c.estado.Equals(true)
                     )
                    orderby c.id
-                   select c).First();
+                   select c);
+            return lista.Count() > 0 ? lista.First() : null;
         }
 
 
