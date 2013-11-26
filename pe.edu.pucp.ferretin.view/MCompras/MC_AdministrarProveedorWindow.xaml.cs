@@ -147,30 +147,5 @@ namespace pe.edu.pucp.ferretin.view.MCompras
                 e.Handled = true;
             }
         }
-
-        private void ButtonClick(object sender, RoutedEventArgs e)
-        {
-            if (this.Owner != null)
-            {
-                try
-                {
-                    MC_ProveedoresViewModel my_DataContext = this.DataContext as MC_ProveedoresViewModel;
-
-                    if (Owner is MC_AdministrarOCCotizacionWindow)
-                    {
-                        MC_AdministrarOCCotizacionWindow padre = Owner as MC_AdministrarOCCotizacionWindow;
-                        if (my_DataContext.soloSeleccionarProveedor)
-                        {
-                            MC_CotizacionesOCViewModel padre_DataContext = padre.DataContext as MC_CotizacionesOCViewModel;
-                            padre_DataContext.proveedorNombre = my_DataContext.proveedor.razonSoc;
-                            this.Close();
-                        }
-                    }
-                }
-                catch
-                {
-                }
-            }
-        }
     }
 }

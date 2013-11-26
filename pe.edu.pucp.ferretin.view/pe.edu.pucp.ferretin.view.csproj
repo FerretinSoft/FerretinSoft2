@@ -127,6 +127,9 @@
       <SubType>Component</SubType>
       <DesignTime>True</DesignTime>
     </Compile>
+    <Compile Include="MCompras\MC_BuscadorProveedores.xaml.cs">
+      <DependentUpon>MC_BuscadorProveedores.xaml</DependentUpon>
+    </Compile>
     <Compile Include="MCompras\MC_VisorReporteOC.xaml.cs">
       <DependentUpon>MC_VisorReporteOC.xaml</DependentUpon>
     </Compile>
@@ -261,6 +264,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="MAlmacen\MA_VisorReporteStock.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="MCompras\MC_BuscadorProveedores.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
