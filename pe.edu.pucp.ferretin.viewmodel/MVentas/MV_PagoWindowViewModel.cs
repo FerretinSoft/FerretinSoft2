@@ -209,13 +209,12 @@ namespace pe.edu.pucp.ferretin.viewmodel.MVentas
                         }
                         foreach (var vp in venta.VentaProducto)
                         {
-                            if (vp.PromocionActual != null)
+                            if (vp.PromocionActual != null && vp.prodConDesc>0)
                             {
-                                vp.PromocionActual.stockActual = vp.PromocionActual.stockActual - (int)(vp.prodConDesc/vp.PromocionActual.cantMulUnidades);
+                                vp.PromocionActual.stockActual -= (int)(vp.prodConDesc/vp.PromocionActual.cantMulUnidades);
                             }
                         }
-                        //Ya que almacen esta utilizando db
-                        MV_VentaService.db.SubmitChanges();
+                        MV_VentaService.enviarCambios();
                     }
                     catch (Exception ex) {
                         MessageBox.Show("Error en ventas:" + ex.Message);
