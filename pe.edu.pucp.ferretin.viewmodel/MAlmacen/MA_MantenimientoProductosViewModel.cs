@@ -486,10 +486,10 @@ namespace pe.edu.pucp.ferretin.viewmodel.MAlmacen
             try
             {
                 this.producto = listaProductos.Single(producto => producto.codigo == (String)codigo);
-                if (this.producto.estado == 1)
-                    radioYes = true;
-                else
-                    radioNo = true;
+                //if (this.producto.estado == 1)
+                //    radioYes = true;
+                //else
+                //    radioNo = true;
 
                 this.prodAlm = new ProductoAlmacen();
                 this.statusTab = (int)tabs.MODIFICAR;

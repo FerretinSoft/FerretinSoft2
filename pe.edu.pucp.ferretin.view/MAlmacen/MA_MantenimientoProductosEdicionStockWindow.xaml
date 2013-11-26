@@ -9,12 +9,11 @@
         <viewmodel:MA_MantenimientoProductosEdicionStockViewModel x:Key="MA_MantenimientoProductosEdicionStockViewModel"/>
     </Window.Resources>
     <Grid x:Name="main" DataContext="{Binding Source={StaticResource MA_MantenimientoProductosEdicionStockViewModel}}" Height="264" VerticalAlignment="Top">
-        <Rectangle Fill="#FFF4F4F5" HorizontalAlignment="Left" Height="291" Margin="0,-27,0,0" Stroke="Black" VerticalAlignment="Top" Width="380"/>
-        <DataGrid HorizontalAlignment="Left" Width="380" ItemsSource="{Binding productoAlmacen}" CanUserAddRows="false" AutoGenerateColumns="false" Margin="0,0,0,65" CanUserDeleteRows="false" CanUserReorderColumns="False">
+        <DataGrid IsManipulationEnabled="True" HorizontalAlignment="Left"   Width="380" ItemsSource="{Binding productoAlmacen,Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"  Margin="0,0,0,65" AutoGenerateColumns="false"  CanUserSortColumns="False" Grid.Row="2"  CanUserDeleteRows="True" CanUserReorderColumns="True" CanUserResizeColumns="True">
             <DataGrid.Columns>
-                <DataGridTextColumn Header="Tienda" Width="3*" Binding="{Binding Tienda.nombre}" IsReadOnly="True" CanUserReorder="False"/>
-                <DataGridTextColumn Header="Stock Actual" Width="2*" Binding="{Binding stock}"/>
-                <DataGridTextColumn Header="Stock Mínimo" Width="2*" Binding="{Binding stockMin}"/>
+                <DataGridTextColumn Header="Tienda" Width="3*" Binding="{Binding Tienda.nombre}"  />
+                <DataGridTextColumn Header="Stock Actual" Width="2*" Binding="{Binding stock}" />
+                <DataGridTextColumn Header="Stock Mínimo" Width="2*" Binding="{Binding stockMin}" />
             </DataGrid.Columns>
         </DataGrid>
         <Button Content="Guardar Stock" Command="{Binding guardarStockCommand}" CommandParameter="{Binding ElementName=windowAsignacion}" HorizontalAlignment="Left" Margin="133,214,0,0" VerticalAlignment="Top" Width="101"/>

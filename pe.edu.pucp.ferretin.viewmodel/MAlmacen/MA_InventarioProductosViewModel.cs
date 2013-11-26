@@ -237,7 +237,9 @@ namespace pe.edu.pucp.ferretin.viewmodel.MAlmacen
                 {
                     searchCategoria = new Categoria();
                     searchCategoria.nombre = "Todos";
-                    _listaProductoAlmacen = MA_InventarioService.obtenerProductosPorAlmacenCategoriaNombre(searchNombre, MA_InventarioService.obtenerTiendaUsuario(MA_ComunService.usuarioL.id_empleado.Value).Tienda, searchCategoria,1);
+                    EmpleadoTienda et=MA_InventarioService.obtenerTiendaUsuario(MA_ComunService.usuarioL.id_empleado.Value);
+                    _listaProductoAlmacen = MA_InventarioService.obtenerProductosPorAlmacenCategoriaNombre(searchNombre, et.Tienda, searchCategoria,1);
+                    searchAlmacen = et.Tienda;
                 }
                 else //Una vez que ya se realiza la búsqueda por cualquier criterio
                     _listaProductoAlmacen = MA_InventarioService.obtenerProductosPorAlmacenCategoriaNombre(searchNombre, searchAlmacen, searchCategoria,1);
