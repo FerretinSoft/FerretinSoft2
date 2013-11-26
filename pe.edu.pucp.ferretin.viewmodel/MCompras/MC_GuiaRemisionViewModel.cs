@@ -35,6 +35,11 @@ namespace pe.edu.pucp.ferretin.viewmodel.MCompras
         public DateTime? searchFechaHasta { get { return _searchFechaHasta; } set { _searchFechaHasta = value; NotifyPropertyChanged("searchFechaHasta"); } }
         #endregion
 
+        public void refrescarGuia()
+        {
+            NotifyPropertyChanged("guiaRemision");
+        }
+
         #region Valores para la segunda pestana
 
         public String _searchOC = "";
@@ -67,6 +72,20 @@ namespace pe.edu.pucp.ferretin.viewmodel.MCompras
             {
                 _guiaRemision = value;
                 NotifyPropertyChanged("guiaRemision");
+            }
+        }
+
+        private bool _isDetalle;
+        public bool isDetalle
+        {
+            get
+            {
+                return _isDetalle;
+            }
+            set
+            {
+                _isDetalle = value;
+                NotifyPropertyChanged("isDetalle");
             }
         }
 
@@ -117,7 +136,8 @@ namespace pe.edu.pucp.ferretin.viewmodel.MCompras
                         break;
 
                     case Tab.AGREGAR: 
-                        detallesTabHeader = "Agregar"; 
+                        detallesTabHeader = "Agregar";
+                        isDetalle = true;
                         guiaRemision = new GuiaRemision(); 
                         //listaGuiaRemisionProducto = null;
                         guiaRemision.Tienda = MC_ComunService.usuarioL.Empleado.tiendaActual;break;
@@ -131,7 +151,8 @@ namespace pe.edu.pucp.ferretin.viewmodel.MCompras
                         break;
 
                     default: 
-                        detallesTabHeader = "Agregar"; 
+                        detallesTabHeader = "Agregar";
+                        isDetalle = true;
                         guiaRemision = new GuiaRemision(); 
                         break;//Si es agregar, creo un nuevo objeto Guia de Remision
                 }
@@ -239,6 +260,7 @@ namespace pe.edu.pucp.ferretin.viewmodel.MCompras
         {
             try
             {
+                isDetalle = true;
                 statusTab = Tab.AGREGAR;
             }
             catch (Exception e)
@@ -252,6 +274,7 @@ namespace pe.edu.pucp.ferretin.viewmodel.MCompras
             try
             {
                 this.guiaRemision = listaGuiasRemision.Single(guiaRemision => guiaRemision.id == (int)id);
+                isDetalle = false;
                 this.statusTab = Tab.MODIFICAR;
             }
             catch (Exception e)
@@ -375,7 +398,7 @@ namespace pe.edu.pucp.ferretin.viewmodel.MCompras
             DocumentoCompra buscado = null;          
             try
             {
-                buscado = ComunService.db.DocumentoCompra.Where(dc => dc.codigo.ToLower().Trim().Contains(this._ordenCompraCod.ToLower().Trim())).SingleOrDefault();
+                buscado = ComunService.db.DocumentoCompra.Where(dc => dc.codigo.ToLower().Trim().Equals(this._ordenCompraCod.ToLower().Trim())).SingleOrDefault();
                 //buscado = MC_DocumentoCompraService.obtenerDCByCodigo(this._ordenCompraCod);
 
                 if (buscado != null)

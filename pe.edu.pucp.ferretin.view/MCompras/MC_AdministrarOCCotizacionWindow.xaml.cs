@@ -26,5 +26,17 @@ namespace pe.edu.pucp.ferretin.view.MCompras
             }
             
         }
+
+        private void buscarProveedorBtn2_Click(object sender, RoutedEventArgs e)
+        {
+            var vm = DataContext as MC_CotizacionesOCViewModel;
+            var buscador = new MC_BuscadorProveedores(this);
+            
+            //MC_AdministrarProveedorWindow v = new MC_AdministrarProveedorWindow();
+            //v.Owner = this;
+            //var viewModel = v.DataContext as MC_ProveedoresViewModel;
+            //viewModel.soloSeleccionarProveedor = true;
+            //v.ShowDialog();
+        }
     }
 }
