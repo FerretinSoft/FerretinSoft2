@@ -221,12 +221,27 @@ namespace pe.edu.pucp.ferretin.viewmodel.MAlmacen
 
         #endregion
 
+        private int _statusProducto;
+        public int statusProducto
+        {
+            get;
+            set;
+        }
+
         private IEnumerable<ProductoAlmacen> _listaProductoAlmacen;
         public IEnumerable<ProductoAlmacen> listaProductoAlmacen
         {
             get
             {
-                _listaProductoAlmacen = MA_InventarioService.obtenerProductosPorAlmacenCategoriaNombre(searchNombre, searchAlmacen, searchCategoria);
+                if (searchCategoria == null) //Por defecto, tienda logueada del usuario
+                {
+                    searchCategoria = new Categoria();
+                    searchCategoria.nombre = "Todos";
+                    _listaProductoAlmacen = MA_InventarioService.obtenerProductosPorAlmacenCategoriaNombre(searchNombre, MA_InventarioService.obtenerTiendaUsuario(MA_ComunService.usuarioL.id_empleado.Value).Tienda, searchCategoria,1);
+                }
+                else //Una vez que ya se realiza la búsqueda por cualquier criterio
+                    _listaProductoAlmacen = MA_InventarioService.obtenerProductosPorAlmacenCategoriaNombre(searchNombre, searchAlmacen, searchCategoria,1);
+                
                 return _listaProductoAlmacen;
             }
             set
