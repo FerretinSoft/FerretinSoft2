@@ -30,7 +30,7 @@ namespace pe.edu.pucp.ferretin.view.MCompras
             if (estado == 2)
             {
                 MC_VisorReporteOC vroc = new MC_VisorReporteOC((DateTime)fechaDesdePicker.SelectedDate,
-                                                                (DateTime)fechaHastaPicker.SelectedDate, 2);
+                                                                (DateTime)fechaHastaPicker.SelectedDate, ((Tienda)this.cmbTienda.SelectedItem).id);
                 vroc.ShowDialog();
             }
         }
