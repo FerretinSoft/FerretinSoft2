@@ -22,7 +22,7 @@ namespace pe.edu.pucp.ferretin.model
 	using System;
 	
 	
-	[global::System.Data.Linq.Mapping.DatabaseAttribute(Name="DataSource")]
+	[global::System.Data.Linq.Mapping.DatabaseAttribute(Name="inf245g2")]
 	public partial class FerretinDataContext : System.Data.Linq.DataContext
 	{
 		
@@ -219,7 +219,7 @@ namespace pe.edu.pucp.ferretin.model
     #endregion
 		
 		public FerretinDataContext() : 
-				base(global::pe.edu.pucp.ferretin.model.Properties.Settings.Default.DataSourceConnectionString2, mappingSource)
+				base(global::pe.edu.pucp.ferretin.model.Properties.Settings.Default.inf245g2ConnectionString2, mappingSource)
 		{
 			OnCreated();
 		}

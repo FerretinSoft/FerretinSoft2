@@ -23,7 +23,7 @@ namespace pe.edu.pucp.ferretin.controller.MVentas
                 {
                     _listaDevoluciones = db.Devolucion;
                 }
-                db.Refresh(RefreshMode.OverwriteCurrentValues, _listaDevoluciones);
+                //db.Refresh(RefreshMode.OverwriteCurrentValues, _listaDevoluciones);
                 return _listaDevoluciones;
             }
             set
@@ -42,7 +42,7 @@ namespace pe.edu.pucp.ferretin.controller.MVentas
                 {
                     _listaNotasCredito = db.NotaCredito;
                 }
-                db.Refresh(RefreshMode.OverwriteCurrentValues, _listaNotasCredito);
+                //db.Refresh(RefreshMode.OverwriteCurrentValues, _listaNotasCredito);
                 return _listaNotasCredito;
             }
             set
@@ -59,7 +59,7 @@ namespace pe.edu.pucp.ferretin.controller.MVentas
                 {
                     _listaProductos = db.DevolucionProducto;
                 }
-                db.Refresh(RefreshMode.OverwriteCurrentValues, _listaProductos);
+                //db.Refresh(RefreshMode.OverwriteCurrentValues, _listaProductos);
                 return _listaProductos;
             }
             set

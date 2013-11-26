@@ -33,7 +33,7 @@ namespace pe.edu.pucp.ferretin.controller.MCompras
                 //Usando concurrencia pesimista:
                 ///La lista de documentos de compra se actualizara para ver los cambios
                 ///Si quisiera usar concurrencia optimista quito la siguiente linea
-                db.Refresh(RefreshMode.OverwriteCurrentValues, _listaDocumentosCompra);
+                //db.Refresh(RefreshMode.OverwriteCurrentValues, _listaDocumentosCompra);
                 return _listaDocumentosCompra;
             }
             set
@@ -54,7 +54,7 @@ namespace pe.edu.pucp.ferretin.controller.MCompras
                 //Usando concurrencia pesimista:
                 ///La lista de documentos de compra se actualizara para ver los cambios
                 ///Si quisiera usar concurrencia optimista quito la siguiente linea
-                db.Refresh(RefreshMode.OverwriteCurrentValues, _listaProductosDC);
+                //db.Refresh(RefreshMode.OverwriteCurrentValues, _listaProductosDC);
                 return _listaProductosDC;
             }
             set
@@ -75,7 +75,7 @@ namespace pe.edu.pucp.ferretin.controller.MCompras
                 //Usando concurrencia pesimista:
                 ///La lista de documentos de compra se actualizara para ver los cambios
                 ///Si quisiera usar concurrencia optimista quito la siguiente linea
-                db.Refresh(RefreshMode.OverwriteCurrentValues, _listaEstadosDC);
+                //db.Refresh(RefreshMode.OverwriteCurrentValues, _listaEstadosDC);
                 return _listaEstadosDC;
             }
             set

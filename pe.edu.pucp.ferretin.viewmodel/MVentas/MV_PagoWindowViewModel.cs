@@ -182,12 +182,19 @@ namespace pe.edu.pucp.ferretin.viewmodel.MVentas
                         venta.tipoDocumento = ((venta.Cliente == null ? 0 : (venta.Cliente.tipo == 2 ? 1 : 0)));
                         if (venta.Cliente != null)
                         {
-                            venta.Cliente.puntosActual -= venta.Cliente.puntosActual == null ? 0 : venta.Cliente.puntosActual - venta.puntosCanjeados;
-                            venta.Cliente.puntosUsados += venta.Cliente.puntosUsados == null ? venta.puntosCanjeados : venta.Cliente.puntosUsados + venta.puntosCanjeados;
-                            venta.Cliente.puntosActual += venta.Cliente.puntosActual == null ? venta.puntosGanados : venta.Cliente.puntosActual + venta.puntosGanados;
-                            venta.Cliente.puntosGanados += venta.Cliente.puntosGanados == null ? venta.puntosGanados : venta.Cliente.puntosGanados + venta.puntosGanados;
+                            int puntosCanjeados = venta.puntosCanjeados.Value;
+                            int puntosGanados = venta.puntosGanados.Value;
+
+                            venta.Cliente.puntosActual = venta.Cliente.puntosActual ?? 0;
+                            venta.Cliente.puntosUsados = venta.Cliente.puntosUsados ?? 0;
+                            venta.Cliente.puntosGanados = venta.Cliente.puntosGanados ?? 0;
+                            //TODO
+                            venta.Cliente.puntosActual += puntosGanados - puntosCanjeados;
+                            venta.Cliente.puntosUsados += puntosCanjeados;
+                            venta.Cliente.puntosGanados += puntosGanados;
+                            
                             venta.Cliente.ultimaCompra = venta.fecha;
-                            venta.Cliente.totalCompras = venta.Cliente.totalCompras == null ? 1 : venta.Cliente.totalCompras + 1;
+                            venta.Cliente.totalCompras = (venta.Cliente.totalCompras == null) ? 1 : (venta.Cliente.totalCompras + 1);
                         }
                         foreach (var vmp in venta.VentaMedioPago)
                         {

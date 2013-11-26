@@ -29,7 +29,7 @@ namespace pe.edu.pucp.ferretin.controller.MRecursosHumanos
                    
                 }
 
-                db.Refresh(RefreshMode.OverwriteCurrentValues, _listaEmpleados);
+                //db.Refresh(RefreshMode.OverwriteCurrentValues, _listaEmpleados);
                 return _listaEmpleados;
             }
             set
@@ -50,7 +50,7 @@ namespace pe.edu.pucp.ferretin.controller.MRecursosHumanos
 
                 }
 
-                db.Refresh(RefreshMode.OverwriteCurrentValues, _listaEmpleadoTienda);
+                //db.Refresh(RefreshMode.OverwriteCurrentValues, _listaEmpleadoTienda);
                 return _listaEmpleadoTienda;
             }
             set
@@ -70,7 +70,7 @@ namespace pe.edu.pucp.ferretin.controller.MRecursosHumanos
 
                 }
 
-                db.Refresh(RefreshMode.OverwriteCurrentValues, _listaEmpleadoTurno);
+                //db.Refresh(RefreshMode.OverwriteCurrentValues, _listaEmpleadoTurno);
                 return _listaEmpleadoTurno;
             }
             set
