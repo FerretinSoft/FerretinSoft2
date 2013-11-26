@@ -25,14 +25,14 @@ namespace pe.edu.pucp.ferretin.viewmodel.MAlmacen
             {
                 _producto = value;
                 MA_ProductoService.crearStockProductoAlmacen(_producto.id);
-                productoAlmacen = MA_ProductoService.obtenerStockProductoAlmacen(_producto.id);
+                productoAlmacen = MA_ProductoService.obtenerStockProductoAlmacen(_producto.id).ToList();
                 NotifyPropertyChanged("producto");
             }
 
         }
 
-        public IEnumerable<ProductoAlmacen> _productoAlmacen;
-        public IEnumerable<ProductoAlmacen> productoAlmacen
+        public List<ProductoAlmacen> _productoAlmacen;
+        public List<ProductoAlmacen> productoAlmacen
         {
             get
             {   

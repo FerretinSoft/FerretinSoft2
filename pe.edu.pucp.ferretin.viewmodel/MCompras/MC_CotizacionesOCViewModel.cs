@@ -610,6 +610,7 @@ namespace pe.edu.pucp.ferretin.viewmodel.MCompras
             {                
                 prepararLabels(1);
                 tipoDC = 1;
+                proveedorNombre = "";
                 statusTab = Tab.AGREGAR;
             }
             catch (Exception e)
@@ -624,6 +625,7 @@ namespace pe.edu.pucp.ferretin.viewmodel.MCompras
             {                
                 prepararLabels(2);
                 tipoDC = 2;
+                proveedorNombre = "";
                 statusTab = Tab.AGREGAR;
             }
             catch (Exception e)

@@ -140,6 +140,7 @@ namespace pe.edu.pucp.ferretin.viewmodel.MCompras
                     case Tab.AGREGAR: 
                         detallesTabHeader = "Agregar";
                         isDetalle = true;
+                        ordenCompraCod = "";
                         guiaRemision = new GuiaRemision(); 
                         //listaGuiaRemisionProducto = null;
                         guiaRemision.Tienda = MC_ComunService.usuarioL.Empleado.tiendaActual;break;
@@ -262,6 +263,7 @@ namespace pe.edu.pucp.ferretin.viewmodel.MCompras
         {
             try
             {
+                ordenCompraCod = "";
                 isDetalle = true;
                 statusTab = Tab.AGREGAR;
             }
