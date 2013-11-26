@@ -30,8 +30,8 @@
             <Button Content="CANCELAR" HorizontalAlignment="Left" Margin="345,261,0,12" Width="100" Click="Button_Click_1"/>
             <Label Content="Fecha Desde:" HorizontalAlignment="Left" Margin="10,46,0,0" VerticalAlignment="Top"/>
             <Label Content="Fecha Desde:" HorizontalAlignment="Left" Margin="358,46,0,0" VerticalAlignment="Top"/>
-            <DatePicker SelectedDate="{Binding Path=searchFechaDesde, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Left" Margin="95,48,0,0" VerticalAlignment="Top" Width="130"/>
-            <DatePicker SelectedDate="{Binding Path=searchFechaHasta, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Left" Margin="457,48,0,0" VerticalAlignment="Top" Width="130" RenderTransformOrigin="3.559,0.413"/>
+            <DatePicker x:Name="dpfechaDesde" SelectedDate="{Binding Path=searchFechaDesde, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Left" Margin="95,48,0,0" VerticalAlignment="Top" Width="130"/>
+            <DatePicker x:Name="dpfechaHasta" SelectedDate="{Binding Path=searchFechaHasta, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Left" Margin="457,48,0,0" VerticalAlignment="Top" Width="130" RenderTransformOrigin="3.559,0.413"/>
 
         </Grid>
     </Grid>
