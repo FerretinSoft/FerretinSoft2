@@ -40,11 +40,11 @@ namespace pe.edu.pucp.ferretin.controller.MSeguridad
         {
             string modulo = null;
 
-            if (valor == 1) modulo = "Modulo Almacen";
-            if (valor == 2) modulo = "Modulo Compras";
-            if (valor == 3) modulo =  "Modulo Recursos Humanos";
-            if (valor == 4) modulo =  "Modulo Ventas";
-            if (valor == 5) modulo =  "Modulo Administrador";            
+            if (valor == 1) modulo = "almacen";
+            if (valor == 2) modulo = "compras";
+            if (valor == 3) modulo = "recursos humanos";
+            if (valor == 4) modulo = "seguridad";  
+            if (valor == 5) modulo = "ventas";                      
 
             return modulo;
         }
