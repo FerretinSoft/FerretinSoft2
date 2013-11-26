@@ -54,8 +54,7 @@
                             <DataGridTextColumn Width="2*" Binding="{Binding Path=SolicitudAbastecimientoEstado.nombre}" Header="Estado"/>
                         </DataGrid.Columns>
                     </DataGrid>
-                    <ComboBox SelectedIndex="0" ItemsSource="{Binding estadoSolicitud}" DisplayMemberPath="nombre" SelectedItem="{Binding searchEstado, Mode=TwoWay}"  HorizontalAlignment="Left" Margin="402,43,0,0" VerticalAlignment="Top" Width="134" Height="22">
-                    </ComboBox>
+                    <ComboBox SelectedIndex="0" ItemsSource="{Binding estadoSolicitud}" DisplayMemberPath="nombre" SelectedItem="{Binding searchEstado, Mode=TwoWay}"  HorizontalAlignment="Left" Margin="402,43,0,0" VerticalAlignment="Top" Width="134" Height="22"/>
                     <Label Content="Fecha hasta:" HorizontalAlignment="Left" Height="26" VerticalAlignment="Top" Width="89" Margin="323,80,0,0"/>
                     <Label Content="Fecha desde:" HorizontalAlignment="Left" Height="26" VerticalAlignment="Top" Width="92" Margin="22,80,0,0" RenderTransformOrigin="0.48,2.068"/>
                     <DatePicker SelectedDate="{Binding searchFechaHasta, Mode=TwoWay}" HorizontalAlignment="Left" Margin="404,81,0,0" VerticalAlignment="Top" Width="133"/>
