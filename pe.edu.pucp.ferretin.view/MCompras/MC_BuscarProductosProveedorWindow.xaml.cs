@@ -75,5 +75,10 @@ namespace pe.edu.pucp.ferretin.view.MCompras
             //    }
             //}
         }
+
+        private void Button_Click_1(object sender, RoutedEventArgs e)
+        {
+            this.Close();
+        }
     }
 }

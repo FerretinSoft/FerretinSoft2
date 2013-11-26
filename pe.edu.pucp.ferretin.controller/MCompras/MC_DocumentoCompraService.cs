@@ -187,14 +187,14 @@ namespace pe.edu.pucp.ferretin.controller.MCompras
         {
             if (tipoDocumento == 1) // Es Cotizacion
             {
-                return (from dce in db.DocumentoCompraEstado
+                return (from dce in listaEstadosDC
                         where dce.tipo.Equals(0)
                         orderby dce.nombre
                         select dce);
             }
             else
             {
-                return (from dce in db.DocumentoCompraEstado
+                return (from dce in listaEstadosDC
                         where dce.tipo.Equals(1)
                         orderby dce.nombre
                         select dce);
@@ -214,7 +214,7 @@ namespace pe.edu.pucp.ferretin.controller.MCompras
 
         public static string generarCodigoDC(byte? tipoDC)
         {
-            IEnumerable<DocumentoCompra> documentos = (from e in db.DocumentoCompra
+            IEnumerable<DocumentoCompra> documentos = (from e in listaDocumentosCompra
                                                        where e.codigo != null && e.tipo.Equals(tipoDC)
                                                        select e);
             if (tipoDC == 1)
@@ -225,7 +225,7 @@ namespace pe.edu.pucp.ferretin.controller.MCompras
 
         public static int devuelvecantidadDC(byte? tipoDC)
         {
-            IEnumerable<DocumentoCompra> documentos = (from e in db.DocumentoCompra
+            IEnumerable<DocumentoCompra> documentos = (from e in listaDocumentosCompra
                                                        where e.codigo != null && e.tipo.Equals(tipoDC)
                                                        select e);
             return documentos.Count()+1;
@@ -239,7 +239,7 @@ namespace pe.edu.pucp.ferretin.controller.MCompras
             {
                 try
                 {
-                    doc = db.DocumentoCompra.Single(t => t.id == documentoCompra.id);
+                    doc = listaDocumentosCompra.Single(t => t.id == documentoCompra.id);
                     return false;
                 }
                 catch (Exception e)

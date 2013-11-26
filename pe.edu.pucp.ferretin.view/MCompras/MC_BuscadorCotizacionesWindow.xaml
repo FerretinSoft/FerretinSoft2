@@ -27,7 +27,7 @@
                 </Button.Background>
             </Button>
             <Button Content="SELECCIONAR" Command="{Binding actualizarListaCotizacionesCommand}" CommandParameter="{Binding ElementName=listaCotizaciones}" HorizontalAlignment="Left" Margin="215,261,0,12" Width="100" Click="Button_Click"/>
-            <Button Content="CANCELAR" HorizontalAlignment="Left" Margin="345,261,0,12" Width="100"/>
+            <Button Content="CANCELAR" HorizontalAlignment="Left" Margin="345,261,0,12" Width="100" Click="Button_Click_1"/>
             <Label Content="Fecha Desde:" HorizontalAlignment="Left" Margin="10,46,0,0" VerticalAlignment="Top"/>
             <Label Content="Fecha Desde:" HorizontalAlignment="Left" Margin="358,46,0,0" VerticalAlignment="Top"/>
             <DatePicker SelectedDate="{Binding Path=searchFechaDesde, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Left" Margin="95,48,0,0" VerticalAlignment="Top" Width="110"/>
