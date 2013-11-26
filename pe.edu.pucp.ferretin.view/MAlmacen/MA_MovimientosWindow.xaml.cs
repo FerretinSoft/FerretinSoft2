@@ -53,7 +53,7 @@ namespace pe.edu.pucp.ferretin.view.MAlmacen
             MA_MovimientosViewModel movVM = this.main.DataContext as MA_MovimientosViewModel;
             MA_DocumentoMovimientoViewModel docVM = w.main.DataContext as MA_DocumentoMovimientoViewModel;
             docVM.movimiento = movVM.movimiento;
-            w.Show();
+            w.ShowDialog();
         }
 
         
@@ -99,8 +99,7 @@ namespace pe.edu.pucp.ferretin.view.MAlmacen
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            //var vm = DataContext as MA_MovimientosViewModel;
-            //var buscador = new MV_BuscadorProductos(this, vm.usuarioLogueado.Empleado.tiendaActual);
+            var buscador = new MA_BuscadorProductosWindow(this);
         }
 
         private void productosGrid_PreviewKeyDown(object sender, KeyEventArgs e)
@@ -114,6 +113,11 @@ namespace pe.edu.pucp.ferretin.view.MAlmacen
                 else
                     e.Handled = true;
             }
+        }
+
+        private void Window_Closing(object sender, CancelEventArgs e)
+        {
+            ComunService.Clean();
         }        
 
 

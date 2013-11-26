@@ -57,13 +57,21 @@ namespace pe.edu.pucp.ferretin.view.MVentas
                     }
                     else
                     {
-                        padre_DataContext.devolucion.fecEmision = DateTime.Today;
-                        padre_DataContext.devolucion.DevolucionProducto = new System.Data.Linq.EntitySet<DevolucionProducto>();
-                        padre_DataContext.devolucion.codigo = MV_DevolucionService.obtenerCodDevolucion();
-                        padre_DataContext.loadNroDocumento = my_DataContext.venta.nroDocumento;
-                        padre_DataContext.devolucion.Venta = my_DataContext.venta;
-                        padre_DataContext.listaProductosComprados = MV_VentaService.obtenerProductosbyIdVenta(my_DataContext.venta.id);
-                        padre_DataContext.NotifyPropertyChanged("devolucion");
+                        NotaCredito nota = MV_NotaCreditoService.obtenerNotaCreditoByIdVenta(my_DataContext.venta.id);
+                        if (nota == null)
+                        {
+                            padre_DataContext.devolucion.fecEmision = DateTime.Today;
+                            padre_DataContext.devolucion.DevolucionProducto = new System.Data.Linq.EntitySet<DevolucionProducto>();
+                            padre_DataContext.devolucion.codigo = MV_DevolucionService.obtenerCodDevolucion();
+                            padre_DataContext.loadNroDocumento = my_DataContext.venta.nroDocumento;
+                            padre_DataContext.devolucion.Venta = my_DataContext.venta;
+                            padre_DataContext.listaProductosComprados = MV_VentaService.obtenerProductosbyIdVenta(my_DataContext.venta.id);
+                            padre_DataContext.NotifyPropertyChanged("devolucion");
+                        }
+                        else
+                        {
+                            MessageBox.Show("La venta seleccionada ya ha generado una nota de crédito", "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
+                        }
                     }
 
                     this.Close();
@@ -79,8 +87,18 @@ namespace pe.edu.pucp.ferretin.view.MVentas
             v.Owner = this;
             var viewModel = v.main.DataContext as MR_AdministrarPersonalViewModel;
             viewModel.soloSeleccionarVendedor = true;
-            v.Show();
+            v.ShowDialog();
         }
+
+        private void Button_Click_NotaCredito(object sender, RoutedEventArgs e)
+        {
+            MV_DocNotaCredito p = new MV_DocNotaCredito();
+            MV_VentasViewModel actual = this.main.DataContext as MV_VentasViewModel;
+            MV_DocNotaCreditoViewModel padre = p.main.DataContext as MV_DocNotaCreditoViewModel;
+            padre.notaCredito = MV_NotaCreditoService.obtenerNotaCreditoByIdVenta(actual.venta.id);
+            p.ShowDialog();
+        }
+        
 
         private void Button_Click_Cliente(object sender, RoutedEventArgs e)
         {
@@ -88,7 +106,7 @@ namespace pe.edu.pucp.ferretin.view.MVentas
             v.Owner = this;
             var viewModel = v.DataContext as MV_ClientesViewModel;
             viewModel.soloSeleccionarCliente = true;
-            v.Show();
+            v.ShowDialog();
         }
 
         private void Window_Closing(object sender, CancelEventArgs e)

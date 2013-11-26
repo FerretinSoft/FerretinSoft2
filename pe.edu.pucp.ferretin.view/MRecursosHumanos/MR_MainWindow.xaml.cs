@@ -40,7 +40,7 @@ namespace pe.edu.pucp.ferretin.view.MRecursosHumanos
             if (ComunService.usuarioLpermisos[2].estado == true)
             {
                 MR_AdministrarPersonalWindow adminW = new MR_AdministrarPersonalWindow();
-                adminW.Show();
+                adminW.ShowDialog();
             }
             else
             {

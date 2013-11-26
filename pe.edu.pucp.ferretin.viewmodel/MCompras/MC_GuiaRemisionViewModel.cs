@@ -7,6 +7,7 @@ using pe.edu.pucp.ferretin.controller.MCompras;
 using System.Windows.Input;
 using System.Windows;
 using pe.edu.pucp.ferretin.controller;
+using pe.edu.pucp.ferretin.controller.MSeguridad;
 
 namespace pe.edu.pucp.ferretin.viewmodel.MCompras
 {
@@ -16,7 +17,7 @@ namespace pe.edu.pucp.ferretin.viewmodel.MCompras
         public MC_GuiaRemisionViewModel()
         {
             _guiaRemision = new GuiaRemision();  
-            }
+        }
         #endregion
 
         #region Valores para el cuadro de Búsqueda
@@ -33,6 +34,11 @@ namespace pe.edu.pucp.ferretin.viewmodel.MCompras
         public DateTime? _searchFechaHasta = null;
         public DateTime? searchFechaHasta { get { return _searchFechaHasta; } set { _searchFechaHasta = value; NotifyPropertyChanged("searchFechaHasta"); } }
         #endregion
+
+        public void refrescarGuia()
+        {
+            NotifyPropertyChanged("guiaRemision");
+        }
 
         #region Valores para la segunda pestana
 
@@ -69,14 +75,31 @@ namespace pe.edu.pucp.ferretin.viewmodel.MCompras
             }
         }
 
+        private bool _isDetalle;
+        public bool isDetalle
+        {
+            get
+            {
+                return _isDetalle;
+            }
+            set
+            {
+                _isDetalle = value;
+                NotifyPropertyChanged("isDetalle");
+            }
+        }
+
         private IEnumerable<GuiaRemision> _listaGuiasRemision;
         public IEnumerable<GuiaRemision> listaGuiasRemision
         {
             get
             {
-                _listaGuiasRemision = MC_GuiaRemisionService.buscarGuiasRemision(searchCodigo, searchProveedor, searchFechaDesde, searchFechaHasta);
+                if (searchFechaDesde > searchFechaHasta)
+                    MessageBox.Show("La 'Fecha Hasta' no puede ser menor que la 'Fecha Desde'", "Guia de Remision", MessageBoxButton.OK, MessageBoxImage.Exclamation);
+                else
+                    _listaGuiasRemision = MC_GuiaRemisionService.buscarGuiasRemision(searchCodigo, searchProveedor, searchFechaDesde, searchFechaHasta).ToList();
 
-                return _listaGuiasRemision;
+                return _listaGuiasRemision.ToList();
             }
             set
             {
@@ -84,38 +107,6 @@ namespace pe.edu.pucp.ferretin.viewmodel.MCompras
                 NotifyPropertyChanged("listaGuiasRemision");
             }
         }
-
-        //private IEnumerable<GuiaRemisionProducto> _listaGuiaRemisionProducto = null;
-        //public IEnumerable<GuiaRemisionProducto> listaGuiaRemisionProducto
-        //{
-        //    get
-        //    {
-        //        if (guiaRemision.id >0)
-        //            _listaGuiaRemisionProducto = MC_GuiaRemisionService.buscarProductosGuiaRemision(guiaRemision);
-        //        return _listaGuiaRemisionProducto;
-        //    }
-        //    set
-        //    {
-        //        _listaGuiaRemisionProducto = value;
-        //        NotifyPropertyChanged("listaGuiaRemisionProducto");
-        //    }
-        //}
-
-        //private IEnumerable<GuiaRemisionProducto> _listaProductosGuia;
-        //public IEnumerable<GuiaRemisionProducto> listaProductosGuia
-        //{
-        //    get
-        //    {
-        //        //_listaGuiasRemision = MC_DocumentoCompraService.buscarGuiasRemision();
-
-        //        return _listaProductosGuia;
-        //    }
-        //    set
-        //    {
-        //        _listaProductosGuia = value;
-        //        NotifyPropertyChanged("listaProductosGuia");
-        //    }
-        //}
         #endregion
 
         #region Manejo de los Tabs
@@ -145,8 +136,8 @@ namespace pe.edu.pucp.ferretin.viewmodel.MCompras
                         break;
 
                     case Tab.AGREGAR: 
-                        detallesTabHeader = "Agregar"; 
-                        ordenCompraCod = ""; 
+                        detallesTabHeader = "Agregar";
+                        isDetalle = true;
                         guiaRemision = new GuiaRemision(); 
                         //listaGuiaRemisionProducto = null;
                         guiaRemision.Tienda = MC_ComunService.usuarioL.Empleado.tiendaActual;break;
@@ -160,7 +151,8 @@ namespace pe.edu.pucp.ferretin.viewmodel.MCompras
                         break;
 
                     default: 
-                        detallesTabHeader = "Agregar"; 
+                        detallesTabHeader = "Agregar";
+                        isDetalle = true;
                         guiaRemision = new GuiaRemision(); 
                         break;//Si es agregar, creo un nuevo objeto Guia de Remision
                 }
@@ -168,8 +160,6 @@ namespace pe.edu.pucp.ferretin.viewmodel.MCompras
                 //Cuando se cambia el status, tambien se tiene que actualizar el currentIndex del tab
                 NotifyPropertyChanged("currentIndexTab"); //Hace que cambie el tab automaticamente
                 NotifyPropertyChanged("guiaRemision");
-                //NotifyPropertyChanged("listaGuiaRemisionProducto");
-                NotifyPropertyChanged("ordenCompraCod");
             }
         }
         //Usado para mover los tabs de acuerdo a las acciones realizadas
@@ -189,7 +179,6 @@ namespace pe.edu.pucp.ferretin.viewmodel.MCompras
             {
                 _detallesTabHeader = value;
                 NotifyPropertyChanged("detallesTabHeader");
-                //NotifyPropertyChanged("listaGuiaRemisionProducto");
             }
         }
         #endregion
@@ -202,9 +191,7 @@ namespace pe.edu.pucp.ferretin.viewmodel.MCompras
             get
             {
                 if (_actualizarListaGuiasRemisionCommand == null)
-                {
                     _actualizarListaGuiasRemisionCommand = new RelayCommand(param => NotifyPropertyChanged("listaGuiasRemision"));
-                }
                 return _actualizarListaGuiasRemisionCommand;
             }
         }
@@ -215,9 +202,8 @@ namespace pe.edu.pucp.ferretin.viewmodel.MCompras
             get
             {
                 if (_agregarGuiaCommand == null)
-                {
                     _agregarGuiaCommand = new RelayCommand(agregarGuia);
-                }
+
                 return _agregarGuiaCommand;
             }
         }
@@ -228,9 +214,8 @@ namespace pe.edu.pucp.ferretin.viewmodel.MCompras
             get
             {
                 if (_viewEditGuiaRemisionCommand == null)
-                {
                     _viewEditGuiaRemisionCommand = new RelayCommand(viewEditGuiaRemision);
-                }
+
                 return _viewEditGuiaRemisionCommand;
             }
         }
@@ -241,9 +226,7 @@ namespace pe.edu.pucp.ferretin.viewmodel.MCompras
             get
             {
                 if (_saveGuiaRemisionCommand == null)
-                {
                     _saveGuiaRemisionCommand = new RelayCommand(saveGuiaRemision);
-                }
                 return _saveGuiaRemisionCommand;
             }
         }
@@ -254,9 +237,7 @@ namespace pe.edu.pucp.ferretin.viewmodel.MCompras
             get
             {
                 if (_cancelGuiaRemisionCommand == null)
-                {
                     _cancelGuiaRemisionCommand = new RelayCommand(cancelGuiaRemision);
-                }
                 return _cancelGuiaRemisionCommand;
             }
         }
@@ -267,9 +248,7 @@ namespace pe.edu.pucp.ferretin.viewmodel.MCompras
             get
             {
                 if (_cargarOCCommand == null)
-                {
                     _cargarOCCommand = new RelayCommand(cargarOC);
-                }
                 return _cargarOCCommand;
             }
         }
@@ -281,6 +260,7 @@ namespace pe.edu.pucp.ferretin.viewmodel.MCompras
         {
             try
             {
+                isDetalle = true;
                 statusTab = Tab.AGREGAR;
             }
             catch (Exception e)
@@ -294,9 +274,7 @@ namespace pe.edu.pucp.ferretin.viewmodel.MCompras
             try
             {
                 this.guiaRemision = listaGuiasRemision.Single(guiaRemision => guiaRemision.id == (int)id);
-                //NotifyPropertyChanged("guiaRemision");
-                //NotifyPropertyChanged("listaGuiaRemisionProducto");
-                //NotifyPropertyChanged("ordenCompraCod");
+                isDetalle = false;
                 this.statusTab = Tab.MODIFICAR;
             }
             catch (Exception e)
@@ -325,13 +303,11 @@ namespace pe.edu.pucp.ferretin.viewmodel.MCompras
         public void saveGuiaRemision(Object obj)
         {
             if (!camposObligatorios())
-            {
                 MessageBox.Show("Complete todos los datos obligatorios", "Guia de Remision", MessageBoxButton.OK, MessageBoxImage.Exclamation);
-            }
             else
             {
-                if (guiaRemision.fechaRecepcion > guiaRemision.fechaEmision)
-                    MessageBox.Show("La Fecha de Emision no puede ser menor que la Fecha de Recepcion", "Guia de Remision", MessageBoxButton.OK, MessageBoxImage.Exclamation);
+                if (guiaRemision.fechaRecepcion < guiaRemision.fechaEmision)
+                    MessageBox.Show("La Fecha de Recepcion no puede ser menor que la Fecha de Emision", "Guia de Remision", MessageBoxButton.OK, MessageBoxImage.Exclamation);
                 else
                 {
                     bool exito = false;
@@ -339,12 +315,17 @@ namespace pe.edu.pucp.ferretin.viewmodel.MCompras
                     {
                         ComunService.idVentana(37);
                         if (!MC_GuiaRemisionService.enviarCambios())
-                        {
                             MessageBox.Show("No se pudo actualizar la guia de remision");
-                        }
                         else
                         {
                             MessageBox.Show("La guia de remision fue guardado con éxito");
+                            if (guiaRemision.DocumentoCompra.id_solicitud_compra != null)
+                                // guiaRemision.DocumentoCompra.SolicitudCompra.estado = 2;
+
+
+                                for (int i = 0; i < guiaRemision.DocumentoCompra.DocumentoCompraProducto.Count(); i++)
+                                    MC_AtenderSolicitudViewModel.actualizaestado(guiaRemision.Tienda, guiaRemision.DocumentoCompra.DocumentoCompraProducto[i].Producto);
+
                             exito = true;
                         }
                     }
@@ -352,18 +333,23 @@ namespace pe.edu.pucp.ferretin.viewmodel.MCompras
                     {
                         ComunService.idVentana(36);
                         if (!MC_GuiaRemisionService.insertarGuiaRemision(guiaRemision))
-                        {
                             MessageBox.Show("No se pudo agregar la nueva guia de remision");
-                        }
+
                         else
                         {
                             MessageBox.Show("La guia de remision se agrego con exito");
+                            if (guiaRemision.DocumentoCompra.id_solicitud_compra != null)
+                              //  guiaRemision.DocumentoCompra.SolicitudCompra.estado = 2;
+                                for (int i = 0; i < guiaRemision.DocumentoCompra.DocumentoCompraProducto.Count(); i++)
+                                    MC_AtenderSolicitudViewModel.actualizaestado(guiaRemision.Tienda, guiaRemision.DocumentoCompra.DocumentoCompraProducto[i].Producto);
+                            
                             exito = true;
                         }
                     }
                     if (exito)
                     {
                         NotifyPropertyChanged("listaGuiasRemision");
+                       
                         this.statusTab = Tab.BUSQUEDA;
                     }
                 } 
@@ -376,8 +362,8 @@ namespace pe.edu.pucp.ferretin.viewmodel.MCompras
        "ATENCIÓN", MessageBoxButton.OKCancel, MessageBoxImage.Warning, MessageBoxResult.Cancel);
             if (result == MessageBoxResult.OK)
             {
-                this.statusTab = Tab.BUSQUEDA;
-                listaGuiasRemision = MC_GuiaRemisionService.listaGuiasRemision;
+                listaGuiasRemision = ComunService.db.GuiaRemision;
+                this.statusTab = Tab.BUSQUEDA;                
             }
         }
 
@@ -389,10 +375,10 @@ namespace pe.edu.pucp.ferretin.viewmodel.MCompras
             {
                 try
                 {
-                    if ("".Equals(this.guiaRemision.DocumentoCompra.codigo) || this.guiaRemision.DocumentoCompra.codigo == null)
-                        return _ordenCompraCod;
-                    else
+                    if (guiaRemision.id > 0)
                         return guiaRemision.DocumentoCompra.codigo;
+                    else
+                        return _ordenCompraCod;
                 }
                 catch (Exception e)
                 {
@@ -412,7 +398,8 @@ namespace pe.edu.pucp.ferretin.viewmodel.MCompras
             DocumentoCompra buscado = null;          
             try
             {
-                buscado = MC_DocumentoCompraService.obtenerDCByCodigo(this._ordenCompraCod);
+                buscado = ComunService.db.DocumentoCompra.Where(dc => dc.codigo.ToLower().Trim().Equals(this._ordenCompraCod.ToLower().Trim())).SingleOrDefault();
+                //buscado = MC_DocumentoCompraService.obtenerDCByCodigo(this._ordenCompraCod);
 
                 if (buscado != null)
                 {
@@ -439,6 +426,8 @@ namespace pe.edu.pucp.ferretin.viewmodel.MCompras
                                 GuiaRemisionProducto guiaLinea = new GuiaRemisionProducto() { id_guia_detalle = documentoCompra.DocumentoCompraProducto[j].id, cantidadRecibida = 0, DocumentoCompraProducto = documentoCompra.DocumentoCompraProducto[j], GuiaRemision = guiaRemision };
                                 guiaRemision.GuiaRemisionProducto.Add(guiaLinea);
                             }
+                            ordenCompraCod = "";
+                            NotifyPropertyChanged("ordenCompraCod");
                             NotifyPropertyChanged("guiaRemision");
                         }
                     }

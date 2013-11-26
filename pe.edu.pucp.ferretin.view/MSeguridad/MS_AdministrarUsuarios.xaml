@@ -84,7 +84,7 @@
                             </DataGridHyperlinkColumn>
                             -->
                             <!-- Columna Hypervinculo -->
-                            <DataGridTemplateColumn Width="2.7*" Header="Nombre de Usuario">
+                            <DataGridTemplateColumn MinWidth="70" MaxWidth="80" Header="Usuario">
                                 <DataGridTemplateColumn.CellTemplate>
                                     <DataTemplate>
                                         <TextBlock>
@@ -100,10 +100,11 @@
 
                             <!-- Otras columnas -->
                             <!--<DataGridTextColumn Width="2*" Binding="{Binding Path=nombre}" ClipboardContentBinding="{x:Null}" Header="UserName"/> -->
-                            <DataGridTextColumn Width="2.5*" Binding="{Binding Path=Empleado.nombre}" ClipboardContentBinding="{x:Null}" Header="Nombres"/>
-                            <DataGridTextColumn Width="3.2*" Binding="{Binding Path=apellidoCompleto}" ClipboardContentBinding="{x:Null}" Header="Apellidos"/>
-                            <DataGridTextColumn Width="5*" Binding="{Binding Path=Perfil.nombre}" ClipboardContentBinding="{x:Null}" Header="Perfil"/>
-                            <DataGridTextColumn Width="1.5*" Binding="{Binding Path=estadoAux}" ClipboardContentBinding="{x:Null}" Header="Estado"/>
+                            <DataGridTextColumn MinWidth="100" Binding="{Binding Path=Empleado.nombre}" ClipboardContentBinding="{x:Null}" Header="Nombres"/>
+                            <DataGridTextColumn MinWidth="120" Binding="{Binding Path=apellidoCompleto}" ClipboardContentBinding="{x:Null}" Header="Apellidos"/>
+                            <DataGridTextColumn Width="3*" Binding="{Binding Path=Perfil.nombre}" ClipboardContentBinding="{x:Null}" Header="Perfil"/>
+                            <DataGridTextColumn MinWidth="120" Binding="{Binding Path=Empleado.nombreTienda}" ClipboardContentBinding="{x:Null}" Header="Tienda"/>
+                            <DataGridTextColumn MinWidth="50" Binding="{Binding Path=estadoAux}" ClipboardContentBinding="{x:Null}" Header="Estado"/>
                         </DataGrid.Columns>
                     </DataGrid>
                 </Grid>

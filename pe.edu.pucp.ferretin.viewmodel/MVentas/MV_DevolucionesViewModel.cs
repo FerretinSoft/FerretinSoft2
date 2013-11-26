@@ -377,13 +377,24 @@ namespace pe.edu.pucp.ferretin.viewmodel.MVentas
             try
             {
                 buscado = MV_VentaService.obtenerVentaByCodVenta(loadNroDocumento);
-                this.listaProductosComprados = MV_VentaService.obtenerProductosSinPuntosbyIdVenta(buscado.id);
-                this.devolucion.Venta = buscado;
-                this.devolucion.fecEmision = DateTime.Now;
-                this.devolucion.DevolucionProducto = new System.Data.Linq.EntitySet<DevolucionProducto>();
-                devolucion.codigo = MV_DevolucionService.obtenerCodDevolucion();
-                devolucion.id_empleado = usuarioLogueado.Empleado.id;
-                NotifyPropertyChanged("devolucion");
+                NotaCredito nota = MV_NotaCreditoService.obtenerNotaCreditoByIdVenta(buscado.id);
+                if (nota != null)
+                {
+                    MessageBox.Show("La venta con el número de documento proporcionado ya ha registrado una devolución", "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
+                    this.loadNroDocumento = "";
+                    this.listaProductosComprados = null;
+                    this.devolucion = new Devolucion();
+                }
+                else
+                {
+                    this.listaProductosComprados = MV_VentaService.obtenerProductosSinPuntosbyIdVenta(buscado.id);
+                    this.devolucion.Venta = buscado;
+                    this.devolucion.fecEmision = DateTime.Now;
+                    this.devolucion.DevolucionProducto = new System.Data.Linq.EntitySet<DevolucionProducto>();
+                    devolucion.codigo = MV_DevolucionService.obtenerCodDevolucion();
+                    devolucion.id_empleado = usuarioLogueado.Empleado.id;
+                    NotifyPropertyChanged("devolucion");
+                }
             }
             catch { }
 
@@ -394,6 +405,7 @@ namespace pe.edu.pucp.ferretin.viewmodel.MVentas
                 this.devolucion = new Devolucion();
                 MessageBox.Show("No se encontro ninguna venta con el número de documento proporcionado", "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
             }
+            
            
         }
 
@@ -403,6 +415,12 @@ namespace pe.edu.pucp.ferretin.viewmodel.MVentas
             try
             {
                 buscado = MV_VentaService.obtenerVentaByCodVenta(searchNroDocumento);
+                this.searchNroDocCliente = Convert.ToString(buscado.Cliente.nroDoc);
+                this.searchnombreCliente = buscado.Cliente.nombreCompleto;
+                this.nombreVendedor = buscado.Usuario.Empleado.nombreCompleto;
+                this.searchVendedor = buscado.Usuario.Empleado.dni;
+                this.searchFechaInicio = Convert.ToDateTime(buscado.fecha);
+
             }
             catch { }
 
@@ -411,6 +429,7 @@ namespace pe.edu.pucp.ferretin.viewmodel.MVentas
                 this.searchNroDocumento = "";
                 MessageBox.Show("No se encontro ninguna venta con el número de documento proporcionado", "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
             }
+            
             NotifyPropertyChanged("searchnombreCliente");
             NotifyPropertyChanged("searchNroDocCliente");
             NotifyPropertyChanged("searchNroDocumento");

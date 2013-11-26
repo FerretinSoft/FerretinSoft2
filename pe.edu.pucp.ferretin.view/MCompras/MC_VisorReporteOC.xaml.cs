@@ -11,6 +11,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using pe.edu.pucp.ferretin.model;
 
 namespace pe.edu.pucp.ferretin.view.MCompras
 {
@@ -21,22 +22,20 @@ namespace pe.edu.pucp.ferretin.view.MCompras
     {
         ReporteOrdenCompra rep;
 
-        public MC_VisorReporteOC(String ruc,DateTime f_ini, DateTime f_fin)
+        public MC_VisorReporteOC(DateTime f_ini, DateTime f_fin, int selectedItem)
         {
             InitializeComponent();
             rep = new ReporteOrdenCompra();
 
             rep.SetParameterValue("f_ini", f_ini);
             rep.SetParameterValue("f_fin", f_fin);
-            rep.SetParameterValue("ruc", ruc);
-
+            rep.SetParameterValue("idTienda", selectedItem);
             rep.SetDatabaseLogon("inf245g2usr", "server", "inti.lab.inf.pucp.edu.pe", "inf245g2");
             rep.Refresh();
 
             rep.SetParameterValue("f_ini", f_ini);
             rep.SetParameterValue("f_fin", f_fin);
-            rep.SetParameterValue("ruc", ruc);
-
+            rep.SetParameterValue("idTienda", selectedItem);
             VisorReporteOC.ViewerCore.ReportSource = rep;
         }
 
@@ -45,9 +44,9 @@ namespace pe.edu.pucp.ferretin.view.MCompras
             rep.SetDatabaseLogon("inf245g2usr", "server", "inti.lab.inf.pucp.edu.pe", "inf245g2");
         }
 
-        private void VisorReporteOC_Loaded(object sender, RoutedEventArgs e)
-        {
+        //private void VisorReporteOC_Loaded(object sender, RoutedEventArgs e)
+        //{
 
-        }
+        //}
     }
 }

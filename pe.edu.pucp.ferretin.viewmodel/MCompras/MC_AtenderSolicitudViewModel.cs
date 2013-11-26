@@ -19,7 +19,7 @@ namespace pe.edu.pucp.ferretin.viewmodel.MCompras
    
         double igv = MS_ComunService.obtenerIGV();
         Usuario usr = MS_ComunService.usuarioL;
-        int cont = MC_DocumentoCompraService.devuelvecantidadDC(2) +1;
+        int cont = MC_DocumentoCompraService.devuelvecantidadDC(2);
      
 
 
@@ -37,16 +37,16 @@ namespace pe.edu.pucp.ferretin.viewmodel.MCompras
                 Dictionary<ProductoAlmacen,decimal> diccionario = MA_SharedService.obtenerProductosPorAbastecer(tienda);
 
                 //Productos atentidos pendientes
-                var _listaProductosPendientes = from sc in MC_ComunService.db.SolicitudCompra where sc.estado == 1 select sc;
+                var _listaProductosPendientes = from sc in MC_ComunService.db.SolicitudCompra where sc.estado == 1 && sc.almacen_id == tienda.id select sc;
 
                 //Productos vistos pero no atendidos
-                _listaProductosSol = from sc in MC_ComunService.db.SolicitudCompra where sc.estado == 0 select sc;
+                _listaProductosSol = from sc in MC_ComunService.db.SolicitudCompra where sc.estado == 0 && sc.almacen_id == tienda.id select sc;
 
                 bool huboCambio = false;
                 foreach (var entry in diccionario)
                 {
-                    if (!_listaProductosSol.Any(p => (p.Producto.id == entry.Key.Producto.id) ) && 
-                        !_listaProductosPendientes.Any(p => (p.Producto.id == entry.Key.Producto.id) ) )
+                    if (!_listaProductosSol.Any(p => (p.Producto.id == entry.Key.Producto.id)) &&
+                        !_listaProductosPendientes.Any(p => (p.Producto.id == entry.Key.Producto.id)) )
                     {
                         var nuevo = new SolicitudCompra()
                         {
@@ -68,7 +68,7 @@ namespace pe.edu.pucp.ferretin.viewmodel.MCompras
                     _listaProductosSol.ElementAt(i).posiProveedor = MC_ProveedorService.obtenerPosiblesProveedores(_listaProductosSol.ElementAt(i).Producto);
                 }
                 
-                return _listaProductosSol;
+                return _listaProductosSol.ToList();
             }
             set
             {
@@ -172,7 +172,9 @@ namespace pe.edu.pucp.ferretin.viewmodel.MCompras
                             SolicitudCompra = seleccionado,
                             tipo = 2,
                             subTotal = 0
+                           
                         };
+                        cont++;
                     }
                     var dcp = new DocumentoCompraProducto()
                         {
@@ -188,7 +190,7 @@ namespace pe.edu.pucp.ferretin.viewmodel.MCompras
                     dc.total += Decimal.Round(dcp.montoParcial.Value,2);
                     dc.subTotal = Decimal.Round((dc.total / (1 + (decimal)igv / 100)).Value,2);
                     dc.igv = Decimal.Round((dc.total - dc.subTotal).Value, 2);
-                    cont++;
+                    
                     
                     dc.DocumentoCompraProducto.Add(dcp);
                     if (!documentosCompra.Contains(dc))
@@ -202,6 +204,10 @@ namespace pe.edu.pucp.ferretin.viewmodel.MCompras
                     MC_ComunService.db.DocumentoCompra.InsertAllOnSubmit(documentosCompra);
                     MC_ComunService.db.SubmitChanges();
                     MessageBox.Show("La orden se agrego correctamente");
+                    var ventana = Application.Current.Windows.OfType<Window>().Where(w => w.Name == "solAbs").SingleOrDefault<Window>();
+
+                    ventana.Close();
+                    
                 }
             }
             else
@@ -209,6 +215,16 @@ namespace pe.edu.pucp.ferretin.viewmodel.MCompras
                 MessageBox.Show("Seleccione algún elemento");
             }
        
+        }
+
+        public static void actualizaestado(Tienda tienda, Producto producto)
+        {
+            var lsol =( from l in MC_ComunService.db.SolicitudCompra
+                       where l.Tienda == tienda && l.Producto == producto && l.estado==1
+                       select l).First();
+            lsol.estado = 2;
+            BaseService.enviarCambios();
+
         }
 
 

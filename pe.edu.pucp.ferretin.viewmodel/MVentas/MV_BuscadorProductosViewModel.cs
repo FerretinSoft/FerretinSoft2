@@ -1,4 +1,5 @@
-﻿using pe.edu.pucp.ferretin.model;
+﻿using pe.edu.pucp.ferretin.controller;
+using pe.edu.pucp.ferretin.model;
 using pe.edu.pucp.ferretin.viewmodel.Helper;
 using System;
 using System.Collections.Generic;
@@ -40,8 +41,8 @@ namespace pe.edu.pucp.ferretin.viewmodel.MVentas
                 {
                     if (tienda != null)
                     {
-                        var productos = tienda.ProductoAlmacen.ToList();
-                        _listaProductos = productos.Where(pa => pa.estado != null && pa.estado == 1);
+                        var productos = ComunService.db.ProductoAlmacen.Where(pa => pa.Tienda.id.Equals(tienda.id) && pa.estado.HasValue && pa.estado == 1 && pa.Producto != null && pa.Producto.estado == 1).OrderBy(pa=>pa.id);
+                        _listaProductos = productos;
                     }
                 }
                 if (_listaProductos != null)

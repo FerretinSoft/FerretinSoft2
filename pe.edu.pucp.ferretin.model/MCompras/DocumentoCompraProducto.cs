@@ -19,7 +19,7 @@ namespace pe.edu.pucp.ferretin.model
 
             if (Producto != null)
             {
-                montoParcial = cantidad * precioUnit;
+                montoParcial =  cantidad * precioUnit;
             }
         }
 

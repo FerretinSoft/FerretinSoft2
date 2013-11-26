@@ -1,4 +1,5 @@
-﻿using System;
+﻿using pe.edu.pucp.ferretin.controller;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -34,28 +35,61 @@ namespace pe.edu.pucp.ferretin.view
 
         private void RepAlmBtn_Click(object sender, RoutedEventArgs e)
         {
-            MAlmacen.MA_ReportesWindow RAW = new MAlmacen.MA_ReportesWindow();
-            RAW.Show();
+            if (ComunService.usuarioLpermisos[26].estado == true)
+            {
+                MAlmacen.MA_ReportesWindow RAW = new MAlmacen.MA_ReportesWindow();
+                RAW.ShowDialog();
+            }
+            else
+            {
+                MessageBox.Show("Usted no cuenta con el permiso necesario.");
+            }
+
+            
         }
 
         private void RepVenBtn_Click(object sender, RoutedEventArgs e)
         {
-            MVentas.MV_ReportesVentasWindow RVW = new MVentas.MV_ReportesVentasWindow();
-            RVW.Show();
+
+            if (ComunService.usuarioLpermisos[13].estado == true)
+            {
+                MVentas.MV_ReportesVentasWindow RVW = new MVentas.MV_ReportesVentasWindow();
+                RVW.ShowDialog();
+            }
+            else
+            {
+                MessageBox.Show("Usted no cuenta con el permiso necesario.");
+            }
+
         }
 
         private void RepComBtn_Click(object sender, RoutedEventArgs e)
         {
-            MCompras.MC_ReportesWindow RCW = new MCompras.MC_ReportesWindow();
-            RCW.Show();
+            if (ComunService.usuarioLpermisos[19].estado == true)
+            {
+                MCompras.MC_ReportesWindow RCW = new MCompras.MC_ReportesWindow();
+                RCW.ShowDialog();
+            }
+            else
+            {
+                MessageBox.Show("Usted no cuenta con el permiso necesario.");
+            }
+
         }
 
         private void RepSegBtn_Click(object sender, RoutedEventArgs e)
         {
-            MSeguridad.MS_ReportesWindow RSW = new MSeguridad.MS_ReportesWindow();
-            RSW.Show();
-        }
 
+            if (ComunService.usuarioLpermisos[32].estado == true)
+            {
+                MSeguridad.MS_ReportesWindow RSW = new MSeguridad.MS_ReportesWindow();
+                RSW.ShowDialog();
+            }
+            else
+            {
+                MessageBox.Show("Usted no cuenta con el permiso necesario.");
+            }
+        }
 
     }
 }

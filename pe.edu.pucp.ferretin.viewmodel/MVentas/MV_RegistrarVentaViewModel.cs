@@ -158,47 +158,60 @@ namespace pe.edu.pucp.ferretin.viewmodel.MVentas
             NotifyPropertyChanged("widthClienteBar");
         }
 
-        public void agregarProducto(Object id)
+        public void agregarProducto(Object param)
         {
-            if (codProdAgregar != null && codProdAgregar.Length > 0)
+            if (!String.IsNullOrEmpty(codProdAgregar) || param!=null)
             {
+                ProductoAlmacen productoAlmacen = null;
                 Producto producto = null;
                 try{
-                    producto = MA_SharedService.obtenerProductoxCodigo(codProdAgregar);
-                    
+                    if (param is ProductoAlmacen)
+                    {
+                        productoAlmacen = param as ProductoAlmacen;
+                        producto = productoAlmacen.Producto;
+                    }
+                    else
+                    {
+                        producto = MA_SharedService.obtenerProductoxCodigo(codProdAgregar);
+                        productoAlmacen = producto.ProductoAlmacen.First(pa => pa.id_almacen.Equals(venta.Tienda.id));
+                    }
                 }catch{}
-
-                if (producto != null)
+                
+                //Validar si lo encuentra y si tiene como estado activo, el producto y el producto de un almacen
+                if (productoAlmacen != null && producto !=null && productoAlmacen.estado>0 && producto.estado>0)
                 {
+
                     var stockDisponible = 0;
 
                     try
                     {
-                        stockDisponible = (int)producto.ProductoAlmacen.First(pa => pa.Tienda.Equals(venta.Tienda)).stock;
+                        stockDisponible = (int)productoAlmacen.stock;
                     }
                     catch { }
 
                     if (stockDisponible <= 0)
                     {
-                        MessageBox.Show("No se cuenta con Stock de este producto", "Mensaje", MessageBoxButton.OK, MessageBoxImage.Exclamation);
+                        MessageBox.Show("No se cuenta con Stock de este producto:\n" + producto.nombre.ToUpper(), "Mensaje", MessageBoxButton.OK, MessageBoxImage.Exclamation);
                         return;
                     }
-                    
-
-                    if (venta.VentaProducto.Count(vp => vp.Producto.id == producto.id) == 1)
+                    if (!producto.precioLista.HasValue || producto.precioLista <= 0)
                     {
+                        MessageBox.Show("El producto no tiene un precio asignado:\n" + producto.nombre.ToUpper(), "Mensaje", MessageBoxButton.OK, MessageBoxImage.Exclamation);
+                        return;
+                    }
 
-                        var prod = venta.VentaProducto.Single(vp => vp.Producto.id == producto.id);
-
+                    if (venta.VentaProducto.Count(vp => vp.id_producto.Equals(producto.id)) == 1)
+                    {
+                        var prod = venta.VentaProducto.Single( vp => vp.id_producto.Equals(producto.id) );
                         if (prod.vieneDeProforma.Value)
                         {
-                            MessageBox.Show("El producto seleccionado, viene de una proforma, no se puede modificar las cantidades", "Mensaje", MessageBoxButton.OK, MessageBoxImage.Exclamation);
+                            MessageBox.Show("El producto seleccionado, viene de una proforma, no se puede modificar las cantidades:\n" + producto.nombre.ToUpper(), "Mensaje", MessageBoxButton.OK, MessageBoxImage.Exclamation);
                         }
                         else
                         {
                             if (prod.cantidad + 1 > prod.stockDisponible)
                             {
-                                MessageBox.Show("No se tiene más stock de este producto", "Mensaje", MessageBoxButton.OK, MessageBoxImage.Exclamation);
+                                MessageBox.Show("No se tiene más stock de este producto:\n" + producto.nombre.ToUpper(), "Mensaje", MessageBoxButton.OK, MessageBoxImage.Exclamation);
                             }
                             else
                             {
@@ -208,12 +221,10 @@ namespace pe.edu.pucp.ferretin.viewmodel.MVentas
                     }
                     else
                     {
-
                         if (stockDisponible > 0)
                         {
-
                             VentaProducto ventaProducto = new VentaProducto();
-                            ventaProducto.PromocionActual = MV_PromocionService.ultimaPromocionPorProducto(producto, venta.Usuario.Empleado.tiendaActual);
+                            ventaProducto.PromocionActual = MV_PromocionService.ultimaPromocionPorProducto(productoAlmacen);
                             ventaProducto.canjeado = false;
                             ventaProducto.tipoCambio = venta.tipoCambio.Value;
                             ventaProducto.puntosCanejado = 0;
@@ -235,7 +246,7 @@ namespace pe.edu.pucp.ferretin.viewmodel.MVentas
                         }
                         else
                         {
-                            MessageBox.Show("No hay stock de este producto:\n"+producto.nombre.ToUpper(), "Mensaje", MessageBoxButton.OK, MessageBoxImage.Exclamation);
+                            MessageBox.Show("No hay stock de este producto:\n" + producto.nombre.ToUpper(), "Mensaje", MessageBoxButton.OK, MessageBoxImage.Exclamation);
                         }
 
                     }
@@ -243,7 +254,10 @@ namespace pe.edu.pucp.ferretin.viewmodel.MVentas
                 }
                 else
                 {
-                    MessageBox.Show("Este producto no existe o no esta disponible para su venta", "Mensaje", MessageBoxButton.OK, MessageBoxImage.Exclamation);
+                    if(productoAlmacen == null || producto ==null)
+                        MessageBox.Show("Este producto no existe.", "Mensaje", MessageBoxButton.OK, MessageBoxImage.Exclamation);
+                    else
+                        MessageBox.Show("Este producto no esta disponible para su venta.", "Mensaje", MessageBoxButton.OK, MessageBoxImage.Exclamation);
                 }
             }
         }

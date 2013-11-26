@@ -30,7 +30,7 @@ namespace pe.edu.pucp.ferretin.controller.MAlmacen
                 //Usando concurrencia pesimista:
                 ///La lista de productos se actualizara para ver los cambios
                 ///Si quisiera usar concurrencia optimista quito la siguiente linea
-                db.Refresh(RefreshMode.OverwriteCurrentValues, _listaProducto);
+                //db.Refresh(RefreshMode.OverwriteCurrentValues, _listaProducto);
                 return _listaProducto;
             }
             set

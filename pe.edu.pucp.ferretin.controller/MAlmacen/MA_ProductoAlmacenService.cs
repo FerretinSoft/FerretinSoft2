@@ -9,6 +9,23 @@ namespace pe.edu.pucp.ferretin.controller.MAlmacen
 {
     public class MA_ProductoAlmacenService : MA_ComunService
     {
+        private static IEnumerable<ProductoAlmacen> _listaProductoAlmacen;
+        public static IEnumerable<ProductoAlmacen> listaProductoAlmacen
+        {
+            get
+            {
+                if (_listaProductoAlmacen == null)
+                {
+                    _listaProductoAlmacen = from pa in db.ProductoAlmacen select pa;
+                }
+                return _listaProductoAlmacen;
+            }
+            set
+            {
+                _listaProductoAlmacen = value;
+            }
+        }
+
         public static bool updateStock(Tienda tienda, Producto producto, decimal cantidad, bool plus)
         {
             ProductoAlmacen pa = ObtenerProductoAlmacenPorTiendaProducto(tienda, producto);
@@ -44,7 +61,7 @@ namespace pe.edu.pucp.ferretin.controller.MAlmacen
 
         public static ProductoAlmacen ObtenerProductoAlmacenPorTiendaProducto(Tienda t, Producto p)
         {
-            var pa = (from m in db.ProductoAlmacen
+            var pa = (from m in listaProductoAlmacen
                                      where t != null && m.Tienda.Equals(t) && p != null && m.Producto.Equals(p)
                                      select m);
 

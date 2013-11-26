@@ -52,7 +52,7 @@ namespace pe.edu.pucp.ferretin.view.MVentas
             v.Owner = this;
             var viewModel = v.DataContext as MV_ClientesViewModel;
             viewModel.soloSeleccionarCliente = true;
-            v.Show();     
+            v.ShowDialog();     
         }
 
         private void Button_LoadEmpresa(object sender, RoutedEventArgs e)
@@ -62,7 +62,7 @@ namespace pe.edu.pucp.ferretin.view.MVentas
             var viewModel = v.DataContext as MV_ClientesViewModel;
             viewModel.soloSeleccionarCliente = true;
            
-            v.Show();     
+            v.ShowDialog();     
         }
         
 
@@ -75,7 +75,7 @@ namespace pe.edu.pucp.ferretin.view.MVentas
             viewModel.soloSeleccionarVenta = true;
             viewModel.soloEscogerVenta =  System.Windows.Visibility.Visible; 
 
-            v.Show();     
+            v.ShowDialog();     
         }
 
 
@@ -86,7 +86,7 @@ namespace pe.edu.pucp.ferretin.view.MVentas
             v.Owner = this;
             var viewModel = v.main.DataContext as MR_AdministrarPersonalViewModel;
             viewModel.soloSeleccionarVendedor = true;
-            v.Show();     
+            v.ShowDialog();     
         }
 
 
@@ -98,7 +98,7 @@ namespace pe.edu.pucp.ferretin.view.MVentas
             viewModel.soloSeleccionarVenta = false;
             viewModel.soloEscogerVenta =  System.Windows.Visibility.Visible; 
 
-            v.Show();     
+            v.ShowDialog();     
         }
 
 
@@ -114,7 +114,7 @@ namespace pe.edu.pucp.ferretin.view.MVentas
             MV_DocNotaCreditoViewModel padre = p.main.DataContext as MV_DocNotaCreditoViewModel;
             padre.notaCredito = actual.notaCredito;
             actual.selectedTab = 0;
-            p.Show();
+            p.ShowDialog();
         }
 
 

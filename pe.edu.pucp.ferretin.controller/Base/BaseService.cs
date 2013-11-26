@@ -77,8 +77,7 @@ namespace pe.edu.pucp.ferretin.controller
         {
             try
             {
-                db.SubmitChanges(ConflictMode.ContinueOnConflict);
-                /***********************************************/
+               
                 try
                 {
                     Transaccion transaccion = new Transaccion();
@@ -91,6 +90,9 @@ namespace pe.edu.pucp.ferretin.controller
                     transaccion.id_tipo_transaccion = (short)ComunService.idVent;
                     Console.WriteLine("VALOR DE IDVENT : " + ComunService.idVent + " - " + transaccion.id_tipo_transaccion);
                     db.Transaccion.InsertOnSubmit(transaccion);
+                    /***********************************************/
+                    db.SubmitChanges(ConflictMode.ContinueOnConflict);
+                    /***********************************************/
                     return true;
                 }
                 catch (ChangeConflictException ex)

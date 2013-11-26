@@ -45,6 +45,7 @@
                             <DataGridTextColumn Width="2*" Binding="{Binding Path=monedaString}" ClipboardContentBinding="{x:Null}" Header="Moneda"/>
                             <DataGridTextColumn Width="2*" Binding="{Binding Path=precioLista}" ClipboardContentBinding="{x:Null}" Header="Precio Lista"/>
                             <DataGridTextColumn Width="2*" Binding="{Binding Path=precioPuntos}" ClipboardContentBinding="{x:Null}" Header="Precio Puntos"/>
+                            <DataGridTextColumn Width="2*" Binding="{Binding Path=ganarPuntos}" ClipboardContentBinding="{x:Null}" Header="Ganar Puntos"/>
 
                         </DataGrid.Columns>
                     </DataGrid>
@@ -65,8 +66,10 @@
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="Auto"></ColumnDefinition>
                                 <ColumnDefinition Width="100"></ColumnDefinition>
-                                <ColumnDefinition Width="100*"></ColumnDefinition>
-                                <ColumnDefinition Width="373*"></ColumnDefinition>
+                                <ColumnDefinition Width="97*"></ColumnDefinition>
+                                <ColumnDefinition Width="197*"></ColumnDefinition>
+                                <ColumnDefinition Width="89*"/>
+                                <ColumnDefinition Width="75*"/>
 
                             </Grid.ColumnDefinitions>
                             <Grid.RowDefinitions>
@@ -76,11 +79,11 @@
                             </Grid.RowDefinitions>
                             <Label Content="Cód. Producto:" Grid.Column="0" VerticalContentAlignment="Center"/>
                             <Label Content="Nombre Producto:" Grid.Column="0" Grid.Row="1" VerticalContentAlignment="Center"/>
-                            <TextBox Text="{Binding Path=productoPrecio.Producto.nombre}" VerticalAlignment="Center" Grid.Column="1" Grid.Row="1" Grid.ColumnSpan="1" BorderThickness="0" IsEnabled="False"/>
-                            <TextBox Text="{Binding Path=productoPrecio.Producto.codigo}" IsEnabled="False" VerticalAlignment="Center" Grid.Column="1" Margin="0,2" HorizontalAlignment="Left" Width="100"/>
+                            <TextBox Text="{Binding Path=productoPrecio.Producto.nombre}" VerticalAlignment="Center" Grid.Column="1" Grid.Row="1" Grid.ColumnSpan="1" BorderThickness="0" IsEnabled="False" Margin="0,5,0,4"/>
+                            <TextBox Text="{Binding Path=productoPrecio.Producto.codigo}" IsEnabled="False" VerticalAlignment="Center" Grid.Column="1" Margin="0,3" HorizontalAlignment="Left" Width="100"/>
                             <Label Content="Fecha Registro:" Grid.Column="0" Grid.Row="2" VerticalContentAlignment="Center"/>
-                            <DatePicker SelectedDate="{Binding Path=productoPrecio.fechaRegistro, Mode=TwoWay}" IsEnabled="False" VerticalAlignment="Center" Grid.Column="1" Grid.Row="2" />
-                            <Grid Grid.Column="3" Margin="5,2,-5,25" Grid.RowSpan="2">
+                            <DatePicker SelectedDate="{Binding Path=productoPrecio.fechaRegistro, Mode=TwoWay}" IsEnabled="False" VerticalAlignment="Center" Grid.Column="1" Grid.Row="2" Margin="0,3" />
+                            <Grid Grid.Column="3" Margin="5,2,-5,25" Grid.RowSpan="2" Grid.ColumnSpan="3">
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="103"></ColumnDefinition>
                                     <ColumnDefinition Width="Auto"></ColumnDefinition>
@@ -88,14 +91,15 @@
                                 </Grid.ColumnDefinitions>
                             </Grid>
                             <Label Grid.Row="1" Grid.Column="2">Precio Puntos:</Label>
-
-                            <StackPanel Orientation="Horizontal" Grid.Column="3" Grid.Row="1">
+                            <Label Grid.Row="1" Grid.Column="4" Grid.ColumnSpan="2">Ganar Puntos:</Label>
+                            <TextBox MaxLength="10" x:Name="ganarPtos" Grid.Column="5" Grid.Row="1" PreviewKeyDown="validarPrecioPuntos_KeyDown" PreviewTextInput="validarPrecioPuntos" Text="{Binding Path=productoPrecio.ganarPuntos, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Center"  Width="75" HorizontalAlignment="Left" Margin="0,3"/>
+                            <StackPanel Orientation="Horizontal" Grid.Column="3" Grid.Row="1" Grid.ColumnSpan="3">
                                 <TextBox MaxLength="10" x:Name="precioPtos" PreviewKeyDown="validarPrecioPuntos_KeyDown" PreviewTextInput="validarPrecioPuntos" Text="{Binding Path=productoPrecio.precioPuntos, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Center"  Width="100" HorizontalAlignment="Left"/>
                             </StackPanel>
                             <Label Grid.Row="2" Grid.Column="2">Precio Lista:</Label>
                             <Label Grid.Row="2" Grid.Column="2" Content="*" HorizontalAlignment="Right"  VerticalAlignment="Top" Foreground="Red" FontSize="14" Width="15" Height="22"/>
 
-                            <StackPanel Orientation="Horizontal" Grid.Column="3" Grid.Row="2">
+                            <StackPanel Orientation="Horizontal" Grid.Column="3" Grid.Row="2" Grid.ColumnSpan="3">
                                 <TextBox MaxLength="7" x:Name="PrecioListaText" PreviewTextInput="validarPrecioLista" PreviewKeyDown="validarPrecioLista_KeyDown" Text="{Binding Path=productoPrecio.precioString, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True, ValidatesOnNotifyDataErrors=True}" VerticalAlignment="Center"  Width="100" HorizontalAlignment="Left"/>
                                 <ComboBox SelectedIndex="{Binding Path=productoPrecio.moneda, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Center" Height="22" Width="90" Margin="5,4,0,4">
                                     <ComboBoxItem Content="Soles (S/.)"></ComboBoxItem>
@@ -115,6 +119,7 @@
                             <DataGridTextColumn Width="1*" Binding="{Binding Path=monedaString}" Header="Moneda"/>
                             <DataGridTextColumn Width="1*" Binding="{Binding Path=precio}" ClipboardContentBinding="{x:Null}" Header="Precio Lista"/>
                             <DataGridTextColumn Width="1*" Binding="{Binding Path=precioPuntos}" Header="Precio Puntos"/>
+                            <DataGridTextColumn Width="1*" Binding="{Binding Path=ganarPuntos}" Header="Ganar Puntos"/>
                             <DataGridTextColumn Width="1*" Binding="{Binding Path=estadoString}" ClipboardContentBinding="{x:Null}" Header="Estado"/>
                         </DataGrid.Columns>
                     </DataGrid>

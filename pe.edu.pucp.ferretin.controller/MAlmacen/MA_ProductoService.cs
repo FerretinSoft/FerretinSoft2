@@ -11,18 +11,31 @@ namespace pe.edu.pucp.ferretin.controller.MAlmacen
     public class MA_ProductoService : MA_ComunService
     {
         
-        private static IEnumerable<Producto> listaProductos = null;
+        private static IEnumerable<Producto> _listaProductos;
+        public static IEnumerable<Producto> listaProductos
+        {
+            get
+            {
+                if (_listaProductos == null)
+                {
+                    _listaProductos = from p in db.Producto select p;
+                }
+                return _listaProductos;
+            }
+            set
+            {
+                _listaProductos = value;
+            }
+        }
 
         public static IEnumerable<Producto> obtenerTodosProductos()
         {
-            IEnumerable<Producto> listaProd=from p in db.Producto
-                                            select p;
-            return listaProd;
+            return listaProductos;
         }
 
         public static String obtenerUltimoCodigo()
         {
-            IEnumerable<Producto> listaProd = from p in db.Producto
+            IEnumerable<Producto> listaProd = from p in listaProductos
                                               orderby p.codigo descending
                                               select p;
 
@@ -55,7 +68,7 @@ namespace pe.edu.pucp.ferretin.controller.MAlmacen
 
         public static IEnumerable<ProductoAlmacen> obtenerStockProductoAlmacen(int idProd)
         {
-            IEnumerable<ProductoAlmacen> pa = from dpa in db.ProductoAlmacen
+            IEnumerable<ProductoAlmacen> pa = from dpa in MA_ProductoAlmacenService.listaProductoAlmacen
                                               where (dpa.id_producto == idProd)
                                               select dpa;
 
@@ -64,7 +77,7 @@ namespace pe.edu.pucp.ferretin.controller.MAlmacen
 
         public static IEnumerable<ProductoAlmacen> obtenerProductosPorTienda(int idTienda)
         {
-            IEnumerable<ProductoAlmacen> listaProd = from pa in db.ProductoAlmacen
+            IEnumerable<ProductoAlmacen> listaProd = from pa in MA_ProductoAlmacenService.listaProductoAlmacen
                                                   where (pa.id_almacen == idTienda) &&
                                                   (pa.estado==1)
                                                   select pa;
@@ -89,7 +102,6 @@ namespace pe.edu.pucp.ferretin.controller.MAlmacen
                            select p.id).SingleOrDefault();
 
             return (Int16)idProd;
-
         }
 
         public static IEnumerable<Color> obtenerColoresPorProducto(int idProd)
@@ -117,9 +129,11 @@ namespace pe.edu.pucp.ferretin.controller.MAlmacen
             int intActivo = chkActivo == true ? 1 : 0;
             int intInactivo = chkInactivo == true ? 0 : 1;
 
+            IEnumerable<Producto> result;
+
             if (searchCod != "") //se da prioridad a búsqueda por codigo
             {
-                listaProductos = from p in db.Producto
+                result = from p in listaProductos
                                  where p.codigo==searchCod
                                  select p;
 
@@ -139,23 +153,23 @@ namespace pe.edu.pucp.ferretin.controller.MAlmacen
                 if ((idCategoria.nombre == "Todos" && search == ""))
                 {
                     //if ((idCategoria ==null && search =="")) {
-                    listaProductos = from p in db.Producto
+                    result = from p in listaProductos
                                      orderby p.id
                                      select p;
 
                 }
                 else if (idCategoria.id == 0)
                 {
-                    listaProductos =
-                        from p in db.Producto
+                    result =
+                        from p in listaProductos
                         where
                         p.nombre.Contains(search)
                         select p;
                 }
                 else
                 {
-                    listaProductos =
-                        from p in db.Producto
+                    result =
+                        from p in listaProductos
                         from pc in db.ProductoCategoria
                         where
                         p.nombre.Contains(search) &&
@@ -180,12 +194,12 @@ namespace pe.edu.pucp.ferretin.controller.MAlmacen
             //}
 
             //return pList;
-            return listaProductos;
+            return result;
         }
 
         public static ProductoAlmacen obtenerProdxTienda(int idProd,int idTienda)
         {
-            ProductoAlmacen t = (from pt in db.ProductoAlmacen
+            ProductoAlmacen t = (from pt in MA_ProductoAlmacenService.listaProductoAlmacen
                         where pt.id_almacen == idTienda &&
                         pt.id_producto == idProd
                         select pt).SingleOrDefault();

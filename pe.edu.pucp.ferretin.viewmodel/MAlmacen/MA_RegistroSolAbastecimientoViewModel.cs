@@ -357,6 +357,14 @@ namespace pe.edu.pucp.ferretin.viewmodel.MAlmacen
                 if (solicitud.SolicitudAbastecimientoProducto.Count <= 0) MessageBox.Show("Debe insertar al menos un producto en su solicitud");
                 else
                 {
+                    foreach (var item in solicitud.SolicitudAbastecimientoProducto)
+                    {
+                        if (item.cantidad <= 0) 
+                        {
+                            MessageBox.Show("La cantidad especificada para el producto " + item.Producto.nombre + " debe ser mayor que 0.");
+                            return;
+                        }
+                    }
                     SolicitudAbastecimientoEstado estadoInicial = estadoSolicitud.FirstOrDefault(s => s.nombre == "Pendiente");
                     if (estadoInicial != null) solicitud.SolicitudAbastecimientoEstado = estadoInicial;
                     for (int i = 0; i < solicitud.SolicitudAbastecimientoProducto.Count; i++)

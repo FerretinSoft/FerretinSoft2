@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Windows;
+using pe.edu.pucp.ferretin.model;
 
 namespace pe.edu.pucp.ferretin.view.MCompras
 {
@@ -20,17 +21,17 @@ namespace pe.edu.pucp.ferretin.view.MCompras
         public MC_ReportesWindow()
         {
             InitializeComponent();
-            dpFechaDesde.SelectedDate = null;
-            dpFechaHasta.SelectedDate = null;
+            fechaDesdePicker.SelectedDate = null;
+            fechaHastaPicker.SelectedDate = null;
         }
 
         private void btnGenerarReporte_Click(object sender, RoutedEventArgs e)
         {
             if (estado == 2)
             {
-                MC_VisorReporteOC vroc = new MC_VisorReporteOC(txtRuc.Text, (DateTime)dpFechaDesde.SelectedDate,
-                                                                (DateTime)dpFechaHasta.SelectedDate);
-                vroc.Show();
+                MC_VisorReporteOC vroc = new MC_VisorReporteOC((DateTime)fechaDesdePicker.SelectedDate,
+                                                                (DateTime)fechaHastaPicker.SelectedDate, 2);
+                vroc.ShowDialog();
             }
         }
 
@@ -51,7 +52,7 @@ namespace pe.edu.pucp.ferretin.view.MCompras
                         MessageBox.Show("Debe seleccionar algún reporte");
                     break;
                 case 1:
-                    if (dpFechaDesde.SelectedDate == null || dpFechaHasta.SelectedDate == null || txtRuc.Text=="")
+                    if (fechaDesdePicker.SelectedDate == null || fechaHastaPicker.SelectedDate == null)
                         MessageBox.Show("Verifique sus datos de entrada");
                     else
                     {
@@ -118,20 +119,6 @@ namespace pe.edu.pucp.ferretin.view.MCompras
                     repSigBtn.IsEnabled = true;
                     break;
             }
-        }
-
-        private void txtRuc_PreviewTextInput(object sender, System.Windows.Input.TextCompositionEventArgs e)
-        {
-            int ascci = Convert.ToInt32(Convert.ToChar(e.Text));
-            if (ascci >= 48 && ascci <= 57) e.Handled = false;
-            else e.Handled = true;
-        }
-
-        private void txtRuc_PreviewTextInput_1(object sender, System.Windows.Input.TextCompositionEventArgs e)
-        {
-            int ascci = Convert.ToInt32(Convert.ToChar(e.Text));
-            if (ascci >= 48 && ascci <= 57) e.Handled = false;
-            else e.Handled = true;
         }
     }
 }

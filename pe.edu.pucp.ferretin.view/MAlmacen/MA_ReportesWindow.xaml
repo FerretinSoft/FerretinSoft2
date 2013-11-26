@@ -42,9 +42,9 @@
             <Label Content="Tienda:" HorizontalAlignment="Left" Margin="10,75,0,0" VerticalAlignment="Top"/>
             <ComboBox Name="cmbTienda" SelectedItem="{Binding selectedTienda}" ItemsSource="{Binding listaTiendas}" DisplayMemberPath="nombre" SelectedValuePath="id" HorizontalAlignment="Left" Margin="96,79,0,0" VerticalAlignment="Top" Width="140"/>
             <Label Content="Alias:" HorizontalAlignment="Left" Margin="10,181,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.441,2.999"/>
-            <TextBox x:Name="aliasText" HorizontalAlignment="Left" Height="23" Margin="96,185,0,0" TextWrapping="Wrap" Text="Reporte diario de movimientos" VerticalAlignment="Top" Width="375"/>
+            <TextBox x:Name="aliasText" IsEnabled="False" HorizontalAlignment="Left" Height="23" Margin="96,185,0,0" TextWrapping="Wrap" Text="Reporte diario de movimientos" VerticalAlignment="Top" Width="375"/>
             <Label Content="Comentario:" HorizontalAlignment="Left" Margin="10,212,0,0" VerticalAlignment="Top"/>
-            <TextBox x:Name="comentarioText" HorizontalAlignment="Left" Height="49" Margin="96,216,0,0" TextWrapping="Wrap" Text="Muestra TODOS los movimientos del día" VerticalAlignment="Top" Width="375"/>
+            <TextBox x:Name="comentarioText" IsEnabled="False" HorizontalAlignment="Left" Height="49" Margin="96,216,0,0" TextWrapping="Wrap" Text="Muestra TODOS los movimientos del día" VerticalAlignment="Top" Width="375"/>
         </Grid>
         <Grid x:Name="repFinalGrid" Margin="0" Visibility="Collapsed">
             <Grid Height="48" Margin="20,0" VerticalAlignment="Center">
@@ -60,17 +60,7 @@
                         <ImageBrush ImageSource="../Resources/view_48.png" Stretch="Uniform"/>
                     </Button.Background>
                 </Button>
-                <Button Grid.Column="1" Content="" HorizontalAlignment="Center" Margin="0" VerticalAlignment="Top" Width="48" Height="48" ToolTip="Guardar Reporte">
-                    <Button.Background>
-                        <ImageBrush ImageSource="../Resources/save1_48.png" Stretch="Uniform"/>
-                    </Button.Background>
-                </Button>
-                <Button Grid.Column="2" Content="" HorizontalAlignment="Center" Margin="0" VerticalAlignment="Top" Width="48" Height="48" ToolTip="Imprimir Reporte">
-                    <Button.Background>
-                        <ImageBrush ImageSource="../Resources/print_48.png" Stretch="Uniform"/>
-                    </Button.Background>
-                </Button>
-                <Button Grid.Column="3" Content="" HorizontalAlignment="Center" Margin="0" VerticalAlignment="Top" Width="48" Height="48" ToolTip="Enviar por email">
+                <Button Grid.Column="2" Content="" HorizontalAlignment="Center" Margin="24,0" VerticalAlignment="Top" Width="48" Height="48" ToolTip="Enviar por email">
                     <Button.Background>
                         <ImageBrush ImageSource="../Resources/mail1_48.png" Stretch="Uniform"/>
                     </Button.Background>

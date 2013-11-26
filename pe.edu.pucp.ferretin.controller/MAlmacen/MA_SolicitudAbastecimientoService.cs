@@ -49,7 +49,7 @@ namespace pe.edu.pucp.ferretin.controller.MAlmacen
                 //Usando concurrencia pesimista:
                 ///La lista de clientes se actualizara para ver los cambios
                 ///Si quisiera usar concurrencia optimista quito la siguiente linea
-                db.Refresh(RefreshMode.OverwriteCurrentValues, _listaSolicitudes);
+                //db.Refresh(RefreshMode.OverwriteCurrentValues, _listaSolicitudes);
                 return _listaSolicitudes;
             }
             set
@@ -109,7 +109,8 @@ namespace pe.edu.pucp.ferretin.controller.MAlmacen
         {
             List<ProductoPorSolicitudTienda> result = new List<ProductoPorSolicitudTienda>();
             if (solicitud == null) return result;
-            for (int i = 0; i < solicitud.SolicitudAbastecimientoProducto.Count; i++)
+            int count = solicitud.SolicitudAbastecimientoProducto.Count;
+            for (int i = 0; i < count; i++)
             {
                 ProductoAlmacen pa = MA_ProductoAlmacenService.ObtenerProductoAlmacenPorTiendaProducto(almacen, 
                                                                     solicitud.SolicitudAbastecimientoProducto[i].Producto);
@@ -123,7 +124,8 @@ namespace pe.edu.pucp.ferretin.controller.MAlmacen
         {
             EntitySet<SolicitudAbastecimientoProducto> result = new EntitySet<SolicitudAbastecimientoProducto>();
             decimal diferencia;
-            for (int i = 0; i < almacen.ProductoAlmacen.Count; i++)
+            int count = almacen.ProductoAlmacen.Count;
+            for (int i = 0; i < count; i++)
             {
                 ProductoAlmacen pa = almacen.ProductoAlmacen[i];
                 diferencia = ((pa.stock == null)?0:(decimal)pa.stock) - ((pa.stockMin == null)?0:(decimal)pa.stockMin);
@@ -139,29 +141,14 @@ namespace pe.edu.pucp.ferretin.controller.MAlmacen
             return result;
         }
 
-        /*public static bool atenderSolicitud(Tienda almacen, SolicitudAbastecimiento solicitud)
-        {
-            var productos = (from prodAlmacen in db.ProductoAlmacen
-                            where prodAlmacen.Tienda == almacen
-                            select prodAlmacen);
-            for (int i = 0; i < solicitud.SolicitudAbastecimientoProducto.Count; i++)
-            {
-                var stock = (from prod in productos
-                             where prod.Producto == solicitud.SolicitudAbastecimientoProducto[i].Producto
-                             select prod.stock).First();
-                if ((decimal)stock < solicitud.SolicitudAbastecimientoProducto[i].cantidad) return false;
-            }
-            return true;
-        }*/        
-
         public static bool insertarSolicitud(SolicitudAbastecimiento solicitud)
         {
-            if (!db.SolicitudAbastecimiento.Contains(solicitud))
+            if (!listaSolicitudes.Contains(solicitud))
             {
                 //asignar código a la solicitud
 
                 String baseCodigo = DateTime.Now.ToString("yyyyMMdd");
-                IOrderedQueryable<SolicitudAbastecimiento> anteriores = db.SolicitudAbastecimiento.Where(t => t.codigo.StartsWith(baseCodigo)).OrderByDescending(t => t.id);
+                IEnumerable<SolicitudAbastecimiento> anteriores = listaSolicitudes.Where(t => t.codigo.StartsWith(baseCodigo)).OrderByDescending(t => t.id);
                 String ultimoCodigo = anteriores.Count() <= 0 ? "" : anteriores.First().codigo;
                 String proxCodigo = (ultimoCodigo.Length > 0) ? (Int32.Parse(ultimoCodigo.Substring(ultimoCodigo.Length - 4)) + 1).ToString() : "";
                 if (proxCodigo.Length == 4)
@@ -187,7 +174,7 @@ namespace pe.edu.pucp.ferretin.controller.MAlmacen
 
         public static bool validarAtencionSolicitud(Tienda proveedor, List<AtencionSolicitudProducto> atencion)
         {
-            var productos = (from prodAlmacen in db.ProductoAlmacen
+            var productos = (from prodAlmacen in MA_ProductoAlmacenService.listaProductoAlmacen
                              where prodAlmacen.Tienda == proveedor
                              select prodAlmacen);
             for (int i = 0; i < atencion.Count; i++)

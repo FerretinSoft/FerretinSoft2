@@ -25,7 +25,7 @@ namespace pe.edu.pucp.ferretin.controller.MVentas
                 {
                     _listaNotasCredito = db.NotaCredito;
                 }
-                db.Refresh(RefreshMode.OverwriteCurrentValues, _listaNotasCredito);
+                //db.Refresh(RefreshMode.OverwriteCurrentValues, _listaNotasCredito);
                 return _listaNotasCredito;
             }
             set
@@ -59,6 +59,24 @@ namespace pe.edu.pucp.ferretin.controller.MVentas
 
             return notaCredito;
         }
+
+        public static NotaCredito obtenerNotaCreditoByIdVenta(long id)
+        {
+            try
+            {
+                NotaCredito notaCredito = (from c in listaNotasCredito
+                                           where c.Devolucion.Venta.id.Equals(id)
+                                           select c).Single();
+
+                return notaCredito;
+            }
+            catch
+            {
+            }
+            return null;
+
+        }
+        
 
         public static bool insertarNotaCredito(NotaCredito notaCredito)
         {

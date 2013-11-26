@@ -20,8 +20,10 @@
                         <ColumnDefinition/>
                     </Grid.ColumnDefinitions>
                     <GroupBox  Height="60" Margin="10,10,0,0" BorderBrush="Black" VerticalAlignment="Top" Width="770" HorizontalAlignment="Left">
-
+                      
                     </GroupBox>
+
+
                     <Label Content="Productos que están por debajo  de su stock mínimo :" HorizontalAlignment="Left" Height="32" Margin="21,28,0,0" VerticalAlignment="Top" Width="338" FontSize="14"/>
 
 
@@ -31,10 +33,10 @@
                             <ImageBrush ImageSource="../Resources/refresh2_48.png"/>
                         </Button.Background>
                     </Button>-->
-                    <DataGrid  ItemsSource="{Binding Path=listaProductosSol}" Margin="5,99,14.717,67.005" AutoGenerateColumns="False" CanUserAddRows="False" CanUserDeleteRows="False" Grid.RowSpan="2">
+                    <DataGrid  ItemsSource="{Binding Path=listaProductosSol,IsAsync=True}" Margin="5,99,14.717,67.005" AutoGenerateColumns="False" CanUserAddRows="False" CanUserDeleteRows="False" Grid.RowSpan="2" CanUserSortColumns="True" IsManipulationEnabled="False">
                         <DataGrid.Columns>
                             <DataGridTextColumn Width="3*" Binding="{Binding Path=Tienda.nombre}" Header=" Almacén"/>
-                            <DataGridTextColumn Width="3*" Binding="{Binding Path=Producto.nombre}"  Header="Producto"/>
+                            <DataGridTextColumn Width="3*" Binding="{Binding Path=Producto.nombre}"  ClipboardContentBinding="{x:Null}" Header="Producto"/>
                             <DataGridTextColumn Width="1.5*" Binding="{Binding Path=cantidad}"  Header="Cant. Compra"/>
                             <DataGridComboBoxColumn Header="Proveedor" DisplayMemberPath="razonSoc" Width="120">
                                 <DataGridComboBoxColumn.ElementStyle>

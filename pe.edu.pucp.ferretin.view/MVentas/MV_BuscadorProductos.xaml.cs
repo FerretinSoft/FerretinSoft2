@@ -1,5 +1,6 @@
 ﻿using pe.edu.pucp.ferretin.model;
 using pe.edu.pucp.ferretin.view.MCompras;
+using pe.edu.pucp.ferretin.view.MAlmacen;
 using pe.edu.pucp.ferretin.viewmodel.MCompras;
 using pe.edu.pucp.ferretin.viewmodel.MVentas;
 using System;
@@ -15,6 +16,8 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using pe.edu.pucp.ferretin.controller.MAlmacen;
+using pe.edu.pucp.ferretin.viewmodel.MAlmacen;
 
 namespace pe.edu.pucp.ferretin.view.MVentas
 {
@@ -31,7 +34,7 @@ namespace pe.edu.pucp.ferretin.view.MVentas
             var myDC = DataContext as MV_BuscadorProductosViewModel;
             myDC.tienda = tienda;
             myDC.buscarProductos(null);
-            this.Show();
+            this.ShowDialog();
         }
 
         private void cancelButton_Click(object sender, RoutedEventArgs e)
@@ -48,7 +51,7 @@ namespace pe.edu.pucp.ferretin.view.MVentas
                 var seleccionados = listaProductos.SelectedItems;
                 foreach(ProductoAlmacen seleccionado in seleccionados){
                     vmpadre.codProdAgregar = seleccionado.Producto.codigo;
-                    vmpadre.agregarProducto(null);
+                    vmpadre.agregarProducto(seleccionado);
                 }
                 vmpadre.codProdAgregar = "";
             }
@@ -60,7 +63,7 @@ namespace pe.edu.pucp.ferretin.view.MVentas
                 foreach (ProductoAlmacen seleccionado in seleccionados)
                 {
                     vmpadre.codProdAgregar = seleccionado.Producto.codigo;
-                    vmpadre.agregarProducto(null);
+                    vmpadre.agregarProducto(seleccionado);
                 }
                 vmpadre.codProdAgregar = "";
             }
@@ -72,9 +75,22 @@ namespace pe.edu.pucp.ferretin.view.MVentas
                 foreach (ProductoAlmacen seleccionado in seleccionados)
                 {
                     vmpadre.codProdAgregar = seleccionado.Producto.codigo;
-                    vmpadre.agregarProducto(null);
+                    vmpadre.agregarProducto(seleccionado);
                 }
                 vmpadre.codProdAgregar = "";
+            }
+            else if (this.Owner is MV_ReportesVentasWindow)
+            {
+                var vmpadre = this.Owner.DataContext as MV_ReportesViewModel;
+                var seleccionados = listaProductos.SelectedItems;
+                Producto productoRep;
+                foreach (ProductoAlmacen seleccionado in seleccionados)
+                {
+                    string codProd = seleccionado.Producto.codigo;
+                    productoRep = MA_SharedService.obtenerProductoxCodigo(codProd);
+                    vmpadre.searchProducto = productoRep.codigo;
+                    vmpadre.nombreProducto = productoRep.nombre;
+                }
             }
 
 
@@ -90,6 +106,20 @@ namespace pe.edu.pucp.ferretin.view.MVentas
                 }
                 vmpadre.codProdAgregar = "";
 
+            }
+
+            //Almacen - Registro de solicitud de abastecimiento
+            else if (this.Owner is MA_RegistroSolAbastecimientoWindow)
+            {
+                MA_RegistroSolAbastecimientoWindow window = this.Owner as MA_RegistroSolAbastecimientoWindow;
+                var vmpadre = window.main.DataContext as MA_RegistroSolAbastecimientoViewModel;
+                var seleccionados = listaProductos.SelectedItems;
+                foreach (ProductoAlmacen item in seleccionados)
+                {
+                    vmpadre.codigoNuevoProducto = item.Producto.codigo;
+                    vmpadre.agregarNuevoProducto(null);
+                }
+                vmpadre.codigoNuevoProducto = "";
             }
 
             this.Owner.Focus();

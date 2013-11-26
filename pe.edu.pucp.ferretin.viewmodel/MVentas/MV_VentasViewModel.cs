@@ -23,6 +23,11 @@ namespace pe.edu.pucp.ferretin.viewmodel.MVentas
 
         #region Valores para el cuadro de Búsqueda
 
+
+        public String _nroNotaCredito = "";
+        public String nroNotaCredito { get { return _nroNotaCredito; } set { _nroNotaCredito = value; NotifyPropertyChanged("nroNotaCredito"); } }
+
+
         public String _searchVendedor = "";
         public String searchVendedor { get { return _searchVendedor; } set { _searchVendedor = value; NotifyPropertyChanged("searchVendedor"); } }
 
@@ -44,7 +49,10 @@ namespace pe.edu.pucp.ferretin.viewmodel.MVentas
 
         public String _nombreCliente = "";
         public String nombreCliente { get { return _nombreCliente; } set { _nombreCliente = value; NotifyPropertyChanged("nombreCliente"); } }
-        
+
+        public System.Windows.Visibility _existeNota = System.Windows.Visibility.Collapsed;
+        public System.Windows.Visibility existeNota { get { return _existeNota; } set { _existeNota = value; NotifyPropertyChanged("existeNota"); } }
+
         public long _id = 0;
         public long id { get { return _id; } set { _id = value; NotifyPropertyChanged("id"); } }
 
@@ -248,6 +256,17 @@ namespace pe.edu.pucp.ferretin.viewmodel.MVentas
         {
             try
             {
+                NotaCredito nota = MV_NotaCreditoService.obtenerNotaCreditoByIdVenta((long)id);
+                if (nota != null)
+                {
+                    this.nroNotaCredito = nota.codigo;
+                    this.existeNota = System.Windows.Visibility.Visible;
+                }
+                else
+                {
+                    this.nroNotaCredito = "";
+                    this.existeNota = System.Windows.Visibility.Collapsed;
+                }
                 this.searchVendedor = "";
                 this.searchNroDocumento = "";
                 this.searchNroDocCliente = "";

@@ -32,7 +32,7 @@ namespace pe.edu.pucp.ferretin.view.MSeguridad
             {
 
                 MS_ReporteTrasaccionesParametrosWindow RTW = new MS_ReporteTrasaccionesParametrosWindow();
-                RTW.Show();
+                RTW.ShowDialog();
             }
             else
             {

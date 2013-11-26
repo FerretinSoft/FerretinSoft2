@@ -29,13 +29,11 @@ namespace pe.edu.pucp.ferretin.controller.MCompras
             get
             {
                 if (_listaGuiasRemision == null)
-                {
                     _listaGuiasRemision = db.GuiaRemision;
-                }
                 //Usando concurrencia pesimista:
                 ///La lista de documentos de compra se actualizara para ver los cambios
                 ///Si quisiera usar concurrencia optimista quito la siguiente linea
-                db.Refresh(RefreshMode.OverwriteCurrentValues, _listaGuiasRemision);
+                //db.Refresh(RefreshMode.OverwriteCurrentValues, _listaGuiasRemision);
                 return _listaGuiasRemision;
             }
             set
@@ -50,13 +48,11 @@ namespace pe.edu.pucp.ferretin.controller.MCompras
             get
             {
                 if (_listaGuiaRemisionProducto == null)
-                {
                     _listaGuiaRemisionProducto = db.GuiaRemisionProducto;
-                }
                 //Usando concurrencia pesimista:
                 ///La lista de documentos de compra se actualizara para ver los cambios
                 ///Si quisiera usar concurrencia optimista quito la siguiente linea
-                db.Refresh(RefreshMode.OverwriteCurrentValues, _listaGuiasRemision);
+                //db.Refresh(RefreshMode.OverwriteCurrentValues, _listaGuiasRemision);
                 return _listaGuiaRemisionProducto;
             }
             set
@@ -68,7 +64,7 @@ namespace pe.edu.pucp.ferretin.controller.MCompras
 
         public static IEnumerable<GuiaRemision> buscarGuiasRemision(string codigo, string proveedor, DateTime? fechaDesde, DateTime? fechaHasta)
         {
-            return from g in listaGuiasRemision
+            return from g in db.GuiaRemision
                    where (
                        //Cada fila es un filtro
                           (g.codigo != null && g.codigo.ToLower().Contains(codigo.ToLower().Trim()))
@@ -80,23 +76,23 @@ namespace pe.edu.pucp.ferretin.controller.MCompras
                    select g;
         }
 
-        public static IEnumerable<GuiaRemisionProducto> buscarProductosGuiaRemision(GuiaRemision guia)
-        {
-            return from g in listaGuiaRemisionProducto
-                   where (
-                       //Cada fila es un filtro
-                          (g.GuiaRemision.id == guia.id))
-                   orderby g.id
-                   select g;
-        }
+        //public static IEnumerable<GuiaRemisionProducto> buscarProductosGuiaRemision(GuiaRemision guia)
+        //{
+        //    return from g in db.GuiaRemisionProducto
+        //           where (
+        //               //Cada fila es un filtro
+        //                  (g.GuiaRemision == guia))
+        //           orderby g.id
+        //           select g;
+        //}
 
         private static bool verificaSiExisteGR(GuiaRemision guia)
         {
-            IEnumerable<GuiaRemision> gAux = from g in listaGuiasRemision
-                                             where ((g.codigo == guia.codigo) && (g.DocumentoCompra.codigo == guia.DocumentoCompra.codigo))
-                                             select g;
+            int gAux = (from g in db.GuiaRemision
+                        where ((g.codigo == guia.codigo) && (g.DocumentoCompra.codigo == guia.DocumentoCompra.codigo))
+                        select g).Count();
 
-            if (gAux.Count() > 0)
+            if (gAux > 0)
                 return true;
             else
                 return false;
@@ -105,22 +101,20 @@ namespace pe.edu.pucp.ferretin.controller.MCompras
         public static bool insertarGuiaRemision(GuiaRemision guiaRemision)
         {
             //GuiaRemision guia = null;
-            bool flag, flagF = false;
+            bool flagF = false;
             int i, cont;
             try
             {
-                flag = verificaSiExisteGR(guiaRemision);
+                //flag = verificaSiExisteGR(guiaRemision);
                 //db.GuiaRemision.Single(t => t.codigo == guiaRemision.codigo);
-                if (flag)
-                    flagF = false;
+                if (verificaSiExisteGR(guiaRemision))
+                    return false;
                 else
                 {
                     cont = guiaRemision.GuiaRemisionProducto.Count();
                     guiaRemision.estado = 1;
                     for (i = 0; i < cont; i++)
-                    {
                         guiaRemision.DocumentoCompra.DocumentoCompraProducto[i].cantidadRestante = guiaRemision.DocumentoCompra.DocumentoCompraProducto[i].cantidadRestante - guiaRemision.GuiaRemisionProducto[i].cantidadRecibida;
-                    }
                     db.GuiaRemision.InsertOnSubmit(guiaRemision);
                     MA_SharedService.registrarCompra(guiaRemision.Tienda, guiaRemision.GuiaRemisionProducto);
                     enviarCambios();

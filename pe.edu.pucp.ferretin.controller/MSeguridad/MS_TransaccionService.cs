@@ -22,7 +22,7 @@ namespace pe.edu.pucp.ferretin.controller.MSeguridad
                 //Usando concurrencia pesimista:
                 ///La lista de clientes se actualizara para ver los cambios
                 ///Si quisiera usar concurrencia optimista quito la siguiente linea
-                db.Refresh(RefreshMode.OverwriteCurrentValues, _listaTransacciones);
+                //db.Refresh(RefreshMode.OverwriteCurrentValues, _listaTransacciones);
                 return _listaTransacciones;
             }
             set

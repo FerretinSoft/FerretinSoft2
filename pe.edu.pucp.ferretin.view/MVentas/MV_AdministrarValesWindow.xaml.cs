@@ -39,7 +39,7 @@ namespace pe.edu.pucp.ferretin.view.MVentas
             v.Owner = this;
             var viewModel = v.DataContext as MV_ClientesViewModel;
             viewModel.soloSeleccionarCliente = true;
-            v.Show();
+            v.ShowDialog();
         }
         private void Button_Click(object sender, RoutedEventArgs e)
         {
@@ -47,7 +47,7 @@ namespace pe.edu.pucp.ferretin.view.MVentas
             v.Owner = this;
             var viewModel = v.DataContext as MV_ClientesViewModel;
             viewModel.soloSeleccionarCliente = true;
-            v.Show();
+            v.ShowDialog();
         }
 
 

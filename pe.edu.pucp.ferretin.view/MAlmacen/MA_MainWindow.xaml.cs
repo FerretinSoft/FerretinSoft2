@@ -38,7 +38,7 @@ namespace pe.edu.pucp.ferretin.view.MAlmacen
             if (ComunService.usuarioLpermisos[21].estado == true)
             {
                 MA_InventarioProductosWindow invWindow = new MA_InventarioProductosWindow();
-                invWindow.Show();
+                invWindow.ShowDialog();
             }
             else
             {
@@ -51,7 +51,7 @@ namespace pe.edu.pucp.ferretin.view.MAlmacen
             if (ComunService.usuarioLpermisos[22].estado == true)
             {
                 MA_MantenimientoProductosWindow prodWindow = new MA_MantenimientoProductosWindow();
-                prodWindow.Show();
+                prodWindow.ShowDialog();
             }
             else
             {
@@ -64,7 +64,7 @@ namespace pe.edu.pucp.ferretin.view.MAlmacen
             if (ComunService.usuarioLpermisos[24].estado == true)
             {
                 MA_MovimientosWindow movWindow = new MA_MovimientosWindow();
-                movWindow.Show();
+                movWindow.ShowDialog();
             }
             else
             {
@@ -77,7 +77,7 @@ namespace pe.edu.pucp.ferretin.view.MAlmacen
             if (ComunService.usuarioLpermisos[26].estado == true)
             {
                 MA_ReportesWindow repWindow = new MA_ReportesWindow();
-                repWindow.Show();
+                repWindow.ShowDialog();
             }
             else
             {
@@ -90,7 +90,7 @@ namespace pe.edu.pucp.ferretin.view.MAlmacen
             if (ComunService.usuarioLpermisos[25].estado == true)
             {
                 MA_RegistroSolAbastecimientoWindow solWindow = new MA_RegistroSolAbastecimientoWindow();
-                solWindow.Show();
+                solWindow.ShowDialog();
             }
             else
             {
@@ -103,7 +103,7 @@ namespace pe.edu.pucp.ferretin.view.MAlmacen
             if (ComunService.usuarioLpermisos[23].estado == true)
             {
                 MA_MantenimientoCategoriasWindow catWindow = new MA_MantenimientoCategoriasWindow();
-                catWindow.Show();
+                catWindow.ShowDialog();
             }
             else
             {
@@ -116,7 +116,7 @@ namespace pe.edu.pucp.ferretin.view.MAlmacen
             if (ComunService.usuarioLpermisos[25].estado == true)
             {
                 MA_AtencionSolAbastecimientoWindow atenSol = new MA_AtencionSolAbastecimientoWindow();
-                atenSol.Show();
+                atenSol.ShowDialog();
             }
             else
             {

@@ -166,8 +166,8 @@ namespace pe.edu.pucp.ferretin.viewmodel.MVentas
                 switch (result)
                 {
                     case MessageBoxResult.OK:
-                        
-                        ComunService.idVentana(40);
+
+                        ComunService.idVentana(56);
                         if (productoPrecio.precioString.Last() == '.')
                             productoPrecio.precioString = productoPrecio.precioString + "00";
 
@@ -175,6 +175,7 @@ namespace pe.edu.pucp.ferretin.viewmodel.MVentas
                         productoPrecio.Producto.precioLista = productoPrecio.precio;
                         productoPrecio.Producto.precioPuntos = productoPrecio.precioPuntos;
                         productoPrecio.Producto.moneda = productoPrecio.moneda;
+                        productoPrecio.Producto.ganarPuntos = productoPrecio.ganarPuntos;
                         
                         productoPrecio.estado = true;
                         NotifyPropertyChanged("productoPrecio");
@@ -187,7 +188,7 @@ namespace pe.edu.pucp.ferretin.viewmodel.MVentas
                             updProducto.estado = false;
                         }
 
-                        ComunService.idVentana(40);
+                        
                         if (!MV_ProductoPrecioService.insertarPrecio(productoPrecio))
                         {
                             MessageBox.Show("No se pudo agregar el nuevo precio");

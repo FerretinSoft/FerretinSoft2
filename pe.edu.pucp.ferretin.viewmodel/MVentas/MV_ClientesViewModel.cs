@@ -49,6 +49,7 @@ namespace pe.edu.pucp.ferretin.viewmodel.MVentas
         {
             get
             {
+               
                 return soloSeleccionarCliente ? "SELECCIONAR" : "GUARDAR";
             }
         }

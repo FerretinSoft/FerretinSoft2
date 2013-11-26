@@ -9,5 +9,12 @@ namespace pe.edu.pucp.ferretin.model
     public partial class PromocionProducto
     {
         
+        public bool tipoSeleccionado
+        {
+            get
+            {
+                return true; ;
+            }
+        }
     }
 }
