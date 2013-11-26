@@ -867,7 +867,7 @@
   </Table>
   <Table Name="dbo.DevolucionProducto" Member="DevolucionProducto">
     <Type Name="DevolucionProducto">
-      <Column Name="s" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="cantidad" Type="System.Int32" DbType="Int" CanBeNull="true" />
       <Column Name="monto" Type="System.Decimal" DbType="Decimal(10,2)" CanBeNull="true" />
       <Column Name="id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
       <Column Name="id_devolucion" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
