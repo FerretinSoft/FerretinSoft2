@@ -166,8 +166,12 @@ namespace pe.edu.pucp.ferretin.view.MSeguridad
         {
             /*Para actualizar un parametro existente*/
             ComunService.idVentana(13);
-            if (MessageBox.Show("¿Está seguro que desea guardar estos cambios?", "Confirmación",
-                                MessageBoxButton.YesNo) == MessageBoxResult.Yes)
+
+            
+            MessageBoxResult result = MessageBox.Show("¿Está seguro que desea guardar estos cambios?",
+            "ATENCIÓN", MessageBoxButton.OKCancel, MessageBoxImage.Warning, MessageBoxResult.Cancel);
+
+            if (result == MessageBoxResult.OK)
             {
                 if (!String.IsNullOrEmpty(intContrasena.Text))
                 {
