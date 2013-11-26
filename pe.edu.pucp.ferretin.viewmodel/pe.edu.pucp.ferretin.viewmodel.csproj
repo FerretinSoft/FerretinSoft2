@@ -68,6 +68,8 @@
     <Compile Include="MAlmacen\MA_ReportesStockPorTiendaViewModel.cs" />
     <Compile Include="MAlmacen\MA_ReportesViewModel.cs" />
     <Compile Include="MCompras\MC_AtenderSolicitudViewModel.cs" />
+    <Compile Include="MCompras\MC_BuscadorCotizacionesViewModel.cs" />
+    <Compile Include="MCompras\MC_BuscadorProveedoresViewModel.cs" />
     <Compile Include="MCompras\MC_BuscarProductosProveedorViewModel.cs" />
     <Compile Include="MCompras\MC_CotizacionesOCViewModel.cs" />
     <Compile Include="MCompras\MC_GuiaRemisionViewModel.cs" />

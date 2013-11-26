@@ -49,5 +49,18 @@ namespace pe.edu.pucp.ferretin.view.MVentas
             var buscador = new MV_BuscadorProductos(this, vm.usuarioLogueado.Empleado.tiendaActual);
 
         }
+
+        /// <summary>
+        /// Abrir Tipos de promociones
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void Button_Click_1(object sender, RoutedEventArgs e)
+        {
+            var mivm = DataContext as MV_PromocionesViewModel; 
+            var v = new MV_TiposPromocionesWindow();
+            v.ShowDialog();
+            
+        }
     }
 }

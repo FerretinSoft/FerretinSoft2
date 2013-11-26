@@ -135,15 +135,29 @@ namespace pe.edu.pucp.ferretin.viewmodel.MSeguridad
                 //Si la pestaña es para agregar nuevo, limpio los input
                 switch (_statusTab)
                 {
-                    case Tab.BUSQUEDA: detallesTabHeader = "Agregar"; almacen = new Tienda(); tiendaImagen = null; break;//Si es agregar, creo un nuevo objeto Almacen
-                    case Tab.AGREGAR: detallesTabHeader = "Agregar"; almacen = new Tienda();                        
-                        selectedTipo = -1;
-                        almacen.fecCreacion = DateTime.Today;
-                        almacen.estado = 1;
-                        tiendaImagen = null;                        
-                        break;//Si es agregar, creo un nuevo objeto Almacen
-                    case Tab.MODIFICAR: detallesTabHeader = "Modificar"; tiendaImagen = null; break;
-                    case Tab.DETALLES: detallesTabHeader = "Detalles"; break;
+                    case Tab.BUSQUEDA: 
+                        {
+                            detallesTabHeader = "Agregar";
+                        
+                            tiendaImagen = null; break;//Si es agregar, creo un nuevo objeto Almacen
+                        }
+                    case Tab.AGREGAR: detallesTabHeader = "Agregar";
+                        {
+                            almacen = new Tienda();
+                            selectedTipo = -1;
+                            almacen.fecCreacion = DateTime.Today;
+                            almacen.estado = 1;
+                            tiendaImagen = null;
+                            break;//Si es agregar, creo un nuevo objeto Almacen
+                        }
+                    case Tab.MODIFICAR: detallesTabHeader = "Modificar";
+                        {
+                            tiendaImagen = null; break;
+                        }
+                    case Tab.DETALLES:
+                        {
+                            detallesTabHeader = "Detalles"; break;
+                        }
                     default: detallesTabHeader = "Agregar"; almacen = new Tienda(); break;//Si es agregar, creo un nuevo objeto Almacen
                 }
                 NotifyPropertyChanged("statusTab");

@@ -26,7 +26,7 @@ namespace pe.edu.pucp.ferretin.controller.MCompras
                     _listaProveedores = db.Proveedor.Where(p => p.estado == 1); ;
                 }
             
-                db.Refresh(RefreshMode.OverwriteCurrentValues, _listaProveedores);
+                //db.Refresh(RefreshMode.OverwriteCurrentValues, _listaProveedores);
                 return _listaProveedores;
             }
             set
@@ -44,7 +44,7 @@ namespace pe.edu.pucp.ferretin.controller.MCompras
                 {
                     _listaProductos = db.ProveedorProducto;
                 }
-                db.Refresh(RefreshMode.OverwriteCurrentValues, _listaProductos);
+                //db.Refresh(RefreshMode.OverwriteCurrentValues, _listaProductos);
                 return _listaProductos;
             }
             set

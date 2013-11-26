@@ -216,6 +216,15 @@ namespace pe.edu.pucp.ferretin.viewmodel.MVentas
         
         #endregion
 
+        public IEnumerable<PromocionTipo> tiposPromocion
+        {
+            get
+            {
+                
+                return MV_PromocionService.db.PromocionTipo.ToList();
+            }
+        }
+
         #region RelayCommand
         RelayCommand _agregarProductoCommand;
         public ICommand agregarProductoCommand
@@ -292,7 +301,10 @@ namespace pe.edu.pucp.ferretin.viewmodel.MVentas
             try
             {
                 this.promocion = MV_PromocionService.db.Promocion.Single(promocion => promocion.id == (int)id);
-                
+                foreach (var pp in this.promocion.PromocionProducto)
+                {
+                    pp.PropertyChanged += promocion_PropertyChanged;
+                }
                 if (soloSeleccionarPromocion)
                     this.statusTab = Tab.DETALLES;
                 else
@@ -337,6 +349,20 @@ namespace pe.edu.pucp.ferretin.viewmodel.MVentas
                                     if (promocion.PromocionProducto.Count <= 0)
                                     {
                                         result = "Debe agregar al menos un producto";
+                                    }
+                                    else
+                                    {
+                                        result = String.Empty;
+                                        var pps = promocion.PromocionProducto;
+                                        foreach (var pp in pps)
+                                        {
+                                            if (result.Length > 0) break;
+                                            if (pp.PromocionTipo == null)
+                                            {
+                                                result = "El producto no tiene un tipo de promoción seleccionado:\n" + pp.Producto.nombre.ToUpper();
+                                            }
+                                        }
+                                            
                                     }
                                 }
                             }
@@ -423,13 +449,14 @@ namespace pe.edu.pucp.ferretin.viewmodel.MVentas
                         promocionProducto = new PromocionProducto()
                         {
                             Producto = producto,
-                            cantMulUnidades = 1,
+                            cantMulUnidades = 0,
                             descuentoPorcentaje = 0,
                             Promocion = this.promocion,
                             stockActual = 0,
                             stockTotal = 1,
                             maxPromVenta = 1
                         };
+                        promocionProducto.PropertyChanged += promocion_PropertyChanged;
                         promocion.PromocionProducto.Add(promocionProducto);
                     }
                     NotifyPropertyChanged("promocion");
@@ -439,6 +466,22 @@ namespace pe.edu.pucp.ferretin.viewmodel.MVentas
                     MessageBox.Show("No se encontro ningun producto con el código proporcionado");
                 }
             }
+        }
+
+        /// <summary>
+        /// Cuando cambia una propiedad de PromocionProducto
+        /// </summary>
+        /// <param name="sender">PromocionProducto</param>
+        /// <param name="e"></param>
+        void promocion_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
+        {
+            var pp = sender as PromocionProducto;
+            if (pp.PromocionTipo != null)
+            {
+                pp.cantMulUnidades = pp.PromocionTipo.cantidadUnidades??0;
+                pp.descuentoPorcentaje = pp.PromocionTipo.descuento??0;
+            }
+            NotifyPropertyChanged("promocion");
         }
         #endregion
     }

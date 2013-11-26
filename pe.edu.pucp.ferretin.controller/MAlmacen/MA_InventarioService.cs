@@ -11,6 +11,12 @@ namespace pe.edu.pucp.ferretin.controller.MAlmacen
     public class MA_InventarioService: MA_ComunService
     {
 
+        public static EmpleadoTienda obtenerTiendaUsuario(int idUsuario)
+        {
+            return (db.EmpleadoTienda.Where(t => t.id_empleado == idUsuario & t.estado == 1).Single());
+        }
+
+
         //todas las operaciones se basan en esta lista de producto
         private static IEnumerable<Producto> _listaProducto;
         public static IEnumerable<Producto> listaProducto
@@ -24,7 +30,7 @@ namespace pe.edu.pucp.ferretin.controller.MAlmacen
                 //Usando concurrencia pesimista:
                 ///La lista de productos se actualizara para ver los cambios
                 ///Si quisiera usar concurrencia optimista quito la siguiente linea
-                db.Refresh(RefreshMode.OverwriteCurrentValues, _listaProducto);
+                //db.Refresh(RefreshMode.OverwriteCurrentValues, _listaProducto);
                 return _listaProducto;
             }
             set
@@ -152,7 +158,7 @@ namespace pe.edu.pucp.ferretin.controller.MAlmacen
 
 
 
-        public static IEnumerable<ProductoAlmacen> obtenerProductosPorAlmacenCategoriaNombre(String nombre1, Tienda searchAlmacen, Categoria searchCategoria)
+        public static IEnumerable<ProductoAlmacen> obtenerProductosPorAlmacenCategoriaNombre(String nombre1, Tienda searchAlmacen, Categoria searchCategoria,int estadoProducto)
         {
             IEnumerable<ProductoAlmacen> listaProdAlm=null;
             //Caso: Iniciando pantalla o con Almacen=Todos,Categoria=Todos y nombre=vacío
@@ -163,6 +169,7 @@ namespace pe.edu.pucp.ferretin.controller.MAlmacen
 
                 listaProdAlm = from pa in db.ProductoAlmacen
                                orderby pa.id_producto,pa.Tienda.nombre
+                               where pa.estado==estadoProducto
                                 select pa;
 
             }
@@ -178,7 +185,8 @@ namespace pe.edu.pucp.ferretin.controller.MAlmacen
                                 (pa.id_producto == p.id) &&
                                 (pa.id_almacen == searchAlmacen.id) &&
                                 (pc.id_categoria == searchCategoria.id) &&
-                                (pc.id_producto == p.id)
+                                (pc.id_producto == p.id) &&
+                                (pa.estado==estadoProducto)
                                    orderby pa.id_producto, pa.Tienda.nombre
                                 select pa;
                 }
@@ -192,7 +200,8 @@ namespace pe.edu.pucp.ferretin.controller.MAlmacen
                                         from p in db.Producto
                                         where (p.nombre.Contains(nombre1)) &&
                                         (pa.id_producto == p.id) &&
-                                        (pa.id_almacen == searchAlmacen.id)
+                                        (pa.id_almacen == searchAlmacen.id)&&
+                                        (pa.estado == estadoProducto)
                                        orderby pa.id_producto, pa.Tienda.nombre
                                         select pa;
 
@@ -208,7 +217,8 @@ namespace pe.edu.pucp.ferretin.controller.MAlmacen
                                             where (p.nombre.Contains(nombre1)) &&
                                             (pc.id_categoria == searchCategoria.id) &&
                                             (pc.id_producto == p.id) &&
-                                            (pa.id_producto==p.id) //*
+                                            (pa.id_producto==p.id) && //*
+                                            (pa.estado == estadoProducto)
                                            orderby pa.id_producto, pa.Tienda.nombre
                                             select pa;
 
@@ -218,7 +228,8 @@ namespace pe.edu.pucp.ferretin.controller.MAlmacen
                             listaProdAlm = from p in db.Producto
                                             from pa in db.ProductoAlmacen //*
                                             where (p.nombre.Contains(nombre1)) &&
-                                            (p.id==pa.id_producto)
+                                            (p.id==pa.id_producto) &&
+                                            (pa.estado == estadoProducto)
                                            orderby pa.id_producto, pa.Tienda.nombre
                                             select pa;
                         }

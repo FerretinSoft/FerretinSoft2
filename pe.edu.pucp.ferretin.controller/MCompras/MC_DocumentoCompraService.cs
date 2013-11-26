@@ -33,7 +33,7 @@ namespace pe.edu.pucp.ferretin.controller.MCompras
                 //Usando concurrencia pesimista:
                 ///La lista de documentos de compra se actualizara para ver los cambios
                 ///Si quisiera usar concurrencia optimista quito la siguiente linea
-                db.Refresh(RefreshMode.OverwriteCurrentValues, _listaDocumentosCompra);
+                //db.Refresh(RefreshMode.OverwriteCurrentValues, _listaDocumentosCompra);
                 return _listaDocumentosCompra;
             }
             set
@@ -54,7 +54,7 @@ namespace pe.edu.pucp.ferretin.controller.MCompras
                 //Usando concurrencia pesimista:
                 ///La lista de documentos de compra se actualizara para ver los cambios
                 ///Si quisiera usar concurrencia optimista quito la siguiente linea
-                db.Refresh(RefreshMode.OverwriteCurrentValues, _listaProductosDC);
+                //db.Refresh(RefreshMode.OverwriteCurrentValues, _listaProductosDC);
                 return _listaProductosDC;
             }
             set
@@ -75,7 +75,7 @@ namespace pe.edu.pucp.ferretin.controller.MCompras
                 //Usando concurrencia pesimista:
                 ///La lista de documentos de compra se actualizara para ver los cambios
                 ///Si quisiera usar concurrencia optimista quito la siguiente linea
-                db.Refresh(RefreshMode.OverwriteCurrentValues, _listaEstadosDC);
+                //db.Refresh(RefreshMode.OverwriteCurrentValues, _listaEstadosDC);
                 return _listaEstadosDC;
             }
             set
@@ -87,33 +87,33 @@ namespace pe.edu.pucp.ferretin.controller.MCompras
         ///<summary>
         ///Metodo que busca documentos de compra de acuerdo a los criterios seleccionados en los filtros
         ///</summary>
-        public static IEnumerable<DocumentoCompra> buscarDocumentosCompra(string codigo, string proveedor, int tipoDocumento, DateTime? fechaDesde, DateTime? fechaHasta, int estado)
+        public static IEnumerable<DocumentoCompra> buscarDocumentosCompra(string codigo, string proveedor, int tipoDocumento, DateTime? fechaDesde, DateTime? fechaHasta, int estado, int tienda)
         {
 
             if (tipoDocumento == 0)
             {
                 if (estado != 0)
                 {
-                    return from d in db.DocumentoCompra
+                    return from d in listaDocumentosCompra
                            where
                            (d.codigo != null && d.codigo.Contains(codigo)
                            && d.Proveedor.razonSoc.Contains(proveedor)
                            && d.id_estado == estado
                            && (fechaDesde == null || (d.fechaEmision != null && d.fechaEmision >= fechaDesde))
                            && (fechaHasta == null || (d.fechaEmision != null && d.fechaEmision <= fechaHasta))
-                           )
+                           && d.Usuario1.Empleado.tiendaActual.id == tienda)
                            orderby d.codigo
                            select d;
                 }
                 else
                 {
-                    return from d in db.DocumentoCompra
+                    return from d in listaDocumentosCompra
                            where
                            (d.codigo != null && d.codigo.Contains(codigo)
                            && d.Proveedor.razonSoc.Contains(proveedor)
                            && (fechaDesde == null || (d.fechaEmision != null && d.fechaEmision >= fechaDesde))
                            && (fechaHasta == null || (d.fechaEmision != null && d.fechaEmision <= fechaHasta))
-                            )
+                           && d.Usuario1.Empleado.tiendaActual.id == tienda)
                            orderby d.codigo
                            select d;
                 }
@@ -122,7 +122,7 @@ namespace pe.edu.pucp.ferretin.controller.MCompras
             {
                 if (estado != 0)
                 {
-                    return from d in db.DocumentoCompra
+                    return from d in listaDocumentosCompra
                            where
                            (d.codigo != null && d.codigo.Contains(codigo)
                            && d.Proveedor.razonSoc.Contains(proveedor)
@@ -130,20 +130,20 @@ namespace pe.edu.pucp.ferretin.controller.MCompras
                            && d.id_estado == estado
                            && (fechaDesde == null || (d.fechaEmision != null && d.fechaEmision >= fechaDesde))
                            && (fechaHasta == null || (d.fechaEmision != null && d.fechaEmision <= fechaHasta))
-                            )
+                           && d.Usuario1.Empleado.tiendaActual.id == tienda)
                            orderby d.codigo
                            select d;
                 }
                 else
                 {
-                    return from d in db.DocumentoCompra
+                    return from d in listaDocumentosCompra
                            where
                            (d.codigo != null && d.codigo.Contains(codigo)
                            && d.Proveedor.razonSoc.Contains(proveedor)
                            && d.tipo == tipoDocumento
                            && (fechaDesde == null || (d.fechaEmision != null && d.fechaEmision >= fechaDesde))
                            && (fechaHasta == null || (d.fechaEmision != null && d.fechaEmision <= fechaHasta))
-                            )
+                           && d.Usuario1.Empleado.tiendaActual.id == tienda)
                            orderby d.codigo
                            select d;
                 }

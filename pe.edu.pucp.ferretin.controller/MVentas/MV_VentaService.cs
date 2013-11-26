@@ -31,7 +31,7 @@ namespace pe.edu.pucp.ferretin.controller.MVentas
                 {
                     _listaVentas = dbVenta.Venta;
                 }
-                dbVenta.Refresh(RefreshMode.OverwriteCurrentValues, _listaVentas);
+                //dbVenta.Refresh(RefreshMode.OverwriteCurrentValues, _listaVentas);
                 return _listaVentas;
             }
             set
@@ -49,7 +49,7 @@ namespace pe.edu.pucp.ferretin.controller.MVentas
                 {
                     _listaProductos = dbVenta.VentaProducto;
                 }
-                dbVenta.Refresh(RefreshMode.OverwriteCurrentValues, _listaProductos);
+                //dbVenta.Refresh(RefreshMode.OverwriteCurrentValues, _listaProductos);
                 return _listaProductos;
             }
             set
@@ -65,7 +65,7 @@ namespace pe.edu.pucp.ferretin.controller.MVentas
             {
                 if (_listaMedioPago == null)
                     _listaMedioPago = dbVenta.VentaMedioPago;
-                dbVenta.Refresh(RefreshMode.OverwriteCurrentValues, _listaMedioPago);
+                //dbVenta.Refresh(RefreshMode.OverwriteCurrentValues, _listaMedioPago);
                 return _listaMedioPago;
             }
             set

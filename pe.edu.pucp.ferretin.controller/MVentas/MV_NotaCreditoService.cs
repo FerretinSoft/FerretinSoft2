@@ -25,7 +25,7 @@ namespace pe.edu.pucp.ferretin.controller.MVentas
                 {
                     _listaNotasCredito = db.NotaCredito;
                 }
-                db.Refresh(RefreshMode.OverwriteCurrentValues, _listaNotasCredito);
+                //db.Refresh(RefreshMode.OverwriteCurrentValues, _listaNotasCredito);
                 return _listaNotasCredito;
             }
             set

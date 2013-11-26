@@ -36,7 +36,7 @@
                             <ImageBrush ImageSource="/Resources/refresh2_48.png"/>
                         </Button.Background>
                     </Button>
-                    <DataGrid ItemsSource="{Binding Path=listaAlmacenes,Mode=OneWay}" x:Name="tiendasGrid"  Margin="11,33.23,10.026,10.366" Grid.Row="1" Grid.ColumnSpan="5" AutoGenerateColumns="False" CanUserReorderColumns="False" CanUserResizeColumns="False" CanUserResizeRows="False" CanUserAddRows="False" CanUserDeleteRows="False" IsReadOnly="True">
+                    <DataGrid ItemsSource="{Binding Path=listaAlmacenes,Mode=OneWay,IsAsync=True}" x:Name="tiendasGrid"  Margin="11,33.23,10.026,10.366" Grid.Row="1" Grid.ColumnSpan="5" AutoGenerateColumns="False" CanUserReorderColumns="False" CanUserResizeColumns="False" CanUserResizeRows="False" CanUserAddRows="False" CanUserDeleteRows="False" IsReadOnly="True">
                         <DataGrid.Columns>
                             <DataGridTemplateColumn Width="75" Header="Código">
                                 <DataGridTemplateColumn.CellTemplate>
@@ -58,7 +58,7 @@
                     </DataGrid>
                     <Label Content="Nombre Tienda:" HorizontalAlignment="Left" Height="26" VerticalAlignment="Top" Width="102" Margin="14.942,82,0,0" Grid.Column="1" Grid.ColumnSpan="2"/>
                     <Label Content="Provincia:" HorizontalAlignment="Left" Margin="205.832,39,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.464,1.231" Height="28" Grid.Column="3" Width="60" Grid.ColumnSpan="2"/>
-                    <ComboBox ItemsSource="{Binding searchDepartamento.UbigeoProvincia,Mode=TwoWay}" DisplayMemberPath="nombre" SelectedItem="{Binding searchProvincia,Mode=TwoWay}" HorizontalAlignment="Left" Margin="270.832,39,0,0" VerticalAlignment="Top" Width="102" Height="26" Grid.Column="3" Grid.ColumnSpan="2">
+                    <ComboBox ItemsSource="{Binding searchDepartamento.UbigeoProvincia,Mode=TwoWay,IsAsync=True}" DisplayMemberPath="nombre" SelectedItem="{Binding searchProvincia,Mode=TwoWay}" HorizontalAlignment="Left" Margin="270.832,39,0,0" VerticalAlignment="Top" Width="102" Height="26" Grid.Column="3" Grid.ColumnSpan="2">
 
                     </ComboBox>
                     <ToolBar HorizontalAlignment="Left" VerticalAlignment="Top" Height="24" Grid.Row="1" Width="47" Grid.Column="1">
@@ -78,7 +78,7 @@
                         <ComboBoxItem Content="Compra/Venta"/>
                     </ComboBox>
                     <Label Content="Distrito:" HorizontalAlignment="Left" Margin="395.832,39,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.464,1.231" Height="28" Grid.Column="3" Width="51" Grid.ColumnSpan="2"/>
-                    <ComboBox ItemsSource="{Binding distritos,Mode=TwoWay}" DisplayMemberPath="nombre" SelectedItem="{Binding searchDistrito, Mode=TwoWay}" HorizontalAlignment="Left" Margin="451.832,39,0,0" VerticalAlignment="Top" Width="102" Height="26" Grid.Column="3" Grid.ColumnSpan="2">
+                    <ComboBox ItemsSource="{Binding distritos,Mode=TwoWay,IsAsync=True}" DisplayMemberPath="nombre" SelectedItem="{Binding searchDistrito, Mode=TwoWay}" HorizontalAlignment="Left" Margin="451.832,39,0,0" VerticalAlignment="Top" Width="102" Height="26" Grid.Column="3" Grid.ColumnSpan="2">
 
                     </ComboBox>
                     <Label Content="Estado:" HorizontalAlignment="Left" Margin="395.832,82,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.464,1.231" Height="28" Grid.Column="3" Width="51" Grid.ColumnSpan="2"/>
@@ -130,15 +130,15 @@
                     <Label Content="Dirección:" HorizontalAlignment="Left" Margin="1,137,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.464,1.231" Grid.Column="3" Height="26" Width="62"/>
                     <TextBox Text="{Binding Path=almacen.direccion, Mode=TwoWay, ValidatesOnExceptions=true, NotifyOnValidationError=true}" x:Name="direccTiendaTxtBox" HorizontalAlignment="Left" Height="23" Margin="10,137,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="281" Grid.Column="4" MaxLength="60"/>
                     <Label Content="Departamento:" HorizontalAlignment="Left" Margin="1,177,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.464,1.231" Height="30" Grid.Column="3" Width="94" Grid.ColumnSpan="2"/>
-                    <ComboBox  ItemsSource="{Binding Path=departamentos}" SelectedItem="{Binding Path=selectedDepartamento}" DisplayMemberPath="nombre" HorizontalAlignment="Left" Margin="10,175,0,0" VerticalAlignment="Top" Width="102" Grid.Column="4" Height="26">
+                    <ComboBox  ItemsSource="{Binding Path=departamentos,IsAsync=True}" SelectedItem="{Binding Path=selectedDepartamento}" DisplayMemberPath="nombre" HorizontalAlignment="Left" Margin="10,175,0,0" VerticalAlignment="Top" Width="102" Grid.Column="4" Height="26">
                     </ComboBox>
                     <Label Content="C.Postal:" HorizontalAlignment="Left" Margin="127,177,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.464,1.231" Grid.Column="4" Height="30" Width="56"/>
                     <TextBox Text="{Binding Path=almacen.codigoPostal, Mode=TwoWay, ValidatesOnExceptions=true, NotifyOnValidationError=true}" x:Name="cpTiendaTxtBox" HorizontalAlignment="Left" Height="26" Margin="188,175,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="106" Grid.Column="4" MaxLength="18"/>
                     <Label Content="Distrito:" HorizontalAlignment="Left" Margin="127,212,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.464,1.231" Grid.Column="4" Height="29" Width="50"/>
                     <Label Content="Provincia:" HorizontalAlignment="Left" Margin="2,214,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.464,1.231" Grid.ColumnSpan="2" Height="29" Grid.Column="2" Width="61"/>
-                    <ComboBox ItemsSource="{Binding Path=selectedDepartamento.UbigeoProvincia}" SelectedItem="{Binding Path=selectedProvincia}" DisplayMemberPath="nombre" HorizontalAlignment="Left" Margin="10,214,0,0" VerticalAlignment="Top" Width="102" Grid.Column="4" Height="25">
+                    <ComboBox ItemsSource="{Binding Path=selectedDepartamento.UbigeoProvincia,IsAsync=True}" SelectedItem="{Binding Path=selectedProvincia}" DisplayMemberPath="nombre" HorizontalAlignment="Left" Margin="10,214,0,0" VerticalAlignment="Top" Width="102" Grid.Column="4" Height="25">
                     </ComboBox>
-                    <ComboBox ItemsSource="{Binding Path=distritos}" SelectedItem="{Binding Path=almacen.UbigeoDistrito}" DisplayMemberPath="nombre" HorizontalAlignment="Left" Margin="187,214,0,0" VerticalAlignment="Top" Width="106" Grid.Column="4" Height="25">
+                    <ComboBox ItemsSource="{Binding Path=distritos,IsAsync=True}" SelectedItem="{Binding Path=almacen.UbigeoDistrito}" DisplayMemberPath="nombre" HorizontalAlignment="Left" Margin="187,214,0,0" VerticalAlignment="Top" Width="106" Grid.Column="4" Height="25">
                     </ComboBox>
                     <Label Content="Telf1:" HorizontalAlignment="Left" Margin="1,252,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.464,1.231" Grid.ColumnSpan="2" Height="28" Grid.Column="2" Width="38"/>
                     <Label Content="Telf2:" HorizontalAlignment="Left" Margin="127,252,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.464,1.231" Grid.Column="4" Height="28" Width="38"/>
@@ -646,7 +646,7 @@
                     <Label Content="Nombre:" HorizontalAlignment="Left" Margin="10,520,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.464,1.231" Height="30" Grid.Column="3" Width="76"/>
                     <TextBox Text="{Binding Path=dniJefe,Mode=TwoWay}" MaxLength="8" HorizontalAlignment="Left" Height="26" Margin="10,486,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="110" Grid.Column="4" PreviewKeyDown="txtDNI_KeyDown" PreviewTextInput="ValidaDNI" />
                     <Label Content="Almacén &#xD;&#xA;Abastecedor:" HorizontalAlignment="Left" Margin="99,87,0,0" VerticalAlignment="Top" Grid.Column="4" Height="41" Width="78"/>
-                    <ComboBox Name="almacenesAbast" ItemsSource="{Binding Path=almacenes}" SelectedItem="{Binding Path=almacen.Tienda1}" DisplayMemberPath="nombre" HorizontalAlignment="Left" Margin="186,97,0,0" VerticalAlignment="Top" Width="105" Grid.Column="4" Height="26"
+                    <ComboBox Name="almacenesAbast" ItemsSource="{Binding Path=almacenes,IsAsync=True}" SelectedItem="{Binding Path=almacen.Tienda1}" DisplayMemberPath="nombre" HorizontalAlignment="Left" Margin="186,97,0,0" VerticalAlignment="Top" Width="105" Grid.Column="4" Height="26"
                               IsEnabled="{Binding comboEnabledAlmacen}" SelectedIndex="{Binding defaultcomboIndex}">
                     </ComboBox>
                     <Label Content="Tipo:" HorizontalAlignment="Left" Margin="1,97,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.464,1.231" Grid.Column="3" Height="30" Width="36"/>

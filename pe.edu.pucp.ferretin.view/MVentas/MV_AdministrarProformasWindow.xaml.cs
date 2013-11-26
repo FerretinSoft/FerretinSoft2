@@ -112,30 +112,30 @@ namespace pe.edu.pucp.ferretin.view.MVentas
                         {
                             var stockDisponible = (int)vp.Producto.ProductoAlmacen.First(pa => pa.Tienda.Equals(padreViewModel.venta.Tienda)).stock;
 
-                            VentaProducto ventaProducto = new VentaProducto();
-                            
-                            ventaProducto.vieneDeProforma = true;
-
                             padreViewModel.venta.Cliente = vp.Proforma.Cliente;
-
-                            ventaProducto.canjeado = false;
-                            ventaProducto.tipoCambio = vp.tipoCambio;
-                            ventaProducto.puntosCanejado = 0;
-                            ventaProducto.Producto = vp.Producto;
-                            ventaProducto.puntosGanado = vp.Producto.ganarPuntos;
-                            ventaProducto.precioUnitario = vp.preciounitario;
-                            ventaProducto.moneda = vp.moneda;
-                            ventaProducto.precioPuntos = vp.Producto.precioPuntos;
-                            ventaProducto.Venta = padreViewModel.venta;
-
-                            ventaProducto.stockDisponible = stockDisponible;
-                            
-                            ventaProducto.cantidad = vp.cantidad;
-
-                            ventaProducto.stockRestante = stockDisponible - vp.cantidad;
-                            ventaProducto.montoReal = vp.montoReal;
-                            ventaProducto.montoParcial = vp.montoParcial;
-
+                            VentaProducto ventaProducto = new VentaProducto()
+                            {
+                                vieneDeProforma = true,
+                                canjeado = false,
+                                cantidad = vp.cantidad,
+                                descuento = vp.descuento,
+                                descuentoPorcentaje = vp.descuentoPorcentaje,
+                                moneda = vp.moneda,
+                                montoParcial = vp.montoParcial,
+                                montoReal = vp.montoReal,
+                                precioPuntos = 1,//TODO vp.precioPuntos,
+                                precioPuntosParcial = 1,//TODO cp.precioPuntosParcial
+                                precioUnitario = vp.preciounitario,
+                                prodConDesc = vp.prodConDesc,
+                                Producto = vp.Producto,
+                                PromocionActual = null,
+                                puntosCanejado = 0,
+                                puntosGanado = 1,//TODO vp.puntosGanado,
+                                stockDisponible = stockDisponible,
+                                stockRestante = stockDisponible - vp.cantidad,
+                                tipoCambio = vp.tipoCambio,
+                                Venta = padreViewModel.venta,
+                            };
                             padreViewModel.venta.VentaProducto.Add(ventaProducto);
                             
                             padreViewModel.actualizarMontosVenta(null, null);
@@ -156,21 +156,12 @@ namespace pe.edu.pucp.ferretin.view.MVentas
 
                         if (miVM.proforma != null)
                         {
+                            
                             padreViewModel.proforma.ProformaProducto.Clear();
                             foreach (var vp in miVM.proforma.ProformaProducto)
                             {
-                                ProformaProducto proformaProducto = new ProformaProducto();
-
-                                proformaProducto.tipoCambio = (decimal)(MS_SharedService.obtenerTipodeCambio());
-                                proformaProducto.montoParcial = vp.montoParcial;
-                                
-                                proformaProducto.Producto = vp.Producto;
-                                proformaProducto.cantidad = vp.cantidad;
-                                proformaProducto.PromocionActual = MV_PromocionService.ultimaPromocionPorProducto(vp.Producto, MS_SharedService.usuarioL.Empleado.tiendaActual);
-                                proformaProducto.PropertyChanged += padreViewModel.actualizarMontosProforma;
-                                padreViewModel.proforma.Cliente = vp.Proforma.Cliente;
-                                padreViewModel.proforma.ProformaProducto.Add(proformaProducto);
-                                padreViewModel.NotifyPropertyChanged("proforma");
+                                padreViewModel.codProdAgregar = vp.Producto.codigo;
+                                padreViewModel.agregarProducto(null);
                             }
 
 

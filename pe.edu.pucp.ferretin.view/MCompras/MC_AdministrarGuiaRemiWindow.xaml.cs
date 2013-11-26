@@ -1,4 +1,5 @@
 ﻿using System.Windows;
+using pe.edu.pucp.ferretin.viewmodel.MCompras;
 
 namespace pe.edu.pucp.ferretin.view.MCompras
 {
@@ -11,5 +12,21 @@ namespace pe.edu.pucp.ferretin.view.MCompras
         {
             InitializeComponent();
         }
+
+        //buscarOC_Click
+
+        private void buscarOC_Click(object sender, RoutedEventArgs e)
+        {
+            var vm = DataContext as MC_GuiaRemisionViewModel;
+            var buscador = new MC_BuscadorCotizacionesWindow(this);
+
+            //MC_AdministrarProveedorWindow v = new MC_AdministrarProveedorWindow();
+            //v.Owner = this;
+            //var viewModel = v.DataContext as MC_ProveedoresViewModel;
+            //viewModel.soloSeleccionarProveedor = true;
+            //v.ShowDialog();
+        }
+
+
     }
 }

@@ -111,11 +111,15 @@ namespace pe.edu.pucp.ferretin.viewmodel.MCompras
         {
             get
             {
-                if(searchFechaDesde > searchFechaHasta)
+                if (searchFechaDesde > searchFechaHasta)
                     MessageBox.Show("La 'Fecha Hasta' no puede ser menor que la 'Fecha Desde'", "Documento de Compra", MessageBoxButton.OK, MessageBoxImage.Exclamation);
                 else
-                    _listaDocumentosCompra = MC_DocumentoCompraService.buscarDocumentosCompra(searchCodigo, searchProveedor, searchTipoDocumento, searchFechaDesde, searchFechaHasta, searchEstado.id).ToList();
+                {
+                    int idTienda = ComunService.usuarioL.Empleado.tiendaActual.id;
+                    _listaDocumentosCompra = MC_DocumentoCompraService.buscarDocumentosCompra(searchCodigo, searchProveedor, searchTipoDocumento, searchFechaDesde, searchFechaHasta, searchEstado.id, idTienda).ToList();
 
+                }
+                    
                 return _listaDocumentosCompra.ToList();
             }
             set
