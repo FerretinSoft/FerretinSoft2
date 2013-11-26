@@ -95,8 +95,14 @@ namespace pe.edu.pucp.ferretin.viewmodel.MAlmacen
                     _CategoriaSeleccionada = value;
                 
                 //Actualizo el combobox de categorias padre
-                categoriasPadre = MA_CategoriaService.categorias.Where(c => c.nivel == _CategoriaSeleccionada.Categoria1.nivel);
+                    try
+                    {
+                        categoriasPadre = MA_CategoriaService.categorias.Where(c => c.nivel == _CategoriaSeleccionada.Categoria1.nivel);
                     }
+                    catch (Exception ex) { 
+                             
+                    }
+               }
                 OnPropertyChanged("CategoriaSeleccionada");
             }
         }
