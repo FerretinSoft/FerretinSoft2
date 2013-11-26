@@ -650,7 +650,7 @@ namespace pe.edu.pucp.ferretin.viewmodel.MVentas
                  prodDev.Producto = prodSelec.Producto;
                  prodDev.cantidad = 0;                
                  prodDev.id_producto = prodSelec.id_producto;
-                 prodDev.precioUnitario = prodSelec.precioUnitario;
+                 prodDev.precioUnitario = Decimal.Round((decimal)(prodSelec.montoParcial/prodSelec.cantidad),2);
                  prodDev.moneda = prodSelec.moneda;
                  prodDev.canjeado = prodSelec.canjeado;
                  prodDev.precioPuntos = prodSelec.precioPuntos;
@@ -676,6 +676,9 @@ namespace pe.edu.pucp.ferretin.viewmodel.MVentas
         {
             try
             {
+                devolucion.total = devolucion.total - devolucion.DevolucionProducto.ElementAt((int)id).monto;
+                devolucion.puntosDevueltos = devolucion.puntosDevueltos - devolucion.DevolucionProducto.ElementAt((int)id).puntosParciales;
+                
                 devolucion.DevolucionProducto.RemoveAt((int)id);
                 NotifyPropertyChanged("devolucion");
             }

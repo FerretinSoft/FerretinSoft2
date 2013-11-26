@@ -228,8 +228,7 @@
                                 <DataGridCheckBoxColumn Binding="{Binding Path=dardebaja}" IsReadOnly="False" Width="0.9*" ClipboardContentBinding="{x:Null}" Header="Dar de baja"/>
                                 <DataGridTextColumn Width="1.2*" Binding="{Binding Path=motivo}" Header="Motivo"/>
                                 <DataGridTextColumn Width="0.9*" Binding="{Binding Path=Producto.monedaString}" Header="Moneda"/>
-                                <DataGridTextColumn Width="0.9*" Binding="{Binding Path=Producto.precioLista}" ClipboardContentBinding="{x:Null}" Header="Precio"/>
-                                <DataGridTextColumn Width="1*"  ClipboardContentBinding="{x:Null}" Header="Dscto. (S/.)"/>
+                                <DataGridTextColumn Width="0.9*" Binding="{Binding Path=precioUnitario}" ClipboardContentBinding="{x:Null}" Header="Precio"/>
                                 <DataGridTextColumn Width="1*" Binding="{Binding Path=monto}" ClipboardContentBinding="{x:Null}" Header="Importe (S/.)"/>
                                 <DataGridTextColumn Width="1*" Binding="{Binding Path=puntosParciales, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" ClipboardContentBinding="{x:Null}" Header="Puntos Dev."/>
 
@@ -409,7 +408,6 @@
 
                             <DataGridTextColumn IsReadOnly="True" Width="0.7*" Binding="{Binding Path=monedaString}" ClipboardContentBinding="{x:Null}" Header="Moneda"/>
                             <DataGridTextColumn IsReadOnly="True" Width="0.7*" Binding="{Binding Path= precioUnitario}" ClipboardContentBinding="{x:Null}" Header="Precio"/>
-                            <DataGridTextColumn IsReadOnly="True" Width="0.7*" Binding="{x:Null}" ClipboardContentBinding="{x:Null}" Header="Dscto. (S/.)"/>
                             <DataGridTextColumn  IsReadOnly="True" Width="1*" x:Name="montoDev" Binding="{Binding Path= monto, Mode=TwoWay, StringFormat=S/. \{0\}}" ClipboardContentBinding="{x:Null}" Header="Importe"/>
                             <DataGridTextColumn Width="1*" Binding="{Binding Path=puntosParciales, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" ClipboardContentBinding="{x:Null}" Header="Puntos Dev."/>
 
