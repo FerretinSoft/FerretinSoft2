@@ -58,12 +58,16 @@ namespace pe.edu.pucp.ferretin.controller.MAlmacen
                 pa.estado = 1;
                 db.ProductoAlmacen.InsertOnSubmit(pa);
             }
-            db.SubmitChanges();
+            MA_ComunService.idVentana(57);
+            MA_ComunService.enviarCambios();
+            //db.SubmitChanges();
         }
 
         public static void guardarStockProductoAlmacen()
         {
-            db.SubmitChanges();
+            //db.SubmitChanges();
+            MA_ComunService.idVentana(58);
+            MA_ComunService.enviarCambios();
         }
 
         public static IEnumerable<ProductoAlmacen> obtenerStockProductoAlmacen(int idProd)
@@ -163,7 +167,7 @@ namespace pe.edu.pucp.ferretin.controller.MAlmacen
                     result =
                         from p in listaProductos
                         where
-                        p.nombre.Contains(search)
+                        p.nombre.ToLower().Contains(search)
                         select p;
                 }
                 else
@@ -172,7 +176,7 @@ namespace pe.edu.pucp.ferretin.controller.MAlmacen
                         from p in listaProductos
                         from pc in db.ProductoCategoria
                         where
-                        p.nombre.Contains(search) &&
+                        p.nombre.ToLower().Contains(search) &&
                         (pc.id_categoria == idCategoria.id) &&
                         pc.id_producto == p.id
                         select p;
@@ -216,7 +220,9 @@ namespace pe.edu.pucp.ferretin.controller.MAlmacen
             {
                 db.Producto.InsertOnSubmit(prod);
             
-                db.SubmitChanges();
+                //db.SubmitChanges();
+                MA_ComunService.idVentana(16);
+                MA_ComunService.enviarCambios();
                 return true;
             }
 
@@ -290,7 +296,9 @@ namespace pe.edu.pucp.ferretin.controller.MAlmacen
                     }
                 }
             }
-            db.SubmitChanges();
+            //db.SubmitChanges();
+            MA_ComunService.idVentana(17);
+            MA_ComunService.enviarCambios();
         }
 
 
