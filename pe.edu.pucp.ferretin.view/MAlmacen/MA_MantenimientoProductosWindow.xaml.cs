@@ -46,6 +46,7 @@ namespace pe.edu.pucp.ferretin.view.MAlmacen
             this.txtStockMin.IsEnabled = false;
             this.cmbTienda.IsEnabled = true;
             this.rbtnActivo.IsEnabled = false;
+            this.rbtnActivo.IsChecked = true;
             this.rbtnInactivo.IsEnabled = false;
         }
 
