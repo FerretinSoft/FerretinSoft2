@@ -54,8 +54,8 @@
                         <ComboBoxItem Content="Almacen"/>
                         <ComboBoxItem Content="Compras"/>
                         <ComboBoxItem Content="Recursos Humanos"/>
-                        <ComboBoxItem Content="Ventas"/>
                         <ComboBoxItem Content="Seguridad"/>
+                        <ComboBoxItem Content="Ventas"/>
                     </ComboBox>
 
                     <!-- Button -->
@@ -73,7 +73,7 @@
                     </ToolBar>
 
                     <!-- DataGrid -->
-                    <DataGrid ItemsSource="{Binding Path=listaPerfiles,Mode=OneWay}" x:Name="perfilesGrid" Margin="10,30,0,5" Grid.RowSpan="2" Grid.ColumnSpan="2"  AutoGenerateColumns="False" CanUserAddRows="False" CanUserDeleteRows="False" IsReadOnly="True" Grid.Row="1">
+                    <DataGrid ItemsSource="{Binding Path=listaPerfiles,Mode=OneWay}" x:Name="perfilesGrid" Margin="10,30,0,5" Grid.RowSpan="2" Grid.ColumnSpan="2"  AutoGenerateColumns="False" CanUserReorderColumns="False" CanUserResizeColumns="false" CanUserAddRows="False" CanUserDeleteRows="False" IsReadOnly="True" Grid.Row="1">
                         <DataGrid.Columns>
                             <!-- Columnas del Grid -->
                             <!--
@@ -86,7 +86,7 @@
                             </DataGridHyperlinkColumn>
                              -->
                             <!-- Columna Hypervinculo -->
-                            <DataGridTemplateColumn Width="2.5*" Header="Perfil">
+                            <DataGridTemplateColumn Width="2.23*" Header="Perfil">
                                 <DataGridTemplateColumn.CellTemplate>
                                     <DataTemplate>
                                         <TextBlock>
@@ -101,8 +101,8 @@
                             </DataGridTemplateColumn>
 
                             <!-- Otras columnas -->
-                            <DataGridTextColumn Width="2.5*" Binding="{Binding Path=modulo, Mode=TwoWay}" ClipboardContentBinding="{x:Null}" Header="Módulo"/>
-                            <DataGridTextColumn Width="4.7*" Binding="{Binding Path=descripcion}" ClipboardContentBinding="{x:Null}" Header="Descripción"/>
+                            <DataGridTextColumn Width="3.5*" Binding="{Binding Path=modulo, Mode=TwoWay}" ClipboardContentBinding="{x:Null}" Header="Módulo"/>
+                            <DataGridTextColumn Width="4.0*" Binding="{Binding Path=descripcion}" ClipboardContentBinding="{x:Null}" Header="Descripción"/>
                         </DataGrid.Columns>
                     </DataGrid>
 
@@ -131,7 +131,7 @@
                     <TextBox Text="{Binding Path=perfil.descripcion, Mode=TwoWay, ValidatesOnExceptions=true, NotifyOnValidationError=true}" x:Name="descripcionTxtBox" HorizontalAlignment="Left" Height="163" Margin="22,130,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="265"/>
 
                     <!-- ComboBox -->
-                    <ComboBox SelectedIndex="{Binding Path=perfil.estado , FallbackValue=1, Mode=TwoWay}"  x:Name="estadoCombo" HorizontalAlignment="Left" Margin="80,62,0,0" VerticalAlignment="Top" Width="105" Height="26" >
+                    <ComboBox SelectedIndex="{Binding Path=perfil.estado , FallbackValue=1, Mode=TwoWay}"  x:Name="estadoCombo" HorizontalAlignment="Left" Margin="80,62,0,0" VerticalAlignment="Top" Width="65" Height="26" >
                         <ComboBoxItem Content="Inactivo"/>
                         <ComboBoxItem Content="Activo"/>
                     </ComboBox>

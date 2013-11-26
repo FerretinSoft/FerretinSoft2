@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using pe.edu.pucp.ferretin.controller;
+using pe.edu.pucp.ferretin.controller.MCompras;
 using pe.edu.pucp.ferretin.model;
 using pe.edu.pucp.ferretin.viewmodel.Helper;
 
@@ -51,8 +52,11 @@ namespace pe.edu.pucp.ferretin.viewmodel.MCompras
         {
             get
             {
-                _listaCotizaciones = ComunService.db.DocumentoCompra.Where(dc => dc.Proveedor.razonSoc.ToLower().Trim().Contains(searchRazonSoc.ToLower().Trim()) && dc.Proveedor.ruc.ToLower().Trim().Contains(searchRuc.ToLower().Trim())
-                    && dc.fechaEmision <= searchFechaHasta && dc.fechaEmision >= searchFechaDesde && dc.tipo==2);
+                _listaCotizaciones = MC_DocumentoCompraService.listaDocumentosCompra.Where(dc => dc.Proveedor.razonSoc.ToLower().Trim().Contains(searchRazonSoc.ToLower().Trim()) && dc.Proveedor.ruc.ToLower().Trim().Contains(searchRuc.ToLower().Trim())
+                    && (searchFechaDesde == null || (dc.fechaEmision != null && dc.fechaEmision >= searchFechaDesde))
+                    && (searchFechaHasta == null || (dc.fechaEmision != null && dc.fechaEmision <= searchFechaHasta))
+                    && (dc.Usuario1.Empleado.tiendaActual.id == ComunService.usuarioL.Empleado.tiendaActual.id)
+                    && dc.tipo == 2);
 
                 return _listaCotizaciones;
             }

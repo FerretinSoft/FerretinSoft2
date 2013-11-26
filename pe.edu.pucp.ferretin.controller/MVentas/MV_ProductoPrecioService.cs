@@ -67,6 +67,17 @@ namespace pe.edu.pucp.ferretin.controller.MVentas
                    select c;
         }
 
+        public static ProductoPrecio obtenerPrecioActualbyProd(Producto producto)
+        {
+            return (from c in listaHistorialPrecios
+                   where
+                   (c.Producto != null && c.Producto.Equals(producto)
+                   && c.estado.Equals(true)
+                    )
+                   orderby c.id
+                   select c).First();
+        }
+
 
         public static bool insertarPrecio(ProductoPrecio prodPrecio)
         {

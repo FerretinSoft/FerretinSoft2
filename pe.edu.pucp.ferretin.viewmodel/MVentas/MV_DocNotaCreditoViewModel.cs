@@ -34,6 +34,20 @@ namespace pe.edu.pucp.ferretin.viewmodel.MVentas
              }
          }
 
+         private IEnumerable<DevolucionProducto> _listaProductos;
+         public IEnumerable<DevolucionProducto> listaProductos
+         {
+             get
+             {
+                 return _listaProductos;
+             }
+             set
+             {
+                 _listaProductos = value;
+                 NotifyPropertyChanged("listaProductos");
+             }
+         }
+
          #endregion
     }
 }

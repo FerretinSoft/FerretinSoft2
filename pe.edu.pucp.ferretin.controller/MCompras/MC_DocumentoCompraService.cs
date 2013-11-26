@@ -187,16 +187,16 @@ namespace pe.edu.pucp.ferretin.controller.MCompras
         {
             if (tipoDocumento == 1) // Es Cotizacion
             {
-                return (from dce in listaEstadosDC
+                return (from dce in db.DocumentoCompraEstado
                         where dce.tipo.Equals(0)
-                        orderby dce.nombre
+                        orderby dce.id
                         select dce);
             }
             else
             {
-                return (from dce in listaEstadosDC
+                return (from dce in db.DocumentoCompraEstado
                         where dce.tipo.Equals(1)
-                        orderby dce.nombre
+                        orderby dce.id
                         select dce);
             }           
         }

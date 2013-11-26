@@ -95,8 +95,14 @@ namespace pe.edu.pucp.ferretin.viewmodel.MAlmacen
                     _CategoriaSeleccionada = value;
                 
                 //Actualizo el combobox de categorias padre
-                categoriasPadre = MA_CategoriaService.categorias.Where(c => c.nivel == _CategoriaSeleccionada.Categoria1.nivel);
+                    try
+                    {
+                        categoriasPadre = MA_CategoriaService.categorias.Where(c => c.nivel == _CategoriaSeleccionada.Categoria1.nivel);
                     }
+                    catch (Exception ex) { 
+                             
+                    }
+               }
                 OnPropertyChanged("CategoriaSeleccionada");
             }
         }
@@ -207,21 +213,27 @@ namespace pe.edu.pucp.ferretin.viewmodel.MAlmacen
             }
             else 
             {
-                MessageBox.Show("Seleccionar una categoria");
+                MessageBox.Show("Seleccionar una categoría");
             }
         }
 
         public void deleteCategoria(Object obj)
         {
 
-            int valor=MA_CategoriaService.eliminarCategoria(CategoriaSeleccionada);
-            if (valor.Equals(0))
+            if (CategoriaSeleccionada != null)
             {
-                MessageBox.Show("La Categoría esta asignada, no se pudo eliminar");
+                int valor = MA_CategoriaService.eliminarCategoria(CategoriaSeleccionada);
+                if (valor.Equals(0))
+                {
+                    MessageBox.Show("La Categoría esta asignada, no se pudo eliminar");
+                }
+                else
+                {
+                    MessageBox.Show("La Categoría se elimino con éxito");
+                }
             }
-            else 
-            {
-                MessageBox.Show("La Categoría se elimino con éxito");
+            else {
+                MessageBox.Show("Seleccinar un categoría");
             }
 
            

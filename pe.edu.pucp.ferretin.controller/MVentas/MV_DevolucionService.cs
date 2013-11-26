@@ -94,6 +94,17 @@ namespace pe.edu.pucp.ferretin.controller.MVentas
                    select c;
         }
 
+        public static IEnumerable<DevolucionProducto> obtenerProductosbyIdDevolucionNC(long id_devolucion)
+        {
+            return from c in listaProductos
+                   where
+                   (c.id_devolucion != null && c.id_devolucion.Equals(id_devolucion)
+                   && c.canjeado != true
+                    )
+                   orderby c.id_devolucion
+                   select c;
+        }
+
         public static string obtenerCodDevolucion()
         {
             string codDev = (from c in listaDevoluciones

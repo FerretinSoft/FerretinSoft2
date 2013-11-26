@@ -154,23 +154,39 @@ namespace pe.edu.pucp.ferretin.viewmodel.MSeguridad
             get
             {
                 _listaPerfiles = MS_PerfilService.buscar(searchModulo,searchDescripcion);
-                string admin = "Administrador";
-                string recHumanos = "Recursos Humanos";
-                string alm = "Almacen";
-                string comp = "Compras";
-                string vent = "Ventas";
-                string tien = "Tienda";
-                string vend = "Vendedor";
+                //string admin = "Administrador";
+                //string recHumanos = "Recursos Humanos";
+                //string alm = "Almacen";
+                //string comp = "Compras";
+                //string vent = "Ventas";
+                //string tien = "Tienda";
+                //string vend = "Vendedor";
 
-                foreach (Perfil valor in _listaPerfiles) {
+                //foreach (Perfil valor in _listaPerfiles) {
 
-                    if (valor.nombre.ToLower().Contains(admin.ToLower().Trim())) valor.modulo = "Modulo Administrador";
-                    if (valor.nombre.ToLower().Contains(recHumanos.ToLower().Trim())) valor.modulo = "Modulo Recursos Humanos";
-                    if (valor.nombre.ToLower().Contains(comp.ToLower().Trim())) valor.modulo = "Modulo Compras";
-                    if (valor.nombre.ToLower().Contains(alm.ToLower().Trim())) valor.modulo = "Modulo Almacen";
-                    if (valor.nombre.ToLower().Contains(vent.ToLower().Trim())
-                        || valor.nombre.ToLower().Contains(tien.ToLower().Trim()) 
-                        || valor.nombre.ToLower().Contains(vend.ToLower().Trim())) valor.modulo = "Modulo Ventas";         
+                //    if (valor.nombre.ToLower().Contains(admin.ToLower().Trim())) valor.modulo = "Modulo Administrador";
+                //    if (valor.nombre.ToLower().Contains(recHumanos.ToLower().Trim())) valor.modulo = "Modulo Recursos Humanos";
+                //    if (valor.nombre.ToLower().Contains(comp.ToLower().Trim())) valor.modulo = "Modulo Compras";
+                //    if (valor.nombre.ToLower().Contains(alm.ToLower().Trim())) valor.modulo = "Modulo Almacen";
+                //    if (valor.nombre.ToLower().Contains(vent.ToLower().Trim())
+                //        || valor.nombre.ToLower().Contains(tien.ToLower().Trim()) 
+                //        || valor.nombre.ToLower().Contains(vend.ToLower().Trim())) valor.modulo = "Modulo Ventas";         
+                //}
+
+                foreach (Perfil perfil in _listaPerfiles)
+                {
+                    IEnumerable<PerfilMenu> listaPerfilMenu = MS_PerfilService.db.PerfilMenu.Where(pm => (perfil.id==pm.id_perfil && pm.estado==true));
+                    bool primeraVez=true;
+                    foreach (PerfilMenu perfMen in listaPerfilMenu)
+                    {
+                        if (perfMen.Menu.id_menu_padre == 1)
+                            if (primeraVez == true){
+                                perfil.modulo = perfMen.Menu.nombre.Remove(0,5);
+                                primeraVez=false;
+                            }
+                            else
+                                perfil.modulo = perfil.modulo+" - "+perfMen.Menu.nombre.Remove(0,5);
+                    } 
                 }
                 return _listaPerfiles;
             }            
@@ -270,7 +286,7 @@ namespace pe.edu.pucp.ferretin.viewmodel.MSeguridad
         public void savePerfil(Object obj)
         {
             listaPerfiles = null;
-            if (perfil.nombre.Length <= 0)
+            if (perfil.nombre.Length <= 0 || perfil.nombre =="" || perfil.nombre ==null)
             {
                 MessageBox.Show("Ingrese datos en los campos necesarios, por favor");
                 return;

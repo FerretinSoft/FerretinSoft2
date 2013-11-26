@@ -16,6 +16,7 @@ using System.Windows.Shapes;
 namespace pe.edu.pucp.ferretin.view.MAlmacen
 {
     /// <summary>
+    /// 
     /// Lógica de interacción para MA_MainWindow.xaml
     /// </summary>
     public partial class MA_MainWindow : Window

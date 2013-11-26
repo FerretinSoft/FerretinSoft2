@@ -167,7 +167,7 @@ namespace pe.edu.pucp.ferretin.view.MAlmacen
                 var viewModel = v.main.DataContext as MA_MantenimientoProductosEdicionStockViewModel;
                 viewModel.producto = viewModelThis.producto;
                 //productoTabControl.SelectedIndex = 0;
-                v.ShowDialog();
+                v.Show();
             }
         }
         private void detallesTab_MouseUp(object sender, MouseButtonEventArgs e)

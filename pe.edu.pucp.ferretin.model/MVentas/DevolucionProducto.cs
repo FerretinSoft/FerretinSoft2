@@ -11,14 +11,19 @@ namespace pe.edu.pucp.ferretin.model
    
         partial void OncantidadChanged()
         {
-            if (moneda != null)
+            if (moneda != null && canjeado == false)
             {
                 decimal? productoPrecioLista = precioUnitario * (moneda == 0? 1 : (Devolucion.Venta.tipoCambio != null && Devolucion.Venta.tipoCambio <= 0) ? 1 : Devolucion.Venta.tipoCambio);
                 decimal?  montoParcial = cantidad * productoPrecioLista;
                 monto = Decimal.Round(montoParcial.Value, 2);
             }
+            else if (canjeado == true)
+            {
+                puntosParciales = precioPuntos * cantidad;
+            }
             if (Devolucion != null){
                 Devolucion.total = (from dp in Devolucion.DevolucionProducto select dp.monto).Sum();
+                Devolucion.puntosDevueltos = (from dp in Devolucion.DevolucionProducto select dp.puntosParciales).Sum();
             }
         }
 

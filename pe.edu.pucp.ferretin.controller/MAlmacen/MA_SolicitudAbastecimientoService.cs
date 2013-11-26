@@ -70,11 +70,6 @@ namespace pe.edu.pucp.ferretin.controller.MAlmacen
                 return null;
         }
 
-        public static void actualizarSolicitud(SolicitudAbastecimiento solicitud)
-        {
-            db.SubmitChanges();
-        }
-
         public static IEnumerable<SolicitudAbastecimiento> buscar(Tienda tienda, SolicitudAbastecimientoEstado estado, DateTime fechaDesde, DateTime fechaHasta)
         {
             return listaSolicitudes
