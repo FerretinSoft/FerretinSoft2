@@ -496,12 +496,14 @@ namespace pe.edu.pucp.ferretin.viewmodel.MVentas
                 string prodErrados = "";
                 bool error = false;
                 bool cantCero = false;
-                for (int i = 0; i < devolucion.Venta.VentaProducto.Count(); i++)
+                int totalVentaProd = devolucion.Venta.VentaProducto.Count();
+                int totalDevProd = devolucion.DevolucionProducto.Count();
+                for (int i = 0; i < totalVentaProd; i++)
                 {
                     VentaProducto prodComprado = devolucion.Venta.VentaProducto[i];
                     int cantDev = 0;
                     cantCero = false;
-                    for (int k = 0; k < devolucion.DevolucionProducto.Count(); k++)
+                    for (int k = 0; k < totalDevProd; k++)
                     {
                         if (devolucion.DevolucionProducto[k].Producto.codigo == prodComprado.Producto.codigo)
                         {
@@ -528,7 +530,7 @@ namespace pe.edu.pucp.ferretin.viewmodel.MVentas
                     string messageBoxText = "¿Desea confirmar la transacción? Se procederá a almacenar la información ingresada";
                     string caption = "Mensaje de confirmación";
                     MessageBoxButton button = MessageBoxButton.OKCancel;
-                    MessageBoxResult result = MessageBox.Show(messageBoxText, caption, button);
+                    MessageBoxResult result = MessageBox.Show(messageBoxText, caption, button, MessageBoxImage.Question);
                     switch (result)
                     {
                         case MessageBoxResult.OK:
@@ -538,7 +540,9 @@ namespace pe.edu.pucp.ferretin.viewmodel.MVentas
                             devolucion.subTotal = Decimal.Round(this.devolucion.total.Value / (1 + ((decimal)MS_ParametroService.obtenerIGV() / 100)), 2);
                             this.devolucion.igv = Decimal.Round(this.devolucion.total.Value - this.devolucion.subTotal.Value, 2);                           
                             notaCredito.importe = devolucion.total;
-                            notaCredito.estado = 0;
+                            if (devolucion.Venta.Cliente != null)
+                                devolucion.Venta.Cliente.puntosActual = devolucion.Venta.Cliente.puntosActual + devolucion.puntosDevueltos;
+                            notaCredito.estado = 2;
                             notaCredito.codigo = "NC-" + devolucion.codigo + DateTime.Today.Year;
                             notaCredito.fechaVencimiento = DateTime.Now.AddDays(Convert.ToInt32(MS_ParametroService.obtenerParametro("vigencia de notas de credito")));
                             ComunService.idVentana(40);
@@ -548,18 +552,21 @@ namespace pe.edu.pucp.ferretin.viewmodel.MVentas
                             }
                             else
                             {
-                                MessageBox.Show("La devolución fue agregado con éxito con el siguiente código: " + devolucion.codigo, "Mensaje de confirmación");
+                                MessageBox.Show("La devolución fue agregado con éxito con el siguiente código: " + devolucion.codigo, "Mensaje de confirmación", MessageBoxButton.OK, MessageBoxImage.Information);
                             }
                             notaCredito.id_devolucion = devolucion.id;
                             ComunService.idVentana(44);
-                            if (!MV_NotaCreditoService.insertarNotaCredito(notaCredito))
+                            if (devolucion.total > 0)
                             {
-                                MessageBox.Show("No se pudo agregar la nueva Nota de Crédito", "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
-                            }
-                            else
-                            {
-                                MessageBox.Show("La Nota de Crédito fue agregado con éxito con el siguiente código: " + notaCredito.codigo, "Mensaje de confirmación");
-                                NotifyPropertyChanged("selectedTab");
+                                if (!MV_NotaCreditoService.insertarNotaCredito(notaCredito))
+                                {
+                                    MessageBox.Show("No se pudo agregar la nueva Nota de Crédito", "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
+                                }
+                                else
+                                {
+                                    MessageBox.Show("La Nota de Crédito fue agregado con éxito con el siguiente código: " + notaCredito.codigo, "Mensaje de confirmación", MessageBoxButton.OK, MessageBoxImage.Information);
+                                    NotifyPropertyChanged("selectedTab");
+                                }
                             }
                             try
                             {
@@ -576,7 +583,23 @@ namespace pe.edu.pucp.ferretin.viewmodel.MVentas
                             }
                             this.devolucionRegistrada = true;
                             this.noDevolucionRegistrada = false;
-                            listaDevoluciones = MV_DevolucionService.buscarDevoluciones(searchNroDevolucion, searchNroDocumento, Convert.ToInt32(searchNroDocCliente), searchFechaInicio, searchFechaFin, searchVendedor);
+                            if (devolucion.total == 0 && devolucion.puntosDevueltos != 0)
+                            {
+                                MessageBox.Show("La presente devolución no genero nota de crédito", "Mensaje de Información", MessageBoxButton.OK, MessageBoxImage.Information);
+                                this.selectedTab = 0;
+                            }
+                            this.searchNroDevolucion = "";
+                            this.searchnombreCliente = "";
+                            this.searchNroDocCliente = "";
+                            this.searchNroDocumento = "";
+                            this.searchVendedor = "";
+                            this.nombreVendedor = "";
+
+                            if (searchNroDocCliente != "")
+                                _listaDevoluciones = MV_DevolucionService.buscarDevoluciones(searchNroDevolucion, searchNroDocumento, Convert.ToInt32(searchNroDocCliente), searchFechaInicio, searchFechaFin, searchVendedor);
+                            else
+                                _listaDevoluciones = MV_DevolucionService.buscarDevoluciones(searchNroDevolucion, searchNroDocumento, null, searchFechaInicio, searchFechaFin, searchVendedor);
+                
                             NotifyPropertyChanged("listaDevoluciones");
                             break;
                         case MessageBoxResult.Cancel:
@@ -603,7 +626,14 @@ namespace pe.edu.pucp.ferretin.viewmodel.MVentas
                 this.devolucion = new Devolucion();
                 this.devolucion = MV_DevolucionService.obtenerDevolucionbyId((long)id);
                 this.listaProductos = MV_DevolucionService.obtenerProductosbyIdDevolucion((long)id);
-                this.notaCredito = MV_DevolucionService.obtenerNotaCredbyIdDevolucion((long)id);
+                if (devolucion.total > 0)
+                    this.notaCredito = MV_DevolucionService.obtenerNotaCredbyIdDevolucion((long)id);
+                else
+
+                {
+                    this.notaCredito.estado = 0;
+                    NotifyPropertyChanged("notaCredito");
+                }
                 selectedTab = 1;
             }
             catch (Exception e)
@@ -622,10 +652,16 @@ namespace pe.edu.pucp.ferretin.viewmodel.MVentas
                  prodDev.id_producto = prodSelec.id_producto;
                  prodDev.precioUnitario = prodSelec.precioUnitario;
                  prodDev.moneda = prodSelec.moneda;
-                 prodDev.monto = prodDev.cantidad * prodDev.Producto.precioLista;
+                 prodDev.canjeado = prodSelec.canjeado;
+                 prodDev.precioPuntos = prodSelec.precioPuntos;
+                 prodDev.dardebaja = false;
+                 //prodDev.puntosParciales = prodSelec.cantidad * prodDev.precioUnitario;
+                 //prodDev.monto = prodDev.cantidad * prodDev.precioUnitario;
+
                  devolucion.total = 0;
                  devolucion.id_venta = prodSelec.Venta.id;                 
                  devolucion.DevolucionProducto.Add(prodDev);
+               
                  NotifyPropertyChanged("devolucion");
             }
             catch (Exception e)

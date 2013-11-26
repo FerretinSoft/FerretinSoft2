@@ -26,9 +26,9 @@
         <Label Content="Fecha de Emisión" HorizontalAlignment="Left" Margin="297,114,0,0" VerticalAlignment="Top"/>
         <Label Content="{Binding Path=notaCredito.fechaEmisionString}" HorizontalAlignment="Left" Margin="462,114,0,0" VerticalAlignment="Top" Width="83"/>
 
-        <DataGrid BorderBrush="Transparent" HorizontalScrollBarVisibility="Hidden" VerticalScrollBarVisibility="Hidden" IsManipulationEnabled="False" IsReadOnly="True"  AutoGenerateColumns="False" CanUserAddRows="False" CanUserDeleteRows="False" CanUserReorderColumns="False" CanUserResizeColumns="False" CanUserResizeRows="False" CanUserSortColumns="False" Background="Transparent"  Margin="0,171,5,103" ItemsSource="{Binding Path=notaCredito.Devolucion.DevolucionProducto}">
+        <DataGrid BorderBrush="Transparent" HorizontalScrollBarVisibility="Hidden" VerticalScrollBarVisibility="Hidden" IsManipulationEnabled="False" IsReadOnly="True"  AutoGenerateColumns="False" CanUserAddRows="False" CanUserDeleteRows="False" CanUserReorderColumns="False" CanUserResizeColumns="False" CanUserResizeRows="False" CanUserSortColumns="False" Background="Transparent"  Margin="0,171,5,103" ItemsSource="{Binding Path=listaProductos}">
             <DataGrid.Columns>
-                <DataGridTextColumn Width="0.8*" Binding="{Binding Path=Producto.codigo}" ClipboardContentBinding="{x:Null}" Header="Cód Prod."/>
+                <DataGridTextColumn Width="1.2*" Binding="{Binding Path=Producto.codigo}" ClipboardContentBinding="{x:Null}" Header="Cód Prod."/>
                 <DataGridTextColumn Width="2*"  Binding="{Binding Path=Producto.nombre}" ClipboardContentBinding="{x:Null}" Header="Descripción"/>
                 <DataGridTextColumn Width="1*" Binding="{Binding Path=cantidad}" ClipboardContentBinding="{x:Null}" Header="Cantidad"/>
                 <DataGridTextColumn Width="0.9*" Binding="{Binding Path=monedaString}" ClipboardContentBinding="{x:Null}" Header="Moneda"/>
@@ -51,9 +51,9 @@
                 <Label Content="Sub Total:" VerticalAlignment="Center"/>
                 <Label Content="%IGV:" VerticalAlignment="Center" Grid.Row="1"/>
                 <Label Content="Total:" VerticalAlignment="Center" Grid.Row="2"/>
-                <TextBox  Text="{Binding Path=notaCredito.Devolucion.subTotal, Mode=OneWay}" VerticalAlignment="Center" IsEnabled="False" TextAlignment="Right" Grid.Column="1"/>
-                <TextBox  Text="{Binding Path=notaCredito.Devolucion.igv, Mode=OneWay}" VerticalAlignment="Center" IsEnabled="False" TextAlignment="Right" Grid.Column="1" Grid.Row="1"/>
-                <TextBox  Text="{Binding Path=notaCredito.Devolucion.total, Mode=OneWay}" VerticalAlignment="Center" IsEnabled="False" TextAlignment="Right" Grid.Column="1" Grid.Row="2"/>
+                <TextBox  Text="{Binding Path=notaCredito.Devolucion.subTotal, Mode=OneWay, StringFormat=S/. \{0\}}" VerticalAlignment="Center" IsEnabled="False" TextAlignment="Right" Grid.Column="1"/>
+                <TextBox  Text="{Binding Path=notaCredito.Devolucion.igv, Mode=OneWay, StringFormat=S/. \{0\}}" VerticalAlignment="Center" IsEnabled="False" TextAlignment="Right" Grid.Column="1" Grid.Row="1"/>
+                <TextBox  Text="{Binding Path=notaCredito.Devolucion.total, Mode=OneWay, StringFormat=S/. \{0\}}" VerticalAlignment="Center" IsEnabled="False" TextAlignment="Right" Grid.Column="1" Grid.Row="2"/>
             </Grid>
         </GroupBox>
         <Label Content="Documento que modifica" HorizontalAlignment="Left" Margin="297,140,0,0" VerticalAlignment="Top"/>

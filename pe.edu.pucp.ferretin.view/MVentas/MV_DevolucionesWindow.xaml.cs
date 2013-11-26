@@ -113,6 +113,7 @@ namespace pe.edu.pucp.ferretin.view.MVentas
             MV_DevolucionesViewModel actual = this.main.DataContext as MV_DevolucionesViewModel;
             MV_DocNotaCreditoViewModel padre = p.main.DataContext as MV_DocNotaCreditoViewModel;
             padre.notaCredito = actual.notaCredito;
+            padre.listaProductos = MV_DevolucionService.obtenerProductosbyIdDevolucionNC(padre.notaCredito.Devolucion.id);
             actual.selectedTab = 0;
             p.ShowDialog();
         }
