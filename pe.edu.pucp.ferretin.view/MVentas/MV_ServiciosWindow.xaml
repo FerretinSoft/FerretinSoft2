@@ -1,18 +1,14 @@
-﻿<Window
+﻿<Window x:Class="pe.edu.pucp.ferretin.view.MVentas.MV_ServiciosWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:MVentas="clr-namespace:pe.edu.pucp.ferretin.viewmodel.MVentas;assembly=pe.edu.pucp.ferretin.viewmodel" x:Class="pe.edu.pucp.ferretin.view.MVentas.MV_AdministrarPromocionesWindow"
-        Title="Administrar Promociones" Icon="../Resources/ferretin_ico.ico" Width="800" Height="400" WindowStartupLocation="CenterScreen" Closing="Window_Closing">
-    <Window.DataContext>
-        <MVentas:MV_PromocionesViewModel/>
-    </Window.DataContext>
+        Title="Administrar Servicios" Height="500" Width="700">
     <Grid>
         <Grid.Background>
             <ImageBrush ImageSource="../Resources/texture_3_100.png" TileMode="FlipX" 
 				Viewport="0,0,100,100" ViewportUnits="Absolute"/>
         </Grid.Background>
         <TabControl x:Name="VentasTab" SelectedIndex="{Binding currentIndexTab}">
-            <TabItem Header="Promociones" x:Name="promocionesTab">
+            <TabItem Header="Servicios" x:Name="promocionesTab">
                 <Grid Background="#FFE5E5E5">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition/>
@@ -66,7 +62,7 @@
                     </ToolBar>
                     <DataGrid ItemsSource="{Binding listaPromociones}" Margin="10" Grid.Row="2" IsManipulationEnabled="False" CanUserSortColumns="True" AutoGenerateColumns="False" CanUserAddRows="False" CanUserDeleteRows="False" >
                         <DataGrid.Columns>
-                            <DataGridTemplateColumn Width="0.8*" Header="Cód. Promoción">
+                            <DataGridTemplateColumn Width="0.8*" Header="Código">
                                 <DataGridTemplateColumn.CellTemplate>
                                     <DataTemplate>
                                         <TextBlock><Hyperlink 

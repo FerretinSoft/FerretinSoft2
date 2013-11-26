@@ -8,14 +8,6 @@
             <RowDefinition/>          
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
-        <ToolBar Grid.Row="0" HorizontalAlignment="Left" Margin="5" VerticalAlignment="Center" Height="24">
-            <Button Command="{Binding nuevoClienteCommand}" IsEnabled="{Binding noSoloSeleccionarCliente, Mode=OneWay}" Content="" VerticalAlignment="Top" Width="20" Margin="0,0,2,-1" Height="20">
-                <Button.Background>
-                    <ImageBrush ImageSource="../Resources/add_20.png"/>
-                </Button.Background>
-            </Button>
-
-        </ToolBar>
         <DataGrid x:Name="tiposPromocion" Margin="5" Grid.Row="1" AutoGenerateColumns="False" CanUserAddRows="True" CanUserDeleteRows="False">
             <DataGrid.Columns>
                 <DataGridTextColumn Width="1*" Binding="{Binding Nombre}" Header="Nombre"/>

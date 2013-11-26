@@ -267,7 +267,7 @@ namespace pe.edu.pucp.ferretin.view.MVentas
                 print.Owner = this;
                 var printVM = print.DataContext as MV_DocProformaViewModel;
                 printVM.proforma = vm.proforma;
-                print.ShowDialog();
+                print.Show();
                 print.enviarEmail();
                 
             }
