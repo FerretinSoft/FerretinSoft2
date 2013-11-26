@@ -156,7 +156,7 @@ namespace pe.edu.pucp.ferretin.viewmodel.MVentas
         public void savePrecioProducto(Object obj)
         {
             if (productoPrecio.moneda == null || productoPrecio.precioString == null || productoPrecio.precioString == "")
-                MessageBox.Show("Ingrese los campos obligatorios", "Error");
+                MessageBox.Show("Ingrese los campos obligatorios", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             else
             {
                 string messageBoxText = "¿Desea confirmar la transacción? Se procederá a almacenar la información ingresada";
@@ -191,11 +191,11 @@ namespace pe.edu.pucp.ferretin.viewmodel.MVentas
                         
                         if (!MV_ProductoPrecioService.insertarPrecio(productoPrecio))
                         {
-                            MessageBox.Show("No se pudo agregar el nuevo precio");
+                            MessageBox.Show("No se pudo agregar el nuevo precio", "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
                         }
                         else
                         {
-                            MessageBox.Show("El nuevo precio fue agregado con éxito");
+                            MessageBox.Show("El nuevo precio fue agregado con éxito", "Mensaje de confirmación", MessageBoxButton.OK,MessageBoxImage.Information);
                             this.listaProducto = MV_ProductoPrecioService.buscarProductos(searchProducto);
                             NotifyPropertyChanged("listaProducto");
                             selectedTab = 0;
@@ -218,6 +218,12 @@ namespace pe.edu.pucp.ferretin.viewmodel.MVentas
                 NotifyPropertyChanged("historialPrecios");
                 this.productoPrecio.Producto = prodSelected;
                 this.productoPrecio.fechaRegistro = DateTime.Today;
+                ProductoPrecio precioActual  = MV_ProductoPrecioService.obtenerPrecioActualbyProd(prodSelected);
+                this.productoPrecio.ganarPuntos = precioActual.ganarPuntos;
+                this.productoPrecio.precio = precioActual.precio;
+                this.productoPrecio.precioPuntos = precioActual.precioPuntos;
+                this.productoPrecio.moneda = precioActual.moneda;
+                this.productoPrecio.precioString = precioActual.precioString;
                 NotifyPropertyChanged("productoPrecio");
                 selectedTab = 1;
             }

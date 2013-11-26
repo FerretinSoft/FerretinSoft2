@@ -229,7 +229,7 @@ namespace pe.edu.pucp.ferretin.viewmodel.MVentas
                 this.searchNroDocCliente = "";
 
                 this.notaCredito = MV_NotaCreditoService.obtenerNotaCreditoById((long)id);
-                this.listaProductos = MV_DevolucionService.obtenerProductosbyIdDevolucion((long)notaCredito.id_devolucion);
+                this.listaProductos = MV_DevolucionService.obtenerProductosbyIdDevolucionNC((long)notaCredito.id_devolucion);
 
                 selectedTab = 1;
             }

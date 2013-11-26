@@ -13,7 +13,10 @@ namespace pe.edu.pucp.ferretin.model
         {
             get
             {
-                return estado == 1 ? "EXPIRADA" : "APLICABLE";
+                if (estado == 0)
+                    return "NO GENERADA";
+                else
+                    return estado == 1 ? "EXPIRADA" : "APLICABLE";
             }
         }
         public string fechaEmisionString
