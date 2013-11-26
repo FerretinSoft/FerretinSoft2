@@ -32,7 +32,7 @@ namespace pe.edu.pucp.ferretin.view.MVentas
             InitializeComponent();
         }
         public void imprimir(){
-            this.ShowDialog();
+            this.Show();
             PrintDialog printDialog = new PrintDialog();
             if (printDialog.ShowDialog() == true)
             {

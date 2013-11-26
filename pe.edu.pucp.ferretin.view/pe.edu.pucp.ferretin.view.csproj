@@ -160,6 +160,9 @@
     <Compile Include="MVentas\MV_DocProforma.xaml.cs">
       <DependentUpon>MV_DocProforma.xaml</DependentUpon>
     </Compile>
+    <Compile Include="MVentas\MV_ServiciosWindow.xaml.cs">
+      <DependentUpon>MV_ServiciosWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="MVentas\MV_TiposPromocionesWindow.xaml.cs">
       <DependentUpon>MV_TiposPromocionesWindow.xaml</DependentUpon>
     </Compile>
@@ -459,6 +462,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="MVentas\MV_ComprobantePagoWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="MVentas\MV_ServiciosWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
