@@ -1,0 +1,31 @@
+﻿<Window x:Class="pe.edu.pucp.ferretin.view.MVentas.MV_TiposPromocionesWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Tipos de Promociones" Height="300" Width="400" WindowStartupLocation="CenterScreen">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition/>          
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <ToolBar Grid.Row="0" HorizontalAlignment="Left" Margin="5" VerticalAlignment="Center" Height="24">
+            <Button Command="{Binding nuevoClienteCommand}" IsEnabled="{Binding noSoloSeleccionarCliente, Mode=OneWay}" Content="" VerticalAlignment="Top" Width="20" Margin="0,0,2,-1" Height="20">
+                <Button.Background>
+                    <ImageBrush ImageSource="../Resources/add_20.png"/>
+                </Button.Background>
+            </Button>
+
+        </ToolBar>
+        <DataGrid x:Name="tiposPromocion" Margin="5" Grid.Row="1" AutoGenerateColumns="False" CanUserAddRows="True" CanUserDeleteRows="False">
+            <DataGrid.Columns>
+                <DataGridTextColumn Width="1*" Binding="{Binding Nombre}" Header="Nombre"/>
+                <DataGridTextColumn Width="1*" Binding="{Binding cantidadUnidades}" Header="Cant. Mult. Unid."/>
+                <DataGridTextColumn Width="1*" Binding="{Binding descuento}" Header="Descuento %"/>
+            </DataGrid.Columns>
+        </DataGrid>
+        <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Center" Margin="5">
+            <Button Command="{Binding savePromocionCommand}" Margin="0,0,10,0" Height="30" Padding="10,0" Content="GUARDAR" Click="Button_Click_1"/>
+            <Button Command="{Binding cancelPromocionCommand}" Padding="10,0" Height="30" Content="CANCELAR" Click="Button_Click"/>
+        </StackPanel>
+    </Grid>
+</Window>

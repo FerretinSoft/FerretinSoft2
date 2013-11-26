@@ -160,14 +160,55 @@
                                     <ImageBrush ImageSource="../Resources/search1_20.png"/>
                                 </Button.Background>
                             </Button>
+                            <Button Margin="10,0" Padding="10,0" Content="TIPOS DE PROMOCIONES" Click="Button_Click_1" BorderBrush="Black"/>
                         </ToolBar>
                     </StackPanel>
-                    <DataGrid ItemsSource="{Binding promocion.PromocionProducto, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Grid.Row="2" Margin="3,5,7,5" AutoGenerateColumns="False" IsManipulationEnabled="True" CanUserAddRows="False" CanUserDeleteRows="True" CanUserReorderColumns="True" CanUserResizeColumns="True">
+                    <DataGrid ItemsSource="{Binding promocion.PromocionProducto, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" CanUserSortColumns="False" Grid.Row="2" Margin="3,5,7,5" AutoGenerateColumns="False" IsManipulationEnabled="True" CanUserAddRows="False" CanUserDeleteRows="True" CanUserReorderColumns="True" CanUserResizeColumns="True">
                         <DataGrid.Columns>
                             <DataGridHyperlinkColumn Width="90" Binding="{Binding Producto.codigo}" Header="Cód. Producto" IsReadOnly="True"/>
                             <DataGridTextColumn Width="2*" Binding="{Binding Producto.nombre}" Header="Nombre" IsReadOnly="True"/>
-                            <DataGridTextColumn Width="1*" Binding="{Binding cantMulUnidades}" Header="Cant. Unidades." />
-                            <DataGridTextColumn Width="1*" Binding="{Binding descuentoPorcentaje}" Header="Descuento %" IsReadOnly="False"/>
+                            <DataGridComboBoxColumn Width="1*" Header="Tipo">
+                                <DataGridComboBoxColumn.ElementStyle>
+                                    <Style TargetType="ComboBox">
+                                        <Setter Property="ItemsSource" Value="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type DataGrid}}, Path=DataContext.tiposPromocion,Mode=OneWay,UpdateSourceTrigger=PropertyChanged}"/>
+                                        <Setter Property="SelectedItem" Value="{Binding PromocionTipo,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"/>
+                                        <Setter Property="ItemTemplate">
+                                            <Setter.Value>
+                                                <DataTemplate>
+                                                    <TextBlock Text="{Binding Nombre}"></TextBlock>
+                                                </DataTemplate>
+                                            </Setter.Value>
+                                        </Setter>
+                                    </Style>
+                                </DataGridComboBoxColumn.ElementStyle>
+                                <DataGridComboBoxColumn.EditingElementStyle>
+                                    <Style TargetType="ComboBox">
+                                        <Setter Property="ItemsSource" Value="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type DataGrid}}, Path=DataContext.tiposPromocion,Mode=OneWay,UpdateSourceTrigger=PropertyChanged}"/>
+                                        <Setter Property="SelectedItem" Value="{Binding PromocionTipo,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"/>
+                                        <Setter Property="ItemTemplate">
+                                            <Setter.Value>
+                                                <DataTemplate>
+                                                    <TextBlock Text="{Binding Nombre}"></TextBlock>
+                                                </DataTemplate>
+                                            </Setter.Value>
+                                        </Setter>
+                                    </Style>
+                                </DataGridComboBoxColumn.EditingElementStyle>
+                            </DataGridComboBoxColumn>
+                            <DataGridTextColumn Width="1*" Binding="{Binding cantMulUnidades}" Header="Cant. Unid." IsReadOnly="True">
+                                <DataGridTextColumn.EditingElementStyle>
+                                    <Style TargetType="TextBox">
+                                        <Setter  Property="IsReadOnly" Value="{Binding tipoSeleccionado,Mode=OneWay,UpdateSourceTrigger=PropertyChanged}"/>
+                                    </Style>
+                                </DataGridTextColumn.EditingElementStyle>
+                            </DataGridTextColumn>
+                            <DataGridTextColumn Width="1*" Binding="{Binding descuentoPorcentaje}" Header="Descuento %" IsReadOnly="True">
+                                <DataGridTextColumn.EditingElementStyle>
+                                    <Style TargetType="TextBox">
+                                        <Setter  Property="IsReadOnly" Value="{Binding tipoSeleccionado,Mode=OneWay,UpdateSourceTrigger=PropertyChanged}"/>
+                                    </Style>
+                                </DataGridTextColumn.EditingElementStyle>
+                            </DataGridTextColumn>
                             <DataGridTextColumn Width="1*" Binding="{Binding maxPromVenta}" Header="Máx. por Venta"/>
                             <DataGridTextColumn Width="80" Binding="{Binding stockTotal}" Header="Stock Total"/>
                             <DataGridTextColumn Width="80" Binding="{Binding stockActual}" Header="Stock Actual" IsReadOnly="True"/>
