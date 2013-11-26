@@ -23,6 +23,8 @@ namespace pe.edu.pucp.ferretin.view.MCompras
     {
         public MC_BuscadorCotizacionesWindow(Window padre)
         {
+            //dpfechaDesde.SelectedDate = DateTime.Now;
+            //dpfechaHasta.SelectedDate = DateTime.Now;
             this.Owner = padre;
             InitializeComponent();
             var myDC = DataContext as MC_BuscadorCotizacionesViewModel;

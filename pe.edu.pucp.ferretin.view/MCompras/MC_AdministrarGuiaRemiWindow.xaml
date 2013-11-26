@@ -100,7 +100,7 @@
                         </TextBox.InputBindings>
                     </TextBox>
 
-                    <Button Visibility="Visible" x:Name="buscarOC" HorizontalAlignment="Left" Margin="560,35,0,0" Width="18" RenderTransformOrigin="0.3,-0.35" Height="18" VerticalAlignment="Top" Grid.Column="1" Click="buscarOC_Click">
+                    <Button IsEnabled="{Binding Path=btnBusqOCEnable}" Visibility="Visible" x:Name="buscarOC" HorizontalAlignment="Left" Margin="560,35,0,0" Width="18" RenderTransformOrigin="0.3,-0.35" Height="18" VerticalAlignment="Top" Grid.Column="1" Click="buscarOC_Click">
                         <Button.Background>
                             <ImageBrush ImageSource="../Resources/search1_20.png"/>
                         </Button.Background>

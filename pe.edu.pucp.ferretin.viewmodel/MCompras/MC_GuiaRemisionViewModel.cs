@@ -89,6 +89,21 @@ namespace pe.edu.pucp.ferretin.viewmodel.MCompras
             }
         }
 
+        private bool _btnBusqOCEnable;
+        public bool btnBusqOCEnable
+        {
+            get
+            {
+                return _btnBusqOCEnable;
+            }
+            set
+            {
+                _btnBusqOCEnable = value;
+                NotifyPropertyChanged("btnBusqOCEnable");
+            }
+        }
+        
+
         private IEnumerable<GuiaRemision> _listaGuiasRemision;
         public IEnumerable<GuiaRemision> listaGuiasRemision
         {
@@ -143,7 +158,9 @@ namespace pe.edu.pucp.ferretin.viewmodel.MCompras
                         ordenCompraCod = "";
                         guiaRemision = new GuiaRemision(); 
                         //listaGuiaRemisionProducto = null;
-                        guiaRemision.Tienda = MC_ComunService.usuarioL.Empleado.tiendaActual;break;
+                        guiaRemision.Tienda = MC_ComunService.usuarioL.Empleado.tiendaActual;
+                        btnBusqOCEnable = true;
+                        break;
 
                     case Tab.MODIFICAR: 
                         detallesTabHeader = "Modificar"; 
@@ -156,13 +173,15 @@ namespace pe.edu.pucp.ferretin.viewmodel.MCompras
                     default: 
                         detallesTabHeader = "Agregar";
                         isDetalle = true;
-                        guiaRemision = new GuiaRemision(); 
+                        guiaRemision = new GuiaRemision();
+                        ordenCompraCod = "";
                         break;//Si es agregar, creo un nuevo objeto Guia de Remision
                 }
                 NotifyPropertyChanged("statusTab");
                 //Cuando se cambia el status, tambien se tiene que actualizar el currentIndex del tab
                 NotifyPropertyChanged("currentIndexTab"); //Hace que cambie el tab automaticamente
                 NotifyPropertyChanged("guiaRemision");
+                NotifyPropertyChanged("ordenCompraCod");
             }
         }
         //Usado para mover los tabs de acuerdo a las acciones realizadas
@@ -265,6 +284,7 @@ namespace pe.edu.pucp.ferretin.viewmodel.MCompras
             {
                 ordenCompraCod = "";
                 isDetalle = true;
+                //NotifyPropertyChanged("ordenCompraCod");
                 statusTab = Tab.AGREGAR;
             }
             catch (Exception e)
@@ -278,7 +298,9 @@ namespace pe.edu.pucp.ferretin.viewmodel.MCompras
             try
             {
                 this.guiaRemision = listaGuiasRemision.Single(guiaRemision => guiaRemision.id == (int)id);
+                ordenCompraCod = this.guiaRemision.DocumentoCompra.codigo;
                 isDetalle = false;
+                btnBusqOCEnable = false;
                 this.statusTab = Tab.MODIFICAR;
             }
             catch (Exception e)

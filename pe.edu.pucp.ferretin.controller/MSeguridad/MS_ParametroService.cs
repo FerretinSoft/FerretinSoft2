@@ -38,7 +38,8 @@ namespace pe.edu.pucp.ferretin.controller.MSeguridad
 
         public static void actualizarParametro(Parametro parametro)
         {
-            db.SubmitChanges();
+            ComunService.idVentana(13);
+            ComunService.enviarCambios();
         }
     }
 }
