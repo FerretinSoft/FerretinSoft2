@@ -97,8 +97,10 @@ namespace pe.edu.pucp.ferretin.viewmodel.MCompras
                 if (searchFechaDesde > searchFechaHasta)
                     MessageBox.Show("La 'Fecha Hasta' no puede ser menor que la 'Fecha Desde'", "Guia de Remision", MessageBoxButton.OK, MessageBoxImage.Exclamation);
                 else
-                    _listaGuiasRemision = MC_GuiaRemisionService.buscarGuiasRemision(searchCodigo, searchProveedor, searchFechaDesde, searchFechaHasta).ToList();
-
+                {
+                    int idTienda = ComunService.usuarioL.Empleado.tiendaActual.id;
+                    _listaGuiasRemision = MC_GuiaRemisionService.buscarGuiasRemision(searchCodigo, searchProveedor, searchFechaDesde, searchFechaHasta, idTienda).ToList();
+                }                   
                 return _listaGuiasRemision.ToList();
             }
             set
@@ -138,6 +140,7 @@ namespace pe.edu.pucp.ferretin.viewmodel.MCompras
                     case Tab.AGREGAR: 
                         detallesTabHeader = "Agregar";
                         isDetalle = true;
+                        ordenCompraCod = "";
                         guiaRemision = new GuiaRemision(); 
                         //listaGuiaRemisionProducto = null;
                         guiaRemision.Tienda = MC_ComunService.usuarioL.Empleado.tiendaActual;break;
@@ -260,6 +263,7 @@ namespace pe.edu.pucp.ferretin.viewmodel.MCompras
         {
             try
             {
+                ordenCompraCod = "";
                 isDetalle = true;
                 statusTab = Tab.AGREGAR;
             }

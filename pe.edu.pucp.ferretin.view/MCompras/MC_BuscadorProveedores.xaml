@@ -2,7 +2,7 @@
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:MCompras="clr-namespace:pe.edu.pucp.ferretin.viewmodel.MCompras;assembly=pe.edu.pucp.ferretin.viewmodel"
-        Title="Busqueda - Proveedores" Height="334" Width="599.412" ResizeMode="NoResize" WindowStartupLocation="CenterScreen">
+        Title="Busqueda - Proveedores" Height="334" Width="599.412" ResizeMode="NoResize" WindowStartupLocation="CenterScreen" Icon="../Resources/ferretin_ico.ico">
     <Window.DataContext>
         <MCompras:MC_BuscadorProveedoresViewModel/>
     </Window.DataContext>
@@ -26,7 +26,7 @@
                 </Button.Background>
             </Button>
             <Button Content="SELECCIONAR" Command="{Binding actualizarListaProveedoresCommand}" CommandParameter="{Binding ElementName=listaProveedores}" HorizontalAlignment="Left" Margin="181,261,0,12" Width="100" Click="Button_Click"/>
-            <Button Content="CANCELAR" HorizontalAlignment="Left" Margin="303,261,0,12" Width="100"/>
+            <Button Content="CANCELAR" HorizontalAlignment="Left" Margin="303,261,0,12" Width="100" Click="Button_Click_1"/>
 
         </Grid>
     </Grid>

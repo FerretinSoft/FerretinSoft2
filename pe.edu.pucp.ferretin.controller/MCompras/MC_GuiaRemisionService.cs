@@ -62,15 +62,16 @@ namespace pe.edu.pucp.ferretin.controller.MCompras
         }
 
 
-        public static IEnumerable<GuiaRemision> buscarGuiasRemision(string codigo, string proveedor, DateTime? fechaDesde, DateTime? fechaHasta)
+        public static IEnumerable<GuiaRemision> buscarGuiasRemision(string codigo, string proveedor, DateTime? fechaDesde, DateTime? fechaHasta, int idTienda)
         {
-            return from g in db.GuiaRemision
+            return from g in listaGuiasRemision
                    where (
                        //Cada fila es un filtro
                           (g.codigo != null && g.codigo.ToLower().Contains(codigo.ToLower().Trim()))
                           && (g.DocumentoCompra.Proveedor.razonSoc.ToLower().Trim().Contains(proveedor.ToLower().Trim()))
                           && (fechaDesde == null || (g.fechaRecepcion != null && g.fechaRecepcion >= fechaDesde))
                           && (fechaHasta == null || (g.fechaRecepcion != null && g.fechaRecepcion <= fechaHasta))
+                          && (g.DocumentoCompra.Usuario1.Empleado.tiendaActual.id == idTienda)
                     )
                    orderby g.codigo
                    select g;
@@ -88,7 +89,7 @@ namespace pe.edu.pucp.ferretin.controller.MCompras
 
         private static bool verificaSiExisteGR(GuiaRemision guia)
         {
-            int gAux = (from g in db.GuiaRemision
+            int gAux = (from g in listaGuiasRemision
                         where ((g.codigo == guia.codigo) && (g.DocumentoCompra.codigo == guia.DocumentoCompra.codigo))
                         select g).Count();
 
