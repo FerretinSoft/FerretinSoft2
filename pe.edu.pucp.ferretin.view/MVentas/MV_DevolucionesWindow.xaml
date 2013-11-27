@@ -354,7 +354,7 @@
                             <DataGridTextColumn Width="1*" Binding="{Binding Path=montoParcial, StringFormat=S/. \{0\}}" ClipboardContentBinding="{x:Null}" Header="Importe"/>
                             <DataGridCheckBoxColumn Width="1*" Binding="{Binding Path=canjeado}" ClipboardContentBinding="{x:Null}" Header="Canjeado"/>
 
-                            <DataGridTextColumn Width="1*" Binding="{Binding Path=puntosCanejados}" ClipboardContentBinding="{x:Null}" Header="Puntos Canjeados"/>
+                            <DataGridTextColumn Width="1*" Binding="{Binding Path=precioPuntosParcial}" ClipboardContentBinding="{x:Null}" Header="Puntos Canjeados"/>
 
                         </DataGrid.Columns>
                     </DataGrid>
