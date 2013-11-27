@@ -164,16 +164,7 @@ namespace pe.edu.pucp.ferretin.tdd.MAlmacen
         {
             foreach (ProductoAlmacen pa in MA_ProductoService.db.ProductoAlmacen)
             {
-                try
-                {
                     Assert.LessOrEqual(pa.stockMin, pa.stockMax);
-                }
-                catch (Exception e)
-                {
-                    Console.WriteLine(pa.id);
-
-                }
-
             }
         }
 
