@@ -59,7 +59,7 @@
                     </Button.Background>
                 </Button>
 
-                <Button Grid.Column="2" Content="" HorizontalAlignment="Center" Margin="41,0,10,0" VerticalAlignment="Top" Width="48" Height="48" ToolTip="Enviar por email">
+                <Button x:Name="enviarMailBtn" Grid.Column="2" Content="" HorizontalAlignment="Center" Margin="41,0,10,0" VerticalAlignment="Top" Width="48" Height="48" ToolTip="Enviar por email" Click="enviarMailBtn_Click">
                     <Button.Background>
                         <ImageBrush ImageSource="/Resources/mail1_48.png" Stretch="Uniform"/>
                     </Button.Background>
