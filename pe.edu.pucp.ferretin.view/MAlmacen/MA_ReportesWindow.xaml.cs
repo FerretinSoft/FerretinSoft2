@@ -82,9 +82,9 @@ namespace pe.edu.pucp.ferretin.view.MAlmacen
                     break;
                 case 2: // reporte kardex
                     fechaDesdePicker.IsEnabled = true;
-                    fechaDesdePicker.SelectedDate = null;
+                    fechaDesdePicker.SelectedDate = DateTime.Today;
                     fechaHastaPicker.IsEnabled = true;
-                    fechaHastaPicker.SelectedDate = null;
+                    fechaHastaPicker.SelectedDate = DateTime.Today;
                     aliasText.Text = "";
                     comentarioText.Text = "Reporte kardex de movimientos de almacén en el período a seleccionar.";
                     break;
