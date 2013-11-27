@@ -79,7 +79,7 @@ namespace pe.edu.pucp.ferretin.tdd.MVentas
             {
                 ComunService.Clean();
                 var vm = new MV_RegistrarVentaViewModel();
-                var productos = ComunService.db.ProductoAlmacen.Where(pa => pa.Tienda.id.Equals(tienda.id) && pa.estado.HasValue && pa.estado == 1 && pa.Producto != null && pa.Producto.estado == 1).Take(8).ToList();
+                var productos = ComunService.db.ProductoAlmacen.Where(pa => pa.Tienda.id.Equals(tienda.id) && pa.estado.HasValue && pa.estado == 1 && pa.Producto != null).Take(8).ToList();
                 //var creo el entorno
                 int cantProd = productos.Count();
                 Console.WriteLine("Cantidad de prodcutos: " + cantProd.ToString());

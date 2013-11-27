@@ -16,7 +16,7 @@ namespace pe.edu.pucp.ferretin.controller.MAlmacen
             {
                 if (_listaProductoAlmacen == null)
                 {
-                    _listaProductoAlmacen = from pa in db.ProductoAlmacen select pa;
+                    _listaProductoAlmacen = db.ProductoAlmacen;
                 }
                 return _listaProductoAlmacen;
             }

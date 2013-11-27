@@ -75,6 +75,13 @@ namespace pe.edu.pucp.ferretin.viewmodel.MAlmacen
             }
         }
 
+        public String _emailEnviar = "";
+        public String emailEnviar { get { return _emailEnviar; } set { _emailEnviar = value; NotifyPropertyChanged("emailEnviar"); } }
+
+        public String _mensajeEnviar = "";
+        public String mensajeEnviar { get { return _mensajeEnviar; } set { _mensajeEnviar = value; NotifyPropertyChanged("mensajeEnviar"); } }
+ 
+
 
 
 

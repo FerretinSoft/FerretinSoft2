@@ -106,6 +106,9 @@
     <Compile Include="MAlmacen\MA_BuscadorProductosWindow.xaml.cs">
       <DependentUpon>MA_BuscadorProductosWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="MAlmacen\MA_DatosMailWindow.xaml.cs">
+      <DependentUpon>MA_DatosMailWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="MAlmacen\MA_KardexVisor.xaml.cs">
       <DependentUpon>MA_KardexVisor.xaml</DependentUpon>
     </Compile>
@@ -209,6 +212,10 @@
       <SubType>Code</SubType>
     </Compile>
     <Page Include="MAlmacen\MA_BuscadorProductosWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="MAlmacen\MA_DatosMailWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
