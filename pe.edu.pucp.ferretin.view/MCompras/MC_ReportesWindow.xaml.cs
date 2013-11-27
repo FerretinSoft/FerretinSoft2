@@ -15,7 +15,6 @@ namespace pe.edu.pucp.ferretin.view.MCompras
         int reporte = 0;
         /*
          * 1 - Reporte de estado de OC
-         * 2 - Reporte de Productos Comprados
          * */
 
         public MC_ReportesWindow()
@@ -43,7 +42,7 @@ namespace pe.edu.pucp.ferretin.view.MCompras
                     if (reporte > 0)
                     {
                         repIntroGrid.Visibility = System.Windows.Visibility.Collapsed;
-                        //setConfValues();
+                        setConfValues();
                         repConfGrid.Visibility = System.Windows.Visibility.Visible;
                         estado = 1;
                         repAntBtn.IsEnabled = true;
@@ -65,6 +64,24 @@ namespace pe.edu.pucp.ferretin.view.MCompras
             }
         }
 
+        private void setConfValues()
+        {
+            switch (reporte)
+            {
+                case 1: // Reporte de estado de OC
+                    //fechaDesdePicker.IsEnabled = false;
+                    //fechaHastaPicker.IsEnabled = false;
+                    aliasTxt.Text = "Reporte de Estados de OC";
+                    aliasTxt.IsEnabled = false;
+                    comentarioTxt.Text = "Reporte que muestra el estado de todas las Ordenes de Compra para la tienda seleccionada";
+                    comentarioTxt.IsEnabled = false;
+                    //comentarioText.Text = "Reporte de stock de productos por tienda a la fecha.";
+                    fechaDesdePicker.SelectedDate = DateTime.Today;
+                    fechaHastaPicker.SelectedDate = DateTime.Today;
+                    break;
+            }
+        }
+
         private void reportesBaseListBox_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
         {
             reportesFavoritosListBox.SelectedIndex = -1;
@@ -72,10 +89,6 @@ namespace pe.edu.pucp.ferretin.view.MCompras
             {
                 case 0://Reporte de estado de OC
                     reporte = 1;
-                    break;
-                case 1://Reporte de Productos Comprados
-                    reporte = 2;
-                    //MessageBox.Show("Kardex");
                     break;
                 default:
                     reporte = 0;

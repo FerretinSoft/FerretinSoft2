@@ -71,7 +71,7 @@ namespace pe.edu.pucp.ferretin.controller.MCompras
                           && (g.DocumentoCompra.Proveedor.razonSoc.ToLower().Trim().Contains(proveedor.ToLower().Trim()))
                           && (fechaDesde == null || (g.fechaRecepcion != null && g.fechaRecepcion >= fechaDesde))
                           && (fechaHasta == null || (g.fechaRecepcion != null && g.fechaRecepcion <= fechaHasta))
-                          && (g.DocumentoCompra.Usuario1.Empleado.tiendaActual.id == idTienda)
+                          && (g.id_almacen!= null && g.Tienda.id == idTienda)
                     )
                    orderby g.codigo
                    select g;

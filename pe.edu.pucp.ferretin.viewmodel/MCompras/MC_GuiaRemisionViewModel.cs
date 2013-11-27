@@ -341,10 +341,10 @@ namespace pe.edu.pucp.ferretin.viewmodel.MCompras
                     {
                         ComunService.idVentana(37);
                         if (!MC_GuiaRemisionService.enviarCambios())
-                            MessageBox.Show("No se pudo actualizar la guia de remision");
+                            MessageBox.Show("La Guia de Remision no se pudo actualizar", "Guia de Remision", MessageBoxButton.OK, MessageBoxImage.Error);
                         else
                         {
-                            MessageBox.Show("La guia de remision fue guardado con éxito");
+                            MessageBox.Show("La Guia de Remision se guardo con exito", "Guia de Remision", MessageBoxButton.OK, MessageBoxImage.Information);
                             if (guiaRemision.DocumentoCompra.id_solicitud_compra != null)
                                 // guiaRemision.DocumentoCompra.SolicitudCompra.estado = 2;
 
@@ -359,11 +359,11 @@ namespace pe.edu.pucp.ferretin.viewmodel.MCompras
                     {
                         ComunService.idVentana(36);
                         if (!MC_GuiaRemisionService.insertarGuiaRemision(guiaRemision))
-                            MessageBox.Show("No se pudo agregar la nueva guia de remision");
+                            MessageBox.Show("La Guia de Remision no se pudo agregar", "Guia de Remision", MessageBoxButton.OK, MessageBoxImage.Error);
 
                         else
                         {
-                            MessageBox.Show("La guia de remision se agrego con exito");
+                            MessageBox.Show("La Guia de Remision se agrego con exito", "Guia de Remision", MessageBoxButton.OK, MessageBoxImage.Information);
                             if (guiaRemision.DocumentoCompra.id_solicitud_compra != null)
                               //  guiaRemision.DocumentoCompra.SolicitudCompra.estado = 2;
                                 for (int i = 0; i < guiaRemision.DocumentoCompra.DocumentoCompraProducto.Count(); i++)

@@ -96,12 +96,12 @@ namespace pe.edu.pucp.ferretin.controller.MCompras
                 {
                     return from d in listaDocumentosCompra
                            where
-                           (d.codigo != null && d.codigo.Contains(codigo)
-                           && d.Proveedor.razonSoc.Contains(proveedor)
+                           (d.codigo != null && d.codigo.ToLower().Trim().Contains(codigo.ToLower().Trim())
+                           && d.Proveedor.razonSoc.ToLower().Trim().Contains(proveedor.ToLower().Trim())
                            && d.id_estado == estado
                            && (fechaDesde == null || (d.fechaEmision != null && d.fechaEmision >= fechaDesde))
                            && (fechaHasta == null || (d.fechaEmision != null && d.fechaEmision <= fechaHasta))
-                           && d.Usuario1.Empleado.tiendaActual.id == tienda)
+                           && (d.id_tienda != null && d.Tienda.id == tienda))
                            orderby d.codigo
                            select d;
                 }
@@ -109,11 +109,11 @@ namespace pe.edu.pucp.ferretin.controller.MCompras
                 {
                     return from d in listaDocumentosCompra
                            where
-                           (d.codigo != null && d.codigo.Contains(codigo)
-                           && d.Proveedor.razonSoc.Contains(proveedor)
+                           (d.codigo != null && d.codigo.ToLower().Trim().Contains(codigo.ToLower().Trim())
+                           && d.Proveedor.razonSoc.ToLower().Trim().Contains(proveedor.ToLower().Trim())
                            && (fechaDesde == null || (d.fechaEmision != null && d.fechaEmision >= fechaDesde))
                            && (fechaHasta == null || (d.fechaEmision != null && d.fechaEmision <= fechaHasta))
-                           && d.Usuario1.Empleado.tiendaActual.id == tienda)
+                           && (d.id_tienda != null && d.Tienda.id == tienda))
                            orderby d.codigo
                            select d;
                 }
@@ -124,13 +124,13 @@ namespace pe.edu.pucp.ferretin.controller.MCompras
                 {
                     return from d in listaDocumentosCompra
                            where
-                           (d.codigo != null && d.codigo.Contains(codigo)
-                           && d.Proveedor.razonSoc.Contains(proveedor)
+                           (d.codigo != null && d.codigo.ToLower().Trim().Contains(codigo.ToLower().Trim())
+                           && d.Proveedor.razonSoc.ToLower().Trim().Contains(proveedor.ToLower().Trim())
                            && d.tipo == tipoDocumento
                            && d.id_estado == estado
                            && (fechaDesde == null || (d.fechaEmision != null && d.fechaEmision >= fechaDesde))
                            && (fechaHasta == null || (d.fechaEmision != null && d.fechaEmision <= fechaHasta))
-                           && d.Usuario1.Empleado.tiendaActual.id == tienda)
+                           && (d.id_tienda != null && d.Tienda.id == tienda))
                            orderby d.codigo
                            select d;
                 }
@@ -138,12 +138,12 @@ namespace pe.edu.pucp.ferretin.controller.MCompras
                 {
                     return from d in listaDocumentosCompra
                            where
-                           (d.codigo != null && d.codigo.Contains(codigo)
-                           && d.Proveedor.razonSoc.Contains(proveedor)
+                           (d.codigo != null && d.codigo.ToLower().Trim().Contains(codigo.ToLower().Trim())
+                           && d.Proveedor.razonSoc.ToLower().Trim().Contains(proveedor.ToLower().Trim())
                            && d.tipo == tipoDocumento
                            && (fechaDesde == null || (d.fechaEmision != null && d.fechaEmision >= fechaDesde))
                            && (fechaHasta == null || (d.fechaEmision != null && d.fechaEmision <= fechaHasta))
-                           && d.Usuario1.Empleado.tiendaActual.id == tienda)
+                           && (d.id_tienda != null && d.Tienda.id == tienda))
                            orderby d.codigo
                            select d;
                 }
