@@ -76,21 +76,23 @@ namespace pe.edu.pucp.ferretin.view.MAlmacen
             {
                 case 1: // reporte de stock
                     fechaDesdePicker.IsEnabled = false;
+                    fechaDesdePicker.SelectedDate = new DateTime(DateTime.Today.Year, DateTime.Today.Month, 1);
                     fechaHastaPicker.IsEnabled = false;
+                    fechaHastaPicker.SelectedDate = DateTime.Today;
                     aliasText.Text = "";
                     comentarioText.Text = "Reporte de stock de productos por tienda a la fecha.";
                     break;
                 case 2: // reporte kardex
                     fechaDesdePicker.IsEnabled = true;
-                    fechaDesdePicker.SelectedDate = null;
+                    fechaDesdePicker.SelectedDate = new DateTime(DateTime.Today.Year, DateTime.Today.Month, 1);
                     fechaHastaPicker.IsEnabled = true;
-                    fechaHastaPicker.SelectedDate = null;
+                    fechaHastaPicker.SelectedDate = DateTime.Today;
                     aliasText.Text = "";
                     comentarioText.Text = "Reporte kardex de movimientos de almacén en el período a seleccionar.";
                     break;
                 case 3: // reporte kardex diario
                     fechaDesdePicker.IsEnabled = true;
-                    fechaDesdePicker.SelectedDate = DateTime.Today;
+                    fechaDesdePicker.SelectedDate = new DateTime(DateTime.Today.Year, DateTime.Today.Month, 1);
                     fechaHastaPicker.IsEnabled = true;
                     fechaHastaPicker.SelectedDate = DateTime.Today;
                     aliasText.Text = "Reporte kardex diario";
