@@ -98,12 +98,13 @@ namespace pe.edu.pucp.ferretin.view.MVentas
         {
             if (this.Owner!=null)//Si tiene un padre
             {
-                try
-                {
-                    MV_RegistrarVentaWindow padre = this.Owner as MV_RegistrarVentaWindow;
-                    MV_RegistrarVentaViewModel padreViewModel = padre.DataContext as MV_RegistrarVentaViewModel;
 
-                    MV_AdministrarProformasViewModel miVM = this.DataContext as MV_AdministrarProformasViewModel;
+                MV_AdministrarProformasViewModel miVM = this.DataContext as MV_AdministrarProformasViewModel;
+
+                if(Owner is MV_RegistrarVentaWindow)
+                {
+                    var padre = this.Owner as MV_RegistrarVentaWindow;
+                    var padreViewModel = padre.DataContext as MV_RegistrarVentaViewModel;
 
                     if (miVM.proforma != null)
                     {
@@ -146,32 +147,23 @@ namespace pe.edu.pucp.ferretin.view.MVentas
                     }
                     this.Close();
                 }
-                catch {
-                    try
+                else if (Owner is MV_AdministrarProformasWindow)
+                {
+
+                    var padre = this.Owner as MV_AdministrarProformasWindow;
+                    var padreViewModel = padre.DataContext as MV_AdministrarProformasViewModel;
+                    if (miVM.proforma != null)
                     {
-                        MV_AdministrarProformasWindow padre = this.Owner as MV_AdministrarProformasWindow;
-                        MV_AdministrarProformasViewModel padreViewModel = padre.DataContext as MV_AdministrarProformasViewModel;
 
-                        MV_AdministrarProformasViewModel miVM = this.DataContext as MV_AdministrarProformasViewModel;
-
-                        if (miVM.proforma != null)
+                        padreViewModel.proforma.ProformaProducto.Clear();
+                        foreach (var vp in miVM.proforma.ProformaProducto)
                         {
-                            
-                            padreViewModel.proforma.ProformaProducto.Clear();
-                            foreach (var vp in miVM.proforma.ProformaProducto)
-                            {
-                                padreViewModel.codProdAgregar = vp.Producto.codigo;
-                                padreViewModel.agregarProducto(null);
-                            }
-
-
+                            padreViewModel.codProdAgregar = vp.Producto.codigo;
+                            padreViewModel.agregarProducto(null);
                         }
-                        this.Close();
                     }
-                    catch { }
+                    this.Close();
                 }
-
-                
             }
         }
 
