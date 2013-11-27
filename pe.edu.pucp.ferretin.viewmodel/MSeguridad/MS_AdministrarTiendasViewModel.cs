@@ -605,8 +605,9 @@ namespace pe.edu.pucp.ferretin.viewmodel.MSeguridad
                     ||tienda.direccion==null||tienda.telefono1==null|| "".Equals(tienda.direccion)
                     || "".Equals(tienda.nombre) || "".Equals(tienda.telefono1)
                     ||tienda.id_ubigeo == null || "".Equals(tienda.id_ubigeo)
-                    ||tienda.nombre==null||tienda.telefono1==null||
-                    (tienda.tipo == 0 && tienda.Tienda1 == null))
+                    ||tienda.nombre==null||tienda.telefono1==null
+                    ||tienda.id_jefe==null||
+                    (tienda.tipo == 0 && tienda.Tienda1 == null)) 
             {                
                 MessageBox.Show("Completar todos los datos obligatorios");
                 return false;
