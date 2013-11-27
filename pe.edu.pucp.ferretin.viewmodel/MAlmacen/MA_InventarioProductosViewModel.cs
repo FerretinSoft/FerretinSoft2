@@ -29,7 +29,7 @@ namespace pe.edu.pucp.ferretin.viewmodel.MAlmacen
         public int _radioActivo = 1;
         public int radioActivo { get { return _radioActivo; } set { _radioActivo = value; NotifyPropertyChanged("radioActivo"); } }
 
-        public int _radioInactivo = 1;
+        public int _radioInactivo;
         public int radioInactivo { get { return _radioInactivo; } set { _radioInactivo = value; NotifyPropertyChanged("radioInactivo"); } }
 
 
