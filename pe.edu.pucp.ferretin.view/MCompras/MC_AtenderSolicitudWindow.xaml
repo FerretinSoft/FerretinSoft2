@@ -4,7 +4,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
 		  xmlns:viewmodel="clr-namespace:pe.edu.pucp.ferretin.viewmodel.MCompras;assembly=pe.edu.pucp.ferretin.viewmodel"
         xmlns:helper="clr-namespace:pe.edu.pucp.ferretin.viewmodel.Helper;assembly=pe.edu.pucp.ferretin.viewmodel"
-        Title="Solicitudes de Abastecimiento" Height="540" Width="825" Icon="/Resources/ferretin_ico.ico">
+        Title="Solicitudes de Abastecimiento" Height="540" Width="825" Icon="/Resources/ferretin_ico.ico" WindowStartupLocation="CenterScreen">
     <Window.Resources>
         <viewmodel:MC_AtenderSolicitudViewModel x:Key="MC_AtenderSolicitudViewModel"/>
     </Window.Resources>

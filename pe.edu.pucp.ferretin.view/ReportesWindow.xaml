@@ -33,7 +33,7 @@
                         <ImageBrush ImageSource="Resources/forward_32.png"/>
                     </Button.Background>
                 </Button>
-                <Label Content="Reportes de Almacen" HorizontalAlignment="Left" Margin="80,100,0,0" VerticalAlignment="Top" FontSize="16"/>
+                <Label Content="Reportes de Almacén" HorizontalAlignment="Left" Margin="80,100,0,0" VerticalAlignment="Top" FontSize="16"/>
                 <Label Content="Reportes de Ventas" HorizontalAlignment="Left" Margin="80,147,0,0" VerticalAlignment="Top" FontSize="16"/>
                 <Label Content="Reportes de Seguridad" HorizontalAlignment="Left" Margin="80,241,0,0" VerticalAlignment="Top" FontSize="16"/>
                 <Button x:Name="RepComBtn" Content="" HorizontalAlignment="Left" Margin="30,194,0,0" VerticalAlignment="Top" Width="32" Height="32" Click="RepComBtn_Click">
