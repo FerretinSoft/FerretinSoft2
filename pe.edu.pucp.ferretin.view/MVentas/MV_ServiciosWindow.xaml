@@ -8,7 +8,7 @@
 				Viewport="0,0,100,100" ViewportUnits="Absolute"/>
         </Grid.Background>
         <TabControl x:Name="VentasTab" SelectedIndex="{Binding currentIndexTab}">
-            <TabItem Header="Servicios" x:Name="promocionesTab">
+            <TabItem Header="Servicios" x:Name="servicioesTab">
                 <Grid Background="#FFE5E5E5">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition/>
@@ -32,7 +32,7 @@
                                 <RowDefinition/>
                                 <RowDefinition/>
                             </Grid.RowDefinitions>
-                            <Label Content="Cód. Promoción:" Grid.Row="0" Grid.Column="0" VerticalContentAlignment="Center"/>
+                            <Label Content="Cód. Servicio:" Grid.Row="0" Grid.Column="0" VerticalContentAlignment="Center"/>
                             <Label Content="Fecha Desde:" Grid.Row="2" Grid.Column="0" VerticalContentAlignment="Center"/>
                             <Label Content="Estado:" Grid.Row="0" Grid.Column="2" VerticalContentAlignment="Center"/>
                             <Label Content="Fecha Hasta:" Grid.Row="3" Grid.Column="2" VerticalContentAlignment="Center"/>
@@ -41,8 +41,10 @@
                             <DatePicker SelectedDate="{Binding fechaDesdeSearch, Mode=TwoWay}" VerticalAlignment="Center" Grid.Column="1" Grid.Row="2"  BorderThickness="0"/>
                             <ComboBox SelectedIndex="{Binding estadoSearch, Mode=TwoWay}" VerticalAlignment="Center" Grid.Row="0" Grid.Column="3" Margin="0,0,5,0">
                                 <ComboBoxItem Content="Todos"/>
-                                <ComboBoxItem Content="Activo"/>
-                                <ComboBoxItem Content="Inactivo"/>
+                                <ComboBoxItem Content="Pendiente"/><!--1-->
+                                <ComboBoxItem Content="Facturado"/><!--2-->
+                                <ComboBoxItem Content="Finalizado"/><!--3-->
+                                <ComboBoxItem Content="Anulado"/><!--4-->
                             </ComboBox>
                             <DatePicker SelectedDate="{Binding fechaHastaSearch, Mode=TwoWay}" VerticalAlignment="Center" Grid.Column="3" Grid.Row="2" BorderThickness="0"/>
 
@@ -54,39 +56,39 @@
                         </Grid>
                     </GroupBox>
                     <ToolBar HorizontalAlignment="Left" VerticalAlignment="Top" Height="24" Grid.Row="1" Margin="5">
-                        <Button x:Name="nuevaPromocionBtn" Content="" VerticalAlignment="Top" Width="20" Margin="0,0,2,-1" Click="nuevaPromocionBtn_Click" Height="20">
+                        <Button x:Name="nuevaServicioBtn" Content="" VerticalAlignment="Top" Width="20" Margin="0,0,2,-1" Click="nuevaServicioBtn_Click" Height="20">
                             <Button.Background>
                                 <ImageBrush ImageSource="../Resources/add_20.png"/>
                             </Button.Background>
                         </Button>
                     </ToolBar>
-                    <DataGrid ItemsSource="{Binding listaPromociones}" Margin="10" Grid.Row="2" IsManipulationEnabled="False" CanUserSortColumns="True" AutoGenerateColumns="False" CanUserAddRows="False" CanUserDeleteRows="False" >
+                    <DataGrid ItemsSource="{Binding listaServicioes}" Margin="10" Grid.Row="2" IsManipulationEnabled="False" CanUserSortColumns="True" AutoGenerateColumns="False" CanUserAddRows="False" CanUserDeleteRows="False" >
                         <DataGrid.Columns>
                             <DataGridTemplateColumn Width="0.8*" Header="Código">
                                 <DataGridTemplateColumn.CellTemplate>
                                     <DataTemplate>
                                         <TextBlock><Hyperlink 
-												Command="{Binding DataContext.viewEditPromocionCommand, RelativeSource={RelativeSource AncestorType={x:Type DataGrid}, Mode=FindAncestor}}" 
+												Command="{Binding DataContext.viewEditServicioCommand, RelativeSource={RelativeSource AncestorType={x:Type DataGrid}, Mode=FindAncestor}}" 
 												CommandParameter="{Binding id}"><InlineUIContainer>
 													<TextBlock Text="{Binding codigo}" />
 												</InlineUIContainer></Hyperlink></TextBlock>
                                     </DataTemplate>
                                 </DataGridTemplateColumn.CellTemplate>
                             </DataGridTemplateColumn>
-                            <DataGridTextColumn Width="1.8*" Binding="{Binding nombre}" Header="Nombre" IsReadOnly="True"/>
-                            <DataGridTextColumn Width="1.1*" Binding="{Binding fechaDesde, StringFormat=\{0:dd/MM/yyyy hh:mm:ss\}}" Header="Fecha Desde" IsReadOnly="True"/>
-                            <DataGridTextColumn Width="1.1*" Binding="{Binding fechaHasta, StringFormat=\{0:dd/MM/yyyy hh:mm:ss\}}" Header="Fecha Hasta" IsReadOnly="True"/>
-                            <DataGridCheckBoxColumn Width="0.5*" Binding="{Binding esActivo, Mode=OneWay}" Header="Activo" IsReadOnly="True"/>
+                            <DataGridTextColumn Width="1.8*" Binding="{Binding Cliente}" Header="Cliente" IsReadOnly="True"/>
+                            <DataGridTextColumn Width="1.1*" Binding="{Binding fechaDesde, StringFormat=\{0:dd/MM/yyyy hh:mm:ss\}}" Header="Fecha Instalación" IsReadOnly="True"/>
+                            <DataGridCheckBoxColumn Width="0.5*" Binding="{Binding esActivo, Mode=OneWay}" Header="Estado" IsReadOnly="True"/>
                         </DataGrid.Columns>
                     </DataGrid>
                 </Grid>
             </TabItem>
-            <TabItem Header="{Binding detallesTabHeader, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}">
+            <TabItem Header="{Binding detallesTabHeader, Mode=OneWay, UpdateSourceTrigger=PropertyChanged,FallbackValue=Detalles}">
                 <Grid Background="#FFE5E5E5">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto"/>
                         <RowDefinition Height="Auto"/>
                         <RowDefinition/>
+                        <RowDefinition Height="Auto"/>
                         <RowDefinition Height="Auto"/>
                     </Grid.RowDefinitions>
                     <GroupBox Header="Parámetros" Margin="5">
@@ -105,43 +107,42 @@
                                 <RowDefinition/>
                                 <RowDefinition/>
                             </Grid.RowDefinitions>
-                            <Label Content="Cód. Promoción:" VerticalContentAlignment="Center"/>
-                            <Label Content="Nombre Promoción:" Grid.Column="2" Grid.Row="0" VerticalContentAlignment="Center"/>
-                            <Label Content="Fecha Desde:" Grid.Column="0" Grid.Row="2" VerticalContentAlignment="Center"/>
-                            <Label Content="Fecha Hasta:" Grid.Column="2" Grid.Row="2" VerticalContentAlignment="Center"/>
-                            <Label Content="Tiendas:" Grid.Column="4" Grid.Row="0" VerticalContentAlignment="Center"/>
+                            <Label Content="Cód. Servicio:" VerticalContentAlignment="Center"/>
+                            <Label Content="Cliente:" Grid.Column="2" Grid.Row="0" VerticalContentAlignment="Center"/>
+                            <Label Content="Instalación:" Grid.Column="0" Grid.Row="2" VerticalContentAlignment="Center"/>
+                            
 
-                            <TextBox Text="{Binding promocion.codigo}" Grid.Column="1" VerticalAlignment="Center" IsEnabled="False" Margin="10,4,7,4"/>
-                            <StackPanel Orientation="Horizontal" Grid.Column="3" Grid.Row="0">
-                                <TextBlock Margin="0" Foreground="Red" FontSize="16"  VerticalAlignment="Center" Text="*" />
-                                <TextBox Text="{Binding promocion.nombre}" TextWrapping="Wrap" VerticalAlignment="Center" Width="138"/>
-                            </StackPanel>
+                            <TextBox Text="{Binding servicio.codigo}" Grid.Column="1" VerticalAlignment="Center" IsEnabled="False" Margin="10,4,7,4"/>
+                            <Grid Grid.Column="3" Grid.Row="0">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto"/>
+                                    <ColumnDefinition/>
+                                    <ColumnDefinition Width="Auto"/>
+                                </Grid.ColumnDefinitions>
+                                <TextBlock Grid.Column="0" Margin="0" Foreground="Red" FontSize="16"  VerticalAlignment="Center" Text="*" />
+                                <TextBox Grid.Column="1" x:Name="nroDocSeleccionado" IsEnabled="{Binding esAgregar}" Text="{Binding proforma.Cliente.nroDoc, UpdateSourceTrigger=LostFocus}" VerticalContentAlignment="Center" VerticalAlignment="Center" Margin="0,4" HorizontalAlignment="Stretch">
+                                    <TextBox.InputBindings>
+                                        <KeyBinding Key="Enter" Command="{Binding cargarClienteCommand}" />
+                                    </TextBox.InputBindings>
+                                </TextBox>
+                                <Button Command="{Binding buscarClienteCommand}" IsEnabled="{Binding esAgregar}"  Grid.Column="2" HorizontalAlignment="Right" VerticalAlignment="Center" Width="18" Height="18" Margin="4,0" Padding="0" BorderThickness="0" Click="Button_Click_1"  >
+                                    <Button.Background>
+                                        <ImageBrush ImageSource="../Resources/search1_20.png"/>
+                                    </Button.Background>
+                                </Button>
+                            </Grid>
+                            
+                            
                             <StackPanel Orientation="Horizontal" Grid.Column="1" Grid.Row="2">
                                 <TextBlock Margin="0" Foreground="Red" FontSize="16"   VerticalAlignment="Center" Text="*"/>
-                                <DatePicker SelectedDate="{Binding promocion.fechaDesde}" VerticalAlignment="Center" BorderThickness="0"/>
+                                <DatePicker SelectedDate="{Binding servicio.fechaDesde}" VerticalAlignment="Center" BorderThickness="0"/>
                             </StackPanel>
-                            <StackPanel Orientation="Horizontal" Grid.Column="3" Grid.Row="2">
-                                <TextBlock Margin="0" Foreground="Red" FontSize="16"   VerticalAlignment="Center" Text="*"/>
-                                <DatePicker SelectedDate="{Binding promocion.fechaHasta}" VerticalAlignment="Center" BorderThickness="0"/>
-                            </StackPanel>
-                            <StackPanel Orientation="Horizontal"  Grid.Column="5" Grid.Row="0" HorizontalAlignment="Stretch">
-                                <TextBlock Margin="0" Foreground="Red" FontSize="16"   VerticalAlignment="Center" Text="*"/>
-                                <ComboBox ItemsSource="{Binding promocion.PromocionTienda}" VerticalAlignment="Center" Width="180">
-                                    <ComboBox.ItemTemplate>
-                                        <DataTemplate>
-                                            <StackPanel Orientation="Horizontal">
-                                                <CheckBox IsChecked="{Binding activo}" Width="20" VerticalAlignment="Center" />
-                                                <TextBlock Text="{Binding Tienda.nombre}" VerticalAlignment="Center" />
-                                            </StackPanel>
-                                        </DataTemplate>
-                                    </ComboBox.ItemTemplate>
-                                </ComboBox>
-                            </StackPanel>
+                            <TextBox Grid.Column="5" VerticalAlignment="Center" HorizontalAlignment="Stretch" IsEnabled="False"/>
                         </Grid>
                     </GroupBox>
                     <StackPanel Grid.Row="1" Margin="5" Orientation="Horizontal" VerticalAlignment="Center">
                         <ToolBar HorizontalAlignment="Left" Margin="5,0,0,0" VerticalAlignment="Top" Height="24" Grid.Row="1">
-                            <TextBlock Text="Código de Producto:" VerticalAlignment="Center" Margin="5,0"/>
+                            <TextBlock Text="Código de Tipo:" VerticalAlignment="Center" Margin="5,0"/>
                             <TextBox Text="{Binding codProdAgregar, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" VerticalContentAlignment="Center" Width="100" BorderBrush="#DDD" Height="18" Margin="5,0" ToolTip="Escriba el código del producto que desea agregar y presione el boton +">
                                 <TextBox.InputBindings>
                                     <KeyBinding Key="Enter" Command="{Binding agregarProductoCommand}" />
@@ -157,63 +158,22 @@
                                     <ImageBrush ImageSource="../Resources/search1_20.png"/>
                                 </Button.Background>
                             </Button>
-                            <Button Margin="10,0" Padding="10,0" Content="TIPOS DE PROMOCIONES" Click="Button_Click_1" BorderBrush="Black"/>
                         </ToolBar>
                     </StackPanel>
-                    <DataGrid ItemsSource="{Binding promocion.PromocionProducto, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" CanUserSortColumns="False" Grid.Row="2" Margin="3,5,7,5" AutoGenerateColumns="False" IsManipulationEnabled="True" CanUserAddRows="False" CanUserDeleteRows="True" CanUserReorderColumns="True" CanUserResizeColumns="True">
+                    <DataGrid ItemsSource="{Binding servicio.ServicioProducto, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" CanUserSortColumns="False" Grid.Row="2" Margin="3,5,7,5" AutoGenerateColumns="False" IsManipulationEnabled="True" CanUserAddRows="False" CanUserDeleteRows="True" CanUserReorderColumns="True" CanUserResizeColumns="True">
                         <DataGrid.Columns>
-                            <DataGridHyperlinkColumn Width="90" Binding="{Binding Producto.codigo}" Header="Cód. Producto" IsReadOnly="True"/>
-                            <DataGridTextColumn Width="2*" Binding="{Binding Producto.nombre}" Header="Nombre" IsReadOnly="True"/>
-                            <DataGridComboBoxColumn Width="1*" Header="Tipo">
-                                <DataGridComboBoxColumn.ElementStyle>
-                                    <Style TargetType="ComboBox">
-                                        <Setter Property="ItemsSource" Value="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type DataGrid}}, Path=DataContext.tiposPromocion,Mode=OneWay,UpdateSourceTrigger=PropertyChanged}"/>
-                                        <Setter Property="SelectedItem" Value="{Binding PromocionTipo,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"/>
-                                        <Setter Property="ItemTemplate">
-                                            <Setter.Value>
-                                                <DataTemplate>
-                                                    <TextBlock Text="{Binding Nombre}"></TextBlock>
-                                                </DataTemplate>
-                                            </Setter.Value>
-                                        </Setter>
-                                    </Style>
-                                </DataGridComboBoxColumn.ElementStyle>
-                                <DataGridComboBoxColumn.EditingElementStyle>
-                                    <Style TargetType="ComboBox">
-                                        <Setter Property="ItemsSource" Value="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type DataGrid}}, Path=DataContext.tiposPromocion,Mode=OneWay,UpdateSourceTrigger=PropertyChanged}"/>
-                                        <Setter Property="SelectedItem" Value="{Binding PromocionTipo,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"/>
-                                        <Setter Property="ItemTemplate">
-                                            <Setter.Value>
-                                                <DataTemplate>
-                                                    <TextBlock Text="{Binding Nombre}"></TextBlock>
-                                                </DataTemplate>
-                                            </Setter.Value>
-                                        </Setter>
-                                    </Style>
-                                </DataGridComboBoxColumn.EditingElementStyle>
-                            </DataGridComboBoxColumn>
-                            <DataGridTextColumn Width="1*" Binding="{Binding cantMulUnidades}" Header="Cant. Unid." IsReadOnly="True">
-                                <DataGridTextColumn.EditingElementStyle>
-                                    <Style TargetType="TextBox">
-                                        <Setter  Property="IsReadOnly" Value="{Binding tipoSeleccionado,Mode=OneWay,UpdateSourceTrigger=PropertyChanged}"/>
-                                    </Style>
-                                </DataGridTextColumn.EditingElementStyle>
-                            </DataGridTextColumn>
-                            <DataGridTextColumn Width="1*" Binding="{Binding descuentoPorcentaje}" Header="Descuento %" IsReadOnly="True">
-                                <DataGridTextColumn.EditingElementStyle>
-                                    <Style TargetType="TextBox">
-                                        <Setter  Property="IsReadOnly" Value="{Binding tipoSeleccionado,Mode=OneWay,UpdateSourceTrigger=PropertyChanged}"/>
-                                    </Style>
-                                </DataGridTextColumn.EditingElementStyle>
-                            </DataGridTextColumn>
-                            <DataGridTextColumn Width="1*" Binding="{Binding maxPromVenta}" Header="Máx. por Venta"/>
-                            <DataGridTextColumn Width="80" Binding="{Binding stockTotal}" Header="Stock Total"/>
-                            <DataGridTextColumn Width="80" Binding="{Binding stockActual}" Header="Stock Actual" IsReadOnly="True"/>
+                            <DataGridHyperlinkColumn Width="90" Binding="{Binding Producto.codigo}" Header="Cód. Tipo" IsReadOnly="True"/>
+                            <DataGridTextColumn Width="2*" Binding="{Binding Producto.nombre}" Header="Descripción" IsReadOnly="True"/>
+                            <DataGridTextColumn Width="80" Binding="{Binding stockTotal}" Header="Monto (S/.)"/>
                         </DataGrid.Columns>
                     </DataGrid>
-                    <StackPanel Grid.Row="3" Orientation="Horizontal" HorizontalAlignment="Center" Margin="5">
-                        <Button Command="{Binding savePromocionCommand}" Margin="0,0,10,0" Height="30" Padding="10,0" Content="GUARDAR"/>
-                        <Button Command="{Binding cancelPromocionCommand}" Padding="10,0" Height="30" Content="CANCELAR"/>
+                    <StackPanel  Grid.Row="3" Margin="5">
+                        <Label Content="Otros Detalles:"/>
+                        <TextBox Text="{Binding proforma.mensaje,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" MaxLength="200" MaxLines="3" Height="65" TextWrapping="Wrap" AcceptsReturn="True" Grid.Column="1" Grid.Row="1" Grid.RowSpan="2" VerticalAlignment="Stretch" FontSize="14" FontFamily="Arial"/>
+                    </StackPanel>
+                    <StackPanel Grid.Row="4" Orientation="Horizontal" HorizontalAlignment="Center" Margin="5">
+                        <Button Command="{Binding saveServicioCommand}" Margin="0,0,10,0" Height="30" Padding="10,0" Content="GUARDAR"/>
+                        <Button Command="{Binding cancelServicioCommand}" Padding="10,0" Height="30" Content="CANCELAR"/>
                     </StackPanel>
                 </Grid>
             </TabItem>
