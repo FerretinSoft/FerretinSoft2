@@ -171,7 +171,8 @@ namespace pe.edu.pucp.ferretin.viewmodel.MCompras
                             total = 0,
                             SolicitudCompra = seleccionado,
                             tipo = 2,
-                            subTotal = 0
+                            subTotal = 0,
+                            Tienda=usr.Empleado.tiendaActual
                            
                         };
                         cont++;
