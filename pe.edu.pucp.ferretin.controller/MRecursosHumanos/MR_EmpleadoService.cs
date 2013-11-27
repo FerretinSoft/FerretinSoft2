@@ -152,9 +152,9 @@ namespace pe.edu.pucp.ferretin.controller.MRecursosHumanos
             return listaEmpleados.Where(e => e.dni != null && e.dni.Contains(searchDNI))
               .Where(e => e.nombreCompleto.ToLower().Contains(searchNombre.ToLower().Trim()))
               .Where(e => (searchCodigo <=0) || (e.codEmpleado.ToString().Contains(searchCodigo.ToString())))
-              //estado 1=inactivo, 2=activo
-              .Where(e => searchTienda == null || searchTienda.id <= 0 || (e.EmpleadoTienda.Single(et => et.estado == 2).Tienda.id == searchTienda.id))
-              .Where(e => searchCargo == null || searchCargo.id <= 0 || (e.EmpleadoTienda.Single(et=> et.estado == 2).Cargo.id == searchCargo.id ))
+              //estado 0=inactivo, 1=activo
+              .Where(e => searchTienda == null || searchTienda.id <= 0 || (e.EmpleadoTienda.Single(et => et.estado == 1).Tienda.id == searchTienda.id))
+              .Where(e => searchCargo == null || searchCargo.id <= 0 || (e.EmpleadoTienda.Single(et=> et.estado == 1).Cargo.id == searchCargo.id ))
               ;
 
         }
