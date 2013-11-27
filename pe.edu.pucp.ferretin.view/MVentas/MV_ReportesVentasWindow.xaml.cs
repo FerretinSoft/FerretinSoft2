@@ -96,6 +96,17 @@ namespace pe.edu.pucp.ferretin.view.MVentas
                                 padre_DataContext.comentRep = "El presente reporte tiene como finalidad mostrar un resumen de las ventas realizadas por vendedor en un período de tiempo";
                             }
 
+                            if (this.listaRepDisp.SelectedIndex == 4)
+                            {
+                                padre_DataContext.visibleProducto = System.Windows.Visibility.Collapsed;
+                                padre_DataContext.visibleCliente = System.Windows.Visibility.Collapsed;
+                                padre_DataContext.visibleVendedor = System.Windows.Visibility.Collapsed;
+                                padre_DataContext.visibleTienda = System.Windows.Visibility.Visible;
+                                padre_DataContext.nombreVentana = "Reporte de devoluciones";
+                                padre_DataContext.aliasRep = "Reporte de devoluciones";
+                                padre_DataContext.comentRep = "El presente reporte tiene como finalidad mostrar un resumen de las devoluciones realizadas en un período de tiempo";
+                            }
+
                             estado = 1;
                             repAntBtn.IsEnabled = true;
                         }
@@ -127,6 +138,8 @@ namespace pe.edu.pucp.ferretin.view.MVentas
                 rep = new MV_VisorReporte(padre_DataContext.searchFechaInicio, padre_DataContext.searchFechaFin, padre_DataContext.selectedTienda.id, "RProducto", "", "", padre_DataContext.searchProducto);
             else if (this.listaRepDisp.SelectedIndex == 0)
                 rep = new MV_VisorReporte(padre_DataContext.searchFechaInicio, padre_DataContext.searchFechaFin, 0, "RCliente", "", padre_DataContext.searchCliente, "");
+            else if (this.listaRepDisp.SelectedIndex == 4)
+                rep = new MV_VisorReporte(padre_DataContext.searchFechaInicio, padre_DataContext.searchFechaFin, padre_DataContext.selectedTienda.id, "RDevolucion", "", "", "");
             else
                 rep = new MV_VisorReporte(padre_DataContext.searchFechaInicio, padre_DataContext.searchFechaFin, 0, "RVendedor", padre_DataContext.searchVendedor, "", "");
 

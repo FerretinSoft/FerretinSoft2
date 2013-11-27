@@ -1,4 +1,5 @@
-﻿using pe.edu.pucp.ferretin.view.MVentas;
+﻿using pe.edu.pucp.ferretin.controller;
+using pe.edu.pucp.ferretin.view.MVentas;
 using pe.edu.pucp.ferretin.viewmodel.MCompras;
 using System.Text.RegularExpressions;
 using System.Windows;
@@ -146,6 +147,11 @@ namespace pe.edu.pucp.ferretin.view.MCompras
             {
                 e.Handled = true;
             }
+        }
+
+        private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            ComunService.Clean();
         }
     }
 }
