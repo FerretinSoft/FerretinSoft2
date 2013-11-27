@@ -60,7 +60,7 @@
                         <ImageBrush ImageSource="../Resources/view_48.png" Stretch="Uniform"/>
                     </Button.Background>
                 </Button>
-                <Button Grid.Column="2" Content="" HorizontalAlignment="Center" Margin="24,0" VerticalAlignment="Top" Width="48" Height="48" ToolTip="Enviar por email">
+                <Button Grid.Column="2" Content="" HorizontalAlignment="Center" Margin="24,0" VerticalAlignment="Top" Width="48" Height="48" ToolTip="Enviar por email" Click="Button_Click_1">
                     <Button.Background>
                         <ImageBrush ImageSource="../Resources/mail1_48.png" Stretch="Uniform"/>
                     </Button.Background>

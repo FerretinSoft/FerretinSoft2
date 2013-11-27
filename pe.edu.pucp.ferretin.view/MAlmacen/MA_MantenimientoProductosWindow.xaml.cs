@@ -97,7 +97,7 @@ namespace pe.edu.pucp.ferretin.view.MAlmacen
 
         private void checkTree(object sender, RoutedEventArgs e)
         {
-            
+           
                 
         }
 
