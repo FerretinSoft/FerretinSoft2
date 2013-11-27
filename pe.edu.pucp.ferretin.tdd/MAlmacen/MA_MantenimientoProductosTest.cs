@@ -96,5 +96,78 @@ namespace pe.edu.pucp.ferretin.tdd.MAlmacen
         }
 
 
+        /*El código para cada producto debe ser único*/
+        [TestCase]
+        public void Codigo_Producto_Unico()
+        {
+            foreach (Producto p in MA_ProductoService.db.Producto)
+            {
+                IEnumerable<Producto> listaProductos = MA_ProductoService.db.Producto.
+                                                    Where(prod => prod.codigo == p.codigo);
+
+                int cantProd = listaProductos.Count();
+                Assert.AreEqual(cantProd,1);
+
+            }
+        }
+
+        /*Todos los productos deben estar en todas las tiendas*/
+        [TestCase]
+        public void Producto_Todas_Tiendas()
+        {
+            IEnumerable<Tienda> t = MS_TiendaService.obtenerTiendas();
+            int numTiendas = t.Count();
+
+            foreach (Producto p in MA_ProductoService.db.Producto)
+            {
+                IEnumerable<ProductoAlmacen> listaProductosAlmacen = MA_ProductoAlmacenService.db.ProductoAlmacen.
+                                                                    Where(pa => pa.id_producto.Value == p.id);
+                int numProdxTienda = listaProductosAlmacen.Count();
+                try
+                {
+                    Assert.AreEqual(numProdxTienda, numTiendas);
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine(p.nombre);
+                }
+
+            }
+        }
+
+        /*Todos los productos deben tener un precio positivo*/
+        [TestCase]
+        public void Precio_Producto_Positivo()
+        {
+            IEnumerable<Tienda> t = MS_TiendaService.obtenerTiendas();
+            
+            foreach (ProductoPrecio pp in MA_ProductoService.db.ProductoPrecio)
+            {
+                Assert.Greater(pp.precio, 0);
+            }
+        }
+
+
+        /*Todos los productos deben contar con un precio en puntos equivalente*/
+        [TestCase]
+        public void Precio_Puntos_Producto()
+        {
+            foreach (ProductoPrecio pprecio in MA_ProductoService.db.ProductoPrecio)
+            {
+                Assert.Greater(pprecio.precioPuntos, 0);
+            }
+        }
+
+        /*Para cada productoxtienda, el stock mínimo debe ser menor o igual al stock máximo*/
+        [TestCase]
+        public void StockMinimo_Menor_StockMaximo_Producto()
+        {
+            foreach (ProductoAlmacen pa in MA_ProductoService.db.ProductoAlmacen)
+            {
+                    Assert.LessOrEqual(pa.stockMin, pa.stockMax);
+            }
+        }
+
+
     }
 }

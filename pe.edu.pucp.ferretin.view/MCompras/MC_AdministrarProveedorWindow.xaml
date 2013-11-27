@@ -2,11 +2,11 @@
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:MCompras="clr-namespace:pe.edu.pucp.ferretin.viewmodel.MCompras;assembly=pe.edu.pucp.ferretin.viewmodel" x:Class="pe.edu.pucp.ferretin.view.MCompras.MC_AdministrarProveedorWindow"
-       Title="Proveedores" Height="580" Width="900" Icon="/Resources/ferretin_ico.ico" ResizeMode="CanMinimize" WindowStartupLocation="CenterScreen">
+       Title="Proveedores" Height="580" Width="900" Icon="/Resources/ferretin_ico.ico" ResizeMode="CanMinimize" WindowStartupLocation="CenterScreen" Closing="Window_Closing">
     <Window.Resources>
         <ControlTemplate x:Key="validationTemplate">
             <DockPanel>
-                <TextBlock Margin="5,0,5,0" Foreground="Red" FontSize="16" VerticalAlignment="Center" Text="*" ToolTip="{Binding AdornedElement.(Validation.Errors)[0].ErrorContent, ElementName=errorAdorner}" Tag="{Binding AdornedElement.(Validation.Errors)[0].ErrorContent, ElementName=errorAdorner}" />
+                <TextBlock Margin="5,0,5,0" Foreground="Red" FontSize="16" VerticalAlignment="Center" Text="" ToolTip="{Binding AdornedElement.(Validation.Errors)[0].ErrorContent, ElementName=errorAdorner}" Tag="{Binding AdornedElement.(Validation.Errors)[0].ErrorContent, ElementName=errorAdorner}" />
                 <AdornedElementPlaceholder x:Name="errorAdorner" />
             </DockPanel>
         </ControlTemplate>
@@ -180,14 +180,22 @@
                     <TextBox Text="{Binding Path=proveedor.codigoPostal, Mode=TwoWay, UpdateSourceTrigger=LostFocus, NotifyOnValidationError=True, ValidatesOnDataErrors=True, ValidatesOnExceptions=True}" Grid.Column="3" HorizontalAlignment="Left" Height="23" Margin="101.33,306,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="66"/>
                     <TextBox  Text="{Binding codProdAgregar,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" Grid.Column="4" HorizontalAlignment="Left" Height="20" Margin="90.895,43,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="173"/>
                     <Label Content="Cod. Producto" Grid.Column="3" HorizontalAlignment="Left" Margin="361.33,41,0,0" VerticalAlignment="Top" Grid.ColumnSpan="2" Width="96" RenderTransformOrigin="0.505,0.217" Height="24"/>
-                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-                        <TextBlock  Text="{Binding proveedor.Errors, Mode=OneWay}" TextWrapping="Wrap" Foreground="Red"  />
-                    </StackPanel>
-                    <ComboBox SelectedIndex="{Binding Path=proveedor.estado1, Mode=TwoWay, UpdateSourceTrigger=LostFocus, NotifyOnValidationError=True, ValidatesOnDataErrors=True, ValidatesOnExceptions=True}" Grid.Column="3" HorizontalAlignment="Left" Margin="235.33,305,0,0" VerticalAlignment="Top" Width="92">
+                    <StackPanel Orientation="Horizontal"  HorizontalAlignment="Center"/>
+                    <ComboBox SelectedIndex="{Binding Path=proveedor.estado1, Mode=TwoWay, UpdateSourceTrigger=LostFocus, NotifyOnValidationError=True, ValidatesOnDataErrors=True, ValidatesOnExceptions=True}" Grid.Column="3" HorizontalAlignment="Left" Margin="242.33,305,0,0" VerticalAlignment="Top" Width="92">
                         <ComboBoxItem Content="Activo"></ComboBoxItem>
                         <ComboBoxItem Content="Inactivo"></ComboBoxItem>
                     </ComboBox>
                     <Label Content="Estado:" Grid.Column="3" HorizontalAlignment="Left" Margin="179.33,304,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.062,0.614"/>
+                    <TextBlock Height="23" Margin="22.33,474,196.105,23.209" Text="{Binding proveedor.mensajeError, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" TextWrapping="Wrap" Foreground="Red" Grid.Column="3"  />
+                    <Label Content="*" HorizontalAlignment="Left" VerticalAlignment="Top" Foreground="Red" FontSize="14" Width="15" Height="22" RenderTransformOrigin="3.646,-0.402" Margin="86.33,48,0,0" Grid.Column="3"/>
+                    <Label Content="*" HorizontalAlignment="Left" VerticalAlignment="Top" Foreground="Red" FontSize="14" Width="15" Height="22" RenderTransformOrigin="3.646,-0.402" Margin="86.33,75,0,0" Grid.Column="3"/>
+                    <Label Content="*" HorizontalAlignment="Left" VerticalAlignment="Top" Foreground="Red" FontSize="14" Width="15" Height="22" RenderTransformOrigin="3.646,-0.402" Margin="86.33,112,0,0" Grid.Column="3"/>
+                    <Label Content="*" HorizontalAlignment="Left" VerticalAlignment="Top" Foreground="Red" FontSize="14" Width="15" Height="22" RenderTransformOrigin="3.646,-0.402" Margin="86.33,141,0,0" Grid.Column="3"/>
+                    <Label Content="*" HorizontalAlignment="Left" VerticalAlignment="Top" Foreground="Red" FontSize="14" Width="15" Height="22" RenderTransformOrigin="3.646,-0.402" Margin="86.33,176,0,0" Grid.Column="3"/>
+                    <Label Content="*" HorizontalAlignment="Left" VerticalAlignment="Top" Foreground="Red" FontSize="14" Width="15" Height="22" RenderTransformOrigin="3.646,-0.402" Margin="86.33,206,0,0" Grid.Column="3"/>
+                    <Label Content="*" HorizontalAlignment="Left" VerticalAlignment="Top" Foreground="Red" FontSize="14" Width="15" Height="22" RenderTransformOrigin="3.646,-0.402" Margin="86.33,240,0,0" Grid.Column="3"/>
+                    <Label Content="*" HorizontalAlignment="Left" VerticalAlignment="Top" Foreground="Red" FontSize="14" Width="15" Height="22" RenderTransformOrigin="3.646,-0.402" Margin="86.33,272,0,0" Grid.Column="3"/>
+                    <Label Content="*" HorizontalAlignment="Left" VerticalAlignment="Top" Foreground="Red" FontSize="14" Width="15" Height="22" RenderTransformOrigin="3.646,-0.402" Margin="227.33,305,0,0" Grid.Column="3"/>
                 </Grid>
             </TabItem>
         </TabControl>

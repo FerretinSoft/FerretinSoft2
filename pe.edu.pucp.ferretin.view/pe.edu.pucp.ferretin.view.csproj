@@ -133,6 +133,9 @@
     <Compile Include="MCompras\MC_BuscadorProveedores.xaml.cs">
       <DependentUpon>MC_BuscadorProveedores.xaml</DependentUpon>
     </Compile>
+    <Compile Include="MCompras\MC_DatosMailWindow.xaml.cs">
+      <DependentUpon>MC_DatosMailWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="MCompras\MC_VisorReporteOC.xaml.cs">
       <DependentUpon>MC_VisorReporteOC.xaml</DependentUpon>
     </Compile>
@@ -171,6 +174,11 @@
     </Compile>
     <Compile Include="MVentas\MV_VisorReporte.xaml.cs">
       <DependentUpon>MV_VisorReporte.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="MVentas\ReporteDevolucionTienda.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ReporteDevolucionTienda.rpt</DependentUpon>
     </Compile>
     <Compile Include="MVentas\ReporteVentaCliente.cs">
       <AutoGen>True</AutoGen>
@@ -288,6 +296,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="MCompras\MC_BuscadorProveedores.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="MCompras\MC_DatosMailWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -682,6 +694,10 @@
     <EmbeddedResource Include="MSeguridad\ReporteDeTransacciones.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
       <LastGenOutput>ReporteDeTransacciones.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MVentas\ReporteDevolucionTienda.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>ReporteDevolucionTienda.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="MVentas\ReporteVentaCliente.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
