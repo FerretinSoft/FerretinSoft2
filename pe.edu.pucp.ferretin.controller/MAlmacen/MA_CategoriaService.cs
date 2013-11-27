@@ -18,7 +18,11 @@ namespace pe.edu.pucp.ferretin.controller.MAlmacen
         {
             get
             {
-                if (_listaCategoria == null) _listaCategoria = db.Categoria;
+                if (_listaCategoria == null)
+                {
+                    _listaCategoria = db.Categoria;
+                    _listaCategoria= _listaCategoria.OrderBy(c=> c.nombre);
+                }
 
                 return _listaCategoria;
             }
@@ -57,6 +61,7 @@ namespace pe.edu.pucp.ferretin.controller.MAlmacen
         {
             _listaCategoria = from c in db.Categoria
                               where c.id_padre==null
+                              orderby c.nombre
                               select c;
             return _listaCategoria;
         }
