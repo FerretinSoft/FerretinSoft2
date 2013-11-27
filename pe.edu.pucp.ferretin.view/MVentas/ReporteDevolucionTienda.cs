@@ -16,14 +16,14 @@ namespace pe.edu.pucp.ferretin.view.MVentas {
     using CrystalDecisions.CrystalReports.Engine;
     
     
-    public class ReporteVentaProducto : ReportClass {
+    public class ReporteDevolucionTienda : ReportClass {
         
-        public ReporteVentaProducto() {
+        public ReporteDevolucionTienda() {
         }
         
         public override string ResourceName {
             get {
-                return "ReporteVentaProducto.rpt";
+                return "ReporteDevolucionTienda.rpt";
             }
             set {
                 // Do nothing
@@ -41,7 +41,7 @@ namespace pe.edu.pucp.ferretin.view.MVentas {
         
         public override string FullResourceName {
             get {
-                return "pe.edu.pucp.ferretin.view.MVentas.ReporteVentaProducto.rpt";
+                return "pe.edu.pucp.ferretin.view.MVentas.ReporteDevolucionTienda.rpt";
             }
             set {
                 // Do nothing
@@ -103,44 +103,12 @@ namespace pe.edu.pucp.ferretin.view.MVentas {
                 return this.ReportDefinition.Sections[6];
             }
         }
-        
-        [Browsable(false)]
-        [DesignerSerializationVisibilityAttribute(System.ComponentModel.DesignerSerializationVisibility.Hidden)]
-        public CrystalDecisions.Shared.IParameterField Parameter_fechaInicio {
-            get {
-                return this.DataDefinition.ParameterFields[0];
-            }
-        }
-        
-        [Browsable(false)]
-        [DesignerSerializationVisibilityAttribute(System.ComponentModel.DesignerSerializationVisibility.Hidden)]
-        public CrystalDecisions.Shared.IParameterField Parameter_fechaFin {
-            get {
-                return this.DataDefinition.ParameterFields[1];
-            }
-        }
-        
-        [Browsable(false)]
-        [DesignerSerializationVisibilityAttribute(System.ComponentModel.DesignerSerializationVisibility.Hidden)]
-        public CrystalDecisions.Shared.IParameterField Parameter_idTienda {
-            get {
-                return this.DataDefinition.ParameterFields[2];
-            }
-        }
-        
-        [Browsable(false)]
-        [DesignerSerializationVisibilityAttribute(System.ComponentModel.DesignerSerializationVisibility.Hidden)]
-        public CrystalDecisions.Shared.IParameterField Parameter_codProducto {
-            get {
-                return this.DataDefinition.ParameterFields[3];
-            }
-        }
     }
     
     [System.Drawing.ToolboxBitmapAttribute(typeof(CrystalDecisions.Shared.ExportOptions), "report.bmp")]
-    public class CachedReporteVentaProducto : Component, ICachedReport {
+    public class CachedReporteDevolucionTienda : Component, ICachedReport {
         
-        public CachedReporteVentaProducto() {
+        public CachedReporteDevolucionTienda() {
         }
         
         [Browsable(false)]
@@ -177,7 +145,7 @@ namespace pe.edu.pucp.ferretin.view.MVentas {
         }
         
         public virtual CrystalDecisions.CrystalReports.Engine.ReportDocument CreateReport() {
-            ReporteVentaProducto rpt = new ReporteVentaProducto();
+            ReporteDevolucionTienda rpt = new ReporteDevolucionTienda();
             rpt.Site = this.Site;
             return rpt;
         }
