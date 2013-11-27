@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Windows;
 using pe.edu.pucp.ferretin.model;
+using pe.edu.pucp.ferretin.viewmodel.MCompras;
 
 namespace pe.edu.pucp.ferretin.view.MCompras
 {
@@ -20,8 +21,6 @@ namespace pe.edu.pucp.ferretin.view.MCompras
         public MC_ReportesWindow()
         {
             InitializeComponent();
-            fechaDesdePicker.SelectedDate = null;
-            fechaHastaPicker.SelectedDate = null;
         }
 
         private void btnGenerarReporte_Click(object sender, RoutedEventArgs e)
@@ -30,6 +29,7 @@ namespace pe.edu.pucp.ferretin.view.MCompras
             {
                 MC_VisorReporteOC vroc = new MC_VisorReporteOC((DateTime)fechaDesdePicker.SelectedDate,
                                                                 (DateTime)fechaHastaPicker.SelectedDate, ((Tienda)this.cmbTienda.SelectedItem).id);
+                vroc.GenerarReporte();
                 vroc.ShowDialog();
             }
         }
@@ -131,6 +131,23 @@ namespace pe.edu.pucp.ferretin.view.MCompras
                     estado = 1;
                     repSigBtn.IsEnabled = true;
                     break;
+            }
+        }
+
+        private void enviarMailBtn_Click(object sender, RoutedEventArgs e)
+        {
+            MC_ReportesViewModel padre_DataContext = this.main.DataContext as MC_ReportesViewModel;
+            if (estado == 2)
+            {
+                if (reporte == 1)
+                {
+                    MC_VisorReporteOC visor = new MC_VisorReporteOC((DateTime)fechaDesdePicker.SelectedDate,
+                                                                (DateTime)fechaHastaPicker.SelectedDate, ((Tienda)this.cmbTienda.SelectedItem).id);
+
+                    MC_DatosMailWindow v = new MC_DatosMailWindow(visor);
+                    v.Owner = this;
+                    v.ShowDialog();
+                }
             }
         }
     }

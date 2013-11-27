@@ -136,6 +136,9 @@
     <Compile Include="MCompras\MC_BuscadorProveedores.xaml.cs">
       <DependentUpon>MC_BuscadorProveedores.xaml</DependentUpon>
     </Compile>
+    <Compile Include="MCompras\MC_DatosMailWindow.xaml.cs">
+      <DependentUpon>MC_DatosMailWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="MCompras\MC_VisorReporteOC.xaml.cs">
       <DependentUpon>MC_VisorReporteOC.xaml</DependentUpon>
     </Compile>
@@ -288,6 +291,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="MCompras\MC_BuscadorProveedores.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="MCompras\MC_DatosMailWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
