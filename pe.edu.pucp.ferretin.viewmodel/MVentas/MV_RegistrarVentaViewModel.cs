@@ -178,7 +178,8 @@ namespace pe.edu.pucp.ferretin.viewmodel.MVentas
                 }catch{}
                 
                 //Validar si lo encuentra y si tiene como estado activo, el producto y el producto de un almacen
-                if (productoAlmacen != null && producto !=null && productoAlmacen.estado>0 && producto.estado>0)
+                //if (productoAlmacen != null && producto !=null && productoAlmacen.estado>0 && producto.estado>0)
+                if (productoAlmacen != null && producto !=null && productoAlmacen.estado>0)
                 {
 
                     var stockDisponible = 0;
