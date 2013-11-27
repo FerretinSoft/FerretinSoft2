@@ -105,9 +105,9 @@
                             <DataGridTextColumn Width="3.8*" Header="Producto" Binding="{Binding Path=Producto.nombre}" IsReadOnly="True"/>
                             <DataGridTextColumn Width="3.0*" Header="Descripción" Binding="{Binding Path=Producto.descripcion}" IsReadOnly="True"/>
                             <DataGridTextColumn Width="1.7*" Header="Unidad" Binding="{Binding Path=Producto.UnidadMedida.abreviatura}" IsReadOnly="True"/>
-                            <DataGridTextColumn Width="1.8*" Header="Precio Unit. S/." Binding="{Binding Path=precioUnit, UpdateSourceTrigger=PropertyChanged}"/>
-                            <DataGridTextColumn Width="1.7*" Header="Cantidad" Binding="{Binding Path=cantidad, UpdateSourceTrigger=PropertyChanged}"/>
-                            <DataGridTextColumn Width="2.0*" Header="Total" Binding="{Binding Path=montoParcial, UpdateSourceTrigger=PropertyChanged}" IsReadOnly="True"/>
+                            <DataGridTextColumn Width="1.8*" Header="Precio Unit. S/." Binding="{Binding Path=precioUnit}"/>
+                            <DataGridTextColumn Width="1.7*" Header="Cantidad" Binding="{Binding Path=cantidad}"/>
+                            <DataGridTextColumn Width="2.0*" Header="Total" Binding="{Binding Path=montoParcial}" IsReadOnly="True"/>
                             <DataGridCheckBoxColumn Width="1.6*" Header="Seleccionar" Visibility="Hidden"/>
                         </DataGrid.Columns>
                     </DataGrid>
