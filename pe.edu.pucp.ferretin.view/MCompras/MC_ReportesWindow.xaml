@@ -38,9 +38,9 @@
             <DatePicker HorizontalAlignment="Left" Margin="115,134,0,0" VerticalAlignment="Top" x:Name="fechaDesdePicker" Width="128" SelectedDate="{Binding fechaDesde}"/>
             <DatePicker HorizontalAlignment="Left" Margin="347,134,0,0" VerticalAlignment="Top" x:Name="fechaHastaPicker" Width="128" SelectedDate="{Binding fechaHasta}"/>
             <Label Content="Alias:" HorizontalAlignment="Left" Margin="19,177,0,0" VerticalAlignment="Top"/>
-            <TextBox HorizontalAlignment="Left" Height="23" Margin="115,180,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="360" />
+            <TextBox HorizontalAlignment="Left" Height="23" Margin="115,180,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="360" x:Name="aliasTxt"/>
             <Label Content="Comentario:" HorizontalAlignment="Left" Margin="19,208,0,0" VerticalAlignment="Top"/>
-            <TextBox HorizontalAlignment="Left" Height="40" Margin="115,208,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="360"/>
+            <TextBox HorizontalAlignment="Left" Height="40" Margin="115,208,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="360" x:Name="comentarioTxt"/>
             <Label Content="Tienda:" HorizontalAlignment="Left" Margin="19,85,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.939,0.899"/>
             <ComboBox x:Name="cmbTienda" SelectedItem="{Binding selectedTienda}" ItemsSource="{Binding listaTiendas}" DisplayMemberPath="nombre" SelectedValuePath="id" HorizontalAlignment="Left" Margin="115,89,0,0" VerticalAlignment="Top" Width="128"/>
         </Grid>

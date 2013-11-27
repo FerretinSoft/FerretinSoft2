@@ -1,4 +1,5 @@
 ﻿using pe.edu.pucp.ferretin.model;
+using pe.edu.pucp.ferretin.view.MVentas;
 using pe.edu.pucp.ferretin.viewmodel.MAlmacen;
 using System;
 using System.Collections.Generic;
@@ -131,31 +132,16 @@ namespace pe.edu.pucp.ferretin.view.MAlmacen
         {
             if (reporte == 1) //Reporte de Stock
             {
-                //MA_ReportesStockPorTiendaWindow v = new MA_ReportesStockPorTiendaWindow();
-                //v.Owner = this;
-                //var viewModel = v.main.DataContext as MA_ReportesStockPorTiendaViewModel;
-                //Tienda tiendaSelected = (Tienda)this.cmbTienda.SelectedItem;
-
-                //viewModel.tiendaSeleccionada = tiendaSelected;
-                //v.ShowDialog();
-
                 MA_VisorReporteStock vrs = new MA_VisorReporteStock(((Tienda)this.cmbTienda.SelectedItem).id);
                 vrs.ShowDialog();
 
             }
             else if (reporte >= 2 && reporte <= 4)
             {
-                //MA_ReporteKardexWindow kardexW = new MA_ReporteKardexWindow();
-                //kardexW.Owner = this;
-                //var viewModel = kardexW.main.DataContext as MA_ReporteKardexViewModel;
-                //Tienda tiendaSelected = (Tienda)this.cmbTienda.SelectedItem;
-                //viewModel.tiendaSeleccionada = tiendaSelected;
-                //viewModel.fechaDesde = (DateTime)fechaDesdePicker.SelectedDate;
-                //viewModel.fechaHasta = (DateTime)fechaHastaPicker.SelectedDate;
-                //kardexW.ShowDialog();
                 MA_KardexVisor visor = new MA_KardexVisor((DateTime)fechaDesdePicker.SelectedDate,
                                                           (DateTime)fechaHastaPicker.SelectedDate,
                                                           (Tienda)this.cmbTienda.SelectedItem);
+                visor.GenerarReporte();
                 visor.ShowDialog();
             }
             
@@ -203,6 +189,28 @@ namespace pe.edu.pucp.ferretin.view.MAlmacen
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             this.Close();
+        }
+
+        private void Button_Click_1(object sender, RoutedEventArgs e)
+        {
+            MA_ReportesViewModel padre_DataContext = this.main.DataContext as MA_ReportesViewModel;
+
+            if (reporte == 1) //Reporte de Stock
+            {
+                MessageBox.Show("La opción de enviar por mail solo está habilitada para el reporte KARDEX.");
+                return;
+            }
+            else if (reporte >= 2 && reporte <= 4)
+            {
+                MA_KardexVisor visor = new MA_KardexVisor((DateTime)fechaDesdePicker.SelectedDate,
+                                                          (DateTime)fechaHastaPicker.SelectedDate,
+                                                          (Tienda)this.cmbTienda.SelectedItem);                
+            
+
+                MA_DatosMailWindow v = new MA_DatosMailWindow(visor);
+                v.Owner = this;
+                v.ShowDialog();
+            }
         }
 
        

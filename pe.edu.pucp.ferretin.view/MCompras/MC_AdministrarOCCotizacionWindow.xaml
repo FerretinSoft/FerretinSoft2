@@ -105,17 +105,17 @@
                             <DataGridTextColumn Width="3.8*" Header="Producto" Binding="{Binding Path=Producto.nombre}" IsReadOnly="True"/>
                             <DataGridTextColumn Width="3.0*" Header="Descripción" Binding="{Binding Path=Producto.descripcion}" IsReadOnly="True"/>
                             <DataGridTextColumn Width="1.7*" Header="Unidad" Binding="{Binding Path=Producto.UnidadMedida.abreviatura}" IsReadOnly="True"/>
-                            <DataGridTextColumn Width="1.7*" Header="Precio Unit." Binding="{Binding Path=precioUnit, UpdateSourceTrigger=PropertyChanged}"/>
+                            <DataGridTextColumn Width="1.8*" Header="Precio Unit. S/." Binding="{Binding Path=precioUnit, UpdateSourceTrigger=PropertyChanged}"/>
                             <DataGridTextColumn Width="1.7*" Header="Cantidad" Binding="{Binding Path=cantidad, UpdateSourceTrigger=PropertyChanged}"/>
                             <DataGridTextColumn Width="2.0*" Header="Total" Binding="{Binding Path=montoParcial, UpdateSourceTrigger=PropertyChanged}" IsReadOnly="True"/>
                             <DataGridCheckBoxColumn Width="1.6*" Header="Seleccionar" Visibility="Hidden"/>
                         </DataGrid.Columns>
                     </DataGrid>
                     <GroupBox Header="Resumen" Margin="10,383,299,0" BorderBrush="Black" Height="127" VerticalAlignment="Top" Grid.ColumnSpan="2">
-                        <TextBox Text="{Binding Path=documentoCompra.total, Mode=TwoWay, UpdateSourceTrigger=LostFocus, NotifyOnValidationError=True, ValidatesOnDataErrors=True, ValidatesOnExceptions=True}" HorizontalAlignment="Right" Height="25" TextWrapping="Wrap"  VerticalAlignment="Top" Width="114" IsEnabled="False" FontSize="16" TextAlignment="Right" Margin="0,66,49,0" />
+                        <TextBox Text="{Binding Path=documentoCompra.total, Mode=TwoWay, UpdateSourceTrigger=LostFocus, NotifyOnValidationError=True, ValidatesOnDataErrors=True, ValidatesOnExceptions=True}" HorizontalAlignment="Right" Height="25" TextWrapping="Wrap"  VerticalAlignment="Top" Width="114" IsEnabled="False" FontSize="16" TextAlignment="Right" Margin="0,66,30,0" />
                     </GroupBox>
-                    <TextBox Text="{Binding Path=documentoCompra.igv, Mode=TwoWay, UpdateSourceTrigger=LostFocus, NotifyOnValidationError=True, ValidatesOnDataErrors=True, ValidatesOnExceptions=True}" Height="25" TextWrapping="Wrap"  VerticalAlignment="Top" IsEnabled="False" FontSize="16" TextAlignment="Right" Margin="168,433,354,0" Grid.Column="1"/>
-                    <TextBox Text="{Binding Path=documentoCompra.subTotal, Mode=TwoWay, UpdateSourceTrigger=LostFocus, NotifyOnValidationError=True, ValidatesOnDataErrors=True, ValidatesOnExceptions=True}" Height="25" TextWrapping="Wrap" VerticalAlignment="Top" IsEnabled="False" FontSize="16" TextAlignment="Right" Margin="168,402,354,0" Grid.Column="1" RenderTransformOrigin="3.68,-1.086"/>
+                    <TextBox Text="{Binding Path=documentoCompra.igv, Mode=TwoWay, UpdateSourceTrigger=LostFocus, NotifyOnValidationError=True, ValidatesOnDataErrors=True, ValidatesOnExceptions=True}" Height="25" TextWrapping="Wrap"  VerticalAlignment="Top" IsEnabled="False" FontSize="16" TextAlignment="Right" Margin="190,432,332,0" Grid.Column="1"/>
+                    <TextBox Text="{Binding Path=documentoCompra.subTotal, Mode=TwoWay, UpdateSourceTrigger=LostFocus, NotifyOnValidationError=True, ValidatesOnDataErrors=True, ValidatesOnExceptions=True}" Height="25" TextWrapping="Wrap" VerticalAlignment="Top" IsEnabled="False" FontSize="16" TextAlignment="Right" Margin="190,402,332,0" Grid.Column="1" RenderTransformOrigin="3.68,-1.086"/>
                     <Label Content="SubTotal:" HorizontalAlignment="Left" Margin="44,401,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.64,1.423" Height="26" Width="82" Grid.Column="1" FontSize="14"/>
                     <Label Content="IGV:" HorizontalAlignment="Left" Margin="44,432,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.64,1.423" Height="26" Width="82" Grid.Column="1" FontSize="14"/>
                     <Label Content="Total a Pagar:" HorizontalAlignment="Left" Margin="44,463,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.64,1.423" Height="30" Width="94" Grid.Column="1" FontSize="14"/>
@@ -141,8 +141,6 @@
                     </Grid>
                     <Label x:Name="fecValPagoLbl" Content="{Binding labelFechaDC2}" Margin="328,61,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.183,0.438" Height="26" HorizontalAlignment="Left" Width="116" Grid.Column="1"/>
                     <DatePicker IsEnabled="{Binding isCreatingFechaPago}" SelectedDate="{Binding Path=documentoCompra.fechaVencimiento, Mode=TwoWay}" Margin="471,63,0,0" Height="24" VerticalAlignment="Top" HorizontalAlignment="Left" Width="130" Grid.Column="1"/>
-                    <Label Visibility="{Binding Path=ingresaFactura, Mode=OneWay}" Content="*" HorizontalAlignment="Left" Foreground="Red" FontSize="14" Width="15" Height="22" Margin="406,65,0,0" VerticalAlignment="Top" RenderTransformOrigin="-1.479,-0.159" Grid.Column="1"/>
-
                     <DatePicker IsEnabled="{Binding isCreating}" SelectedDate="{Binding Path=documentoCompra.fechaEmision, Mode=TwoWay}" Height="24" VerticalAlignment="Top" Margin="110,63,0,0" HorizontalAlignment="Left" Width="130" Grid.Column="1"/>
                     <Label Content="*" HorizontalAlignment="Left" Foreground="Red" FontSize="14" Width="15" Height="22" Margin="90,65,0,0" VerticalAlignment="Top" RenderTransformOrigin="-1.479,-0.159" Grid.Column="1"/>
                     <Label Content="*" HorizontalAlignment="Left" Foreground="Red" FontSize="14" Width="15" Height="22" Margin="451,34,0,0" VerticalAlignment="Top" RenderTransformOrigin="-1.479,-0.159" Grid.Column="1"/>
@@ -175,9 +173,13 @@
                     <GroupBox x:Name="facturaGbox" BorderBrush="Black" Grid.ColumnSpan="2" Grid.Column="1" Header="Factura" HorizontalAlignment="Left" Height="57" Margin="372,383,0,0" VerticalAlignment="Top" Width="313" Visibility="Hidden"/>
                     <TextBox x:Name="facturaTxtBox" Grid.Column="1" HorizontalAlignment="Left" Height="25" Margin="558,402,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="100" Grid.ColumnSpan="2" FontSize="16" Visibility="Hidden"/>
                     <Button x:Name="aprobarBtn" Command="{Binding aprobarDocumentoCompraCommand}" Content="{Binding btnAprobarLabel}" Grid.Column="2" HorizontalAlignment="Left" Margin="96,365,0,0" VerticalAlignment="Top" Width="89" Height="39" Visibility="{Binding Path=generarAprobar, Mode=OneWay}"/>
-                    <TextBox Visibility="{Binding Path=ingresaFactura, Mode=OneWay}" IsEnabled="{Binding isCreatingFechaPago}" Text="{Binding Path=documentoCompra.nroFactura, Mode=TwoWay,UpdateSourceTrigger=LostFocus}" Height="25" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="16" TextAlignment="Right" Margin="498,401,24,0" Grid.Column="1" RenderTransformOrigin="3.68,-1.086"/>
-                    <Label Visibility="{Binding Path=ingresaFactura, Mode=OneWay}" IsEnabled="{Binding isCreatingFechaPago}" Content="Codigo:" HorizontalAlignment="Left" Margin="415,401,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.64,1.423" Height="26" Width="64" Grid.Column="1" FontSize="14"/>
+                    <TextBox Visibility="{Binding Path=ingresaFactura, Mode=OneWay}" IsEnabled="{Binding isCreatingFechaPago}" Text="{Binding Path=documentoCompra.nroFactura, Mode=TwoWay,UpdateSourceTrigger=LostFocus}" Height="25" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="16" TextAlignment="Right" Margin="498,401,0,0" Grid.Column="1" RenderTransformOrigin="3.68,-1.086"/>
+                    <Label Visibility="{Binding Path=ingresaFactura, Mode=OneWay}" IsEnabled="{Binding isCreatingFechaPago}" Content="Codigo:" HorizontalAlignment="Left" Margin="390,401,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.64,1.423" Height="39" Width="64" Grid.Column="1" FontSize="14"/>
                     <GroupBox Visibility="{Binding Path=ingresaFactura, Mode=OneWay}" IsEnabled="{Binding isCreatingFechaPago}" BorderBrush="Black" Grid.Column="1" Header="Factura" HorizontalAlignment="Left" Height="57" Margin="372,383,0,0" VerticalAlignment="Top" Width="286" Grid.ColumnSpan="2"/>
+                    <Label Visibility="{Binding Path=ingresaFactura, Mode=OneWay}" Content="*" Grid.Column="1" HorizontalAlignment="Left" Margin="478,402,0,0" VerticalAlignment="Top" Foreground="Red" FontSize="14" Width="15" Height="22"/>
+                    <Label Content="S/." Grid.Column="1" HorizontalAlignment="Left" Margin="161,401,0,0" VerticalAlignment="Top"/>
+                    <Label Content="S/." Grid.Column="1" HorizontalAlignment="Left" Margin="161,432,0,0" VerticalAlignment="Top"/>
+                    <Label Content="S/." Grid.Column="1" HorizontalAlignment="Left" Margin="161,465,0,0" VerticalAlignment="Top"/>
                 </Grid>
             </TabItem>
         </TabControl>
