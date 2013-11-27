@@ -15,8 +15,8 @@
             </DataGrid.Columns>
         </DataGrid>
         <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Center" Margin="5">
-            <Button Command="{Binding savePromocionCommand}" Margin="0,0,10,0" Height="30" Padding="10,0" Content="GUARDAR" Click="Button_Click_1"/>
-            <Button Command="{Binding cancelPromocionCommand}" Padding="10,0" Height="30" Content="CANCELAR" Click="Button_Click"/>
+            <Button Command="{Binding savePromocionCommand}" Margin="0,0,10,0" Height="30" Padding="10,0" Content="GUARDAR"/>
+            <Button Command="{Binding cancelPromocionCommand}" Padding="10,0" Height="30" Content="CANCELAR" />
         </StackPanel>
     </Grid>
 </Window>
