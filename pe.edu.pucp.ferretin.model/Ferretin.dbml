@@ -100,10 +100,30 @@
       <Column Name="igv" Type="System.Decimal" DbType="Decimal(10,2)" CanBeNull="true" />
       <Column Name="subTotal" Type="System.Decimal" DbType="Decimal(10,2)" CanBeNull="true" />
       <Column Name="puntosDevueltos" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Association Name="Devolucion_NotaCredito" Member="NotaCredito" ThisKey="id" OtherKey="id_devolucion" Type="NotaCredito" />
       <Association Name="Devolucion_DevolucionProducto" Member="DevolucionProducto" ThisKey="id" OtherKey="id_devolucion" Type="DevolucionProducto" />
+      <Association Name="Devolucion_NotaCredito" Member="NotaCredito" ThisKey="id" OtherKey="id_devolucion" Type="NotaCredito" />
       <Association Name="Empleado_Devolucion" Member="Empleado" ThisKey="id_empleado" OtherKey="id" Type="Empleado" IsForeignKey="true" />
       <Association Name="Venta_Devolucion" Member="Venta" ThisKey="id_venta" OtherKey="id" Type="Venta" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.DevolucionProducto" Member="DevolucionProducto">
+    <Type Name="DevolucionProducto">
+      <Column Name="cantidad" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="monto" Type="System.Decimal" DbType="Decimal(10,2)" CanBeNull="true" />
+      <Column Name="id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="id_devolucion" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="id_producto" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="motivo" Type="System.String" DbType="Text" CanBeNull="true" UpdateCheck="Never" />
+      <Column Name="dardebaja" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="precioUnitario" Type="System.Decimal" DbType="Decimal(18,2)" CanBeNull="true" />
+      <Column Name="moneda" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="descuento" Type="System.Decimal" DbType="Decimal(18,2)" CanBeNull="true" />
+      <Column Name="descuentoPorcentaje" Type="System.Decimal" DbType="Decimal(18,2)" CanBeNull="true" />
+      <Column Name="puntosParciales" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="canjeado" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="precioPuntos" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Association Name="Devolucion_DevolucionProducto" Member="Devolucion" ThisKey="id_devolucion" OtherKey="id" Type="Devolucion" IsForeignKey="true" />
+      <Association Name="Producto_DevolucionProducto" Member="Producto" ThisKey="id_producto" OtherKey="id" Type="Producto" IsForeignKey="true" />
     </Type>
   </Table>
   <Table Name="dbo.Dia" Member="Dia">
@@ -130,6 +150,7 @@
       <Column Name="id_usuario_aprobacion" Type="System.Int32" DbType="Int" CanBeNull="true" />
       <Column Name="id_usuario_registro" Type="System.Int32" DbType="Int" CanBeNull="true" />
       <Column Name="id_solicitud_compra" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="id_tienda" Type="System.Int32" DbType="Int" CanBeNull="true" />
       <Association Name="DocumentoCompra_DocumentoCompra" Member="DocumentoCompra2" ThisKey="id" OtherKey="id_cotizacion" Type="DocumentoCompra" />
       <Association Name="DocumentoCompra_DocumentoCompraProducto" Member="DocumentoCompraProducto" ThisKey="id" OtherKey="id_documento_compra" Type="DocumentoCompraProducto" />
       <Association Name="DocumentoCompra_GuiaRemision" Member="GuiaRemision" ThisKey="id" OtherKey="id_orden_compra" Type="GuiaRemision" />
@@ -137,6 +158,7 @@
       <Association Name="DocumentoCompraEstado_DocumentoCompra" Member="DocumentoCompraEstado" ThisKey="id_estado" OtherKey="id" Type="DocumentoCompraEstado" IsForeignKey="true" />
       <Association Name="Proveedor_DocumentoCompra" Member="Proveedor" ThisKey="id_proveedor" OtherKey="id" Type="Proveedor" IsForeignKey="true" />
       <Association Name="SolicitudCompra_DocumentoCompra" Member="SolicitudCompra" ThisKey="id_solicitud_compra" OtherKey="id" Type="SolicitudCompra" IsForeignKey="true" />
+      <Association Name="Tienda_DocumentoCompra" Member="Tienda" ThisKey="id_tienda" OtherKey="id" Type="Tienda" IsForeignKey="true" />
       <Association Name="Usuario_DocumentoCompra" Member="Usuario" ThisKey="id_usuario_aprobacion" OtherKey="id" Type="Usuario" IsForeignKey="true" />
       <Association Name="Usuario_DocumentoCompra1" Member="Usuario1" ThisKey="id_usuario_registro" OtherKey="id" Type="Usuario" IsForeignKey="true" />
     </Type>
@@ -407,13 +429,12 @@
       <Column Name="id_material_base" Type="System.Int16" DbType="SmallInt" CanBeNull="true" />
       <Column Name="id_material_sec" Type="System.Int16" DbType="SmallInt" CanBeNull="true" />
       <Column Name="id_unidad_medida" Type="System.Int16" DbType="SmallInt" CanBeNull="true" />
-      <Column Name="estado" Type="System.Int32" DbType="Int" CanBeNull="true" />
       <Column Name="imagen" Type="System.Data.Linq.Binary" DbType="Image" CanBeNull="true" UpdateCheck="Never" />
       <Column Name="moneda" Type="System.Int32" DbType="Int" CanBeNull="true" />
       <Column Name="precioPuntos" Type="System.Int32" DbType="Int" CanBeNull="true" />
       <Column Name="ganarPuntos" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="tipoServicio" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
       <Association Name="Producto_VentaProducto" Member="VentaProducto" ThisKey="id" OtherKey="id_producto" Type="VentaProducto" />
+      <Association Name="Producto_DevolucionProducto" Member="DevolucionProducto" ThisKey="id" OtherKey="id_producto" Type="DevolucionProducto" />
       <Association Name="Producto_DocumentoCompraProducto" Member="DocumentoCompraProducto" ThisKey="id" OtherKey="id_producto" Type="DocumentoCompraProducto" />
       <Association Name="Producto_Lote" Member="Lote" ThisKey="id" OtherKey="id_producto" Type="Lote" />
       <Association Name="Producto_MovimientoProducto" Member="MovimientoProducto" ThisKey="id" OtherKey="id_producto" Type="MovimientoProducto" />
@@ -426,7 +447,6 @@
       <Association Name="Producto_ProveedorProducto" Member="ProveedorProducto" ThisKey="id" OtherKey="id_producto" Type="ProveedorProducto" />
       <Association Name="Producto_SolicitudAbastecimientoProducto" Member="SolicitudAbastecimientoProducto" ThisKey="id" OtherKey="id_producto" Type="SolicitudAbastecimientoProducto" />
       <Association Name="Producto_SolicitudCompra" Member="SolicitudCompra" ThisKey="id" OtherKey="producto_id" Type="SolicitudCompra" />
-      <Association Name="Producto_DevolucionProducto" Member="DevolucionProducto" ThisKey="id" OtherKey="id_producto" Type="DevolucionProducto" />
       <Association Name="Material_Producto" Member="Material" ThisKey="id_material_base" OtherKey="id" Type="Material" IsForeignKey="true" />
       <Association Name="Material_Producto1" Member="Material1" ThisKey="id_material_sec" OtherKey="id" Type="Material" IsForeignKey="true" />
       <Association Name="UnidadMedida_Producto" Member="UnidadMedida" ThisKey="id_unidad_medida" OtherKey="id" Type="UnidadMedida" IsForeignKey="true" />
@@ -694,6 +714,7 @@
       <Column Name="fecCierre" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
       <Column Name="id_jefe" Type="System.Int32" DbType="Int" CanBeNull="true" />
       <Column Name="foto" Type="System.Data.Linq.Binary" DbType="Image" CanBeNull="true" UpdateCheck="Never" />
+      <Association Name="Tienda_DocumentoCompra" Member="DocumentoCompra" ThisKey="id" OtherKey="id_tienda" Type="DocumentoCompra" />
       <Association Name="Tienda_EmpleadoTienda" Member="EmpleadoTienda" ThisKey="id" OtherKey="id_tienda" Type="EmpleadoTienda" />
       <Association Name="Tienda_GuiaRemision" Member="GuiaRemision" ThisKey="id" OtherKey="id_almacen" Type="GuiaRemision" />
       <Association Name="Tienda_Lote" Member="Lote" ThisKey="id" OtherKey="id_almacen" Type="Lote" />
@@ -863,26 +884,6 @@
       <Association Name="Vale_VentaMedioPago" Member="Vale" ThisKey="vale_id" OtherKey="id" Type="Vale" IsForeignKey="true" />
       <Association Name="MedioPago_VentaMedioPago" Member="MedioPago" ThisKey="id_medio_pago" OtherKey="id" Type="MedioPago" IsForeignKey="true" />
       <Association Name="Venta_VentaMedioPago" Member="Venta" ThisKey="id_venta" OtherKey="id" Type="Venta" IsForeignKey="true" />
-    </Type>
-  </Table>
-  <Table Name="dbo.DevolucionProducto" Member="DevolucionProducto">
-    <Type Name="DevolucionProducto">
-      <Column Name="cantidad" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="monto" Type="System.Decimal" DbType="Decimal(10,2)" CanBeNull="true" />
-      <Column Name="id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
-      <Column Name="id_devolucion" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
-      <Column Name="id_producto" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="motivo" Type="System.String" DbType="Text" CanBeNull="true" UpdateCheck="Never" />
-      <Column Name="dardebaja" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
-      <Column Name="precioUnitario" Type="System.Decimal" DbType="Decimal(18,2)" CanBeNull="true" />
-      <Column Name="moneda" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="descuento" Type="System.Decimal" DbType="Decimal(18,2)" CanBeNull="true" />
-      <Column Name="descuentoPorcentaje" Type="System.Decimal" DbType="Decimal(18,2)" CanBeNull="true" />
-      <Column Name="puntosParciales" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="canjeado" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
-      <Column Name="precioPuntos" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Association Name="Devolucion_DevolucionProducto" Member="Devolucion" ThisKey="id_devolucion" OtherKey="id" Type="Devolucion" IsForeignKey="true" />
-      <Association Name="Producto_DevolucionProducto" Member="Producto" ThisKey="id_producto" OtherKey="id" Type="Producto" IsForeignKey="true" />
     </Type>
   </Table>
 </Database>
