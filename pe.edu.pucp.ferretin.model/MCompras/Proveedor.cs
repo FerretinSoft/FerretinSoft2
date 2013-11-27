@@ -201,6 +201,22 @@ namespace pe.edu.pucp.ferretin.model
         }
         #endregion
 
+        private string _mensajeError;
+        public string mensajeError
+        {
+            get
+            {
+                return _mensajeError;
+            }
+            set
+            {
+                if (!value.Equals(_mensajeError))
+                {
+                    _mensajeError = value;
+                    SendPropertyChanged("mensajeError");
+                }
+            }
+        }
 
     }
 }

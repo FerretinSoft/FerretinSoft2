@@ -45,7 +45,7 @@ namespace pe.edu.pucp.ferretin.view.MSeguridad
                 mayusStatus.Content = "Mayusculas Activadas";
             }
 
-            fechaHora.Content = System.DateTime.Now.Date;
+            //fechaHora.Content = System.DateTime.Now.Date;
             
             listaParametros = MS_ParametroService.obtenerListaParametros().ToList();
             try
