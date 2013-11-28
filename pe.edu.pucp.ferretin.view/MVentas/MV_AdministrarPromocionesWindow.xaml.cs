@@ -57,8 +57,8 @@ namespace pe.edu.pucp.ferretin.view.MVentas
         /// <param name="e"></param>
         private void Button_Click_1(object sender, RoutedEventArgs e)
         {
-            var mivm = DataContext as MV_PromocionesViewModel; 
-            var v = new MV_TiposPromocionesWindow();
+            var mivm = DataContext as MV_PromocionesViewModel;
+            var v = new MV_TiposServiciosWindow();
             v.ShowDialog();
             
         }

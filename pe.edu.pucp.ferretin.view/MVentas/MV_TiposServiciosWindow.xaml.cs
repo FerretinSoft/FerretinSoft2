@@ -1,4 +1,5 @@
-﻿using System;
+﻿using pe.edu.pucp.ferretin.model;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -19,12 +20,33 @@ namespace pe.edu.pucp.ferretin.view.MVentas
     /// </summary>
     public partial class MV_TiposServiciosWindow : Window
     {
+
+        FerretinDataContext midb = new FerretinDataContext();
+
         public MV_TiposServiciosWindow()
         {
             InitializeComponent();
+            tiposServicio.ItemsSource = midb.ServicioTipo;
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
+
+
+        /// <summary>
+        /// Cerrar
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void Button_Click_2(object sender, RoutedEventArgs e)
+        {
+            this.Close();
+        }
+
+        /// <summary>
+        /// Seleccionar o guardar
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void Button_Click_1(object sender, RoutedEventArgs e)
         {
 
         }
