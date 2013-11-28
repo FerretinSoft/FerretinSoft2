@@ -149,6 +149,14 @@ namespace pe.edu.pucp.ferretin.viewmodel.MVentas
                         }
                         break;
                     };
+                case 5:
+                    {
+                        ventaMP.Venta = venta;
+                        ventaMP.MedioPago = mediosPago.ElementAt(1);
+                        ventaMP.detalle = "BitCoin # Transacción " + new Random(100).Next(11111111, 99999999).ToString() + "";
+                        ventaMP.monto = venta.diferencia;
+                        break;
+                    }
             }
             if(ventaMP!=null)
                 venta.VentaMedioPago.Add(ventaMP);

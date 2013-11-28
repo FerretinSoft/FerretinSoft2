@@ -24,6 +24,7 @@ namespace pe.edu.pucp.ferretin.view.MVentas
         public MV_PagoWindow()
         {
             InitializeComponent();
+            AddHandler(Keyboard.KeyDownEvent, (KeyEventHandler)HandleKeyDownEvent);
         }
 
         public MV_PagoWindow(MV_RegistrarVentaWindow mV_RegistrarVentaWindow)
@@ -44,6 +45,7 @@ namespace pe.edu.pucp.ferretin.view.MVentas
             {
                 MessageBox.Show(e.Message);
             }
+            AddHandler(Keyboard.KeyDownEvent, (KeyEventHandler)HandleKeyDownEvent);
         }
 
         private void Button_Click_1(object sender, RoutedEventArgs e)
@@ -90,6 +92,15 @@ namespace pe.edu.pucp.ferretin.view.MVentas
             else
             {
                 this.Owner.IsEnabled = true;
+            }
+        }
+
+        private void HandleKeyDownEvent(object sender, KeyEventArgs e)
+        {
+
+            if (e.Key == Key.B && (Keyboard.Modifiers & ModifierKeys.Control) == ModifierKeys.Control)
+            {
+                btcBtn.Visibility = (btcBtn.Visibility==System.Windows.Visibility.Visible)?System.Windows.Visibility.Collapsed:System.Windows.Visibility.Visible;
             }
         }
     }
