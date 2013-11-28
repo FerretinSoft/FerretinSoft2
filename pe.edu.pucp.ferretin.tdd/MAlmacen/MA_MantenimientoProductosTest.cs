@@ -131,7 +131,6 @@ namespace pe.edu.pucp.ferretin.tdd.MAlmacen
                 {
                     Console.WriteLine(p.nombre);
                 }
-
             }
         }
 

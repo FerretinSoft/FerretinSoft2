@@ -117,6 +117,7 @@ namespace pe.edu.pucp.ferretin.view.MVentas
                 rep.SetParameterValue("codEmpleado", codEmpleado);
                 rep.SetParameterValue("fechaInicio", fechaInicio);
                 rep.SetParameterValue("fechaFin", fechaFin);
+                VisorReporte.ViewerCore.ReportSource = rep;
                 //Exportar a PDF//
                 /*rep.ExportOptions.ExportFormatType = ExportFormatType.PortableDocFormat;
                 rep.ExportOptions.ExportDestinationType = ExportDestinationType.DiskFile;
