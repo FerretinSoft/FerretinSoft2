@@ -22,7 +22,7 @@ namespace pe.edu.pucp.ferretin.controller.MVentas
 
         public static ServicioTipo obtenerServicioxCodigo(string codServTipoAgregar)
         {
-            throw new NotImplementedException();
+            return db.ServicioTipo.First(st => st.codigo.Equals(codServTipoAgregar));
         }
     }
 }

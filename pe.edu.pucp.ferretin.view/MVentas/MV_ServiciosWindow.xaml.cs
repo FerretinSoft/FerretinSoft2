@@ -33,9 +33,19 @@ namespace pe.edu.pucp.ferretin.view.MVentas
             this.vm = vm;
         }
 
+
+        /// <summary>
+        /// Seleccionar Cliente
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Button_Click_1(object sender, RoutedEventArgs e)
         {
-
+            MV_ClientesWindow v = new MV_ClientesWindow();
+            v.Owner = this;
+            var viewModel = v.DataContext as MV_ClientesViewModel;
+            viewModel.soloSeleccionarCliente = true;
+            v.ShowDialog();
         }
 
         private void nuevaPromocionBtn_Click(object sender, RoutedEventArgs e)
@@ -46,7 +56,8 @@ namespace pe.edu.pucp.ferretin.view.MVentas
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             var mivm = DataContext as MV_ServiciosViewModel;
-            var v = new MV_TiposServiciosWindow();
+            var v = new MV_TiposServiciosWindow(this);
+            v.Owner = this;
             v.ShowDialog();
         }
     }
