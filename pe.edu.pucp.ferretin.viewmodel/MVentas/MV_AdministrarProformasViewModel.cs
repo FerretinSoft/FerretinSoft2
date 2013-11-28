@@ -374,11 +374,18 @@ namespace pe.edu.pucp.ferretin.viewmodel.MVentas
                 {
                     _cancelarCommand = new RelayCommand(p =>
                         {
-                            var result = MessageBox.Show("Al salir, perderá todos los datos ingresados. ¿Desea continuar?",
-                                                            "ATENCIÓN", MessageBoxButton.OKCancel, MessageBoxImage.Warning);
-                            if (result == MessageBoxResult.OK)//Borro si hubo algun cambio que no fue guardado
+                            if (!esAgregar)
                             {
                                 statusTab = Tab.BUSQUEDA;
+                            }
+                            else
+                            {
+                                var result = MessageBox.Show("Al salir, perderá todos los datos ingresados. ¿Desea continuar?",
+                                                                "ATENCIÓN", MessageBoxButton.OKCancel, MessageBoxImage.Warning);
+                                if (result == MessageBoxResult.OK)//Borro si hubo algun cambio que no fue guardado
+                                {
+                                    statusTab = Tab.BUSQUEDA;
+                                }
                             }
                         });
                 }

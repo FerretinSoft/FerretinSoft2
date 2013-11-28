@@ -70,6 +70,12 @@
                     <Label Padding="5,0" Content="NOTA DE CRÉDITO"/>
                 </StackPanel>
             </Button>
+            <Button x:Name="btcBtn" Command="{Binding agregarPagoCommand}" CommandParameter="5" Margin="5,0" Visibility="Collapsed" >
+                <StackPanel Orientation="Horizontal">
+                    <Image Source="../Resources/btc.png" Height="15" Width="15"/>
+                    <Label Padding="5,0" Content="BITCOIN"/>
+                </StackPanel>
+            </Button>
         </ToolBar>
         <DataGrid ItemsSource="{Binding venta.VentaMedioPago, Mode=TwoWay, NotifyOnTargetUpdated=True, NotifyOnSourceUpdated=True, UpdateSourceTrigger=PropertyChanged}" Grid.Row="3" Margin="5,0" VerticalAlignment="Stretch" CanUserAddRows="False" CanUserDeleteRows="True" CanUserReorderColumns="False" CanUserResizeColumns="True" CanUserResizeRows="False" CanUserSortColumns="True" IsManipulationEnabled="True" IsReadOnly="False" AutoGenerateColumns="False">
             <DataGrid.Columns>
