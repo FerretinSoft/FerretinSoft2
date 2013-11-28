@@ -549,7 +549,7 @@ namespace pe.edu.pucp.ferretin.viewmodel.MVentas
                 try
                 {
                     producto = MA_SharedService.obtenerProductoxCodigo(codProdAgregar);
-                    productoAlmacen = producto.ProductoAlmacen.First(pa => pa.id_almacen.Equals(proforma.Tienda.id));
+                    productoAlmacen = MA_ProductoAlmacenService.ObtenerProductoAlmacenPorTiendaProducto(proforma.Tienda, producto);
                 }
                 catch { }
                 
