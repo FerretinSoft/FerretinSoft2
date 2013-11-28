@@ -62,5 +62,25 @@ namespace pe.edu.pucp.ferretin.view.MVentas
             v.Owner = this;
             v.ShowDialog();
         }
+
+
+        /// <summary>
+        /// Seleccionar Servicio
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void Button_Click_2(object sender, RoutedEventArgs e)
+        {
+            if (Owner != null)
+            {
+                var mivm = DataContext as MV_ServiciosViewModel;
+                if (Owner is MV_RegistrarVentaWindow)
+                {
+                    var regVenVM = Owner.DataContext as MV_RegistrarVentaViewModel;
+                    regVenVM.agregarProducto(mivm.servicio);
+                    Close();
+                }
+            }
+        }
     }
 }

@@ -1,15 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?><Database Name="inf245g2" Class="FerretinDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
   <Connection Mode="AppSettings" ConnectionString="Data Source=inti.lab.inf.pucp.edu.pe;Initial Catalog=inf245g2;Persist Security Info=True;User ID=inf245g2dba" SettingsObjectName="pe.edu.pucp.ferretin.model.Properties.Settings" SettingsPropertyName="inf245g2ConnectionString2" Provider="System.Data.SqlClient" />
-  <Table Name="dbo.Cargo" Member="Cargo">
-    <Type Name="Cargo">
-      <Column Name="id" Type="System.Int16" DbType="SmallInt NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
-      <Column Name="nombre" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
-      <Column Name="descripcion" Type="System.String" DbType="VarChar(200)" CanBeNull="true" />
-      <Column Name="sueldoBase" Type="System.Decimal" DbType="Decimal(8,2)" CanBeNull="true" />
-      <Column Name="estado" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
-      <Association Name="Cargo_EmpleadoTienda" Member="EmpleadoTienda" ThisKey="id" OtherKey="id_cargo" Type="EmpleadoTienda" />
-    </Type>
-  </Table>
   <Table Name="dbo.VentaProducto" Member="VentaProducto">
     <Type Name="VentaProducto">
       <Column Name="cantidad" Type="System.Int32" DbType="Int" CanBeNull="true" />
@@ -31,6 +21,16 @@
       <Column Name="precioPuntosParcial" Type="System.Int32" DbType="Int" CanBeNull="true" />
       <Association Name="Producto_VentaProducto" Member="Producto" ThisKey="id_producto" OtherKey="id" Type="Producto" IsForeignKey="true" />
       <Association Name="Venta_VentaProducto" Member="Venta" ThisKey="id_venta" OtherKey="id" Type="Venta" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Cargo" Member="Cargo">
+    <Type Name="Cargo">
+      <Column Name="id" Type="System.Int16" DbType="SmallInt NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="nombre" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="descripcion" Type="System.String" DbType="VarChar(200)" CanBeNull="true" />
+      <Column Name="sueldoBase" Type="System.Decimal" DbType="Decimal(8,2)" CanBeNull="true" />
+      <Column Name="estado" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Association Name="Cargo_EmpleadoTienda" Member="EmpleadoTienda" ThisKey="id" OtherKey="id_cargo" Type="EmpleadoTienda" />
     </Type>
   </Table>
   <Table Name="dbo.Categoria" Member="Categoria">
@@ -75,8 +75,8 @@
       <Column Name="esInactivo" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
       <Association Name="Cliente_LoteVale" Member="LoteVale" ThisKey="id" OtherKey="id_cliente" Type="LoteVale" />
       <Association Name="Cliente_Proforma" Member="Proforma" ThisKey="id" OtherKey="id_cliente" Type="Proforma" />
-      <Association Name="Cliente_Venta" Member="Venta" ThisKey="id" OtherKey="id_cliente" Type="Venta" />
       <Association Name="Cliente_Servicio" Member="Servicio" ThisKey="id" OtherKey="cliente_id" Type="Servicio" />
+      <Association Name="Cliente_Venta" Member="Venta" ThisKey="id" OtherKey="id_cliente" Type="Venta" />
       <Association Name="Empleado_Cliente" Member="Empleado" ThisKey="id_empleado_registro" OtherKey="id" Type="Empleado" IsForeignKey="true" />
       <Association Name="UbigeoDistrito_Cliente" Member="UbigeoDistrito" ThisKey="id_ubigeo" OtherKey="id" Type="UbigeoDistrito" IsForeignKey="true" />
     </Type>
@@ -212,9 +212,9 @@
       <Association Name="Empleado_Devolucion" Member="Devolucion" ThisKey="id" OtherKey="id_empleado" Type="Devolucion" />
       <Association Name="Empleado_EmpleadoTienda" Member="EmpleadoTienda" ThisKey="id" OtherKey="id_empleado" Type="EmpleadoTienda" />
       <Association Name="Empleado_EmpleadoTurno" Member="EmpleadoTurno" ThisKey="id" OtherKey="id_empleado" Type="EmpleadoTurno" />
+      <Association Name="Empleado_Servicio" Member="Servicio" ThisKey="id" OtherKey="vendedor_id" Type="Servicio" />
       <Association Name="Empleado_Tienda" Member="Tienda" ThisKey="id" OtherKey="id_jefe" Type="Tienda" />
       <Association Name="Empleado_Usuario" Member="Usuario" ThisKey="id" OtherKey="id_empleado" Type="Usuario" />
-      <Association Name="Empleado_Servicio" Member="Servicio" ThisKey="id" OtherKey="vendedor_id" Type="Servicio" />
       <Association Name="GradoInstruccion_Empleado" Member="GradoInstruccion" ThisKey="id_grado_instruccion" OtherKey="id" Type="GradoInstruccion" IsForeignKey="true" />
       <Association Name="UbigeoDistrito_Empleado" Member="UbigeoDistrito" ThisKey="id_ubigeo_distrito" OtherKey="id" Type="UbigeoDistrito" IsForeignKey="true" />
     </Type>
@@ -651,6 +651,47 @@
       <Association Name="Rubro_Proveedor" Member="Proveedor" ThisKey="id" OtherKey="id_rubro" Type="Proveedor" />
     </Type>
   </Table>
+  <Table Name="dbo.Servicio" Member="Servicio">
+    <Type Name="Servicio">
+      <Column Name="id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="codigo" Type="System.String" DbType="VarChar(255)" CanBeNull="true" />
+      <Column Name="fechaInstalacion" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="cliente_id" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="vendedor_id" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="estado" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="montoTotal" Type="System.Decimal" DbType="Decimal(8,2)" CanBeNull="true" />
+      <Column Name="detalles" Type="System.String" DbType="Text" CanBeNull="true" UpdateCheck="Never" />
+      <Column Name="fechaRegistro" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="montoAdicional" Type="System.Decimal" DbType="Decimal(8,2)" CanBeNull="true" />
+      <Association Name="Servicio_ServicioLinea" Member="ServicioLinea" ThisKey="id" OtherKey="servicio_id" Type="ServicioLinea" />
+      <Association Name="Cliente_Servicio" Member="Cliente" ThisKey="cliente_id" OtherKey="id" Type="Cliente" IsForeignKey="true" />
+      <Association Name="Empleado_Servicio" Member="Empleado" ThisKey="vendedor_id" OtherKey="id" Type="Empleado" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.ServicioLinea" Member="ServicioLinea">
+    <Type Name="ServicioLinea">
+      <Column Name="descripcion" Type="System.String" DbType="VarChar(511)" CanBeNull="true" />
+      <Column Name="montoParcial" Type="System.Decimal" DbType="Decimal(8,2)" CanBeNull="true" />
+      <Column Name="cantidad" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="montoTotal" Type="System.Decimal" DbType="Decimal(8,2)" CanBeNull="true" />
+      <Column Name="servicio_id" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="servicioTipo_id" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="montoAdicional" Type="System.Decimal" DbType="Decimal(8,2)" CanBeNull="true" />
+      <Column Name="id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Association Name="Servicio_ServicioLinea" Member="Servicio" ThisKey="servicio_id" OtherKey="id" Type="Servicio" IsForeignKey="true" />
+      <Association Name="ServicioTipo_ServicioLinea" Member="ServicioTipo" ThisKey="servicioTipo_id" OtherKey="id" Type="ServicioTipo" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.ServicioTipo" Member="ServicioTipo">
+    <Type Name="ServicioTipo">
+      <Column Name="descripcion" Type="System.String" DbType="VarChar(511)" CanBeNull="true" />
+      <Column Name="detalles" Type="System.String" DbType="Text" CanBeNull="true" UpdateCheck="Never" />
+      <Column Name="montoBase" Type="System.Decimal" DbType="Decimal(8,2)" CanBeNull="true" />
+      <Column Name="id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="codigo" Type="System.String" DbType="VarChar(64)" CanBeNull="true" />
+      <Association Name="ServicioTipo_ServicioLinea" Member="ServicioLinea" ThisKey="id" OtherKey="servicioTipo_id" Type="ServicioLinea" />
+    </Type>
+  </Table>
   <Table Name="dbo.SolicitudAbastecimiento" Member="SolicitudAbastecimiento">
     <Type Name="SolicitudAbastecimiento">
       <Column Name="id" Type="System.Int64" DbType="BigInt NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
@@ -886,44 +927,6 @@
       <Association Name="Vale_VentaMedioPago" Member="Vale" ThisKey="vale_id" OtherKey="id" Type="Vale" IsForeignKey="true" />
       <Association Name="MedioPago_VentaMedioPago" Member="MedioPago" ThisKey="id_medio_pago" OtherKey="id" Type="MedioPago" IsForeignKey="true" />
       <Association Name="Venta_VentaMedioPago" Member="Venta" ThisKey="id_venta" OtherKey="id" Type="Venta" IsForeignKey="true" />
-    </Type>
-  </Table>
-  <Table Name="dbo.Servicio" Member="Servicio">
-    <Type Name="Servicio">
-      <Column Name="id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
-      <Column Name="codigo" Type="System.String" DbType="VarChar(255)" CanBeNull="true" />
-      <Column Name="fechaInstalacion" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
-      <Column Name="cliente_id" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="vendedor_id" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="estado" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="montoTotal" Type="System.Decimal" DbType="Decimal(8,2)" CanBeNull="true" />
-      <Association Name="Servicio_ServicioLinea" Member="ServicioLinea" ThisKey="id" OtherKey="servicio_id" Type="ServicioLinea" />
-      <Association Name="Cliente_Servicio" Member="Cliente" ThisKey="cliente_id" OtherKey="id" Type="Cliente" IsForeignKey="true" />
-      <Association Name="Empleado_Servicio" Member="Empleado" ThisKey="vendedor_id" OtherKey="id" Type="Empleado" IsForeignKey="true" />
-    </Type>
-  </Table>
-  <Table Name="dbo.ServicioTipo" Member="ServicioTipo">
-    <Type Name="ServicioTipo">
-      <Column Name="descripcion" Type="System.String" DbType="VarChar(511)" CanBeNull="true" />
-      <Column Name="detalles" Type="System.String" DbType="Text" CanBeNull="true" UpdateCheck="Never" />
-      <Column Name="montoBase" Type="System.Decimal" DbType="Decimal(8,2)" CanBeNull="true" />
-      <Column Name="id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
-      <Column Name="codigo" Type="System.String" DbType="VarChar(64)" CanBeNull="true" />
-      <Association Name="ServicioTipo_ServicioLinea" Member="ServicioLinea" ThisKey="id" OtherKey="servicioTipo_id" Type="ServicioLinea" />
-    </Type>
-  </Table>
-  <Table Name="dbo.ServicioLinea" Member="ServicioLinea">
-    <Type Name="ServicioLinea">
-      <Column Name="id" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
-      <Column Name="descripcion" Type="System.String" DbType="VarChar(511)" CanBeNull="true" />
-      <Column Name="montoParcial" Type="System.Decimal" DbType="Decimal(8,2)" CanBeNull="true" />
-      <Column Name="cantidad" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="montoTotal" Type="System.Decimal" DbType="Decimal(8,2)" CanBeNull="true" />
-      <Column Name="servicio_id" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="servicioTipo_id" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="montoAdicional" Type="System.Decimal" DbType="Decimal(8,2)" CanBeNull="true" />
-      <Association Name="Servicio_ServicioLinea" Member="Servicio" ThisKey="servicio_id" OtherKey="id" Type="Servicio" IsForeignKey="true" />
-      <Association Name="ServicioTipo_ServicioLinea" Member="ServicioTipo" ThisKey="servicioTipo_id" OtherKey="id" Type="ServicioTipo" IsForeignKey="true" />
     </Type>
   </Table>
 </Database>

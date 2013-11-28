@@ -32,6 +32,8 @@ namespace pe.edu.pucp.ferretin.viewmodel.MVentas
                 NotifyPropertyChanged("soloSeleccionarServicio");
                 NotifyPropertyChanged("nombreBotonGuardar");
                 NotifyPropertyChanged("noSoloSeleccionarServicio");
+                NotifyPropertyChanged("esAgregar");
+
                 detallesTabHeader = value ? "Detalles" : "Agregar";
             }
         }
@@ -49,6 +51,14 @@ namespace pe.edu.pucp.ferretin.viewmodel.MVentas
             get
             {
                 return !soloSeleccionarServicio;
+            }
+        }
+
+        public bool esAgregar
+        {
+            get
+            {
+                return statusTab == Tab.AGREGAR;
             }
         }
 
@@ -147,7 +157,8 @@ namespace pe.edu.pucp.ferretin.viewmodel.MVentas
                             detallesTabHeader = "Agregar";
                             servicio = new Servicio()
                             {
-                                Empleado = ComunService.usuarioL.Empleado
+                                Empleado = ComunService.usuarioL.Empleado,
+                                montoAdicional = 0
                             };
                             nroDocSeleccionado = null;
                             servicio.ServicioLinea.ListChanged += ServicioLinea_ListChanged;
@@ -159,6 +170,7 @@ namespace pe.edu.pucp.ferretin.viewmodel.MVentas
                 NotifyPropertyChanged("statusTab");
                 //Cuando se cambia el status, tambien se tiene que actualizar el currentIndex del tab
                 NotifyPropertyChanged("currentIndexTab"); //Hace que cambie el tab automaticamente
+                NotifyPropertyChanged("esAgregar");
             }
         }
 
@@ -217,7 +229,7 @@ namespace pe.edu.pucp.ferretin.viewmodel.MVentas
         {
             get
             {
-                _listaServicios = MV_ServicioService.buscarServicios(codServSearch, fechaDesdeSearch, fechaHastaSearch, estadoSearch);
+                _listaServicios = MV_ServicioService.buscarServicios(codServSearch, fechaDesdeSearch, fechaHastaSearch, estadoSearch).ToList().OrderBy(s => s.fechaRegistro);
                 return _listaServicios;
             }
             set
@@ -256,11 +268,12 @@ namespace pe.edu.pucp.ferretin.viewmodel.MVentas
             {
                 if (_actualizarListaCommand == null)
                 {
-                    _actualizarListaCommand = new RelayCommand(param => NotifyPropertyChanged("listaServicios"));
+                    _actualizarListaCommand = new RelayCommand(actualiarLista);
                 }
                 return _actualizarListaCommand;
             }
         }
+
 
         RelayCommand _viewEditServicioCommand;
         public ICommand viewEditServicioCommand
@@ -282,11 +295,12 @@ namespace pe.edu.pucp.ferretin.viewmodel.MVentas
             {
                 if (_saveServicioCommand == null)
                 {
-                    _saveServicioCommand = new RelayCommand(saveServicio);
+                    _saveServicioCommand = new RelayCommand(saveServicio,canSaveOrSelectService);
                 }
                 return _saveServicioCommand;
             }
         }
+
 
         RelayCommand _cancelServicioCommand;
         public ICommand cancelServicioCommand
@@ -323,10 +337,7 @@ namespace pe.edu.pucp.ferretin.viewmodel.MVentas
             try
             {
                 this.servicio = MV_ServicioService.db.Servicio.Single(servicio => servicio.id == (int)id);
-                if (soloSeleccionarServicio)
-                    this.statusTab = Tab.DETALLES;
-                else
-                    this.statusTab = Tab.MODIFICAR;
+                this.statusTab = Tab.DETALLES;
             }
             catch (Exception e)
             {
@@ -365,7 +376,14 @@ namespace pe.edu.pucp.ferretin.viewmodel.MVentas
                                 }
                                 else
                                 {
-                                    
+                                    if (String.IsNullOrEmpty(servicio.detalles))
+                                    {
+                                        var cant = servicio.ServicioLinea.Sum(sl => sl.montoAdicional) + servicio.montoAdicional;
+                                        if (cant > 0)
+                                        {
+                                            result = "Si agregó un monto adicional debe especificarlo en los detalles";
+                                        }
+                                    }
                                 }
                             }
                         }
@@ -412,9 +430,14 @@ namespace pe.edu.pucp.ferretin.viewmodel.MVentas
                 }
             }
         }
+
+        private void actualiarLista(object obj)
+        {
+            NotifyPropertyChanged("listaServicios");
+        }
         public void cancelServicio(Object obj)
         {
-            if (!soloSeleccionarServicio)
+            if (!soloSeleccionarServicio && esAgregar)
             {
                 MessageBoxResult result = MessageBox.Show("Al salir, perderá todos los datos ingresados. ¿Desea continuar?",
                                             "ATENCIÓN", MessageBoxButton.OKCancel, MessageBoxImage.Warning);
@@ -431,6 +454,10 @@ namespace pe.edu.pucp.ferretin.viewmodel.MVentas
             }
         }
 
+        private bool canSaveOrSelectService(object obj)
+        {
+            return (soloSeleccionarServicio || esAgregar);
+        }
 
 
         public void agregarServicioTipo(Object id)
@@ -440,7 +467,7 @@ namespace pe.edu.pucp.ferretin.viewmodel.MVentas
                 ServicioTipo servicioTipo = null;
                 try
                 {
-                    servicioTipo = MV_ServicioService.obtenerServicioxCodigo(codServTipoAgregar);
+                    servicioTipo = MV_ServicioService.obtenerServicioTipoxCodigo(codServTipoAgregar);
                 }
                 catch { }
 

@@ -15,14 +15,40 @@ namespace pe.edu.pucp.ferretin.controller.MVentas
             return db.Servicio;
         }
 
-        public static bool insertarServicio(model.Servicio servicio)
+        public static bool insertarServicio(Servicio servicio)
         {
-            throw new NotImplementedException();
+            servicio.fechaRegistro = DateTime.Now;
+            servicio.estado = 1;
+            servicio.codigo = newCodServicio;
+            db.Servicio.InsertOnSubmit(servicio);
+            return enviarCambios();
         }
 
-        public static ServicioTipo obtenerServicioxCodigo(string codServTipoAgregar)
+        public static Servicio obtenerServicioxCodigo(string codServTipoAgregar)
+        {
+            return db.Servicio.First(st => st.codigo.Equals(codServTipoAgregar));
+        }
+
+        public static ServicioTipo obtenerServicioTipoxCodigo(string codServTipoAgregar)
         {
             return db.ServicioTipo.First(st => st.codigo.Equals(codServTipoAgregar));
+        }
+
+        public static string newCodServicio
+        {
+            get
+            {
+                Int64 numCodProf = db.Servicio.Count() + 1;
+                string codDev = Convert.ToString(numCodProf);
+                while (true)
+                {
+                    if (codDev.Length == 8)
+                        break;
+                    else
+                        codDev = "0" + codDev;
+                }
+                return "SERV-" + codDev + "-" + DateTime.Now.Year.ToString();
+            }
         }
     }
 }
