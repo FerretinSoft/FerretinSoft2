@@ -209,20 +209,20 @@ namespace pe.edu.pucp.ferretin.controller.MAlmacen
                 if(diferencia < 0)
                     result.Add(current, diferencia * -1);
 			}
-            foreach (var item in MA_SolicitudAbastecimientoService.buscarSolicitudesPendientesPorTienda(almacen))
-            {
-                foreach (var prod in item.SolicitudAbastecimientoProducto)
-                {
-                    current = MA_ProductoAlmacenService.ObtenerProductoAlmacenPorTiendaProducto(almacen, prod.Producto);
-                    if (prod.cantidadRestante > current.stock - current.stockMin)
-                    {
-                        if (!result.ContainsKey(current))
-                            result.Add(current, (decimal)prod.cantidadRestante - (decimal)current.stock);
-                        else
-                            result[current] = result[current] + (decimal)(prod.cantidadRestante == null ? 0 : prod.cantidadRestante); 
-                    }
-                }                
-            }
+            //foreach (var item in MA_SolicitudAbastecimientoService.buscarSolicitudesPendientesPorTienda(almacen))
+            //{
+            //    foreach (var prod in item.SolicitudAbastecimientoProducto)
+            //    {
+            //        current = MA_ProductoAlmacenService.ObtenerProductoAlmacenPorTiendaProducto(almacen, prod.Producto);
+            //        if (prod.cantidadRestante > current.stock - current.stockMin)
+            //        {
+            //            if (!result.ContainsKey(current))
+            //                result.Add(current, (decimal)prod.cantidadRestante - (decimal)current.stock);
+            //            else
+            //                result[current] = result[current] + (decimal)(prod.cantidadRestante == null ? 0 : prod.cantidadRestante); 
+            //        }
+            //    }                
+            //}
             return result;
         }
     }
