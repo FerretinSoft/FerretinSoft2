@@ -19,7 +19,7 @@ namespace pe.edu.pucp.ferretin.viewmodel.MCompras
    
         double igv = MS_ComunService.obtenerIGV();
         Usuario usr = MS_ComunService.usuarioL;
-        int cont = MC_DocumentoCompraService.devuelvecantidadDC(2);
+        int cont = MC_DocumentoCompraService.devuelvecantidadDC_V2(2);
      
 
 

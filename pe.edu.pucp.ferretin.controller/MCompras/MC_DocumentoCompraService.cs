@@ -255,6 +255,22 @@ namespace pe.edu.pucp.ferretin.controller.MCompras
 
         }
 
+        public static int devuelvecantidadDC_V2(byte? tipoDC)
+        {
+            IEnumerable<DocumentoCompra> documentos = listaDocumentosCompra.Where(d => d.tipo == tipoDC).OrderByDescending(d => d.id);
+            string ultimoCod = documentos.Count() <= 0 ? "" : documentos.First().codigo;
+
+            if (ultimoCod.Length == 0)
+            {
+                return 1;
+            }
+            else
+            {
+                int id = Int32.Parse(ultimoCod.Substring(3)) + 1;
+                return id;
+            }   
+        }
+
         public static bool insertarDocumentoCompra(DocumentoCompra documentoCompra)
         {
             DocumentoCompra doc;
