@@ -89,7 +89,7 @@ namespace pe.edu.pucp.ferretin.view.MVentas
                         MV_ValesViewModel padre_DataContext = padre.main.DataContext as MV_ValesViewModel;
                         if (padre_DataContext.selectedTab == 0)
                         {
-                            padre_DataContext.searchNroDocCliente = Convert.ToString(my_DataContext.cliente.nroDoc);
+                            padre_DataContext.searchNroDocCliente = my_DataContext.cliente.nroDoc;
                             padre_DataContext.nombreCliente = my_DataContext.cliente.nombreCompleto;
                         }
                         if (padre_DataContext.selectedTab == 1)
