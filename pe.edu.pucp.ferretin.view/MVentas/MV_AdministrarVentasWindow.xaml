@@ -206,7 +206,7 @@
                             <DataGridTextColumn Width="1*" Binding="{Binding Path=descuento}" ClipboardContentBinding="{x:Null}" Header="Dscto (S/.)"/>
                             <DataGridTextColumn Width="1.2*"  Binding="{Binding Path=montoParcial}" ClipboardContentBinding="{x:Null}" Header="Importe (S/.)"/>
                             <DataGridCheckBoxColumn IsReadOnly="True" Width="0.9*" Binding="{Binding Path=canjeado}" Header="Canjeado"/>
-                            <DataGridTextColumn Width="1*" Binding="{Binding Path=precioPuntosParcial}" ClipboardContentBinding="{x:Null}" Header="Ptos Canjeados"/>
+                            <DataGridTextColumn Width="1*" Binding="{Binding Path=puntosCanjeados}" ClipboardContentBinding="{x:Null}" Header="Ptos Canjeados"/>
 
                         </DataGrid.Columns>
                     </DataGrid>

@@ -96,6 +96,9 @@ namespace pe.edu.pucp.ferretin.view.MVentas
             MV_VentasViewModel actual = this.main.DataContext as MV_VentasViewModel;
             MV_DocNotaCreditoViewModel padre = p.main.DataContext as MV_DocNotaCreditoViewModel;
             padre.notaCredito = MV_NotaCreditoService.obtenerNotaCreditoByIdVenta(actual.venta.id);
+            padre.listaProductos = MV_DevolucionService.obtenerProductosbyIdDevolucion(padre.notaCredito.Devolucion.id);
+            padre.NotifyPropertyChanged("listaProductos");
+            padre.NotifyPropertyChanged("notaCredito");
             p.ShowDialog();
         }
         
