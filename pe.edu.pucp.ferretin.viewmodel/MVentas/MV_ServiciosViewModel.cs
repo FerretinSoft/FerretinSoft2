@@ -123,14 +123,16 @@ namespace pe.edu.pucp.ferretin.viewmodel.MVentas
                 {
                     case Tab.BUSQUEDA:
                         {
-                            ComunService.Clean();
+                            if(!soloSeleccionarServicio) ComunService.Clean();
                             detallesTabHeader = soloSeleccionarServicio ? "Detalles" : "Agregar"; break;//Si es agregar, creo un nuevo objeto Servicio
                         }
                     case Tab.AGREGAR:
                         {
                             detallesTabHeader = "Agregar";
-                            var p = new Servicio();
-                            servicio = p;
+                            servicio = new Servicio()
+                            {
+                                Empleado = ComunService.usuarioL.Empleado
+                            };
                             break;
                         }
                     case Tab.MODIFICAR: detallesTabHeader = "Modificar"; break;
@@ -431,7 +433,7 @@ namespace pe.edu.pucp.ferretin.viewmodel.MVentas
                             cantidad = 1,
                             montoParcial = servicioTipo.montoBase,
                             montoTotal = servicioTipo.montoBase,
-                            descripción = servicioTipo.descripcion
+                            descripcion = servicioTipo.descripcion
                         };
                         servicioLinea.PropertyChanged += servicio_PropertyChanged;
                         servicio.ServicioLinea.Add(servicioLinea);
@@ -440,7 +442,7 @@ namespace pe.edu.pucp.ferretin.viewmodel.MVentas
                 }
                 else
                 {
-                    MessageBox.Show("No se encontro ningun servicioTipo con el código proporcionado");
+                    MessageBox.Show("No se encontró ningún tipo de Servicio con el código proporcionado");
                 }
             }
         }
@@ -460,5 +462,19 @@ namespace pe.edu.pucp.ferretin.viewmodel.MVentas
             NotifyPropertyChanged("servicio");
         }
         #endregion
+
+        private long? _nroDocSeleccionado = null;
+        public long? nroDocSeleccionado
+        {
+            get
+            {
+                return _nroDocSeleccionado;
+            }
+            set
+            {
+                _nroDocSeleccionado = value;
+                NotifyPropertyChanged("nroDocSeleccionado");
+            }
+        }
     }
 }

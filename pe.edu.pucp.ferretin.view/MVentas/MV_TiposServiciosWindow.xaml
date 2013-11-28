@@ -1,7 +1,7 @@
 ﻿<Window x:Class="pe.edu.pucp.ferretin.view.MVentas.MV_TiposServiciosWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Title="Tipos de Servicios" Height="300" Width="500">
+        Title="Tipos de Servicios" Height="300" Width="500"  WindowStartupLocation="CenterScreen" Icon="../Resources/ferretin_ico.ico">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
@@ -16,7 +16,7 @@
             </DataGrid.Columns>
         </DataGrid>
         <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Center" Margin="5">
-            <Button Command="{Binding saveTipoServicioCommand}" Margin="0,0,10,0" Height="30" Padding="10,0" Content="GUARDAR" Click="Button_Click_1"/>
+            <Button x:Name="guardarBtn" Command="{Binding saveTipoServicioCommand}" Margin="0,0,10,0" Height="30" Padding="10,0" Content="GUARDAR" Click="guardarBtn_Click"/>
             <Button Command="{Binding cancelTipoServicioCommand}" Padding="10,0" Height="30" Content="CANCELAR" Click="Button_Click_2" />
         </StackPanel>
     </Grid>

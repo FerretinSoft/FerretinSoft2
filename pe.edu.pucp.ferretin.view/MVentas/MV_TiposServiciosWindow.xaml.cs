@@ -1,4 +1,5 @@
 ﻿using pe.edu.pucp.ferretin.model;
+using pe.edu.pucp.ferretin.viewmodel.MVentas;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -22,11 +23,20 @@ namespace pe.edu.pucp.ferretin.view.MVentas
     {
 
         FerretinDataContext midb = new FerretinDataContext();
+        private MV_ServiciosWindow mV_ServiciosWindow;
 
         public MV_TiposServiciosWindow()
         {
             InitializeComponent();
             tiposServicio.ItemsSource = midb.ServicioTipo;
+        }
+
+        public MV_TiposServiciosWindow(MV_ServiciosWindow mV_ServiciosWindow)
+        {
+            InitializeComponent();
+            tiposServicio.ItemsSource = midb.ServicioTipo;
+            guardarBtn.Content = "SELECCIONAR";
+            this.mV_ServiciosWindow = mV_ServiciosWindow;
         }
 
 
@@ -46,9 +56,41 @@ namespace pe.edu.pucp.ferretin.view.MVentas
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void Button_Click_1(object sender, RoutedEventArgs e)
+        private void guardarBtn_Click(object sender, RoutedEventArgs e)
         {
+            //Viene del buscador de servicios
+            if (this.Owner!=null && mV_ServiciosWindow != null)
+            {
+                var vmServ = mV_ServiciosWindow.DataContext as MV_ServiciosViewModel;
+                var selected = tiposServicio.SelectedItems;
+                if (selected.Count > 0)
+                {
+                    foreach (ServicioTipo servT in selected)
+                    {
+                        vmServ.codServTipoAgregar = servT.codigo;
+                        vmServ.agregarServicioTipo(null);
+                    }
+                    vmServ.codServTipoAgregar = "";
 
+                    this.Close();
+                }
+                else
+                {
+                    MessageBox.Show("Debe Seleccionar al menos un tipo de servicio para agregar");
+                }
+            }
+            else
+            {
+                string messageBoxText = "¿Desea confirmar la transacción? Se procederá a almacenar la información ingresada";
+                string caption = "Mensaje de confirmación";
+                MessageBoxButton button = MessageBoxButton.OKCancel;
+                MessageBoxResult result = MessageBox.Show(messageBoxText, caption, button);
+                if (result == MessageBoxResult.OK)
+                {
+                    midb.SubmitChanges();
+                    this.Close();
+                }
+            }
         }
     }
 }

@@ -168,11 +168,11 @@
                             </Button>
                         </ToolBar>
                     </StackPanel>
-                    <DataGrid ItemsSource="{Binding servicio.ServicioProducto, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" CanUserSortColumns="False" Grid.Row="2" Margin="3,5,7,5" AutoGenerateColumns="False" IsManipulationEnabled="True" CanUserAddRows="False" CanUserDeleteRows="True" CanUserReorderColumns="True" CanUserResizeColumns="True" IsEnabled="{Binding esAgregar}">
+                    <DataGrid ItemsSource="{Binding servicio.ServicioLinea, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" CanUserSortColumns="False" Grid.Row="2" Margin="3,5,7,5" AutoGenerateColumns="False" IsManipulationEnabled="True" CanUserAddRows="False" CanUserDeleteRows="True" CanUserReorderColumns="True" CanUserResizeColumns="True" IsEnabled="{Binding esAgregar}">
                         <DataGrid.Columns>
-                            <DataGridHyperlinkColumn Width="90" Binding="{Binding Producto.codigo}" Header="Cód. Tipo" IsReadOnly="True"/>
-                            <DataGridTextColumn Width="2*" Binding="{Binding Producto.nombre}" Header="Descripción" IsReadOnly="True"/>
-                            <DataGridTextColumn Width="80" Binding="{Binding stockTotal}" Header="Monto (S/.)"/>
+                            <DataGridHyperlinkColumn Width="90" Binding="{Binding codigo}" Header="Cód. Tipo" IsReadOnly="True"/>
+                            <DataGridTextColumn Width="2*" Binding="{Binding descripcion}" Header="Descripción" IsReadOnly="True"/>
+                            <DataGridTextColumn Width="80" Binding="{Binding monto}" Header="Monto (S/.)"/>
                         </DataGrid.Columns>
                     </DataGrid>
                     <StackPanel  Grid.Row="3" Margin="5" IsEnabled="{Binding esAgregar}">
