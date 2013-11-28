@@ -49,6 +49,20 @@ namespace pe.edu.pucp.ferretin.tdd.MAlmacen
             }
         }
 
+        /// <summary>
+        /// Probar que para toda solicitud de abastecimiento la cantidad total sea igual a 
+        /// la cantidad atendida más la cantidad restante
+        /// </summary>
+        [TestCase]
+        public void VerificarCantidades()
+        {
+            foreach (SolicitudAbastecimientoProducto sap in MA_SolicitudAbastecimientoService.db.SolicitudAbastecimientoProducto)
+            {
+                if (sap.id_solicitud_abastecimiento > 0)
+                    Assert.AreEqual(sap.cantidad, sap.cantidadAtendida + sap.cantidadRestante);
+            }
+        }
+
         
     }
 }

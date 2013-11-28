@@ -216,6 +216,8 @@ namespace pe.edu.pucp.ferretin.controller.MAlmacen
                 }
                 
                 if (movimiento.id <= 0) db.Movimiento.InsertOnSubmit(movimiento);
+                if (ComunService.idVent == null) 
+                    ComunService.idVentana(22);
                 return enviarCambios();
                 
             }

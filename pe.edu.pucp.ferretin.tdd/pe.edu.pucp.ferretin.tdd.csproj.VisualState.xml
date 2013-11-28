@@ -1,31 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
 <VisualState xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" ShowCheckBoxes="false">
-  <TopNode>[0-1000]C:\Users\juancarlos\Documents\GitHub\FerretinSoft2\pe.edu.pucp.ferretin.tdd\pe.edu.pucp.ferretin.tdd.csproj</TopNode>
-  <SelectedNode>[0-1037]pe.edu.pucp.ferretin.tdd.MRecursosHumanos.MR_AdministrarEmpleadosTest</SelectedNode>
+  <TopNode>[0-1000]C:\Users\Heidy\Desktop\FerretinSoft2\pe.edu.pucp.ferretin.tdd\pe.edu.pucp.ferretin.tdd.csproj</TopNode>
+  <SelectedNode>[0-1037]pe.edu.pucp.ferretin.tdd.MAlmacen.MA_MovimientosTest.InsertarMovimientoSalida</SelectedNode>
   <ExcludeCategories>false</ExcludeCategories>
   <Nodes>
-    <Node UniqueName="[0-1000]C:\Users\juancarlos\Documents\GitHub\FerretinSoft2\pe.edu.pucp.ferretin.tdd\pe.edu.pucp.ferretin.tdd.csproj" Expanded="true" />
-    <Node UniqueName="[0-1092]C:\Users\juancarlos\Documents\GitHub\FerretinSoft2\pe.edu.pucp.ferretin.tdd\bin\Debug\pe.edu.pucp.ferretin.tdd.dll" Expanded="true" />
-    <Node UniqueName="[0-1093]pe" Expanded="true" />
-    <Node UniqueName="[0-1094]pe.edu" Expanded="true" />
-    <Node UniqueName="[0-1095]pe.edu.pucp" Expanded="true" />
-    <Node UniqueName="[0-1096]pe.edu.pucp.ferretin" Expanded="true" />
-    <Node UniqueName="[0-1097]pe.edu.pucp.ferretin.tdd" Expanded="true" />
-    <Node UniqueName="[0-1098]pe.edu.pucp.ferretin.tdd.MAlmacen" Expanded="true" />
-    <Node UniqueName="[0-1001]pe.edu.pucp.ferretin.tdd.MAlmacen.MA_MantenimientoCategoriaTest" Expanded="true" />
+    <Node UniqueName="[0-1000]C:\Users\Heidy\Desktop\FerretinSoft2\pe.edu.pucp.ferretin.tdd\pe.edu.pucp.ferretin.tdd.csproj" Expanded="true" />
+    <Node UniqueName="[0-1112]C:\Users\Heidy\Desktop\FerretinSoft2\pe.edu.pucp.ferretin.tdd\bin\Debug\pe.edu.pucp.ferretin.tdd.dll" Expanded="true" />
+    <Node UniqueName="[0-1113]pe" Expanded="true" />
+    <Node UniqueName="[0-1114]pe.edu" Expanded="true" />
+    <Node UniqueName="[0-1115]pe.edu.pucp" Expanded="true" />
+    <Node UniqueName="[0-1116]pe.edu.pucp.ferretin" Expanded="true" />
+    <Node UniqueName="[0-1117]pe.edu.pucp.ferretin.tdd" Expanded="true" />
+    <Node UniqueName="[0-1118]pe.edu.pucp.ferretin.tdd.MAlmacen" Expanded="true" />
     <Node UniqueName="[0-1004]pe.edu.pucp.ferretin.tdd.MAlmacen.MA_MantenimientoCategoriaTest.Cantidad_minima_Categoria" Expanded="true" />
-    <Node UniqueName="[0-1006]pe.edu.pucp.ferretin.tdd.MAlmacen.MA_MantenimientoInventarioTest" Expanded="true" />
-    <Node UniqueName="[0-1009]pe.edu.pucp.ferretin.tdd.MAlmacen.MA_MantenimientoProductosTest" Expanded="true" />
     <Node UniqueName="[0-1016]pe.edu.pucp.ferretin.tdd.MAlmacen.MA_MantenimientoProductosTest.ProductoConCategoria" Expanded="true" />
-    <Node UniqueName="[0-1018]pe.edu.pucp.ferretin.tdd.MAlmacen.MA_MovimientosTest" Expanded="true" />
-    <Node UniqueName="[0-1028]pe.edu.pucp.ferretin.tdd.MAlmacen.MA_SolicitudAbastecimientoTest.SolicitudAbastecimiento_Producto_CamposObligatorios" Expanded="true" />
-    <Node UniqueName="[0-1099]pe.edu.pucp.ferretin.tdd.MCompras" Expanded="true" />
-    <Node UniqueName="[0-1030]pe.edu.pucp.ferretin.tdd.MCompras.MC_AdministrarProveedorTest" Expanded="true" />
-    <Node UniqueName="[0-1100]pe.edu.pucp.ferretin.tdd.MRecursosHumanos" Expanded="true" />
-    <Node UniqueName="[0-1037]pe.edu.pucp.ferretin.tdd.MRecursosHumanos.MR_AdministrarEmpleadosTest" Expanded="true" />
-    <Node UniqueName="[0-1042]pe.edu.pucp.ferretin.tdd.MRecursosHumanos.MR_AdministrarEmpleadosTest.Empleado_Unico_En_Registro" Expanded="true" />
-    <Node UniqueName="[0-1101]pe.edu.pucp.ferretin.tdd.MSeguridad" Expanded="true" />
-    <Node UniqueName="[0-1059]pe.edu.pucp.ferretin.tdd.MSeguridad.MS_ParametrosTest" Expanded="true" />
-    <Node UniqueName="[0-1102]pe.edu.pucp.ferretin.tdd.MVentas" Expanded="true" />
+    <Node UniqueName="[0-1028]pe.edu.pucp.ferretin.tdd.MAlmacen.MA_MovimientosTest" Expanded="true" />
+    <Node UniqueName="[0-1035]pe.edu.pucp.ferretin.tdd.MAlmacen.MA_MovimientosTest.InsertarMovimientoEntrada" Expanded="true" />
+    <Node UniqueName="[0-1037]pe.edu.pucp.ferretin.tdd.MAlmacen.MA_MovimientosTest.InsertarMovimientoSalida" Expanded="true" />
+    <Node UniqueName="[0-1119]pe.edu.pucp.ferretin.tdd.MCompras" Expanded="true" />
+    <Node UniqueName="[0-1120]pe.edu.pucp.ferretin.tdd.MRecursosHumanos" Expanded="true" />
+    <Node UniqueName="[0-1121]pe.edu.pucp.ferretin.tdd.MSeguridad" Expanded="true" />
+    <Node UniqueName="[0-1122]pe.edu.pucp.ferretin.tdd.MVentas" Expanded="true" />
   </Nodes>
 </VisualState>
