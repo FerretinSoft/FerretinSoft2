@@ -56,6 +56,7 @@ namespace pe.edu.pucp.ferretin.model
                 return;
             }
 
+            stockRestante = stockDisponible - cantidad;
 
             //Si supera el límite de puntos del usuario quito el canjeado
             if (canjeado.Value && this.Venta != null && this.Venta.Cliente != null && this.Venta.Cliente.puntosActual!=null && this.Venta.Cliente.puntosActual < (this.Venta.puntosCanjeados))

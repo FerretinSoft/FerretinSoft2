@@ -244,11 +244,12 @@ namespace pe.edu.pucp.ferretin.viewmodel.MVentas
             }
             catch (Exception e)
             {
-                result = "Error al registrar en almacen: "+ e.Message;
+                result = e.Message;
             }
             if (result.Trim().Length>0)
             {
-                MessageBox.Show(result);
+                MessageBox.Show("Error en almacen:\nNo se registrará la venta.\n"+result);
+                //ComunService.Clean();//Limpio la BD por si acaso
             }
         }
 

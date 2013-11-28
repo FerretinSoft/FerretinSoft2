@@ -319,7 +319,7 @@ namespace pe.edu.pucp.ferretin.viewmodel.MVentas
                                 ventaProducto.tipoCambio = venta.tipoCambio.Value;
                                 ventaProducto.puntosCanejado = 0;
                                 ventaProducto.Producto = producto;
-                                ventaProducto.puntosGanado = producto.ganarPuntos;
+                                ventaProducto.puntosGanado = producto.ganarPuntos??0;
                                 ventaProducto.precioUnitario = producto.precioLista;
                                 ventaProducto.moneda = producto.moneda;
                                 ventaProducto.precioPuntos = producto.precioPuntos;
@@ -327,7 +327,7 @@ namespace pe.edu.pucp.ferretin.viewmodel.MVentas
 
                                 ventaProducto.cantidad = 1;
                                 ventaProducto.stockDisponible = stockDisponible;
-
+                                ventaProducto.stockRestante = stockDisponible - 1;
                                 ventaProducto.PropertyChanged += actualizarMontosVenta;
 
                                 venta.VentaProducto.Add(ventaProducto);

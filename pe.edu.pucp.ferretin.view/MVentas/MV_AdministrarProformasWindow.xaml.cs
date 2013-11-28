@@ -111,7 +111,7 @@ namespace pe.edu.pucp.ferretin.view.MVentas
                         padreViewModel.venta.VentaProducto.Clear();
                         foreach (var vp in miVM.proforma.ProformaProducto)
                         {
-                            var stockDisponible = (int)vp.Producto.ProductoAlmacen.First(pa => pa.Tienda.Equals(padreViewModel.venta.Tienda)).stock;
+                            var _stockDisponible = (int)vp.Producto.ProductoAlmacen.First(pa => pa.Tienda.Equals(padreViewModel.venta.Tienda)).stock;
 
                             padreViewModel.venta.Cliente = vp.Proforma.Cliente;
                             VentaProducto ventaProducto = new VentaProducto()
@@ -132,8 +132,8 @@ namespace pe.edu.pucp.ferretin.view.MVentas
                                 PromocionActual = null,
                                 puntosCanejado = 0,
                                 puntosGanado = vp.puntosGanado,
-                                stockDisponible = stockDisponible,
-                                stockRestante = stockDisponible - vp.cantidad,
+                                stockDisponible = _stockDisponible,
+                                stockRestante = _stockDisponible - vp.cantidad,
                                 tipoCambio = vp.tipoCambio,
                                 Venta = padreViewModel.venta,
                             };
