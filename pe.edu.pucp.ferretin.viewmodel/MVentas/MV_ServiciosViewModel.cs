@@ -133,6 +133,7 @@ namespace pe.edu.pucp.ferretin.viewmodel.MVentas
                             {
                                 Empleado = ComunService.usuarioL.Empleado
                             };
+                            servicio.ServicioLinea.ListChanged += ServicioLinea_ListChanged;
                             break;
                         }
                     case Tab.MODIFICAR: detallesTabHeader = "Modificar"; break;
@@ -143,6 +144,7 @@ namespace pe.edu.pucp.ferretin.viewmodel.MVentas
                 NotifyPropertyChanged("currentIndexTab"); //Hace que cambie el tab automaticamente
             }
         }
+
         //Usado para mover los tabs de acuerdo a las acciones realizadas
         public int currentIndexTab
         {
@@ -193,18 +195,18 @@ namespace pe.edu.pucp.ferretin.viewmodel.MVentas
             }
         }
 
-        private IEnumerable<Servicio> _listaServicioes;
-        public IEnumerable<Servicio> listaServicioes
+        private IEnumerable<Servicio> _listaServicios;
+        public IEnumerable<Servicio> listaServicios
         {
             get
             {
-                _listaServicioes = MV_ServicioService.buscarServicios(codServSearch, fechaDesdeSearch, fechaHastaSearch, estadoSearch);
-                return _listaServicioes;
+                _listaServicios = MV_ServicioService.buscarServicios(codServSearch, fechaDesdeSearch, fechaHastaSearch, estadoSearch);
+                return _listaServicios;
             }
             set
             {
-                _listaServicioes = value;
-                NotifyPropertyChanged("listaServicioes");
+                _listaServicios = value;
+                NotifyPropertyChanged("listaServicios");
             }
         }
 
@@ -237,7 +239,7 @@ namespace pe.edu.pucp.ferretin.viewmodel.MVentas
             {
                 if (_actualizarListaCommand == null)
                 {
-                    _actualizarListaCommand = new RelayCommand(param => NotifyPropertyChanged("listaServicioes"));
+                    _actualizarListaCommand = new RelayCommand(param => NotifyPropertyChanged("listaServicios"));
                 }
                 return _actualizarListaCommand;
             }
@@ -292,10 +294,6 @@ namespace pe.edu.pucp.ferretin.viewmodel.MVentas
             try
             {
                 this.servicio = MV_ServicioService.db.Servicio.Single(servicio => servicio.id == (int)id);
-                foreach (var pp in this.servicio.ServicioLinea)
-                {
-                    pp.PropertyChanged += servicio_PropertyChanged;
-                }
                 if (soloSeleccionarServicio)
                     this.statusTab = Tab.DETALLES;
                 else
@@ -365,7 +363,7 @@ namespace pe.edu.pucp.ferretin.viewmodel.MVentas
                     else
                     {
                         MessageBox.Show("El servicio fue guardado con éxito");
-                        listaServicioes = null;
+                        listaServicios = null;
                         statusTab = Tab.BUSQUEDA;
                     }
                 }
@@ -378,7 +376,7 @@ namespace pe.edu.pucp.ferretin.viewmodel.MVentas
                     }
                     else
                     {
-                        listaServicioes = null;
+                        listaServicios = null;
                         statusTab = Tab.BUSQUEDA;
                         MessageBox.Show("El servicio fue agregado con éxito");
                     }
@@ -394,7 +392,7 @@ namespace pe.edu.pucp.ferretin.viewmodel.MVentas
                 if (result == MessageBoxResult.OK)
                 {
                     ComunService.Clean();
-                    listaServicioes = null;
+                    listaServicios = null;
                     this.statusTab = Tab.BUSQUEDA;
                 }
             }
@@ -432,11 +430,13 @@ namespace pe.edu.pucp.ferretin.viewmodel.MVentas
                             ServicioTipo = servicioTipo,
                             cantidad = 1,
                             montoParcial = servicioTipo.montoBase,
+                            montoAdicional = 0,
                             montoTotal = servicioTipo.montoBase,
                             descripcion = servicioTipo.descripcion
                         };
                         servicioLinea.PropertyChanged += servicio_PropertyChanged;
                         servicio.ServicioLinea.Add(servicioLinea);
+                        calcularMontoTotal();
                     }
                     NotifyPropertyChanged("servicio");
                 }
@@ -447,6 +447,17 @@ namespace pe.edu.pucp.ferretin.viewmodel.MVentas
             }
         }
 
+
+        /// <summary>
+        /// Cuando cambia la lista, se agrega o elimina algo
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        void ServicioLinea_ListChanged(object sender, System.ComponentModel.ListChangedEventArgs e)
+        {
+            calcularMontoTotal();
+        }
+
         /// <summary>
         /// Cuando cambia una propiedad de ServicioProducto
         /// </summary>
@@ -454,11 +465,14 @@ namespace pe.edu.pucp.ferretin.viewmodel.MVentas
         /// <param name="e"></param>
         void servicio_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
         {
-            var pp = sender as ServicioLinea;
-            if (pp.ServicioTipo != null)
-            {
-                
-            }
+            var sl = sender as ServicioLinea;
+            sl.montoTotal = (sl.montoParcial * sl.cantidad) + sl.montoAdicional;
+            calcularMontoTotal();
+        }
+
+        private void calcularMontoTotal()
+        {
+            servicio.montoTotal = servicio.ServicioLinea.Sum(sl => sl.montoTotal);
             NotifyPropertyChanged("servicio");
         }
         #endregion

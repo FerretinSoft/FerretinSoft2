@@ -117,15 +117,16 @@ namespace pe.edu.pucp.ferretin.view.MVentas
 
                         padre_DataContext.nroDocSeleccionado = my_DataContext.cliente.nroDoc;
                         padre_DataContext.servicio.Cliente = my_DataContext.cliente;
-                        
+
                         padre_DataContext.NotifyPropertyChanged("servicio");
                         this.Close();
                     }
 
                     
                 }
-                catch
+                catch(Exception ex)
                 {
+                    MessageBox.Show(ex.Message);
                 }
             }
         }

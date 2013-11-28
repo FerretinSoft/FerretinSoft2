@@ -21014,6 +21014,8 @@ namespace pe.edu.pucp.ferretin.model
 		
 		private System.Nullable<int> _servicioTipo_id;
 		
+		private System.Nullable<decimal> _montoAdicional;
+		
 		private EntityRef<Servicio> _Servicio;
 		
 		private EntityRef<ServicioTipo> _ServicioTipo;
@@ -21036,6 +21038,8 @@ namespace pe.edu.pucp.ferretin.model
     partial void Onservicio_idChanged();
     partial void OnservicioTipo_idChanging(System.Nullable<int> value);
     partial void OnservicioTipo_idChanged();
+    partial void OnmontoAdicionalChanging(System.Nullable<decimal> value);
+    partial void OnmontoAdicionalChanged();
     #endregion
 		
 		public ServicioLinea()
@@ -21189,6 +21193,26 @@ namespace pe.edu.pucp.ferretin.model
 					this._servicioTipo_id = value;
 					this.SendPropertyChanged("servicioTipo_id");
 					this.OnservicioTipo_idChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_montoAdicional", DbType="Decimal(8,2)")]
+		public System.Nullable<decimal> montoAdicional
+		{
+			get
+			{
+				return this._montoAdicional;
+			}
+			set
+			{
+				if ((this._montoAdicional != value))
+				{
+					this.OnmontoAdicionalChanging(value);
+					this.SendPropertyChanging();
+					this._montoAdicional = value;
+					this.SendPropertyChanged("montoAdicional");
+					this.OnmontoAdicionalChanged();
 				}
 			}
 		}

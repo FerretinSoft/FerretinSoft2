@@ -921,6 +921,7 @@
       <Column Name="montoTotal" Type="System.Decimal" DbType="Decimal(8,2)" CanBeNull="true" />
       <Column Name="servicio_id" Type="System.Int32" DbType="Int" CanBeNull="true" />
       <Column Name="servicioTipo_id" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="montoAdicional" Type="System.Decimal" DbType="Decimal(8,2)" CanBeNull="true" />
       <Association Name="Servicio_ServicioLinea" Member="Servicio" ThisKey="servicio_id" OtherKey="id" Type="Servicio" IsForeignKey="true" />
       <Association Name="ServicioTipo_ServicioLinea" Member="ServicioTipo" ThisKey="servicioTipo_id" OtherKey="id" Type="ServicioTipo" IsForeignKey="true" />
     </Type>
