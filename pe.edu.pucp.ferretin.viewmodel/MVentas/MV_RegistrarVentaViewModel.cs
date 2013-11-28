@@ -217,23 +217,35 @@ namespace pe.edu.pucp.ferretin.viewmodel.MVentas
 
                 if (productoAlmacen != null && productoAlmacen.isService)
                 {
-                    var cant = venta.VentaProducto.Count(vp => vp.isService && vp.servicioSeleccionado.id.Equals(productoAlmacen.servicioSeleccionado.id));
+                    var cant = venta.VentaProducto.Count(vp => vp.Servicio!=null && vp.Servicio.id.Equals(productoAlmacen.servicioSeleccionado.id));
                     if (cant > 0)
                     {
                         MessageBox.Show("Este servicio ya se encuentra en la lista.");
                     }
                     else
                     {
-                        if (productoAlmacen.servicioSeleccionado.estado == 1)//Solo si esta pendiente
+                        if (productoAlmacen.servicioSeleccionado.estado == 1)//Solo si esta pendiente no facturado
                         {
                             VentaProducto ventaProducto = new VentaProducto()
                             {
-                                servicioSeleccionado = productoAlmacen.servicioSeleccionado,
-                                isService = true,
+                                Servicio = productoAlmacen.servicioSeleccionado,
                                 vieneDeProforma = true,//Para que no se pueda modificar
                                 nombreProducto = productoAlmacen.nombreProducto,
+
+                                cantidad = 1,
                                 montoParcial = productoAlmacen.montoServicio,
-                                canjeado = false
+                                canjeado = false,
+                                montoReal = productoAlmacen.montoServicio,
+                                descuento = 0,
+                                descuentoPorcentaje = 0,
+                                precioUnitario = productoAlmacen.montoServicio,
+                                puntosCanejado = 0,
+                                puntosGanado = 0,
+                                moneda = 0,
+                                stockDisponible = 0,
+                                precioPuntos = 0,
+                                stockRestante = 0,
+                                precioPuntosParcial = 0,
                             };
                             venta.VentaProducto.Add(ventaProducto);
                             actualizarMontosVenta(null, null);
@@ -307,7 +319,7 @@ namespace pe.edu.pucp.ferretin.viewmodel.MVentas
                                 ventaProducto.tipoCambio = venta.tipoCambio.Value;
                                 ventaProducto.puntosCanejado = 0;
                                 ventaProducto.Producto = producto;
-                                ventaProducto.puntosGanado = producto.ganarPuntos;
+                                ventaProducto.puntosGanado = producto.ganarPuntos??0;
                                 ventaProducto.precioUnitario = producto.precioLista;
                                 ventaProducto.moneda = producto.moneda;
                                 ventaProducto.precioPuntos = producto.precioPuntos;
@@ -315,7 +327,7 @@ namespace pe.edu.pucp.ferretin.viewmodel.MVentas
 
                                 ventaProducto.cantidad = 1;
                                 ventaProducto.stockDisponible = stockDisponible;
-
+                                ventaProducto.stockRestante = stockDisponible - 1;
                                 ventaProducto.PropertyChanged += actualizarMontosVenta;
 
                                 venta.VentaProducto.Add(ventaProducto);

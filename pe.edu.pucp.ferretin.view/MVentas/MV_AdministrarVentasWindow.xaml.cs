@@ -65,7 +65,7 @@ namespace pe.edu.pucp.ferretin.view.MVentas
                             padre_DataContext.devolucion.codigo = MV_DevolucionService.obtenerCodDevolucion();
                             padre_DataContext.loadNroDocumento = my_DataContext.venta.nroDocumento;
                             padre_DataContext.devolucion.Venta = my_DataContext.venta;
-                            padre_DataContext.listaProductosComprados = MV_VentaService.obtenerProductosbyIdVenta(my_DataContext.venta.id);
+                            padre_DataContext.listaProductosComprados = MV_VentaService.obtenerProductosSinPuntosbyIdVenta(my_DataContext.venta.id);
                             padre_DataContext.NotifyPropertyChanged("devolucion");
                         }
                         else

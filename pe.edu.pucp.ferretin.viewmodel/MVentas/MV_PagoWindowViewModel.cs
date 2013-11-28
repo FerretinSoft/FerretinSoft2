@@ -177,7 +177,7 @@ namespace pe.edu.pucp.ferretin.viewmodel.MVentas
                 
                 ComunService.idVentana(42);
 
-                var productosMover = venta.VentaProducto.Where(vp=>!vp.isService);
+                var productosMover = venta.VentaProducto.Where(vp=>vp.Servicio==null);
                 if (productosMover.Count()>0)
                 {
                     result = MA_SharedService.registrarVenta(venta.Usuario.Empleado.tiendaActual, productosMover);
@@ -226,11 +226,12 @@ namespace pe.edu.pucp.ferretin.viewmodel.MVentas
                             {
                                 vp.PromocionActual.stockActual -= (int)(vp.prodConDesc/vp.PromocionActual.cantMulUnidades);
                             }
-                            if (vp.isService && vp.servicioSeleccionado != null)
+                            if (vp.Servicio != null)
                             {
-                                vp.servicioSeleccionado.estado = 2;//Facturado
+                                vp.Servicio.estado = 2;//Facturado
                             }
                         }
+                        venta.estado = 1;
                         MV_VentaService.enviarCambios();
                     }
                     catch (Exception ex) {
@@ -244,11 +245,12 @@ namespace pe.edu.pucp.ferretin.viewmodel.MVentas
             }
             catch (Exception e)
             {
-                result = "Error al registrar en almacen: "+ e.Message;
+                result = e.Message;
             }
             if (result.Trim().Length>0)
             {
-                MessageBox.Show(result);
+                MessageBox.Show("Error en almacen:\nNo se registrará la venta.\n"+result);
+                //ComunService.Clean();//Limpio la BD por si acaso
             }
         }
 

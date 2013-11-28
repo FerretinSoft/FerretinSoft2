@@ -14,9 +14,9 @@ namespace pe.edu.pucp.ferretin.model
         {
             get
             {
-                if (isService)
+                if (this.Servicio!=null)
                 {
-                    return "SERV " + servicioSeleccionado.codigo;
+                    return "SERV " + this.Servicio.codigo;
                 }
                 else
                 {
@@ -56,6 +56,7 @@ namespace pe.edu.pucp.ferretin.model
                 return;
             }
 
+            stockRestante = stockDisponible - cantidad;
 
             //Si supera el límite de puntos del usuario quito el canjeado
             if (canjeado.Value && this.Venta != null && this.Venta.Cliente != null && this.Venta.Cliente.puntosActual!=null && this.Venta.Cliente.puntosActual < (this.Venta.puntosCanjeados))
@@ -174,6 +175,8 @@ namespace pe.edu.pucp.ferretin.model
             }
         }
 
+
+
         private bool? _vieneDeProforma = false;
         public bool? vieneDeProforma
         {
@@ -189,18 +192,6 @@ namespace pe.edu.pucp.ferretin.model
             }
         }
 
-        private bool _isService = false;
-        public bool isService
-        {
-            get
-            {
-                return _isService;
-            }
-            set
-            {
-                _isService = value;
-            }
-        }
 
         private string _nombreProducto = "";
         public string nombreProducto
@@ -222,11 +213,6 @@ namespace pe.edu.pucp.ferretin.model
             }
         }
 
-        public Servicio servicioSeleccionado
-        {
-            get;
-            set;
-        }
 
     }
 }

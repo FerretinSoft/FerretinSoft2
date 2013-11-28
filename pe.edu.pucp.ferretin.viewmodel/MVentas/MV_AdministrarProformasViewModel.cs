@@ -187,8 +187,9 @@ namespace pe.edu.pucp.ferretin.viewmodel.MVentas
                                 {
                                     codigo = "Auto",
                                     Usuario = usuarioLogueado,
+                                    Tienda = usuarioLogueado.Empleado.tiendaActual,
                                     fecEmision = DateTime.Now,
-                                    fecVencimiento = DateTime.Now.AddDays(5),
+                                    fecVencimiento = DateTime.Now.AddDays(3),
                                     igvActual = MS_SharedService.obtenerIGV(),
                                     tipoCambio = (decimal)MS_SharedService.obtenerTipodeCambio(),
                                     igv = 0,
@@ -544,34 +545,90 @@ namespace pe.edu.pucp.ferretin.viewmodel.MVentas
             if (codProdAgregar != null && codProdAgregar.Length > 0)
             {
                 Producto producto = null;
+                ProductoAlmacen productoAlmacen = null;
                 try
                 {
                     producto = MA_SharedService.obtenerProductoxCodigo(codProdAgregar);
+                    productoAlmacen = producto.ProductoAlmacen.First(pa => pa.id_almacen.Equals(proforma.Tienda.id));
                 }
                 catch { }
-
-                if (producto != null)
+                
+                //Validar si lo encuentra y si tiene como estado activo, el producto y el producto de un almacen
+                if (productoAlmacen != null && producto != null && productoAlmacen.estado > 0)
                 {
-                    if (proforma.ProformaProducto.Count(vp => vp.Producto.id == producto.id) == 1)
+
+                    var stockDisponible = 0;
+
+                    try
                     {
-                        proforma.ProformaProducto.Single(vp => vp.Producto.id == producto.id).cantidad++;
+                        stockDisponible = (int)productoAlmacen.stock;
+                    }
+                    catch { }
+
+                    if (stockDisponible <= 0)
+                    {
+                        MessageBox.Show("No se cuenta con Stock de este producto:\n" + producto.nombre.ToUpper(), "Mensaje", MessageBoxButton.OK, MessageBoxImage.Exclamation);
+                        return;
+                    }
+                    if (!producto.precioLista.HasValue || producto.precioLista <= 0)
+                    {
+                        MessageBox.Show("El producto no tiene un precio asignado:\n" + producto.nombre.ToUpper(), "Mensaje", MessageBoxButton.OK, MessageBoxImage.Exclamation);
+                        return;
+                    }
+
+                    if (proforma.ProformaProducto.Count(vp => vp.producto_id.Equals(producto.id)) == 1)
+                    {
+                        var prod = proforma.ProformaProducto.Single(vp => vp.producto_id.Equals(producto.id));
+                        
+                        if (prod.cantidad + 1 > prod.stockDisponible)
+                        {
+                            MessageBox.Show("No se tiene más stock de este producto:\n" + producto.nombre.ToUpper(), "Mensaje", MessageBoxButton.OK, MessageBoxImage.Exclamation);
+                        }
+                        else
+                        {
+                            prod.cantidad++;
+                        }
                     }
                     else
                     {
-                        ProformaProducto proformaProducto = new ProformaProducto();
-                        proformaProducto.PromocionActual = MV_PromocionService.ultimaPromocionPorProducto(producto, MS_SharedService.usuarioL.Empleado.tiendaActual);
-                        proformaProducto.tipoCambio = proforma.tipoCambio??1;
-                        proformaProducto.Proforma = proforma;
-                        proformaProducto.Producto = producto;
-                        proformaProducto.moneda = producto.moneda;
-                        proformaProducto.PropertyChanged += actualizarMontosProforma;
-                        proformaProducto.cantidad = 1;
-                        
-                        proforma.ProformaProducto.Add(proformaProducto);
-                        //proforma.ProformaProducto.ListChanged += actualizarMontosProforma;
+                        if (stockDisponible > 0)
+                        {
+                            ProformaProducto proformaProducto = new ProformaProducto();
+                            proformaProducto.PromocionProducto = MV_PromocionService.ultimaPromocionPorProducto(productoAlmacen);
+                            proformaProducto.tipoCambio = proforma.tipoCambio.Value;
+                            proformaProducto.Producto = producto;
+                            proformaProducto.puntosGanar = (producto.ganarPuntos ?? 0);
+                            proformaProducto.puntosGanado = (producto.ganarPuntos ?? 0)*1;
+                            proformaProducto.preciounitario = producto.precioLista;
+                            proformaProducto.moneda = producto.moneda;
+                            proformaProducto.precioPuntos = producto.precioPuntos??0;
+                            proformaProducto.precioPuntosParcial = (producto.precioPuntos ?? 0)*1;
+                            proformaProducto.Proforma = proforma;
+                            proformaProducto.cantidad = 1;
+                            proformaProducto.stockDisponible = stockDisponible;
+                            proformaProducto.stockRestante = stockDisponible - 1;
+
+                            proformaProducto.PropertyChanged += actualizarMontosProforma;
+
+                            proforma.ProformaProducto.Add(proformaProducto);
+
+                            actualizarMontosProforma(null, null);
+                        }
+                        else
+                        {
+                            MessageBox.Show("No hay stock de este producto:\n" + producto.nombre.ToUpper(), "Mensaje", MessageBoxButton.OK, MessageBoxImage.Exclamation);
+                        }
 
                     }
-                    NotifyPropertyChanged("proforma");
+
+                    NotifyPropertyChanged("venta");
+                }
+                else
+                {
+                    if (productoAlmacen == null || producto == null)
+                        MessageBox.Show("Este producto no existe.", "Mensaje", MessageBoxButton.OK, MessageBoxImage.Exclamation);
+                    else
+                        MessageBox.Show("Este producto no esta disponible para su venta.", "Mensaje", MessageBoxButton.OK, MessageBoxImage.Exclamation);
                 }
             }
         }

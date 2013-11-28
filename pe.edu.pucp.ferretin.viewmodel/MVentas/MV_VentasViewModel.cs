@@ -274,6 +274,14 @@ namespace pe.edu.pucp.ferretin.viewmodel.MVentas
                 this.nombreVendedor = "";
                 this.venta = listaVentas.Single(venta => venta.id == (long)id);
                 this.listaProductos = MV_VentaService.obtenerProductosbyIdVenta((long)id);
+                int numServicio = 0;
+                for (int i = 0; i < listaProductos.Count(); i++)
+                {
+                    if (listaProductos.ElementAt(i).id_servicio != null){
+                        listaProductos.ElementAt(i).nombreProducto = listaProductos.ElementAt(i).Servicio.ServicioLinea.ElementAt(numServicio).descripcion;
+                        numServicio++;
+                    }
+                }
                 this.listaMedioPago = MV_VentaService.obtenerMedioDePagobyIdVenta((long)id);
                 selectedTab = 1;
             }
