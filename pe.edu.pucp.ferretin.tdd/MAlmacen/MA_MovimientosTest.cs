@@ -79,8 +79,148 @@ namespace pe.edu.pucp.ferretin.tdd.MAlmacen
             }
         }
 
+        /// <summary>
+        /// Prueba de insertar movimiento de entrada (verificar stock antes y después)
+        /// </summary>
+        [TestCase]
+        public void InsertarMovimientoEntrada()
+        {
+            Movimiento mov = new Movimiento();
+            DateTime today = DateTime.Today;
+            mov.fecha = today;
+            mov.MovimientoEstado = MA_EstadoMovimientoService.getMovimientoEstadoByName("Finalizado");
+            mov.MovimientoTipo = MA_TipoMovimientoService.getMovimientoTipoByName("Compra"); // un movimiento de entrada
+            mov.Tienda1 = MS_TiendaService.obtenerTiendaByCodigo("1"); // tienda destino
+            mov.MovimientoProducto = new EntitySet<MovimientoProducto>();
+            Producto p = MA_ProductoService.obtenerProductoxCodigo("0000000001");
+            ProductoAlmacen pa = MA_ProductoAlmacenService.ObtenerProductoAlmacenPorTiendaProducto(mov.Tienda1, p);
+            MovimientoProducto mp = new MovimientoProducto();
+            mp.Producto = p;
+            mp.Movimiento = mov;
+            mp.cantidad = 10;
+            mov.MovimientoProducto.Add(mp);
 
+            // guardo el stock antes
+            decimal stockAntes = (decimal)pa.stock;
 
+            ComunService.usuarioL = MS_UsuarioService.obtenerListaUsuarios().First();
+            // inserto el movimiento
+            MA_MovimientosService.InsertarMovimiento(mov);
+
+            decimal stockDespues = (decimal)pa.stock;
+
+            Assert.AreEqual(stockAntes + 10, stockDespues);
+        }
+
+        /// <summary>
+        /// Prueba de insertar movimiento de salida (verificar stock antes y después)
+        /// </summary>
+        [TestCase]
+        public void InsertarMovimientoSalida()
+        {
+            Movimiento mov = new Movimiento();
+            DateTime today = DateTime.Today;
+            mov.fecha = today;
+            mov.MovimientoEstado = MA_EstadoMovimientoService.getMovimientoEstadoByName("Finalizado");
+            mov.MovimientoTipo = MA_TipoMovimientoService.getMovimientoTipoByName("Venta"); // un movimiento de salida
+            mov.Tienda = MS_TiendaService.obtenerTiendaByCodigo("1"); // tienda destino
+            mov.MovimientoProducto = new EntitySet<MovimientoProducto>();
+            Producto p = MA_ProductoService.obtenerProductoxCodigo("0000000001");
+            ProductoAlmacen pa = MA_ProductoAlmacenService.ObtenerProductoAlmacenPorTiendaProducto(mov.Tienda, p);
+            MovimientoProducto mp = new MovimientoProducto();
+            mp.Producto = p;
+            mp.Movimiento = mov;
+            mp.cantidad = 10;
+            mov.MovimientoProducto.Add(mp);
+
+            // guardo el stock antes
+            decimal stockAntes = (decimal)pa.stock;
+
+            ComunService.usuarioL = MS_UsuarioService.obtenerListaUsuarios().First();
+            // inserto el movimiento
+            MA_MovimientosService.InsertarMovimiento(mov);
+
+            decimal stockDespues = (decimal)pa.stock;
+
+            Assert.AreEqual(stockAntes - 10, stockDespues);
+        }
+
+        /// <summary>
+        /// Prueba de insertar movimiento de transacción (verificar stock antes y después)
+        /// </summary>
+        [TestCase]
+        public void InsertarMovimientoTransaccional()
+        {
+            Movimiento mov = new Movimiento();
+            DateTime today = DateTime.Today;
+            mov.fecha = today;
+            mov.MovimientoEstado = MA_EstadoMovimientoService.getMovimientoEstadoByName("Finalizado");
+            mov.MovimientoTipo = MA_TipoMovimientoService.getMovimientoTipoByName("Transferencia"); // un movimiento de transferencia
+            Tienda desde = MS_TiendaService.obtenerTiendaByCodigo("2"); // tienda desde
+            Tienda hasta = MS_TiendaService.obtenerTiendaByCodigo("1"); // tienda desde
+            mov.Tienda = desde;
+            mov.Tienda1 = hasta;
+            mov.MovimientoProducto = new EntitySet<MovimientoProducto>();
+            Producto p = MA_ProductoService.obtenerProductoxCodigo("0000000001");
+            ProductoAlmacen paDesde = MA_ProductoAlmacenService.ObtenerProductoAlmacenPorTiendaProducto(mov.Tienda, p);
+            ProductoAlmacen paHasta = MA_ProductoAlmacenService.ObtenerProductoAlmacenPorTiendaProducto(mov.Tienda1, p);
+            MovimientoProducto mp = new MovimientoProducto();
+            mp.Producto = p;
+            mp.Movimiento = mov;
+            mp.cantidad = 10;
+            mov.MovimientoProducto.Add(mp);
+
+            // guardo el stock antes
+            decimal stockAntesDesde = (decimal)paDesde.stock;
+            decimal stockAntesHasta = (decimal)paHasta.stock;
+
+            ComunService.usuarioL = MS_UsuarioService.obtenerListaUsuarios().First();
+            // inserto el movimiento
+            MA_MovimientosService.InsertarMovimiento(mov);
+
+            decimal stockDespuesDesde = (decimal)paDesde.stock;
+            decimal stockDespuesHasta = (decimal)paHasta.stock;
+
+            Assert.AreEqual(stockAntesDesde - 10, stockDespuesDesde);
+            Assert.AreEqual(stockAntesHasta + 10, stockDespuesHasta);
+        }
+
+        /// <summary>
+        /// Prueba de insertar movimiento de entrada (verificar stock antes y después)
+        /// </summary>
+        [TestCase]
+        public void CodigoMovimientoUnico()
+        {
+            Movimiento mov = new Movimiento();
+            DateTime today = DateTime.Today;
+            mov.fecha = today;
+            mov.MovimientoEstado = MA_EstadoMovimientoService.getMovimientoEstadoByName("Finalizado");
+            mov.MovimientoTipo = MA_TipoMovimientoService.getMovimientoTipoByName("Ajuste"); 
+            mov.Tienda1 = MS_TiendaService.obtenerTiendaByCodigo("1"); // tienda destino
+            mov.MovimientoProducto = new EntitySet<MovimientoProducto>();
+            Producto p = MA_ProductoService.obtenerProductoxCodigo("0000000001");
+            MovimientoProducto mp = new MovimientoProducto();
+            mp.Producto = p;
+            mp.Movimiento = mov;
+            mp.cantidad = 10;
+            mov.MovimientoProducto.Add(mp);
+
+            ComunService.usuarioL = MS_UsuarioService.obtenerListaUsuarios().First();
+            
+            // Guardo los codigos de movimientos antes de insertar
+            List<String> codigosAntes = new List<string>();
+            foreach (var item in MA_MovimientosService.listaMovimientos)
+            {
+                if (item.id > 0)
+                    codigosAntes.Add(item.codigo);
+            }
+            // inserto el movimiento
+            MA_MovimientosService.InsertarMovimiento(mov);
+
+            String codigo = mov.codigo;
+
+            Assert.IsFalse(codigosAntes.Contains(codigo));
+        }
 
 
 
