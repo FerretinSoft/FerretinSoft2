@@ -477,14 +477,19 @@ namespace pe.edu.pucp.ferretin.viewmodel.MVentas
             switch (result)
             {
                 case MessageBoxResult.OK:
-                        this.searchNroDevolucion = "";
-                        this.searchnombreCliente = "";
-                        this.searchNroDocCliente = "";
-                        this.searchNroDocumento = null;
-                        this.searchVendedor = "";
-                        this.nombreVendedor = "";
+                       this.searchNroDevolucion = "";
+                            this.searchnombreCliente = "";
+                            this.searchNroDocCliente = "";
+                            this.searchNroDocumento = "";
+                            this.searchVendedor = "";
+                            this.nombreVendedor = "";
                         selectedTab = 0;
-                        this.listaDevoluciones = MV_DevolucionService.listaDevoluciones;
+                        if (searchNroDocCliente != "")
+                            _listaDevoluciones = MV_DevolucionService.buscarDevoluciones(searchNroDevolucion, searchNroDocumento, Convert.ToInt32(searchNroDocCliente), searchFechaInicio, searchFechaFin, searchVendedor);
+                        else
+                            _listaDevoluciones = MV_DevolucionService.buscarDevoluciones(searchNroDevolucion, searchNroDocumento, null, searchFechaInicio, searchFechaFin, searchVendedor);
+                
+                       
                     break;
                 case MessageBoxResult.Cancel:
                     break;
