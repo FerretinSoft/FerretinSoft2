@@ -99,7 +99,20 @@ namespace pe.edu.pucp.ferretin.tdd.MVentas
                 Assert.AreEqual(puntGan-puntUsa, puntDisp);                
             }
         }
+        /******************** Test Cliente con al menos una compra *************************/
+        [TestCase]
+        public void clientes_con_al_menos_una_compra()
+        {
+            IEnumerable<Cliente> client = MV_ClienteService.db.Cliente.Where(cli => cli.totalCompras == 0);
 
+            //Act - No hay nada que hacer, porque la accion fue la creacion misma
+            int cantidadRegistros;
+            if (client == null) cantidadRegistros = 0; // significa que no hay clientes con numero de codumento o nombre nulos, o estan los 2 o ninguno
+            else cantidadRegistros = client.Count();
+
+            //Assert - verificar condicion o criterio de aceptacion
+            Assert.AreEqual(0, cantidadRegistros);
+        }
 
 
     }
