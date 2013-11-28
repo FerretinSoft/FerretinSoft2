@@ -97,7 +97,7 @@ namespace pe.edu.pucp.ferretin.view.MSeguridad
                             MessageBox.Show("Contraseña Cambiada Correctamente.");
                         }
                         MainWindow mw = new MainWindow(usuarioLog);
-                        mw.ShowDialog();
+                        mw.Show();
                     }
                     else
                     {

@@ -991,7 +991,7 @@ namespace pe.edu.pucp.ferretin.viewmodel.MCompras
                 {
                     tipo = 2,
                     codigo = MC_DocumentoCompraService.generarCodigoDC_V2(2),
-                    fechaEmision = DateTime.Now,
+                    fechaEmision = DateTime.Now.Date,
                     DocumentoCompra1 = this.documentoCompra,
                     DocumentoCompraEstado = ComunService.db.DocumentoCompraEstado.Where(dce => dce.id == 5).SingleOrDefault(),
                     //DocumentoCompraEstado = MC_DocumentoCompraService.obtenerEstado(1),

@@ -14,7 +14,14 @@ namespace pe.edu.pucp.ferretin.model
         {
             get
             {
-                return cantidad.ToString() + " X " + Producto.nombre.ToUpper() + " ";
+                if (this.Servicio!=null)
+                {
+                    return "SERV " + this.Servicio.codigo;
+                }
+                else
+                {
+                    return cantidad.ToString() + " X " + Producto.nombre.ToUpper() + " ";
+                }
             }
         }
 
@@ -181,6 +188,28 @@ namespace pe.edu.pucp.ferretin.model
                 SendPropertyChanged("noVieneDeProforma");
             }
         }
+
+
+        private string _nombreProducto = "";
+        public string nombreProducto
+        {
+            get
+            {
+                if (Producto != null)
+                {
+                    return Producto.nombre.ToUpper();
+                }
+                else
+                {
+                    return _nombreProducto;
+                }
+            }
+            set
+            {
+                _nombreProducto = value;
+            }
+        }
+
 
     }
 }

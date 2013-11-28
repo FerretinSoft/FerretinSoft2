@@ -69,6 +69,29 @@ namespace pe.edu.pucp.ferretin.view.MVentas
                 rep.SetParameterValue("idTienda", selectedItem);
                 VisorReporte.ViewerCore.ReportSource = rep;
             }
+            else if (nombreReporte.Equals("RServicios"))
+            {
+                ReporteServiciosTienda rep;
+                rep = new ReporteServiciosTienda();
+
+                rep.SetParameterValue("fechaInicio", fechaInicio);
+                rep.SetParameterValue("fechaFin", fechaFin);
+                rep.SetParameterValue("idTienda", selectedItem);
+                if (codCliente != "")
+                    rep.SetParameterValue("codCliente", Convert.ToInt64(codCliente));
+                else
+                    rep.SetParameterValue("codCliente", 0);
+                rep.SetDatabaseLogon("inf245g2usr", "server", "inti.lab.inf.pucp.edu.pe", "inf245g2");
+                rep.Refresh();
+                if (codCliente != "")
+                    rep.SetParameterValue("codCliente", Convert.ToInt64(codCliente));
+                else
+                    rep.SetParameterValue("codCliente", 0);
+                rep.SetParameterValue("fechaInicio", fechaInicio);
+                rep.SetParameterValue("fechaFin", fechaFin);
+                rep.SetParameterValue("idTienda", selectedItem);
+                VisorReporte.ViewerCore.ReportSource = rep;
+            }
             else if (nombreReporte.Equals("RCliente"))
             {
                 ReporteVentaCliente rep;
@@ -76,13 +99,13 @@ namespace pe.edu.pucp.ferretin.view.MVentas
                 rep.SetParameterValue("fechaInicio", fechaInicio);
                 rep.SetParameterValue("fechaFin", fechaFin);
                 if (codCliente != "")
-                    rep.SetParameterValue("codCliente", Convert.ToInt32(codCliente));
+                    rep.SetParameterValue("codCliente", Convert.ToInt64(codCliente));
                 else
                     rep.SetParameterValue("codCliente", 0);
                 rep.SetDatabaseLogon("inf245g2usr", "server", "inti.lab.inf.pucp.edu.pe", "inf245g2");
                 rep.Refresh();
                 if (codCliente != "")
-                    rep.SetParameterValue("codCliente", Convert.ToInt32(codCliente));
+                    rep.SetParameterValue("codCliente", Convert.ToInt64(codCliente));
                 else
                     rep.SetParameterValue("codCliente", 0);
                 rep.SetParameterValue("fechaInicio", fechaInicio);
@@ -191,6 +214,50 @@ namespace pe.edu.pucp.ferretin.view.MVentas
                 rep.SetParameterValue("fechaInicio", fechaInicio);
                 rep.SetParameterValue("fechaFin", fechaFin);
                 rep.SetParameterValue("idTienda", selectedItem);
+                try
+                {//Mandamos el email
+                    MailMessage message = new MailMessage(
+                       "ferretinsoft@pucp.edu.pe",
+                       email,
+                       "FerretinSoft: Reporte de devoluciones", null);
+                    message.Body = mensajeEmail;
+                    message.Attachments.Add(new Attachment(rep.ExportToStream(ExportFormatType.PortableDocFormat), "ReporteDevolucion.pdf"));
+                    SmtpClient client = new SmtpClient();
+                    client.Credentials = new System.Net.NetworkCredential("ferretinsoft@gmail.com", "hUasnASiraQ");
+                    client.Port = 587;
+                    client.Host = "smtp.gmail.com";
+                    client.EnableSsl = true;
+                    client.Send(message);
+                    MessageBox.Show("Email enviado correctamente", "Mensaje de confirmación", MessageBoxButton.OK, MessageBoxImage.Information);
+                }
+                catch (Exception e)
+                {
+                    MessageBox.Show("Ocurrió un error al enviar el email, inténtelo más tarde.\nDetalles:\n" + e.Message, "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
+
+            }
+            else if (nombreReporte.Equals("RServicios"))
+            {
+                ReporteServiciosTienda rep;
+                rep = new ReporteServiciosTienda();
+
+                rep.SetParameterValue("fechaInicio", fechaInicio);
+                rep.SetParameterValue("fechaFin", fechaFin);
+                rep.SetParameterValue("idTienda", selectedItem);
+                if (codCliente != "")
+                    rep.SetParameterValue("codCliente", Convert.ToInt32(codCliente));
+                else
+                    rep.SetParameterValue("codCliente", 0);
+                rep.SetDatabaseLogon("inf245g2usr", "server", "inti.lab.inf.pucp.edu.pe", "inf245g2");
+                rep.Refresh();
+
+                rep.SetParameterValue("fechaInicio", fechaInicio);
+                rep.SetParameterValue("fechaFin", fechaFin);
+                rep.SetParameterValue("idTienda", selectedItem);
+                if (codCliente != "")
+                    rep.SetParameterValue("codCliente", Convert.ToInt32(codCliente));
+                else
+                    rep.SetParameterValue("codCliente", 0);
                 try
                 {//Mandamos el email
                     MailMessage message = new MailMessage(

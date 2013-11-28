@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Net.Mail;
 using System.Text;
@@ -14,6 +15,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using pe.edu.pucp.ferretin.controller;
+using pe.edu.pucp.ferretin.controller.MVentas;
 using pe.edu.pucp.ferretin.view.MRecursosHumanos;
 using pe.edu.pucp.ferretin.viewmodel.MRecursosHumanos;
 using pe.edu.pucp.ferretin.viewmodel.MVentas;
@@ -37,10 +39,7 @@ namespace pe.edu.pucp.ferretin.view.MVentas
            
             MV_ReportesViewModel padre_DataContext = this.main.DataContext as MV_ReportesViewModel;
             if (padre_DataContext.nombreBoton.Equals("SIGUIENTE")){
-                padre_DataContext.nombreCliente = "";
-                padre_DataContext.searchCliente = "";
-                padre_DataContext.nombreVendedor = "";
-                padre_DataContext.searchVendedor = "";
+               
                 switch (estado)
                 {
                     case 0:
@@ -107,6 +106,17 @@ namespace pe.edu.pucp.ferretin.view.MVentas
                                 padre_DataContext.comentRep = "El presente reporte tiene como finalidad mostrar un resumen de las devoluciones realizadas en un período de tiempo";
                             }
 
+                            if (this.listaRepDisp.SelectedIndex == 5)
+                            {
+                                padre_DataContext.visibleProducto = System.Windows.Visibility.Collapsed;
+                                padre_DataContext.visibleCliente = System.Windows.Visibility.Visible;
+                                padre_DataContext.visibleVendedor = System.Windows.Visibility.Collapsed;
+                                padre_DataContext.visibleTienda = System.Windows.Visibility.Visible;
+                                padre_DataContext.nombreVentana = "Reporte de servicios";
+                                padre_DataContext.aliasRep = "Reporte de servicios";
+                                padre_DataContext.comentRep = "El presente reporte tiene como finalidad mostrar un resumen de los servicios brindados por la empresa en un período de tiempo";
+                            }
+
                             estado = 1;
                             repAntBtn.IsEnabled = true;
                         }
@@ -140,10 +150,16 @@ namespace pe.edu.pucp.ferretin.view.MVentas
                 rep = new MV_VisorReporte(padre_DataContext.searchFechaInicio, padre_DataContext.searchFechaFin, 0, "RCliente", "", padre_DataContext.searchCliente, "");
             else if (this.listaRepDisp.SelectedIndex == 4)
                 rep = new MV_VisorReporte(padre_DataContext.searchFechaInicio, padre_DataContext.searchFechaFin, padre_DataContext.selectedTienda.id, "RDevolucion", "", "", "");
+            else if (this.listaRepDisp.SelectedIndex == 5)
+                rep = new MV_VisorReporte(padre_DataContext.searchFechaInicio, padre_DataContext.searchFechaFin, padre_DataContext.selectedTienda.id, "RServicios", "", padre_DataContext.searchCliente, "");          
             else
                 rep = new MV_VisorReporte(padre_DataContext.searchFechaInicio, padre_DataContext.searchFechaFin, 0, "RVendedor", padre_DataContext.searchVendedor, "", "");
 
             rep.Show();
+            padre_DataContext.nombreCliente = "";
+            padre_DataContext.searchCliente = "";
+            padre_DataContext.nombreVendedor = "";
+            padre_DataContext.searchVendedor = "";
         }
 
 
@@ -242,5 +258,8 @@ namespace pe.edu.pucp.ferretin.view.MVentas
             else
                 e.Handled = true;
         }
+
+
+
     }
 }

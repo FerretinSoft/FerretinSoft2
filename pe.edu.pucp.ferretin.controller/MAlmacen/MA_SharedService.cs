@@ -74,9 +74,9 @@ namespace pe.edu.pucp.ferretin.controller.MAlmacen
         /// <param name="tienda">Tienda desde la que se realiza la venta</param>
         /// <param name="items">Listado de VentaProductos para la venta</param>
         /// <returns>Devuelve la cadena vacia si se registró el movimiento correctamente, en caso contrario devuelve el error ocurrido</returns>
-        public static String registrarVenta(Tienda tienda, EntitySet<VentaProducto> items)
+        public static String registrarVenta(Tienda tienda, IEnumerable<VentaProducto> items)
         {
-            if (items.Count <= 0) return "Debe haber al menos un producto para realizar el movimiento.";
+            if (items.Count() <= 0) return "Debe haber al menos un producto para realizar el movimiento.";
             
             Movimiento movimiento = new Movimiento();
             movimiento.fecha = DateTime.Today;
@@ -85,12 +85,12 @@ namespace pe.edu.pucp.ferretin.controller.MAlmacen
             movimiento.Tienda = tienda;
             movimiento.MovimientoProducto = new EntitySet<MovimientoProducto>();
             MovimientoProducto current;
-            for (int i = 0; i < items.Count; i++)
+            for (int i = 0; i < items.Count(); i++)
             {
                 current = new MovimientoProducto();
-                current.cantidad = items[i].cantidad;
+                current.cantidad = items.ElementAt(i).cantidad;
                 current.Movimiento = movimiento;
-                current.Producto = items[i].Producto;
+                current.Producto = items.ElementAt(i).Producto;
                 movimiento.MovimientoProducto.Add(current);                
             }
             bool ok = MA_MovimientosService.InsertarMovimiento(movimiento);
@@ -225,5 +225,6 @@ namespace pe.edu.pucp.ferretin.controller.MAlmacen
             //}
             return result;
         }
+
     }
 }

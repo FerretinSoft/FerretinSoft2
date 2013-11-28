@@ -31,12 +31,20 @@ namespace pe.edu.pucp.ferretin.view.MVentas
             tiposServicio.ItemsSource = midb.ServicioTipo;
         }
 
+
+        /// <summary>
+        /// Constructor para buscar servicios
+        /// </summary>
+        /// <param name="mV_ServiciosWindow"></param>
         public MV_TiposServiciosWindow(MV_ServiciosWindow mV_ServiciosWindow)
         {
             InitializeComponent();
             tiposServicio.ItemsSource = midb.ServicioTipo;
             guardarBtn.Content = "SELECCIONAR";
             this.mV_ServiciosWindow = mV_ServiciosWindow;
+            tiposServicio.IsReadOnly = true;
+
+            AddHandler(Keyboard.KeyDownEvent, (KeyEventHandler)HandleKeyDownEvent);
         }
 
 
@@ -59,6 +67,17 @@ namespace pe.edu.pucp.ferretin.view.MVentas
         private void guardarBtn_Click(object sender, RoutedEventArgs e)
         {
             //Viene del buscador de servicios
+            if (!tiposServicio.IsReadOnly)
+            {
+                string messageBoxText = "¿Desea confirmar la transacción? Se procederá a almacenar la información ingresada";
+                string caption = "Mensaje de confirmación";
+                MessageBoxButton button = MessageBoxButton.OKCancel;
+                MessageBoxResult result = MessageBox.Show(messageBoxText, caption, button);
+                if (result == MessageBoxResult.OK)
+                {
+                    midb.SubmitChanges();
+                }
+            }
             if (this.Owner!=null && mV_ServiciosWindow != null)
             {
                 var vmServ = mV_ServiciosWindow.DataContext as MV_ServiciosViewModel;
@@ -79,17 +98,15 @@ namespace pe.edu.pucp.ferretin.view.MVentas
                     MessageBox.Show("Debe Seleccionar al menos un tipo de servicio para agregar");
                 }
             }
-            else
+            this.Close();
+        }
+
+        private void HandleKeyDownEvent(object sender, KeyEventArgs e)
+        {
+
+            if (e.Key == Key.M && (Keyboard.Modifiers & ModifierKeys.Control) == ModifierKeys.Control)
             {
-                string messageBoxText = "¿Desea confirmar la transacción? Se procederá a almacenar la información ingresada";
-                string caption = "Mensaje de confirmación";
-                MessageBoxButton button = MessageBoxButton.OKCancel;
-                MessageBoxResult result = MessageBox.Show(messageBoxText, caption, button);
-                if (result == MessageBoxResult.OK)
-                {
-                    midb.SubmitChanges();
-                    this.Close();
-                }
+                tiposServicio.IsReadOnly = false;
             }
         }
     }

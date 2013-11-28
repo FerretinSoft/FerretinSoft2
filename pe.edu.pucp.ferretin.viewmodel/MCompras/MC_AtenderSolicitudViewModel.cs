@@ -165,7 +165,7 @@ namespace pe.edu.pucp.ferretin.viewmodel.MCompras
                             //codigo = MC_DocumentoCompraService.generarCodigoDC(2),
                             codigo = "ORD" + cont.ToString(),
                             DocumentoCompraEstado = dce,
-                            fechaEmision = DateTime.Now,
+                            fechaEmision = DateTime.Now.Date,
                             Usuario1 = usr,
                             Proveedor = seleccionado.Proveedor,
                             total = 0,

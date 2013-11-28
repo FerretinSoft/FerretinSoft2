@@ -149,6 +149,14 @@ namespace pe.edu.pucp.ferretin.viewmodel.MVentas
                         }
                         break;
                     };
+                case 5:
+                    {
+                        ventaMP.Venta = venta;
+                        ventaMP.MedioPago = mediosPago.ElementAt(1);
+                        ventaMP.detalle = "BitCoin # Transacción " + new Random(100).Next(11111111, 99999999).ToString() + "";
+                        ventaMP.monto = venta.diferencia;
+                        break;
+                    }
             }
             if(ventaMP!=null)
                 venta.VentaMedioPago.Add(ventaMP);
@@ -168,7 +176,12 @@ namespace pe.edu.pucp.ferretin.viewmodel.MVentas
             {
                 
                 ComunService.idVentana(42);
-                result = MA_SharedService.registrarVenta(venta.Usuario.Empleado.tiendaActual, venta.VentaProducto);
+
+                var productosMover = venta.VentaProducto.Where(vp=>vp.Servicio==null);
+                if (productosMover.Count()>0)
+                {
+                    result = MA_SharedService.registrarVenta(venta.Usuario.Empleado.tiendaActual, productosMover);
+                }
                 if (result.Length <= 0)//si resulto bien
                 {
                     venta.fecha = DateTime.Now;
@@ -212,6 +225,10 @@ namespace pe.edu.pucp.ferretin.viewmodel.MVentas
                             if (vp.PromocionActual != null && vp.prodConDesc>0)
                             {
                                 vp.PromocionActual.stockActual -= (int)(vp.prodConDesc/vp.PromocionActual.cantMulUnidades);
+                            }
+                            if (vp.Servicio != null)
+                            {
+                                vp.Servicio.estado = 2;//Facturado
                             }
                         }
                         MV_VentaService.enviarCambios();
