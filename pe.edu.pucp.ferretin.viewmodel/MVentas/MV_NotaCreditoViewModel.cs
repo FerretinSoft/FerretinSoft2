@@ -228,9 +228,16 @@ namespace pe.edu.pucp.ferretin.viewmodel.MVentas
                 this.nombreVendedor = "";
                 this.searchNroDocCliente = "";
 
-                this.notaCredito = MV_NotaCreditoService.obtenerNotaCreditoById((long)id);
-                this.listaProductos = MV_DevolucionService.obtenerProductosbyIdDevolucionNC((long)notaCredito.id_devolucion);
-
+                try
+                {
+                    this.notaCredito = MV_NotaCreditoService.obtenerNotaCreditoById((long)id);
+                }
+                catch { };
+                try
+                {
+                    this.listaProductos = MV_DevolucionService.obtenerProductosbyIdDevolucionNC((long)notaCredito.id_devolucion);
+                }
+                catch { };
                 selectedTab = 1;
             }
             catch (Exception e)
