@@ -10,7 +10,7 @@ namespace pe.edu.pucp.ferretin.controller.MAlmacen
 {
     public class MA_ProductoService : MA_ComunService
     {
-        
+
         private static IEnumerable<Producto> _listaProductos;
         public static IEnumerable<Producto> listaProductos
         {
@@ -30,12 +30,14 @@ namespace pe.edu.pucp.ferretin.controller.MAlmacen
 
         public static IEnumerable<Producto> obtenerTodosProductos()
         {
-            return listaProductos;
+            IEnumerable<Producto> listaProd = from p in db.Producto
+                                              select p;
+            return listaProd;
         }
 
         public static String obtenerUltimoCodigo()
         {
-            IEnumerable<Producto> listaProd = from p in listaProductos
+            IEnumerable<Producto> listaProd = from p in db.Producto
                                               orderby p.codigo descending
                                               select p;
 
@@ -137,7 +139,7 @@ namespace pe.edu.pucp.ferretin.controller.MAlmacen
 
             if (searchCod != "") //se da prioridad a búsqueda por codigo
             {
-                result = from p in listaProductos
+                result = from p in db.Producto
                                  where p.codigo==searchCod
                                  select p;
 
@@ -157,7 +159,7 @@ namespace pe.edu.pucp.ferretin.controller.MAlmacen
                 if ((idCategoria.nombre == "Todos" && search == ""))
                 {
                     //if ((idCategoria ==null && search =="")) {
-                    result = from p in listaProductos
+                    result = from p in db.Producto
                                      orderby p.id
                                      select p;
 
@@ -165,7 +167,7 @@ namespace pe.edu.pucp.ferretin.controller.MAlmacen
                 else if (idCategoria.id == 0)
                 {
                     result =
-                        from p in listaProductos
+                        from p in db.Producto
                         where
                         p.nombre.ToLower().Contains(search)
                         select p;
@@ -173,7 +175,7 @@ namespace pe.edu.pucp.ferretin.controller.MAlmacen
                 else
                 {
                     result =
-                        from p in listaProductos
+                        from p in db.Producto
                         from pc in db.ProductoCategoria
                         where
                         p.nombre.ToLower().Contains(search) &&

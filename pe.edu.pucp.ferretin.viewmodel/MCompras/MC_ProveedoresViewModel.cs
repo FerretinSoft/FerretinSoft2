@@ -387,6 +387,8 @@ namespace pe.edu.pucp.ferretin.viewmodel.MCompras
                     else
                     {
                         MessageBox.Show("El Proveedor fue guardado con éxito");
+                        this.statusTab = Tab.BUSQUEDA;
+                        listaProveedores = MC_ProveedorService.listaProveedores;
                     }
                 }
                 else

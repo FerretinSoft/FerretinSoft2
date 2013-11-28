@@ -1,4 +1,5 @@
 ﻿using System.Windows;
+using pe.edu.pucp.ferretin.controller;
 
 namespace pe.edu.pucp.ferretin.view.MCompras
 {
@@ -15,6 +16,11 @@ namespace pe.edu.pucp.ferretin.view.MCompras
         private void consolidarBtn_Click(object sender, RoutedEventArgs e)
         {
 
+        }
+
+        private void solAbs_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            ComunService.Clean();
         }
     }
 }

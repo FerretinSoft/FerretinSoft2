@@ -16,14 +16,14 @@ namespace pe.edu.pucp.ferretin.view.MVentas {
     using CrystalDecisions.CrystalReports.Engine;
     
     
-    public class ReporteDevolucionTienda : ReportClass {
+    public class ReporteServiciosTienda : ReportClass {
         
-        public ReporteDevolucionTienda() {
+        public ReporteServiciosTienda() {
         }
         
         public override string ResourceName {
             get {
-                return "ReporteDevolucionTienda.rpt";
+                return "ReporteServiciosTienda.rpt";
             }
             set {
                 // Do nothing
@@ -41,7 +41,7 @@ namespace pe.edu.pucp.ferretin.view.MVentas {
         
         public override string FullResourceName {
             get {
-                return "pe.edu.pucp.ferretin.view.MVentas.ReporteDevolucionTienda.rpt";
+                return "pe.edu.pucp.ferretin.view.MVentas.ReporteServiciosTienda.rpt";
             }
             set {
                 // Do nothing
@@ -74,7 +74,7 @@ namespace pe.edu.pucp.ferretin.view.MVentas {
         
         [Browsable(false)]
         [DesignerSerializationVisibilityAttribute(System.ComponentModel.DesignerSerializationVisibility.Hidden)]
-        public CrystalDecisions.CrystalReports.Engine.Section Section3 {
+        public CrystalDecisions.CrystalReports.Engine.Section GroupHeaderSection2 {
             get {
                 return this.ReportDefinition.Sections[3];
             }
@@ -82,7 +82,7 @@ namespace pe.edu.pucp.ferretin.view.MVentas {
         
         [Browsable(false)]
         [DesignerSerializationVisibilityAttribute(System.ComponentModel.DesignerSerializationVisibility.Hidden)]
-        public CrystalDecisions.CrystalReports.Engine.Section GroupFooterSection1 {
+        public CrystalDecisions.CrystalReports.Engine.Section Section3 {
             get {
                 return this.ReportDefinition.Sections[4];
             }
@@ -90,7 +90,7 @@ namespace pe.edu.pucp.ferretin.view.MVentas {
         
         [Browsable(false)]
         [DesignerSerializationVisibilityAttribute(System.ComponentModel.DesignerSerializationVisibility.Hidden)]
-        public CrystalDecisions.CrystalReports.Engine.Section Section4 {
+        public CrystalDecisions.CrystalReports.Engine.Section GroupFooterSection2 {
             get {
                 return this.ReportDefinition.Sections[5];
             }
@@ -98,9 +98,25 @@ namespace pe.edu.pucp.ferretin.view.MVentas {
         
         [Browsable(false)]
         [DesignerSerializationVisibilityAttribute(System.ComponentModel.DesignerSerializationVisibility.Hidden)]
-        public CrystalDecisions.CrystalReports.Engine.Section Section5 {
+        public CrystalDecisions.CrystalReports.Engine.Section GroupFooterSection1 {
             get {
                 return this.ReportDefinition.Sections[6];
+            }
+        }
+        
+        [Browsable(false)]
+        [DesignerSerializationVisibilityAttribute(System.ComponentModel.DesignerSerializationVisibility.Hidden)]
+        public CrystalDecisions.CrystalReports.Engine.Section Section4 {
+            get {
+                return this.ReportDefinition.Sections[7];
+            }
+        }
+        
+        [Browsable(false)]
+        [DesignerSerializationVisibilityAttribute(System.ComponentModel.DesignerSerializationVisibility.Hidden)]
+        public CrystalDecisions.CrystalReports.Engine.Section Section5 {
+            get {
+                return this.ReportDefinition.Sections[8];
             }
         }
         
@@ -130,17 +146,25 @@ namespace pe.edu.pucp.ferretin.view.MVentas {
         
         [Browsable(false)]
         [DesignerSerializationVisibilityAttribute(System.ComponentModel.DesignerSerializationVisibility.Hidden)]
-        public CrystalDecisions.Shared.IParameterField Parameter_Mi_parámetro {
+        public CrystalDecisions.Shared.IParameterField Parameter_codCliente {
             get {
                 return this.DataDefinition.ParameterFields[3];
+            }
+        }
+        
+        [Browsable(false)]
+        [DesignerSerializationVisibilityAttribute(System.ComponentModel.DesignerSerializationVisibility.Hidden)]
+        public CrystalDecisions.Shared.IParameterField Parameter_estadoServicio {
+            get {
+                return this.DataDefinition.ParameterFields[4];
             }
         }
     }
     
     [System.Drawing.ToolboxBitmapAttribute(typeof(CrystalDecisions.Shared.ExportOptions), "report.bmp")]
-    public class CachedReporteDevolucionTienda : Component, ICachedReport {
+    public class CachedReporteServiciosTienda : Component, ICachedReport {
         
-        public CachedReporteDevolucionTienda() {
+        public CachedReporteServiciosTienda() {
         }
         
         [Browsable(false)]
@@ -177,7 +201,7 @@ namespace pe.edu.pucp.ferretin.view.MVentas {
         }
         
         public virtual CrystalDecisions.CrystalReports.Engine.ReportDocument CreateReport() {
-            ReporteDevolucionTienda rpt = new ReporteDevolucionTienda();
+            ReporteServiciosTienda rpt = new ReporteServiciosTienda();
             rpt.Site = this.Site;
             return rpt;
         }

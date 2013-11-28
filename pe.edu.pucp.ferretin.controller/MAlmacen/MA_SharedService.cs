@@ -13,8 +13,6 @@ namespace pe.edu.pucp.ferretin.controller.MAlmacen
     /// </summary>
     public class MA_SharedService : ComunService
     {
-
-
         public static Producto obtenerProductoxCodigo(String codigo)
         {
             Producto prod = (from p in MA_ProductoService.listaProductos
@@ -76,24 +74,23 @@ namespace pe.edu.pucp.ferretin.controller.MAlmacen
         /// <param name="tienda">Tienda desde la que se realiza la venta</param>
         /// <param name="items">Listado de VentaProductos para la venta</param>
         /// <returns>Devuelve la cadena vacia si se registró el movimiento correctamente, en caso contrario devuelve el error ocurrido</returns>
-        public static String registrarVenta(Tienda tienda, EntitySet<VentaProducto> items)
+        public static String registrarVenta(Tienda tienda, IEnumerable<VentaProducto> items)
         {
-            if (items.Count <= 0) return "Debe haber al menos un producto para realizar el movimiento.";
+            if (items.Count() <= 0) return "Debe haber al menos un producto para realizar el movimiento.";
             
             Movimiento movimiento = new Movimiento();
-            //movimiento.codigo = Movimiento.generateCode();
-            movimiento.fecha = DateTime.Today;
+            movimiento.fecha = DateTime.Now;//Fecha y hora actual
             movimiento.MovimientoEstado = MA_EstadoMovimientoService.getMovimientoEstadoByName("Finalizado");
             movimiento.MovimientoTipo = MA_TipoMovimientoService.getMovimientoTipoByName("Venta");
             movimiento.Tienda = tienda;
             movimiento.MovimientoProducto = new EntitySet<MovimientoProducto>();
             MovimientoProducto current;
-            for (int i = 0; i < items.Count; i++)
+            for (int i = 0; i < items.Count(); i++)
             {
                 current = new MovimientoProducto();
-                current.cantidad = items[i].cantidad;
+                current.cantidad = items.ElementAt(i).cantidad;
                 current.Movimiento = movimiento;
-                current.Producto = items[i].Producto;
+                current.Producto = items.ElementAt(i).Producto;
                 movimiento.MovimientoProducto.Add(current);                
             }
             bool ok = MA_MovimientosService.InsertarMovimiento(movimiento);
@@ -112,7 +109,6 @@ namespace pe.edu.pucp.ferretin.controller.MAlmacen
             
             Movimiento movimiento = new Movimiento();
             DateTime today = DateTime.Today;
-            //movimiento.codigo = Movimiento.generateCode();
             movimiento.fecha = today;
             movimiento.MovimientoEstado = MA_EstadoMovimientoService.getMovimientoEstadoByName("Finalizado");
             movimiento.MovimientoTipo = MA_TipoMovimientoService.getMovimientoTipoByName("Devolución");
@@ -145,7 +141,6 @@ namespace pe.edu.pucp.ferretin.controller.MAlmacen
             
             Movimiento movimiento = new Movimiento();
             DateTime today = DateTime.Today;
-            //movimiento.codigo = Movimiento.generateCode();
             movimiento.fecha = today;
             movimiento.MovimientoEstado = MA_EstadoMovimientoService.getMovimientoEstadoByName("Finalizado");
             movimiento.MovimientoTipo = MA_TipoMovimientoService.getMovimientoTipoByName("Compra");
@@ -176,7 +171,6 @@ namespace pe.edu.pucp.ferretin.controller.MAlmacen
             if (items.Count <= 0) return "Debe haber al menos un producto para realizar el movimiento.";
             Movimiento movimiento = new Movimiento();
             DateTime today = DateTime.Today;
-            //movimiento.codigo = Movimiento.generateCode();
             movimiento.fecha = today;
             movimiento.MovimientoEstado = MA_EstadoMovimientoService.getMovimientoEstadoByName("Finalizado");
             movimiento.MovimientoTipo = MA_TipoMovimientoService.getMovimientoTipoByName("Transferencia");
@@ -215,24 +209,22 @@ namespace pe.edu.pucp.ferretin.controller.MAlmacen
                 if(diferencia < 0)
                     result.Add(current, diferencia * -1);
 			}
-            foreach (var item in MA_SolicitudAbastecimientoService.buscarSolicitudesPendientesPorTienda(almacen))
-            {
-                foreach (var prod in item.SolicitudAbastecimientoProducto)
-                {
-                    current = MA_ProductoAlmacenService.ObtenerProductoAlmacenPorTiendaProducto(almacen, prod.Producto);
-                    if (prod.cantidadRestante > current.stock - current.stockMin)
-                    {
-                        if (!result.ContainsKey(current))
-                            result.Add(current, (decimal)prod.cantidadRestante - (decimal)current.stock);
-                        else
-                            result[current] = result[current] + (decimal)(prod.cantidadRestante == null ? 0 : prod.cantidadRestante); 
-                    }
-                }                
-            }
+            //foreach (var item in MA_SolicitudAbastecimientoService.buscarSolicitudesPendientesPorTienda(almacen))
+            //{
+            //    foreach (var prod in item.SolicitudAbastecimientoProducto)
+            //    {
+            //        current = MA_ProductoAlmacenService.ObtenerProductoAlmacenPorTiendaProducto(almacen, prod.Producto);
+            //        if (prod.cantidadRestante > current.stock - current.stockMin)
+            //        {
+            //            if (!result.ContainsKey(current))
+            //                result.Add(current, (decimal)prod.cantidadRestante - (decimal)current.stock);
+            //            else
+            //                result[current] = result[current] + (decimal)(prod.cantidadRestante == null ? 0 : prod.cantidadRestante); 
+            //        }
+            //    }                
+            //}
             return result;
         }
-
-
 
     }
 }

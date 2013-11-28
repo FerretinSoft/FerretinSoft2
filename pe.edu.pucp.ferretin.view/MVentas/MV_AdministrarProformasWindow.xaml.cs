@@ -111,7 +111,7 @@ namespace pe.edu.pucp.ferretin.view.MVentas
                         padreViewModel.venta.VentaProducto.Clear();
                         foreach (var vp in miVM.proforma.ProformaProducto)
                         {
-                            var stockDisponible = (int)vp.Producto.ProductoAlmacen.First(pa => pa.Tienda.Equals(padreViewModel.venta.Tienda)).stock;
+                            var _stockDisponible = (int)vp.Producto.ProductoAlmacen.First(pa => pa.Tienda.Equals(padreViewModel.venta.Tienda)).stock;
 
                             padreViewModel.venta.Cliente = vp.Proforma.Cliente;
                             VentaProducto ventaProducto = new VentaProducto()
@@ -124,16 +124,16 @@ namespace pe.edu.pucp.ferretin.view.MVentas
                                 moneda = vp.moneda,
                                 montoParcial = vp.montoParcial,
                                 montoReal = vp.montoReal,
-                                precioPuntos = 1,//TODO vp.precioPuntos,
-                                precioPuntosParcial = 1,//TODO cp.precioPuntosParcial
+                                precioPuntos = vp.precioPuntos,
+                                precioPuntosParcial = vp.precioPuntosParcial,
                                 precioUnitario = vp.preciounitario,
                                 prodConDesc = vp.prodConDesc,
                                 Producto = vp.Producto,
                                 PromocionActual = null,
                                 puntosCanejado = 0,
-                                puntosGanado = 1,//TODO vp.puntosGanado,
-                                stockDisponible = stockDisponible,
-                                stockRestante = stockDisponible - vp.cantidad,
+                                puntosGanado = vp.puntosGanado,
+                                stockDisponible = _stockDisponible,
+                                stockRestante = _stockDisponible - vp.cantidad,
                                 tipoCambio = vp.tipoCambio,
                                 Venta = padreViewModel.venta,
                             };

@@ -350,6 +350,7 @@ namespace pe.edu.pucp.ferretin.viewmodel.MAlmacen
                 NotifyPropertyChanged("statusTab");
                 NotifyPropertyChanged("productoImagen");
                 NotifyPropertyChanged("listaTiendas");
+                NotifyPropertyChanged("listaProductos");
                 NotifyPropertyChanged("categoriaPrincipal");
             }
         }

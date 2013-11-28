@@ -14,7 +14,14 @@ namespace pe.edu.pucp.ferretin.model
         {
             get
             {
-                return cantidad.ToString() + " X " + Producto.nombre.ToUpper() + " ";
+                if (this.Servicio!=null)
+                {
+                    return "SERV " + this.Servicio.codigo;
+                }
+                else
+                {
+                    return cantidad.ToString() + " X " + Producto.nombre.ToUpper() + " ";
+                }
             }
         }
 
@@ -49,6 +56,7 @@ namespace pe.edu.pucp.ferretin.model
                 return;
             }
 
+            stockRestante = stockDisponible - cantidad;
 
             //Si supera el límite de puntos del usuario quito el canjeado
             if (canjeado.Value && this.Venta != null && this.Venta.Cliente != null && this.Venta.Cliente.puntosActual!=null && this.Venta.Cliente.puntosActual < (this.Venta.puntosCanjeados))
@@ -167,6 +175,8 @@ namespace pe.edu.pucp.ferretin.model
             }
         }
 
+
+
         private bool? _vieneDeProforma = false;
         public bool? vieneDeProforma
         {
@@ -181,6 +191,28 @@ namespace pe.edu.pucp.ferretin.model
                 SendPropertyChanged("noVieneDeProforma");
             }
         }
+
+
+        private string _nombreProducto = "";
+        public string nombreProducto
+        {
+            get
+            {
+                if (Producto != null)
+                {
+                    return Producto.nombre.ToUpper();
+                }
+                else
+                {
+                    return _nombreProducto;
+                }
+            }
+            set
+            {
+                _nombreProducto = value;
+            }
+        }
+
 
     }
 }

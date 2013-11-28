@@ -915,7 +915,7 @@ namespace pe.edu.pucp.ferretin.viewmodel.MCompras
                         documentoCompra.total = Decimal.Round(subTotal.Value, 2);
                         documentoCompra.subTotal = Decimal.Round((documentoCompra.total / (((decimal)MS_SharedService.obtenerIGV() / (100)) + 1)).Value, 2);
                         documentoCompra.igv = Decimal.Round((documentoCompra.total - documentoCompra.subTotal).Value, 2);
-                        documentoCompra.codigo = MC_DocumentoCompraService.generarCodigoDC(documentoCompra.tipo);
+                        documentoCompra.codigo = MC_DocumentoCompraService.generarCodigoDC_V2(documentoCompra.tipo);
 
                         if (documentoCompra.tipo == 1)
                             ComunService.idVentana(54);
@@ -990,8 +990,8 @@ namespace pe.edu.pucp.ferretin.viewmodel.MCompras
                 ocGenerada = new DocumentoCompra()
                 {
                     tipo = 2,
-                    codigo = MC_DocumentoCompraService.generarCodigoDC(2),
-                    fechaEmision = DateTime.Now,
+                    codigo = MC_DocumentoCompraService.generarCodigoDC_V2(2),
+                    fechaEmision = DateTime.Now.Date,
                     DocumentoCompra1 = this.documentoCompra,
                     DocumentoCompraEstado = ComunService.db.DocumentoCompraEstado.Where(dce => dce.id == 5).SingleOrDefault(),
                     //DocumentoCompraEstado = MC_DocumentoCompraService.obtenerEstado(1),

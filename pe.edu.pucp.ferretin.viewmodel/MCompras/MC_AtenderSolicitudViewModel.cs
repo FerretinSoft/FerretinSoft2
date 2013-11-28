@@ -19,7 +19,7 @@ namespace pe.edu.pucp.ferretin.viewmodel.MCompras
    
         double igv = MS_ComunService.obtenerIGV();
         Usuario usr = MS_ComunService.usuarioL;
-        int cont = MC_DocumentoCompraService.devuelvecantidadDC(2);
+        int cont = MC_DocumentoCompraService.devuelvecantidadDC_V2(2);
      
 
 
@@ -165,7 +165,7 @@ namespace pe.edu.pucp.ferretin.viewmodel.MCompras
                             //codigo = MC_DocumentoCompraService.generarCodigoDC(2),
                             codigo = "ORD" + cont.ToString(),
                             DocumentoCompraEstado = dce,
-                            fechaEmision = DateTime.Now,
+                            fechaEmision = DateTime.Now.Date,
                             Usuario1 = usr,
                             Proveedor = seleccionado.Proveedor,
                             total = 0,

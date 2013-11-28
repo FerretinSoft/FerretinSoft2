@@ -212,6 +212,29 @@ namespace pe.edu.pucp.ferretin.controller.MCompras
                 return null;
         }
 
+        public static string generarCodigoDC_V2(byte? tipoDC)
+        {
+            IEnumerable<DocumentoCompra> documentos = listaDocumentosCompra.Where(d => d.tipo == tipoDC).OrderByDescending(d => d.id);
+            string ultimoCod = documentos.Count() <= 0 ? "" : documentos.First().codigo;
+
+            if (ultimoCod.Length == 0)
+            {
+                if (tipoDC == 1)
+                    return "COT1";
+                else
+                    return "ORD1";
+            }
+            else
+            {
+                int id = Int32.Parse(ultimoCod.Substring(3)) + 1;
+                if (tipoDC == 1)
+                    return "COT" + id.ToString();
+                else
+                    return "ORD" + id.ToString();
+            }
+
+        }
+
         public static string generarCodigoDC(byte? tipoDC)
         {
             IEnumerable<DocumentoCompra> documentos = (from e in listaDocumentosCompra
@@ -230,6 +253,22 @@ namespace pe.edu.pucp.ferretin.controller.MCompras
                                                        select e);
             return documentos.Count()+1;
 
+        }
+
+        public static int devuelvecantidadDC_V2(byte? tipoDC)
+        {
+            IEnumerable<DocumentoCompra> documentos = listaDocumentosCompra.Where(d => d.tipo == tipoDC).OrderByDescending(d => d.id);
+            string ultimoCod = documentos.Count() <= 0 ? "" : documentos.First().codigo;
+
+            if (ultimoCod.Length == 0)
+            {
+                return 1;
+            }
+            else
+            {
+                int id = Int32.Parse(ultimoCod.Substring(3)) + 1;
+                return id;
+            }   
         }
 
         public static bool insertarDocumentoCompra(DocumentoCompra documentoCompra)

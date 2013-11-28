@@ -139,7 +139,8 @@ namespace pe.edu.pucp.ferretin.view.MSeguridad
                         ComunService.usuarioLo(value);
                         MS_CambiarContraseñaUsuario cc = new MS_CambiarContraseñaUsuario(usuarioLog, 0);
                         MessageBox.Show("Inicio de sesión exitoso. A continuación cambie su contraseña.");
-                        cc.ShowDialog();
+                        
+                        cc.Show();
                         this.Close();
                         break;
 

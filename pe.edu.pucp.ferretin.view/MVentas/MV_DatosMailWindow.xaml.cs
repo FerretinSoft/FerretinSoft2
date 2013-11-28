@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Net.Mail;
 using System.Text;
@@ -12,6 +13,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using pe.edu.pucp.ferretin.controller.MVentas;
 using pe.edu.pucp.ferretin.viewmodel.MVentas;
 
 namespace pe.edu.pucp.ferretin.view.MVentas
@@ -24,6 +26,12 @@ namespace pe.edu.pucp.ferretin.view.MVentas
         public MV_DatosMailWindow()
         {
             InitializeComponent();
+        }
+
+        private void Window_Closing(object sender, CancelEventArgs e)
+        {
+            MV_ComunService.Clean();
+
         }
 
         private void Button_Click_Mail(object sender, RoutedEventArgs e)
@@ -52,6 +60,11 @@ namespace pe.edu.pucp.ferretin.view.MVentas
                 print.enviarEmail(vm.searchFechaInicio, vm.searchFechaFin, vm.selectedTienda.id, "RProducto", "", "", vm.searchProducto, vm.emailEnviar, vm.mensajeEnviar);
             else if (vm.selectedReport == 0)
                 print.enviarEmail(vm.searchFechaInicio, vm.searchFechaFin, 0, "RCliente", "", vm.searchCliente, "", vm.emailEnviar, vm.mensajeEnviar);
+            else if (vm.selectedReport == 4)
+                print.enviarEmail(vm.searchFechaInicio, vm.searchFechaFin, vm.selectedTienda.id, "RDevolucion", "", "", "", vm.emailEnviar, vm.mensajeEnviar);
+            else if (vm.selectedReport == 5)
+                print.enviarEmail(vm.searchFechaInicio, vm.searchFechaFin, vm.selectedTienda.id, "RServicios", "", vm.searchCliente, "", vm.emailEnviar, vm.mensajeEnviar);
+            
             else
                 print.enviarEmail(vm.searchFechaInicio, vm.searchFechaFin, 0, "RVendedor", vm.searchVendedor, "", "", vm.emailEnviar, vm.mensajeEnviar);
             this.Close();

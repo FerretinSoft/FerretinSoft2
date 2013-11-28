@@ -55,7 +55,8 @@ namespace pe.edu.pucp.ferretin.viewmodel.MCompras
                 _listaCotizaciones = MC_DocumentoCompraService.listaDocumentosCompra.Where(dc => dc.Proveedor.razonSoc.ToLower().Trim().Contains(searchRazonSoc.ToLower().Trim()) && dc.Proveedor.ruc.ToLower().Trim().Contains(searchRuc.ToLower().Trim())
                     && (searchFechaDesde == null || (dc.fechaEmision != null && dc.fechaEmision >= searchFechaDesde))
                     && (searchFechaHasta == null || (dc.fechaEmision != null && dc.fechaEmision <= searchFechaHasta))
-                    && (dc.Usuario1.Empleado.tiendaActual.id == ComunService.usuarioL.Empleado.tiendaActual.id)
+                    && (dc.Tienda.id == ComunService.usuarioL.Empleado.tiendaActual.id)
+                    && (dc.codigo != null)
                     && dc.tipo == 2);
 
                 return _listaCotizaciones;

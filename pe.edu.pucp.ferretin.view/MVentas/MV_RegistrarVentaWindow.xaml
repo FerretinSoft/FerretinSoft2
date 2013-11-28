@@ -90,11 +90,27 @@
                         <ImageBrush ImageSource="../Resources/search1_20.png"/>
                     </Button.Background>
                 </Button>
+                <TextBlock Text="Código de Servicio:" VerticalAlignment="Center" Margin="5,0"/>
+                <TextBox Text="{Binding codServAgregar, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Width="100" BorderBrush="#DDD" Height="18" Margin="5,0" ToolTip="Escriba el código del producto que desea agregar y presione el boton +">
+                    <TextBox.InputBindings>
+                        <KeyBinding Key="Enter" Command="{Binding agregarServicioCommand}" />
+                    </TextBox.InputBindings>
+                </TextBox>
+                <Button Command="{Binding agregarServicioCommand}" Content="" VerticalAlignment="Stretch" Width="18" Height="18" Margin="5,0" ToolTip="Agregar producto con el código indicado">
+                    <Button.Background>
+                        <ImageBrush ImageSource="../Resources/add_20.png" Stretch="None"/>
+                    </Button.Background>
+                </Button>
+                <Button Content="" Height="18" VerticalAlignment="Center" Width="18" Margin="5,0" ToolTip="Buscar otros productos con otros criterios" Click="Button_Click_3">
+                    <Button.Background>
+                        <ImageBrush ImageSource="../Resources/search1_20.png"/>
+                    </Button.Background>
+                </Button>
             </ToolBar>
             <DataGrid ItemsSource="{Binding venta.VentaProducto, Mode=TwoWay, NotifyOnTargetUpdated=True, NotifyOnSourceUpdated=True, UpdateSourceTrigger=PropertyChanged}" AutoGenerateColumns="False" CanUserAddRows="False" Grid.Row="1" Grid.Column="0" VerticalAlignment="Stretch" Margin="0,5" CanUserSortColumns="False">
                 <DataGrid.Columns>
                     <DataGridHyperlinkColumn Width="100" Binding="{Binding Producto.codigo}" IsReadOnly="True" Header="Código"/>
-                    <DataGridTextColumn Width="1*" Binding="{Binding Producto.nombre}" Header="Nombre" IsReadOnly="True"/>
+                    <DataGridTextColumn Width="1*" Binding="{Binding nombreProducto}" Header="Nombre" IsReadOnly="True"/>
                     <DataGridTextColumn Width="80" Binding="{Binding cantidad, UpdateSourceTrigger=PropertyChanged}"  Header="Cantidad">
                         <DataGridTextColumn.EditingElementStyle>
                             <Style TargetType="TextBox">

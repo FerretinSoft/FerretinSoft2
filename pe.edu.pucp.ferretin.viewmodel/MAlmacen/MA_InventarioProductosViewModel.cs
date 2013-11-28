@@ -151,7 +151,7 @@ namespace pe.edu.pucp.ferretin.viewmodel.MAlmacen
                 //Pongo el ID en 0 para que al buscar, no filtre nada cuando se selecciona todos
                 IEnumerable<Categoria> items = new Categoria[] { new Categoria{ id = 0, nombre = "Todos" } };
                 //Luego concateno el itemcon los elementos del combobox
-                return items.Concat(MA_InventarioService.listaCategoria);
+                return items.Concat(MA_CategoriaService.categorias);
             }
         }
 

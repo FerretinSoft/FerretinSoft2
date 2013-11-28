@@ -180,6 +180,12 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>ReporteDevolucionTienda.rpt</DependentUpon>
     </Compile>
+    <Compile Include="MVentas\ReporteServiciosTienda.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ReporteServiciosTienda.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="MVentas\ReporteVentaCliente.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -699,6 +705,10 @@
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
       <LastGenOutput>ReporteDevolucionTienda.cs</LastGenOutput>
     </EmbeddedResource>
+    <EmbeddedResource Include="MVentas\ReporteServiciosTienda.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>ReporteServiciosTienda.cs</LastGenOutput>
+    </EmbeddedResource>
     <EmbeddedResource Include="MVentas\ReporteVentaCliente.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
       <LastGenOutput>ReporteVentaCliente.cs</LastGenOutput>
@@ -820,6 +830,9 @@
   </ItemGroup>
   <ItemGroup>
     <WCFMetadata Include="Service References\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\btc.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

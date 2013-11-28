@@ -199,7 +199,7 @@
                     <DataGrid IsReadOnly="True"  ItemsSource="{Binding Path=listaProductos}"  AutoGenerateColumns="False" Margin="5" Grid.Column="1">
                         <DataGrid.Columns>
                             <DataGridTextColumn Width="1*" Binding="{Binding Path=Producto.codigo}" ClipboardContentBinding="{x:Null}" Header="Cód Prod"/>
-                            <DataGridTextColumn Width="2*" Binding="{Binding Path=Producto.nombre}" ClipboardContentBinding="{x:Null}" Header="Descripción"/>
+                            <DataGridTextColumn Width="2*" Binding="{Binding Path=nombreProducto}" ClipboardContentBinding="{x:Null}" Header="Descripción"/>
                             <DataGridTextColumn Width="0.9*"  Binding="{Binding Path=cantidad}" ClipboardContentBinding="{x:Null}" Header="Cantidad"/>
                             <DataGridTextColumn Width="1*"  Binding="{Binding Path=Producto.monedaString}" Header="Moneda"/>
                             <DataGridTextColumn Width="0.7*" Binding="{Binding Path=precioUnitario}" ClipboardContentBinding="{x:Null}" Header="Precio"/>

@@ -149,6 +149,14 @@ namespace pe.edu.pucp.ferretin.viewmodel.MVentas
                         }
                         break;
                     };
+                case 5:
+                    {
+                        ventaMP.Venta = venta;
+                        ventaMP.MedioPago = mediosPago.ElementAt(1);
+                        ventaMP.detalle = "BitCoin # Transacción " + new Random(100).Next(11111111, 99999999).ToString() + "";
+                        ventaMP.monto = venta.diferencia;
+                        break;
+                    }
             }
             if(ventaMP!=null)
                 venta.VentaMedioPago.Add(ventaMP);
@@ -168,7 +176,12 @@ namespace pe.edu.pucp.ferretin.viewmodel.MVentas
             {
                 
                 ComunService.idVentana(42);
-                result = MA_SharedService.registrarVenta(venta.Usuario.Empleado.tiendaActual, venta.VentaProducto);
+
+                var productosMover = venta.VentaProducto.Where(vp=>vp.Servicio==null);
+                if (productosMover.Count()>0)
+                {
+                    result = MA_SharedService.registrarVenta(venta.Usuario.Empleado.tiendaActual, productosMover);
+                }
                 if (result.Length <= 0)//si resulto bien
                 {
                     venta.fecha = DateTime.Now;
@@ -213,7 +226,12 @@ namespace pe.edu.pucp.ferretin.viewmodel.MVentas
                             {
                                 vp.PromocionActual.stockActual -= (int)(vp.prodConDesc/vp.PromocionActual.cantMulUnidades);
                             }
+                            if (vp.Servicio != null)
+                            {
+                                vp.Servicio.estado = 2;//Facturado
+                            }
                         }
+                        venta.estado = 1;
                         MV_VentaService.enviarCambios();
                     }
                     catch (Exception ex) {
@@ -227,11 +245,12 @@ namespace pe.edu.pucp.ferretin.viewmodel.MVentas
             }
             catch (Exception e)
             {
-                result = "Error al registrar en almacen: "+ e.Message;
+                result = e.Message;
             }
             if (result.Trim().Length>0)
             {
-                MessageBox.Show(result);
+                MessageBox.Show("Error en almacen:\nNo se registrará la venta.\n"+result);
+                //ComunService.Clean();//Limpio la BD por si acaso
             }
         }
 

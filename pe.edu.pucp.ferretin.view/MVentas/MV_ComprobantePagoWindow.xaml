@@ -14,7 +14,7 @@
             </Grid.RowDefinitions>
 
             <StackPanel x:Name="printZone" Height="Auto" Width="Auto">
-                <TextBlock Text="FERRRETINMARK - Todo se cuelga menos" HorizontalAlignment="Center" Margin="10"/>
+                <TextBlock Text="FERRRETINMARK - Todo cuesta menos" HorizontalAlignment="Center" Margin="10"/>
                 <TextBlock Text="FERRRETINSOFT S.A." HorizontalAlignment="Center" Margin="0"/>
                 <TextBlock Text="{Binding venta.Usuario.Empleado.tiendaActual.direccion}" HorizontalAlignment="Center" Margin="0"/>
                 <TextBlock  HorizontalAlignment="Center" Margin="0"> 

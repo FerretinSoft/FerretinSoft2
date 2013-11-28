@@ -364,12 +364,24 @@ namespace pe.edu.pucp.ferretin.viewmodel.MCompras
                         else
                         {
                             MessageBox.Show("La Guia de Remision se agrego con exito", "Guia de Remision", MessageBoxButton.OK, MessageBoxImage.Information);
-                            if (guiaRemision.DocumentoCompra.id_solicitud_compra != null)
-                              //  guiaRemision.DocumentoCompra.SolicitudCompra.estado = 2;
-                                for (int i = 0; i < guiaRemision.DocumentoCompra.DocumentoCompraProducto.Count(); i++)
-                                    MC_AtenderSolicitudViewModel.actualizaestado(guiaRemision.Tienda, guiaRemision.DocumentoCompra.DocumentoCompraProducto[i].Producto);
-                            
-                            exito = true;
+
+                            try
+                            {
+                                if (guiaRemision.DocumentoCompra.id_solicitud_compra != null)
+                                {
+                                    for (int i = 0; i < guiaRemision.DocumentoCompra.DocumentoCompraProducto.Count(); i++)
+                                        if (guiaRemision.GuiaRemisionProducto[i].DocumentoCompraProducto.cantidadRestante == 0)
+                                            MC_AtenderSolicitudViewModel.actualizaestado(guiaRemision.Tienda, guiaRemision.DocumentoCompra.DocumentoCompraProducto[i].Producto);
+                                }
+                                    //  guiaRemision.DocumentoCompra.SolicitudCompra.estado = 2;                                   
+                                exito = true;
+                            }
+                            catch (Exception e)
+                            {
+                                MessageBox.Show(e.Message);
+                            }
+                                
+
                         }
                     }
                     if (exito)

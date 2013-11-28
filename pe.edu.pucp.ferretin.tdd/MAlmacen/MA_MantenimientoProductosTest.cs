@@ -123,15 +123,7 @@ namespace pe.edu.pucp.ferretin.tdd.MAlmacen
                 IEnumerable<ProductoAlmacen> listaProductosAlmacen = MA_ProductoAlmacenService.db.ProductoAlmacen.
                                                                     Where(pa => pa.id_producto.Value == p.id);
                 int numProdxTienda = listaProductosAlmacen.Count();
-                try
-                {
-                    Assert.AreEqual(numProdxTienda, numTiendas);
-                }
-                catch (Exception e)
-                {
-                    Console.WriteLine(p.nombre);
-                }
-
+                Assert.AreEqual(numProdxTienda, numTiendas);
             }
         }
 
@@ -165,6 +157,26 @@ namespace pe.edu.pucp.ferretin.tdd.MAlmacen
             foreach (ProductoAlmacen pa in MA_ProductoService.db.ProductoAlmacen)
             {
                     Assert.LessOrEqual(pa.stockMin, pa.stockMax);
+            }
+        }
+
+        /*Para cada categoria de un producto, debe también tener asignada la categoría padre*/
+        [TestCase]
+        public void Jerarquia_Categoria_Producto()
+        {
+            foreach (Producto p in MA_ProductoService.db.Producto)
+            {
+                IEnumerable<ProductoCategoria> listaProdCat= MA_ProductoService.db.ProductoCategoria.
+                                                           Where(pa => pa.id_producto == p.id);
+
+                foreach (ProductoCategoria pa in listaProdCat)
+                {
+                    if (pa.Categoria.id_padre != null)
+                    {
+                        ProductoCategoria pcc= listaProdCat.Where(pc=>pa.Categoria.id_padre==pc.id_categoria).Single();
+                        Assert.IsNotNull(pcc);
+                    }
+                }
             }
         }
 
