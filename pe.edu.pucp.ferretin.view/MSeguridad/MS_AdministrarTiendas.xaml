@@ -51,9 +51,10 @@
                                     </DataTemplate>
                                 </DataGridTemplateColumn.CellTemplate>
                             </DataGridTemplateColumn>
-                            <DataGridTextColumn Width="300" Binding="{Binding Path=nombre}" ClipboardContentBinding="{x:Null}" Header="Nombre de Tienda"/>
-                            <DataGridTextColumn Width="2*" Binding="{Binding Path=direccion}" ClipboardContentBinding="{x:Null}" Header="Dirección"/>
-
+                            <DataGridTextColumn MinWidth="200" Binding="{Binding Path=nombre}" ClipboardContentBinding="{x:Null}" Header="Nombre de Tienda"/>
+                            <DataGridTextColumn MinWidth="260" Binding="{Binding Path=direccion}" ClipboardContentBinding="{x:Null}" Header="Dirección"/>
+                            <DataGridTextColumn MinWidth="120" Binding="{Binding Path=tipoAux}" ClipboardContentBinding="{x:Null}" Header="Tipo Tienda"/>
+                            <DataGridTextColumn Width="2*" Binding="{Binding Path=estadoAux}" ClipboardContentBinding="{x:Null}" Header="Estado"/>
                         </DataGrid.Columns>
                     </DataGrid>
                     <Label Content="Nombre Tienda:" HorizontalAlignment="Left" Height="26" VerticalAlignment="Top" Width="102" Margin="14.942,82,0,0" Grid.Column="1" Grid.ColumnSpan="2"/>
