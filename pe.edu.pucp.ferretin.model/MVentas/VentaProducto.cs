@@ -14,9 +14,9 @@ namespace pe.edu.pucp.ferretin.model
         {
             get
             {
-                if (isService)
+                if (this.Servicio!=null)
                 {
-                    return "SERV " + servicioSeleccionado.codigo;
+                    return "SERV " + this.Servicio.codigo;
                 }
                 else
                 {
@@ -189,18 +189,6 @@ namespace pe.edu.pucp.ferretin.model
             }
         }
 
-        private bool _isService = false;
-        public bool isService
-        {
-            get
-            {
-                return _isService;
-            }
-            set
-            {
-                _isService = value;
-            }
-        }
 
         private string _nombreProducto = "";
         public string nombreProducto
@@ -222,11 +210,6 @@ namespace pe.edu.pucp.ferretin.model
             }
         }
 
-        public Servicio servicioSeleccionado
-        {
-            get;
-            set;
-        }
 
     }
 }
