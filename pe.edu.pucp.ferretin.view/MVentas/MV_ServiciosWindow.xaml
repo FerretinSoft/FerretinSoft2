@@ -192,6 +192,7 @@
                         </StackPanel>
                     </StackPanel>
                     <StackPanel Grid.Row="4" Orientation="Horizontal" HorizontalAlignment="Center" Margin="5">
+                        <Button Command="{Binding anularServicioCommand}" Margin="0,0,10,0" Height="30" Padding="10,0" Content="ANULAR" Visibility="{Binding canAnular,Mode=OneWay,UpdateSourceTrigger=PropertyChanged}"/>
                         <Button Command="{Binding saveServicioCommand}" Margin="0,0,10,0" Height="30" Padding="10,0" Content="{Binding nombreBotonGuardar, FallbackValue=GUARDAR}" Click="Button_Click_2"/>
                         <Button Command="{Binding cancelServicioCommand}" Padding="10,0" Height="30" Content="CANCELAR"/>
                     </StackPanel>
