@@ -163,6 +163,7 @@ namespace pe.edu.pucp.ferretin.viewmodel.MVentas
                             servicio = new Servicio()
                             {
                                 Empleado = ComunService.usuarioL.Empleado,
+                                Tienda = ComunService.usuarioL.Empleado.tiendaActual,
                                 montoAdicional = 0
                             };
                             nroDocSeleccionado = null;
