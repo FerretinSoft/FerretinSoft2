@@ -36,6 +36,22 @@ namespace pe.edu.pucp.ferretin.viewmodel.MVentas
             }
         }
 
+        public string nombreBotonGuardar
+        {
+            get
+            {
+                return soloSeleccionarServicio ? "SELECCIONAR" : "GUARDAR";
+            }
+        }
+
+        public bool noSoloSeleccionarServicio
+        {
+            get
+            {
+                return !soloSeleccionarServicio;
+            }
+        }
+
         #region Atributos del buscador
 
         private String _codServSearch = "";
@@ -133,6 +149,7 @@ namespace pe.edu.pucp.ferretin.viewmodel.MVentas
                             {
                                 Empleado = ComunService.usuarioL.Empleado
                             };
+                            nroDocSeleccionado = null;
                             servicio.ServicioLinea.ListChanged += ServicioLinea_ListChanged;
                             break;
                         }
@@ -284,6 +301,18 @@ namespace pe.edu.pucp.ferretin.viewmodel.MVentas
             }
         }
 
+        RelayCommand _nuevoServicioCommand;
+        public ICommand nuevoServicioCommand
+        {
+            get
+            {
+                if (_nuevoServicioCommand == null)
+                {
+                    _nuevoServicioCommand = new RelayCommand(p=>statusTab=Tab.AGREGAR);
+                }
+                return _nuevoServicioCommand;
+            }
+        }
 
         #endregion
 

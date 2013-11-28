@@ -217,5 +217,18 @@ namespace pe.edu.pucp.ferretin.view.MVentas
                 MessageBox.Show("Usted no cuenta con el permiso necesario");
             }
         }
+
+        private void administrarServiciosBtn_Click(object sender, RoutedEventArgs e)
+        {
+            if (ComunService.usuarioLpermisos[12].estado == true)
+            {
+                MV_ServiciosWindow w = new MV_ServiciosWindow();
+                w.ShowDialog();
+            }
+            else
+            {
+                MessageBox.Show("Usted no cuenta con el permiso necesario");
+            }
+        }
     }
 }

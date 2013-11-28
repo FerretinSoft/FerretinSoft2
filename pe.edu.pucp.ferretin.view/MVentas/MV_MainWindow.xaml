@@ -64,6 +64,7 @@
         <StackPanel x:Name="postVentaMenu" VerticalAlignment="Top" HorizontalAlignment="Center" Margin="0,50,0,0" Visibility="Collapsed">
             <Label Content="Servicios Postventa" FontSize="24" FontWeight="Bold"/>
 
+            
             <StackPanel Orientation="Horizontal"  Margin="0,10" Cursor="Hand" MouseDown="anularVentaBtn_Click">
                 <Button x:Name="administrarVentasBtn" Content="" Width="32" Height="32" Click="anularVentaBtn_Click">
                     <Button.Background>
@@ -111,6 +112,16 @@
 
         <StackPanel x:Name="preVentaMenu" VerticalAlignment="Top" HorizontalAlignment="Center" Margin="0,50,0,0" Visibility="Collapsed">
             <Label Content="Servicios Preventa" FontSize="24" FontWeight="Bold"/>
+
+
+            <StackPanel Orientation="Horizontal"  Margin="0,10" Cursor="Hand" MouseDown="administrarServiciosBtn_Click">
+                <Button x:Name="administrarServiciosBtn" Content="" Width="32" Height="32" Click="administrarServiciosBtn_Click">
+                    <Button.Background>
+                        <ImageBrush ImageSource="../Resources/forward_32.png"/>
+                    </Button.Background>
+                </Button>
+                <Label Content="Administrar Servicios"  FontSize="16"/>
+            </StackPanel>
             <StackPanel Orientation="Horizontal" Margin="0,10" Cursor="Hand" MouseDown="promocionesBtn_Click">
                 <Button x:Name="administrarPromocionesBtn" Content="" Width="32" Height="32" Click="promocionesBtn_Click">
                     <Button.Background>

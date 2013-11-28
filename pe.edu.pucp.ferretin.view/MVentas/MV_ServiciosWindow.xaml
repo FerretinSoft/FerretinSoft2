@@ -64,7 +64,7 @@
                         </Grid>
                     </GroupBox>
                     <ToolBar HorizontalAlignment="Left" VerticalAlignment="Top" Height="24" Grid.Row="1" Margin="5">
-                        <Button Command="{Binding nuevoServicioCommand}" Content="" VerticalAlignment="Top" Width="20" Margin="0,0,2,-1" Height="20">
+                        <Button Command="{Binding nuevoServicioCommand}" Content="" VerticalAlignment="Top" Width="20" Margin="0,0,2,-1" Height="20" IsEnabled="{Binding noSoloSeleccionarServicio}">
                             <Button.Background>
                                 <ImageBrush ImageSource="../Resources/add_20.png"/>
                             </Button.Background>
@@ -90,7 +90,7 @@
                     </DataGrid>
                 </Grid>
             </TabItem>
-            <TabItem Header="{Binding detallesTabHeader, FallbackValue=Detalles, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}">
+            <TabItem Header="{Binding detallesTabHeader, FallbackValue=Detalles, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" IsEnabled="{Binding noSoloSeleccionarServicio}">
                 <Grid Background="#FFE5E5E5">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto"/>

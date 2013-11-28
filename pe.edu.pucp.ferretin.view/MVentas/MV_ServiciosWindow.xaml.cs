@@ -30,6 +30,8 @@ namespace pe.edu.pucp.ferretin.view.MVentas
         public MV_ServiciosWindow(MV_RegistrarVentaViewModel vm)
         {
             InitializeComponent();
+            var mivm = DataContext as MV_ServiciosViewModel;
+            mivm.soloSeleccionarServicio = true;
             this.vm = vm;
         }
 

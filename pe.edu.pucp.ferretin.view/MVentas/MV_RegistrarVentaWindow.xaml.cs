@@ -104,6 +104,8 @@ namespace pe.edu.pucp.ferretin.view.MVentas
         {
             var vm = DataContext as MV_RegistrarVentaViewModel;
             var buscador = new MV_ServiciosWindow(vm);
+            
+            buscador.Owner = this;
             buscador.ShowDialog();
         }
     }
