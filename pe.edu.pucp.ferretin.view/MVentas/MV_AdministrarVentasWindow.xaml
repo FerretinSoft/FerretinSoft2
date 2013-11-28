@@ -111,7 +111,7 @@
                             <DataGridTextColumn Width="1.2*" Binding="{Binding Path=Cliente.nroDoc}" ClipboardContentBinding="{x:Null}" Header="Doc. Cliente"/>
                             <DataGridTextColumn Width="4*" Binding="{Binding Path=nombreCompletoCliente}" ClipboardContentBinding="{x:Null}" Header="Nombre Cliente"/>
                             <DataGridTextColumn Width="3*" Binding="{Binding Path=nombreCompletoVendedor}" ClipboardContentBinding="{x:Null}" Header="Vendedor"/>
-                            <DataGridTextColumn Width="2*" Binding="{Binding Path=fechaString}" ClipboardContentBinding="{x:Null}" Header="Fecha Venta"/>
+                            <DataGridTextColumn Width="2*" Binding="{Binding Path=fecha,StringFormat=0:MM/dd/yyyy hh:mm:ss tt}" ClipboardContentBinding="{x:Null}" Header="Fecha Venta"/>
                             <DataGridTextColumn Width="2*" Binding="{Binding Path=totalString}" ClipboardContentBinding="{x:Null}" Header="Importe"/>
                         </DataGrid.Columns>
                     </DataGrid>

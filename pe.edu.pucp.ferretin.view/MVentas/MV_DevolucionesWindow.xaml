@@ -409,7 +409,7 @@
                             <DataGridTextColumn IsReadOnly="True" Width="0.7*" Binding="{Binding Path=monedaString}" ClipboardContentBinding="{x:Null}" Header="Moneda"/>
                             <DataGridTextColumn IsReadOnly="True" Width="0.7*" Binding="{Binding Path= precioUnitario}" ClipboardContentBinding="{x:Null}" Header="Precio"/>
                             <DataGridTextColumn  IsReadOnly="True" Width="1*" x:Name="montoDev" Binding="{Binding Path= monto, Mode=TwoWay, StringFormat=S/. \{0\}}" ClipboardContentBinding="{x:Null}" Header="Importe"/>
-                            <DataGridTextColumn Width="1*" Binding="{Binding Path=puntosParciales, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" ClipboardContentBinding="{x:Null}" Header="Puntos Dev."/>
+                            <DataGridTextColumn Width="1*" Binding="{Binding Path=puntosParciales, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" ClipboardContentBinding="{x:Null}" Header="Puntos Dev." IsReadOnly="True"/>
 
                         </DataGrid.Columns>
                     </DataGrid>
