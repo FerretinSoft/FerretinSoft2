@@ -156,10 +156,6 @@ namespace pe.edu.pucp.ferretin.view.MVentas
                 rep = new MV_VisorReporte(padre_DataContext.searchFechaInicio, padre_DataContext.searchFechaFin, 0, "RVendedor", padre_DataContext.searchVendedor, "", "");
 
             rep.Show();
-            padre_DataContext.nombreCliente = "";
-            padre_DataContext.searchCliente = "";
-            padre_DataContext.nombreVendedor = "";
-            padre_DataContext.searchVendedor = "";
         }
 
 
