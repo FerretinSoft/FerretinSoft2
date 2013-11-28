@@ -127,5 +127,25 @@ namespace pe.edu.pucp.ferretin.model
         }
 
         #endregion
+
+        public String tipoAux
+        {
+            get
+            {
+                if (estado == 1) return "Venta";
+                else
+                    return "Venta/Compra";
+            }
+        }
+
+        public String estadoAux
+        {
+            get
+            {
+                if (estado == 0) return "Inactivo";
+                else
+                    return "Activo";
+            }
+        }
     }
 }
