@@ -56,6 +56,7 @@ namespace pe.edu.pucp.ferretin.viewmodel.MCompras
                     && (searchFechaDesde == null || (dc.fechaEmision != null && dc.fechaEmision >= searchFechaDesde))
                     && (searchFechaHasta == null || (dc.fechaEmision != null && dc.fechaEmision <= searchFechaHasta))
                     && (dc.Tienda.id == ComunService.usuarioL.Empleado.tiendaActual.id)
+                    && (dc.codigo != null)
                     && dc.tipo == 2);
 
                 return _listaCotizaciones;
