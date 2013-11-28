@@ -23,34 +23,24 @@ namespace pe.edu.pucp.ferretin.tdd.MAlmacen
             //var creo el entorno
 
             foreach (Categoria b in MA_CategoriaService.db.Categoria){
-            IEnumerable<Categoria> cat = MA_CategoriaService.db.Categoria.Where(p => p.nombre==b.nombre);
-
-            //Assert - verificar condicion o criterio de aceptacion
-
-            int cantidadRegistros = cat.Count();
-
-            Assert.AreEqual(cantidadRegistros, 1);
+                IEnumerable<Categoria> cat = MA_CategoriaService.db.Categoria.Where(p => p.nombre==b.nombre);
+                //Assert - verificar condicion o criterio de aceptacion
+                int cantidadRegistros = cat.Count();
+                Assert.AreEqual(cantidadRegistros, 1);
             }
         }
-
-
+        
         /****************Cantidad minima de categoria por tienda **********************************************/
 
         [TestCase]
         public void Cantidad_minima_Categoria()
         {
-
             //var  creo el entorno
 
             int cantidadCategoria = MA_CategoriaService.db.Categoria.Count();
-
             //Assert - verificar condicion o criterio de aceptacion
-
             Assert.GreaterOrEqual(cantidadCategoria, 5);
         }
-
-
-
 
     }
 }

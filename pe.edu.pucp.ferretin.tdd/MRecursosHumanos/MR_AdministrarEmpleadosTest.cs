@@ -45,9 +45,7 @@ namespace pe.edu.pucp.ferretin.tdd.MRecursosHumanos
             //Assert - Verificar la condicion o criterio de aceptacion
             Assert.GreaterOrEqual(22, cantEmpleados);
         }
-
-
-
+        
         /*************************Prueba si un empleado no ha sido registrado dos veces**************************************/
 
         [TestCase]
