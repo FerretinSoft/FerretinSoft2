@@ -177,7 +177,7 @@ namespace pe.edu.pucp.ferretin.viewmodel.MVentas
                 
                 ComunService.idVentana(42);
 
-                var productosMover = venta.VentaProducto.Where(vp=>!vp.isService);
+                var productosMover = venta.VentaProducto.Where(vp=>vp.Servicio==null);
                 if (productosMover.Count()>0)
                 {
                     result = MA_SharedService.registrarVenta(venta.Usuario.Empleado.tiendaActual, productosMover);
@@ -226,9 +226,9 @@ namespace pe.edu.pucp.ferretin.viewmodel.MVentas
                             {
                                 vp.PromocionActual.stockActual -= (int)(vp.prodConDesc/vp.PromocionActual.cantMulUnidades);
                             }
-                            if (vp.isService && vp.servicioSeleccionado != null)
+                            if (vp.Servicio != null)
                             {
-                                vp.servicioSeleccionado.estado = 2;//Facturado
+                                vp.Servicio.estado = 2;//Facturado
                             }
                         }
                         MV_VentaService.enviarCambios();
