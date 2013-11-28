@@ -354,7 +354,7 @@
                             <DataGridTextColumn Width="1*" Binding="{Binding Path=montoParcial, StringFormat=S/. \{0\}}" ClipboardContentBinding="{x:Null}" Header="Importe"/>
                             <DataGridCheckBoxColumn Width="1*" Binding="{Binding Path=canjeado}" ClipboardContentBinding="{x:Null}" Header="Canjeado"/>
 
-                            <DataGridTextColumn Width="1*" Binding="{Binding Path=precioPuntosParcial}" ClipboardContentBinding="{x:Null}" Header="Puntos Canjeados"/>
+                            <DataGridTextColumn Width="1*" Binding="{Binding Path=puntosCanjeados}" ClipboardContentBinding="{x:Null}" Header="Puntos Canjeados"/>
 
                         </DataGrid.Columns>
                     </DataGrid>
@@ -409,7 +409,7 @@
                             <DataGridTextColumn IsReadOnly="True" Width="0.7*" Binding="{Binding Path=monedaString}" ClipboardContentBinding="{x:Null}" Header="Moneda"/>
                             <DataGridTextColumn IsReadOnly="True" Width="0.7*" Binding="{Binding Path= precioUnitario}" ClipboardContentBinding="{x:Null}" Header="Precio"/>
                             <DataGridTextColumn  IsReadOnly="True" Width="1*" x:Name="montoDev" Binding="{Binding Path= monto, Mode=TwoWay, StringFormat=S/. \{0\}}" ClipboardContentBinding="{x:Null}" Header="Importe"/>
-                            <DataGridTextColumn Width="1*" Binding="{Binding Path=puntosParciales, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" ClipboardContentBinding="{x:Null}" Header="Puntos Dev."/>
+                            <DataGridTextColumn Width="1*" Binding="{Binding Path=puntosParciales, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" ClipboardContentBinding="{x:Null}" Header="Puntos Dev." IsReadOnly="True"/>
 
                         </DataGrid.Columns>
                     </DataGrid>

@@ -62,10 +62,7 @@ namespace pe.edu.pucp.ferretin.model
             {
                 if (fecha != null)
                 {
-                    string fechaString = fecha.ToString();
-                    DateTime fechaFormat = Convert.ToDateTime(fechaString);
-                    fechaString = fechaFormat.ToString("d");
-                    return fechaString;
+                    return String.Format("{0:MM/dd/yyyy}", fecha);
                 }
                 else
                     return null;
@@ -79,10 +76,7 @@ namespace pe.edu.pucp.ferretin.model
             {
                 if (fecha != null)
                 {
-                    string fechaString = fecha.ToString();
-                    DateTime fechaFormat = Convert.ToDateTime(fechaString);
-                    fechaString = fechaFormat.ToString("d/mm/yyyy hh:mm:ss");
-                    return fechaString;
+                    return String.Format("{0:MM/dd/yyyy hh:mm:ss tt}", fecha);
                 }
                 else
                 {
