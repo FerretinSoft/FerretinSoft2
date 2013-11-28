@@ -135,7 +135,13 @@
                         <ImageBrush ImageSource="../Resources/mail1_48.png" Stretch="Uniform"/>
                     </Button.Background>
                 </Button>
-                
+
+                <Button Grid.Column="4" Content="" HorizontalAlignment="Center" Margin="0" VerticalAlignment="Top" Width="48" Height="48" ToolTip="Agregar a favoritos">
+                    <Button.Background>
+                        <ImageBrush ImageSource="../Resources/fav_48.png" Stretch="Uniform"/>
+                    </Button.Background>
+                </Button>
+
             </Grid>
 
         </Grid>

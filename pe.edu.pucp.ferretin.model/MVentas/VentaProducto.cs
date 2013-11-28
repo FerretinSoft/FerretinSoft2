@@ -33,6 +33,17 @@ namespace pe.edu.pucp.ferretin.model
             }
         }
 
+        public int puntosCanjeados
+        {
+            get
+            {
+                if (canjeado == true) 
+                    return (int)precioPuntosParcial;
+                else
+                    return 0;
+            }
+        }
+
         partial void OncantidadChanging(int? value)
         {
             
