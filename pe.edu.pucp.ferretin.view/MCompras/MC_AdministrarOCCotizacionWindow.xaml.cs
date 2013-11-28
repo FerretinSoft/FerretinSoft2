@@ -21,20 +21,20 @@ namespace pe.edu.pucp.ferretin.view.MCompras
             if ((string)(this.razSoc_Lbl.Content) != null)
             {
                 var vm = DataContext as MC_CotizacionesOCViewModel;
-                var buscador = new MC_BuscarProductosProveedorWindow(this, vm.documentoCompra.Proveedor);        
+                var buscador = new MC_BuscarProductosProveedorWindow(this, vm.documentoCompra.Proveedor);
             }
             else
             {
                 MessageBox.Show("Debe ingresar un Proveedor", "Mensaje error", MessageBoxButton.OK, MessageBoxImage.Question);
             }
-            
+
         }
 
         private void buscarProveedorBtn2_Click(object sender, RoutedEventArgs e)
         {
             var vm = DataContext as MC_CotizacionesOCViewModel;
             var buscador = new MC_BuscadorProveedores(this);
-            
+
             //MC_AdministrarProveedorWindow v = new MC_AdministrarProveedorWindow();
             //v.Owner = this;
             //var viewModel = v.DataContext as MC_ProveedoresViewModel;
@@ -66,6 +66,5 @@ namespace pe.edu.pucp.ferretin.view.MCompras
         //        e.Handled = false;
         //    else
         //        e.Handled = true;
-        }
     }
 

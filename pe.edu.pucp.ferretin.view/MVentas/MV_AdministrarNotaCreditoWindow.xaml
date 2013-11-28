@@ -89,7 +89,7 @@
                             </Button>
                         </Grid>
                     </GroupBox>
-                    <DataGrid Margin="5" Grid.Row="1" IsManipulationEnabled="True" CanUserSortColumns="True" AutoGenerateColumns="False" CanUserAddRows="False" CanUserDeleteRows="False" ItemsSource="{Binding Path=listaNotasDeCredito}">
+                    <DataGrid Margin="5" Grid.Row="1" IsManipulationEnabled="True" CanUserSortColumns="True" AutoGenerateColumns="False" IsReadOnly="True" CanUserAddRows="False" CanUserDeleteRows="False" ItemsSource="{Binding Path=listaNotasDeCredito}">
                         <DataGrid.Columns>
                             <DataGridTemplateColumn Width="2.5*" Header="Num. Doc.">
                                 <DataGridTemplateColumn.CellTemplate>
