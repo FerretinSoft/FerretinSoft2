@@ -110,6 +110,17 @@ namespace pe.edu.pucp.ferretin.view.MVentas
                         }
                         this.Close();
                     }
+                    else if (Owner is MV_ServiciosWindow)
+                    {
+                        var padre = this.Owner as MV_ServiciosWindow;
+                        var padre_DataContext = padre.DataContext as MV_ServiciosViewModel;
+
+                        padre_DataContext.nroDocSeleccionado = my_DataContext.cliente.nroDoc;
+                        padre_DataContext.servicio.Cliente = my_DataContext.cliente;
+                        
+                        padre_DataContext.NotifyPropertyChanged("servicio");
+                        this.Close();
+                    }
 
                     
                 }

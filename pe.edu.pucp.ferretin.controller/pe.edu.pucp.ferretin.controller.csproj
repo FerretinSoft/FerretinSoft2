@@ -89,6 +89,7 @@
     <Compile Include="MVentas\MV_ProductoPrecioService.cs" />
     <Compile Include="MVentas\MV_ProformasService.cs" />
     <Compile Include="MVentas\MV_PromocionService.cs" />
+    <Compile Include="MVentas\MV_ServicioService.cs" />
     <Compile Include="MVentas\MV_SharedService.cs" />
     <Compile Include="MVentas\MV_ValeService.cs" />
     <Compile Include="MVentas\MV_VentaService.cs" />
