@@ -62,6 +62,8 @@ namespace pe.edu.pucp.ferretin.view.MVentas
                 print.enviarEmail(vm.searchFechaInicio, vm.searchFechaFin, 0, "RCliente", "", vm.searchCliente, "", vm.emailEnviar, vm.mensajeEnviar);
             else if (vm.selectedReport == 4)
                 print.enviarEmail(vm.searchFechaInicio, vm.searchFechaFin, vm.selectedTienda.id, "RDevolucion", "", "", "", vm.emailEnviar, vm.mensajeEnviar);
+            else if (vm.selectedReport == 5)
+                print.enviarEmail(vm.searchFechaInicio, vm.searchFechaFin, vm.selectedTienda.id, "RServicios", "", vm.searchCliente, "", vm.emailEnviar, vm.mensajeEnviar);
             
             else
                 print.enviarEmail(vm.searchFechaInicio, vm.searchFechaFin, 0, "RVendedor", vm.searchVendedor, "", "", vm.emailEnviar, vm.mensajeEnviar);
