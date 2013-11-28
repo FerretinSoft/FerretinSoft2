@@ -1,4 +1,6 @@
-﻿using System.Windows;
+﻿using System.Text.RegularExpressions;
+using System.Windows;
+using System.Windows.Input;
 using pe.edu.pucp.ferretin.controller;
 using pe.edu.pucp.ferretin.viewmodel.MCompras;
 
@@ -43,6 +45,27 @@ namespace pe.edu.pucp.ferretin.view.MCompras
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
             ComunService.Clean();
+        }
+
+        private void factura_PreviewTextInput(object sender, TextCompositionEventArgs e)
+        {
+            if (Regex.IsMatch(e.Text, "[0-9]"))
+            {
+                e.Handled = false;
+            }
+            else
+            {
+                e.Handled = true;
+            }
+        }
+
+        private void txtFactura_KeyDown(object sender, KeyEventArgs e)
+        {
+            //Validaciones para que acepte solo numeros
+            if (((e.Key >= Key.D0 && e.Key <= Key.D9) || (e.Key >= Key.NumPad0 && e.Key <= Key.NumPad9) || e.Key == Key.Back || e.Key == Key.Tab || (e.Key == Key.Left) || (e.Key == Key.Right)) && (Keyboard.Modifiers != ModifierKeys.Control))
+                e.Handled = false;
+            else
+                e.Handled = true;
         }
     }
 }
