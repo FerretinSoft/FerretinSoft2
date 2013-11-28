@@ -171,7 +171,12 @@ namespace pe.edu.pucp.ferretin.viewmodel.MVentas
                             break;
                         }
                     case Tab.MODIFICAR: detallesTabHeader = "Modificar"; break;
-                    case Tab.DETALLES: detallesTabHeader = "Detalles"; break;
+                    case Tab.DETALLES:
+                        {
+                            detallesTabHeader = "Detalles";
+                            NotifyPropertyChanged("canAnular");
+                            break;
+                        }
                 }
                 NotifyPropertyChanged("statusTab");
                 //Cuando se cambia el status, tambien se tiene que actualizar el currentIndex del tab
@@ -321,6 +326,48 @@ namespace pe.edu.pucp.ferretin.viewmodel.MVentas
             }
         }
 
+        public Visibility canAnular
+        {
+            get
+            {
+                if (soloSeleccionarServicio)
+                {
+                    return Visibility.Collapsed;
+                }
+                else
+                {
+                    if (servicio != null)
+                    {
+                        if (servicio.estado == 1 || servicio.estado == 2)
+                        {
+                            return Visibility.Visible;
+                        }
+                        else
+                        {
+                            return Visibility.Collapsed;
+                        }
+                    }
+                    else
+                    {
+                        return Visibility.Collapsed;
+                    }
+                }
+            }
+        }
+
+        RelayCommand _anularServicioCommand;
+        public ICommand anularServicioCommand
+        {
+            get
+            {
+                if (_anularServicioCommand == null)
+                {
+                    _anularServicioCommand = new RelayCommand(anularServicio);
+                }
+                return _anularServicioCommand;
+            }
+        }
+
         RelayCommand _nuevoServicioCommand;
         public ICommand nuevoServicioCommand
         {
@@ -457,6 +504,40 @@ namespace pe.edu.pucp.ferretin.viewmodel.MVentas
             else
             {
                 this.statusTab = Tab.BUSQUEDA;
+            }
+        }
+
+
+        private void anularServicio(object obj)
+        {
+            if ( (servicio!=null) && !soloSeleccionarServicio && (servicio.estado == 1 || servicio.estado == 2) )
+            {
+                if (servicio.estado == 1)
+                {
+                    servicio.estado = 4;
+                    ComunService.db.SubmitChanges();
+                    MessageBox.Show("El servicio no facturado fue anulado");
+                }
+                else if (servicio.estado == 2)
+                {
+                    servicio.estado = 4;
+                    var codigont = "NC-" + servicio.codigo;
+                    var nt = new NotaCredito(){
+                        estado = 2,
+                        fechaEmision = DateTime.Now,
+                        fechaVencimiento = DateTime.Now.AddDays(Convert.ToInt32(MS_ParametroService.obtenerParametro("vigencia de notas de credito"))),
+                        codigo = codigont,
+                        importe = servicio.montoTotal,
+                    };
+                    ComunService.db.NotaCredito.InsertOnSubmit(nt);
+                    try{
+                        var chages = ComunService.db.GetChangeSet();
+                        ComunService.db.SubmitChanges();
+                        MessageBox.Show("Se generó una Nota de Crédito con código:\n " + codigont + "\n por un monto de:\n S/. " + nt.importe);
+                    }
+                    catch (Exception ex) { MessageBox.Show("No se generó la nota de crédito:\n" + ex.Message); }
+                }
+                NotifyPropertyChanged("canAnular");
             }
         }
 

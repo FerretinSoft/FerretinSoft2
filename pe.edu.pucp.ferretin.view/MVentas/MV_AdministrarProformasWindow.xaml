@@ -213,7 +213,7 @@
                                 </Button.Background>
                             </Button>
                         </ToolBar>
-                        <DataGrid IsEnabled="{Binding esAgregar}" ItemsSource="{Binding proforma.ProformaProducto, Mode=TwoWay, NotifyOnTargetUpdated=True, NotifyOnSourceUpdated=True, UpdateSourceTrigger=PropertyChanged}" AutoGenerateColumns="False" CanUserAddRows="False" Grid.Row="1" Grid.Column="0" VerticalAlignment="Stretch" Margin="0,5" Grid.ColumnSpan="2">
+                        <DataGrid IsEnabled="{Binding esAgregar}" CanUserSortColumns="False"  ItemsSource="{Binding proforma.ProformaProducto, Mode=TwoWay, NotifyOnTargetUpdated=True, NotifyOnSourceUpdated=True, UpdateSourceTrigger=PropertyChanged}" AutoGenerateColumns="False" CanUserAddRows="False" Grid.Row="1" Grid.Column="0" VerticalAlignment="Stretch" Margin="0,5" Grid.ColumnSpan="2">
                             <DataGrid.Columns>
                                 <DataGridHyperlinkColumn Width="1.5*" Binding="{Binding Producto.codigo}" IsReadOnly="True" Header="Código"/>
                                 <DataGridTextColumn Width="2*" Binding="{Binding Producto.nombre}" Header="Nombre" IsReadOnly="True"/>

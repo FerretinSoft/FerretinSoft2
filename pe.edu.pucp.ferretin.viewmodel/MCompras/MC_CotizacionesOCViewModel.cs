@@ -753,8 +753,9 @@ namespace pe.edu.pucp.ferretin.viewmodel.MCompras
                     }
                     else
                     {
-                        if (documentoCompra.fechaVencimiento < documentoCompra.fechaEmision)
-                            MessageBox.Show("La Fecha de Vecimiento no puede ser menor que la Fecha de Emision", "Cotizacion", MessageBoxButton.OK, MessageBoxImage.Exclamation);
+                        if ((documentoCompra.fechaVencimiento.Value.Date < documentoCompra.fechaEmision.Value.Date) || 
+                            (documentoCompra.fechaEmision.Value.Date > DateTime.Today.Date))
+                            MessageBox.Show("Ingrese fechas válidas", "Cotizacion", MessageBoxButton.OK, MessageBoxImage.Exclamation);
                         else
                         {
                             documentoCompra.Usuario = MC_ComunService.usuarioL;
@@ -795,13 +796,18 @@ namespace pe.edu.pucp.ferretin.viewmodel.MCompras
                     }
                     else
                     {
-                        documentoCompra.DocumentoCompraEstado = ComunService.db.DocumentoCompraEstado.Where(dce => dce.id == 6).SingleOrDefault();
-                        //documentoCompra.DocumentoCompraEstado = MC_DocumentoCompraService.obtenerEstado(6);
-                        documentoCompra.Usuario = MC_ComunService.usuarioL;
-                        ComunService.idVentana(34);
-                        MC_DocumentoCompraService.enviarCambios();
-                        pasoValidaciones = true;
-                    }                    
+                        if (documentoCompra.fechaEmision.Value.Date > DateTime.Today.Date)
+                            MessageBox.Show("Ingrese fechas válidas", "Cotizacion", MessageBoxButton.OK, MessageBoxImage.Exclamation);
+                        else
+                        {
+                            documentoCompra.DocumentoCompraEstado = ComunService.db.DocumentoCompraEstado.Where(dce => dce.id == 6).SingleOrDefault();
+                            //documentoCompra.DocumentoCompraEstado = MC_DocumentoCompraService.obtenerEstado(6);
+                            documentoCompra.Usuario = MC_ComunService.usuarioL;
+                            ComunService.idVentana(34);
+                            MC_DocumentoCompraService.enviarCambios();
+                            pasoValidaciones = true;
+                        }
+                    }                 
                 }
 
                 if (pasoValidaciones)
@@ -847,11 +853,12 @@ namespace pe.edu.pucp.ferretin.viewmodel.MCompras
                 }
                 else
                 {
-                    if (documentoCompra.fechaVencimiento < documentoCompra.fechaEmision)
+                    if ((documentoCompra.fechaVencimiento != null && documentoCompra.fechaVencimiento.Value.Date < documentoCompra.fechaEmision.Value.Date) ||
+                            (documentoCompra.fechaEmision.Value.Date > DateTime.Today.Date))
                         if(documentoCompra.tipo == 1)
-                            MessageBox.Show("La Fecha de Vecimiento no puede ser menor que la Fecha de Emision", "Cotizacion", MessageBoxButton.OK, MessageBoxImage.Exclamation);
+                            MessageBox.Show("Ingrese fechas válidas", "Cotizacion", MessageBoxButton.OK, MessageBoxImage.Exclamation);
                         else
-                            MessageBox.Show("La Fecha de Pago no puede ser menor que la Fecha de Emision", "Orden de Compra", MessageBoxButton.OK, MessageBoxImage.Exclamation);
+                            MessageBox.Show("Ingrese fechas válidas", "Orden de Compra", MessageBoxButton.OK, MessageBoxImage.Exclamation);
                     else
                     {
                         cont = documentoCompra.DocumentoCompraProducto.Count();
@@ -900,8 +907,9 @@ namespace pe.edu.pucp.ferretin.viewmodel.MCompras
                 }
                 else
                 {
-                    if (documentoCompra.fechaVencimiento < documentoCompra.fechaEmision)
-                        MessageBox.Show("La Fecha de Vecimiento no puede ser menor que la Fecha de Emision", "Documento de Compra", MessageBoxButton.OK, MessageBoxImage.Exclamation);
+                    if ((documentoCompra.fechaVencimiento != null && documentoCompra.fechaVencimiento.Value.Date < documentoCompra.fechaEmision.Value.Date) ||
+                            (documentoCompra.fechaEmision.Value.Date > DateTime.Today.Date))
+                        MessageBox.Show("Ingrese fechas válidas", "Documento de Compra", MessageBoxButton.OK, MessageBoxImage.Exclamation);
                     else
                     {
                         cont = documentoCompra.DocumentoCompraProducto.Count();

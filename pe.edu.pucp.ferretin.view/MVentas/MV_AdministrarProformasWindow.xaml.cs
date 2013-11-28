@@ -1,4 +1,5 @@
 ﻿using pe.edu.pucp.ferretin.controller;
+using pe.edu.pucp.ferretin.controller.MAlmacen;
 using pe.edu.pucp.ferretin.controller.MSeguridad;
 using pe.edu.pucp.ferretin.controller.MVentas;
 using pe.edu.pucp.ferretin.model;
@@ -111,7 +112,8 @@ namespace pe.edu.pucp.ferretin.view.MVentas
                         padreViewModel.venta.VentaProducto.Clear();
                         foreach (var vp in miVM.proforma.ProformaProducto)
                         {
-                            var _stockDisponible = (int)vp.Producto.ProductoAlmacen.First(pa => pa.Tienda.Equals(padreViewModel.venta.Tienda)).stock;
+                            var productoAlmacen = MA_ProductoAlmacenService.ObtenerProductoAlmacenPorTiendaProducto(padreViewModel.venta.Tienda, vp.Producto);
+                            var _stockDisponible = (int)productoAlmacen.stock;
 
                             padreViewModel.venta.Cliente = vp.Proforma.Cliente;
                             VentaProducto ventaProducto = new VentaProducto()

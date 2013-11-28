@@ -332,7 +332,9 @@ namespace pe.edu.pucp.ferretin.viewmodel.MCompras
                 MessageBox.Show("Complete todos los datos obligatorios", "Guia de Remision", MessageBoxButton.OK, MessageBoxImage.Exclamation);
             else
             {
-                if (guiaRemision.fechaRecepcion < guiaRemision.fechaEmision)
+
+                if ((guiaRemision.fechaRecepcion.Value.Date < guiaRemision.fechaEmision.Value.Date) ||
+                            (guiaRemision.fechaRecepcion.Value.Date > DateTime.Today.Date) || (guiaRemision.fechaEmision.Value.Date > DateTime.Today.Date))
                     MessageBox.Show("La Fecha de Recepcion no puede ser menor que la Fecha de Emision", "Guia de Remision", MessageBoxButton.OK, MessageBoxImage.Exclamation);
                 else
                 {
