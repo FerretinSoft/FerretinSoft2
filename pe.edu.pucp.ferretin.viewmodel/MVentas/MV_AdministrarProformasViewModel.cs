@@ -540,7 +540,7 @@ namespace pe.edu.pucp.ferretin.viewmodel.MVentas
             NotifyPropertyChanged("widthClienteBar");
         }
 
-        public void agregarProducto(Object id)
+        public void agregarProducto(Object param)
         {
             if (codProdAgregar != null && codProdAgregar.Length > 0)
             {
@@ -548,8 +548,16 @@ namespace pe.edu.pucp.ferretin.viewmodel.MVentas
                 ProductoAlmacen productoAlmacen = null;
                 try
                 {
-                    producto = MA_SharedService.obtenerProductoxCodigo(codProdAgregar);
-                    productoAlmacen = producto.ProductoAlmacen.First(pa => pa.id_almacen.Equals(proforma.Tienda.id));
+                    if (param is ProductoAlmacen)
+                    {
+                        productoAlmacen = param as ProductoAlmacen;
+                        producto = productoAlmacen.Producto;
+                    }
+                    else
+                    {
+                        producto = MA_SharedService.obtenerProductoxCodigo(codProdAgregar);
+                        productoAlmacen = MA_ProductoAlmacenService.ObtenerProductoAlmacenPorTiendaProducto(proforma.Tienda, producto);
+                    }
                 }
                 catch { }
                 

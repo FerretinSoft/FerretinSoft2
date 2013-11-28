@@ -210,7 +210,7 @@ namespace pe.edu.pucp.ferretin.viewmodel.MVentas
                     else
                     {
                         producto = MA_SharedService.obtenerProductoxCodigo(codProdAgregar);
-                        productoAlmacen = producto.ProductoAlmacen.First(pa => pa.id_almacen.Equals(venta.Tienda.id));
+                        productoAlmacen = MA_ProductoAlmacenService.ObtenerProductoAlmacenPorTiendaProducto(venta.Tienda, producto);
                     }
                 }
                 catch { }
