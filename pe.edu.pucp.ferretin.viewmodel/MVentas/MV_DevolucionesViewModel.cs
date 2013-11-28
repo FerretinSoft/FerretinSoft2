@@ -347,7 +347,12 @@ namespace pe.edu.pucp.ferretin.viewmodel.MVentas
            this.selectedTab = 2;
            devolucion.fecEmision = DateTime.Now;
            devolucion.codigo = MV_DevolucionService.obtenerCodDevolucion();
+           this.devolucionRegistrada = false;
+           this.noDevolucionRegistrada = true;
+           NotifyPropertyChanged("noDevolucionRegistrada");
+           NotifyPropertyChanged("devolucionRegistrada");
            NotifyPropertyChanged("devolucion");
+
            
         }
 
@@ -496,7 +501,7 @@ namespace pe.edu.pucp.ferretin.viewmodel.MVentas
                 string prodErrados = "";
                 bool error = false;
                 bool cantCero = false;
-                int totalVentaProd = devolucion.Venta.VentaProducto.Count();
+                int totalVentaProd = this.listaProductosComprados.Count();
                 int totalDevProd = devolucion.DevolucionProducto.Count();
                 for (int i = 0; i < totalVentaProd; i++)
                 {

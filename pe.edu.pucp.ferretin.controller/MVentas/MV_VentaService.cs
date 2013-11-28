@@ -99,7 +99,8 @@ namespace pe.edu.pucp.ferretin.controller.MVentas
 
             ventas = ventas.Where(t => (searchVendedor == "") || (t.Usuario.Empleado != null && t.Usuario.Empleado.dni == searchVendedor));
 
-     
+            ventas = ventas.Where(t => (((t.estado == 1))));
+
             ventas = ventas.Where(t => (fechaInicio.Equals(DateTime.Parse("10/09/2013")) || (t.fecha != null && t.fecha >= fechaInicio)));
          
             ventas = ventas.Where(t => (fechaFin.Equals(DateTime.Today) || (t.fecha != null && t.fecha <= fechaFin)));
@@ -123,7 +124,8 @@ namespace pe.edu.pucp.ferretin.controller.MVentas
             return from c in listaProductos
                    where
                    (c.id_venta != null && c.id_venta.Equals(id_venta)
-                   && c.canjeado != true
+                    && c.id_servicio == null
+                   
                     )
                    orderby c.id_venta
                    select c;
