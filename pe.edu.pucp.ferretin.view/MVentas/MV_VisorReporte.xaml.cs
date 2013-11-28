@@ -69,6 +69,29 @@ namespace pe.edu.pucp.ferretin.view.MVentas
                 rep.SetParameterValue("idTienda", selectedItem);
                 VisorReporte.ViewerCore.ReportSource = rep;
             }
+            else if (nombreReporte.Equals("RServicios"))
+            {
+                ReporteDevolucionTienda rep;
+                rep = new ReporteDevolucionTienda();
+
+                rep.SetParameterValue("fechaInicio", fechaInicio);
+                rep.SetParameterValue("fechaFin", fechaFin);
+                rep.SetParameterValue("idTienda", selectedItem);
+                if (codCliente != "")
+                    rep.SetParameterValue("codCliente", Convert.ToInt32(codCliente));
+                else
+                    rep.SetParameterValue("codCliente", 0);
+                rep.SetDatabaseLogon("inf245g2usr", "server", "inti.lab.inf.pucp.edu.pe", "inf245g2");
+                rep.Refresh();
+                if (codCliente != "")
+                    rep.SetParameterValue("codCliente", Convert.ToInt32(codCliente));
+                else
+                    rep.SetParameterValue("codCliente", 0);
+                rep.SetParameterValue("fechaInicio", fechaInicio);
+                rep.SetParameterValue("fechaFin", fechaFin);
+                rep.SetParameterValue("idTienda", selectedItem);
+                VisorReporte.ViewerCore.ReportSource = rep;
+            }
             else if (nombreReporte.Equals("RCliente"))
             {
                 ReporteVentaCliente rep;

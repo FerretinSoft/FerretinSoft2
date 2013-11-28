@@ -3,7 +3,8 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:viewmodel="clr-namespace:pe.edu.pucp.ferretin.viewmodel.MVentas;assembly=pe.edu.pucp.ferretin.viewmodel"
         xmlns:MVentas="clr-namespace:pe.edu.pucp.ferretin.viewmodel.MVentas;assembly=pe.edu.pucp.ferretin.viewmodel"
-        Title="Reportes Ventas" Height="353.004" Width="473.851" Icon="../Resources/ferretin_ico.ico" WindowStartupLocation="CenterScreen">
+        Title="Reportes Ventas" Height="353.004" Width="473.851" Icon="../Resources/ferretin_ico.ico" WindowStartupLocation="CenterScreen"
+        >
     <Window.DataContext>
         <MVentas:MV_ReportesViewModel/>
     </Window.DataContext>
@@ -31,10 +32,7 @@
                 <ListBoxItem Content="Reporte por tienda"/>
                 <ListBoxItem Content="Reporte por vendedor"/>
                 <ListBoxItem Content="Reporte devoluciones"/>
-
-            </ListBox>
-            <Label Content="Reportes favoritos" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" FontSize="16" FontStyle="Italic" Grid.Column="1"/>
-            <ListBox HorizontalAlignment="Left" Height="186" Margin="10,50,0,0" VerticalAlignment="Top" Width="194" Grid.Column="1">
+                <ListBoxItem Content="Reporte servicios"/>
 
             </ListBox>
             <Label Content="Seleccione un reporte y presione Siguiente." HorizontalAlignment="Left" Margin="10,246,0,0" VerticalAlignment="Top" Width="308" Grid.ColumnSpan="2"/>
@@ -137,11 +135,7 @@
                         <ImageBrush ImageSource="../Resources/mail1_48.png" Stretch="Uniform"/>
                     </Button.Background>
                 </Button>
-                <Button Grid.Column="4" Content="" HorizontalAlignment="Center" Margin="0" VerticalAlignment="Top" Width="48" Height="48" ToolTip="Agregar a favoritos">
-                    <Button.Background>
-                        <ImageBrush ImageSource="../Resources/fav_48.png" Stretch="Uniform"/>
-                    </Button.Background>
-                </Button>
+                
             </Grid>
 
         </Grid>

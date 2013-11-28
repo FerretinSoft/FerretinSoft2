@@ -262,7 +262,7 @@ namespace pe.edu.pucp.ferretin.viewmodel.MVentas
             {
                 buscado = MV_ClienteService.obtenerClienteByNroDoc(Convert.ToInt32(searchCliente));
                 nombreCliente = buscado.nombreCompleto;
-                searchCliente = Convert.ToString(buscado.nroDoc);
+                
             }
             catch { }
 
