@@ -14,7 +14,7 @@ namespace pe.edu.pucp.ferretin.tdd.MCompras
     {
         /******************** Test Cantidad de Proveedores *************************/
         [TestCase]
-        public void cantidad_de_clientes_igual_a_6()
+        public void cantidad_de_proveedor_igual_a_6()
         {
           
 
@@ -40,6 +40,26 @@ namespace pe.edu.pucp.ferretin.tdd.MCompras
                 //Assert - verificar condicion o criterio de aceptacion
                 Assert.AreEqual(cantidadRegistros, 1);
             }
+        }
+
+        [TestCase]
+        public void producto_unico_proveedor()
+        {
+            IEnumerable <ProveedorProducto> listaProveedores=MC_ProveedorService.db.ProveedorProducto;
+            foreach (Proveedor p in MC_ProveedorService.db.Proveedor)
+                {
+                    foreach (Producto prod in MC_ProveedorService.db.Producto)
+                    {
+                        int cant=MC_ProveedorService.db.ProveedorProducto.Count(pp => pp.id_producto == prod.id && pp.id_proveedor == p.id);
+                        Console.Write(cant+" "+ prod.nombre+" "+ p.razonSoc + '\n');
+                        if (cant != 0)
+                        Assert.AreEqual(1, cant);
+
+                    }
+                    
+                    
+                }
+
         }
 
         /******************** Test Proveedor unico con nombre *************************/

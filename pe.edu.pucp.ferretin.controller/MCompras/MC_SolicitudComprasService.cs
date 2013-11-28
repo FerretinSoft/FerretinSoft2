@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace pe.edu.pucp.ferretin.controller.MCompras
 {
-    class MC_SolicitudComprasService
+    public class MC_SolicitudComprasService : MC_ComunService
     {
     }
 }

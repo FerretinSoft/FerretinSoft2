@@ -49,6 +49,7 @@
     <Compile Include="MCompras\MC_AdministrarDocumentoCompraTest.cs" />
     <Compile Include="MCompras\MC_AdministrarGuiaRemisionTest.cs" />
     <Compile Include="MCompras\MC_AdministrarProveedorTest.cs" />
+    <Compile Include="MCompras\MC_AdministrarSolAbastecimientoTest.cs" />
     <Compile Include="MRecursosHumanos\MR_AdministrarEmpleadosTest.cs" />
     <Compile Include="MSeguridad\MS_AdministrarPerfilesTest.cs" />
     <Compile Include="MSeguridad\MS_AdministrarTiendasTest.cs" />
