@@ -175,6 +175,8 @@ namespace pe.edu.pucp.ferretin.model
             }
         }
 
+
+
         private bool? _vieneDeProforma = false;
         public bool? vieneDeProforma
         {

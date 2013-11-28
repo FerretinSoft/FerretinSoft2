@@ -231,6 +231,7 @@ namespace pe.edu.pucp.ferretin.viewmodel.MVentas
                                 vp.Servicio.estado = 2;//Facturado
                             }
                         }
+                        venta.estado = 1;
                         MV_VentaService.enviarCambios();
                     }
                     catch (Exception ex) {
