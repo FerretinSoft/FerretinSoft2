@@ -79,7 +79,7 @@ namespace pe.edu.pucp.ferretin.controller.MAlmacen
             if (items.Count() <= 0) return "Debe haber al menos un producto para realizar el movimiento.";
             
             Movimiento movimiento = new Movimiento();
-            movimiento.fecha = DateTime.Now;//Fecha y hora actual
+            movimiento.fecha = DateTime.Today;//Fecha y hora actual
             movimiento.MovimientoEstado = MA_EstadoMovimientoService.getMovimientoEstadoByName("Finalizado");
             movimiento.MovimientoTipo = MA_TipoMovimientoService.getMovimientoTipoByName("Venta");
             movimiento.Tienda = tienda;

@@ -133,6 +133,20 @@ namespace pe.edu.pucp.ferretin.controller.MAlmacen
 
         public static IEnumerable<Movimiento> buscarMovimientos(Tienda searchAlmacen, MovimientoEstado searchEstado, DateTime searchFechaDesde, DateTime searchFechaHasta)
         {
+            var temp = listaMovimientos;
+            var ult = listaMovimientos.Last();
+            if ((searchAlmacen == null) || (searchAlmacen.id <= 0) || (ult.Tienda == searchAlmacen || ult.Tienda1 == searchAlmacen))
+            {
+                if ((searchEstado == null) || (searchEstado.id <= 0) || (ult.MovimientoEstado == searchEstado))
+                {
+                    if ((ult.fecha >= searchFechaDesde) && (ult.fecha <= searchFechaHasta))
+                    {
+ 
+                    }
+ 
+                }
+ 
+            }
             return listaMovimientos
                 .Where(m => (searchAlmacen == null) || (searchAlmacen.id <= 0) || (m.Tienda == searchAlmacen || m.Tienda1 == searchAlmacen))
                 .Where(m => (searchEstado == null) || (searchEstado.id <= 0) || (m.MovimientoEstado == searchEstado))
