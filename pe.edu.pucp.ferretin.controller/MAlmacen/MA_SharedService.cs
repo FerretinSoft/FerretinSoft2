@@ -13,8 +13,6 @@ namespace pe.edu.pucp.ferretin.controller.MAlmacen
     /// </summary>
     public class MA_SharedService : ComunService
     {
-
-
         public static Producto obtenerProductoxCodigo(String codigo)
         {
             Producto prod = (from p in MA_ProductoService.listaProductos
@@ -81,7 +79,6 @@ namespace pe.edu.pucp.ferretin.controller.MAlmacen
             if (items.Count <= 0) return "Debe haber al menos un producto para realizar el movimiento.";
             
             Movimiento movimiento = new Movimiento();
-            //movimiento.codigo = Movimiento.generateCode();
             movimiento.fecha = DateTime.Today;
             movimiento.MovimientoEstado = MA_EstadoMovimientoService.getMovimientoEstadoByName("Finalizado");
             movimiento.MovimientoTipo = MA_TipoMovimientoService.getMovimientoTipoByName("Venta");
@@ -112,7 +109,6 @@ namespace pe.edu.pucp.ferretin.controller.MAlmacen
             
             Movimiento movimiento = new Movimiento();
             DateTime today = DateTime.Today;
-            //movimiento.codigo = Movimiento.generateCode();
             movimiento.fecha = today;
             movimiento.MovimientoEstado = MA_EstadoMovimientoService.getMovimientoEstadoByName("Finalizado");
             movimiento.MovimientoTipo = MA_TipoMovimientoService.getMovimientoTipoByName("Devolución");
@@ -145,7 +141,6 @@ namespace pe.edu.pucp.ferretin.controller.MAlmacen
             
             Movimiento movimiento = new Movimiento();
             DateTime today = DateTime.Today;
-            //movimiento.codigo = Movimiento.generateCode();
             movimiento.fecha = today;
             movimiento.MovimientoEstado = MA_EstadoMovimientoService.getMovimientoEstadoByName("Finalizado");
             movimiento.MovimientoTipo = MA_TipoMovimientoService.getMovimientoTipoByName("Compra");
@@ -176,7 +171,6 @@ namespace pe.edu.pucp.ferretin.controller.MAlmacen
             if (items.Count <= 0) return "Debe haber al menos un producto para realizar el movimiento.";
             Movimiento movimiento = new Movimiento();
             DateTime today = DateTime.Today;
-            //movimiento.codigo = Movimiento.generateCode();
             movimiento.fecha = today;
             movimiento.MovimientoEstado = MA_EstadoMovimientoService.getMovimientoEstadoByName("Finalizado");
             movimiento.MovimientoTipo = MA_TipoMovimientoService.getMovimientoTipoByName("Transferencia");
@@ -215,24 +209,21 @@ namespace pe.edu.pucp.ferretin.controller.MAlmacen
                 if(diferencia < 0)
                     result.Add(current, diferencia * -1);
 			}
-            foreach (var item in MA_SolicitudAbastecimientoService.buscarSolicitudesPendientesPorTienda(almacen))
-            {
-                foreach (var prod in item.SolicitudAbastecimientoProducto)
-                {
-                    current = MA_ProductoAlmacenService.ObtenerProductoAlmacenPorTiendaProducto(almacen, prod.Producto);
-                    if (prod.cantidadRestante > current.stock - current.stockMin)
-                    {
-                        if (!result.ContainsKey(current))
-                            result.Add(current, (decimal)prod.cantidadRestante - (decimal)current.stock);
-                        else
-                            result[current] = result[current] + (decimal)(prod.cantidadRestante == null ? 0 : prod.cantidadRestante); 
-                    }
-                }                
-            }
+            //foreach (var item in MA_SolicitudAbastecimientoService.buscarSolicitudesPendientesPorTienda(almacen))
+            //{
+            //    foreach (var prod in item.SolicitudAbastecimientoProducto)
+            //    {
+            //        current = MA_ProductoAlmacenService.ObtenerProductoAlmacenPorTiendaProducto(almacen, prod.Producto);
+            //        if (prod.cantidadRestante > current.stock - current.stockMin)
+            //        {
+            //            if (!result.ContainsKey(current))
+            //                result.Add(current, (decimal)prod.cantidadRestante - (decimal)current.stock);
+            //            else
+            //                result[current] = result[current] + (decimal)(prod.cantidadRestante == null ? 0 : prod.cantidadRestante); 
+            //        }
+            //    }                
+            //}
             return result;
         }
-
-
-
     }
 }
