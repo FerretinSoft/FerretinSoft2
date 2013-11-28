@@ -1,4 +1,5 @@
-﻿using System;
+﻿using pe.edu.pucp.ferretin.controller;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -28,6 +29,7 @@ namespace pe.edu.pucp.ferretin.view.MAlmacen
 
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
+            ComunService.Clean();
             tabMain.SelectedIndex = 0;
         }
     }
