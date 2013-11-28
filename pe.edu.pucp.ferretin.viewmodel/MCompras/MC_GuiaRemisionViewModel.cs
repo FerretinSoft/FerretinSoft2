@@ -335,7 +335,7 @@ namespace pe.edu.pucp.ferretin.viewmodel.MCompras
 
                 if ((guiaRemision.fechaRecepcion.Value.Date < guiaRemision.fechaEmision.Value.Date) ||
                             (guiaRemision.fechaRecepcion.Value.Date > DateTime.Today.Date) || (guiaRemision.fechaEmision.Value.Date > DateTime.Today.Date))
-                    MessageBox.Show("La Fecha de Recepcion no puede ser menor que la Fecha de Emision", "Guia de Remision", MessageBoxButton.OK, MessageBoxImage.Exclamation);
+                    MessageBox.Show("Ingrese fechas válidas", "Guia de Remision", MessageBoxButton.OK, MessageBoxImage.Exclamation);
                 else
                 {
                     bool exito = false;

@@ -47,25 +47,25 @@ namespace pe.edu.pucp.ferretin.view.MCompras
             ComunService.Clean();
         }
 
-        private void factura_PreviewTextInput(object sender, TextCompositionEventArgs e)
-        {
-            if (Regex.IsMatch(e.Text, "[0-9]"))
-            {
-                e.Handled = false;
-            }
-            else
-            {
-                e.Handled = true;
-            }
-        }
+        //private void factura_PreviewTextInput(object sender, TextCompositionEventArgs e)
+        //{
+        //    if (Regex.IsMatch(e.Text, "[0-9]"))
+        //    {
+        //        e.Handled = false;
+        //    }
+        //    else
+        //    {
+        //        e.Handled = true;
+        //    }
+        //}
 
-        private void txtFactura_KeyDown(object sender, KeyEventArgs e)
-        {
-            //Validaciones para que acepte solo numeros
-            if (((e.Key >= Key.D0 && e.Key <= Key.D9) || (e.Key >= Key.NumPad0 && e.Key <= Key.NumPad9) || e.Key == Key.Back || e.Key == Key.Tab || (e.Key == Key.Left) || (e.Key == Key.Right)) && (Keyboard.Modifiers != ModifierKeys.Control))
-                e.Handled = false;
-            else
-                e.Handled = true;
+        //private void txtFactura_KeyDown(object sender, KeyEventArgs e)
+        //{
+        //    //Validaciones para que acepte solo numeros
+        //    if (((e.Key >= Key.D0 && e.Key <= Key.D9) || (e.Key >= Key.NumPad0 && e.Key <= Key.NumPad9) || e.Key == Key.Back || e.Key == Key.Tab || (e.Key == Key.Left) || (e.Key == Key.Right)) && (Keyboard.Modifiers != ModifierKeys.Control))
+        //        e.Handled = false;
+        //    else
+        //        e.Handled = true;
         }
     }
 }
