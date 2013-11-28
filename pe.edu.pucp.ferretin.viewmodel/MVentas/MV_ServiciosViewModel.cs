@@ -29,10 +29,15 @@ namespace pe.edu.pucp.ferretin.viewmodel.MVentas
             set
             {
                 _soloSeleccionarServicio = value;
+                if (value == true)
+                {
+                    estadoSearch = 1;
+                }
                 NotifyPropertyChanged("soloSeleccionarServicio");
                 NotifyPropertyChanged("nombreBotonGuardar");
                 NotifyPropertyChanged("noSoloSeleccionarServicio");
                 NotifyPropertyChanged("esAgregar");
+                NotifyPropertyChanged("listaServicios");
 
                 detallesTabHeader = value ? "Detalles" : "Agregar";
             }
@@ -526,9 +531,9 @@ namespace pe.edu.pucp.ferretin.viewmodel.MVentas
             calcularMontoTotal();
         }
 
-        private void calcularMontoTotal()
+        public void calcularMontoTotal()
         {
-            servicio.montoTotal = servicio.ServicioLinea.Sum(sl => sl.montoTotal);
+            servicio.montoTotal = servicio.ServicioLinea.Sum(sl => sl.montoTotal) + (servicio.montoAdicional??0);
             NotifyPropertyChanged("servicio");
         }
         #endregion

@@ -37,6 +37,7 @@ namespace pe.edu.pucp.ferretin.view.MVentas
             tiposServicio.ItemsSource = midb.ServicioTipo;
             guardarBtn.Content = "SELECCIONAR";
             this.mV_ServiciosWindow = mV_ServiciosWindow;
+            tiposServicio.IsReadOnly = true;
         }
 
 

@@ -12,7 +12,12 @@ namespace pe.edu.pucp.ferretin.controller.MVentas
 
         public static IEnumerable<model.Servicio> buscarServicios(string codServSearch, DateTime fechaDesdeSearch, DateTime fechaHastaSearch, int estadoSearch)
         {
-            return db.Servicio;
+            return db.Servicio.ToList().Where(
+                s => 
+                    (s.codigo.ToUpper().Contains(codServSearch.ToUpper()) )
+                    && (fechaDesdeSearch.AddDays(-1).CompareTo(s.fechaRegistro) <= 0 && fechaHastaSearch.AddDays(1).CompareTo(s.fechaRegistro) >= 0)
+                    && (estadoSearch==0 || s.estado.Equals(estadoSearch))
+            );
         }
 
         public static bool insertarServicio(Servicio servicio)

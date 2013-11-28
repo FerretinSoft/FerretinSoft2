@@ -1,4 +1,5 @@
-﻿using pe.edu.pucp.ferretin.viewmodel.MVentas;
+﻿using pe.edu.pucp.ferretin.controller;
+using pe.edu.pucp.ferretin.viewmodel.MVentas;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -80,6 +81,21 @@ namespace pe.edu.pucp.ferretin.view.MVentas
                     regVenVM.agregarProducto(mivm.servicio);
                     Close();
                 }
+            }
+        }
+
+        private void TextBox_KeyUp(object sender, KeyEventArgs e)
+        {
+            var mivm = DataContext as MV_ServiciosViewModel;
+            mivm.calcularMontoTotal();
+        }
+
+        private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            var mivm = DataContext as MV_ServiciosViewModel;
+            if (!mivm.soloSeleccionarServicio)
+            {
+                ComunService.Clean();
             }
         }
     }

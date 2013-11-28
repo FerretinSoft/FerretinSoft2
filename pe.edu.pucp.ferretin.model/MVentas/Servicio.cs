@@ -16,5 +16,13 @@ namespace pe.edu.pucp.ferretin.model
             }
         }
 
+        partial void OnmontoAdicionalChanged()
+        {
+            if (montoAdicional <= 0)
+            {
+                montoAdicional = 0;
+            }
+        }
+
     }
 }
